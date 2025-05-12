@@ -1,5 +1,9 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CsXTextManager = CS.XTextManager
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
+local XUiModelUtility = require("XUi/XUiCharacter/XUiModelUtility")
 
 --######################## XUiReformTaskGrid ########################
 local XUiReformTaskGrid = XClass(nil, "XUiReformTaskGrid")
@@ -15,7 +19,8 @@ function XUiReformTaskGrid:Ctor(ui, rootUi)
 end
 
 -- data : TaskData
-function XUiReformTaskGrid:SetData(data, nextData, maxScore)
+function XUiReformTaskGrid:SetData(data, nextData, maxScore, normalMaxScore)
+    -- if normalMaxScore == nil then normalMaxScore = 0 end 
     self.Data = data
     -- 分数
     local score = XDataCenter.ReformActivityManager.GetTaskFinishScore(data.Id)
@@ -31,6 +36,7 @@ function XUiReformTaskGrid:SetData(data, nextData, maxScore)
     -- self.ImgEffect.gameObject:SetActiveEx(data.State == XDataCenter.TaskManager.TaskState.Achieved)
     -- 任务进度
     local nextScore = XDataCenter.ReformActivityManager.GetTaskFinishScore(nextData.Id)
+    -- local progress = (maxScore + normalMaxScore - score) / (nextScore - score)
     local progress = (maxScore - score) / (nextScore - score)
     self.PanelPassedLine.fillAmount = progress
 end
@@ -49,75 +55,6 @@ function XUiReformTaskGrid:OnBtnClicked()
         return
     end
     XUiManager.OpenUiTipRewardByRewardId(XTaskConfig.GetTaskRewardId(self.Data.Id))
-end
-
---######################## XUiReformStageGrid ########################
-local XUiReformStageGrid = XClass(nil, "XUiReformStageGrid")
-
-function XUiReformStageGrid:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-    self.BaseStage = nil
-    self.ClickProxy = nil
-    self.ClickCallback = nil
-    self.Index = nil
-    self.Score = nil
-    self.BtnSelf.CallBack = function() self:OnBtnSelfClicked() end
-end
-
-function XUiReformStageGrid:SetData(baseStage, index)
-    self.BaseStage = baseStage
-    self.Index = index
-    -- 名字
-    self.BtnSelf:SetNameByGroup(0, baseStage:GetName())
-    self:RefreshStatus()
-    -- 是否选中
-    local isSelected = baseStage:GetId() == XDataCenter.ReformActivityManager.GetCurrentBaseStageId()
-    self:SetSelectStatus(isSelected)
-    self.Red.gameObject:SetActiveEx(XDataCenter.ReformActivityManager.CheckBaseStageIsShowRedDot(baseStage:GetId()))
-end
-
-function XUiReformStageGrid:RefreshStatus()
-    local isUnlock = self.BaseStage:GetIsUnlock()
-    local score = self.BaseStage:GetAccumulativeScore()
-    local isSelected = self.BaseStage:GetId() == XDataCenter.ReformActivityManager.GetCurrentBaseStageId()
-    self.Score = score
-    self.Currency.gameObject:SetActiveEx(isUnlock and score > 0 and not isSelected)
-    self.Currency2.gameObject:SetActiveEx(isUnlock and score > 0 and isSelected)
-    self.Lock.gameObject:SetActiveEx(not isUnlock)
-    if isUnlock then
-        -- 分数
-        self.TxtScore.text = score
-        self.TxtScore2.text = score
-    else
-        -- 解锁时间
-        self.TxtUnlockTime.text = CsXTextManager.GetText("ReformBaseStageUnlockText", self.BaseStage:GetUnlockTimeStr())
-    end
-end
-
-function XUiReformStageGrid:SetClickCallBack(clickProxy, clickCallback)
-    self.ClickProxy = clickProxy
-    self.ClickCallback = clickCallback
-end
-
-function XUiReformStageGrid:SetSelectStatus(value)
-    self.Select.gameObject:SetActiveEx(value)
-    local isUnlock = self.BaseStage:GetIsUnlock()
-    if isUnlock and self.Score > 0 then
-        self.Currency.gameObject:SetActiveEx(not value)
-        self.Currency2.gameObject:SetActiveEx(value)
-    end
-end
-
-function XUiReformStageGrid:OnBtnSelfClicked()
-    if self.ClickCallback then
-        self.ClickCallback(self.ClickProxy, self.Index)
-    end
-    if self.BaseStage:GetIsUnlock() then
-        XDataCenter.ReformActivityManager.SetBaseStageRedDotHistory(self.BaseStage:GetId())
-        self.Red.gameObject:SetActiveEx(XDataCenter.ReformActivityManager.CheckBaseStageIsShowRedDot(self.BaseStage:GetId()))
-    end
 end
 
 --######################## XUiReformReadyPanel ########################
@@ -140,8 +77,9 @@ end
 function XUiReformReadyPanel:SetData(baseStage)
     self.BaseStage = baseStage
     -- 关卡名称
+    local evolableStage = baseStage:GetCurrentEvolvableStage()
     self.TxtTitle.text = CsXTextManager.GetText("ReformReadyTitleText", baseStage:GetName()
-    , baseStage:GetCurrentEvolvableStage():GetName())
+    , evolableStage:GetName())
     -- 词缀
     local fightEvents = baseStage:GetShowFightEvents()
     self.PanelBuffContent.gameObject:SetActiveEx(#fightEvents > 0)
@@ -157,42 +95,42 @@ function XUiReformReadyPanel:SetData(baseStage)
             go.transform:Find("Buff"):GetComponent("RawImage"):SetRawImage(v.Icon)
         end
     end
-    -- 提示
-    local tips = baseStage:GetShowTips()
-    for i = 1, self.PanelTips.childCount do
-        if tips[i] then
-            self["TxtTip" .. i].gameObject:SetActiveEx(true)
-            self["TxtTip" .. i].text = tips[i]
-        else
-            self["TxtTip" .. i].gameObject:SetActiveEx(false)
-        end
-    end
-    -- 首通奖励 PanelDropContent
+    -- 奖励面板
     local isPassed = baseStage:GetIsPassed()
-    self.PanelIntegral.gameObject:SetActiveEx(isPassed)
-    self.UireformIcon.gameObject:SetActiveEx(isPassed)
-    self.PanelAwardList.gameObject:SetActiveEx(not isPassed)
-    if isPassed then
-        local currentEvolvableStage = baseStage:GetCurrentEvolvableStage()
-        self.TxtFirstDrop.text = CsXTextManager.GetText("ReformReadyScoreDropText")
-        self.TxtScore.text = CsXTextManager.GetText("ReformReadyPanelMaxScoreTip"
-        , currentEvolvableStage:GetChallengeScore()
-        , currentEvolvableStage:GetMaxChallengeScore())
-    else
-        self.TxtFirstDrop.text = CsXTextManager.GetText("ReformReadyFirstDropText")
-        for i = 2, self.PanelDropContent.childCount do
-            CS.UnityEngine.Object.Destroy(self.PanelDropContent:GetChild(i - 1).gameObject)
-        end
-        local rewardList = baseStage:GetFirstRewards()
-        local gridCommont = nil
-        local go = nil
-        for _, reward in ipairs(rewardList) do
-            go = CS.UnityEngine.Object.Instantiate(self.GridCommon, self.PanelDropContent)
-            go.gameObject:SetActiveEx(false)
-            gridCommont = XUiGridCommon.New(self.RootUi, go)
-            gridCommont:Refresh(reward)
+    self.PanelPassed.gameObject:SetActiveEx(true)
+    self.PanelNotPassed.gameObject:SetActiveEx(not isPassed)
+    self.TxtRecommendScoreTip1.text = XUiHelper.GetText("ReformChallengeScoreTip", self.BaseStage:GetMaxChallengeScore())
+    self.TxtRecommendScoreTip2.text = self.TxtRecommendScoreTip1.text
+    self.TxtScoreTip1.text = XUiHelper.GetText("ReformRecommendScoreTip", self.BaseStage:GetAccumulativeScore()
+        , self.BaseStage:GetRecommendScore())
+    self.TxtScoreTip2.text = self.TxtScoreTip1.text
+    -- 显示的首通奖励
+    local rewardList = baseStage:GetFirstRewards()
+    XUiHelper.RefreshCustomizedList(self.PanelReward, self.GridCommon, #rewardList, function(index, go)
+        local gridCommont = XUiGridCommon.New(self.RootUi, go)
+        gridCommont:Refresh(rewardList[index])
+    end)
+    -- local reward = baseStage:GetFirstRewards()[1]
+    -- self.GridCommon.gameObject:SetActiveEx(reward ~= nil)
+    -- if reward then
+    --     local gridCommont = XUiGridCommon.New(self.RootUi, self.GridCommon)
+    --     gridCommont:Refresh(reward)
+    --     gridCommont:SetProxyClickFunc(function()
+    --         XUiManager.OpenUiTipRewardByRewardId(self.BaseStage:GetFirstRewardId())
+    --     end)
+    -- end
+    -- 显示的推荐角色
+    local icons = self.BaseStage:GetRecommendCharacterIcons()
+    local icon
+    for i = 1, 3 do
+        icon = icons[i]
+        self["PanelHead" .. i].gameObject:SetActiveEx(icon ~= nil)
+        if icon then
+            self["RImgHeadIcon" .. i]:SetRawImage(icon)
         end
     end
+    self.TxtRecommendTip.gameObject:SetActiveEx(evolableStage:GetChallengeScore() 
+        < baseStage:GetRecommendScore())
 end
 
 function XUiReformReadyPanel:Open(baseStage)
@@ -203,6 +141,7 @@ function XUiReformReadyPanel:Open(baseStage)
     end
     self.EnterAnim:Play()
     self.GameObject:SetActiveEx(true)
+    XDataCenter.ReformActivityManager.SetCurrentBaseStageId(baseStage:GetId(), baseStage:GetStageType())
 end
 
 function XUiReformReadyPanel:Close()
@@ -220,7 +159,6 @@ end
 
 function XUiReformReadyPanel:OnBtnEnterClicked()
     self:Close()
-    -- XLuaUiManager.Open("UiNewRoomSingle", self.BaseStage:GetId())
     local evolvableStage = self.BaseStage:GetCurrentEvolvableStage()
     local diff = evolvableStage:GetDifficulty()
     -- 非基础关从上一关难度继承队伍
@@ -241,27 +179,29 @@ function XUiReformReadyPanel:OnBtnBuffTipClicked()
 end
 
 --######################## XUiReform ########################
+local XUiReformStageGridContainer = require("XUi/XUiReform/XUiReformStageGridContainer")
 local XUiReform = XLuaUiManager.Register(XLuaUi, "UiReform")
 
 function XUiReform:OnAwake()
+    self.ReformActivityManager = XDataCenter.ReformActivityManager
+    self.CurrentStageType = XReformConfigs.StageType.Normal
     self.CurrentBaseStage = nil
     self.CurrentEvolvableBaseStage = nil
     self.ActivityTimer = nil
     self:RegisterUiEvents()
     self.UiReformReadyPanel = XUiReformReadyPanel.New(self.PanelStageDetail, self)
-    self.MosterHideParts = {}
-    self.MosterEffects = {}
-    XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.Reform,
-    require("XUi/XUiReform/XUiReformNewRoomSingle"))
     -- 关卡列表
     self.UiReformStageGridDic = {}
     self.GridStage.gameObject:SetActiveEx(false)
     self.DynamicTable = XDynamicTableNormal.New(self.PanelStageList)
-    self.DynamicTable:SetProxy(XUiReformStageGrid)
+    self.DynamicTable:SetProxy(XUiReformStageGridContainer)
     self.DynamicTable:SetDelegate(self)
     -- 初始化任务
     self.UiReformTaskGrids = {}
-    self:InitTaskDataGrid()
+    -- self:InitTaskDataGrid()
+    -- 模型动画播放
+    self.ModelAnimEnter = self.UiModelGo.transform:FindTransform("CamNearAnimation"):GetComponent("PlayableDirector")
+    self.ModelAnimEnter:Play()
     -- 模型初始化
     local panelRoleModel = self.UiModelGo.transform:FindTransform("PanelRoleModel")
     self.UiPanelRoleModel = XUiPanelRoleModel.New(panelRoleModel, self.Name, nil, true)
@@ -271,36 +211,40 @@ function XUiReform:OnAwake()
     self.EffectReformUnlock.gameObject:SetActiveEx(false)
     self.ImgEffectHuanren = self.UiModelGo.transform:FindTransform("ImgEffectHuanren")
     -- 自动关闭
-    local endTime = XDataCenter.ReformActivityManager.GetActivityEndTime()
+    local endTime = self.ReformActivityManager.GetActivityEndTime()
     self:SetAutoCloseInfo(endTime, function(isClose)
         if isClose then
-            XDataCenter.ReformActivityManager.HandleActivityEndTime()
+            self.ReformActivityManager.HandleActivityEndTime()
         else
-            self.TxtRemainTime.text = XDataCenter.ReformActivityManager.GetLeaveTimeStr()
+            self.TxtRemainTime.text = self.ReformActivityManager.GetLeaveTimeStr()
+            self.TxtRemainTimeHard.text = self.TxtRemainTime.text            
             for _, grid in pairs(self.UiReformStageGridDic) do
                 grid:RefreshStatus()
             end
         end
-    end)
+    end, nil, 1500)
 end
 
 function XUiReform:OnStart()
-    local reformActivityManager = XDataCenter.ReformActivityManager
-    self.CurrentBaseStage = reformActivityManager.GetCurrentBaseStage()
+    self.CurrentStageType = self.ReformActivityManager.GetCurrentStageType()
+    self.CurrentBaseStage = self.ReformActivityManager.GetCurrentBaseStage(self.CurrentStageType)
     self.CurrentEvolvableBaseStage = self.CurrentBaseStage:GetCurrentEvolvableStage()
-    -- 名字
-    self.TxtTitle.text = reformActivityManager.GetActivityName()
     self.TxtMaxScoreTitle.text = CsXTextManager.GetText("ReformMaxScoreTitle")
+    self.PanelNormal.gameObject:SetActiveEx(self.CurrentStageType == XReformConfigs.StageType.Normal)
+    self.PanelHard.gameObject:SetActiveEx(self.CurrentStageType == XReformConfigs.StageType.Challenge)
 end
 
 function XUiReform:OnEnable()
     XUiReform.Super.OnEnable(self)
-    self.TxtRemainTime.text = XDataCenter.ReformActivityManager.GetLeaveTimeStr()
-    -- 基础关卡列表
-    self:RefreshDynamicTable()
-    self:RefreshBaseStageInfo(self.CurrentBaseStage)
-    self:RefreshTaskDataGrid()
-    -- XEventManager.AddEventListener(XEventId.EVENT_FINISH_TASK, self.RefreshTaskDataGrid, self)
+    self:RefreshUiScene(self.CurrentStageType, function()
+        self.TxtRemainTime.text = self.ReformActivityManager.GetLeaveTimeStr()
+        -- 基础关卡列表
+        self:RefreshDynamicTable()
+        self:RefreshBaseStageInfo(self.CurrentBaseStage)
+        self:RefreshTaskDataGrid()
+        -- XEventManager.AddEventListener(XEventId.EVENT_FINISH_TASK, self.RefreshTaskDataGrid, self)
+        self.BtnHard:SetDisable(not self.ReformActivityManager.CheckIsUnlockChallenge())
+    end)
 end
 
 function XUiReform:OnDisable()
@@ -311,27 +255,32 @@ end
 --######################## 私有方法 ########################
 function XUiReform:OnCheckBtnReformRedPoint(count)
     self.BtnReform:ShowReddot(count >= 0)
+    self.BtnReformHard:ShowReddot(count >= 0)
 end
 
-function XUiReform:InitTaskDataGrid()
-    self.GridCourse.gameObject:SetActiveEx(false)
-    local taskDatas = XDataCenter.ReformActivityManager.GetTaskDatas()
-    local go = nil
-    local grid = nil
-    for index, taskData in ipairs(taskDatas) do
-        go = CS.UnityEngine.Object.Instantiate(self.GridCourse, self.PanelCourseContainer)
-        go.gameObject:SetActiveEx(true)
-        grid = XUiReformTaskGrid.New(go, self)
-        self.UiReformTaskGrids[index] = grid
-    end
+function XUiReform:RefreshTaskDataGridGo()
+    local taskDatas = self.ReformActivityManager.GetTaskDatas(self.CurrentStageType)
+    self.UiReformTaskGrids = {}
+    XUiHelper.RefreshCustomizedList(self.PanelCourseContainer, self.GridCourse, #taskDatas + 1, function(index, go)
+        if index > 1 then
+            local grid = XUiReformTaskGrid.New(go, self)
+            self.UiReformTaskGrids[index - 1] = grid
+        end
+    end)
 end
 
 function XUiReform:RefreshTaskDataGrid()
-    local taskDatas = XDataCenter.ReformActivityManager.GetTaskDatas()
-    local maxScore = XDataCenter.ReformActivityManager.GetTaskMaxScore()
+    self:RefreshTaskDataGridGo()
+    local taskDatas = self.ReformActivityManager.GetTaskDatas(self.CurrentStageType)
+    local maxScore = self.ReformActivityManager.GetTaskMaxScore()
     local scrollIndex = nil
     local tmpTaskData = nil
     local lastFinishIndex = 0
+    local noramlTasks, normalMaxScore
+    if self.CurrentStageType == XReformConfigs.StageType.Challenge then
+        noramlTasks = self.ReformActivityManager.GetTaskDatas(XReformConfigs.StageType.Normal)
+        normalMaxScore = self.ReformActivityManager.GetTaskFinishScore(noramlTasks[#noramlTasks].Id)
+    end
     for index, grid in ipairs(self.UiReformTaskGrids) do
         tmpTaskData = taskDatas[index]
         -- 一进来去到开始能完成的任务
@@ -340,15 +289,18 @@ function XUiReform:RefreshTaskDataGrid()
         elseif tmpTaskData.State == XDataCenter.TaskManager.TaskState.Finish then
             lastFinishIndex = index
         end
-        grid:SetData(tmpTaskData, taskDatas[math.min(index + 1, #taskDatas)], maxScore)
+        grid:SetData(tmpTaskData, taskDatas[math.min(index + 1, #taskDatas)], maxScore, normalMaxScore)
     end
     if scrollIndex == nil then
         scrollIndex = math.min(lastFinishIndex + 1, #taskDatas)
     end
     local firstTaskData = taskDatas[1]
     self.TxtTaskScore.text = maxScore
-    local nextScore = XDataCenter.ReformActivityManager.GetTaskFinishScore(firstTaskData.Id)
+    local nextScore = self.ReformActivityManager.GetTaskFinishScore(firstTaskData.Id)
     local progress = maxScore / nextScore
+    if self.CurrentStageType == XReformConfigs.StageType.Challenge then
+        progress = (maxScore -  normalMaxScore) / (nextScore - normalMaxScore) 
+    end
     self.ImgFirstPassedLine.fillAmount = progress
     XScheduleManager.ScheduleOnce(function()
         self:ScrollTaskGrid(scrollIndex)
@@ -359,10 +311,56 @@ function XUiReform:RegisterUiEvents()
     self.BtnBack.CallBack = function() self:Close() end
     self.BtnMainUi.CallBack = function() XLuaUiManager.RunMain() end
     self.BtnReform.CallBack = function() self:OnBtnReformClicked() end
+    self.BtnReformHard.CallBack = function() self:OnBtnReformClicked() end
     self.BtnEnterStage.CallBack = function() self:OnBtnEnterStageClicked() end
-    self.BtnPreview.CallBack = function() self:OnBtnPreviewClicked() end
-    self:BindHelpBtn(self.BtnHelp, XDataCenter.ReformActivityManager.GetHelpName())
-    self:BindHelpBtn(self.BtnScoreHelp, XDataCenter.ReformActivityManager.GetScoreHelpName())
+    self.BtnEnterStageHard.CallBack = function() self:OnBtnEnterStageClicked() end
+    -- self.BtnPreview.CallBack = function() self:OnBtnPreviewClicked() end
+    self:BindHelpBtn(self.BtnHelp, self.ReformActivityManager.GetHelpName())
+    self:BindHelpBtn(self.BtnScoreHelp, self.ReformActivityManager.GetScoreHelpName())
+    if self.BtnScoreHelp2 then -- 防打包
+        self:BindHelpBtn(self.BtnScoreHelp2, self.ReformActivityManager.GetScoreHelpName())    
+    end
+    XUiHelper.RegisterClickEvent(self, self.BtnNormal, self.OnBtnNormalClicked)
+    XUiHelper.RegisterClickEvent(self, self.BtnHard, self.OnBtnHardClicked)
+end
+
+function XUiReform:OnBtnNormalClicked()
+    self.CurrentStageType = XReformConfigs.StageType.Normal
+    self:RefreshUiScene(self.CurrentStageType, function()
+        self:RefreshDynamicTable()
+        self:RefreshBaseStageInfo(self.ReformActivityManager.GetCurrentBaseStage(self.CurrentStageType))
+        self.PanelNormal.gameObject:SetActiveEx(true)
+        self.PanelHard.gameObject:SetActiveEx(false)
+        self.AnimSwitch:Play()
+        self:RefreshTaskDataGrid()
+    end)
+end
+
+function XUiReform:OnBtnHardClicked()
+    if not self.ReformActivityManager.CheckIsUnlockChallenge() then
+        XUiManager.TipErrorWithKey("ReformLockChallengeTip", self.ReformActivityManager.GetUnlockChallengeScores())
+        return
+    end
+    self.CurrentStageType = XReformConfigs.StageType.Challenge
+    self:RefreshUiScene(self.CurrentStageType, function()
+        self:RefreshDynamicTable()
+        self:RefreshBaseStageInfo(self.ReformActivityManager.GetCurrentBaseStage(self.CurrentStageType))
+        self.PanelNormal.gameObject:SetActiveEx(false)
+        self.PanelHard.gameObject:SetActiveEx(true)
+        self.AnimSwitch:Play()
+        self:RefreshTaskDataGrid()
+    end)
+end
+
+function XUiReform:RefreshUiScene(stageType, cb)
+    local sceneUrl, modelUrl = self.ReformActivityManager.GetSceneUrlAndModelUrl(self.CurrentStageType)
+    self:LoadUiScene(sceneUrl, modelUrl, function()
+        self.ModelAnimEnter = self.UiModelGo.transform:FindTransform("CamNearAnimation"):GetComponent("PlayableDirector")
+        local panelRoleModel = self.UiModelGo.transform:FindTransform("PanelRoleModel")
+        self.UiPanelRoleModel = XUiPanelRoleModel.New(panelRoleModel, self.Name, nil, true)
+        self.ImgEffectHuanren = self.UiModelGo.transform:FindTransform("ImgEffectHuanren")
+        if cb then cb() end
+    end)
 end
 
 function XUiReform:RefreshBaseStageInfo(baseStage)
@@ -370,13 +368,19 @@ function XUiReform:RefreshBaseStageInfo(baseStage)
     self.CurrentEvolvableBaseStage = self.CurrentBaseStage:GetCurrentEvolvableStage()
     -- 累计积分
     self.TxtAccumulativeScore.text = self.CurrentBaseStage:GetAccumulativeScore()
+    self.TxtAccumulativeScoreHard.text = self.TxtAccumulativeScore.text
     -- 本次挑战积分
     self.TxtChallengeScore.text = self.CurrentEvolvableBaseStage:GetChallengeScore()
-    -- 当前改造等级名称
-    self.TxtGrade.text = self.CurrentEvolvableBaseStage:GetName()
+    self.TxtChallengeScoreHard.text = self.TxtChallengeScore.text
+    -- 推荐积分
+    self.TxtRecommendScore.text = self.CurrentBaseStage:GetRecommendScore()
+    self.TxtRecommendScoreHard.text = self.TxtRecommendScore.text
+    -- -- 当前改造等级名称
+    -- self.TxtGrade.text = self.CurrentEvolvableBaseStage:GetName()
     -- 刷新模型
     self:RefreshModel(baseStage:GetShowNpcId())
-    self.BtnReform:SetDisable(not baseStage:GetIsPassed())
+    self.BtnReform:SetDisable(not baseStage:CheckIsCanReform())
+    self.BtnReformHard:SetDisable(not baseStage:CheckIsCanReform())
     -- 播放开锁特效
     if baseStage:GetIsPlayReformUnlockEffect() then
         XScheduleManager.ScheduleOnce(function()
@@ -396,74 +400,40 @@ function XUiReform:RefreshBaseStageInfo(baseStage)
 end
 
 function XUiReform:RefreshModel(npcId)
+    local modelId = XMVCA.XArchive:GetMonsterModel(npcId)
+    
     self.ImgEffectHuanren.gameObject:SetActiveEx(false)
     self.ImgEffectHuanren.gameObject:SetActiveEx(true)
-    for _, prats in pairs(self.MosterHideParts) do
-        if not XTool.UObjIsNil(prats) then
-            prats.gameObject:SetActiveEx(true)
-        end
-    end
-    for _, effect in pairs(self.MosterEffects) do
-        if not XTool.UObjIsNil(effect) then
-            effect.gameObject:SetActiveEx(false)
-        end
-    end
-    self.MosterHideParts = {}
-    self.MosterEffects = {}
-    local transDatas = XArchiveConfigs.GetMonsterTransDatas(npcId, 1)
-    local effectDatas = XArchiveConfigs.GetMonsterEffectDatas(npcId, 1)
-    local modelId = XArchiveConfigs.GetMonsterModel(npcId)
-    self.UiPanelRoleModel:SetDefaultAnimation(transDatas and transDatas.StandAnime)
-    self.UiPanelRoleModel:UpdateArchiveMonsterModel(modelId, XModelManager.MODEL_UINAME.UiReform)
-    self.UiPanelRoleModel:ShowRoleModel()
-    local modelInfo = self.UiPanelRoleModel:GetModelInfoByName(modelId)
-    local modelGo = modelInfo.Model
-    if transDatas then
-        for _, node in pairs(transDatas.HideNodeName or {}) do
-            local parts = modelGo.gameObject:FindTransform(node)
-            if not XTool.UObjIsNil(parts) then
-                parts.gameObject:SetActiveEx(false)
-                table.insert(self.MosterHideParts, parts)
-            else
-                XLog.Error("HideNodeName Is Wrong :" .. node)
-            end
-        end
-    end
-    if effectDatas then
-        for node, effectPath in pairs(effectDatas) do
-            local parts = modelGo.gameObject:FindTransform(node)
-            if not XTool.UObjIsNil(parts) then
-                local effect = parts.gameObject:LoadPrefab(effectPath, false)
-                if effect then
-                    effect.gameObject:SetActiveEx(true)
-                    table.insert(self.MosterEffects, effect)
-                end
-            else
-                XLog.Error("EffectNodeName Is Wrong :" .. node)
-            end
-        end
-    end
+    
+    XUiModelUtility.UpdateMonsterArchiveModel(self, self.UiPanelRoleModel, modelId, XModelManager.MODEL_UINAME.UiReform, npcId)
 end
 
-function XUiReform:RefreshDynamicTable()
+function XUiReform:RefreshDynamicTable(baseStages)
     local index = 1
-    local baseStages = XDataCenter.ReformActivityManager.GetBaseStages()
+    if baseStages == nil then
+        baseStages = self.ReformActivityManager.GetBaseStages(self.CurrentStageType)
+    end
     for i, baseStage in ipairs(baseStages) do
-        if baseStage:GetId() == XDataCenter.ReformActivityManager.GetCurrentBaseStageId() then
+        if baseStage:GetId() == self.ReformActivityManager.GetCurrentBaseStageId(self.CurrentStageType) then
             index = i
             break
         end
     end
-    self.DynamicTable:SetDataSource(XDataCenter.ReformActivityManager.GetBaseStages())
+    self.UiReformStageGridDic = {}
+    self.DynamicTable:SetDataSource(baseStages)
     self.DynamicTable:ReloadDataSync(index)
-    XDataCenter.ReformActivityManager.SetBaseStageRedDotHistory(baseStages[index]:GetId())
+    self.ReformActivityManager.SetBaseStageRedDotHistory(baseStages[index]:GetId())
 end
 
 function XUiReform:OnDynamicTableEvent(event, index, grid)
-    self.UiReformStageGridDic[index] = grid
+    if index <= 0 then return end
+    local baseStage = self.DynamicTable.DataSource[index]
+    if baseStage == nil then return end
+    self.UiReformStageGridDic[baseStage:GetId()] = grid
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        grid:SetData(self.DynamicTable.DataSource[index], index)
+        grid:SetData(baseStage, index)
         grid:SetClickCallBack(self, self.OnStageGridClicked)
+        grid:RefreshStatus()
     end
 end
 
@@ -473,16 +443,16 @@ function XUiReform:OnStageGridClicked(selectedIndex)
         XUiManager.TipError(CsXTextManager.GetText("ReformStageTimeLockTip"))
         return
     end
-    XDataCenter.ReformActivityManager.SetCurrentBaseStageId(baseStage:GetId())
+    self.ReformActivityManager.SetCurrentBaseStageId(baseStage:GetId(), baseStage:GetStageType())
     self:RefreshBaseStageInfo(self.DynamicTable.DataSource[selectedIndex])
-    for i, stageGrid in pairs(self.UiReformStageGridDic) do
-        stageGrid:SetSelectStatus(selectedIndex == i)
+    for id, stageGrid in pairs(self.UiReformStageGridDic) do
+        stageGrid:SetSelectStatus(baseStage:GetId() == id)
     end
-    self.UiReformStageGridDic[selectedIndex]:SetSelectStatus(true)
+    self.UiReformStageGridDic[baseStage:GetId()]:SetSelectStatus(true)
 end
 
 function XUiReform:OnBtnReformClicked()
-    if not self.CurrentBaseStage:GetIsPassed() then
+    if not self.CurrentBaseStage:CheckIsCanReform() then
         XUiManager.TipError(CsXTextManager.GetText("ReformStagePassLockTip"))
         return
     end
@@ -495,13 +465,13 @@ function XUiReform:OnBtnEnterStageClicked()
     -- self.UiPanelAsset.GameObject:SetActiveEx(false)
 end
 
-function XUiReform:OnBtnPreviewClicked()
-    if not self.CurrentBaseStage:GetIsPassed() then
-        XUiManager.TipError(CsXTextManager.GetText("ReformPreviewLimitTip"))
-        return
-    end
-    XLuaUiManager.Open("UiReformPreview", self.CurrentEvolvableBaseStage)
-end
+-- function XUiReform:OnBtnPreviewClicked()
+--     if not self.CurrentBaseStage:CheckIsCanReform() then
+--         XUiManager.TipError(CsXTextManager.GetText("ReformPreviewLimitTip"))
+--         return
+--     end
+--     XLuaUiManager.Open("UiReformPreview", self.CurrentEvolvableBaseStage)
+-- end
 
 function XUiReform:ScrollTaskGrid(index)
     local grid = self.UiReformTaskGrids[index]

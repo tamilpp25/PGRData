@@ -1,3 +1,4 @@
+local XActivityBrieIsOpen = require("XUi/XUiActivityBrief/XActivityBrieIsOpen")
 ----------------------------------------------------------------
 --roguelike爬塔：每日行动力不为零的红点检测
 

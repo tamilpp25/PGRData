@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 
 local XSecondaryButton = XClass(nil, "XSecondaryButton")
 --===========================================================================
@@ -207,7 +208,6 @@ function XUiPivotCombatMain:OnEnable()
 end
 
 function XUiPivotCombatMain:OnDisable()
-    XUiPivotCombatMain.Super.OnDisable(self)
     --界面关闭时让UIMove动画重置
     if self.UiMoveTimeLine then
         self.UiMoveTimeLine:Stop(true)
@@ -333,8 +333,8 @@ function XUiPivotCombatMain:InitCB()
     self.BtnCenter.CallBack = function()
         self:OnClickBtnCenter()
     end
-    self.BtnTeaching.CallBack = function() 
-        XLuaUiManager.Open("UiFubenPractice", XPracticeConfigs.CharacterTabIndex.Isomer)
+    self.BtnTeaching.CallBack = function()
+        XDataCenter.PracticeManager.OpenUiFubenPratice(XPracticeConfigs.CharacterTabIndex.Isomer)
     end
 end
 

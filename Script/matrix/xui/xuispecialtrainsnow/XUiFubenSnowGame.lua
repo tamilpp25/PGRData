@@ -1,7 +1,20 @@
+local XUiGridFubenSnowGameDayTask = require("XUi/XUiSpecialTrainSnow/XUiGridFubenSnowGameDayTask")
+local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
+local XSpecialTrainActionRandom = require("XUi/XUiSpecialTrainBreakthrough/XSpecialTrainActionRandom")
+---@class XUiFubenSnowGame : XLuaUi
+---@field SpecialTrainActionRandom XSpecialTrainActionRandom
+---@field RankProgress UnityEngine.UI.Image
 local XUiFubenSnowGame = XLuaUiManager.Register(XLuaUi, "UiFubenSnowGame")
+
+local CameraType = {
+    Main = 1,
+    Character = 2,
+}
+local EffectPlayTime = 0.35
 
 function XUiFubenSnowGame:OnAwake()
     self:RegisterButtonClick()
+    self:InitUiPanelRoleModel()
     XEventManager.AddEventListener(XEventId.EVENT_ROOM_ENTER_ROOM, self.OnCancelMatch, self)
     XEventManager.AddEventListener(XEventId.EVENT_ROOM_CANCEL_MATCH, self.OnCancelMatch, self)
     XEventManager.AddEventListener(XEventId.EVENT_ROOM_MATCH_PLAYERS, self.OnMatchPlayers, self)
@@ -9,20 +22,39 @@ end
 
 function XUiFubenSnowGame:OnStart()
     self.ActivityConfig = XFubenSpecialTrainConfig.GetActivityConfigById(XDataCenter.FubenSpecialTrainManager.GetCurActivityId())
-    self.EndTime = XFunctionManager.GetEndTimeByTimeId(self.ActivityConfig.TimeId)
+    self.StageIds = XDataCenter.FubenSpecialTrainManager.GetStagesByActivityId(self.ActivityConfig.Id)
+    -- 只有一个关卡
+    self.CurrentStageId = self.StageIds[1] or 0
+    self.SpecialTrainActionRandom = XSpecialTrainActionRandom.New()
     self.HelpDataFunc = function()
         return self:GetHelpDataFunc()
     end
     self:BindHelpBtnNew(self.BtnHelp, self.HelpDataFunc)
+    if not XTool.UObjIsNil(self.PanelModelAnim) then
+        self.PanelModelAnim:PlayTimelineAnimation()
+    end
+    -- 开启自动关闭检查
+    self.EndTime = XFunctionManager.GetEndTimeByTimeId(self.ActivityConfig.TimeId)
+    self:SetAutoCloseInfo(self.EndTime,function(isClose)
+        if isClose then
+            XDataCenter.FubenSpecialTrainManager.HandleActivityEndTime()
+        else
+            self:UpdateRefreshTime()
+            self:RefreshDayTaskTime()
+        end
+    end)
 end
 
 function XUiFubenSnowGame:OnEnable()
-    self:RefreshStageId()
-    self:RefreshMapData()
-    self:RefreshPattern()
+    self.Super.OnEnable(self)
+    self:UpdateRefreshTime()
+    self:RefreshDayTaskTime()
     self:RefreshRankDara()
+    self:RefreshDayTask()
+    self:RefreshRoleModel()
+    self:RefreshCamera(CameraType.Main)
     self:RefreshRedPoint()
-    self:StartTimer()
+    self:AutoGetReward()
 end
 
 function XUiFubenSnowGame:OnGetEvents()
@@ -36,19 +68,22 @@ end
 function XUiFubenSnowGame:OnNotify(event,...)
     if event == XEventId.EVENT_FINISH_TASK or event == XEventId.EVENT_TASK_SYNC then
         self:RefreshRedPoint()
+        self:RefreshDayTask()
     elseif event == XEventId.EVENT_FUBEN_SPECIAL_TEAIN_RANK_SCORE_CHANGE then
         self:RefreshRankDara()
     end
 end
 
 function XUiFubenSnowGame:OnDisable()
-    self:StopTimer()
+    self.Super.OnDisable(self)
+    self.SpecialTrainActionRandom:Stop()
 end
 
 function XUiFubenSnowGame:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_ROOM_ENTER_ROOM, self.OnCancelMatch, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_ROOM_CANCEL_MATCH, self.OnCancelMatch, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_ROOM_MATCH_PLAYERS, self.OnMatchPlayers, self)
+    self.SpecialTrainActionRandom:Stop()
 end
 
 function XUiFubenSnowGame:RegisterButtonClick()
@@ -61,96 +96,48 @@ function XUiFubenSnowGame:RegisterButtonClick()
     self.BtnTask.CallBack = function()
         self:OnClickBtnTask()
     end
-    self.BtnPattern.CallBack = function()
-        self:OnClickBtnPattern()
-    end
     self.BtnCreateRoom.CallBack = function()
         self:OnClickBtnCreateRoom()
     end
     self.BtnMatch.CallBack = function()
         self:OnClickBtnMatch()
     end
-    self.BtnSwitch.CallBack = function()
-        self:OnClickBtnSwitch()
-    end
     self.RankBtnHelp.CallBack = function()
         self:OnClickRankBtnHelp()
+    end
+    self.BtnChange.CallBack = function()
+       self:OnClickBtnChange() 
     end
 end
 --任务
 function XUiFubenSnowGame:OnClickBtnTask()
     XLuaUiManager.Open("UiFubenSnowGameTask")
 end
---随机地图
-function XUiFubenSnowGame:OnClickBtnPattern()
-    self.IsRandomMap = self.BtnPattern:GetToggleState()
-    self:BtnSetButtonState()
-end
 --创建地图
 function XUiFubenSnowGame:OnClickBtnCreateRoom()
-    if self.IsRandomMap then
-        XUiManager.TipMsg(CSXTextManagerGetText("SnowGameRandomMapTip"))
-        return
-    end
     XDataCenter.RoomManager.CreateRoom(self.CurrentStageId)
 end
 --快速匹配
 function XUiFubenSnowGame:OnClickBtnMatch()
     self:Match(true)
 end
---切换地图
-function XUiFubenSnowGame:OnClickBtnSwitch()
-    XLuaUiManager.Open("UiFubenSnowGameMapTips", self.CurrentStageId, handler(self, self.BtnSwitchCallback))
-end
 --段位帮助按钮
 function XUiFubenSnowGame:OnClickRankBtnHelp()
     XLuaUiManager.Open("UiFubenSnowGameMedalTips", self.CurRankId)
 end
 
+function XUiFubenSnowGame:OnClickBtnChange()
+    XLuaUiManager.Open("UiFubenSnowGameCharacter", handler(self, self.RefreshRoleModel), handler(self, self.SwitchCameraMain))
+    self:RefreshCamera(CameraType.Character)
+    self:PlayAnimation("UiDisable")
+end
+
 function XUiFubenSnowGame:Match(needMatchCountCheck)
-    if self.IsRandomMap then
-        --根据关卡类型匹配
-        XDataCenter.RoomManager.MatchRoomByStageTypeRequest(XDataCenter.FubenManager.StageType.SpecialTrainSnow, function()
-            self:OnBeginMatch()
-            XLuaUiManager.Open("UiOnLineMatching")
-        end, needMatchCountCheck)
-    else
-        --根据关卡ID匹配
-        XDataCenter.RoomManager.Match(self.CurrentStageId, function()
-            self:OnBeginMatch()
-            XLuaUiManager.Open("UiOnLineMatching", self.CurrentStageId)
-        end, needMatchCountCheck)
-    end
-end
-
-function XUiFubenSnowGame:BtnSwitchCallback(stageId)
-    self.CurrentStageId = stageId
-    self:RefreshMapData()
-end
-
-function XUiFubenSnowGame:RefreshStageId()
-    self.StageIds = XDataCenter.FubenSpecialTrainManager.GetStagesByActivityId(self.ActivityConfig.Id)
-    local stageId = XDataCenter.FubenSpecialTrainManager.GetCurrentStageId()
-    self.CurrentStageId = stageId or self.StageIds[1]
-end
-
-function XUiFubenSnowGame:RefreshMapData()
-    XDataCenter.FubenSpecialTrainManager.SetCurrentStageId(self.CurrentStageId)
-    local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.CurrentStageId)
-    self.TextMapName.text = stageCfg.Name
-    self.BgMap:SetRawImage(stageCfg.Icon)
-end
-
-function XUiFubenSnowGame:RefreshPattern()
-    if #self.StageIds > 1 then
-        self.IsRandomMap = XDataCenter.FubenSpecialTrainManager.GetIsRandomMap()
-        self.BtnPattern:SetButtonState(self.IsRandomMap and CS.UiButtonState.Select or CS.UiButtonState.Normal)
-    else
-        --当只有一个关卡时隐藏随机地图按钮
-        self.BtnPattern.gameObject:SetActiveEx(false)
-        self.IsRandomMap = false
-    end
-    self:BtnSetButtonState()
+    --根据关卡ID匹配
+    XDataCenter.RoomManager.MultiMatch({ self.CurrentStageId }, function()
+        self:OnBeginMatch()
+        XLuaUiManager.Open("UiOnLineMatching", self.CurrentStageId)
+    end, needMatchCountCheck)
 end
 
 function XUiFubenSnowGame:RefreshRankDara()
@@ -163,16 +150,29 @@ function XUiFubenSnowGame:RefreshRankDara()
     if isHighestGrade then
         self.RankText.text = CSXTextManagerGetText("SnowHighestGrade")
         self.RankScore.text = curScore
+        self.RankProgress.fillAmount = 1
     else
         self.RankText.text = CSXTextManagerGetText("SnowNextGrade")
         local nextScore = XFubenSpecialTrainConfig.GetRankScoreById(nextRankId)
         self.RankScore.text = CSXTextManagerGetText("SnowGradeScore", curScore, nextScore)
+        self.RankProgress.fillAmount = curScore / nextScore
     end
 end
 
-function XUiFubenSnowGame:BtnSetButtonState()
-    XDataCenter.FubenSpecialTrainManager.SetIsRandomMap(self.IsRandomMap)
-    self.BtnCreateRoom:SetButtonState(self.IsRandomMap and CS.UiButtonState.Disable or CS.UiButtonState.Normal)
+function XUiFubenSnowGame:RefreshDayTaskTime()
+    if XTool.UObjIsNil(self.TxtDayTime) then
+        return
+    end
+    local refreshTime = XTime.GetSeverNextRefreshTime()
+    local currentTime = XTime.GetServerNowTimestamp()
+    local remainTime = refreshTime - currentTime
+    local timeDesc = XUiHelper.GetTime(remainTime, XUiHelper.TimeFormatType.DAY_HOUR)
+    self.TxtDayTime.text = timeDesc
+end
+
+function XUiFubenSnowGame:RefreshDayTask()
+    local dayTaskData = XDataCenter.FubenSpecialTrainManager.GetSnowGameDailyTaskGroup()
+    self:RefreshTemplateGrids(self.GridTask, dayTaskData, self.PanelTask, XUiGridFubenSnowGameDayTask, "GridDayTaskList")
 end
 
 function XUiFubenSnowGame:OnBeginMatch()
@@ -188,13 +188,16 @@ function XUiFubenSnowGame:OnCancelMatch()
 end
 
 --匹配人数过多
-function XUiFubenSnowGame:OnMatchPlayers()
+function XUiFubenSnowGame:OnMatchPlayers(recommendStageId)
     self:OnCancelMatch()
-    XUiManager.DialogTip(CS.XTextManager.GetText("SpecialTrainSnowMatchTipTitle"), CS.XTextManager.GetText("SpecialTrainSnowMatchTipContent"), XUiManager.DialogType.Normal,
+    local title = XUiHelper.GetText("SpecialTrainSnowMatchTipTitle")
+    local content = XUiHelper.GetText("SpecialTrainSnowMatchTipContent")
+    XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal,
             function()
                 self:Match(false)
             end, function()
-                XDataCenter.RoomManager.CreateRoom(self.CurrentStageId)
+                -- 根据服务端下方的id创建房间
+                XDataCenter.RoomManager.CreateRoom(recommendStageId)
             end)
 end
 
@@ -222,39 +225,125 @@ function XUiFubenSnowGame:GetHelpDataFunc()
     return helpConfigs
 end
 
-function XUiFubenSnowGame:StartTimer()
-    if self.Timer then
-        self:StopTimer()
-    end
-    self:UpdateRefreshTime()
-    self.Timer = XScheduleManager.ScheduleForever(function()
-        self:UpdateRefreshTime()
-    end, XScheduleManager.SECOND)
-end
-
 function XUiFubenSnowGame:UpdateRefreshTime()
     if XTool.UObjIsNil(self.TxtTime) then
-        self:StopTimer()
         return
     end
-
-    local now = XTime.GetServerNowTimestamp()
-    if now >= self.EndTime then
-        self:StopTimer()
-        XUiManager.TipText("CommonActivityEnd")
-        XLuaUiManager.RunMain()
-        return
+    local leftTime = self.EndTime - XTime.GetServerNowTimestamp()
+    if leftTime <= 0 then
+        leftTime = 0
     end
-
-    local timeDesc = XUiHelper.GetTime(self.EndTime - now, XUiHelper.TimeFormatType.ACTIVITY)
+    local timeDesc = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
     self.TxtTime.text = timeDesc
 end
 
-function XUiFubenSnowGame:StopTimer()
-    if self.Timer then
-        XScheduleManager.UnSchedule(self.Timer)
-        self.Timer = nil
+function XUiFubenSnowGame:InitUiPanelRoleModel()
+    local root = self.UiModelGo.transform
+    self.CameraFar = {
+        [CameraType.Main] = root:FindTransform("UiCamFarMain"),
+        [CameraType.Character] = root:FindTransform("UiCamFarCharacter")
+    }
+    self.CameraNear = {
+        [CameraType.Main] = root:FindTransform("UiCamNearMain"),
+        [CameraType.Character] = root:FindTransform("UiCamNearCharacter")
+    }
+    self.PanelModelAnim = root:FindTransform("AnimEnable")
+    self.PanelRoleModel = root:FindTransform("PanelModel")
+    ---@type XUiPanelRoleModel
+    self.UiPanelRoleModel = XUiPanelRoleModel.New(self.PanelRoleModel, self.Name, nil, true, nil, true)
+end
+
+function XUiFubenSnowGame:RefreshRoleModel()
+    local robotId = XDataCenter.FubenSpecialTrainManager.GetSnowGameRobotId()
+    if not XTool.IsNumberValid(robotId) then
+        return
     end
+    local robotCfg = XRobotManager.GetRobotTemplate(robotId)
+    if not robotCfg then
+        return
+    end
+    self:OnModelLoadBegin()
+    local needDisplayController = XCharacterCuteConfig.GetNeedDisplayController(self.CurrentStageId)
+    self.UiPanelRoleModel:UpdateCuteModel(robotId, robotCfg.CharacterId, nil, robotCfg.FashionId, nil, function()
+        self:OnModelLoadCallback()
+    end, needDisplayController)
+end
+
+function XUiFubenSnowGame:OnModelLoadCallback()
+    local needDisplayController = XCharacterCuteConfig.GetNeedDisplayController(self.CurrentStageId)
+    if not needDisplayController then
+        return
+    end
+    local actionArray = XCharacterCuteConfig.GetModelRandomAction(self.UiPanelRoleModel:GetCurRoleName())
+    self.SpecialTrainActionRandom:SetAnimator(self.UiPanelRoleModel:GetAnimator(), actionArray, self.UiPanelRoleModel)
+    self.SpecialTrainActionRandom:Play()
+end
+
+function XUiFubenSnowGame:OnModelLoadBegin()
+    self.SpecialTrainActionRandom:Stop()
+end
+
+function XUiFubenSnowGame:RefreshCamera(camera)
+    if not self.CameraFar or not self.CameraNear then
+        return
+    end
+    for _, type in pairs(CameraType) do
+        local nearCamera = self.CameraNear[type]
+        if not XTool.UObjIsNil(nearCamera) then
+            nearCamera.gameObject:SetActiveEx(type == camera)
+        end
+        local farCamera = self.CameraFar[type]
+        if not XTool.UObjIsNil(farCamera) then
+            farCamera.gameObject:SetActiveEx(type == camera)
+        end
+    end
+end
+
+function XUiFubenSnowGame:SwitchCameraMain()
+    self:RefreshCamera(CameraType.Main)
+    self:PlayAnimation("UiEnable")
+end
+
+function XUiFubenSnowGame:AutoGetReward()
+    local taskList = XDataCenter.FubenSpecialTrainManager.GetSnowGameDailyTaskGroup()
+    local taskIdList = {}
+    for _, data in pairs(taskList) do
+        if XDataCenter.TaskManager.CheckTaskAchieved(data.Id) then
+            taskIdList[#taskIdList + 1] = data.Id
+        end
+    end
+    self.EffectStar.gameObject:SetActiveEx(false)
+    if XTool.IsTableEmpty(taskIdList) then
+        return
+    end
+    self.Mask.gameObject:SetActiveEx(true)
+    RunAsyn(function()
+        -- 等待进入动画播放完成
+        asynWaitSecond(1)
+        -- 特效播放
+        self:PlayGridEffectAnimation(taskIdList)
+        asynWaitSecond(EffectPlayTime)
+        self.EffectStar.gameObject:SetActiveEx(true)
+        self.Mask.gameObject:SetActiveEx(false)
+        self:ReceiveTask(taskIdList)
+    end)
+end
+
+function XUiFubenSnowGame:PlayGridEffectAnimation(taskIdList)
+    for i = 1, 3 do
+        ---@type XUiGridFubenSnowGameDayTask
+        local grid = self:GetGrid(i, "GridDayTaskList")
+        local id = grid:GetId()
+        if table.contains(taskIdList, id) then
+            grid:PlayEffectAnimation(self.EffectStar.transform.position, EffectPlayTime)
+        end
+    end
+end
+
+function XUiFubenSnowGame:ReceiveTask(taskIdList)
+    XDataCenter.TaskManager.FinishMultiTaskRequest(taskIdList, function(rewardGoodsList)
+        XLuaUiManager.Open("UiPassportTips", rewardGoodsList, "", XUiHelper.GetText("SnowGameGetReward"))
+    end)
 end
 
 return XUiFubenSnowGame

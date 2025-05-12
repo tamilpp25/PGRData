@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 -- 轮次结算界面
 local XUiGuildWarLastResults = XLuaUiManager.Register(XLuaUi, "UiGuildWarLastResults")
 

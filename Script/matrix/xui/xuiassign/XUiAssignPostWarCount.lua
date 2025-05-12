@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local ipairs = ipairs
 local XUiGridTeamInfoExp = require("XUi/XUiAssign/XUiGridTeamInfoExp")
 local XUiAssignPostWarCount = XLuaUiManager.Register(XLuaUi, "UiAssignPostWarCount")
@@ -7,7 +8,9 @@ function XUiAssignPostWarCount:OnAwake()
     self:InitComponent()
 end
 
-function XUiAssignPostWarCount:OnStart(data)
+-- forceOnlyIndex:强制只显示这个梯队的数据
+function XUiAssignPostWarCount:OnStart(data, forceOnlyIndex)
+    self.ForceOnlyIndex = forceOnlyIndex 
     self:ResetDataInfo()
     self:UpdateDataInfo(data)
     self:PlayAnimation(ANIMATION_OPEN)
@@ -72,10 +75,20 @@ function XUiAssignPostWarCount:UpdatePanelEchelonExpContent()
     local baseStageId = groupData:GetBaseStageId()
 
     for index, teamInfoId in ipairs(groupData:GetTeamInfoId()) do
-        local ui = CS.UnityEngine.Object.Instantiate(self.GridEchelonExp)
-        local grid = XUiGridTeamInfoExp.New(self, ui, baseStageId, index, teamInfoId)
-        grid.Transform:SetParent(self.PanelEchelonExpContent, false)
-        grid.GameObject:SetActive(true)
+        local doFun = function ()
+            local ui = CS.UnityEngine.Object.Instantiate(self.GridEchelonExp)
+            local grid = XUiGridTeamInfoExp.New(self, ui, baseStageId, index, teamInfoId)
+            grid.Transform:SetParent(self.PanelEchelonExpContent, false)
+            grid.GameObject:SetActive(true)
+        end
+
+        if self.ForceOnlyIndex then
+            if self.ForceOnlyIndex == index then
+                doFun()
+            end
+        else
+            doFun()
+        end 
     end
 end
 
@@ -84,12 +97,12 @@ function XUiAssignPostWarCount:UpdatePanelPlayer()
     local curLevel = XPlayer.GetLevelOrHonorLevel()
     local curExp = XPlayer.Exp
     local maxExp = XPlayer.GetMaxExp()
-    local baseStageCfg = XDataCenter.FubenManager.GetStageCfg(groupData:GetBaseStageId())
+    local teamExp = XDataCenter.FubenManager.GetTeamExp(groupData:GetBaseStageId())
 
     self.TxtLevel.text = curLevel
     if XPlayer.IsHonorLevelOpen() then
         self.TxtLevelName.text = CS.XTextManager.GetText("HonorLevel")
     end
-    self.TxtAddExp.text = "+ " .. baseStageCfg.TeamExp
+    self.TxtAddExp.text = "+ " .. teamExp
     self.ImgExp.fillAmount = curExp / maxExp
 end

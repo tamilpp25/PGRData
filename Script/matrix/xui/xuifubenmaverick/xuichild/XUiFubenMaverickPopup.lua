@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenMaverickPopup = XLuaUiManager.Register(XLuaUi, "UiFubenMaverickPopup")
 local XUiFubenMaverickStageTipPanel = require("XUi/XUiFubenMaverick/XUiScrollView/XUiFubenMaverickStageTipPanel")
 local Instantiate = CS.UnityEngine.Object.Instantiate
@@ -106,7 +108,7 @@ function XUiFubenMaverickPopup:InitEnemies()
                 XTool.InitUiObjectByUi(grid, ui)
                 self.EnemyGrids[i] = grid
             end
-            local icon = XArchiveConfigs.GetArchiveMonsterConfigById(enemyId).Icon
+            local icon = XMVCA.XArchive:GetArchiveMonsterConfigById(enemyId).Icon
             grid.Icon:SetRawImage(icon)
             grid.GameObject:SetActiveEx(true)
         end

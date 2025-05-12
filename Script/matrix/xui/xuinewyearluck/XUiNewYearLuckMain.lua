@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiNewYearLuckMain = XLuaUiManager.Register(XLuaUi, "UiNewYearLuckMain")
 local XUiGridNewYearLuckTicket = require("XUi/XUiNewYearLuck/XUiGridNewYearLuckTicket")
 
@@ -5,7 +6,7 @@ function XUiNewYearLuckMain:OnStart()
     self:RegisterButtonClick()
     self.ActivityEndTime = XDataCenter.NewYearLuckManager.GetActivityEndTime()
     self.DrawTime = XDataCenter.NewYearLuckManager.GetDrawTime()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     self.UseItemId = XDataCenter.NewYearLuckManager.GetUseItemId()
     self.BtnRule:ShowReddot(XDataCenter.NewYearLuckManager.IsFirstInActivity())
     XDataCenter.ItemManager.AddCountUpdateListener(self.UseItemId, function()

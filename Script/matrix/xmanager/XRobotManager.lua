@@ -8,27 +8,59 @@ local CsXTextManagerGetText = CsXTextManagerGetText
 
 local TABLE_ROBOT = "Share/Robot/Robot.tab"
 local TABLE_ROBOT_PARTNER = "Share/Robot/RobotPartner.tab"
+local TABLE_ROBOT_REBUILD_NPC = "Share/Robot/RobotRebuildNpc.tab"
 
 local RobotTemplates = {}
 local RobotPartnerTemplates = {}
 local Robots = {}
+local RobotRebuildNpc = {}
+local IsRobotRebuildNpcInit = false
 
 XRobotManager = XRobotManager or {}
 
 function XRobotManager.Init()
     RobotTemplates = XTableManager.ReadByIntKey(TABLE_ROBOT, XTable.XTableRobot, "Id")
     RobotPartnerTemplates = XTableManager.ReadByIntKey(TABLE_ROBOT_PARTNER, XTable.XTableRobotPartner, "Id")
+
+    IsRobotRebuildNpcInit = false
+end
+
+function XRobotManager.GetRobotRebuildNpcCfgById(rebuildNpcId)
+    if not IsRobotRebuildNpcInit then
+        RobotRebuildNpc = XTableManager.ReadByIntKey(TABLE_ROBOT_REBUILD_NPC, XTable.XTableRobotRebuildNpc, "RebuildNpcId")
+        IsRobotRebuildNpcInit = true
+    end
+    
+    local cfg = RobotRebuildNpc[rebuildNpcId]
+
+    if not cfg then
+        XLog.Error("XRobotManager.GetRobotRebuildCfgById error: 配置不存在, rebuildNpcId: " .. rebuildNpcId .. ", path: " .. TABLE_ROBOT_REBUILD_NPC)
+    end
+    
+    return cfg
+end
+
+function XRobotManager.GetRobotRebuildNpcBigHeadIcon(rebuildNpcId)
+    local cfg = XRobotManager.GetRobotRebuildNpcCfgById(rebuildNpcId)
+
+    if cfg then
+        return cfg.BigHeadIcon
+    end
 end
 
 local function GetRobot(robotId)
     local robot = Robots[robotId]
     if not robot then
+        if not XRobotManager.TryGetRobotTemplate(robotId) then
+            return
+        end
         robot = XRobot.New(robotId)
         Robots[robotId] = robot
     end
     return robot
 end
 
+---@return XRobot
 function XRobotManager.GetRobotById(robotId)
     return GetRobot(robotId)
 end
@@ -102,8 +134,8 @@ end
 function XRobotManager.GetRobotNpcTemplate(robotId)
     local RobotCfg = RobotTemplates[robotId]
     if not RobotCfg then return end
-    local npcId = XCharacterConfigs.GetCharNpcId(RobotCfg.CharacterId, RobotCfg.CharacterQuality)
-    local template = XCharacterConfigs.GetNpcTemplate(npcId)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(RobotCfg.CharacterId, RobotCfg.CharacterQuality)
+    local template = XMVCA.XCharacter:GetNpcTemplate(npcId)
     return template
 end
 
@@ -124,7 +156,7 @@ end
 function XRobotManager.GetRobotCharacterType(robotId)
     local characterId = XRobotManager.GetCharacterId(robotId)
     if not XTool.IsNumberValid(characterId) then return end
-    return XCharacterConfigs.GetCharacterType(characterId)
+    return XMVCA.XCharacter:GetCharacterType(characterId)
 end
 
 function XRobotManager.GetRobotCharacterLevel(robotId)
@@ -143,7 +175,7 @@ end
 --是否为授格者
 function XRobotManager.IsIsomer(robotId)
     local characterId = XRobotManager.GetCharacterId(robotId)
-    return XCharacterConfigs.IsIsomer(characterId)
+    return XMVCA.XCharacter:GetIsIsomer(characterId)
 end
 
 function XRobotManager.GetRobotIdFilterListByCharacterType(robotIdList, characterType)
@@ -157,10 +189,15 @@ function XRobotManager.GetRobotIdFilterListByCharacterType(robotIdList, characte
     for _, robotId in ipairs(robotIdList) do
         characterId = XRobotManager.GetCharacterId(robotId)
         if characterId > 0 then
-            robotCharacterType = XCharacterConfigs.GetCharacterType(characterId)
-            if robotCharacterType == characterType then
+            robotCharacterType = XMVCA.XCharacter:GetCharacterType(characterId)
+            if characterType then
+                if robotCharacterType == characterType then
+                    tableInsert(filterRobotIdList, robotId)
+                end
+            else
                 tableInsert(filterRobotIdList, robotId)
             end
+            
         end
     end
     return filterRobotIdList
@@ -189,7 +226,7 @@ function XRobotManager.GetRobotSmallHeadIcon(robotId)
     else
         -- 默认时装
         local characterId = XRobotManager.GetCharacterId(robotId)
-        fashionId = XCharacterConfigs.GetCharacterTemplate(characterId).DefaultNpcFashtionId
+        fashionId = XMVCA.XCharacter:GetCharacterTemplate(characterId).DefaultNpcFashtionId
     end
 
     result = isAchieveMaxLiberation and XDataCenter.FashionManager.GetFashionSmallHeadIconLiberation(fashionId) or
@@ -205,10 +242,10 @@ end
 --==============================--
 function XRobotManager.GetRobotCaptainSkillInfo(robotId)
     local robotTemplate = XRobotManager.GetRobotTemplate(robotId)
-    local captianSkillId = XCharacterConfigs.GetCharacterCaptainSkill(robotTemplate.CharacterId)
+    local captianSkillId = XMVCA.XCharacter:GetCharacterCaptainSkill(robotTemplate.CharacterId)
     local skillLevel = 1
 
-    return XCharacterConfigs.GetCaptainSkillInfo(robotTemplate.CharacterId, skillLevel)
+    return XMVCA.XCharacter:GetCaptainSkillInfo(robotTemplate.CharacterId, skillLevel)
 end
 
 --==============================
@@ -316,3 +353,63 @@ function XRobotManager.GetRobotTemp(robotId)
     local robot = GetRobot(robotId)
     return XTool.Clone(robot)
 end
+
+--获取机器人激活的机制id列表
+function XRobotManager.GetRobotCharactersActiveGeneralSkillIdList(robotId)
+    local robot = GetRobot(robotId)
+    local resGenealSkillIdDic = {}
+
+    if XTool.IsTableEmpty(robot) then
+        return {}
+    end
+    
+    -- 已学习的技能id
+    local skillList = robot.Character.SkillList
+    for k, v in pairs(skillList) do
+        local skillId = v.Id
+
+        local allGeneralSkillIdBySkillId = XMVCA.XCharacter:GetModelSkillIdGeneralSkillIdsDic()[skillId]
+        if not XTool.IsTableEmpty(allGeneralSkillIdBySkillId) then
+            for k, data in pairs(allGeneralSkillIdBySkillId) do
+                local generalSkillId = data.GeneralSkillId
+                local needLevel = data.NeedLevel
+                if v.Level >= needLevel then
+                    resGenealSkillIdDic[generalSkillId] = true
+                end
+            end
+        end
+    end
+
+    -- 已学习的跃升/独域技能id
+    local enhanceSkillList = robot.Character.EnhanceSkillList
+    for k, v in pairs(enhanceSkillList) do
+        local enhanceSkillId = v.Id
+
+        local allGeneralSkillIdBySkillId = XMVCA.XCharacter:GetModelEnhanceSkillIdGeneralSkillIdsDic()[enhanceSkillId]
+        if not XTool.IsTableEmpty(allGeneralSkillIdBySkillId) then
+            for k, data in pairs(allGeneralSkillIdBySkillId) do
+                local generalSkillId = data.GeneralSkillId
+                local needLevel = data.NeedLevel
+                if v.Level >= needLevel then
+                    resGenealSkillIdDic[generalSkillId] = true
+                end
+            end
+        end
+    end
+
+    local res = {}
+    for generalSkillId, v in pairs(resGenealSkillIdDic) do
+        table.insert(res, generalSkillId)
+    end
+
+    return res
+end
+
+function XRobotManager.GetRebuildNpcId(robotId)
+    ---@type XTableRobot
+    local cfg = XRobotManager.GetRobotTemplate(robotId)
+
+    if cfg then
+        return cfg.RebuildNpcId
+    end
+end 

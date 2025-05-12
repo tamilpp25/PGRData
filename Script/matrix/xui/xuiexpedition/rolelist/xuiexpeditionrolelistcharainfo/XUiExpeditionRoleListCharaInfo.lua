@@ -33,11 +33,11 @@ function XUiExpeditionRoleListCharaInfo:UpdateView(eCharacterId)
     self.CharacterId = XExpeditionConfig.GetCharacterIdByBaseId(self.ECharacterCfg.BaseId)
     self.RobotId = self.ECharacterCfg.RobotId
     self.RobotCfg = XRobotManager.GetRobotTemplate(self.RobotId)
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
     local jobType = XRobotManager.GetRobotJobType(self.RobotId)
-    self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(jobType))
+    self.RImgTypeIcon:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(jobType))
     self.TxtLv.text = XRobotManager.GetRobotAbility(self.RobotId)
     self.WeaponGrid = self.WeaponGrid or XUiExpeditionEquipGrid.New(self.GridWeapon, nil, self)
     local usingWeaponId = self.RobotCfg.WeaponId
@@ -134,7 +134,7 @@ function XUiExpeditionRoleListCharaInfo:OnBtnWeaponReplaceClick()
 end
 
 function XUiExpeditionRoleListCharaInfo:OnBtnElementDetailClick()
-    XLuaUiManager.Open("UiCharacterElementDetail", self.CharacterId)
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterId, XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
 end
 
 function XUiExpeditionRoleListCharaInfo:OnClickBtnPartner()

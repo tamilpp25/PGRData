@@ -1,3 +1,5 @@
+local XDynamicTableCurve = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableCurve")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --######################## XUiGachaGrid ########################
 local XUiGachaGrid = XClass(nil, "XUiGachaGrid")
 

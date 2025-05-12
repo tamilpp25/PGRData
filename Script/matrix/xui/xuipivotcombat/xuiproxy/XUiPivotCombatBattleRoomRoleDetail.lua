@@ -9,14 +9,9 @@ function XUiPivotCombatRoleGrid:SetData(entity, team, stageId)
     local characterViewModel = entity:GetCharacterViewModel()
     --无论是机器人还是玩家的角色，这里都是CharacterId不是RobotId
     local id = characterViewModel:GetId()
-    local stage = XDataCenter.PivotCombatManager.GetStage(stageId)
-    if not stage or stage:CheckIsScoreStage() then
-        self.ImgLock.gameObject:SetActiveEx(false)
-    else
-        local characterIdDic = XDataCenter.PivotCombatManager.GetLockCharacterDict()
-        local isLock = characterIdDic[id] and true or false
-        self.ImgLock.gameObject:SetActiveEx(isLock)
-    end
+    local locked = XDataCenter.PivotCombatManager.CheckCharacterLocked(stageId, id)
+    self.ImgLock.gameObject:SetActiveEx(locked)
+    
 end
 
 
@@ -36,7 +31,7 @@ function XUiPivotCombatBattleRoomRoleDetail:Ctor(stageId, team, pos)
 end
 
 function XUiPivotCombatBattleRoomRoleDetail:AOPOnStartBefore(rootUi)
-    self.Entities = {}
+    
 end
 
 function XUiPivotCombatBattleRoomRoleDetail:GetGridProxy()
@@ -44,12 +39,16 @@ function XUiPivotCombatBattleRoomRoleDetail:GetGridProxy()
 end
 
 function XUiPivotCombatBattleRoomRoleDetail:GetDefaultCharacterType()
-    local roles = self:GetEntities(XCharacterConfigs.CharacterType.Isomer)
-    return #roles > 0 and XCharacterConfigs.CharacterType.Isomer or XCharacterConfigs.CharacterType.Normal
+    local roles = self:GetEntities(XEnumConst.CHARACTER.CharacterType.Isomer)
+    return #roles > 0 and XEnumConst.CHARACTER.CharacterType.Isomer or XEnumConst.CHARACTER.CharacterType.Normal
 end
 
 --获取角色
 function XUiPivotCombatBattleRoomRoleDetail:GetEntities(characterType)
+    if self.Entities == nil then
+        self.Entities = {}
+    end
+    
     local result = {}
     if XTool.IsTableEmpty(self.Entities[characterType]) then
         self.Entities[characterType] = XDataCenter.PivotCombatManager.GetFightEntities(characterType)
@@ -80,47 +79,42 @@ function XUiPivotCombatBattleRoomRoleDetail:CheckCustomLimit(entityId)
     if not XTool.IsNumberValid(entityId) then
         return false
     end
-    local stage = XDataCenter.PivotCombatManager.GetStage(self.StageId)
-    local isLock = false
-    --积分关不锁角色
-    if not stage or stage:CheckIsScoreStage() then
-        return isLock
-    end
     local entity = self.Super.GetCharacterViewModelByEntityId(self, entityId)
     local id = entity and entity:GetId() or 0
-    local characterIdDic = XDataCenter.PivotCombatManager.GetLockCharacterDict()
-    isLock = characterIdDic[id] and true or false
-    if isLock then
+    local locked = XDataCenter.PivotCombatManager.CheckCharacterLocked(self.StageId, id)
+    if locked then
         XUiManager.TipError(XUiHelper.GetText("PivotCombatRoleLockTips"))
     end
-    return isLock
+    return locked
 end
 
 function XUiPivotCombatBattleRoomRoleDetail:AOPOnBtnJoinTeamClickedBefore(rootUi)
     local entity = self.Super.GetCharacterViewModelByEntityId(self, rootUi.CurrentEntityId)
     local id = entity and entity:GetId() or 0
-    local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(id)
+    local isOwn = XMVCA.XCharacter:IsOwnCharacter(id)
     if not isOwn then return end
-   
+    local isRobot = XRobotManager.CheckIsRobotId(rootUi.CurrentEntityId)
+    if isRobot then return false end
+
     local condition = XPivotCombatConfigs.GetSpecialSkillCheck(id)
-    
+
 
     if not condition then return end
 
     local unlock, desc = XConditionManager.CheckCondition(condition, id)
-   
-   
+
+
     local negativeCb = function()
         --打开新的界面，会打断原来的界面关闭，这里重新关闭
-        rootUi:Close(true) 
+        rootUi:Close(true)
     end
-   
+
     local positiveCb = function()
         XLuaUiManager.Open("UiCharacter", id, nil, nil, nil, true, nil, nil, EnhanceSkill)
     end
 
     if not unlock then
-         XDataCenter.PivotCombatManager.ShowDialogHintTip(id, negativeCb, positiveCb)
+        XDataCenter.PivotCombatManager.ShowDialogHintTip(id, negativeCb, positiveCb)
     end
     return false
 end

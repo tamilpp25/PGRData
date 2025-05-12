@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiPanelStageDetail = XClass(nil, "XUiPanelStageDetail")
 local XUiPanelStagInfo = require("XUi/XUiArenaOnline/XUiPanelStagInfo")
 local XUiPanelTargetInfo = require("XUi/XUiArenaOnline/XUiPanelTargetInfo")
@@ -136,7 +137,7 @@ function XUiPanelStageDetail:OnBtnCreateRoomClick()
             local data = {ChallengeId = self.StageId}
             local cfg = XDataCenter.ArenaOnlineManager.GetArenaOnlineStageCfgStageId(self.StageId)
             local levelControl = XFubenConfigs.GetStageMultiplayerLevelControlCfgById(cfg.SingleDiff[1])
-            XLuaUiManager.Open("UiNewRoomSingle", levelControl.StageId, data)
+            XLuaUiManager.Open("UiBattleRoleRoom", levelControl.StageId, data)
     end
 end
 

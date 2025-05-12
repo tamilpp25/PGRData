@@ -1,3 +1,4 @@
+---@class XLuaBehaviorNode 行为节点类
 XLuaBehaviorNode = XClass(nil, "XLuaBehaviorNode")
 
 function XLuaBehaviorNode:Ctor(className, nodeProxy)

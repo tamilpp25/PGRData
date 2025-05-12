@@ -1,4 +1,5 @@
-XUiPanelDaily = XClass(nil, "XUiPanelDaily")
+local XUiPanelMsgBoard = require("XUi/XUiPersonalInfo/PanelBoard/MsgBoard/XUiPanelMsgBoard")
+local XUiPanelDaily = XClass(nil, "XUiPanelDaily")
 
 function XUiPanelDaily:Ctor(ui,rootUi)
     self.GameObject = ui.gameObject
@@ -43,7 +44,7 @@ function XUiPanelDaily:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -90,3 +91,5 @@ end
 function XUiPanelDaily:OnClose()
     -- body
 end
+
+return XUiPanelDaily

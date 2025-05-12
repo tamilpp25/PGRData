@@ -1,3 +1,4 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local XUiGridWordItem = XClass(nil, "XUiGridWordItem")
 
 function XUiGridWordItem:Ctor(rootUi, ui)

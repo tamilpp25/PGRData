@@ -165,7 +165,7 @@ function XNieRCharacter:GetNieRWeaponLevel()
     local weaponLevel = self.LevelConfig.WeaponLevel
     local limitLevel = 0
     if self.AbilityConfig.WeaponId then
-        limitLevel = XDataCenter.EquipManager.GetBreakthroughLevelLimitByTemplateId(self.AbilityConfig.WeaponId, self:GetNieRWeaponBreakThrough())
+        limitLevel = XMVCA.XEquip:GetEquipBreakthroughLevelLimit(self.AbilityConfig.WeaponId, self:GetNieRWeaponBreakThrough())
         weaponLevel = weaponLevel > limitLevel and limitLevel or weaponLevel
     else
         weaponLevel = 1
@@ -187,7 +187,7 @@ function XNieRCharacter:GetNieRWaferLevel(waferId)
     local waferLevel = self.LevelConfig.WaferLevel
     local limitLevel = 0
     if self.AbilityConfig.Wafers[waferId] then
-        limitLevel = XDataCenter.EquipManager.GetBreakthroughLevelLimitByTemplateId(waferId, self:GetNieRWaferBreakThroughById(waferId))
+        limitLevel = XMVCA.XEquip:GetEquipBreakthroughLevelLimit(waferId, self:GetNieRWaferBreakThroughById(waferId))
         waferLevel = waferLevel > limitLevel and limitLevel or waferLevel
     else
         waferLevel = 1
@@ -309,7 +309,7 @@ function XNieRCharacter:UpdateAbility()
             skillData[skillId] = skillLevel
         end
     end
-    local skillAbility = XDataCenter.CharacterManager.GetSkillAbility(skillData)
+    local skillAbility = XMVCA.XCharacter:GetSkillAbility(skillData)
     self.AbilityNum = attribAbility + skillAbility
 end
 
@@ -327,8 +327,7 @@ function XNieRCharacter:GetRobotCharacterId()
 end
 
 function XNieRCharacter:GetRobotCharacterCareerType()
-    local characterDetailCfg = XCharacterConfigs.GetCharDetailTemplate(self:GetRobotCharacterId())
-    return characterDetailCfg.Career
+    return XMVCA.XCharacter:GetCharDetailCareer(self:GetRobotCharacterId())
 end
 
 function XNieRCharacter:GetNieRCharacterUpLevelItemId()
@@ -349,7 +348,7 @@ end
 
 function XNieRCharacter:GetNieRCharName()
     local characterId = self:GetRobotCharacterId()
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     local nameStr = charConfig.Name
     -- if charConfig.TradeName ~= "" then
     --     nameStr = nameStr .. "·" .. charConfig.TradeName

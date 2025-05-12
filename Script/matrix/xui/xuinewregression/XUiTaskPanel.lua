@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiTaskPanel = XClass(XSignalData, "XUiTaskPanel")
 
 function XUiTaskPanel:Ctor(ui, rootUi)

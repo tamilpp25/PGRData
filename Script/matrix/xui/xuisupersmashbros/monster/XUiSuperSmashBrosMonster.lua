@@ -77,12 +77,18 @@ function XUiSuperSmashBrosMonster:UpdateModel()
         self.ImgEffectHuanren.gameObject:SetActiveEx(true)
         self:LoadModelCallBack(model)
     end
-    self.MonsterModel:UpdateBossModel(self.Monster:GetMainMonsterModelName(), nil, nil, function(model) self:LoadModelCallBack(model) end, true)
+    self.MonsterModel:UpdateBossModel(self.Monster:GetMainMonsterModelName(), self.Name, nil, function(model) self:LoadModelCallBack(model) end, true)
 end
 --================
 --读取模型后回调
 --================
 function XUiSuperSmashBrosMonster:LoadModelCallBack(model)
+    local uiName = self.Name
+    local modelName = self.Monster:GetMainMonsterModelName()
+    local uiTransformConfig = XModelManager.GetRoleModelConfig(uiName, modelName)
+    if uiTransformConfig then
+        return
+    end
     local scale = self.Monster and self.Monster:GetMainMonsterModelScale()
     model.transform.localScale = CS.UnityEngine.Vector3(scale, scale, scale)
 end

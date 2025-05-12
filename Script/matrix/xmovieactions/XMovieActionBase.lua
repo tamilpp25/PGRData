@@ -10,8 +10,6 @@ local ActionStatus = {
     TERMINATED = "TERMINATED"
 }
 
-local _ActiveActionCount = 0 --记录所有已激活剧情节点，用于判断退出剧情后所有节点清理行为完全结束的状态
-
 XMovieActionBase = XClass(nil, "XMovieActionBase")
 
 function XMovieActionBase:Ctor(actionData)
@@ -30,6 +28,10 @@ function XMovieActionBase:Ctor(actionData)
     XEventManager.AddEventListener(XEventId.EVENT_MOVIE_UI_OPEN, self.InitUiRoot, self)
     XEventManager.AddEventListener(XEventId.EVENT_MOVIE_UI_DESTROY, self.ClearUiRoot, self)
     XEventManager.AddEventListener(XEventId.EVENT_MOVIE_AUTO_PLAY, self.OnSwitchAutoPlay, self)
+end
+
+function XMovieActionBase:GetActionId()
+    return self.ActionId
 end
 
 function XMovieActionBase:GetNextActionId()
@@ -81,25 +83,15 @@ function XMovieActionBase:IsWaiting()
 end
 
 function XMovieActionBase:InitUiRoot(uiRoot)
-    _ActiveActionCount = _ActiveActionCount + 1
-
     self.UiRoot = uiRoot
     self:OnUiRootInit(uiRoot)
 end
 
 function XMovieActionBase:ClearUiRoot()
     self.UiRoot = {}
-    if self.DelayId then
-        CSXScheduleManagerUnSchedule(self.DelayId)
-        self.DelayId = nil
-    end
+    self:ClearDelayId()
     self.Status = ActionStatus.UNINIIALIZED
     self:OnUiRootDestroy()
-
-    _ActiveActionCount = _ActiveActionCount - 1
-    if _ActiveActionCount == 0 then
-        XEventManager.DispatchEvent(XEventId.EVENT_MOVIE_UI_CLOSED)
-    end
 end
 
 function XMovieActionBase:Enter()
@@ -122,6 +114,10 @@ function XMovieActionBase:Run()
     end
     self:OnRunning()
     self:ChangeStatus()
+    -- 调试模式发送
+    if CS.XApplication.Debug then
+        CS.XGameEventManager.Instance:Notify(XEventId.EVENT_MOVIE_NEXT, self)
+    end
 end
 
 function XMovieActionBase:Exit()
@@ -135,7 +131,8 @@ function XMovieActionBase:Destroy()
     if self.Status ~= ActionStatus.TERMINATED then
         return
     end
-    self.Status = ActionStatus.UNINIIALIZED
+
+    --self.Status = ActionStatus.UNINIIALIZED
     self:OnDestroy()
     return true
 end
@@ -200,6 +197,7 @@ function XMovieActionBase:ChangeStatus(delay, animName)
             return
         end
 
+        self:StopAnimtion(anim)
         anim.gameObject:SetActiveEx(true)
         if not anim.gameObject.activeInHierarchy then
             return
@@ -219,6 +217,14 @@ function XMovieActionBase:ChangeStatus(delay, animName)
     end
 end
 
+function XMovieActionBase:ClearDelayId()
+    if self.DelayId then
+        CSXScheduleManagerUnSchedule(self.DelayId)
+        self.DelayId = nil
+    end
+    self.Lock = false
+end
+
 function XMovieActionBase:OnUiRootInit()
 end
 
@@ -232,6 +238,9 @@ function XMovieActionBase:OnRunning()
 end
 
 function XMovieActionBase:OnExit()
+    -- 请求记录当前ActionId已读
+    local movieId = XDataCenter.MovieManager.GetCurPlayingMovieId()
+    XMVCA.XMovie:RequestRecordOption(movieId, self.ActionId)
 end
 
 function XMovieActionBase:OnDestroy()
@@ -249,4 +258,12 @@ function XMovieActionBase:OnReset()
 end
 
 function XMovieActionBase:OnUndo()
+end
+
+-- 停止动画，触发结束回调
+function XMovieActionBase:StopAnimtion(anim)
+    local timelineAnimation = anim.transform:GetComponent(typeof(CS.XUiPlayTimelineAnimation))
+    if timelineAnimation then
+        timelineAnimation:Stop(false)
+    end
 end

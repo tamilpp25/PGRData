@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridObtain = require("XUi/XUiFurnitureRecycleObtain/XUiGridObtain")
 local XUiFurnitureObtain = XLuaUiManager.Register(XLuaUi, "UiFurnitureObtain")
 local FurnitureState
@@ -20,31 +21,37 @@ function XUiFurnitureObtain:AddListener()
     self:RegisterClickEvent(self.TogLevelC, self.OnTogLevelCClick)
 end
 
-function XUiFurnitureObtain:OnStart(gainType, furnitueList, refitCallBack, createCoinCount, createPos, resetCallBack)
-    self.ResetCallBack = resetCallBack
+function XUiFurnitureObtain:OnStart(gainType, furnitureList, refitCallBack, createCoinCount, isCloseBatchRecovery, isCloseBatchRemake, isCloseBatchRefit)
     self.RefitCallBack = refitCallBack
     self.FurnitureState = FurnitureState.DETAILS
     self.IsRecovery = false
     self.GainType = gainType
     self.CreateCoinCount = createCoinCount or 0
-    self.CreatePos = createPos or 0
+    
+    self.IsCloseBatchRecovery = isCloseBatchRecovery
+    self.IsCloseBatchRemake = isCloseBatchRemake
+    self.BtnBatchRecovery.gameObject:SetActiveEx(not isCloseBatchRecovery)
+    self.BtnBatchReset.gameObject:SetActiveEx(not isCloseBatchRemake)
+    self.BtnBatchRefit.gameObject:SetActiveEx(not isCloseBatchRefit)
 
-    self:InitFurnitureDatas(furnitueList)
+    self:InitFurnitureDatas(furnitureList)
     self:InitDynamicTable()
     self:InitBtnState()
 end
 
 function XUiFurnitureObtain:OnEnable()
-    XEventManager.AddEventListener(XEventId.EVENT_CLICKFURNITURE_GRID, self.OnObtainGridClick, self)
+    XEventManager.AddEventListener(XEventId.EVENT_CLICK_FURNITURE_GRID, self.OnObtainGridClick, self)
 end
 
 function XUiFurnitureObtain:OnDisable()
-    XEventManager.RemoveEventListener(XEventId.EVENT_CLICKFURNITURE_GRID, self.OnObtainGridClick, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_CLICK_FURNITURE_GRID, self.OnObtainGridClick, self)
 end
 
 function XUiFurnitureObtain:InitFurnitureDatas(furnitueList)
     self.FurnitureIds = {}
+    self.OriginFurnitureIds = {}
     self.FurnitureLevelDic = {}
+    self.ContainFurnitureIdDict = {}
 
     if not furnitueList or #furnitueList <= 0 then
         return
@@ -58,6 +65,8 @@ function XUiFurnitureObtain:InitFurnitureDatas(furnitueList)
 
     for _, furniture in ipairs(furnitueList) do
         table.insert(self.FurnitureIds, furniture.Id)
+        table.insert(self.OriginFurnitureIds, furniture.Id)
+        self.ContainFurnitureIdDict[furniture.Id] = true
 
         local furnitureType = XDataCenter.FurnitureManager.GetFurnitureConfigByUniqueId(furniture.Id).TypeId
         local totalScore = XDataCenter.FurnitureManager.GetFurnitureScore(furniture.Id)
@@ -84,6 +93,13 @@ function XUiFurnitureObtain:InitFurnitureDatas(furnitueList)
     end
 end
 
+function XUiFurnitureObtain:UpdateContainFurnitureIdDict()
+    self.ContainFurnitureIdDict = {}
+    for _, id in ipairs(self.FurnitureIds) do
+        self.ContainFurnitureIdDict[id] = true
+    end
+end
+
 function XUiFurnitureObtain:InitDynamicTable()
     self.ObtainGrid.gameObject:SetActiveEx(false)
     self.DynamicTable = XDynamicTableNormal.New(self.PanelDynamic)
@@ -107,8 +123,8 @@ function XUiFurnitureObtain:UpdateDynamicTable()
 end
 
 function XUiFurnitureObtain:InitBtnState()
-    local isCreate = self.GainType == XFurnitureConfigs.GainType.Create
-    self.BtnBatchReset.gameObject:SetActiveEx(isCreate)
+    local isCreate = self:IsCreate() or self:IsRemake()
+    self.BtnBatchReset.gameObject:SetActiveEx(isCreate and not self.IsCloseBatchRemake)
     self.BtnBatchRefit.gameObject:SetActiveEx(not isCreate)
     local icon = XDataCenter.ItemManager.GetItemIcon(XDataCenter.ItemManager.ItemId.FurnitureCoin)
     self.RImgIcon:SetRawImage(icon)
@@ -120,10 +136,13 @@ function XUiFurnitureObtain:ChangeUiState()
     self.FurnitureSelectList = {}
     self.FurnitureSelectCount = 0
     self.SelectQualityList = {}
-
     if self.FurnitureState == FurnitureState.DETAILS then
         self.PanelBatch.gameObject:SetActiveEx(true)
         self.PanelEdit.gameObject:SetActiveEx(false)
+        if #self.FurnitureIds ~= #self.OriginFurnitureIds then
+            self.FurnitureIds = XTool.Clone(self.OriginFurnitureIds)
+            self:UpdateContainFurnitureIdDict()
+        end
     elseif self.FurnitureState == FurnitureState.SELECT then
         self.PanelBatch.gameObject:SetActiveEx(false)
         self.PanelEdit.gameObject:SetActiveEx(true)
@@ -131,7 +150,7 @@ function XUiFurnitureObtain:ChangeUiState()
         self.TogLevelB.isOn = false
         self.TogLevelC.isOn = false
 
-        local isCreate = self.GainType == XFurnitureConfigs.GainType.Create
+        local isCreate = self:IsCreate() or self:IsRemake()
         self.BtnReset.gameObject:SetActiveEx(not self.IsRecovery and isCreate)
         self.BtnRefit.gameObject:SetActiveEx(not self.IsRecovery and not isCreate)
         self.TxtDesc.gameObject:SetActiveEx(self.IsRecovery or isCreate)
@@ -141,6 +160,12 @@ function XUiFurnitureObtain:ChangeUiState()
             local text = self.IsRecovery and CS.XTextManager.GetText("DormObtainRecovery") or CS.XTextManager.GetText("DormObtainReset")
             self.TxtDesc.text = text
         end
+        -- 回收时移除屏蔽掉的家具
+        if self.IsRecovery then
+            self.FurnitureIds = self:GetFilterRemoveFurnitureIds()
+            self:UpdateContainFurnitureIdDict()
+        end
+        
         self:SetCoinCount()
     end
 
@@ -153,8 +178,7 @@ function XUiFurnitureObtain:SetCoinCount()
         self.TxtCoin.text = 0
         return
     end
-
-    local isCreate = self.GainType == XFurnitureConfigs.GainType.Create
+    
     local getRewardCount = function()
         local count = 0
         local rewards = XDataCenter.FurnitureManager.GetRecycleRewards(self:GetFurnitureList())
@@ -169,15 +193,34 @@ function XUiFurnitureObtain:SetCoinCount()
     end
     if self.IsRecovery then
         self.TxtCoin.text = getRewardCount()
-    elseif isCreate then
-        local rewardCount = getRewardCount()
-        local createCount = self.CreateCoinCount * self.FurnitureSelectCount
-        local count = (createCount - rewardCount) > 0 and createCount - rewardCount or 0
-        local currentOwn = XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.FurnitureCoin) + rewardCount
-        self.IsRefitCoinEnough = currentOwn >= createCount
+    elseif self:IsCreate() or self:IsRemake() then
+        local count = self:GetConsumeCount()
+        local currentOwn = XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.FurnitureCoin)
+        self.IsRefitCoinEnough = currentOwn >= count
         self.TxtCoin.text = self.IsRefitCoinEnough and CS.XTextManager.GetText("DormBuildEnoughCount", count)
         or CS.XTextManager.GetText("DormBuildNoEnoughCount", count)
     end
+end
+
+function XUiFurnitureObtain:GetConsumeCount()
+    local list = self:GetFurnitureList()
+    if XTool.IsTableEmpty(list) then
+        return 0
+    end
+
+    local coin = 0
+    local coinId = XDataCenter.ItemManager.ItemId.FurnitureCoin
+    for _, furnitureId in pairs(list) do
+        local furniture = XDataCenter.FurnitureManager.GetFurnitureById(furnitureId)
+        if furniture then
+            local rewards = XDataCenter.FurnitureManager.GetRemakeRewards(furnitureId)
+            local rewardCount = rewards[coinId] and rewards[coinId].Count or 0
+            local coinA, coinB, coinC = furniture:GetBaseAttr()
+            coin = coin + coinA + coinB + coinC - rewardCount
+        end
+    end
+    
+    return coin
 end
 
 function XUiFurnitureObtain:CheckIncludeLevelS()
@@ -220,6 +263,20 @@ function XUiFurnitureObtain:GetFurnitureList()
     return list
 end
 
+function XUiFurnitureObtain:GetFilterRemoveFurnitureIds()
+    if self.FilterRemoveIds then
+        return self.FilterRemoveIds
+    end
+    local list = {}
+    for _, id in ipairs(self.OriginFurnitureIds) do
+        if not XDataCenter.FurnitureManager.IsIgnoreRecoverySuit(id) then
+            table.insert(list, id)
+        end
+    end
+    self.FilterRemoveIds = list
+    return list
+end
+
 function XUiFurnitureObtain:RemoveSelectQuality(quality, closeTog)
     local removeIndex
     for i, k in ipairs(self.SelectQualityList) do
@@ -248,10 +305,18 @@ function XUiFurnitureObtain:RemoveSelectQuality(quality, closeTog)
     end
 end
 
+function XUiFurnitureObtain:IsCreate()
+    return self.GainType == XFurnitureConfigs.GainType.Create
+end
+
+function XUiFurnitureObtain:IsRemake()
+    return self.GainType == XFurnitureConfigs.GainType.Remake
+end
+
 --------------------------------- 点击事件相关(Start) ---------------------------------
 function XUiFurnitureObtain:OnObtainGridClick(furnitureId, furnitureConfigId, grid)
     if self.FurnitureState == FurnitureState.DETAILS then
-        XLuaUiManager.Open("UiFurnitureDetail", furnitureId, furnitureConfigId, nil, nil, true, true)
+        XLuaUiManager.Open("UiFurnitureDetail", furnitureId, furnitureConfigId, nil, nil, true, true, true)
     elseif self.FurnitureState == FurnitureState.SELECT then
         grid:SetSelected(not grid:IsSelected())
         for myId, _ in pairs(self.FurnitureSelectList) do
@@ -328,11 +393,11 @@ function XUiFurnitureObtain:OnTogLevelClick(tog, quality, isFresh)
         end
     else
         table.insert(self.SelectQualityList, quality)
-
+        
         -- 添加到选择列表
         local levelIdList = self.FurnitureLevelDic[quality] or {}
         for _, id in ipairs(levelIdList) do
-            if not self.FurnitureSelectList[id] then
+            if self.ContainFurnitureIdDict[id] and not self.FurnitureSelectList[id] then
                 self.FurnitureSelectList[id] = true
                 self.FurnitureSelectCount = self.FurnitureSelectCount + 1
             end
@@ -358,8 +423,8 @@ function XUiFurnitureObtain:OnBtnResetClick()
             return
         end
 
-        if #furnitureList > XFurnitureConfigs.MaxCreateCount then
-            XUiManager.TipMsg(CS.XTextManager.GetText("DormBuildMaxCount", XFurnitureConfigs.MaxCreateCount))
+        if #furnitureList > XFurnitureConfigs.MaxRemakeCount then
+            XUiManager.TipMsg(CS.XTextManager.GetText("DormBuildMaxCount", XFurnitureConfigs.MaxRemakeCount))
             return
         end
         for _, furnitureId in pairs(furnitureList) do
@@ -368,12 +433,11 @@ function XUiFurnitureObtain:OnBtnResetClick()
                 return
             end
         end
-        XDataCenter.FurnitureManager.FurnitureRemake(self.CreatePos, furnitureList, function()
+        local furnitureId = furnitureList[1]
+        local furniture = XDataCenter.FurnitureManager.GetFurnitureById(furnitureId)
+        local costA, costB, costC = furniture:GetBaseAttr()
+        XDataCenter.FurnitureManager.FurnitureRemake(furnitureList, costA, costB, costC, nil, function() 
             self:Close()
-
-            if self.ResetCallBack then
-                self.ResetCallBack(self.CreatePos)
-            end
         end)
     end
 
@@ -403,24 +467,8 @@ function XUiFurnitureObtain:OnBtnRecoveryClick()
                 return
             end
         end
-
-        XDataCenter.FurnitureManager.DecomposeFurniture(furnitureList, function(rewardItems, successIds, isFailed)
-            if not isFailed then
-                -- 打开回收界面
-                XLuaUiManager.Open("UiDormBagRecycle", furnitureList, rewardItems, nil, function()
-                    self:Close()
-                end)
-    
-                -- 将分解成功的家具从缓存中移除
-                for _, id in ipairs(successIds) do
-                    -- local configId = XDataCenter.FurnitureManager.GetFurnitureConfigId(id)
-                    XDataCenter.FurnitureManager.RemoveFurniture(id)
-                end
-
-                -- 删除红点
-                XDataCenter.FurnitureManager.DeleteNewHint(successIds)
-            end
-        end)
+        self:Close()
+        XDataCenter.FurnitureManager.DecomposeFurniture(furnitureList)
     end
 
     if self:CheckIncludeLevelS() then

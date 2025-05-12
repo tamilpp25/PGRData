@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --大逃杀任务界面
 local XUiEscapeTask = XLuaUiManager.Register(XLuaUi, "UiEscapeTask")
 

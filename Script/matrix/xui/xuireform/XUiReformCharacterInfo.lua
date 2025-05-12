@@ -20,7 +20,7 @@ function XUiReformAwarenessGrid:SetData(data)
     -- 共鸣
     local ResonanceInfos = data:GetResonanceInfos()
     local obj = nil
-    for i = 1, XEquipConfig.MAX_RESONANCE_SKILL_COUNT do
+    for i = 1, XEnumConst.EQUIP.MAX_RESONANCE_SKILL_COUNT do
         obj = self["ImgResonance" .. i]
         if obj then
             if ResonanceInfos and ResonanceInfos[i] then
@@ -34,7 +34,7 @@ function XUiReformAwarenessGrid:SetData(data)
     local breakthrough = data:GetBreakthrough()
     if breakthrough ~= 0 then
         self.ImgBreakthrough.gameObject:SetActiveEx(true)
-        local breakthroughIcon = XEquipConfig.GetEquipBreakThroughSmallIcon(breakthrough)
+        local breakthroughIcon = XMVCA.XEquip:GetEquipBreakThroughSmallIcon(breakthrough)
         self.ImgBreakthrough:SetSprite(breakthroughIcon)
     else
         self.ImgBreakthrough.gameObject:SetActiveEx(false)
@@ -62,11 +62,11 @@ function XUiReformWeaponGrid:SetData(data)
     -- 共鸣
     local ResonanceInfos = data:GetResonanceInfos()
     local obj = nil
-    for i = 1, XEquipConfig.MAX_RESONANCE_SKILL_COUNT do
+    for i = 1, XEnumConst.EQUIP.MAX_RESONANCE_SKILL_COUNT do
         obj = self["ImgResonance" .. i]
         if obj then
             if ResonanceInfos and ResonanceInfos[i] then
-                obj:SetSprite(XEquipConfig.GetEquipResoanceIconPath(false))
+                obj:SetSprite(XMVCA.XEquip:GetResoanceIconPath(false))
                 obj.gameObject:SetActiveEx(true)
             else
                 obj.gameObject:SetActiveEx(false)
@@ -77,7 +77,7 @@ function XUiReformWeaponGrid:SetData(data)
     local breakthrough = data:GetBreakthrough()
     if breakthrough ~= 0 then
         self.ImgBreakthrough.gameObject:SetActiveEx(true)
-        local breakthroughIcon = XEquipConfig.GetEquipBreakThroughSmallIcon(breakthrough)
+        local breakthroughIcon = XMVCA.XEquip:GetEquipBreakThroughSmallIcon(breakthrough)
         self.ImgBreakthrough:SetSprite(breakthroughIcon)
     else
         self.ImgBreakthrough.gameObject:SetActiveEx(false)
@@ -125,7 +125,7 @@ function XUiReformCharacterInfo:SetData(source)
         rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActiveEx(true)
-            rImg:SetRawImage(XCharacterConfigs.GetCharElement(elementList[i]).Icon)
+            rImg:SetRawImage(XMVCA.XCharacter:GetCharElement(elementList[i]).Icon)
         else
             rImg.gameObject:SetActiveEx(false)
         end
@@ -140,7 +140,7 @@ function XUiReformCharacterInfo:SetData(source)
     -- 意识
     local awarenessViewModelDic = robot:GetAwarenessViewModelDic()
     local awarenessViewModel = nil
-    for _, equipSite in pairs(XEquipConfig.EquipSite.Awareness) do
+    for _, equipSite in pairs(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS) do
         self.UiAwarenessGridDic[equipSite] = self.UiAwarenessGridDic[equipSite] 
             or XUiReformAwarenessGrid.New(CS.UnityEngine.Object.Instantiate(self.GridAwareness))
         self.UiAwarenessGridDic[equipSite].Transform:SetParent(self["PanelAwareness" .. equipSite], false)
@@ -186,7 +186,7 @@ function XUiReformCharacterInfo:OnBtnCareerTipsClicked()
 end
 
 function XUiReformCharacterInfo:OnBtnElementDetailClicked()
-    XLuaUiManager.Open("UiCharacterElementDetail", XRobotManager.GetCharacterId(self.Source:GetRobotId()))
+    XLuaUiManager.Open("UiCharacterAttributeDetail", XRobotManager.GetCharacterId(self.Source:GetRobotId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element))
 end
 
 function XUiReformCharacterInfo:OnBtnWeaponReplaceClicked()

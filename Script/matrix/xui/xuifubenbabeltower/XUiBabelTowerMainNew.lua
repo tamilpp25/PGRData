@@ -1,9 +1,12 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridBabelStageItem = require("XUi/XUiFubenBabelTower/XUiGridBabelStageItem")
 local XUiBabelTowerMainReproduce = require("XUi/XUiFubenBabelTower/XUiBabelTowerMainReproduce")
 
 local SWITH_BG_TIME = 10 * XScheduleManager.SECOND
 local SWITH_BG_INDEX = { 2, 1 }
 
+---@class XUiBabelTowerMainNew : XLuaUi
 local XUiBabelTowerMainNew = XLuaUiManager.Register(XLuaUi, "UiBabelTowerMainNew")
 
 function XUiBabelTowerMainNew:OnAwake()
@@ -14,8 +17,10 @@ function XUiBabelTowerMainNew:OnAwake()
     -- 当前活动总配置
     self.CurrentActivityTemplate = nil
     -- 章节Grid数组
+    ---@type XUiGridBabelStageItem[]
     self.StageGridChapter = nil
     -- 复刻界面管理
+    ---@type XUiBabelTowerMainReproduce
     self.UiBabelTowerMainReproduce = XUiBabelTowerMainReproduce.New(self.PanelReprint)
     -- 初始化页面状态
     self:InitPanel()
@@ -62,20 +67,14 @@ function XUiBabelTowerMainNew:OnEnable()
     self:OnActivityStatusChanged()
     -- if not XLuaUiManager.IsUiShow("UiBabelTowerMainNew") then return end
     if self.UiProxy == nil then return end
-
-    self:PlayAnimation("AnimStartEnable", function()
-        XLuaUiManager.SetMask(false)
-    end, function()
-        XLuaUiManager.SetMask(true)
-    end)
-
     self:PlayLoopBgAnimation()
     XRedPointManager.CheckOnce(self.OnCheckTaskRedPoint, self, { XRedPointConditions.Types.CONDITION_ACTIVITYBRIE_BABELTOWER_REWARD }
         , XFubenBabelTowerConfigs.ActivityType.Normal)
     -- 如果正常的到期了，复刻开启，直接打开复刻
     if not self.FubenBabelTowerManager.GetIsOpen() or self.ActivityType == XFubenBabelTowerConfigs.ActivityType.Extra then
-        self:OnBtnUiReprintClicked() 
+        self:OnBtnUiReprintClicked()
     else
+        self:UpdateReprintBtnState()
         -- 检查按钮小红点
         XRedPointManager.CheckOnceByButton(self.BtnUiReprint
             , { XRedPointConditions.Types.CONDITION_ACTIVITYBRIE_BABELTOWER_REWARD }, XFubenBabelTowerConfigs.ActivityType.Extra)
@@ -94,6 +93,15 @@ end
 
 function XUiBabelTowerMainNew:OnDestroy()
     self:UnRegisterEventListeners()
+    -- 停止所有关卡倒计时
+    if not XTool.IsTableEmpty(self.StageGridChapter) then
+        for _, stageItem in pairs(self.StageGridChapter) do
+            stageItem:StopTimer()
+        end
+    end
+    if self.UiBabelTowerMainReproduce then
+        self.UiBabelTowerMainReproduce:OnDestroy()
+    end
 end
 
 --######################## 私有方法 ########################
@@ -149,6 +157,14 @@ function XUiBabelTowerMainNew:OnBeginDrag(eventData)
     self.PreY = self.PanelTaskList.verticalNormalizedPosition
 end
 
+function XUiBabelTowerMainNew:UpdateReprintBtnState()
+    if self.ReproduceManager:GetIsOpen() then
+        self.BtnUiReprint:SetDisable(false)
+    else
+        self.BtnUiReprint:SetDisable(true)
+    end
+end
+
 function XUiBabelTowerMainNew:OnBtnUiReprintClicked()
     -- 检查是否已开放
     if not self.ReproduceManager:GetIsOpen(true) then
@@ -182,12 +198,11 @@ function XUiBabelTowerMainNew:OnReproduceUiHide()
     -- 检查按钮小红点
     XRedPointManager.CheckOnceByButton(self.BtnUiReprint
     , { XRedPointConditions.Types.CONDITION_ACTIVITYBRIE_BABELTOWER_REWARD }, XFubenBabelTowerConfigs.ActivityType.Extra)
+    self:UpdateReprintBtnState()
 end
 
 function XUiBabelTowerMainNew:OnBtnRankClick()
-    self.FubenBabelTowerManager.GetRank(self.FubenBabelTowerManager.GetCurrentActivityNo(), function()
-        XLuaUiManager.Open("UiFubenBabelTowerRank", XFubenBabelTowerConfigs.ActivityType.Normal)
-    end)
+    XLuaUiManager.Open("UiFubenBabelTowerRank", XFubenBabelTowerConfigs.ActivityType.Normal)
 end
 
 function XUiBabelTowerMainNew:OnBtnBackClick()
@@ -262,7 +277,6 @@ end
 
 -- 关卡点击
 function XUiBabelTowerMainNew:OnStageClick(stageId, grid)
-
     local isStageUnlock, desc = self.FubenBabelTowerManager.IsBabelStageUnlock(stageId)
     if not isStageUnlock then
         XUiManager.TipMsg(desc)
@@ -288,6 +302,12 @@ function XUiBabelTowerMainNew:OnStageClick(stageId, grid)
             else
                 XUiManager.TipMsg(CS.XTextManager.GetText("BabelTowerPassLastGuide"))
             end
+            return
+        end
+        if XDataCenter.FubenBabelTowerManager.CheckStageIsNotPassAndNotCollection(stageId) then
+            local teamIdList = XDataCenter.FubenBabelTowerManager.GetStageTeamIdList(stageId)
+            -- 默认选择第一个编队
+            XLuaUiManager.Open("UiBabelTowerBase", stageId, teamIdList[1])
             return
         end
         XLuaUiManager.Open("UiBabelTowerSelectTeam", stageId)

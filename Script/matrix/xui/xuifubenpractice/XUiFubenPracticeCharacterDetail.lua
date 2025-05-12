@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiPanelPracticeMainline = require("XUi/XUiFubenPractice/XUiPanelPracticeMainline")
 local XUiFubenPracticeCharacterDetail = XLuaUiManager.Register(XLuaUi, "UiFubenPracticeCharacterDetail")
 local ChildDetailUi = "UiPracticeCharacterDetail"
@@ -8,8 +9,9 @@ function XUiFubenPracticeCharacterDetail:OnAwake()
     self:RegisterUiEvents()
 end
 
-function XUiFubenPracticeCharacterDetail:OnStart(groupId)
+function XUiFubenPracticeCharacterDetail:OnStart(groupId, defaultStageId)
     self.GroupId = groupId
+    self.DefaultStageId = defaultStageId
     self:LoadPrefab(groupId)
 end
 
@@ -20,12 +22,15 @@ function XUiFubenPracticeCharacterDetail:LoadPrefab(groupId)
         local go = self.PanelChapter:LoadPrefab(prefabPath)
         self.PracticeMainline = XUiPanelPracticeMainline.New(go, groupId, handler(self, self.CloseStageDetailCb), handler(self, self.ShowStageDetail))
         self.PracticeMainline:Refresh()
+        if XTool.IsNumberValid(self.DefaultStageId) then
+            self.PracticeMainline:OnSelectStageByStageId(self.DefaultStageId)
+        end
     end
 end
 
 function XUiFubenPracticeCharacterDetail:CloseStageDetailCb()
     self.BtnCloseDetail.gameObject:SetActiveEx(false)
-    self.PanelAsset.gameObject:SetActiveEx(true)
+    self.AssetPanel:Open()
     if XLuaUiManager.IsUiShow(ChildDetailUi) then
         self:FindChildUiObj(ChildDetailUi):CloseWithAnimation()
     end
@@ -33,7 +38,7 @@ end
 
 function XUiFubenPracticeCharacterDetail:ShowStageDetail(stageId)
     self.BtnCloseDetail.gameObject:SetActiveEx(true)
-    self.PanelAsset.gameObject:SetActiveEx(false)
+    self.AssetPanel:Close()
     self.StageId = stageId
     self:OpenOneChildUi(ChildDetailUi, self)
     self:FindChildUiObj(ChildDetailUi):Refresh(stageId)

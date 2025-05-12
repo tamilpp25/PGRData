@@ -62,7 +62,7 @@ function XUiGridDrawGroupBanner:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -168,8 +168,8 @@ function XUiGridDrawGroupBanner:SetBannerTime()
         local beginTime = self.Info.BannerBeginTime or 0
         local endTime = self.Info.BannerEndTime or 0
         self.TimeTxt.gameObject:SetActiveEx(beginTime ~= 0 and endTime ~= 0)
-        local beginTimeStr = XTime.TimestampToGameDateTimeString(beginTime, "yyyy/MM/dd HH:mm")
-        local endTimeStr = XTime.TimestampToGameDateTimeString(endTime, "yyyy/MM/dd HH:mm")
+        local beginTimeStr = XTime.TimestampToGameDateTimeString(beginTime, "MM/dd HH:mm")
+        local endTimeStr = XTime.TimestampToGameDateTimeString(endTime, "MM/dd HH:mm")
         self.TimeTxt.text = string.format("%s-%s", beginTimeStr, endTimeStr)
     end
 end

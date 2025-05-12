@@ -1,8 +1,10 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPassportPanelGrid = require("XUi/XUiPassport/XUiPassportPanelGrid")
 
-local XUiPassportPanel = XClass(nil, "XUiPassportPanel")
-local XPassportRewardType = XPassportConfigs.XPassportRewardType
-local XPassportRewardInfLevel = XPassportConfigs.XPassportRewardInfLevel
+---@field _Control XPassportControl
+---@class XUiPassportPanel:XUiNode
+local XUiPassportPanel = XClass(XUiNode, "XUiPassportPanel")
 
 --通行证面板
 function XUiPassportPanel:Ctor(ui, rootUi)
@@ -10,8 +12,8 @@ function XUiPassportPanel:Ctor(ui, rootUi)
     self.Transform = ui.transform
     self.RootUi = rootUi
     -- 当前选中普通区or无限区,打开时根据level选择最近的
-    self.RewardType = XPassportRewardType.None
-    self.LastRewardType = XPassportRewardType.None
+    self.RewardType = XEnumConst.PASSPORT.REWARD_TYPE.NONE
+    self.LastRewardType = XEnumConst.PASSPORT.REWARD_TYPE.NONE
     self.IsShowInfReward = false
 
     self.LevelIdListNormal = false
@@ -24,31 +26,31 @@ function XUiPassportPanel:Ctor(ui, rootUi)
     self:InitData()
     self:InitInfBtn()
 
-    XRedPointManager.AddRedPointEvent(
-        self.BtnTongBlack,
-        self.OnCheckRewardRedPoint,
-        self,
-        {XRedPointConditions.Types.CONDITION_PASSPORT_PANEL_REWARD_RED}
+    self:AddRedPointEvent(
+            self.BtnTongBlack,
+            self.OnCheckRewardRedPoint,
+            self,
+            { XRedPointConditions.Types.CONDITION_PASSPORT_PANEL_REWARD_RED }
     )
 end
 
 function XUiPassportPanel:InitRightGrids()
     self.RightGrids = {}
-    local typeInfoIdList = XPassportConfigs.GetPassportActivityIdToTypeInfoIdList()
+    local typeInfoIdList = self._Control:GetPassportActivityIdToTypeInfoIdList()
     for i in ipairs(typeInfoIdList) do
         self.RightGrids[i] = XUiGridCommon.New(self.RootUi, self["GridCommonRight" .. i])
     end
 end
 
 function XUiPassportPanel:InitData()
-    local activityId = XPassportConfigs.GetDefaultActivityId()
-    self.LevelIdListNormal = XPassportConfigs.GetPassportLevelIdListByRewardType(activityId,XPassportRewardType.Normal)
-    self.LevelIdListInf = XPassportConfigs.GetPassportLevelIdListByRewardType(activityId,XPassportRewardType.Infinite)
+    local activityId = self._Control:GetDefaultActivityId()
+    self.LevelIdListNormal = self._Control:GetPassportLevelIdListByRewardType(activityId, XEnumConst.PASSPORT.REWARD_TYPE.NORMAL)
+    self.LevelIdListInf = self._Control:GetPassportLevelIdListByRewardType(activityId, XEnumConst.PASSPORT.REWARD_TYPE.INFINITE)
 end
 
 function XUiPassportPanel:InitDynamicList()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelItemList)
-    self.DynamicTable:SetProxy(XUiPassportPanelGrid)
+    self.DynamicTable:SetProxy(XUiPassportPanelGrid, self)
     self.DynamicTable:SetDelegate(self)
     self.Grid01.gameObject:SetActiveEx(false)
 
@@ -58,15 +60,15 @@ function XUiPassportPanel:InitDynamicList()
 end
 
 function XUiPassportPanel:AutoAddListener()
-    local typeInfoIdList = XPassportConfigs.GetPassportActivityIdToTypeInfoIdList()
+    local typeInfoIdList = self._Control:GetPassportActivityIdToTypeInfoIdList()
     for i, typeInfoId in ipairs(typeInfoIdList) do
         if self["BtnUnlockLeftGrid" .. i] then
             XUiHelper.RegisterClickEvent(
-                self,
-                self["BtnUnlockLeftGrid" .. i],
-                function()
-                    self:OnBtnUnlockLeftGridClick(typeInfoId)
-                end
+                    self,
+                    self["BtnUnlockLeftGrid" .. i],
+                    function()
+                        self:OnBtnUnlockLeftGridClick(typeInfoId)
+                    end
             )
         end
     end
@@ -84,13 +86,13 @@ function XUiPassportPanel:UpdateRightGrid()
     local currMaxLevel = 0
     for _, v in pairs(self.DynamicTable:GetGrids()) do
         local levelIdCfg = v:GetLevelId()
-        local levelCfg = XPassportConfigs.GetPassportLevel(levelIdCfg)
+        local levelCfg = self._Control:GetPassportLevel(levelIdCfg)
         if currMaxLevel < levelCfg then
             currMaxLevel = levelCfg
         end
     end
 
-    local targetLevel = XPassportConfigs.GetPassportTargetLevel(currMaxLevel)
+    local targetLevel = self._Control:GetPassportTargetLevel(currMaxLevel)
     if not targetLevel then
         self.PanelRewardRight.gameObject:SetActiveEx(false)
         return
@@ -102,7 +104,7 @@ function XUiPassportPanel:UpdateRightGrid()
 
     local grid
     local rewardData
-    local typeInfoIdList = XPassportConfigs.GetPassportActivityIdToTypeInfoIdList()
+    local typeInfoIdList = self._Control:GetPassportActivityIdToTypeInfoIdList()
 
     local isReceiveReward  --是否已领取奖励
     local isCanReceiveReward  --是否可领取奖励
@@ -111,22 +113,22 @@ function XUiPassportPanel:UpdateRightGrid()
     local isPrimeReward  --是否贵重奖励
 
     for i, typeInfoId in ipairs(typeInfoIdList) do
-        local passportRewardId = XPassportConfigs.GetRewardIdByPassportIdAndLevel(typeInfoId, targetLevel) --通行证奖励表的id
+        local passportRewardId = self._Control:GetRewardIdByPassportIdAndLevel(typeInfoId, targetLevel) --通行证奖励表的id
         grid = self.RightGrids[i]
 
         if grid then
-            rewardData = passportRewardId and XPassportConfigs.GetPassportRewardData(passportRewardId)
+            rewardData = passportRewardId and self._Control:GetPassportRewardData(passportRewardId)
             if XTool.IsNumberValid(rewardData) then
                 grid:Refresh(rewardData)
                 grid.GameObject:SetActive(true)
 
-                isReceiveReward = XDataCenter.PassportManager.IsReceiveReward(typeInfoId, passportRewardId)
-                isCanReceiveReward = XDataCenter.PassportManager.IsCanReceiveReward(typeInfoId, passportRewardId)
+                isReceiveReward = self._Control:IsReceiveReward(typeInfoId, passportRewardId)
+                isCanReceiveReward = self._Control:IsCanReceiveReward(typeInfoId, passportRewardId)
                 if not isReceiveReward and isCanReceiveReward then
                     grid:SetClickCallback(
-                        function()
-                            self:GridOnClick(passportRewardId)
-                        end
+                            function()
+                                self:GridOnClick(passportRewardId)
+                            end
                     )
                 else
                     grid:AutoAddListener()
@@ -145,7 +147,7 @@ function XUiPassportPanel:UpdateRightGrid()
 
         --未解锁标志
         if self["ImgLockingRight" .. i] then
-            local passportInfo = XDataCenter.PassportManager.GetPassportInfos(typeInfoId)
+            local passportInfo = self._Control:GetPassportInfos(typeInfoId)
             local isUnLock = passportInfo and true or false
             self["ImgLockingRight" .. i].gameObject:SetActiveEx(not isUnLock)
         end
@@ -157,7 +159,7 @@ function XUiPassportPanel:UpdateRightGrid()
         end
 
         --贵重奖励
-        isPrimeReward = XPassportConfigs.IsPassportPrimeReward(passportRewardId)
+        isPrimeReward = self._Control:IsPassportPrimeReward(passportRewardId)
         if self["RImgIsPrimeReward" .. i] then
             self["RImgIsPrimeReward" .. i].gameObject:SetActiveEx(isPrimeReward)
         end
@@ -165,14 +167,14 @@ function XUiPassportPanel:UpdateRightGrid()
 end
 
 function XUiPassportPanel:UpdateLeftGrid()
-    local typeInfoIdList = XPassportConfigs.GetPassportActivityIdToTypeInfoIdList()
+    local typeInfoIdList = self._Control:GetPassportActivityIdToTypeInfoIdList()
     local passportInfo
     local isUnLock
     for i, typeInfoId in ipairs(typeInfoIdList) do
-        passportInfo = XDataCenter.PassportManager.GetPassportInfos(typeInfoId)
+        passportInfo = self._Control:GetPassportInfos(typeInfoId)
         isUnLock = passportInfo and true or false
         if self["TxtNameLeftGrid" .. i] then
-            self["TxtNameLeftGrid" .. i].text = XPassportConfigs.GetPassportTypeInfoName(typeInfoId)
+            self["TxtNameLeftGrid" .. i].text = self._Control:GetPassportTypeInfoName(typeInfoId)
         end
         if self["ImgLockLeftGrid" .. i] then
             self["ImgLockLeftGrid" .. i].gameObject:SetActiveEx(not isUnLock)
@@ -205,30 +207,30 @@ end
 
 -- 获得默认选中index，同时需要更新rewardType
 function XUiPassportPanel:GetDynamicIndexAndChooseRewardType()
-    local baseInfo = XDataCenter.PassportManager.GetPassportBaseInfo()
+    local baseInfo = self._Control:GetPassportBaseInfo()
     local currLevel = baseInfo:GetLevel()
-    if self.RewardType == XPassportRewardType.None then
+    if self.RewardType == XEnumConst.PASSPORT.REWARD_TYPE.NONE then
         local rewardType
-        if self.IsShowInfReward and currLevel >= XPassportConfigs.GetPassportMaxLevel() then
-            rewardType = XPassportRewardType.Infinite
+        if self.IsShowInfReward and currLevel >= self._Control:GetPassportMaxLevel() then
+            rewardType = XEnumConst.PASSPORT.REWARD_TYPE.INFINITE
         else
-            local currId = XPassportConfigs.GetPassportLevelId(currLevel + 1)
+            local currId = self._Control:GetPassportLevelId(currLevel + 1)
             if currId then
-                rewardType = XPassportConfigs.GetRewardType(currId)
+                rewardType = self._Control:GetRewardType(currId)
             end
         end
-        self.RewardType = rewardType or XPassportRewardType.Normal
+        self.RewardType = rewardType or XEnumConst.PASSPORT.REWARD_TYPE.NORMAL
     end
-    
+
     local levelIdList = self:GetLevelIdList()
     -- 手动从普通区切换到无限区的时候，从1开始；反之亦然
-    if self.RewardType == XPassportRewardType.Normal and
-        self.LastRewardType == XPassportRewardType.Infinite 
+    if self.RewardType == XEnumConst.PASSPORT.REWARD_TYPE.NORMAL and
+            self.LastRewardType == XEnumConst.PASSPORT.REWARD_TYPE.INFINITE
     then
         return #levelIdList
     end
-    if self.RewardType == XPassportRewardType.Infinite and
-        self.LastRewardType == XPassportRewardType.Normal 
+    if self.RewardType == XEnumConst.PASSPORT.REWARD_TYPE.INFINITE and
+            self.LastRewardType == XEnumConst.PASSPORT.REWARD_TYPE.NORMAL
     then
         return 1
     end
@@ -236,7 +238,7 @@ function XUiPassportPanel:GetDynamicIndexAndChooseRewardType()
     local level = -1
     local index = 0
     for i, levelId in ipairs(levelIdList) do
-        level = XPassportConfigs.GetPassportLevel(levelId)
+        level = self._Control:GetPassportLevel(levelId)
         if level >= currLevel then
             index = i
             break
@@ -257,7 +259,7 @@ end
 
 --一键领取
 function XUiPassportPanel:OnBtnTongBlackClick()
-    XDataCenter.PassportManager.RequestPassportRecvAllReward(handler(self, self.Refresh))
+    self._Control:RequestPassportRecvAllReward(handler(self, self.Refresh))
 end
 
 function XUiPassportPanel:OnCheckRewardRedPoint(count)
@@ -265,32 +267,32 @@ function XUiPassportPanel:OnCheckRewardRedPoint(count)
 end
 
 function XUiPassportPanel:Show()
-    self.GameObject:SetActiveEx(true)
+    self:Open()
     self:Refresh()
 end
 
 function XUiPassportPanel:Hide()
-    self.GameObject:SetActiveEx(false)
+    self:Close()
 end
 
 function XUiPassportPanel:GridOnClick(passportRewardId)
     local cb = function()
         self.DynamicTable:ReloadDataASync()
     end
-    XDataCenter.PassportManager.RequestPassportRecvReward(passportRewardId, cb)
+    self._Control:RequestPassportRecvReward(passportRewardId, cb)
 end
 
 -- inf = 无限
 function XUiPassportPanel:UpdateInfBtnVisible()
     -- 当玩家将列表拉至正常区最后面位置时
-    if self.IsShowInfReward 
-        and self.RewardType == XPassportRewardType.Normal 
-        and self.DynamicTable:GetGridByIndex(#self:GetLevelIdList()) 
+    if self.IsShowInfReward
+            and self.RewardType == XEnumConst.PASSPORT.REWARD_TYPE.NORMAL
+            and self.DynamicTable:GetGridByIndex(#self:GetLevelIdList())
     then
         -- 当玩家将列表拉至无限区最前面位置时
         self.BtnPlusRight.gameObject:SetActiveEx(true)
         self.BtnPlusLeft.gameObject:SetActiveEx(false)
-    elseif self.RewardType == XPassportRewardType.Infinite and self.DynamicTable:GetGridByIndex(1) then
+    elseif self.RewardType == XEnumConst.PASSPORT.REWARD_TYPE.INFINITE and self.DynamicTable:GetGridByIndex(1) then
         self.BtnPlusRight.gameObject:SetActiveEx(false)
         self.BtnPlusLeft.gameObject:SetActiveEx(true)
     else
@@ -305,11 +307,11 @@ function XUiPassportPanel:InitInfBtn()
 end
 
 function XUiPassportPanel:OnBtnRewardNormalClick()
-    self:SwitchRewardType(XPassportRewardType.Normal, true)
+    self:SwitchRewardType(XEnumConst.PASSPORT.REWARD_TYPE.NORMAL, true)
 end
 
 function XUiPassportPanel:OnBtnRewardInfClick()
-    self:SwitchRewardType(XPassportRewardType.Infinite, true)
+    self:SwitchRewardType(XEnumConst.PASSPORT.REWARD_TYPE.INFINITE, true)
 end
 
 function XUiPassportPanel:SwitchRewardType(rewardType, playSwitchAnimation)
@@ -321,17 +323,17 @@ function XUiPassportPanel:SwitchRewardType(rewardType, playSwitchAnimation)
 
     self:UpdateDynamicTable()
     self:UpdateInfBtnVisible()
-    
+
     if playSwitchAnimation then
         self.RootUi:PlayAnimation("QieHuan")
     end
 end
 
 function XUiPassportPanel:GetLevelIdList()
-    if self.RewardType == XPassportRewardType.Normal then
+    if self.RewardType == XEnumConst.PASSPORT.REWARD_TYPE.NORMAL then
         return self.LevelIdListNormal
     end
-    if self.RewardType == XPassportRewardType.Infinite then
+    if self.RewardType == XEnumConst.PASSPORT.REWARD_TYPE.INFINITE then
         return self.LevelIdListInf
     end
     return self.LevelIdListNormal

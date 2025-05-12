@@ -46,7 +46,7 @@ function XUiPanelMsgItem:Refresh(data, helperId)
         headRawImage:SetRawImage(headIcon)
     else
         name = XPlayer.Name
-        XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
+        XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
     end
     if self.TxtName then
         self.TxtName.text = name

@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiMoeWarPreparationRewardGrid = XClass(nil, "XUiMoeWarPreparationRewardGrid")
 
 function XUiMoeWarPreparationRewardGrid:Ctor(ui, updatePanelPhasesRewardCb, gearId, rootUi)

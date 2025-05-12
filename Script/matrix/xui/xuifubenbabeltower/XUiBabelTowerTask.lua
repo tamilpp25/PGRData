@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiBabelTowerTask = XLuaUiManager.Register(XLuaUi, "UiBabelTowerTask")
 
 function XUiBabelTowerTask:OnAwake()

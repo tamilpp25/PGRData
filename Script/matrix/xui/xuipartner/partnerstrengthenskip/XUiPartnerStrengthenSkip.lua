@@ -1,3 +1,4 @@
+local XUiGridSkip = require("XUi/XUiTip/XUiGridSkip")
 local XUiPartnerStrengthenSkip = XLuaUiManager.Register(XLuaUi, "UiPartnerStrengthenSkip")
 
 function XUiPartnerStrengthenSkip:OnAwake()

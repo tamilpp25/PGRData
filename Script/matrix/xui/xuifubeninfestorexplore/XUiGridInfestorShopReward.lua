@@ -27,7 +27,7 @@ function XUiGridInfestorShopReward:Refresh(rewardId, chapterId, nodeId)
         
         local headPortraitId = XDataCenter.FubenInfestorExploreManager.GetSelectRewardPlayerHeadId(chapterId, nodeId)
         local headFrameId = XDataCenter.FubenInfestorExploreManager.GetSelectRewardPlayerHeadFrameId(chapterId, nodeId)
-        XUiPLayerHead.InitPortrait(headPortraitId, headFrameId, self.Head)
+        XUiPlayerHead.InitPortrait(headPortraitId, headFrameId, self.Head)
         
         local playerName = XDataCenter.FubenInfestorExploreManager.GetSelectRewardPlayerName(chapterId, nodeId)
         self.TxtLastPlayer.text = CSXTextManagerGetText("InfestorExploreRewardNodeLastPlayerSelect", playerName)

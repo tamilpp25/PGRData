@@ -1,4 +1,4 @@
-XScrollConfig = XScrollConfig or {}
+local XScrollConfig = {}
 
 XScrollConfig.HORIZONTAL = 0
 XScrollConfig.VERTICAL = 1
@@ -27,3 +27,5 @@ XScrollConfig.ALPHA_KEY_FRAMES = {
     {time = 0.9, value = 0.3, tangentMode = 0, inTangent = -2.547, outTangent = -2.547},
     {time = 1, value = 0, tangentMode = 0, inTangent = 0, outTangent = 0},
 }
+
+return XScrollConfig

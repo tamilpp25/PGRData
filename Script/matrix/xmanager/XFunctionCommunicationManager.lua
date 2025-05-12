@@ -138,8 +138,7 @@ XFunctionCommunicationManagerCreator = function()
 
     -- 播放生日剧情动画
     function XFunctionCommunicationManager.ShowBirthdayStory()
-        local state = XPlayer.PlayBirthdayStory()
-        return state
+        return XMVCA.XBirthdayPlot:PlayBirthdayStory()
     end
 
 

@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiGridKillZoneStage = require("XUi/XUiKillZone/XUiGridKillZoneStage")
 local XUiGridKillZonePluginSlot = require("XUi/XUiKillZone/XUiGridKillZonePluginSlot")
 
@@ -5,16 +6,16 @@ local CsXTextManagerGetText = CsXTextManagerGetText
 
 local XUiKillZoneMain = XLuaUiManager.Register(XLuaUi, "UiKillZoneMain")
 
+local PanelStagePosX = {
+    Normal = 275,
+    Hard = 155,
+}
+
 function XUiKillZoneMain:OnAwake()
     self:AutoAddListener()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
-    XDataCenter.ItemManager.AddCountUpdateListener(
-    {
-        XDataCenter.ItemManager.ItemId.Coin,
-        XKillZoneConfigs.ItemIdCoinA,
-        XKillZoneConfigs.ItemIdCoinB,
-    }, handler(self, self.UpdateAssets), self.AssetActivityPanel)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
+    XDataCenter.ItemManager.AddCountUpdateListener({ XKillZoneConfigs.ItemIdCoinB }, handler(self, self.UpdateAssets), self.AssetActivityPanel)
 
     self.GridStage.gameObject:SetActiveEx(false)
     self.PanelTxtRewardTime.gameObject:SetActiveEx(false)
@@ -32,14 +33,20 @@ function XUiKillZoneMain:OnStart()
     self.PluginSlotGrids = {}
 
     self:InitView()
+
+    self.EndTime = XDataCenter.KillZoneManager.GetEndTime()
+    self:SetAutoCloseInfo(self.EndTime, function(isClose)
+        if isClose then
+            self.IsEnd = true
+            XDataCenter.KillZoneManager.OnActivityEnd()
+        else
+            self:UpdateLeftTime()
+        end
+    end)
 end
 
 function XUiKillZoneMain:OnEnable()
-    if self.IsEnd then return end
-    if XDataCenter.KillZoneManager.OnActivityEnd() then
-        self.IsEnd = true
-        return
-    end
+    self.Super.OnEnable(self)
 
     self:UpdateAssets()
     self:UpdateDiff()
@@ -48,16 +55,11 @@ function XUiKillZoneMain:OnEnable()
     self:UpdatePlugins()
 end
 
-function XUiKillZoneMain:OnDisable()
-    XCountDown.UnBindTimer(self, XCountDown.GTimerName.KillZone)
-end
-
 function XUiKillZoneMain:OnGetEvents()
     return {
         XEventId.EVENT_KILLZONE_FARM_REWARD_OBTAIN_COUNT_CHANGE,
         XEventId.EVENT_KILLZONE_STAR_REWARD_OBTAIN_RECORD_CHANGE,
         XEventId.EVENT_KILLZONE_STAGE_CHANGE,
-        XEventId.EVENT_KILLZONE_ACTIVITY_END,
     }
 end
 
@@ -71,11 +73,6 @@ function XUiKillZoneMain:OnNotify(evt, ...)
         self:UpdateStarRewards()
     elseif evt == XEventId.EVENT_KILLZONE_STAGE_CHANGE then
         self:UpdateStages()
-    elseif evt == XEventId.EVENT_KILLZONE_ACTIVITY_END then
-        if XDataCenter.KillZoneManager.OnActivityEnd() then
-            self.IsEnd = true
-            return
-        end
     end
 end
 
@@ -84,11 +81,7 @@ function XUiKillZoneMain:InitView()
 end
 
 function XUiKillZoneMain:UpdateAssets()
-    self.AssetActivityPanel:Refresh({
-        XDataCenter.ItemManager.ItemId.Coin,
-        XKillZoneConfigs.ItemIdCoinA,
-        XKillZoneConfigs.ItemIdCoinB,
-    })
+    self.AssetActivityPanel:Refresh({ XKillZoneConfigs.ItemIdCoinB })
 end
 
 function XUiKillZoneMain:UpdateDiff()
@@ -102,11 +95,13 @@ function XUiKillZoneMain:UpdateDiff()
 
         self.BtnSwitchNormal.gameObject:SetActiveEx(false)
         self.BtnSwitchHard.gameObject:SetActiveEx(true)
+        self:SwitchUiPanelActive(true)
         self.PanelTabChapterGroup.gameObject:SetActiveEx(true)
     elseif self.Diff == XKillZoneConfigs.Difficult.Hard then
         self.BtnSwitchNormal.gameObject:SetActiveEx(true)
         self.BtnSwitchHard.gameObject:SetActiveEx(false)
         self.PanelTabChapterGroup.gameObject:SetActiveEx(false)
+        self:SwitchUiPanelActive(false)
 
         XDataCenter.KillZoneManager.SetCookieNewDiffClicked(self.ChapterId)
     end
@@ -202,7 +197,7 @@ end
 function XUiKillZoneMain:UpdateStages()
     local chapterId = self.ChapterId
 
-    local stageIds = XKillZoneConfigs.GetChapterStageIds(chapterId)
+    local stageIds = XDataCenter.KillZoneManager.GetStageIdsByChpaterId(chapterId)
     self.StageIds = stageIds
     for index, stageId in pairs(stageIds) do
         local grid = self.StageGrids[index]
@@ -215,6 +210,12 @@ function XUiKillZoneMain:UpdateStages()
 
         grid:Refresh(stageId)
         grid.GameObject:SetActiveEx(true)
+        -- 刷新名字 引导使用
+        local name = "GridStageNormal"
+        if XDataCenter.KillZoneManager.CheckIsDailyStageId(chapterId, stageId) then
+            name = "GridStageDaily"
+        end
+        grid.GameObject.name = name
     end
     for index = #stageIds + 1, #self.StageGrids do
         self.StageGrids[index].GameObject:SetActiveEx(false)
@@ -224,6 +225,9 @@ function XUiKillZoneMain:UpdateStages()
 end
 
 function XUiKillZoneMain:OnClickStage(stageId)
+    if self.IsEnd then
+        return
+    end
     local isLock = not XDataCenter.KillZoneManager.IsStageUnlock(stageId)
     if isLock then
         local preStageId = XKillZoneConfigs.GetStagePreStageId(stageId)
@@ -231,6 +235,19 @@ function XUiKillZoneMain:OnClickStage(stageId)
         local msg = CsXTextManagerGetText("KillZoneStageUnlockTip", stageName)
         XUiManager.TipMsg(msg)
         return
+    end
+
+    -- 检查每日关卡并且刷新红点
+    if XDataCenter.KillZoneManager.CheckIsDailyStageId(self.ChapterId, stageId) then
+        if not XDataCenter.KillZoneManager.GetCookieDailyStageClicked() then
+            XDataCenter.KillZoneManager.SetCookieDailyStageClicked()
+            -- 只刷当前章节的红点
+            local contain, index = table.contains(self.ChapterIds, self.ChapterId)
+            if contain then
+                local btn = self.TabBtns[index]
+                XRedPointManager.CheckOnceByButton(btn, { XRedPointConditions.Types.XRedPointConditionKillZoneNewChapter }, self.ChapterId)
+            end
+        end
     end
 
     local gridStageId
@@ -248,12 +265,16 @@ function XUiKillZoneMain:OnClickStage(stageId)
 end
 
 function XUiKillZoneMain:UpdateLeftTime()
-    XCountDown.UnBindTimer(self, XCountDown.GTimerName.KillZone)
-    XCountDown.BindTimer(self, XCountDown.GTimerName.KillZone, function(time)
-        time = time > 0 and time or 0
-        local timeText = XUiHelper.GetTime(time, XUiHelper.TimeFormatType.KillZone)
-        self.TxtLeftTime.text = timeText
-    end)
+    if XTool.UObjIsNil(self.TxtLeftTime) then
+        return
+    end
+    local endTime = self.EndTime
+    local leftTime = endTime - XTime.GetServerNowTimestamp()
+    if leftTime <= 0 then
+        leftTime = 0
+    end
+    local timeText = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.KillZone)
+    self.TxtLeftTime.text = timeText
 end
 
 function XUiKillZoneMain:UpdateFarmRewards()
@@ -274,9 +295,9 @@ function XUiKillZoneMain:UpdateStarRewards()
         self.ImgRedProgress.gameObject:SetActiveEx(count >= 0)
     end, self, { XRedPointConditions.Types.XRedPointConditionKillZoneStarReward }, diff)
 
-    XRedPointManager.AddRedPointEvent(self.BtnDailyReward, function(_, count)
-        self.BtnDailyReward:ShowReddot(count >= 0)
-    end, self, { XRedPointConditions.Types.XRedPointConditionKillZoneDailyStarReward })
+    --XRedPointManager.AddRedPointEvent(self.BtnDailyReward, function(_, count)
+    --    self.BtnDailyReward:ShowReddot(count >= 0)
+    --end, self, { XRedPointConditions.Types.XRedPointConditionKillZoneDailyStarReward })
 end
 
 function XUiKillZoneMain:UpdatePlugins()
@@ -302,6 +323,9 @@ function XUiKillZoneMain:UpdatePlugins()
 end
 
 function XUiKillZoneMain:OnClickPluginSlot(slot)
+    if self.IsEnd then
+        return
+    end
     local isLock = not XDataCenter.KillZoneManager.IsPluginSlotUnlock(slot)
     if isLock then
         local msg = XKillZoneConfigs.GetPluginSlotConditionDesc(slot)
@@ -335,12 +359,12 @@ function XUiKillZoneMain:AutoAddListener()
     self.BtnSwitchNormal.CallBack = function() self:SelectDiff(XKillZoneConfigs.Difficult.Normal) end
     self.BtnTreasure.CallBack = function() self:OnClickBtnTreasure() end
     self.BtnChllengeRewardHelp.CallBack = function() self:OnBtnChllengeRewardHelpClick() end
-    self.BtnDailyReward.CallBack = function() self:OnClickBtnDailyReward() end
+    --self.BtnDailyReward.CallBack = function() self:OnClickBtnDailyReward() end
 end
 
-function XUiKillZoneMain:OnClickBtnDailyReward()
-    XLuaUiManager.Open("UiKillZoneDaily")
-end
+--function XUiKillZoneMain:OnClickBtnDailyReward()
+--    XLuaUiManager.Open("UiKillZoneDaily")
+--end
 
 function XUiKillZoneMain:OnClickBtnBack()
     self:Close()
@@ -355,6 +379,9 @@ function XUiKillZoneMain:OnClickBtnPlugin()
 end
 
 function XUiKillZoneMain:OnClickBtnTreasure()
+    if self.IsEnd then
+        return
+    end
     XLuaUiManager.Open("UiKillZoneReward", self.Diff)
 end
 
@@ -366,14 +393,21 @@ end
 
 function XUiKillZoneMain:SelectDiff(diff)
     if diff == XKillZoneConfigs.Difficult.Hard then
-        local isUnlock, preStageId = XDataCenter.KillZoneManager.IsDiffHardUnlock()
+        local isUnlock, preStageId, chapterId = XDataCenter.KillZoneManager.IsDiffHardUnlock()
         if not isUnlock then
-            local chapterId = XKillZoneConfigs.GetChapterIdByStageId(preStageId)
-            local msg = CsXTextManagerGetText("KillZoneDiffHardLockTip"
-            , XKillZoneConfigs.GetChapterName(chapterId)
-            , XKillZoneConfigs.GetStageName(preStageId)
-            )
-            XUiManager.TipMsg(msg)
+            if preStageId ~= 0 then --这里是前置管卡没通关
+                local chapterId = XKillZoneConfigs.GetChapterIdByStageId(preStageId)
+                local msg = CsXTextManagerGetText("KillZoneDiffHardLockTip"
+                , XKillZoneConfigs.GetChapterName(chapterId)
+                , XKillZoneConfigs.GetStageName(preStageId)
+                )
+                XUiManager.TipMsg(msg)
+            else --这里是不在活动时间
+                local leftTime = XDataCenter.KillZoneManager.GetChpaterOpenLeftTime(chapterId)
+                local msg = CsXTextManagerGetText("KillZoneChapterUnlockLeftTime", XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY))
+                XUiManager.TipMsg(msg)
+            end
+
             return
         end
         self:PlayAnimationWithMask("QieHuan2")
@@ -383,4 +417,15 @@ function XUiKillZoneMain:SelectDiff(diff)
 
     self.Diff = diff
     self:UpdateDiff()
+end
+
+function XUiKillZoneMain:SwitchUiPanelActive(isActive)
+    self.PanelZj1.gameObject:SetActiveEx(isActive)
+    self.PanelZj2.gameObject:SetActiveEx(isActive)
+    self.PanelZj3.gameObject:SetActiveEx(not isActive)
+    self.PanelZj4.gameObject:SetActiveEx(not isActive)
+
+    --local x = isActive and PanelStagePosX.Normal or PanelStagePosX.Hard
+    --local y = self.PanelStages1.offsetMin.y
+    --self.PanelStages1.offsetMin = CS.UnityEngine.Vector2(x, y)
 end

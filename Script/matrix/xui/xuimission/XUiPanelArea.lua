@@ -1,4 +1,4 @@
-XUiPanelArea = XClass(nil, "XUiPanelArea")
+local XUiPanelArea = XClass(nil, "XUiPanelArea")
 
 function XUiPanelArea:Ctor(ui,sectionData,parent)
     self.GameObject = ui.gameObject
@@ -69,7 +69,7 @@ function XUiPanelArea:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 

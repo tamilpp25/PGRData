@@ -47,19 +47,20 @@ function XEventManager.RemoveEventListener(eventId, func, obj)
             return
         end
         funcList[obj] = nil
-        listenerList[func] = funcList
+        if XTool.IsTableEmpty(funcList) then
+            listenerList[func] = nil
+        end
     else
         listenerList[func] = nil
     end
 
-    ListenersMap[eventId] = listenerList
-end
-
-function XEventManager.RemoveAllListener()
-    ListenersMap = {}
+    if XTool.IsTableEmpty(listenerList) then
+        ListenersMap[eventId] = nil
+    end
 end
 
 function XEventManager.DispatchEvent(eventId, ...)
+    XUIEventBind.DispatchEvent(eventId, ...)
     local listenerList = ListenersMap[eventId]
     if (not listenerList) then
         return
@@ -151,3 +152,13 @@ function XEventManager.UnBindEvent(node)
         NodeEventBindRecord[node] = nil
     end
 end
+
+local __Private = {}
+__Private.__Clear__ = function ()
+    if XMain.IsWindowsEditor then
+        XLog.Debug("移除所有lua事件")
+    end
+    ListenersMap = {}
+end
+
+return __Private

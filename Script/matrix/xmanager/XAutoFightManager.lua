@@ -99,7 +99,7 @@ XAutoFightManagerCreator = function()
             end
         end)
     end
-
+    
     function AutoFightManager.StartNewAutoFight(stageId, count, cb)
         XNetwork.Call(METHOD_NAME.StartNewAutoFight, { StageId = stageId, Count = count }, function(res)
             if res.Code ~= XCode.Success then
@@ -184,14 +184,14 @@ XAutoFightManagerCreator = function()
     function AutoFightManager.RecordFightBeginData(stageId, times, cardIds)
         BeginData = {
             CharExp = {},
-            RoleLevel = XPlayer.Level,
+            RoleLevel = XPlayer.GetLevelOrHonorLevel(),
             RoleExp = XPlayer.Exp,
             StageId = stageId,
             Times = times,
         }
 
         for _, charId in pairs(cardIds) do
-            local char = XDataCenter.CharacterManager.GetCharacter(charId)
+            local char = XMVCA.XCharacter:GetCharacter(charId)
             if char ~= nil then
                 table.insert(BeginData.CharExp, { Id = charId, Quality = char.Quality, Exp = char.Exp, Level = char.Level })
             end

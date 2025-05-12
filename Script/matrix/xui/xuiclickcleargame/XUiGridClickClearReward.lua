@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridClickClearReward = XClass(nil, "XUiGridClickClearReward")
 
 function XUiGridClickClearReward:Ctor(ui)

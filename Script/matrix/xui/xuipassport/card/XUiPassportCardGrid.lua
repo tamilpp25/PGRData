@@ -1,12 +1,11 @@
-local XUiPassportCardGrid = XClass(nil, "XUiPassportCardGrid")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+---@field _Control XPassportControl
+---@class XUiPassportCardGrid:XUiNode
+local XUiPassportCardGrid = XClass(XUiNode, "XUiPassportCardGrid")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
 function XUiPassportCardGrid:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-
     self.RewardPanelList = {}
 end
 
@@ -15,7 +14,7 @@ function XUiPassportCardGrid:Init(rootUi)
 end
 
 function XUiPassportCardGrid:Refresh(passportBuyRewardShowId)
-    local level = XPassportConfigs.GetPassportBuyRewardShowLevel(passportBuyRewardShowId)
+    local level = self._Control:GetPassportBuyRewardShowLevel(passportBuyRewardShowId)
     if XTool.IsNumberValid(level) then
         self.TextUnLock.text = CSXTextManagerGetText("PassportLevelUnLockDesc", level)
         self.RImgUnLock.gameObject:SetActiveEx(true)
@@ -27,10 +26,10 @@ function XUiPassportCardGrid:Refresh(passportBuyRewardShowId)
         self.GridCommon = XUiGridCommon.New(self.RootUi, self.Gridicon)
     end
 
-    local rewardData = XPassportConfigs.GetPassportBuyRewardShowRewardData(passportBuyRewardShowId, true)
+    local rewardData = self._Control:GetPassportBuyRewardShowRewardData(passportBuyRewardShowId, true)
     self.GridCommon:Refresh(rewardData)
     
-    local showCount = XPassportConfigs.GetPassportBuyRewardShowCount(passportBuyRewardShowId)
+    local showCount = self._Control:GetPassportBuyRewardShowCount(passportBuyRewardShowId)
     self.TxtCount.text = CSXTextManagerGetText("ShopGridCommonCount", showCount)
     self.TxtCount.gameObject:SetActiveEx(XTool.IsNumberValid(showCount) and true or false)
 end

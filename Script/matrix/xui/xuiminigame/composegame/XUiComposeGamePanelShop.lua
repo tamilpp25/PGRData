@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --组合小游戏商店UI控件
 local XUiComposeGamePanelShop = XClass(nil, "XUiComposeGamePanelShop")
 --================

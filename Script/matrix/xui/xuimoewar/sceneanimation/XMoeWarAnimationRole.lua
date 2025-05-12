@@ -2,7 +2,7 @@ local XMoeWarAnimationRole = XClass(nil, "XMoeWarAnimationRole")
 
 local Vector3 = CS.UnityEngine.Vector3
 local VForward = Vector3.forward
-local CSXResourceManagerLoad = CS.XResourceManager.Load
+local CSXResourceManagerLoad
 
 local PLAY_END_ANIM_DISTANCE = CS.XGame.ClientConfig:GetFloat("MoeWarSceneAnimationPlayEndAnimDistance")--当镜头跟随者到达此位置后播放结束镜头动画和慢镜头动作
 local PLAY_GOAL_ANIM_DISTANCE = CS.XGame.ClientConfig:GetFloat("MoeWarSceneAnimationGoalDistance")--当镜头跟随者到达此位置后播放冲线特效
@@ -109,6 +109,7 @@ function XMoeWarAnimationRole:ChangeModel(modelName)
     --加载新模型
     local prefabPath = XModelManager.GetUiModelPath(modelName)
     local resource = CSXResourceManagerLoad(prefabPath)
+    XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
     if resource == nil or not resource.Asset then
         XLog.Error(string.format("XMoeWarAnimationRole:ChangeModel加载资源失败，路径：%s", prefabPath))
         return

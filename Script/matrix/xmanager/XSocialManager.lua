@@ -20,6 +20,7 @@ XSocialManagerCreator = function()
     local LastRecommendTime = 0             --上次推荐时间
     local ApplyCount = 0
     local A_WEEK = 60 * 60 * 24 * 7         --记录保存时长
+    local RecommendInterval --推荐刷新间隔
 
     local SocialDataTimeInterval = 2 * 60
     local SocialPlayerCache = {}
@@ -43,6 +44,7 @@ XSocialManagerCreator = function()
         FRIEND_REFUSE_APPLY_INTERVAL_SECOND = CS.XGame.Config:GetInt("FriendRefuseApplyIntervalSecond")
         -- FRIEND_MAINMAXCLICK_INTERVAL_TIME = CS.XGame.Config:GetInt("FriendMainMaxClickIntervalTime")
         GET_GIFT_MAXCOUNT_EVERYDAY = CS.XGame.Config:GetInt("GetGiftMaxCountEveryDay")
+        --RecommendInterval = CS.XGame.ClientConfig:GetInt("FriendRefreshCD")
     end
 
     --Public Method
@@ -338,6 +340,12 @@ XSocialManagerCreator = function()
     --End Get Method
     --刷新推荐列表
     function XSocialManager.GetRecommendPlayers(cb)
+        --由服务器判断
+        --local now = XTime.GetServerNowTimestamp()
+        --if now - LastRecommendTime < RecommendInterval then
+        --    XUiManager.TipText("RecommendFriendError")
+        --    return
+        --end
         cb = cb or function()
         end
 
@@ -864,6 +872,11 @@ XSocialManagerCreator = function()
         XSocialManager.GetPlayerInfoList(ids, func)
     end
     
+    function XSocialManager.NotifyRemoveBlacklist(notifyData)
+        XSocialManager.RemoveBlack(notifyData.PlayerId)
+        XEventManager.DispatchEvent(XEventId.EVENT_BLACK_DATA_CHANGE)
+        CsXGameEventManager.Instance:Notify(XEventId.EVENT_BLACK_DATA_CHANGE)
+    end
     -------------------黑名单 end----------------------
 
     XSocialManager.Init()
@@ -904,4 +917,9 @@ end
 --通知被拉黑玩家
 XRpc.NotifyBlock = function(notifyData)
     XDataCenter.SocialManager.NotifyBlock(notifyData)
+end
+
+--通知移除注销的被拉黑玩家
+XRpc.NotifyRemoveBlacklist =function(notifyData)
+    XDataCenter.SocialManager.NotifyRemoveBlacklist(notifyData)
 end

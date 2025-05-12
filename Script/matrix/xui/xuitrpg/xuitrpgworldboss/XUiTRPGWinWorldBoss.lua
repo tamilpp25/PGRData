@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiTRPGWinWorldBoss = XLuaUiManager.Register(XLuaUi, "UiTRPGWinWorldBoss")
 
 function XUiTRPGWinWorldBoss:OnStart(data)
@@ -77,7 +78,7 @@ end
 function XUiTRPGWinWorldBoss:PlayScoreAndTimeAnimation()
     if not self.TRPGBossFightResult then return end
     -- 播放音效
-    self.AudioInfo = CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiSettle_Win_Number)
+    self.AudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiSettle_Win_Number)
     local totalTime = self.TRPGBossFightResult.FightTime
     local time = CS.XGame.ClientConfig:GetFloat("BossSingleAnimaTime")
     XUiHelper.Tween(time, function(f)

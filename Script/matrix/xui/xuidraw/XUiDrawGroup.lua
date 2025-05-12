@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiDrawGroup = XLuaUiManager.Register(XLuaUi, "UiDrawGroup")
 local XUiGridBanner = require("XUi/XUiDraw/XUiGridDrawGroupBanner")
 
@@ -42,7 +43,7 @@ function XUiDrawGroup:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

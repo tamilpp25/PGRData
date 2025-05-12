@@ -9,18 +9,19 @@ function XUiGridFashionStoryTrial:Ctor(ui, parent)
     self:AutoAddListener()
 end
 
-function XUiGridFashionStoryTrial:Refresh(stageId, activityId, entranceCb)
-    if stageId == XFashionStoryConfigs.StoryEntranceId and activityId then
+function XUiGridFashionStoryTrial:Refresh(stageId, activityId, entranceCb,singleLineId)
+    if stageId == XFashionStoryConfigs.StoryEntranceId and activityId and singleLineId then
         self.IsStoryEntrance = true
         self.ActivityId = activityId
         self.EntranceCb = entranceCb
+        self.SingleLineId=singleLineId
     else
         self.IsStoryEntrance = false
         self.ActivityId = nil
     end
     self.StageId = stageId
-    self.BtnSummer:SetRawImage(self.IsStoryEntrance and XFashionStoryConfigs.GetStoryEntranceBg(activityId) or XFubenConfigs.GetStageIcon(stageId))
-    self.ImageStoryProcess:SetSprite(self.IsStoryEntrance and XFashionStoryConfigs.GetStoryEntranceFinishTag(activityId) or XFashionStoryConfigs.GetTrialFinishTag(stageId))
+    self.BtnSummer:SetRawImage(self.IsStoryEntrance and XFashionStoryConfigs.GetStoryEntranceBg(singleLineId) or XFubenConfigs.GetStageIcon(stageId))
+    self.ImageStoryProcess:SetSprite(self.IsStoryEntrance and XFashionStoryConfigs.GetStoryEntranceFinishTag(singleLineId) or XFashionStoryConfigs.GetTrialFinishTag(stageId))
     if self.IsStoryEntrance then
         local passNum, totalNum = XDataCenter.FashionStoryManager.GetChapterProgress(self.ActivityId)
         self.TxtStoryProcessNumber.text= string.format("%d/%d",passNum, totalNum)

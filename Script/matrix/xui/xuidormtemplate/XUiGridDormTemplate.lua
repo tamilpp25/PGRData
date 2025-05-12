@@ -42,7 +42,7 @@ end
 function XUiGridDormTemplate:OnBtnNone()
     if self.EnterSenceCb then self.EnterSenceCb() end
     local enterRoomId = self.CollectCfg.SkipTemplateId
-    XDataCenter.DormManager.EnterTeamplateDormitory(enterRoomId, XDormConfig.DormDataType.CollectNone)
+    XDataCenter.DormManager.EnterTemplateDormitory(enterRoomId, XDormConfig.DormDataType.CollectNone)
 end
 
 function XUiGridDormTemplate:Refresh(homeRoomData, roomType, collectCfg, enterSenceCb, curDormId)
@@ -81,7 +81,7 @@ function XUiGridDormTemplate:SetPanelHave()
     self.PanelConnect.gameObject:SetActiveEx(connectDormId > 0)
     if connectDormId > 0 then
         local id = self.HomeRoomData:GetRoomId()
-        local prrcent = XDataCenter.DormManager.GetDormTemplatePercent(id, connectDormId)
+        local prrcent = XDataCenter.DormManager.GetDormTemplatePercent(connectDormId, id)
         local name = XDataCenter.DormManager.GetRoomDataByRoomId(connectDormId):GetRoomName()
         self.TxtPercent.text = prrcent .. "%"
         self.TxtConnectDorm.text = name

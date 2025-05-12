@@ -63,7 +63,7 @@ function XUiPurchasePayListItem:SetData()
     --     end
     -- end
     
-    local normalIcon, selectIcon = XPurchaseConfigs.GetPayNormalAndSelectIcon(self.ItemData.Icon)
+    local normalIcon, selectIcon = XPurchaseConfigs.GetPayNormalAndSelectIcon(self.ItemData.Key)
     self.ImgIcon:SetRawImage(normalIcon)
     self.ImgSelectCz:SetRawImage(selectIcon)
 end

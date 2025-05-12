@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiBlackGrid = require("XUi/XUiSocial/Black/XUiBlackGrid")
 
 local XUiPanelBlackView = XClass(nil, "XUiPanelBlackView")

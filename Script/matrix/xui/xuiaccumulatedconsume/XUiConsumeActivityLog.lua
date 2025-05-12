@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiConsumeActivityLog = XLuaUiManager.Register(XLuaUi, "UiConsumeActivityLog")
 local BtnMaxCount = 2
 local IsInit = {}

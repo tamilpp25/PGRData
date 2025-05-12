@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridInfestorExplorePlayerMessage = XClass(nil, "XUiGridInfestorExplorePlayerMessage")
 
 function XUiGridInfestorExplorePlayerMessage:Ctor(ui)
@@ -13,7 +14,7 @@ function XUiGridInfestorExplorePlayerMessage:Refresh(msg)
     local headId = XDataCenter.FubenInfestorExploreManager.GetPlayerHeadId(playerId)
     local frameId = XDataCenter.FubenInfestorExploreManager.GetPlayerHeadFrameId(playerId)
     
-    XUiPLayerHead.InitPortrait(headId, frameId, self.Head)
+    XUiPlayerHead.InitPortrait(headId, frameId, self.Head)
     
     local name = XDataCenter.FubenInfestorExploreManager.GetPlayerName(playerId)
     self.TxtName.text = name

@@ -31,6 +31,10 @@ function XUiCollectionWallView:OnEnable()
     self:Refresh()
 end
 
+function XUiCollectionWallView:OnDestroy()
+
+end
+
 function XUiCollectionWallView:Refresh()
     self:RecoverCollection()
 
@@ -94,9 +98,11 @@ function XUiCollectionWallView:GenerateCollection(collectionInfo, pedestalId)
 
     if not self.BaseItem[pedestalId] then
         local baseItemPath = XCollectionWallConfigs.GetColDecPath(pedestalId)
+        local rootObj = CS.UnityEngine.GameObject(tostring(pedestalId)..'Root')
+        rootObj.transform:SetParent(self.PanelWall, false)
+        rootObj.gameObject:SetLayerRecursively(self.PanelWall.gameObject.layer)
 
-        self.Resource = CS.XResourceManager.Load(baseItemPath)
-        local baseItem = CS.UnityEngine.Object.Instantiate(self.Resource.Asset)
+        local baseItem = rootObj:LoadPrefab(baseItemPath)
         if baseItem == nil or not baseItem:Exist() then
             return
         end

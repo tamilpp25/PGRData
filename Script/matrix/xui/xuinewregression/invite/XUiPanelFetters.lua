@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiInviteGridReward = require("XUi/XUiNewRegression/Invite/XUiInviteGridReward")
 
 local SINGLE_ANIMA_TIME = 1 --进度条动画时长
@@ -81,7 +82,7 @@ function XUiPanelFetters:RefreshPanelActive()
         self.Diseable.gameObject:SetActiveEx(false)
 
         self.TxtNameByActive.text = bindedPlayer:GetName()
-        XUiPLayerHead.InitPortrait(bindedPlayer:GetHeadPortraitId(), bindedPlayer:GetHeadFrameId(), self.HeadByActive)
+        XUiPlayerHead.InitPortrait(bindedPlayer:GetHeadPortraitId(), bindedPlayer:GetHeadFrameId(), self.HeadByActive)
 
         curDailyPoint = bindedPlayer:GetDailyPoint()
         self.TxtDailyPointByActive.text = string.format("%s/%s", curDailyPoint, dailyPointMax)
@@ -104,7 +105,7 @@ end
 function XUiPanelFetters:RefreshPanelReturn()
     local inviteId = self.InviteManager:GetId()
 
-    XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.HeadByReturn)
+    XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.HeadByReturn)
     self.TxtNameByReturn.text = XPlayer.Name
 
     local curDailyPoint = self.InviteManager:GetDailyPoint()

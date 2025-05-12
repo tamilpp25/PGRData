@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridWinRole = require("XUi/XUiSettleWin/XUiGridWinRole")
 local XUiPanelExpBar = require("XUi/XUiSettleWinMainLine/XUiPanelExpBar")
 local XUiGridAutoFightRewardLine = require("XUi/XUiNewAutoFight/XUiGridAutoFightRewardLine")
 
@@ -79,7 +81,8 @@ function XUiNewAutoFightSettleWin:InitRewardCharacterList(charExps)
             local ui = CS.UnityEngine.Object.Instantiate(self.GridWinRole)
             local grid = XUiGridWinRole.New(self, ui)
             grid.Transform:SetParent(self.PanelRoleContent, false)
-            grid:UpdateRoleInfo(exp, self.StageCfg.CardExp * self.Count)
+            local cardExp = XDataCenter.FubenManager.GetCardExp(self.StageCfg.StageId, true)
+            grid:UpdateRoleInfo(exp, cardExp * self.Count)
             grid.GameObject:SetActive(true)
         end
     end
@@ -97,7 +100,8 @@ function XUiNewAutoFightSettleWin:UpdatePlayerInfo(data)
     local curMaxExp = XPlayerManager.GetMaxExp(curLevel, XPlayer.IsHonorLevelOpen())
     local txtLevelName = XPlayer.IsHonorLevelOpen() and CS.XTextManager.GetText("HonorLevel") or nil
 
-    local addExp = self.StageCfg.TeamExp * self.Count
+    local teamExp = XDataCenter.FubenManager.GetTeamExp(self.StageCfg.StageId, true)
+    local addExp = teamExp * self.Count
     self.PlayerExpBar = self.PlayerExpBar or XUiPanelExpBar.New(self.PanelPlayerExpBar)
     self.PlayerExpBar:LetsRoll(lastLevel, lastExp, lastMaxExp, curLevel, curExp, curMaxExp, addExp, txtLevelName)
 end

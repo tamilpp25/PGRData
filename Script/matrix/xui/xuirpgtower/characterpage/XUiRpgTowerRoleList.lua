@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 -- 兵法蓝图成员列表主页面
 local XUiRpgTowerRoleList = XLuaUiManager.Register(XLuaUi, "UiRpgTowerRoleList")
 local XUiRpgTowerRoleListCharaInfo = require("XUi/XUiRpgTower/CharacterPage/MainPage/XUiRpgTowerRoleListCharaInfo")
@@ -24,7 +25,17 @@ function XUiRpgTowerRoleList:OnAwake()
 end
 
 function XUiRpgTowerRoleList:OnEnable()
-    self:OnRefresh()
+    self:OnRefresh(self.RollIndex)
+    self:UpdateModel(self.RCharacter)
+    self:RefreshBtnRedPoint()
+    self.RollIndex = nil
+end
+
+function XUiRpgTowerRoleList:OnStart(index)
+    self.RollIndex = index
+    if index and index > 0 then
+        self.AutoOpen = true -- 选中列表后自动打开到天赋界面
+    end
 end
 
 function XUiRpgTowerRoleList:OnDestroy()
@@ -75,6 +86,10 @@ end
 function XUiRpgTowerRoleList:InitButtons()
     self.BtnBack.CallBack = function() self:OnBtnBackClick() end
     self.BtnMainUi.CallBack = function() self:OnBtnMainUiClick() end
+
+    self.BtnFashion.CallBack = function() self:OnBtnFashionClick() end
+    self.BtnOwnedDetail.CallBack = function() self:OnBtnOwnedDetailClick() end
+    self.BtnTeaching.CallBack = function() self:OnBtnTeachingClick() end
     self:BindHelpBtn(self.BtnHelp, "RpgTowerHelp")
 end
 --================
@@ -102,9 +117,22 @@ end
 --================
 --页面刷新时
 --================
-function XUiRpgTowerRoleList:OnRefresh()
+function XUiRpgTowerRoleList:OnRefresh(index)
     -- 默认第一次打开MAIN页面，若不是第一次打开，则打开最后停留的子页面
-    self:OpenChildPage(self.CurrentPageIndex or PARENT_PAGE.MAIN)
+    self:OpenChildPage(self.CurrentPageIndex or PARENT_PAGE.MAIN, index)
+end
+
+-- 刷新按钮红点
+function XUiRpgTowerRoleList:RefreshBtnRedPoint()
+    if not self.RCharacter then
+        return
+    end
+    -- 红点：有可更换时装就显示1次性红点
+    local isShowFashion = not XSaveTool.GetData(string.format("%s%s%s", "RpgTowerRoleListFashionRedPoint", XPlayer.Id, self.RCharacter:GetId())) and XDataCenter.FashionManager.GetCurrCharHaveCanChangeFashion(self.RCharacter:GetId())
+    self.BtnFashion:ShowReddot(isShowFashion)
+    -- 红点：未拥有角色显示1次性红点
+    local isShowTech = not XSaveTool.GetData(string.format("%s%s%s", "RpgTowerRoleListTeachRedPoint", XPlayer.Id, self.RCharacter:GetId())) and not XMVCA.XCharacter:IsOwnCharacter(self.RCharacter:GetId()) 
+    self.BtnTeaching:ShowReddot(isShowTech)
 end
 --================
 --当选择角色时
@@ -112,7 +140,13 @@ end
 function XUiRpgTowerRoleList:OnCharaSelect(rChara, updateModelCb)
     self.RCharacter = rChara
     self:UpdateModel(rChara, updateModelCb)
+    self:RefreshBtnRedPoint()
     self:ChildPageOnCharaSelect(rChara)
+
+    if self.AutoOpen then
+        self:OpenChildPage(PARENT_PAGE.TYPESELECT)
+        self.AutoOpen = false
+    end
 end
 --================
 --子页面切换角色选择
@@ -178,6 +212,10 @@ end
 --刷新模型
 --================
 function XUiRpgTowerRoleList:UpdateModel(rChara, updateModelCb)
+    if not rChara then
+        return
+    end
+
     self.ImgEffectHuanren.gameObject:SetActiveEx(false)
     local cb = function(model)
         self.PanelDrag.Target = model.transform
@@ -185,7 +223,7 @@ function XUiRpgTowerRoleList:UpdateModel(rChara, updateModelCb)
         if updateModelCb then updateModelCb(model) end
     end
     local robotCfg = XRobotManager.GetRobotTemplate(rChara:GetRobotId())
-    self.RoleModelPanel:UpdateRobotModel(rChara:GetRobotId(), rChara:GetCharacterId(), nil, robotCfg and robotCfg.FashionId, robotCfg and robotCfg.WeaponId, cb)
+    self.RoleModelPanel:UpdateRobotModelNew(rChara:GetRobotId(), rChara:GetCharacterId(), nil, robotCfg and robotCfg.FashionId, robotCfg and robotCfg.WeaponId, cb)
 end
 --================
 --打开子页面，打开新页面时会关闭旧的子页面
@@ -242,4 +280,18 @@ end
 --================
 function XUiRpgTowerRoleList:SetModelDragFieldActive(isActive)
     self.PanelDrag.gameObject:SetActiveEx(isActive)
+end
+
+function XUiRpgTowerRoleList:OnBtnFashionClick()
+    XLuaUiManager.Open("UiFashion", self.RCharacter:GetId())
+    XSaveTool.SaveData(string.format("%s%s%s", "RpgTowerRoleListFashionRedPoint", XPlayer.Id, self.RCharacter:GetId()), true)
+end
+
+function XUiRpgTowerRoleList:OnBtnOwnedDetailClick()
+    XLuaUiManager.Open("UiCharacterDetail", self.RCharacter:GetId())
+end
+
+function XUiRpgTowerRoleList:OnBtnTeachingClick()
+    XDataCenter.PracticeManager.OpenUiFubenPractice(self.RCharacter:GetId())
+    XSaveTool.SaveData(string.format("%s%s%s", "RpgTowerRoleListTeachRedPoint", XPlayer.Id, self.RCharacter:GetId()), true)
 end

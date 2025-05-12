@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelMultiDimRoomReward = XClass(nil, "XUiPanelMultiDimRoomReward")
 
 ---@param transform UnityEngine.RectTransform

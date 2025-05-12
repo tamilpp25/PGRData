@@ -1,3 +1,5 @@
+---@class XUiPanelMenu : XLuaBehaviour
+---@field Furniture XHomeFurnitureObj
 local XUiPanelMenu = XClass(XLuaBehaviour, "XUiPanelMenu")
 
 function XUiPanelMenu:Ctor(rootUi, ui)
@@ -162,6 +164,10 @@ end
 function XUiPanelMenu:OnBtnBuildClick()
     if XDataCenter.FurnitureManager.IsFurnitureCreatePosFull() then
         XUiManager.TipText("FurnitureBuildingListFull")
+        return
+    end
+    if XDataCenter.FurnitureManager.CheckFurnitureSlopLimit() then
+        XLuaUiManager.Open("UiFurnitureCreateDetail")
         return
     end
 

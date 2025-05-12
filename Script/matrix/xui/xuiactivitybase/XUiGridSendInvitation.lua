@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --
 --Author: wujie
 --Note: 回归活动发送邀请奖励格子

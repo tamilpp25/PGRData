@@ -8,9 +8,25 @@ function XUiSSBCCore:Ctor(prefab)
     XUiHelper.RegisterClickEvent(self, self.BtnReplace, function() self:OnClickReplace() end)
 end
 
+---@param chara XSmashBCharacter
 function XUiSSBCCore:Refresh(chara)
     self.Chara = chara
     local core = chara:GetCore()
+    local desc = chara:GetAssistantSkillDesc()
+    if desc then
+        self.TxtSkillDesc.text = desc
+        self.PanelAid.gameObject:SetActiveEx(true)
+    else
+        self.PanelAid.gameObject:SetActiveEx(false)
+    end
+    if self.PanelAid2 then
+        if desc then
+            self.PanelAid2.gameObject:SetActiveEx(true)
+            self.TxtSkillDesc2.text = desc
+        else
+            self.PanelAid2.gameObject:SetActiveEx(false)
+        end
+    end
     self.PanelCore.gameObject:SetActiveEx(core ~= nil)
     if self.BgAdd then self.BgAdd.gameObject:SetActiveEx(core == nil) end
     if not core then return end
@@ -19,6 +35,7 @@ function XUiSSBCCore:Refresh(chara)
     self.RImgCore:SetRawImage(core:GetIcon())
     self.TxtAtk.text = XUiHelper.GetText("SSBInfoCoreAtk", core:GetAtkLevel() * XDataCenter.SuperSmashBrosManager.GetAtkUpNumByLevel())
     self.TxtLife.text = XUiHelper.GetText("SSBInfoCoreLife", core:GetLifeLevel() * XDataCenter.SuperSmashBrosManager.GetLifeUpNumByLevel())
+    chara:GetId()
 end
 
 function XUiSSBCCore:OnClickReplace()

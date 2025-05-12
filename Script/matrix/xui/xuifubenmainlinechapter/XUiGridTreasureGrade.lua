@@ -1,4 +1,6 @@
-XUiGridTreasureGrade = XClass(nil, "XUiGridTreasureGrade")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+---@class XUiGridTreasureGrade
+local XUiGridTreasureGrade = XClass(nil, "XUiGridTreasureGrade")
 
 function XUiGridTreasureGrade:Ctor(rootUi, ui, treasureType)
     self.RootUi = rootUi
@@ -80,14 +82,14 @@ function XUiGridTreasureGrade:OnBtnReceiveClick()
 
         for i = 1, #rewards do
             local rewardsId = rewards[i].TemplateId
-            if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Weapon) then
+            if XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
                 weaponCount = weaponCount + 1
-            elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Awareness) then
+            elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
                 chipCount = chipCount + 1
             end
         end
-        if weaponCount > 0 and XDataCenter.EquipManager.CheckBagCount(weaponCount, XEquipConfig.Classify.Weapon) == false or
-                chipCount > 0 and XDataCenter.EquipManager.CheckBagCount(chipCount, XEquipConfig.Classify.Awareness) == false then
+        if weaponCount > 0 and XMVCA.XEquip:CheckBagCount(weaponCount, XEnumConst.EQUIP.CLASSIFY.WEAPON) == false or
+                chipCount > 0 and XMVCA.XEquip:CheckBagCount(chipCount, XEnumConst.EQUIP.CLASSIFY.AWARENESS) == false then
             return
         end
 
@@ -255,3 +257,5 @@ function XUiGridTreasureGrade:InitTreasureList()
         end
     end
 end
+
+return XUiGridTreasureGrade

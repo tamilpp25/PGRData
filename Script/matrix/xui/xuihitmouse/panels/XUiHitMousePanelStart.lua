@@ -21,10 +21,10 @@ end
 function XUiHitMousePanelStart.PlayStart(ui, finishCb)
     if not ui then return end
     XLuaUiManager.SetMask(true)
-    ui.StartPanel.StartEffect.gameObject:SetActive(false)
     ui.StartPanel.GameObject:SetActiveEx(true)
     ui.StartPanel.PaneStartEnable:PlayTimelineAnimation(function()
             XLuaUiManager.SetMask(false)
+            ui.StartPanel.StartEffect.gameObject:SetActiveEx(false)
             ui.StartPanel.GameObject:SetActiveEx(false)
             if finishCb then
                 finishCb()

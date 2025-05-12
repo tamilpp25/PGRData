@@ -11,9 +11,12 @@ XFurnitureConfigs.FURNITURE_CATEGORY_ALL_ID = 0
 XFurnitureConfigs.MAX_FURNITURE_ATTR_LEVEL = 5
 XFurnitureConfigs.FURNITURE_SUIT_CATEGORY_ALL_ID = 1
 
+XFurnitureConfigs.BASE_SUIT_ID = 4 --基础套装Id
+
 XFurnitureConfigs.GainType = {
-    Create = 1,
-    Refit = 2
+    Create  = 1, --创建
+    Refit   = 2, --改装
+    Remake  = 3, --重置
 }
 
 XFurnitureConfigs.XFurnitureAdditionType = {
@@ -156,7 +159,14 @@ XFurnitureConfigs.FurnitureAttrLevel = {
     [5] = CS.XTextManager.GetText("FurnitureQualityS"),
 }
 
-local CLIENT_FURNITURE_SUIT = "Client/Hostel/FurnitureSuit.tab"
+XFurnitureConfigs.FurnitureAttrLevelId = {
+    LevelC = 2,
+    LevelB = 3,
+    LevelA = 4,
+    LevelS = 5
+}
+
+local CLIENT_FURNITURE_SUIT = "Share/Dormitory/Furniture/FurnitureSuit.tab"
 local CLIENT_FURNITURE_VIEWANGLE = "Client/Hostel/FurnitureViewAngle.tab"
 local CLIENT_FURNITURE_COLOUR = "Client/Hostel/FurnitureColour.tab"
 local TABLE_DORM_FURNITURE_TYPE_PATH = "Client/Dormitory/DormFurnitureType.tab"
@@ -190,7 +200,6 @@ local FurnitureAdditionalAttr = {}
 local FurnitureCreateAttr = {}
 local FurnitureBaseAttrTemplate = {}
 local FurnitureExtraAttrTemplate = {}
-local FurnitureTypeList = {}
 local FurnitureTypeGroupList = {}
 local FurnitureRewardTemplate = {}
 local FurnitureBehaviorTemplate = {}
@@ -208,51 +217,14 @@ local DormFurnitureAnimation = {} -- 家具动画配置表
 
 XFurnitureConfigs.Incresment = CS.XGame.ClientConfig:GetInt("FurnitureInvestmentIncreaseStep")
 XFurnitureConfigs.DefaultIcon = CS.XGame.ClientConfig:GetString("FurnitureDefaultIcon")
-XFurnitureConfigs.DefaultName = CS.XGame.ClientConfig:GetString("FurnitureDefaultName")
+XFurnitureConfigs.DefaultCreateName = CS.XGame.ClientConfig:GetString("FurnitureDefaultName")
+XFurnitureConfigs.DefaultResetName = CS.XGame.ClientConfig:GetString("FurnitureDefaultResetName")
 XFurnitureConfigs.MaxCreateCount = CS.XGame.Config:GetInt("DormMaxCreateCount")
+XFurnitureConfigs.MaxRemouldCount = CS.XGame.Config:GetInt("DormMaxRemouldCount")
+XFurnitureConfigs.MaxRemakeCount = CS.XGame.Config:GetInt("DormMaxRemakeCount")
 XFurnitureConfigs.MaxPutFurnitureCount = CS.XGame.Config:GetInt("DormMaxPutFurnitureCount")
-
-local function InitFurnitureTypeConfig()
-    local map = {}
-    for _, cfg in pairs(FurnitureTypeTemplates) do
-        local newId = cfg.MajorType * 100 + cfg.MinorType
-
-        local data = map[newId]
-        if not data then
-            data = {}
-            data.MinorType = cfg.MinorType
-            data.MinorName = cfg.MinorName
-            data.CategoryMap = {}
-            map[newId] = data
-        end
-
-        local category = {}
-        category.Category = cfg.Category
-        category.CategoryName = cfg.CategoryName
-
-        data.CategoryMap[category.Category] = category
-    end
-
-    for _, data in pairs(map) do
-        data.CategoryList = {}
-
-        for _, v in pairs(data.CategoryMap) do
-            table.insert(data.CategoryList, v)
-        end
-
-        data.CategoryMap = nil
-        if #data.CategoryList < 2 then
-            data.CategoryList = {}
-        else
-            local category = {}
-            category.Category = 0
-            category.CategoryName = CS.XTextManager.GetText("FurnitureWholeText")
-            table.insert(data.CategoryList, 1, category)
-        end
-
-        FurnitureTypeList[data.MinorType] = data
-    end
-end
+XFurnitureConfigs.MaxTotalFurnitureCount = CS.XGame.Config:GetInt("DormMaxTotalFurnitureCount")
+XFurnitureConfigs.MaxDrawBuyCount = CS.XGame.Config:GetInt("DormMaxDrawBuyCount")
 
 local function InitFurnitureTypeGroupConfig()
     local map = {}
@@ -374,7 +346,6 @@ function XFurnitureConfigs.Init()
     local furnitureLevelTemplates = XTableManager.ReadByIntKey(SHARE_FURNITURE_LEVEL, XTable.XTableFurnitureLevel, "Id")
     local furnitureBehaviorTemplate = XTableManager.ReadByIntKey(SHARE_FURNTIURE_BEHAVIOR, XTable.XTableFurnitureBehavior, "Id")
 
-    InitFurnitureTypeConfig()
     InitFurnitureTypeGroupConfig()
     InitFurnitureLevelConfigs(furnitureLevelTemplates)
     InitFurnitureSingleAttrLevelConfigs(FurnitureSingleAttrLevelTemplate)
@@ -413,9 +384,7 @@ function XFurnitureConfigs.Init()
 
         FurnitureSuitDatas[id] = FurnitureSuitDatas[id] + 1
 
-        if v.SuitId ~= 0 then
-            InitFurnitureMinorTemplates(v)
-        end
+        InitFurnitureMinorTemplates(v)
     end
 end
 
@@ -433,10 +402,10 @@ function XFurnitureConfigs.GetAdditionalAddScore(id)
 end
 
 -- 获取家具额外属性加成配置表
-function XFurnitureConfigs.GetAdditonAttrConfigById(id)
+function XFurnitureConfigs.GetAdditionAttrConfigById(id)
     local t = FurnitureAdditionalAttr[id]
     if not t then
-        XLog.ErrorTableDataNotFound("XFurnitureConfigs.GetAdditonAttrConfigById",
+        XLog.ErrorTableDataNotFound("XFurnitureConfigs.GetAdditionAttrConfigById",
         "FurnitureAdditionalAttr", SHARE_FURNITURE_ADDITIONALATTR, "Id", tostring(id))
         return nil
     end
@@ -627,7 +596,7 @@ end
 
 -- 获取评分词条
 function XFurnitureConfigs.GetAdditionalRandomEntry(id, removeScore)
-    local addRandom = XFurnitureConfigs.GetAdditonAttrConfigById(id)
+    local addRandom = XFurnitureConfigs.GetAdditionAttrConfigById(id)
     local quality = addRandom.QualityType < 0 and 2 or addRandom.QualityType
     local color = XFurnitureConfigs.FurnitureAttrColor[quality]
     local level = XFurnitureConfigs.FurnitureAttrLevel[quality]
@@ -681,6 +650,23 @@ function XFurnitureConfigs.GetFurnitureSuitTemplates()
     return FurnitureSuitTemplates
 end
 
+--- 检查家具套装是否可显示（未配置时间默认可显示，否则需要到达时间才显示
+function XFurnitureConfigs.CheckFurnitureSuitIsShowById(suitId)
+    local cfg = FurnitureSuitTemplates[suitId]
+
+    if cfg then
+        if string.IsNilOrEmpty(cfg.ShowTimeStr) then
+            return true
+        else
+            local now = XTime.GetServerNowTimestamp()
+            return now >= XTime.ParseToTimestamp(cfg.ShowTimeStr)
+        end
+        
+    end
+    
+    return false
+end
+
 -- 家具风格套装
 function XFurnitureConfigs.GetFurnitureSuitTemplatesList()
     local list = {}
@@ -703,6 +689,56 @@ function XFurnitureConfigs.GetFurnitureSuitName(id)
     return d.SuitName
 end
 
+---@return XTableFurnitureSuit
+function XFurnitureConfigs.GetFurnitureSuitTemplatesById(suitId)
+    local currentSuitTemplate = FurnitureSuitTemplates[suitId]
+
+    if not currentSuitTemplate then
+        XLog.ErrorTableDataNotFound("XFurnitureConfigs.GetFurnitureSuitTemplatesById",
+                "FurnitureSuit", CLIENT_FURNITURE_SUIT, "suitId", tostring(suitId))
+        return
+    end
+
+    return currentSuitTemplate
+end
+
+function XFurnitureConfigs.IsIgnoreRecoverySuit(suitId)
+    local template = XFurnitureConfigs.GetFurnitureSuitTemplatesById(suitId)
+    if not template then
+        return true
+    end
+    
+    if XFurnitureConfigs.IsAllSuit(suitId) then
+        return false
+    end
+    return template.IgnoreRecovery
+end
+
+function XFurnitureConfigs.IsIgnoreRecoverySuitByConfigId(furnitureConfigId)
+    local template = XFurnitureConfigs.GetFurnitureBaseTemplatesById(furnitureConfigId)
+    if not template then
+        return true
+    end
+    return XFurnitureConfigs.IsIgnoreRecoverySuit(template.SuitId)
+end
+
+function XFurnitureConfigs.IsIgnoreWhenRefit(suitId)
+    local template = XFurnitureConfigs.GetFurnitureSuitTemplatesById(suitId)
+    if not template then
+        return true
+    end
+    
+    return template.IsIgnoreWhenRemodule
+end
+
+function XFurnitureConfigs.IsIgnoreWhenRefitByConfigId(furnitureConfigId)
+    local template = XFurnitureConfigs.GetFurnitureBaseTemplatesById(furnitureConfigId)
+    if not template then
+        return true
+    end
+    return XFurnitureConfigs.IsIgnoreWhenRefit(template.SuitId)
+end
+
 function XFurnitureConfigs.IsAllSuit(suitId)
     return suitId == nil or suitId == 0 or suitId == 1
 end
@@ -710,15 +746,6 @@ end
 -- 属性标签
 function XFurnitureConfigs.GetFurnitureTagTypeTemplates()
     return FurnitureTagTypeTemplates
-end
-
--- 获取家具类型列表
-function XFurnitureConfigs.GetFurnitureTypeList()
-    local list = {}
-    for _, v in pairs(FurnitureTypeList) do
-        table.insert(list, v)
-    end
-    return list
 end
 
 -- 获取家具类型下Minor个数
@@ -803,6 +830,29 @@ function XFurnitureConfigs.GetFurnitureCfgList(minorId, categoryId, suitId)
     return list
 end
 
+function XFurnitureConfigs.GetFurnitureConfigIdList(minorType, category, suitId)
+    local minors = FurnitureMinorDatas[minorType]
+    if not minors then
+        return {}
+    end
+    
+    local categories = minors[category]
+    if not categories then
+        return {}
+    end
+    
+    local list = {}
+    local allSuit = XFurnitureConfigs.IsAllSuit(suitId)
+
+    for sId, suits in pairs(categories) do
+        if allSuit or sId == suitId then
+           list = appendArray(list, suits)
+        end
+    end
+    
+    return list
+end
+
 -- 获取某个套装家具总个数
 function XFurnitureConfigs.GetSuitCount(suitId)
     if XFurnitureConfigs.IsAllSuit(suitId) then
@@ -816,19 +866,8 @@ function XFurnitureConfigs.GetFurnitureTypeGroupList()
     return FurnitureTypeGroupList
 end
 
-function XFurnitureConfigs.GetFurnitureSuitTemplatesById(suitId)
-    local currentSuitTemplate = FurnitureSuitTemplates[suitId]
-
-    if not currentSuitTemplate then
-        XLog.ErrorTableDataNotFound("XFurnitureConfigs.GetFurnitureSuitTemplatesById",
-        "FurnitureSuit", CLIENT_FURNITURE_SUIT, "suitId", tostring(suitId))
-        return
-    end
-
-    return currentSuitTemplate
-end
-
--- 家具客户端数据
+--- 家具客户端数据
+---@return XTableFurniture
 function XFurnitureConfigs.GetFurnitureBaseTemplatesById(id)
     local currentTemplates = FurnitureTemplates[id]
 
@@ -864,6 +903,14 @@ function XFurnitureConfigs.GetFurnitureBigIconById(id)
     return currentTemplates.Icon
 end
 
+function XFurnitureConfigs.GetFurniturePetId(templateId)
+    local template = XFurnitureConfigs.GetFurnitureBaseTemplatesById(templateId)
+    if not template then
+        return 0
+    end
+    return template.PetId
+end
+
 -- 属性类型
 function XFurnitureConfigs.GetFurnitureAttrType()
     local temp = {}
@@ -882,6 +929,7 @@ function XFurnitureConfigs.GetAllFurnitures()
 end
 
 -- 家具基础数据
+---@return XTableFurniture
 function XFurnitureConfigs.GetFurnitureTemplateById(id)
     local currentTemplate = FurnitureTemplates[id]
 
@@ -1084,11 +1132,13 @@ function XFurnitureConfigs.GetFurniturePlaceType(furnitureTypeId)
 end
 
 -- 获取所有家具类型
+---@return table<number,XTable.XTableFurnitureType>
 function XFurnitureConfigs.GetAllFurnitureTypes()
     return FurnitureTypeTemplates
 end
 
 -- 家具类型数据
+---@return XTable.XTableFurnitureType
 function XFurnitureConfigs.GetFurnitureTypeById(id)
     local currentTemplates = FurnitureTypeTemplates[id]
 
@@ -1122,12 +1172,13 @@ function XFurnitureConfigs.GetFurnitureExtraAttrsById(id)
     return furnitureExtraAttrTemplate
 end
 
-function XFurnitureConfigs.GetFurntiureExtraAttrTotalValue(id)
+function XFurnitureConfigs.GetFurnitureExtraAttrTotalValue(id)
     if not FurnitureExtraAttrTemplate[id] then
         return 0
     end
 
-    return XFurnitureConfigs.GetFurnitureBaseAttrValueById(FurnitureExtraAttrTemplate[id].BaseAttrId)
+    return XFurnitureConfigs.GetFurnitureBaseAttrValueById(FurnitureExtraAttrTemplate[id].BaseAttrId) 
+            + XFurnitureConfigs.GetFurnitureBaseAttrValueById(FurnitureExtraAttrTemplate[id].RemakeExtraAttrId)
 end
 
 -- 最低，最高档位
@@ -1143,6 +1194,38 @@ function XFurnitureConfigs.GetFurnitureCreateMinAndMax()
         end
     end
     return minConsume, maxConsume
+end
+
+---@param furniture XHomeFurnitureData
+function XFurnitureConfigs.CheckFurnitureRemake(furniture, cost)
+    if not furniture then
+        return false
+    end
+    local template = XFurnitureConfigs.GetFurnitureTemplateById(furniture:GetConfigId())
+    if not template then
+        return false
+    end
+    local attrId
+    for id, temp in pairs(FurnitureCreateAttr) do
+        if temp.FurnitureType == template.TypeId and temp.MinConsume == cost then
+            attrId = id
+            break
+        end
+    end
+
+    if not attrId then
+        return false
+    end
+    
+    local attr = FurnitureCreateAttr[attrId]
+    local totalScore = furniture:GetAttrTotal() - attr.ExtraAttrTotal[1]
+    local attrTotals = attr.AttrTotal
+    for i = #attrTotals, 1, -1 do
+        if attrTotals[i] >= totalScore then
+            return true
+        end
+    end
+    return false
 end
 
 -- 根据家具拿到对应的图纸，一一对应,家具不一定有对应的图纸,如果没有则不能改装
@@ -1211,6 +1294,20 @@ end
 
 function XFurnitureConfigs.GetFurnitureReward(id)
     return FurnitureRewardTemplate[id]
+end
+
+-- 根据套装Id获取家具配置Id, 目前使用频率不高，若需要频繁使用请用缓存
+function XFurnitureConfigs.GetFurnitureConfigIdsBySuitId(suitId)
+    if XFurnitureConfigs.IsAllSuit(suitId) then
+        return {}
+    end
+    local list = {}
+    for _, template in pairs(FurnitureTemplates) do
+        if template.SuitId == suitId then
+            table.insert(list, template.Id)
+        end
+    end
+    return list
 end
 
 -- 计算恢复速度

@@ -66,6 +66,7 @@ XFubenActivityPuzzleManagerCreator = function ()
         end
         
         XLuaUiManager.Open("UiFubenActivityPuzzle")
+        return true
     end
 
     function XFubenActivityPuzzleManager.HandlePuzzles(puzzles)

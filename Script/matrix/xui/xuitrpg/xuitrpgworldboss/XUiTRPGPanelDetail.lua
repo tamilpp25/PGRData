@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiTRPGPanelDetail = XClass(nil, "XUiTRPGPanelDetail")
 local CSTextManagerGetText = CS.XTextManager.GetText
 
@@ -68,7 +69,7 @@ function XUiTRPGPanelDetail:OnBtnBossClick()
     end
 
     local stageId = XTRPGConfigs.GetBossStageId()
-    XLuaUiManager.Open("UiNewRoomSingle", stageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", stageId)
 end
 
 function XUiTRPGPanelDetail:SetShow(IsShow)

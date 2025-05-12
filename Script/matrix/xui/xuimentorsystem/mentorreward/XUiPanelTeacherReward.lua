@@ -1,3 +1,5 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelTeacherReward = XClass(nil, "XUiPanelTeacherReward")
 local XUiGridTeacherTask = require("XUi/XUiMentorSystem/MentorReward/XUiGridTeacherTask")
 local XUiPanelTeacherPhasesReward = require("XUi/XUiMentorSystem/MentorReward/XUiPanelTeacherPhasesReward")
@@ -43,9 +45,9 @@ function XUiPanelTeacherReward:InitStudentGroup()
         btncs:SetName(student.PlayerName or "")
         btncs:ShowTag(student.IsGraduate)
         local btnUiObj = btncs.transform:GetComponent("UiObject")
-        XUiPLayerHead.InitPortrait(student.HeadPortraitId, student.HeadFrameId, btnUiObj:GetObject("NormalHead"))
+        XUiPlayerHead.InitPortrait(student.HeadPortraitId, student.HeadFrameId, btnUiObj:GetObject("NormalHead"))
         XUiPlayerLevel.UpdateLevel(student.Level, btnUiObj:GetObject("NormalLevel"))
-        XUiPLayerHead.InitPortrait(student.HeadPortraitId, student.HeadFrameId, btnUiObj:GetObject("SelectHead"))
+        XUiPlayerHead.InitPortrait(student.HeadPortraitId, student.HeadFrameId, btnUiObj:GetObject("SelectHead"))
         XUiPlayerLevel.UpdateLevel(student.Level, btnUiObj:GetObject("SelectLevel"))
     end
     self.PanelStudentGroup:Init(self.StudentBtnList, function(index) self:SelectStudent(index) end)
@@ -80,13 +82,12 @@ function XUiPanelTeacherReward:SetupDynamicTable()
 end
 
 function XUiPanelTeacherReward:TaskSort(tasks)
-    local taskTemplate = XTaskConfig.GetTaskTemplate()
     local list = {}
     for _,task in pairs(tasks or {}) do
         table.insert(list,task)
     end
     tableSort(list, function(a, b)
-            local pa, pb = taskTemplate[a.TaskId].Priority, taskTemplate[b.TaskId].Priority
+            local pa, pb = XTaskConfig.GetTaskPriority(a.TaskId), XTaskConfig.GetTaskPriority(b.TaskId)
             if a.State == b.State then
                 if pa ~= pb then
                     return pa > pb

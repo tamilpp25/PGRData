@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridInviteFriendItem = XClass(nil, "XUiGridInviteFriendItem")
 
 function XUiGridInviteFriendItem:Ctor(ui)
@@ -55,7 +56,7 @@ function XUiGridInviteFriendItem:Refresh(data, invited)
         self.TxtTime.gameObject:SetActive(false)
         self.HeadOnLine.gameObject:SetActive(true)
         self.HeadOffLine.gameObject:SetActive(false)
-        XUiPLayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.HeadOnLine)
+        XUiPlayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.HeadOnLine)
         self.BtnInvite.ButtonState = CS.UiButtonState.Normal
     else
         self.TxtOnline.gameObject:SetActive(false)
@@ -64,7 +65,7 @@ function XUiGridInviteFriendItem:Refresh(data, invited)
         self.TxtTime.gameObject:SetActive(true)
         self.HeadOnLine.gameObject:SetActive(false)
         self.HeadOffLine.gameObject:SetActive(true)
-        XUiPLayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.HeadOffLine)
+        XUiPlayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.HeadOffLine)
         self.BtnInvite.ButtonState = CS.UiButtonState.Disable
     end
 end

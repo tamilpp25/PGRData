@@ -1,9 +1,8 @@
-XUiGridArchiveStoryDetail = XClass(nil, "XUiGridArchiveStoryDetail")
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
+local XUiGridArchiveStory = require("XUi/XUiArchive/XUiGridArchiveStory")
+local XUiGridArchiveStoryDetail = XClass(XUiNode, "XUiGridArchiveStoryDetail")
 
-function XUiGridArchiveStoryDetail:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchiveStoryDetail:OnStart()
     self:SetButtonCallBack()
 end
 
@@ -39,3 +38,5 @@ function XUiGridArchiveStoryDetail:SetMonsterData(chapter)
 
     self.ChapterTitleNum.gameObject:SetActiveEx(chapter:GetSubName() and #chapter:GetSubName() > 0)
 end
+
+return XUiGridArchiveStoryDetail

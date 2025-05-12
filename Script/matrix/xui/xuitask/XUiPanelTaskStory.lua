@@ -1,4 +1,10 @@
-XUiPanelTaskStory = XClass(nil, "XUiPanelTaskStory")
+local XUiPanelTask = require("XUi/XUiMoneyReward/XUiPanelTask")
+local XUiPanelCourse = require("XUi/XUiTask/XUiPanelCourse")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XUiPanelCourseReward = require("XUi/XUiTask/XUiPanelCourseReward")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+---@class XUiPanelTaskStory
+local XUiPanelTaskStory = XClass(nil, "XUiPanelTaskStory")
 local GridTimeAnimation = 50
 
 function XUiPanelTaskStory:Ctor(ui, parent)
@@ -10,7 +16,9 @@ function XUiPanelTaskStory:Ctor(ui, parent)
 
     local finalChapterId = XDataCenter.TaskManager.GetFinalChapterId()
     local curChapterId = XDataCenter.TaskManager.GetCourseCurChapterId() or finalChapterId
+    ---@type XUiPanelCourse
     self.Course = XUiPanelCourse.New(self.Parent, self.PanelCourse, curChapterId, self)
+    ---@type XUiPanelCourseReward
     self.CourseReward = XUiPanelCourseReward.New(self.Parent, self.PanelCourseReward)
 
     self.DynamicTable = XDynamicTableNormal.New(self.PanelTaskStoryList.gameObject)
@@ -138,3 +146,5 @@ function XUiPanelTaskStory:SortTaskByGroup(tasks)
 
     return sortedTasks
 end
+
+return XUiPanelTaskStory

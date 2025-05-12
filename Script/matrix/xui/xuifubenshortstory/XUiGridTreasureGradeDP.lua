@@ -1,10 +1,12 @@
+local XUiGridTreasureGrade = require("XUi/XUiFubenMainLineChapter/XUiGridTreasureGrade")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridTreasureGradeDP = XClass(nil, "XUiGridTreasureGradeDP")
 
 function XUiGridTreasureGradeDP:Ctor(rootUi, ui, treasureType)
     self.RootUi = rootUi
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
-    self.TreasureType = treasureType or XDataCenter.FubenManager.StageType.Mainline
+    self.TreasureType = treasureType or XEnumConst.FuBen.StageType.Mainline
     self:InitAutoScript()
     self.GridCommonItem = self.Transform:Find("PanelTreasureList/Viewport/PanelTreasureContent/GridCommon")
     self.GridCommonItem.gameObject:SetActiveEx(false)
@@ -80,14 +82,14 @@ function XUiGridTreasureGradeDP:OnBtnReceiveClick()
 
         for i = 1, #rewards do
             local rewardsId = rewards[i].TemplateId
-            if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Weapon) then
+            if XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
                 weaponCount = weaponCount + 1
-            elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Awareness) then
+            elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
                 chipCount = chipCount + 1
             end
         end
-        if weaponCount > 0 and XDataCenter.EquipManager.CheckBagCount(weaponCount, XEquipConfig.Classify.Weapon) == false or
-                chipCount > 0 and XDataCenter.EquipManager.CheckBagCount(chipCount, XEquipConfig.Classify.Awareness) == false then
+        if weaponCount > 0 and XMVCA.XEquip:CheckBagCount(weaponCount, XEnumConst.EQUIP.CLASSIFY.WEAPON) == false or
+                chipCount > 0 and XMVCA.XEquip:CheckBagCount(chipCount, XEnumConst.EQUIP.CLASSIFY.AWARENESS) == false then
             return
         end
 
@@ -99,7 +101,7 @@ function XUiGridTreasureGradeDP:OnBtnReceiveClick()
         if self.CurStars < self.RequireStar then
             return
         end
-        if self.TreasureType == XDataCenter.FubenManager.StageType.ShortStory then
+        if self.TreasureType == XEnumConst.FuBen.StageType.ShortStory then
             XDataCenter.ShortStoryChapterManager.ReceiveTreasureReward(function(reward)
                 XUiManager.OpenUiObtain(reward, CS.XTextManager.GetText("Award"))
                 self:Refresh()

@@ -16,7 +16,11 @@ function XUiPanelHome:SetData(node)
     self.TxtHP.text = node:GetPercentageHP()
     self.PrograssHP.fillAmount = node:GetHP() / node:GetMaxHP()
     local buffData = node:GetFightEventDetailConfig()
-    if buffData == nil then return end 
+    if buffData == nil then
+        self.TxtBuffName.transform.parent.gameObject:SetActiveEx(false)
+        return
+    end
+    self.TxtBuffName.transform.parent.gameObject:SetActiveEx(true)
     -- self.RImgBuffIcon:SetRawImage(buffData.Icon)
     self.TxtBuffName.text = buffData.Name
     self.TxtBuffDetails.text = buffData.Description

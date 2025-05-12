@@ -152,6 +152,10 @@ end
 
 -- 快捷改造
 function XUiPanelRefitQuick:OnBtnRefitClick()
+    if XDataCenter.FurnitureManager.CheckFurnitureSlopLimit() then
+        XLuaUiManager.Open("UiFurnitureCreateDetail")
+        return
+    end
     local gainType = XFurnitureConfigs.GainType.Refit
     local draftId = self.Config.PicId
     local furnitureTypeId = self.Config.TypeId
@@ -163,6 +167,10 @@ end
 function XUiPanelRefitQuick:OnBtnCreateClick()
     if XDataCenter.FurnitureManager.IsFurnitureCreatePosFull() then
         XUiManager.TipText("FurnitureBuildingListFull")
+        return
+    end
+    if XDataCenter.FurnitureManager.CheckFurnitureSlopLimit() then
+        XLuaUiManager.Open("UiFurnitureCreateDetail")
         return
     end
 

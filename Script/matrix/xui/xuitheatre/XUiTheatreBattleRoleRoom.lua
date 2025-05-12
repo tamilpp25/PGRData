@@ -15,15 +15,23 @@ end
 -- 根据实体id获取角色视图数据
 -- return : XCharacterViewModel
 function XUiTheatreBattleRoleRoom:GetCharacterViewModelByEntityId(id)
-    local role = self.AdventureManager:GetRole(id)
+    local role = self.AdventureManager:GetRoleByRobotId(id)
     if role == nil then return nil end
     return role:GetCharacterViewModel()
+end
+
+function XUiTheatreBattleRoleRoom:GetRoleAbility(entityId)
+     local viewModel = self:GetCharacterViewModelByEntityId(entityId)
+     if viewModel then
+         return viewModel:GetAbility()
+     end
+     return 0
 end
 
 -- 根据实体Id获取伙伴实体
 -- return : XPartner
 function XUiTheatreBattleRoleRoom:GetPartnerByEntityId(id)
-    local role = self.AdventureManager:GetRole(id)
+    local role = self.AdventureManager:GetRoleByRobotId(id)
     if role == nil then return nil end
     local result = nil
     if role:GetIsLocalRole() then
@@ -40,7 +48,6 @@ end
 function XUiTheatreBattleRoleRoom:EnterFight()
     self.AdventureManager:RequestSetSingleTeam(function()
         self.AdventureManager:EnterFight(self.StageId, nil, function(res)
-            XLog.Warning(res)
             if res.Code ~= XCode.Success then
                 return
             end
@@ -54,6 +61,18 @@ function XUiTheatreBattleRoleRoom:EnterFight()
             end
         end)
     end)
+end
+
+---@overload
+function XUiTheatreBattleRoleRoom:CheckIsEnableGeneralSkillSelection()
+    return false
+end
+
+-- 获取有效角色进行剔除检查
+---@overload
+function XUiTheatreBattleRoleRoom:GetValidEntityIdList(stageId, team)
+    -- 这里屏蔽掉这个功能
+    return nil
 end
 
 return XUiTheatreBattleRoleRoom

@@ -1,5 +1,10 @@
 local XUiGridTicket = XClass(nil, "XUiGridTicket")
 
+local CostColor = {
+    [true] = "444C52",
+    [false] = "FF3F3F",
+}
+
 function XUiGridTicket:Ctor(ui, data, buyCb)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
@@ -8,6 +13,11 @@ function XUiGridTicket:Ctor(ui, data, buyCb)
     XTool.InitUiObject(self)
     self:SetButtonCallBack()
     self:ShowPanel()
+    XDataCenter.ItemManager.AddCountUpdateListener(self.TicketData.ItemId, function()
+        if self.CurNum then
+            self.CurNum.text = XDataCenter.ItemManager.GetItem(self.TicketData.ItemId).Count
+        end
+    end, self.GameObject)
 end
 
 function XUiGridTicket:SetButtonCallBack()
@@ -34,6 +44,11 @@ function XUiGridTicket:ShowPanel()
     
     if self.CostNum then
         self.CostNum.text = self.TicketData.ItemCount
+        if self.BuyCb then
+            local currentCount = XDataCenter.ItemManager.GetCount(self.TicketData.ItemId)
+            local needCount = self.TicketData.ItemCount
+            self.CostNum.color = XUiHelper.Hexcolor2Color(CostColor[currentCount >= needCount])
+        end
     end
     
     if self.CurNum then
@@ -42,7 +57,7 @@ function XUiGridTicket:ShowPanel()
     
     if self.CardImg then
         local goods = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(self.TicketData.ItemId)
-        local icon = self.TicketData.ItemImg or goods.BigIcon or goods.Icon
+            local icon = self.TicketData.ItemImg or goods.BigIcon or goods.Icon
         self.CardImg:SetRawImage(icon)
     end
 end
@@ -63,9 +78,8 @@ function XUiGridTicket:OnBtnBuyClick()
                     self.CurNum.text = XDataCenter.ItemManager.GetItem(self.TicketData.ItemId).Count
                 end
             end, nil, needCount - currentCount)
-        else
-            XUiManager.TipError(XUiHelper.GetText("AssetsBuyConsumeNotEnough", XDataCenter.ItemManager.GetItemName(itemId)))
         end
+        XUiManager.TipError(XUiHelper.GetText("AssetsBuyConsumeNotEnough", XDataCenter.ItemManager.GetItemName(itemId)))
         return
     end
     if self.BuyCb then

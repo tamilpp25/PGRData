@@ -73,6 +73,10 @@ XPivotCombatManagerCreator = function()
         if not XTool.IsNumberValid(_RegionDifficult) then
             return
         end
+        --置空
+        _CenterRegion = {}
+        _SecondaryRegion = {}
+        _RegionId2Region = {}
         local regions = XPivotCombatConfigs.GetCurRegionConfigs()
         for regionId, config in pairs(regions[_RegionDifficult] or {}) do
             local regionItem = XPivotCombatRegionItem.New(regionId)
@@ -325,7 +329,7 @@ XPivotCombatManagerCreator = function()
             if XTool.IsNumberValid(charId) then
                 head.StandIcon.gameObject:SetActiveEx(true)
                 head.PanelLose.gameObject:SetActiveEx(false)
-                local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId)
+                local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(charId)
                 head.StandIcon:SetRawImage(icon)
             else
                 --head.StandIcon.gameObject:SetActiveEx(false)
@@ -641,6 +645,24 @@ XPivotCombatManagerCreator = function()
         return _LockCharacterIdDic
     end
     
+    --==============================
+     ---@desc 检查角色是否被锁定
+     ---@stageId 关卡Id 
+     ---@characterId 角色Id
+     ---@return boolean
+    --==============================
+    function XPivotCombatManager.CheckCharacterLocked(stageId, characterId)
+        if not XTool.IsNumberValid(stageId) 
+                or not XTool.IsNumberValid(characterId) then
+            return false
+        end
+        local stage = XDataCenter.PivotCombatManager.GetStage(stageId)
+        if not stage or stage:CanUseLockedRole() then
+            return false
+        end
+        return _LockCharacterIdDic[characterId] and true or false
+    end
+    
     --===========================================================================
      ---@desc 界面处理通用事件
     --===========================================================================
@@ -748,7 +770,7 @@ XPivotCombatManagerCreator = function()
             if XRobotManager.CheckIsRobotId(id) then
                 goto CONTINUE
             end
-            local isOwnerCharacter = XDataCenter.CharacterManager.IsOwnCharacter(id)
+            local isOwnerCharacter = XMVCA.XCharacter:IsOwnCharacter(id)
             --如果这个角色在队伍中,
             if not isOwnerCharacter then
                 team:Clear()
@@ -778,7 +800,7 @@ XPivotCombatManagerCreator = function()
     function XPivotCombatManager.GetFightEntities(characterType)
         local result = {}
         --玩家拥有的角色
-        local characters = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local characters = XMVCA.XCharacter:GetOwnCharacterList()
         for _, character in ipairs(characters or {}) do
             if character:GetCharacterViewModel():GetCharacterType() == characterType then
                 table.insert(result, character)
@@ -853,20 +875,6 @@ XPivotCombatManagerCreator = function()
     --endregion
 
     --region 适配FubenManager内的方法
-    
-    --===========================================================================
-     ---@desc 初始化StageInfo
-    --===========================================================================
-    function XPivotCombatManager.InitStageInfo()
-        local stageIds = XPivotCombatConfigs.GetAllStageIds()
-        for _, stageId in ipairs(stageIds) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-            if stageInfo then
-                stageInfo.Type = XDataCenter.FubenManager.StageType.PivotCombat
-            end
-        end
-    end
-
     --===========================================================================
      ---@desc 战斗前的检查与数据准备
     --===========================================================================
@@ -877,21 +885,36 @@ XPivotCombatManagerCreator = function()
         preFight.StageId = stage.StageId
         preFight.IsHasAssist = isAssist and true or false
         preFight.ChallengeCount = challengeCount or 1
-        local team = _TeamDict[teamId]
-        if not team then
-            team = XTeam.New(teamId)
-            _TeamDict[teamId] = team
-        end
-        local teamData = team:GetEntityIds()
-        for teamIndex, characterId in pairs(teamData) do
-            if XRobotManager.CheckIsRobotId(characterId) then
-                preFight.RobotIds[teamIndex] = characterId
-            else
-                preFight.CardIds[teamIndex] = characterId
+        
+        local robotIds = stage.RobotId
+        if robotIds and #robotIds > 0 then
+            for i, id in ipairs(preFight.RobotIds) do
+                local robotId = robotIds[i]
+                if robotId and robotId > 0 then
+                    preFight.CaptainPos = i
+                    preFight.FirstFightPos = i
+                    preFight.RobotIds[i] = robotId
+                else
+                    preFight.RobotIds[i] = 0
+                end
             end
+        else
+            local team = _TeamDict[teamId]
+            if not team then
+                team = XTeam.New(teamId)
+                _TeamDict[teamId] = team
+            end
+            local teamData = team:GetEntityIds()
+            for teamIndex, characterId in pairs(teamData) do
+                if XRobotManager.CheckIsRobotId(characterId) then
+                    preFight.RobotIds[teamIndex] = characterId
+                else
+                    preFight.CardIds[teamIndex] = characterId
+                end
+            end
+            preFight.CaptainPos = team:GetCaptainPos()
+            preFight.FirstFightPos = team:GetFirstFightPos()
         end
-        preFight.CaptainPos = team:GetCaptainPos()
-        preFight.FirstFightPos = team:GetFirstFightPos()
         return preFight
     end
     
@@ -938,10 +961,11 @@ XPivotCombatManagerCreator = function()
         end
 
         fightData.RebootId = stageCfg.RebootId
+        local endStoryId = XMVCA.XFuben:GetBeginStoryId(stageId)
 
         local endFightCb = function()
-            if stageCfg.EndStoryId then
-                XDataCenter.MovieManager.PlayMovie(stageCfg.EndStoryId)
+            if endStoryId then
+                XDataCenter.MovieManager.PlayMovie(endStoryId)
             end
         end
 
@@ -966,7 +990,8 @@ XPivotCombatManagerCreator = function()
      ---@desc 联网战斗
     --===========================================================================
     function XPivotCombatManager.DoEnterFightWithNetwork(preFight, callback)
-        XNetwork.Call("PreFightRequest", { PreFightData = preFight }, function(res)
+        
+        XMVCA.XFuben:NetWorkPreFightRequest({ PreFightData = preFight }, function(res)
             if callback then callback(res) end
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
@@ -976,11 +1001,12 @@ XPivotCombatManagerCreator = function()
             local fightData = res.FightData
             local stageInfo = XDataCenter.FubenManager.GetStageInfo(fightData.StageId)
             local stage = XDataCenter.FubenManager.GetStageCfg(fightData.StageId)
-            local isKeepPlayingStory = stage and XFubenConfigs.IsKeepPlayingStory(stage.StageId) and (stage.BeginStoryId)
-            local isNotPass = stage and stage.BeginStoryId and (not stageInfo or not stageInfo.Passed)
+            local beginStoryId = XMVCA.XFuben:GetBeginStoryId(fightData.StageId)
+            local isKeepPlayingStory = stage and XFubenConfigs.IsKeepPlayingStory(stage.StageId) and beginStoryId
+            local isNotPass = stage and beginStoryId and (not stageInfo or not stageInfo.Passed)
             if isKeepPlayingStory or isNotPass then
                 -- 播放剧情，进入战斗
-                XDataCenter.FubenManager.EnterRealFight(preFight, fightData, stage.BeginStoryId)
+                XDataCenter.FubenManager.EnterRealFight(preFight, fightData, beginStoryId)
             else
                 -- 直接进入战斗
                 XDataCenter.FubenManager.EnterRealFight(preFight, fightData)
@@ -1054,6 +1080,14 @@ XPivotCombatManagerCreator = function()
         else
             XDataCenter.FubenManager.ShowReward(winData)
         end
+    end
+    
+    --==============================
+     ---@desc 新副本界面进度
+     ---@return string
+    --==============================
+    function XPivotCombatManager.GetProgressTips()
+        return XPivotCombatManager.GetActivityProgress()
     end
     
     --endregion

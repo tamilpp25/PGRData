@@ -41,6 +41,12 @@ function XUiGridRecommendationItem:OnRefresh(itemdata)
     if config then
         local path = config.Icon
         self.ImgIcon:SetRawImage(path)
+        local isHasSearchGuildBgIcon = not string.IsNilOrEmpty(config.SearchGuildBgIcon)
+        self.BgNormal.gameObject:SetActiveEx(not isHasSearchGuildBgIcon)
+        self.BgSpecific.gameObject:SetActiveEx(isHasSearchGuildBgIcon)
+        if isHasSearchGuildBgIcon then
+            self.BgSpecific:SetSprite(config.SearchGuildBgIcon)
+        end
     end
     self.CurStatus = self.ItemData.Status or false
     self:SetSeleStatus(self.CurStatus)

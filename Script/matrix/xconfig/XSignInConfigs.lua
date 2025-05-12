@@ -1,9 +1,10 @@
 XSignInConfigs = XSignInConfigs or {}
 
 XSignInConfigs.SignType = {
-    Daily = 1,              -- 日常签到
-    Activity = 2,           -- 活动签到
-    PurchasePackage = 3,    -- 礼包签到
+    Daily = 1, -- 日常签到
+    Activity = 2, -- 活动签到
+    PurchasePackage = 3, -- 礼包签到
+    WeekCard = 4, -- 周卡签到（天卡）（对应服务器 PurchaseSignIn 签到礼包）
 }
 
 XSignInConfigs.SignOpen = {
@@ -12,18 +13,12 @@ XSignInConfigs.SignOpen = {
     PreFunction = 3, -- 前置功能
 }
 
-local TABLE_SIGN_IN        = "Share/SignIn/SignIn.tab"
-local TABLE_SIGN_IN_REWARD    = "Share/SignIn/SignInReward.tab"
+local TABLE_SIGN_IN = "Share/SignIn/SignIn.tab"
+local TABLE_SIGN_IN_REWARD = "Share/SignIn/SignInReward.tab"
 local TABLE_SIGN_IN_SUBROUND = "Client/SignIn/SubRound.tab"
-local TABLE_SIGN_CARD        = "Client/SignIn/SignCard.tab"
-local TABLE_SIGN_RECHARGE    = "Client/SignIn/SignFirstRecharge.tab"
-local TABLE_SIGN_WELFARE    = "Client/SignIn/Welfare.tab"
---元旦抽签表
-local TABLE_SIGN_NEWYEAR_SIGN_IN = "Share/DailyLottery/DailyLottery.tab"
-local TABLE_SIGN_DAILYLOTTERY_REWARD = "Share/DailyLottery/DailyLotteryReward.tab"
-local TABLE_SIGN_DRAW_NEWYEAR = "Client/SignIn/SignDrawNewYear.tab"
---烟花活动表
-local TABLE_SIGN_FIREWORKS = "Client/SignIn/SignFireworks.tab"
+local TABLE_SIGN_CARD = "Client/SignIn/SignCard.tab"
+local TABLE_SIGN_RECHARGE = "Client/SignIn/SignFirstRecharge.tab"
+local TABLE_SIGN_WELFARE = "Client/SignIn/Welfare.tab"
 
 local SignInConfig = {}           -- 签到配置表
 local SignInRewardConfig = {}     -- 签到奖励配置表[key = signId, value = (key = round, value = {conifig1, config2 ...})]
@@ -32,10 +27,6 @@ local SignCard = {}               -- 客户端月卡签到表
 local SignRecharge = {}           -- 首充签到表
 local SignWelfareList = {}        -- 福利配置表List
 local SignWelfareDir = {}         -- 福利配置表dir
-local SignInNewYearConfig = {}    -- 元旦活动签到表
-local SignDrawNewYearConfig = {}  -- 元旦抽奖数据表
-local SignInDailyLotteryRewardConfig = {}
-local SignFireworksConfig = {}    -- 烟花活动配置表
 
 function XSignInConfigs.Init()
     SignInConfig = XTableManager.ReadByIntKey(TABLE_SIGN_IN, XTable.XTableSignIn, "Id")
@@ -44,10 +35,7 @@ function XSignInConfigs.Init()
     SignRecharge = XTableManager.ReadByIntKey(TABLE_SIGN_RECHARGE, XTable.XTableSignFirstRecharge, "Id")
     SignWelfareDir = XTableManager.ReadByIntKey(TABLE_SIGN_WELFARE, XTable.XTableWelfare, "Id")
     local signInReward = XTableManager.ReadByIntKey(TABLE_SIGN_IN_REWARD, XTable.XTableSignInReward, "Id")
-    SignInNewYearConfig = XTableManager.ReadByIntKey(TABLE_SIGN_NEWYEAR_SIGN_IN, XTable.XTableDailyLottery, "Id")
-    SignInDailyLotteryRewardConfig = XTableManager.ReadByIntKey(TABLE_SIGN_DAILYLOTTERY_REWARD, XTable.XTableDailyLotteryReward, "Id")
-    SignDrawNewYearConfig = XTableManager.ReadByIntKey(TABLE_SIGN_DRAW_NEWYEAR, XTable.XTableSignDrawNewYear, "Id")
-    SignFireworksConfig = XTableManager.ReadByIntKey(TABLE_SIGN_FIREWORKS, XTable.XTableSignFireworks, "Id");
+
     local signInRewardSort = {}
     -- 按SignId 建表
     for _, v in pairs(signInReward) do
@@ -105,7 +93,13 @@ function XSignInConfigs.GetWelfareConfigs()
     for _, v in pairs(SignWelfareList) do
         if v.FunctionType == XAutoWindowConfigs.AutoFunctionType.Sign then
             if XDataCenter.SignInManager.IsShowSignIn(v.SubConfigId, true) and
-            not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.SignIn) then
+                    not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.SignIn) then
+                local cfg = XSignInConfigs.GetSignInConfig(v.SubConfigId)
+                table.insert(welfareConfigs, setConfig(cfg.Id, cfg.Name, cfg.PrefabPath, v.FunctionType, v.Id))
+            end
+        elseif v.FunctionType == XAutoWindowConfigs.AutoFunctionType.SClassConstructNovice then
+            if XDataCenter.SignInManager.IsShowSignIn(v.SubConfigId, true) and
+                    not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.SignIn) then
                 local cfg = XSignInConfigs.GetSignInConfig(v.SubConfigId)
                 table.insert(welfareConfigs, setConfig(cfg.Id, cfg.Name, cfg.PrefabPath, v.FunctionType, v.Id))
             end
@@ -115,15 +109,8 @@ function XSignInConfigs.GetWelfareConfigs()
                 table.insert(welfareConfigs, setConfig(cfg.Id, cfg.Name, cfg.PrefabPath, v.FunctionType, v.Id))
             end
         elseif v.FunctionType == XAutoWindowConfigs.AutoFunctionType.Card then
-            -- local cfg = XSignInConfigs.GetSignCardConfig(v.SubConfigId)
-            -- table.insert(welfareConfigs, setConfig(cfg.Id, cfg.Name, cfg.PrefabPath, v.FunctionType, v.Id))
-            local t = XSignInConfigs.GetSignCardConfig(v.SubConfigId);
-            local param = t.Param;
-            --如果已购买当前月卡或者没有购买当前月卡和互斥的月卡就显示当前的月卡
-            if XDataCenter.PurchaseManager.IsYkBuyed(param[1], param[2]) or (not XDataCenter.PurchaseManager.IsYkBuyed(param[1], param[2])
-                and not XDataCenter.PurchaseManager.CheckMutexPurchaseYKBuy(param[1], param[2])) then
-                table.insert(welfareConfigs, setConfig(t.Id, t.Name, t.PrefabPath, v.FunctionType, v.Id))
-            end
+            local cfg = XSignInConfigs.GetSignCardConfig(v.SubConfigId)
+            table.insert(welfareConfigs, setConfig(cfg.Id, cfg.Name, cfg.PrefabPath, v.FunctionType, v.Id))
 
         elseif v.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekChallenge then
             if XDataCenter.WeekChallengeManager.IsOpen() then
@@ -132,31 +119,106 @@ function XSignInConfigs.GetWelfareConfigs()
                     table.insert(welfareConfigs, setConfig(cfg.Id, cfg.Name, cfg.PrefabPath, XAutoWindowConfigs.AutoFunctionType.WeekChallenge, v.Id))
                 end
             end
-        elseif v.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewYearZhanBu then
-            if XSignInConfigs.IsShowDivining(v.SubConfigId) then
-                local t = XSignInConfigs.GetNewYearSignInConfig(v.SubConfigId)
-                if XPlayer.Level and XPlayer.Level >= t.OpenLevel then
-                    table.insert(welfareConfigs, setConfig(t.Id, t.Name, t.PrefabPath, v.FunctionType, v.Id))
-                end
-            end
-        elseif v.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewYearDrawActivity then
-            if XSignInConfigs.IsShowDrawNewYear(v.SubConfigId) then
-                local t = XSignInConfigs.GetSignDrawNewYearConfig(v.SubConfigId)
-                if XPlayer.Level and XPlayer.Level >= t.OpenLevel then
-                    table.insert(welfareConfigs, setConfig(t.Id, t.Name, t.PrefabPath, v.FunctionType, v.Id))
-                end
-            end
-        elseif v.FunctionType == XAutoWindowConfigs.AutoFunctionType.Fireworks then
-            if XDataCenter.FireworksManager.IsActivityOpen() then
-                local t = SignFireworksConfig[1];
-                if t ~= nil then
-                    table.insert(welfareConfigs, setConfig(t.Id, t.Name, t.PrefabPath, v.FunctionType, v.Id));
-                end
-            end
         end
     end
 
     return welfareConfigs
+end
+
+function XSignInConfigs.GetWelfareConfigsWithActivity()
+    local list = {}
+    local activity = {}
+    local setConfig = function(id, name, welfareId, subConfig, prefabPath, functionType, btnBg, fullScreenBg, customCfg)
+        local config = {}
+        config.Id = id
+        config.FunctionType = functionType
+        config.Name = name
+        config.WelfareId = welfareId
+        config.SubConfig = subConfig
+        config.PrefabPath = prefabPath
+        config.BtnBg = btnBg
+        config.FullScreenBg = fullScreenBg
+        config.CustomCfg = customCfg
+
+        return config
+    end
+    local openWelfare = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Welfare)
+    for _, cfg in pairs(SignWelfareList) do
+        if cfg.FunctionType == XAutoWindowConfigs.AutoFunctionType.Sign and openWelfare then
+            if XDataCenter.SignInManager.IsShowSignIn(cfg.SubConfigId, true) and
+                    not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.SignIn) then
+                local subCfg = XSignInConfigs.GetSignInConfig(cfg.SubConfigId)
+                table.insert(list, setConfig(subCfg.Id, subCfg.Name, cfg.Id, {}, subCfg.PrefabPath, XAutoWindowConfigs.AutoFunctionType.Sign, subCfg.BtnBg, subCfg.FullScreenBg))
+            end
+        elseif cfg.FunctionType == XAutoWindowConfigs.AutoFunctionType.SClassConstructNovice and openWelfare then
+            if XDataCenter.SignInManager.IsShowSignIn(cfg.SubConfigId, true) then
+                local subCfg = XSignInConfigs.GetSignInConfig(cfg.SubConfigId)
+                table.insert(list, setConfig(subCfg.Id, subCfg.Name, cfg.Id, {}, subCfg.PrefabPath, XAutoWindowConfigs.AutoFunctionType.SClassConstructNovice, subCfg.BtnBg, subCfg.FullScreenBg))
+            end
+        elseif cfg.FunctionType == XAutoWindowConfigs.AutoFunctionType.FirstRecharge and openWelfare then
+            if not XDataCenter.PayManager.GetFirstRechargeReward() then
+                local subCfg = XSignInConfigs.GetFirstRechargeConfig(cfg.SubConfigId)
+                table.insert(list, setConfig(subCfg.Id, subCfg.Name, cfg.Id, {}, subCfg.PrefabPath, XAutoWindowConfigs.AutoFunctionType.FirstRecharge, subCfg.BtnBg, subCfg.FullScreenBg))
+            end
+        elseif cfg.FunctionType == XAutoWindowConfigs.AutoFunctionType.Card and openWelfare then
+            local subCfg = XSignInConfigs.GetSignCardConfig(cfg.SubConfigId)
+            table.insert(list, setConfig(subCfg.Id, subCfg.Name, cfg.Id, {}, subCfg.PrefabPath, XAutoWindowConfigs.AutoFunctionType.Card, subCfg.BtnBg, subCfg.FullScreenBg))
+        elseif cfg.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekChallenge and openWelfare then
+            -- 2.11版本周挑战活动不再显示在活动界面
+            --[[if XDataCenter.WeekChallengeManager.IsOpen() then
+                local subCfg = XDataCenter.WeekChallengeManager.GetActivityCfg()
+                if subCfg then
+                    table.insert(list, setConfig(subCfg.Id, subCfg.Name, cfg.Id, {}, subCfg.PrefabPath, XAutoWindowConfigs.AutoFunctionType.WeekChallenge, subCfg.BtnBg, subCfg.FullScreenBg))
+                end
+            end--]]
+        elseif cfg.FunctionType == XAutoWindowConfigs.AutoFunctionType.NoticeActivity then
+            local infos = XDataCenter.ActivityManager.GetActivityGroupInfos()
+            for _, info in ipairs(infos or {}) do
+                local subCfg = {}
+                if not XTool.IsTableEmpty(info.ActivityCfgs) then
+                    for _, subInfo in pairs(info.ActivityCfgs) do
+                        local tmpCfg = setConfig(subInfo.Id, subInfo.Name, cfg.Id, {}, nil, XAutoWindowConfigs.AutoFunctionType.NoticeActivity, "", subInfo.ActivityBg)
+                        table.insert(subCfg, tmpCfg)
+                    end
+                end
+                local groupConfig = setConfig(info.ActivityGroupCfg.Id, info.ActivityGroupCfg.Name, cfg.Id, subCfg, "", XAutoWindowConfigs.AutoFunctionType.NoticeActivity, info.ActivityGroupCfg.Bg, "")
+                table.insert(activity, groupConfig)
+            end
+        elseif cfg.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekCard and openWelfare then
+            local subCfg = XSignInConfigs.GetSignInConfig(cfg.SubConfigId)
+            if XDataCenter.PurchaseManager.GetWeekCardDataBySignInId(cfg.SubConfigId) then
+                table.insert(list, setConfig(subCfg.Id, subCfg.Name, cfg.Id, {}, subCfg.PrefabPath, XAutoWindowConfigs.AutoFunctionType.WeekCard, subCfg.BtnBg, subCfg.FullScreenBg))
+            end
+        end
+    end
+    list = XTool.MergeArray(activity, list)
+    return list
+end
+
+---@desc 根据类型检查福利类活动红点
+---@param functionType XAutoWindowConfigs.AutoFunctionType
+---@return boolean 是否显示红点
+function XSignInConfigs.CheckWelfareRedPoint(functionType, config)
+    if functionType == XAutoWindowConfigs.AutoFunctionType.FirstRecharge then
+        return not XDataCenter.PayManager.IsGotFirstReCharge()
+    elseif functionType == XAutoWindowConfigs.AutoFunctionType.Card then
+        return not XDataCenter.PayManager.IsGotCard()
+    elseif functionType == XAutoWindowConfigs.AutoFunctionType.WeekChallenge then
+        return XDataCenter.WeekChallengeManager.IsAnyRewardCanReceived()
+    elseif functionType == XAutoWindowConfigs.AutoFunctionType.SClassConstructNovice then
+        return true
+    elseif functionType == XAutoWindowConfigs.AutoFunctionType.WeekCard then
+        local weekCardId = config.Id
+        if XTool.IsNumberValid(weekCardId) then
+            ---@field weekCardData XPurchaseWeekCardData
+            local weekCardData = XDataCenter.PurchaseManager.GetWeekCardDataBySignInId(weekCardId)
+            if weekCardData then
+                return not weekCardData:GetIsGotToday()
+            end
+        end
+        
+        return false
+    end
 end
 
 -- 获取福利配置表
@@ -174,7 +236,10 @@ end
 function XSignInConfigs.GetPrefabPath(id)
     local config = XSignInConfigs.GetWelfareConfig(id)
 
-    if config.FunctionType == XAutoWindowConfigs.AutoFunctionType.Sign then
+    if config.FunctionType == XAutoWindowConfigs.AutoFunctionType.Sign or
+            config.FunctionType == XAutoWindowConfigs.AutoFunctionType.SClassConstructNovice or
+            config.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekCard
+    then
         local cfg = XSignInConfigs.GetSignInConfig(config.SubConfigId)
         return cfg.PrefabPath
     elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.FirstRecharge then
@@ -186,15 +251,6 @@ function XSignInConfigs.GetPrefabPath(id)
     elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekChallenge then
         local cfg = XDataCenter.WeekChallengeManager.GetActivityCfg()
         return cfg.PrefabPath
-    elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewYearZhanBu then
-        local t = XSignInConfigs.GetNewYearSignInConfig(config.SubConfigId)
-        return t.PrefabPath
-    elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewYearDrawActivity then
-        local t = XSignInConfigs.GetSignDrawNewYearConfig(config.SubConfigId)
-        return t.PrefabPath
-    elseif config.FunctionType == XAutoWindowConfigs.AutoFuncitonType.Fireworks then
-        local t = SignFireworksConfig[1];
-        return t.PrefabPath;
     end
 
     return nil
@@ -209,20 +265,6 @@ function XSignInConfigs.GetSignInConfig(signInId)
     end
 
     return cfg
-end
-
---获取元旦占卜配置表
-function XSignInConfigs.GetNewYearSignInConfig(signInId)
-    return SignInNewYearConfig[signInId]
-end
-
---获取元旦抽奖配置表
-function XSignInConfigs.GetSignDrawNewYearConfig(id)
-    return SignDrawNewYearConfig[id]
-end
-
-function XSignInConfigs.GetDiviningSignRewardConfig(id)
-    return SignInDailyLotteryRewardConfig[id]
 end
 
 -- 获取子轮次配置表
@@ -258,11 +300,6 @@ function XSignInConfigs.GetFirstRechargeConfig(id)
     return cfg
 end
 
--- 获取月卡签到配置表
-function XSignInConfigs.GetSignCardConfigs(id)
-    return SignCard;
-end
-
 -- 获取当签到结束是否继续显示签到
 function XSignInConfigs.GetSignInShowWhenDayOver(signInId)
     local cfg = XSignInConfigs.GetSignInConfig(signInId)
@@ -279,22 +316,7 @@ function XSignInConfigs.GetSignInInfos(signInId)
     local cfg = XSignInConfigs.GetSignInConfig(signInId)
     local signInfos = {}
 
-    if cfg.Type == XSignInConfigs.SignType.Activity
-            or cfg.Type == XSignInConfigs.SignType.PurchasePackage then
-        -- 读取SignIn.tab配置的 全部 SubRoundId在SubRound.tab中的数据
-        for i = 1, #cfg.SubRoundId do
-            local subRoundCfg = XSignInConfigs.GetSubRoundConfig(cfg.SubRoundId[i])
-            local signInfo = {}
-
-            -- 只读取SubRoundId配置的第一个信息
-            signInfo.RoundName = subRoundCfg.SubRoundName[1] or ""
-            signInfo.Round = i
-            signInfo.Day = subRoundCfg.SubRoundDays[1] or 0
-            signInfo.Icon = subRoundCfg.SubRoundIcon[1] or 0
-            signInfo.Description = subRoundCfg.SubRoundDesc or ""
-            table.insert(signInfos, signInfo)
-        end
-    else
+    if cfg.Type == XSignInConfigs.SignType.Daily then
         -- 只读取SignIn.tab配置的 第round个 SubRoundId在SubRound.tab中的数据（日常签到的round一直为1）
         local round = XDataCenter.SignInManager.GetSignRound(signInId)
         local subRoundCfg = XSignInConfigs.GetSubRoundConfig(cfg.SubRoundId[round])
@@ -306,6 +328,20 @@ function XSignInConfigs.GetSignInInfos(signInId)
             signInfo.Round = i
             signInfo.Day = subRoundCfg.SubRoundDays[i] or 0
             signInfo.Icon = subRoundCfg.SubRoundIcon[i] or 0
+            signInfo.Description = subRoundCfg.SubRoundDesc or ""
+            table.insert(signInfos, signInfo)
+        end
+    else
+        -- 读取SignIn.tab配置的 全部 SubRoundId在SubRound.tab中的数据
+        for i = 1, #cfg.SubRoundId do
+            local subRoundCfg = XSignInConfigs.GetSubRoundConfig(cfg.SubRoundId[i])
+            local signInfo = {}
+
+            -- 只读取SubRoundId配置的第一个信息
+            signInfo.RoundName = subRoundCfg.SubRoundName[1] or ""
+            signInfo.Round = i
+            signInfo.Day = subRoundCfg.SubRoundDays[1] or 0
+            signInfo.Icon = subRoundCfg.SubRoundIcon[1] or 0
             signInfo.Description = subRoundCfg.SubRoundDesc or ""
             table.insert(signInfos, signInfo)
         end
@@ -414,39 +450,7 @@ function XSignInConfigs.IsShowSignIn(signInId)
     end
 
     local now = XTime.GetServerNowTimestamp()
-    if now <= startTime or now > closeTime then
-        return false
-    end
-
-    return true
-end
-
--- 判断占卜是否显示
-function XSignInConfigs.IsShowDivining(signInId)
-    local isShowSignIn = false
-    local t = XSignInConfigs.GetNewYearSignInConfig(signInId)
-    if not t then
-        return false
-    end
-    local _, startTime = CS.XDateUtil.TryParseToTimestamp(t.StartTimeStr)
-    local _, closeTime = CS.XDateUtil.TryParseToTimestamp(t.CloseTimeStr)
-    local now = XTime.GetServerNowTimestamp()
-    if now <= startTime or now > closeTime then
-        return false
-    end
-
-    return true
-end
-
---判断元旦抽奖是否显示
-function XSignInConfigs.IsShowDrawNewYear(id)
-    local isShowSignIn = false
-    local t = XSignInConfigs.GetSignDrawNewYearConfig(id)
-    local _, startTime = CS.XDateUtil.TryParseToTimestamp(t.StartTimeStr)
-    local _, closeTime = CS.XDateUtil.TryParseToTimestamp(t.CloseTimeStr)
-    local now = XTime.GetServerNowTimestamp()
-
-    if now <= startTime or now > closeTime then
+    if now <= startTime and now > closeTime then
         return false
     end
 

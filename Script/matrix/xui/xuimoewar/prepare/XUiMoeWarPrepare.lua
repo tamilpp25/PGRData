@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local GRID_CONDITION_MAX_COUNT = 3
@@ -198,7 +199,7 @@ function XUiMoeWarPrepare:RefreshOccupy()
     self.BtnOccupy.gameObject:SetActiveEx(isHaveHelper)
 
     if isHaveHelper then
-        local icon = XDataCenter.CharacterManager.GetCharHalfBodyBigImage(charId)
+        local icon = XMVCA.XCharacter:GetCharHalfBodyBigImage(charId)
         self.RImgRole:SetRawImage(icon)
     end
 end

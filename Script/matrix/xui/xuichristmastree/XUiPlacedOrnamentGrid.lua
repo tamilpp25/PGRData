@@ -1,4 +1,4 @@
-XUiPlacedOrnamentGrid = XClass(nil, "XUiPlacedOrnamentGrid")
+local XUiPlacedOrnamentGrid = XClass(nil, "XUiPlacedOrnamentGrid")
 local MAX_TYPE_NUM = 99 --最大挂点类型序号
 
 function XUiPlacedOrnamentGrid:Ctor(uiRoot)
@@ -88,7 +88,7 @@ function XUiPlacedOrnamentGrid:SetSelect(isSelect)
 end
 
 function XUiPlacedOrnamentGrid:OnBtnClick()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Main_huge)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Main_huge)
     self.UiRoot:SelectItem(self.Index)
 end
 

@@ -1,20 +1,34 @@
+local XUiExhibitionInfo = XLuaUiManager.Register(XLuaUi, "UiExhibitionInfo")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
-
-local ConditionDesNum = 3
+local XUiPanelExhibitionNormalInfo = require("XUi/XUiExhibition/XUiPanelExhibitionNormalInfo") -- 普通解放数据面板
+local XUiPanelExhibitionSuperInfo = require("XUi/XUiExhibition/XUiPanelExhibitionSuperInfo") -- 超解数据面板
 
 local TabIndexToGrowUpLevel = {
-    XCharacterConfigs.GrowUpLevel.Lower,
-    XCharacterConfigs.GrowUpLevel.Middle,
-    XCharacterConfigs.GrowUpLevel.Higher,
+    XEnumConst.CHARACTER.GrowUpLevel.Lower,
+    XEnumConst.CHARACTER.GrowUpLevel.Middle,
+    XEnumConst.CHARACTER.GrowUpLevel.Higher,
+    XEnumConst.CHARACTER.GrowUpLevel.Super,
 }
 
-local XUiGridCondition = require("XUi/XUiExhibition/XUiGridCondition")
-
-local XUiExhibitionInfo = XLuaUiManager.Register(XLuaUi, "UiExhibitionInfo")
+-- index 1-3 普通解放
+-- index 4 超解
+local PanelIndexDic = 
+{
+    [1] = "PanelExhibitionNormalInfo",
+    [2] = "PanelExhibitionNormalInfo",
+    [3] = "PanelExhibitionNormalInfo",
+    [4] = "PanelExhibitionSuperInfo"
+}
 
 function XUiExhibitionInfo:OnAwake()
     self.GridRewardItem.gameObject:SetActive(false)
     self:InitListener()
+    self:InitPanel()
+end
+
+function XUiExhibitionInfo:InitPanel()
+    self.PanelExhibitionNormalInfo = XUiPanelExhibitionNormalInfo.New(self.PanelCharacterTaskNormal, self)
+    self.PanelExhibitionSuperInfo = XUiPanelExhibitionSuperInfo.New(self.PanelCharacterTaskSuper, self)
 end
 
 function XUiExhibitionInfo:OnStart(characterId, showType)
@@ -27,6 +41,7 @@ end
 
 function XUiExhibitionInfo:OnEnable()
     CS.XGraphicManager.UseUiLightDir = true
+    self:UpdateView()
 end
 
 function XUiExhibitionInfo:OnDisable()
@@ -46,15 +61,16 @@ end
 function XUiExhibitionInfo:InitListener()
     self:RegisterClickEvent(self.BtnBack, self.OnBtnBackClick)
     self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick)
-    self.BtnBreak.CallBack = function() self:OnBtnBreakClick() end
+    -- self.BtnBreak.CallBack = function() self:OnBtnBreakClick() end
     self.BtnShowInfoToggle.CallBack = function(value) self:OnBtnShowInfoToggleClick(value) end
 end
 
 function XUiExhibitionInfo:RegisterRedPointEvent()
     local characterId = self.CharacterId
-    XRedPointManager.AddRedPointEvent(self.BtnTog1, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 1 })
-    XRedPointManager.AddRedPointEvent(self.BtnTog2, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 2 })
-    XRedPointManager.AddRedPointEvent(self.BtnTog3, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 3 })
+    self:AddRedPointEvent(self.BtnTog1, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 1 })
+    self:AddRedPointEvent(self.BtnTog2, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 2 })
+    self:AddRedPointEvent(self.BtnTog3, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 3 })
+    self:AddRedPointEvent(self.BtnTog4, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 4 })
 end
 
 function XUiExhibitionInfo:OnCheckExhibitionRedPoint(count, args)
@@ -69,10 +85,16 @@ function XUiExhibitionInfo:InitTabBtnGroup()
         self.BtnTog1,
         self.BtnTog2,
         self.BtnTog3,
+        self.BtnTog4,
     }
     self.PanelTogs:Init(tabGroup, function(tabIndex) self:OnClickTabCallBack(tabIndex) end)
+    self:AutoSelectLastGrowUpLevel()
+end
 
-    local selected, lastIndex = false
+-- 自动选择最高一级可解放的选项
+function XUiExhibitionInfo:AutoSelectLastGrowUpLevel()
+    local selected = false
+    local lastIndex = 0
     local growUpLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(self.CharacterId, true)
     for index, level in pairs(TabIndexToGrowUpLevel) do
         if level == growUpLevel + 1 then
@@ -88,9 +110,6 @@ function XUiExhibitionInfo:InitTabBtnGroup()
 end
 
 function XUiExhibitionInfo:OnClickTabCallBack(tabIndex)
-    if self.SelectedIndex and self.SelectedIndex == tabIndex then
-        return
-    end
     self.SelectedIndex = tabIndex
 
     self:UpdateView()
@@ -98,83 +117,72 @@ function XUiExhibitionInfo:OnClickTabCallBack(tabIndex)
 end
 
 function XUiExhibitionInfo:UpdateView()
+    if not self.SelectedIndex then
+        return
+    end
+
     self.BtnShowInfoToggle:SetButtonState(XUiButtonState.Select)
     self:UpdateCharacterInfo()
     self:UpdateCharacterModel(TabIndexToGrowUpLevel[self.SelectedIndex])
-    self:ShowTaskInfo()
+    self:UpdateBtnState()
+
+    -- index 1-3 普通解放
+    for k, v in pairs(PanelIndexDic) do
+        local panelName = PanelIndexDic[k]
+        self[panelName]:Hide()
+    end
+    local panelName = PanelIndexDic[self.SelectedIndex]
+    local targetPanel = self[panelName]
+    local taskConfig = XExhibitionConfigs.GetCharacterGrowUpTask(self.CharacterId, TabIndexToGrowUpLevel[self.SelectedIndex])
+    targetPanel:Refresh(self.CharacterId, taskConfig)
+    targetPanel:Show()
+end
+
+function XUiExhibitionInfo:UpdateBtnState()
+    local growUpLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(self.CharacterId, true)
+    for index, level in pairs(TabIndexToGrowUpLevel) do
+        self["BtnTog"..index]:ShowTag(level == growUpLevel)
+    end
 end
 
 function XUiExhibitionInfo:UpdateCharacterInfo()
     local characterId = self.CharacterId
-    self.TxtName.text = XCharacterConfigs.GetCharacterName(characterId)
-    self.TxtType.text = XCharacterConfigs.GetCharacterTradeName(characterId)
-    self.TxtNumber.text = XCharacterConfigs.GetCharacterCodeStr(characterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterName(characterId)
+    self.TxtNameHorizontal.text = XMVCA.XCharacter:GetCharacterName(characterId)
+    self.TxtType.text = XMVCA.XCharacter:GetCharacterTradeName(characterId)
+    self.TxtNumber.text = XMVCA.XCharacter:GetCharacterCodeStr(characterId)
 
-    local growUpLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(characterId, true)
-    local levelIcon = XExhibitionConfigs.GetExhibitionLevelIconByLevel(growUpLevel)
-    if not levelIcon or levelIcon == "" then
-        self.ImgClassIcon.gameObject:SetActive(false)
-    else
-        self:SetUiSprite(self.ImgClassIcon, levelIcon)
-        self.ImgClassIcon.gameObject:SetActive(true)
-    end
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
+    local isShowHorText = detailConfig.LiberationShowType
+    self.TxtNameHorizontal.gameObject:SetActiveEx(isShowHorText)
+    self.TxtName.gameObject:SetActiveEx(not isShowHorText)
+
+    -- 解放标签改到按钮下方了
+    -- local growUpLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(characterId, true)
+    -- local levelIcon = XExhibitionConfigs.GetExhibitionLevelIconByLevel(growUpLevel)
+    -- if not levelIcon or levelIcon == "" then
+    --     self.ImgClassIcon.gameObject:SetActive(false)
+    -- else
+    --     self:SetUiSprite(self.ImgClassIcon, levelIcon)
+    --     self.ImgClassIcon.gameObject:SetActive(true)
+    -- end
 end
 
 function XUiExhibitionInfo:UpdateCharacterModel(growUpLevel)
     local characterId = self.CharacterId
     growUpLevel = growUpLevel or XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(characterId, true)
-    local modelId = XDataCenter.CharacterManager.GetCharLiberationLevelModelId(characterId, growUpLevel)
+    local modelId = XMVCA.XCharacter:GetCharLiberationLevelModelId(characterId, growUpLevel)
 
     self.RoleModelPanel:UpdateCharacterModelByModelId(modelId, characterId, self.PanelRoleModel, XModelManager.MODEL_UINAME.XUiExhibitionInfo, function(model)
         self.PanelDrag.Target = model.transform
         self.EffectHuanren.gameObject:SetActiveEx(false)
         self.EffectHuanren1.gameObject:SetActiveEx(false)
-        if self.ShowType == XDataCenter.ExhibitionManager.ExhibitionType.STRUCT or self.ShowType == XDataCenter.ExhibitionManager.ExhibitionType.Linkage then
-            self.EffectHuanren.gameObject:SetActiveEx(true)
-        else
+        if XMVCA.XCharacter:GetIsIsomer(characterId) then
             self.EffectHuanren1.gameObject:SetActiveEx(true)
+        else
+            self.EffectHuanren.gameObject:SetActiveEx(true)
         end
     end, growUpLevel, true)
-end
-
-function XUiExhibitionInfo:ShowTaskInfo()
-    local characterId = self.CharacterId
-    local curSelectLevel = TabIndexToGrowUpLevel[self.SelectedIndex]
-    local taskConfig = XExhibitionConfigs.GetCharacterGrowUpTask(characterId, curSelectLevel)
-
-    local levelId = taskConfig.LevelId
-    self.TxtTitle.text = XCharacterConfigs.GetCharLiberationLevelTitle(characterId, levelId)
-    self.TxtDesc.text = XCharacterConfigs.GetCharLiberationLevelDesc(characterId, levelId)
-
-    local passed = true
-    self.ConditionGrids = self.ConditionGrids or {}
-    local conditionIds = taskConfig.ConditionIds
-    for i = 1, ConditionDesNum do
-        local conditionGrid = self.ConditionGrids[i]
-        if not conditionGrid then
-            conditionGrid = XUiGridCondition.New(self["GridCondition" .. i])
-            self.ConditionGrids[i] = conditionGrid
-        end
-
-        local conditionId = conditionIds[i]
-        local subPassed = conditionGrid:Refresh(conditionId, characterId)
-        passed = passed and subPassed
-    end
-
-    local rewardItems = XRewardManager.GetRewardList(taskConfig.RewardId)
-    self.RewardPool = self.RewardPool or {}
-    XUiHelper.CreateTemplates(self, self.RewardPool, rewardItems, XUiGridCommon.New, self.GridRewardItem, self.PanelRewardItem, function(grid, data)
-        grid:Refresh(data)
-    end)
-
-    local taskId = taskConfig.Id
-    local taskFinished = XDataCenter.ExhibitionManager.CheckGrowUpTaskFinish(taskId)
-    local canGetReward = passed and not taskFinished
-    self.BtnBreak:SetDisable(not canGetReward, canGetReward)
-    self.PanelAlreadyBreak.gameObject:SetActive(taskFinished)
-    self.BtnBreak.gameObject:SetActive(not taskFinished)
-
-    self.BtnShowInfoToggle.gameObject:SetActiveEx(false)
 end
 
 function XUiExhibitionInfo:OnBtnBackClick()
@@ -195,8 +203,8 @@ function XUiExhibitionInfo:OnBtnBreakClick()
     end
 
     XDataCenter.ExhibitionManager.GetGatherReward(characterId, curSelectLevel, function()
-        CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiCharacter_Liberation)
-        self:UpdateView()
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiCharacter_Liberation)
+        self:AutoSelectLastGrowUpLevel()
     end)
 end
 

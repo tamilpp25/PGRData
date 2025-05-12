@@ -1,6 +1,10 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridTreasureGrade = require("XUi/XUiFubenMainLineChapter/XUiGridTreasureGrade")
+local XUiPanelStory = require("XUi/XUiActivityBrief/XUiPanelStory")
 local XUiFubenMainLine3D = XLuaUiManager.Register(XLuaUi,"UiFubenMainLine3D")
 local XUiGridFubenMainLineStage = require("XUi/XUiFubenMainLine3D/XUiGridFubenMainLineStage")
 local XUiGridFubenMainLineTheme = require("XUi/XUiFubenMainLine3D/XUiGridFubenMainLineTheme")
+local XUiPanelStoryJump = require("XUi/XUiFubenMainLineChapter/XUiPanelStoryJump")
 function XUiFubenMainLine3D:OnStart(chapterIndex,stageIndex,stageId)
     self:InitStageCfg()
     self:RegisterButton()
@@ -13,6 +17,7 @@ function XUiFubenMainLine3D:OnStart(chapterIndex,stageIndex,stageId)
     self.IsOnZhouMu = false
     self.BtnHelp.gameObject:SetActiveEx(false)
     self.RedPointId = XRedPointManager.AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_MAINLINE_TREASURE }, self.ChapterMainCfg.ChapterId[1], false)
+    self:InitPanelStoryJump()
     if chapterIndex then
         self:OnSelectChapter(chapterIndex,function()
             if chapterIndex and stageIndex and stageId then
@@ -41,6 +46,7 @@ end
 function XUiFubenMainLine3D:OnEnable()
     self:RefreshTaskGuidePanel()
     self:UpdateChapterStars()
+    self:PanelStoryJumpRefresh()
     XEventManager.AddEventListener(XEventId.EVENT_MAINLINE_SELECT_STAGE, self.OnSelectStage, self)
     XEventManager.AddEventListener(XEventId.EVENT_MAINLINE_SELECT_CHAPTER, self.OnSelectChapter, self)
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_CLOSE_FUBENSTAGEDETAIL,self.OnDetailClose,self)
@@ -68,6 +74,7 @@ function XUiFubenMainLine3D:OnDestroy()
     self.GridTreasureList = {}
     self.GridMultipleWeeksTaskList = {}
     self.LineDic = {}
+    XRedPointManager.RemoveRedPointEvent(self.RedPointId)
 end
 
 function XUiFubenMainLine3D:InitStageCfg()
@@ -176,6 +183,7 @@ function XUiFubenMainLine3D:RegisterButton()
         end
         self.IsInChapter = false
         self:ResetCamera()
+        self:PanelStoryJumpRefresh()
     end
     self.BtnReceive.CallBack = function() 
         self:OnClickStageSkipBtn()
@@ -309,6 +317,7 @@ function XUiFubenMainLine3D:OnClickBtnMap()
     end
     self.IsInChapter = false
     self:ResetCamera()
+    self:PanelStoryJumpRefresh()
 end
 
 function XUiFubenMainLine3D:OnSelectStage(chapterIndex,stageIndex,stageId)
@@ -354,6 +363,7 @@ function XUiFubenMainLine3D:OnSelectChapter(chapterIndex,cb)
     self.PanelStageSelect.gameObject:SetActiveEx(true)
     self:PlayAnimationWithMask("PanelStageSelectEnable")
     self:RefreshStage()
+    self:PanelStoryJumpRefresh()
 end
 
 function XUiFubenMainLine3D:OnDetailClose()
@@ -543,9 +553,22 @@ function XUiFubenMainLine3D:EnterFight(stage)
         local groupId = XDataCenter.BfrtManager.GetGroupIdByBaseStage(stage.StageId)
         XLuaUiManager.Open("UiBfrtDeploy", groupId)
     else
-        XLuaUiManager.Open("UiNewRoomSingle", stage.StageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", stage.StageId)
     end
 
+end
+
+function XUiFubenMainLine3D:InitPanelStoryJump()
+    ---@type XUiPanelStoryJump
+    self.PanelStoryJump = XUiPanelStoryJump.New(self.PanelStoryJumpBottom, self)
+end
+
+function XUiFubenMainLine3D:PanelStoryJumpRefresh()
+    if not self.IsInChapter then
+        self.PanelStoryJump:Refresh(XDataCenter.FubenMainLineManager.MainLine3DId, XFubenConfigs.ChapterType.MainLine)
+    else
+        self.PanelStoryJump.GameObject:SetActiveEx(false)
+    end
 end
 
 return XUiFubenMainLine3D

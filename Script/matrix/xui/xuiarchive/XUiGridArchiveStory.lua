@@ -1,11 +1,9 @@
-XUiGridArchiveStory = XClass(nil, "XUiGridArchiveStory")
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
+local XUiGridArchiveStory = XClass(XUiNode, "XUiGridArchiveStory")
 local Rect = CS.UnityEngine.Rect(1, 1, 1, 1)
 local LockNameText = CS.XTextManager.GetText("ArchiveLockNameText")
 local LockStoryIconAspectRatio = CS.XGame.ClientConfig:GetFloat("LockStoryIconAspectRatio")
-function XUiGridArchiveStory:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchiveStory:OnStart()
     self:SetButtonCallBack()
 end
 
@@ -57,3 +55,5 @@ function XUiGridArchiveStory:SetMonsterData(chapter)
         self.StoryImgAspect.aspectRatio = width / high
     end
 end
+
+return XUiGridArchiveStory

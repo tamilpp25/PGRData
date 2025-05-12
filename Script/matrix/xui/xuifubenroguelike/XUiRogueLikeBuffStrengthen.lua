@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiRogueLikeBuffStrengthen = XLuaUiManager.Register(XLuaUi, "UiRogueLikeBuffStrengthen")
 local XUiGridBuffDetailItem = require("XUi/XUiFubenRogueLike/XUiGridBuffDetailItem")
 

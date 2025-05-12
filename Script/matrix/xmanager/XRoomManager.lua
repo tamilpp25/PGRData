@@ -117,7 +117,7 @@ XRoomManagerCreator = function()
 
     --获取默认角色
     function XRoomManager.GetDefaultChar()
-        local list = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local list = XMVCA.XCharacter:GetOwnCharacterList()
         local char
         for _, v in pairs(list) do
             if not char or v.Ability > char.Ability then
@@ -206,7 +206,7 @@ XRoomManagerCreator = function()
 
     function XRoomManager.OnCreateRoom(roomData, stageType)
         local stageId = roomData.StageId
-        stageType = stageType or XFubenConfigs.GetStageType(stageId)
+        stageType = stageType or XFubenConfigs.GetStageMainlineType(stageId)
         -- 创建房间
         if XDataCenter.RoomManager.RoomData then
             XLog.Error("XRoomManager.OnCreateRoom错误, RoomManager中RoomData已经有数据")
@@ -218,7 +218,7 @@ XRoomManagerCreator = function()
             XRoomManager.MatchStageId = nil
             --如果是聊天跳转，需要先关闭聊天
             if XLuaUiManager.IsUiShow("UiChatServeMain") then
-                XUiHelper.CloseUiChatServeMain()
+                XLuaUiManager.Close("UiChatServeMain")
             end
             if XDataCenter.FubenSpecialTrainManager.IsStageCute(stageId) then
                 XLuaUiManager.Open("UiMultiplayerRoomCute")
@@ -240,7 +240,7 @@ XRoomManagerCreator = function()
     function XRoomManager.BeginSelectRequest(cb)
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.ArenaOnlineBeginSelectRequest(cb)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.PhotoBeginSelectRequest(cb)
         else
             XRoomManager.NormalBeginSelectRequest(cb)
@@ -296,7 +296,7 @@ XRoomManagerCreator = function()
     function XRoomManager.EndSelectRequest(cb)
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.ArenaOnlineEndSelectRequest(cb)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.PhotoEndSelectRequest(cb)
         else
             XRoomManager.NormalEndSelectRequest(cb)
@@ -397,17 +397,22 @@ XRoomManagerCreator = function()
     end
 
     --匹配
-    function XRoomManager.PhotoMatch(stageId, cb)
-        local req = { StageId = stageId }
-        XRoomManager.MatchType = XDataCenter.FubenManager.StageType.SpecialTrain
+    function XRoomManager.PhotoMatch(stageIds, cb, needMatchCountCheck)
+        local req = { StageIds = stageIds, NeedMatchCountCheck = needMatchCountCheck  }
+        XRoomManager.MatchType = XDataCenter.FubenManager.StageType.FubenPhoto
 
         XNetwork.Call(RequestProto.FubenPhotoMatchRoomRequest, req, function(res)
             if res.Code ~= XCode.Success then
-                XUiManager.TipCode(res.Code)
+                if res.Code == XCode.MatchInvalidToManyMatchPlayers then
+                    XEventManager.DispatchEvent(XEventId.EVENT_ROOM_MATCH_PLAYERS, res.RecommendStageId)
+                else
+                    XUiManager.TipCode(res.Code)
+                end
                 return
             end
             XRoomManager.Matching = true
-            XRoomManager.MatchStageId = stageId
+            --根据StageIds匹配房间 无具体StageId 故填0 
+            XRoomManager.MatchStageId = 0
 
             if cb then
                 cb()
@@ -440,7 +445,7 @@ XRoomManagerCreator = function()
     function XRoomManager.CancelMatch(cb)
         if XRoomManager.MatchType == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.CancelArenaOnlineMatch(cb)
-        elseif XRoomManager.MatchType == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.MatchType == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.CancelPhotoMatch(cb)
         else
             XRoomManager.CancelNormalMatch(cb)
@@ -530,7 +535,7 @@ XRoomManagerCreator = function()
     function XRoomManager.Quit(cb)
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.ArenaOnlineQuit(cb)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.PhotoQuit(cb)
         else
             XRoomManager.NormalQuit(cb)
@@ -598,7 +603,7 @@ XRoomManagerCreator = function()
     function XRoomManager.Ready(cb)
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.ArenaOnlineReady(cb)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.PhotoReady(cb)
         else
             XRoomManager.NormalReady(cb)
@@ -662,7 +667,7 @@ XRoomManagerCreator = function()
     function XRoomManager.CancelReady(cb)
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.CancelAreanOnlineReady(cb)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.CancelPhotoReady()
         else
             XRoomManager.CancelNormalReady()
@@ -708,7 +713,7 @@ XRoomManagerCreator = function()
     function XRoomManager.Enter(cb)
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.ArenaOnlineEnter(cb)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.PhotoEnter(cb)
         else
             XRoomManager.NormalEnter(cb)
@@ -785,11 +790,12 @@ XRoomManagerCreator = function()
     function XRoomManager.Select(charId, cb)
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.ArenaOnlineSelect(charId, cb)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.PhotoSelect(charId,cb)
         elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrainMusic or
                 XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrainRhythmRank or
-                XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrainBreakthrough
+                XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrainBreakthrough or
+                XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrainSnow
         then
             XRoomManager.RobotSelect(charId, cb)
         else
@@ -828,7 +834,7 @@ XRoomManagerCreator = function()
     end
 
     function XRoomManager.PhotoSelect(charId, cb)
-        local req = { CharacterId = charId, IsRobot = false }
+        local req = { CharacterId = charId, IsRobot = true }
 
         XNetwork.Call(RequestProto.FubenPhotoSelectRequest, req, function(res)
             if res.Code ~= XCode.Success then
@@ -862,7 +868,7 @@ XRoomManagerCreator = function()
     function XRoomManager.ChangeLeader(playerId, cb)
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.ArenaOnlineChangeLeader(playerId, cb)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.PhotoChangeLeader(playerId, cb)
         else
             XRoomManager.NormalChangeLeader(playerId, cb)
@@ -930,7 +936,7 @@ XRoomManagerCreator = function()
     function XRoomManager.KickOut(playerId, cb)
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.ArenaOnlineKickOut(playerId, cb)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.PhotoKickOut(playerId, cb)
         else
             XRoomManager.NormalKickOut(playerId, cb)
@@ -1025,8 +1031,10 @@ XRoomManagerCreator = function()
                 XUiManager.TipCode(res.Code)
                 return
             end
+            XRoomManager.RoomData.StageId = stageId
+            XEventManager.DispatchEvent(XEventId.EVENT_ROOM_CHANGE_STAGE)
             if cb then
-                cb()
+                cb(stageId)
             end
         end)
     end
@@ -1035,7 +1043,7 @@ XRoomManagerCreator = function()
     function XRoomManager.SetAutoMatch(autoMatch, cb)
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XRoomManager.ArenaOnlineSetAutoMatch(autoMatch, cb)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.PhotoSetAutoMatch(autoMatch, cb)
         else
             XRoomManager.NormalSetAutoMatch(autoMatch, cb)
@@ -1141,13 +1149,17 @@ XRoomManagerCreator = function()
 
     --
     function XRoomManager.AddLike(playerId)
-        if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
-            XRoomManager.AddArenaOnlineLike(playerId)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
-            XRoomManager.AddPhotoLike(playerId)
-        else
-            XRoomManager.AddNormalLike(playerId)
-        end
+        if XRoomManager.StageInfo then
+            if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
+                XRoomManager.AddArenaOnlineLike(playerId)
+                return
+                
+            elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
+                XRoomManager.AddPhotoLike(playerId)
+                return
+            end
+        end 
+        XRoomManager.AddNormalLike(playerId)
     end
 
     function XRoomManager.AddNormalLike(playerId)
@@ -1177,7 +1189,7 @@ XRoomManagerCreator = function()
         local req = { Process = progress }
         if XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             XNetwork.Send(RequestProto.ArenaOnlineUpLoadProcessRequest, req)
-        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif XRoomManager.StageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XNetwork.Send(RequestProto.FubenPhotoUpdateLoadProcessRequest, req)
         else
             XNetwork.Send(RequestProto.UpdateLoadProcessRequest, req)
@@ -1199,20 +1211,27 @@ XRoomManagerCreator = function()
         local roomType = tonumber(result[3])
         
         -- 处理开房链接，狙击战走这里，其他走通用
-        local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-        if unionFightData and unionFightData.Id then
-            XUiManager.TipCode(XCode.MatchPlayerAlreadyInRoom)
-            return
-        end
-        if MultipleRoomType.UnionKill == roomType then
-            XDataCenter.FubenUnionKillRoomManager.ClickEnterRoomHref(roomId, createTime)
-            return
-        end
+        --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+        --if unionFightData and unionFightData.Id then
+        --    XUiManager.TipCode(XCode.MatchPlayerAlreadyInRoom)
+        --    return
+        --end
+        --if MultipleRoomType.UnionKill == roomType then
+        --    XDataCenter.FubenUnionKillRoomManager.ClickEnterRoomHref(roomId, createTime)
+        --    return
+        --end
 
         local tempStageId = stageId
         if MultipleRoomType.ArenaOnline == roomType then
             local level = tonumber(result[4])
             tempStageId = XDataCenter.ArenaOnlineManager.GetStageIdByIdAndLevel(stageId, level)
+        end
+
+        if MultipleRoomType.DlcWorld == roomType then
+            local nodeId = result[5] or ""
+            XMVCA.XDlcRoom:ClickEnterRoomHref(roomId, nodeId, stageId, createTime)
+            -- XDataCenter.DlcRoomManager.ClickEnterRoomHref(roomId, stageId, createTime)
+            return
         end
 
         local stageInfo = XDataCenter.FubenManager.GetStageInfo(tempStageId)
@@ -1230,7 +1249,7 @@ XRoomManagerCreator = function()
             end
         elseif stageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             fubenName = XFunctionManager.FunctionName.ArenaOnline
-        elseif stageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif stageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             fubenName = XFunctionManager.FunctionName.SpecialTrain
         end
 
@@ -1242,7 +1261,7 @@ XRoomManagerCreator = function()
         if stageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
             --XRoomManager.ArenaOnlineEnterTargetRoom(roomId, stageId, createTime)
             XUiManager.TipText("ActivityAlreadyClose")
-        elseif stageInfo.Type == XDataCenter.FubenManager.StageType.SpecialTrain then
+        elseif stageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
             XRoomManager.PhotoEnterTargetRoom(roomId, stageId, createTime)
         else
             XRoomManager.NormalEnterTargetRoom(roomId, stageId, createTime)
@@ -1377,10 +1396,8 @@ XRoomManagerCreator = function()
                     XRoomManager.OnJoinFightResponse(res, response.IpAddress)
                 end)
             elseif not CS.XFight.IsOutFight then
-                if CS.XFight.Instance then
-                    -- 网络错误，如果战斗已经启动，则退出战斗
-                    CS.XFight.Instance.ExitOnOnlineDisconnect()
-                end
+                -- 网络错误，如果战斗已经启动，则退出战斗
+                CS.XFight.Instance:ExitOnOnlineDisconnect()
             end
         end
 
@@ -1541,7 +1558,7 @@ XRoomManagerCreator = function()
     end
 
     XRoomManager.RemoveHidingRoom = function(uiName)
-        if not XLuaUiManager.IsUiShow(uiName) and XLuaUiManager.IsUiLoad(uiName) then
+        if not XLuaUiManager.IsUiShow(uiName) then
             XLuaUiManager.Remove(uiName)
         end
     end
@@ -2075,9 +2092,14 @@ end
 
 XRpc.FubenPhotoChangeMapNotify = function(response)
     local roomData = XDataCenter.RoomManager.RoomData
+    local lastStageId = roomData.StageId
     if roomData then
         roomData.StageId = response.StageId
         XEventManager.DispatchEvent(XEventId.EVENT_ROOM_CHANGE_STAGE_SUMMER_EPISODE)
+    end
+
+    if lastStageId ~= roomData.StageId then
+        XEventManager.DispatchEvent(XEventId.EVENT_ROOM_CHANGE_STAGE)
     end
 end
 

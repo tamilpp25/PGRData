@@ -1,4 +1,6 @@
-XUiPanelCharacterList = XClass(nil, "XUiPanelCharacterList")
+local XUiPlayerInfoCharacterGrid = require("XUi/XUiPlayerInfo/XUiPlayerInfoCharacterGrid")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiPanelCharacterList = XClass(nil, "XUiPanelCharacterList")
 
 local TextManager = CS.XTextManager
 local tableInsert = table.insert
@@ -129,7 +131,7 @@ function XUiPanelCharacterList:HandleData(hasPermission, hasCharacterDisplay)
         self.PanelScore.gameObject:SetActiveEx(true)
         self.TxtScore.text = score
 
-        for k, v in pairs(XCharacterConfigs.GetCharacterTemplates()) do
+        for k, v in pairs(XMVCA.XCharacter:GetCharacterTemplates()) do
             local temData = { IsLocked = true }
             if characterListById[k] then
                 tableInsert(allCharList, characterListById[k])
@@ -170,3 +172,5 @@ function XUiPanelCharacterList:Close()
     self.AppearanceShowType = nil
     self.GameObject:SetActiveEx(false)
 end
+
+return XUiPanelCharacterList

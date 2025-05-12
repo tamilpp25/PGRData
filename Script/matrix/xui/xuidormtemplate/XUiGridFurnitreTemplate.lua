@@ -11,22 +11,22 @@ function XUiGridFurnitreTemplate:Init(rootUi)
     self.RootUi = rootUi
 end
 
-function XUiGridFurnitreTemplate:Refresh(frunitrue)
-    self.Frunitrue = frunitrue
-    local furnitureCfg = XFurnitureConfigs.GetFurnitureTemplateById(self.Frunitrue.ConfigId)
+function XUiGridFurnitreTemplate:Refresh(furniture)
+    self.Furniture = furniture
+    local furnitureCfg = XFurnitureConfigs.GetFurnitureTemplateById(self.Furniture.ConfigId)
     self.TxtName.text = furnitureCfg.Name
     self.RImgIcon:SetRawImage(furnitureCfg.Icon)
 
-    if frunitrue.ConnectDormId > 0 then
-        if self.Frunitrue.Count > self.Frunitrue.TargetCount then
-            self.TxtNum.text = CS.XTextManager.GetText("DormTemplateCountNotEnough", self.Frunitrue.TargetCount, self.Frunitrue.Count)
+    if furniture.ConnectDormId > 0 and furniture.RoomDataType ~= XDormConfig.DormDataType.Self then
+        if self.Furniture.Count > self.Furniture.TargetCount then
+            self.TxtNum.text = CS.XTextManager.GetText("DormTemplateCountNotEnough", self.Furniture.TargetCount, self.Furniture.Count)
         else
-            self.TxtNum.text = CS.XTextManager.GetText("DormTemplateCountEnough", self.Frunitrue.TargetCount, self.Frunitrue.Count)
+            self.TxtNum.text = CS.XTextManager.GetText("DormTemplateCountEnough", self.Furniture.TargetCount, self.Furniture.Count)
         end
 
-        self.PanelComplete.gameObject:SetActiveEx(self.Frunitrue.Count <= self.Frunitrue.TargetCount)
+        self.PanelComplete.gameObject:SetActiveEx(self.Furniture.Count <= self.Furniture.TargetCount)
     else
-        self.TxtNum.text = tostring(self.Frunitrue.Count)
+        self.TxtNum.text = tostring(self.Furniture.Count)
         self.PanelComplete.gameObject:SetActiveEx(false)
     end
 end

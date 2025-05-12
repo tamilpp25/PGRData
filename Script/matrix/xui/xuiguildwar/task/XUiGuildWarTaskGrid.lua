@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 ---@class XUiGuildWarTaskGrid
 local XUiGuildWarTaskGrid = XClass(XDynamicGridTask, "XUiGuildWarTaskGrid")
 

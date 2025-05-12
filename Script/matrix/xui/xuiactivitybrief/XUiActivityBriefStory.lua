@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiPanelStory = require("XUi/XUiActivityBrief/XUiPanelStory")
 local XUiActivityBriefStory = XLuaUiManager.Register(XLuaUi, "UiActivityBriefStory")
 
 local tableInsert = table.insert

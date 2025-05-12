@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridWaferSelect = require("XUi/XUiFubenDailyShop/XUiGridWaferSelect")
 
 local XUiWaferSelect = XLuaUiManager.Register(XLuaUi, "UiWaferSelect")
@@ -23,6 +24,14 @@ function XUiWaferSelect:OnStart(suitId, ShopItemList, suitShopItemDic, selectCal
     end
 
     self:UpdateGridList()
+end
+
+function XUiWaferSelect:OnEnable()
+
+end
+
+function XUiWaferSelect:OnDisable()
+
 end
 
 function XUiWaferSelect:InitComponent()

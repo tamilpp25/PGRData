@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local CsXTextManager = CS.XTextManager
 
 --######################## XUiReformList ########################
@@ -13,9 +14,11 @@ function XUiReformList:OnAwake()
     self.CurEvolvableLevelBtnGroupIndex = nil
     self.ElementBtnGroupDic = {
         [XReformConfigs.EvolvableGroupType.Enemy] = self.BtnEnemy,
-        [XReformConfigs.EvolvableGroupType.Member] = self.BtnChar,
+        -- [XReformConfigs.EvolvableGroupType.Member] = self.BtnChar,
         [XReformConfigs.EvolvableGroupType.Environment] = self.BtnScene,
-        [XReformConfigs.EvolvableGroupType.Buff] = self.BtnBuff,
+        -- [XReformConfigs.EvolvableGroupType.Buff] = self.BtnBuff,
+        [XReformConfigs.EvolvableGroupType.EnemyBuff] = self.BtnEnemyBuff,
+        [XReformConfigs.EvolvableGroupType.StageTime] = self.BtnTimer,
     }
     self:RegisterUiEvents()
     -- 子面板信息配置
@@ -44,6 +47,18 @@ function XUiReformList:OnAwake()
             proxy = require("XUi/XUiReform/XUiReformEnvironmentPanel"),
             proxyArgs = { "BaseStage", "CurrentEvolvableStage" },
         },
+        [XReformConfigs.EvolvableGroupType.EnemyBuff] = {
+            uiParent = self.PanelReformEnemyBuff,
+            assetPath = XUiConfigs.GetComponentUrl("UiReformEnemyBuffPanel"),
+            proxy = require("XUi/XUiReform/XUiReformEnemyBuffPanel"),
+            proxyArgs = { "BaseStage", "CurrentEvolvableStage" },
+        },
+        [XReformConfigs.EvolvableGroupType.StageTime] = {
+            uiParent = self.PanelReformTimer,
+            assetPath = XUiConfigs.GetComponentUrl("UiReformTimePanel"),
+            proxy = require("XUi/XUiReform/XUiReformTimePanel"),
+            proxyArgs = { "BaseStage", "CurrentEvolvableStage" },
+        },
     }
     XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem
         , XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
@@ -59,7 +74,7 @@ end
 -- baseStage : XReformBaseStage
 function XUiReformList:OnStart(baseStage)
     self.BaseStage = baseStage
-    if baseStage:GetCurrentDifficulty() == 1 then
+    if baseStage:GetMaxDiffCount() > 1 and baseStage:GetCurrentDifficulty() == 1 then
         baseStage:SetCurrentDiffIndex(2)
         XDataCenter.ReformActivityManager.ChageStageDiffRequest(baseStage:GetId(), 2)
     end
@@ -132,16 +147,16 @@ function XUiReformList:RefreshEvolvableLevelScores()
     end
 end
 
-function XUiReformList:RefreshChallengeScore(showEffect)
+function XUiReformList:RefreshChallengeScore(showEffect, enemyGroupIndex)
+    if enemyGroupIndex == nil then enemyGroupIndex = 1 end
     if showEffect == nil then showEffect = true end
-    local currentEvolvableGroup = self.CurrentEvolvableStage:GetEvolvableGroupByType(self.CurrentElementBtnIndex)
     local scoreContent
-    local currentScore = currentEvolvableGroup:GetChallengeScore()
+    local currentScore = self.CurrentEvolvableStage:GetEvolvableGroupCurrentScore(self.CurrentElementBtnIndex)
     if self.CurrentElementBtnIndex == XReformConfigs.EvolvableGroupType.Member
         or self.CurrentElementBtnIndex == XReformConfigs.EvolvableGroupType.Buff then
         scoreContent = string.format( "<color=#BC0F27>%s</color>", currentScore)
     else
-        local maxScore = currentEvolvableGroup:GetMaxChallengeScore()
+        local maxScore = self.CurrentEvolvableStage:GetEvolvableGroupMaxScore(self.CurrentElementBtnIndex)
         scoreContent = string.format( "<color=#0E70BD>%s</color> / %s", currentScore, maxScore)
         if currentScore >= maxScore then
             scoreContent = scoreContent .. "(max)"
@@ -189,7 +204,12 @@ end
 
 -- 改造等级难度点击
 function XUiReformList:OnEvolvableLevelBtnGroupClicked(index)
-    local selectDiffIndex = index + 1
+    local selectDiffIndex
+    if self.BaseStage:GetMaxDiffCount() <= 1 then
+        selectDiffIndex = index
+    else
+        selectDiffIndex = index + 1
+    end
     if not self.BaseStage:GetDifficultyIsOpen(selectDiffIndex) then
         local evolvableStage = self.BaseStage:GetEvolvableStageByDiffIndex(selectDiffIndex)
         XUiManager.TipError(CsXTextManager.GetText("ReformEvolvableStageUnlockTip", evolvableStage:GetUnlockScore()))
@@ -232,6 +252,9 @@ function XUiReformList:OnEvolvableElementBtnGroupClicked(index)
     if instanceProxy == nil then
         instanceProxy = childPanelData.proxy.New(instanceGo)
         childPanelData.instanceProxy = instanceProxy
+        if CheckClassSuper(instanceProxy, XSignalData) then
+            instanceProxy:ConnectSignal("RefreshChallengeScore", self, self.RefreshChallengeScore)
+        end
     end
     -- 设置子面板代理参数
     local proxyArgs = {}
@@ -245,23 +268,35 @@ function XUiReformList:OnEvolvableElementBtnGroupClicked(index)
         end
     end
     instanceProxy:SetData(table.unpack(proxyArgs))
-    self:RefreshChallengeScore()
+    local groupIndex
+    if index == XReformConfigs.EvolvableGroupType.Enemy 
+        or index == XReformConfigs.EvolvableGroupType.EnemyBuff then
+        groupIndex = instanceProxy:GetCurrentGroupIndex()
+    end
+    self:RefreshChallengeScore(nil, groupIndex)
 end
 
 function XUiReformList:OnBtnSaveReformClicked()
-    XDataCenter.ReformActivityManager.ChageStageDiffRequest(self.BaseStage:GetId(), self.CurEvolvableLevelBtnGroupIndex + 1, function()
-        self.BaseStage:SetCurrentDiffIndex(self.CurEvolvableLevelBtnGroupIndex + 1)
-        self:Close()
-        XUiManager.TipMsg(CsXTextManager.GetText("ReformSaveEvolableStageTip", self.BaseStage:GetName(), self.CurrentEvolvableStage:GetName()))
-    end)
+    self:Close()
+    XUiManager.TipMsg(CsXTextManager.GetText("ReformSaveEvolableStageTip", self.BaseStage:GetName(), self.CurrentEvolvableStage:GetName()))    
+    -- XDataCenter.ReformActivityManager.ChageStageDiffRequest(self.BaseStage:GetId(), self.CurEvolvableLevelBtnGroupIndex + 1, function()
+    --     self.BaseStage:SetCurrentDiffIndex(self.CurEvolvableLevelBtnGroupIndex + 1)
+    --     self:Close()
+    --     XUiManager.TipMsg(CsXTextManager.GetText("ReformSaveEvolableStageTip", self.BaseStage:GetName(), self.CurrentEvolvableStage:GetName()))
+    -- end)
 end
 
 -- evolvableGroupType : XReformConfigs.EvolvableGroupType
 function XUiReformList:OnReformEvolvableGroupUpdate(evolvableGroupType, data)
+    local groupIndex
     if self.ChildPanelInfoDic[evolvableGroupType].instanceProxy then
         self.ChildPanelInfoDic[evolvableGroupType].instanceProxy:RefreshEvolvableData(data)
+        if evolvableGroupType == XReformConfigs.EvolvableGroupType.Enemy 
+            or evolvableGroupType == XReformConfigs.EvolvableGroupType.EnemyBuff then
+            groupIndex = self.ChildPanelInfoDic[evolvableGroupType].instanceProxy:GetCurrentGroupIndex()
+        end
     end
-    self:RefreshChallengeScore()
+    self:RefreshChallengeScore(nil, groupIndex)
 end
 
 return XUiReformList

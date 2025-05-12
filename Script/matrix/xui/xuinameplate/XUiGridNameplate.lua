@@ -39,7 +39,12 @@ function XUiGridNameplate:UpdateDataByGet(data, needSelClick, isHave)
     if not data:IsNamepalteExpire() then
         if not data:IsNamepalteForever() then
             self.PanelTime.gameObject:SetActiveEx(true)
-            self:SetTimePanel(data:GetNamepalteLeftTime())
+            if data.IsTemplate then
+                local time = data.Config.PlusTime == 0 and data.Config.Duration or data.Config.PlusTime
+                self:SetTimePanel(time)
+            else
+                self:SetTimePanel(data:GetNamepalteLeftTime())
+            end
         end
     end
 end
@@ -108,6 +113,10 @@ function XUiGridNameplate:UpdateDataById(nameplateId, needSelClick, isInList, is
         self.PanelNew.gameObject:SetActiveEx(true)
         if data:IsNameplateDress() then
             self.LabelPress.gameObject:SetActiveEx(true)
+        end
+        if not data:IsNamepalteForever() then
+            self.PanelTime.gameObject:SetActiveEx(true)
+            self:SetTimePanel(data:GetNamepalteLeftTime())
         end
     else
         if not data:IsNamepalteExpire() then

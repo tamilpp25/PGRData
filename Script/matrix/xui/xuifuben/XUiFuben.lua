@@ -7,6 +7,7 @@ XUiFuben.BtnTabIndex = {
 }
 
 function XUiFuben:OnAwake()
+    XLog.Error("[XUiFuben] 这个界面应该是弃用了，如果您发现没有，请通知ZLB，谢谢")
     self:InitAutoScript()
     XDataCenter.FubenManager.InitNewChallengeRedPointTable()
     self:InitTabBtnGroup()
@@ -84,10 +85,11 @@ function XUiFuben:InitTabBtnGroup()
         XRedPointConditions.Types.CONDITION_MAVERICK_MAIN,
         XRedPointConditions.Types.CONDITION_MEMORYSAVE_ALL_RED_POINT,
         XRedPointConditions.Types.CONDITION_PIVOTCOMBAT_ALL_RED_POINT,
-        XRedPointConditions.Types.CONDITION_ACTIVITY_NEW_YEAR_FUBEN,
+        XRedPointConditions.Types.CONDITION_ACTIVITY_FESTIVAL_MAIN,
         XRedPointConditions.Types.CONDITION_DOUBLE_TOWERS,
-        XRedPointConditions.Types.CONDITION_ACTIVITY_WHITE_VALENTINE,
         XRedPointConditions.Types.CONDITION_ACTIVITY_TAIKO_MASTER,
+        XRedPointConditions.Types.CONDITION_TWO_SIDE_TOWER_TASK, 
+        XRedPointConditions.Types.CONDITION_TWO_SIDE_TOWER_NEW_CHAPTER,
     })
     self.RedPointExperimentId = XRedPointManager.AddRedPointEvent(self.ExperimentRedPoint, self.OnCheckExperimentRedPoint, self, { XRedPointConditions.Types.CONDITION_EXPERIMENT_RED })
 end
@@ -109,10 +111,10 @@ function XUiFuben:OnClickTabCallBack(tabIndex)
         if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenActivity) then
             return
         end
-        self.BtnTrial.gameObject:SetActiveEx(false)
-        XDataCenter.FubenBossOnlineManager.RefreshBossData(function()
-            self:OpenOneChildUi("UiFubenActivityBanner", true)
-        end)
+        --self.BtnTrial.gameObject:SetActiveEx(false)
+        --XDataCenter.FubenBossOnlineManager.RefreshBossData(function()
+        --    self:OpenOneChildUi("UiFubenActivityBanner", true)
+        --end)
     elseif tabIndex == self.BtnTabIndex.Challenge then
         if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenChallenge) then
             return
@@ -175,9 +177,9 @@ function XUiFuben:OnOpenInit()
             self:RefreshForChangeDiff()
             self.PanelBottomRightRT.gameObject:SetActiveEx(false)
         elseif stageInfo.Type == XDataCenter.FubenManager.StageType.Daily
-        or stageInfo.Type == XDataCenter.FubenManager.StageType.Tower
-        or stageInfo.Type == XDataCenter.FubenManager.StageType.BossSingle
-        or stageInfo.Type == XDataCenter.FubenManager.StageType.Urgent then
+                or stageInfo.Type == XDataCenter.FubenManager.StageType.Tower
+                or stageInfo.Type == XDataCenter.FubenManager.StageType.BossSingle
+                or stageInfo.Type == XDataCenter.FubenManager.StageType.Urgent then
             defaultSelectIndex = self.BtnTabIndex.Challenge
         elseif stageInfo.Type == XDataCenter.FubenManager.StageType.BossOnline then
             defaultSelectIndex = self.BtnTabIndex.Activity
@@ -234,6 +236,7 @@ function XUiFuben:AutoAddListener()
     self:RegisterClickEvent(self.TogDaily, self.OnTogDailyClick)
     self:RegisterClickEvent(self.BtnTrial, self.OnBtnTrialClick)
 end
+
 -- auto
 function XUiFuben:OnBtnTrialClick()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenActivityTrial) then

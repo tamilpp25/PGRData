@@ -1,4 +1,6 @@
-XUiTabBtnGroup = XClass(XUiTabBtnGroup, "XUiTabBtnGroup")
+local XUiChapterBtnTab = require("XUi/XUiBase/XUiChapterBtnTab")
+local XUiBtnTab = require("XUi/XUiBase/XUiBtnTab")
+local XUiTabBtnGroup = XClass(nil, "XUiTabBtnGroup")
 XUiTabBtnGroup.TabBtnType = {
     Normal = 1,
     Chapter = 2,
@@ -21,7 +23,7 @@ function XUiTabBtnGroup:Ctor(btnList, callback, clickCheck, isLockClick, tabType
     end
 end
 
-function XUiTabBtnGroup:SelectIndex(index)
+function XUiTabBtnGroup:SelectIndex(index, needCallBack)
 
     if self.ClickCheck then
         local success = false
@@ -49,6 +51,9 @@ function XUiTabBtnGroup:SelectIndex(index)
         end
     end
 
+    if needCallBack == false then
+        return
+    end
     if (self.Callback) then
         self.Callback(index)
     end
@@ -75,3 +80,5 @@ function XUiTabBtnGroup:Dispose()
     self.Callback = nil
     self.TabBtnList = nil
 end
+
+return XUiTabBtnGroup

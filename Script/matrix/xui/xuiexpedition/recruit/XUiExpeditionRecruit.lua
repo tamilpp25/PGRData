@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --虚像地平线招募主界面
 local XUiExpeditionRecruit = XLuaUiManager.Register(XLuaUi, "UiExpeditionRecruit")
 local XUiExpeditionRecruitComboPanel = require("XUi/XUiExpedition/Recruit/XUiExpeditionComboPanel/XUiExpeditionRecruitComboPanel")

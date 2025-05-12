@@ -1,9 +1,18 @@
+---@class XArchiveMailEntity
 local XArchiveMailEntity = XClass(nil, "XArchiveMailEntity")
 
 function XArchiveMailEntity:Ctor(id)
     self.Id = id
     self.IsLock = true
     self.LockDesc = ""
+end
+
+function XArchiveMailEntity:SetIsLock(isLock)
+    self.IsLock = isLock
+end
+
+function XArchiveMailEntity:SetLockDesc(lockDesc)
+    self.LockDesc = lockDesc
 end
 
 function XArchiveMailEntity:UpdateData(playerData)
@@ -13,7 +22,7 @@ function XArchiveMailEntity:UpdateData(playerData)
 end
 
 function XArchiveMailEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveMailsConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveMailsConfigById(self.Id)
 end
 
 function XArchiveMailEntity:GetId()

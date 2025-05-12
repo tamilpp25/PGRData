@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiStorySpringFestivalStageDetail = XLuaUiManager.Register(XLuaUi, "UiStorySpringFestivalStageDetail")
 
 function XUiStorySpringFestivalStageDetail:OnAwake()
@@ -28,12 +29,13 @@ function XUiStorySpringFestivalStageDetail:OnBtnEnterClick()
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
     if not stageCfg or not stageInfo then return end
 
+    local beginStoryId = XMVCA.XFuben:GetBeginStoryId(self.StageId)
     if stageInfo.Passed then
-        self:PlayStoryId(stageCfg.BeginStoryId, self.StageId)
+        self:PlayStoryId(beginStoryId, self.StageId)
     else
         XDataCenter.FubenFestivalActivityManager.FinishStoryRequest(self.StageId, function()
             XDataCenter.FubenFestivalActivityManager.RefreshStagePassedBySettleDatas({ StageId = self.StageId })
-            self:PlayStoryId(stageCfg.BeginStoryId, self.StageId)
+            self:PlayStoryId(beginStoryId, self.StageId)
         end)
     end
 end
@@ -42,12 +44,10 @@ function XUiStorySpringFestivalStageDetail:PlayStoryId(movieId)
     self.RootUi:ClearNodesSelect()
     self.RootUi:ShowPanel(false)
     XDataCenter.MovieManager.PlayMovie(movieId, function()
-        if XLuaUiManager.IsUiShow("UiFubenSpringFestivalChapter") then --#101309刚播放完时界面还没打开访问组件会卡死
-            self.RootUi:EndScrollViewMove()
-            self.RootUi:CloseStageDetails()
-            self.RootUi:Refresh()
-            self.RootUi:ShowPanel(true)
-        end
+        self.RootUi:EndScrollViewMove()
+        self.RootUi:CloseStageDetails()
+        self.RootUi:Refresh()
+        self.RootUi:ShowPanel(true)
     end)
 end
 

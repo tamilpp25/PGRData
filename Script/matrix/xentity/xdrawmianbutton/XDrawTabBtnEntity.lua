@@ -1,3 +1,4 @@
+---@class XDrawTabBtnEntity
 local XDrawTabBtnEntity = XClass(nil, "XDrawTabBtnEntity")
 
 function XDrawTabBtnEntity:Ctor(id)
@@ -102,6 +103,23 @@ end
 
 function XDrawTabBtnEntity:IsMainButton()
     return true
+end
+
+function XDrawTabBtnEntity:IsShowFreeTip()
+    local isShowFreeTip = false
+    local IsUnLock = self:JudgeCanOpen(false)
+
+    if IsUnLock then
+        for _, drawGroupInfo in pairs(self.DrawGroupList or {}) do
+            if drawGroupInfo:GetBannerBeginTime() > 0 then
+                if XDataCenter.DrawManager.CheckHasFreeTicket(drawGroupInfo:GetId()) then
+                    isShowFreeTip = true
+                    break
+                end
+            end
+        end
+    end
+    return isShowFreeTip
 end
 
 return XDrawTabBtnEntity

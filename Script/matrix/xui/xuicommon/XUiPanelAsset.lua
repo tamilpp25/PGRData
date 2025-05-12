@@ -1,16 +1,24 @@
-XUiPanelAsset = XClass(nil, "XUiPanelAssetCommon")
+---@class XUiPanelAsset : XUiNode
+local XUiPanelAsset = XClass(XUiNode, "XUiPanelAssetCommon")
 local insert = table.insert
 local min = math.min
 
-function XUiPanelAsset:Ctor(rootUi, ui, ...)
-    self.RootUi = rootUi
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.ItemIds = { ... }
-    self.EventListener = {}
-    self:InitAutoScript()
+function XUiPanelAsset:InitNode(ui, parent, ...)
+    XUiPanelAsset.Super.InitNode(self, parent, ui, ...)
+end
 
+function XUiPanelAsset:OnStart(...)
+    self:InitAutoScript()
     self:InitBtnSound()
+    
+    self.ItemIds = { ... }
+    self._BindNodes = {}
+    self:InitAssert(self.ItemIds)
+end
+
+function XUiPanelAsset:RefreshBindItem(...)
+    self.ItemIds = { ... }
+    self._BindNodes = {}
     self:InitAssert(self.ItemIds)
 end
 
@@ -64,7 +72,7 @@ function XUiPanelAsset:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -108,23 +116,38 @@ end
 
 function XUiPanelAsset:BuyJump(index)
     -- 联机中不给跳转，防止跳出联机房间
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
-        XUiManager.TipMsg(CS.XTextManager.GetText("UnionCantLeaveRoom"))
-        return
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipMsg(CS.XTextManager.GetText("UnionCantLeaveRoom"))
+    --    return
+    --end
+    --if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
+    --    XUiManager.TipMsg(CS.XTextManager.GetText("UnionInMatching"))
+    --    return
+    --end
+
+    if XLuaUiManager.IsUiShow("UiMain") then
+        if self.ItemIds[index] == XDataCenter.ItemManager.ItemId.FreeGem then
+            XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnAddFreeGem)
+        elseif self.ItemIds[index] == XDataCenter.ItemManager.ItemId.ActionPoint then
+            XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnAddActionPoint)
+        elseif self.ItemIds[index] == XDataCenter.ItemManager.ItemId.Coin then
+            XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnAddCoin)
+        end
     end
-    if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
-        XUiManager.TipMsg(CS.XTextManager.GetText("UnionInMatching"))
-        return
-    end
+    
     if self.JumpCallList and self.JumpCallList[index] and type(self.JumpCallList[index]) == "function" then
         self.JumpCallList[index]()
         return
     end
     
+    
     if self.ItemIds[index] == XDataCenter.ItemManager.ItemId.FreeGem then
         XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.HK)
     elseif self.ItemIds[index] == XDataCenter.ItemManager.ItemId.HongKa then
+        if XLuaUiManager.IsUiShow("UiMain") then
+            XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnAddFreeGem)
+        end
         XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.Pay)
     elseif self.ItemIds[index] == XDataCenter.ItemManager.ItemId.DoubleTower then
         --展示物品详情
@@ -141,7 +164,13 @@ function XUiPanelAsset:BuyJump(index)
             data.WorldDesc = XGoodsCommonManager.GetGoodsWorldDesc(self.ItemIds[index])
         end
         XLuaUiManager.Open("UiTip", data, self.HideSkipBtn)
-    elseif self.ItemIds[index] == XDataCenter.PivotCombatManager.GetActivityCoinId() then
+    elseif self.ItemIds[index] == XDataCenter.PivotCombatManager.GetActivityCoinId() 
+            or self.ItemIds[index] == XDataCenter.ItemManager.ItemId.SkillPoint
+            or self.ItemIds[index] == XMazeConfig.GetTicketItemId()
+    then
+        local id = self.ItemIds[index]
+        XLuaUiManager.Open("UiTip", id)
+    elseif not XDataCenter.ItemManager.GetBuyAssetTemplate(self.ItemIds[index], 1, true) then -- 没有购买数据的话就打开详情
         local id = self.ItemIds[index]
         XLuaUiManager.Open("UiTip", id)
     else
@@ -181,11 +210,13 @@ function XUiPanelAsset:InitAssert()
         local itemCount = XDataCenter.ItemManager.GetCount(id)
         if id == XDataCenter.ItemManager.ItemId.ActionPoint then
             textTool.text = itemCount .. "/" .. XDataCenter.ItemManager.GetMaxActionPoints()
+        elseif id == XGuildWarConfig.ActivityPointItemId then
+            textTool.text = itemCount .. "/" .. XDataCenter.GuildWarManager.GetMaxActionPoint()
         else
             textTool.text = itemCount
         end
     end
-
+    self:RemoveCountUpdateListener()
     for i = 1, panelCount do
         local panel = panels[i]
         local item = XDataCenter.ItemManager.GetItem(itemIds[i])
@@ -197,8 +228,41 @@ function XUiPanelAsset:InitAssert()
         local f = function()
             func(self["TxtTool" .. i], itemIds[i])
         end
-        XDataCenter.ItemManager.AddCountUpdateListener(itemIds[i], f, self["TxtTool" .. i])
+        local node = self["TxtTool" .. i]
+        table.insert(self._BindNodes, node)
+        XDataCenter.ItemManager.AddCountUpdateListener(itemIds[i], f, node)
         func(self["TxtTool" .. i], itemIds[i])
         panel.gameObject:SetActive(true)
     end
 end
+
+function XUiPanelAsset:RemoveCountUpdateListener()
+    for _, node in ipairs(self._BindNodes) do
+        XDataCenter.ItemManager.RemoveCountUpdateListener(node)
+    end
+    self._BindNodes = {}
+end
+
+function XUiPanelAsset:OnDestroy()
+    self:RemoveCountUpdateListener()
+end
+
+function XUiPanelAsset:HideBtnBuy()
+    self.BtnBuyJump1.gameObject:SetActiveEx(false)
+    self.BtnBuyJump2.gameObject:SetActiveEx(false)
+    self.BtnBuyJump3.gameObject:SetActiveEx(false)
+end 
+
+function XUiPanelAsset:SetCountTxtColor(color)
+    local itemCount = #self.ItemIds
+
+    for i = 1, itemCount do
+        local textTool = self["TxtTool" .. i]
+
+        if textTool then
+            textTool.color = color
+        end
+    end
+end 
+
+return XUiPanelAsset

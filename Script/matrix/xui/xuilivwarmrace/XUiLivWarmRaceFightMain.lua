@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiLivWarmRaceStageGroup = require("XUi/XUiLivWarmRace/XUiLivWarmRaceStageGroup")
 
 --二周年预热-赛跑小游戏 关卡界面

@@ -8,6 +8,7 @@ function XUiStageFightEventItem:RefreshData(data)
     self.Cfg = data
     self.RImgIcon:SetRawImage(self.Cfg.Icon)
     self.TxtName.text = self.Cfg.Name
-    self.TxtDesc.text = self.Cfg.Description
+    local str = XUiHelper.ReplaceTextNewLine(self.Cfg.Description)
+    self.TxtDesc.text = str
 end
 return XUiStageFightEventItem

@@ -53,7 +53,7 @@ end
 --获取故事ID
 --================
 function XExpeditionStage:GetBeginStoryId()
-    return self.StageCfg and self.StageCfg.BeginStoryId
+    return self.StageCfg and XMVCA.XFuben:GetBeginStoryId(self.StageCfg.StageId)
 end
 --================
 --获取关卡序号

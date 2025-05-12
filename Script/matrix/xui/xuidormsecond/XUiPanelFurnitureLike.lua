@@ -26,7 +26,7 @@ function XUiPanelFurnitureLike:Refresh(characterId, curRoomId)
     self.TxtNextDesc.text = isMax and CS.XTextManager.GetText("DormMaxRecovery") or CS.XTextManager.GetText("DormNextRecovery2")
 
     local scoreA, scoreB, scoreC = XDataCenter.DormManager.GetDormitoryScore(curRoomId)
-    local allFurnitureAttrs = XHomeDormManager.GetFurnitureScoresByUnsaveRoom(curRoomId)
+    local allFurnitureAttrs = XHomeDormManager.GetFurnitureScoresByUnSaveRoom(curRoomId)
     local allScores = allFurnitureAttrs.TotalScore
 
     local indexA = XFurnitureConfigs.AttrType.AttrA - 1
@@ -39,7 +39,7 @@ function XUiPanelFurnitureLike:Refresh(characterId, curRoomId)
 
         local vContext = nextRecoveryConfig.VitalityRecoveryType > 0 and "DormVitalityRecovery1" or "DormVitalityRecovery"
         local mContext = nextRecoveryConfig.MoodRecoveryType > 0 and "DormMoodRecovery1" or "DormMoodRecovery"
-
+        
         self.TxtResume.text = CS.XTextManager.GetText(vContext, vitalitySpeed)
         self.TxtMoodResume.text = CS.XTextManager.GetText(mContext, moodSpeed)
 

@@ -1,4 +1,5 @@
-XDynamicTableCurve = {}
+---@class XDynamicTableCurve
+local XDynamicTableCurve = {}
 
 function XDynamicTableCurve.New(gameObject)
     if gameObject == nil then
@@ -25,6 +26,7 @@ function XDynamicTableCurve:Init(gameObject)
     end
 
     self.Proxy = nil
+    self.ProxyArgs = nil
     self.ProxyMap = {}
     self.ProxyImpMap = {}
     self.DataSource = {}
@@ -50,10 +52,24 @@ function XDynamicTableCurve:SetDelegate(delegate)
         return
     end
 
- --   self.Imp:SetDelegate(self)
+    if self.Imp.SetDelegate then
+        self.Imp:SetDelegate(self) 
+    end
     self.Delegate = delegate
 end
 
+---@param proxy XUiNode
+function XDynamicTableCurve:SetProxyDisplay(proxy, isShow)
+    if CheckClassSuper(proxy, XUiNode) then
+        if isShow then
+            proxy:Open()
+        else
+            if proxy:IsValid() then
+                proxy:Close()
+            end
+        end
+    end
+end
 
 --事件回调
 function XDynamicTableCurve:OnDynamicTableEvent(event, index, grid)
@@ -78,7 +94,7 @@ function XDynamicTableCurve:OnDynamicTableEvent(event, index, grid)
     if grid ~= nil then
         proxy = self.ProxyMap[grid]
         if not proxy then
-            proxy = self.Proxy.New(grid)
+            proxy = self.Proxy.New(grid, table.unpack(self.ProxyArgs))
             self.ProxyMap[grid] = proxy
             --初始化只调动一次
             proxy.Index = index
@@ -97,19 +113,45 @@ function XDynamicTableCurve:OnDynamicTableEvent(event, index, grid)
         proxy.Index = index
         proxy.DynamicGrid = grid
         self.ProxyImpMap[index] = proxy
+        self:SetProxyDisplay(proxy, true)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_RECYCLE then
         proxy.Index = -1
         proxy.DynamicGrid = nil
         self.ProxyImpMap[index] = nil
+        self:SetProxyDisplay(proxy, false)
     end
 
+    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_DEBUG_LOG_DATASOURCE then
+        self:DebugLogDataSource()
+    end
+
+    local curSelectLuaIndex = self:GetImpl().StartIndex + 1
     if self.DynamicEventDelegate then
-        self.DynamicEventDelegate(event, index, proxy)
+        self.DynamicEventDelegate(event, index, proxy, curSelectLuaIndex)
     else
-        self.Delegate.OnDynamicTableEvent(self.Delegate, event, index, proxy)
+        self.Delegate.OnDynamicTableEvent(self.Delegate, event, index, proxy, curSelectLuaIndex)
     end
 end
 
+function XDynamicTableCurve:DebugLogDataSource()
+    XLog.Debug("XDynamicTableCurve name", self:GetImpl().gameObject.name, "DataSource:",self.DataSource)
+end
+
+-- 兼容XUiNode
+function XDynamicTableCurve:SetActive(flag)
+    if not self.Imp then
+        return
+    end
+    self.Imp.gameObject:SetActiveEx(flag)
+    local allGrid = self:GetGrids()
+    for k, grid in pairs(allGrid or {}) do
+        if flag then
+            grid:Open()
+        else
+            grid:Close()
+        end
+    end
+end
 
 --设置事件回调
 function XDynamicTableCurve:SetDynamicEventDelegate(fun)
@@ -117,10 +159,11 @@ function XDynamicTableCurve:SetDynamicEventDelegate(fun)
 end
 
 --设置代理器
-function XDynamicTableCurve:SetProxy(proxy)
+function XDynamicTableCurve:SetProxy(proxy, ...)
     self.ProxyMap = {}
     self.ProxyImpMap = {}
     self.Proxy = proxy
+    self.ProxyArgs = {...}
 end
 
 --设置总数
@@ -219,6 +262,30 @@ function XDynamicTableCurve:GetTweenIndex()
         return 0
     end
     return self.Imp.StartIndex
+end
+
+function XDynamicTableCurve:SetChapterGuide()
+    self.ChapterGuide = true
+end
+
+function XDynamicTableCurve:GuideGetDynamicTableIndex(key, id)
+    if not self.DataSource then
+        return -1
+    end
+
+    for i, v in ipairs(self.DataSource) do
+        if (type(v) ~= "table" and tostring(v) == id) or (type(v) == "table" and tostring(v[key]) == id) then
+            return i - 1
+        end
+    end
+
+    XLog.Error("Can not find key:" .. key .. " Value:" .. tostring(id) .. " in DataSource ")
+
+    return -1
+end
+
+function XDynamicTableCurve:GetData(index)
+    return self.DataSource[index]
 end
 
 --todo 其他布局接口这里暂时不一一实现，因为布局属性在编辑阶段已经设置过

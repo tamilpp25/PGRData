@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --兵法蓝图养成界面更换成员页面成员动态列表控件
 local XUiRpgTowerChangeMemberList = XClass(nil, "XUiRpgTowerChangeMemberList")
 local XUiRpgTowerChangeMemberItem = require("XUi/XUiRpgTower/CharacterPage/ChangeMemberPage/XUiRpgTowerChangeMemberItem")

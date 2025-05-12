@@ -1,4 +1,5 @@
-XDynamicDailyTask = XClass(nil, "XDynamicDailyTask")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XDynamicDailyTask = XClass(XUiNode, "XDynamicDailyTask")
 
 -- 每日任务为时间段的condition类型，除了这些类型其他任务有效时间都是一天
 local TimePeriodConditionType = {
@@ -8,12 +9,8 @@ local A_DAY = 24 * 60 * 60
 local A_HOUR = 60 * 60
 local A_MIN = 60
 
-function XDynamicDailyTask:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XDynamicDailyTask:OnStart()
     self.RewardPanelList = {}
-
-    XTool.InitUiObject(self)
     self.GridCommon.gameObject:SetActive(false)
     self.ImgComplete.gameObject:SetActive(false)
     self.PanelAnimation.gameObject:SetActive(true)
@@ -73,31 +70,48 @@ function XDynamicDailyTask:ResetData(data)
     for i = 1, #self.RewardPanelList do
         self.RewardPanelList[i]:Refresh()
     end
-    XScheduleManager.ScheduleOnce(function()--异形屏适配需要
-        if rewards then
-            for i = 1, #rewards do
-                local panel = self.RewardPanelList[i]
-                if not panel then
-                    if #self.RewardPanelList == 0 then
-                        panel = XUiGridCommon.New(self.RootUi, self.GridCommon)
-                    else
-                        local ui = CS.UnityEngine.Object.Instantiate(self.GridCommon)
-                        ui.transform:SetParent(self.GridCommon.parent, false)
-                        panel = XUiGridCommon.New(self.RootUi, ui)
-                    end
-                    table.insert(self.RewardPanelList, panel)
+    if rewards then
+        for i = 1, #rewards do
+            local panel = self.RewardPanelList[i]
+            if not panel then
+                if #self.RewardPanelList == 0 then
+                    panel = XUiGridCommon.New(self.RootUi, self.GridCommon)
+                else
+                    local ui = CS.UnityEngine.Object.Instantiate(self.GridCommon)
+                    ui.transform:SetParent(self.GridCommon.parent, false)
+                    panel = XUiGridCommon.New(self.RootUi, ui)
                 end
-
-                panel:Refresh(rewards[i])
+                table.insert(self.RewardPanelList, panel)
             end
+
+            panel:Refresh(rewards[i])
         end
-    end, 0)
+        XUiHelper.MarkLayoutForRebuild(self.Transform.parent) --异形屏适配需要
+    end
 
     local isFinish = data.State == XDataCenter.TaskManager.TaskState.Finish
     self.ImgComplete.gameObject:SetActive(isFinish)
     self.PanelTime.gameObject:SetActive(not isFinish)
     if not isFinish then
         self:UpdateTimes()
+    end
+
+    self:AprilFoolShowHandle()
+end
+
+function XDynamicDailyTask:AprilFoolShowHandle()
+    if not XMVCA.XAprilFoolDay:IsInRandomClawTime() then
+        if self.AprilImgCat and self.AprilImgWolf then
+            self.AprilImgCat.gameObject:SetActiveEx(false)
+            self.AprilImgWolf.gameObject:SetActiveEx(false) 
+        end
+        return
+    end
+
+    if self.AprilImgCat and self.AprilImgWolf then
+        local isShowCatOrWolf = XMVCA.XAprilFoolDay:IsShowCatOrWolf()
+        self.AprilImgCat.gameObject:SetActiveEx(isShowCatOrWolf == XEnumConst.AprilFool.Random2025Type.Cat)
+        self.AprilImgWolf.gameObject:SetActiveEx(isShowCatOrWolf == XEnumConst.AprilFool.Random2025Type.Wolf) 
     end
 end
 
@@ -110,14 +124,14 @@ function XDynamicDailyTask:OnBtnAllReceiveClick()
         local rewards = XRewardManager.GetRewardList(tableData.RewardId)
         for i = 1, #rewards do
             local rewardsId = rewards[i].TemplateId
-            if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Weapon) then
+            if XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
                 weaponCount = weaponCount + 1
-            elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Awareness) then
+            elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
                 chipCount = chipCount + 1
             end
         end
-        if weaponCount > 0 and XDataCenter.EquipManager.CheckBagCount(weaponCount, XEquipConfig.Classify.Weapon) == false or
-        chipCount > 0 and XDataCenter.EquipManager.CheckBagCount(chipCount, XEquipConfig.Classify.Awareness) == false then
+        if weaponCount > 0 and XMVCA.XEquip:CheckBagCount(weaponCount, XEnumConst.EQUIP.CLASSIFY.WEAPON) == false or
+        chipCount > 0 and XMVCA.XEquip:CheckBagCount(chipCount, XEnumConst.EQUIP.CLASSIFY.AWARENESS) == false then
             return
         end
     end 
@@ -139,20 +153,17 @@ function XDynamicDailyTask:OnBtnFinishClick()
     local chipCount = 0
     for i = 1, #self.RewardPanelList do
         local rewardsId = self.RewardPanelList[i].TemplateId
-        if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Weapon) then
+        if XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
             weaponCount = weaponCount + 1
-        elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Awareness) then
+        elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
             chipCount = chipCount + 1
         end
     end
-    if weaponCount > 0 and XDataCenter.EquipManager.CheckBagCount(weaponCount, XEquipConfig.Classify.Weapon) == false or
-    chipCount > 0 and XDataCenter.EquipManager.CheckBagCount(chipCount, XEquipConfig.Classify.Awareness) == false then
+    if weaponCount > 0 and XMVCA.XEquip:CheckBagCount(weaponCount, XEnumConst.EQUIP.CLASSIFY.WEAPON) == false or
+    chipCount > 0 and XMVCA.XEquip:CheckBagCount(chipCount, XEnumConst.EQUIP.CLASSIFY.AWARENESS) == false then
         return
     end
-    local savedFinishedTaskId = self.Data.Id
     XDataCenter.TaskManager.FinishTask(self.Data.Id, function(rewardGoodsList)
-        --CheckPoint: APPEVENT_WAR_AND_PAINGAGE
-        XAppEventManager.WeeklyRewardAppLogEvent(savedFinishedTaskId)
         XUiManager.OpenUiObtain(rewardGoodsList)
     end)
 end
@@ -259,20 +270,20 @@ function XDynamicDailyTask:UpdateDailyTime()
     local next_0_oclock = today_0_oclock + A_DAY
     local beginTime
     local endTime
-    local timeRefresh = 7
+
     if self:IsTimePeriodCondition(conditionTemplates.Type) then
         -- 时间段限制
         beginTime = today_0_oclock + (conditionTemplates.Params[1] or 0)
         endTime = today_0_oclock + (conditionTemplates.Params[2] or 0)
     else
-        if math.abs(now - today_0_oclock) <= A_HOUR * timeRefresh then
+        if math.abs(now - today_0_oclock) <= A_HOUR * 5 then
             -- 5点以前
-            beginTime = today_0_oclock - A_DAY + A_HOUR * timeRefresh --昨天5点
-            endTime = today_0_oclock + A_HOUR * timeRefresh           --今天5点
+            beginTime = today_0_oclock - A_DAY + A_HOUR * 5 --昨天5点
+            endTime = today_0_oclock + A_HOUR * 5           --今天5点
         else
             -- 5点之后
-            beginTime = today_0_oclock + A_HOUR * timeRefresh         --今天5点
-            endTime = next_0_oclock + A_HOUR * timeRefresh            --明天5点
+            beginTime = today_0_oclock + A_HOUR * 5         --今天5点
+            endTime = next_0_oclock + A_HOUR * 5            --明天5点
         end
     end
 
@@ -392,3 +403,9 @@ function XDynamicDailyTask:IsTimePeriodCondition(conditionType)
     end
     return false
 end
+
+function XDynamicDailyTask:GetTaskState()
+    return self.Data and self.Data.State
+end
+
+return XDynamicDailyTask

@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --区块净化进度弹窗
 local XUiAreaWarSszbTips = XLuaUiManager.Register(XLuaUi, "UiAreaWarSszbTips")
 

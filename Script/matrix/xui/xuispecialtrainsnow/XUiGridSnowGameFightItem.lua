@@ -1,7 +1,6 @@
 local XUiGridSnowGameFightItem = XClass(nil, "XUiGridSnowGameFightItem")
 local XUiGridSnowGameDataItem = require("XUi/XUiSpecialTrainSnow/XUiGridSnowGameDataItem")
 
-local DataItemNames = { "Ranking", "Trophy" }
 local playerIndex = 1
 
 function XUiGridSnowGameFightItem:Ctor(ui, parent)
@@ -14,7 +13,17 @@ function XUiGridSnowGameFightItem:Ctor(ui, parent)
     XUiHelper.RegisterClickEvent(self, self.BtnAddFriend, self.OnBtnAddFriendClick)
     
     self:SwitchDisabledLike()
+    self.DataItemNames = {
+        XUiHelper.GetText("SnowGameFightDataItemName1"),
+        XUiHelper.GetText("SnowGameFightDataItemName2"),
+        XUiHelper.GetText("SnowGameFightDataItemName3"),
+    }
 end
+
+function XUiGridSnowGameFightItem:GetDataItemNames()
+    return self.DataItemNames
+end
+
 --举报
 function XUiGridSnowGameFightItem:OnBtnReportClick()
     if self.IsAlreadyReport then
@@ -50,15 +59,17 @@ function XUiGridSnowGameFightItem:RefreshPlayerData(data)
     
     local character = self.PlayerData.Character
     local headInfo = character.CharacterHeadInfo or {}
-    local headIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(character.Id, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
+    local headIcon = self:GetHeadIcon(character.Id, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
     self.RImgIcon:SetRawImage(headIcon)
     self.TxtName.text = XDataCenter.SocialManager.GetPlayerRemark(self.PlayerData.Id, self.PlayerData.Name)
 
-    local item1 = CS.UnityEngine.GameObject.Instantiate(self.GridFightDataItem, self.PanelFightDataContainer)
-    self.GridFightDataList = {
-        XUiGridSnowGameDataItem.New(self.GridFightDataItem, DataItemNames[1]),
-        XUiGridSnowGameDataItem.New(item1, DataItemNames[2]),
-    }
+    self.GridFightDataList = {}
+    for index, name in ipairs(self:GetDataItemNames()) do
+        local item = CS.UnityEngine.GameObject.Instantiate(self.GridFightDataItem, self.PanelFightDataContainer)
+        local grid = XUiGridSnowGameDataItem.New(item, name)
+        self.GridFightDataList[index] = grid
+    end
+    self.GridFightDataItem.gameObject:SetActiveEx(false)
 
     self.IsPlayer = self.PlayerData.Id == XPlayer.Id
     if self.IsPlayer then
@@ -71,11 +82,19 @@ end
 
 function XUiGridSnowGameFightItem:RefreshDataItem(data)
     if data then
-        self.GridFightDataList[1]:Refresh(data.IsRankingMvp, data.Ranking)
-        self.GridFightDataList[2]:Refresh(data.IsScoreMvp, data.Score)
+        if self.ImgMvp then
+            self.ImgMvp.gameObject:SetActiveEx(data.IsRankingMvp)
+        end
+        self.GridFightDataList[1]:Refresh(false, data.StageScore)
+        self.GridFightDataList[2]:Refresh(false, data.KillCount)
+        self.GridFightDataList[3]:Refresh(false, data.Score)
     else
-        self.GridFightDataList[1]:Refresh(false, 0)
-        self.GridFightDataList[2]:Refresh(false, 0)
+        if self.ImgMvp then
+            self.ImgMvp.gameObject:SetActiveEx(false)
+        end
+        for _, grid in pairs(self.GridFightDataList) do
+            grid:Refresh(false, 0)
+        end
     end
 end
 
@@ -105,6 +124,11 @@ function XUiGridSnowGameFightItem:SwitchAlreadyLike()
     self.ImgLikeDisabled.gameObject:SetActiveEx(false)
     self.ImgLikeAlready.gameObject:SetActiveEx(true)
     self.BtnLike.gameObject:SetActiveEx(false)
+end
+
+function XUiGridSnowGameFightItem:GetHeadIcon(characterId, ...)
+    --return XMVCA.XCharacter:GetCharSmallHeadIcon(characterId, ...)
+    return XCharacterCuteConfig.GetCuteModelRoundnessHeadIcon(characterId)
 end
 
 return XUiGridSnowGameFightItem

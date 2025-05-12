@@ -1,14 +1,11 @@
-local XUiPanelFubenWeiLaStage = XClass(nil, "XUiPanelFubenWeiLaStage")
+local XUiGridTreasureGrade = require("XUi/XUiFubenMainLineChapter/XUiGridTreasureGrade")
+local XUiPanelFubenWeiLaStage = XClass(XUiNode, "XUiPanelFubenWeiLaStage")
 local XUiFubenWeiLaStageItem = require("XUi/XUiNewChar/WeiLa/XUiFubenWeiLaStageItem")
 local UIFUBENKOROTUTORIA_TEACHING_DETAIL = "UiFunbenKoroTutoriaTeachingDetail"
 local UIFUBENKOROTUTORIA_CHALLENGE_DETAIL = "UiFunbenKoroTutoriaChallengeDetail"
 local XUguiDragProxy = CS.XUguiDragProxy
 
-function XUiPanelFubenWeiLaStage:Ctor(uiRoot, ui, cfg, panelType)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-    self.UiRoot = uiRoot
+function XUiPanelFubenWeiLaStage:OnStart(cfg,panelType)
     self.Cfg = cfg
     self:InitPanel(panelType)
     self.GridTreasureList = {}
@@ -70,7 +67,7 @@ function XUiPanelFubenWeiLaStage:InitTreasureGrade()
 
         if not grid then
             local item = CS.UnityEngine.Object.Instantiate(baseItem)  -- 复制一个item
-            grid = XUiGridTreasureGrade.New(self.UiRoot, item, XDataCenter.FubenManager.StageType.NewCharAct)
+            grid = XUiGridTreasureGrade.New(self.Parent, item, XDataCenter.FubenManager.StageType.NewCharAct)
             grid.Transform:SetParent(self.PanelGradeContent, false)
             self.GridTreasureList[i] = grid
         end
@@ -88,11 +85,10 @@ end
 function XUiPanelFubenWeiLaStage:InitStarts()
     local curStars
     local totalStars
-    curStars, totalStars = XDataCenter.FubenNewCharActivityManager.GetKoroStarProgressById(self.Cfg.Id)
+    curStars, totalStars = XDataCenter.FubenNewCharActivityManager.GetProcess()
 
     self.ImgJindu.fillAmount = totalStars > 0 and curStars / totalStars or 0
     self.ImgJindu.gameObject:SetActiveEx(true)
-    self.TxtStarNum.text = CS.XTextManager.GetText("Fract", curStars, totalStars)
 
     local received = true
     for _, v in pairs(self.Cfg.TreasureId) do
@@ -109,10 +105,12 @@ end
 
 function XUiPanelFubenWeiLaStage:OnShow(type)
     self.PanelType = type
-    self.GameObject:SetActiveEx(true)
+    self:Open()
     for i = 1, #self.StageIds do
         self.Stages[i]:UpdateNode(self.Cfg.Id, self.StageIds[i], i, self.PanelType)
     end
+    --2.8：移除内部的任务界面入口
+    --[[
     if self.PanelType == XFubenNewCharConfig.KoroPanelType.Challenge then
         self.BtnTreasure.CallBack = function()
             self:OnBtnTreasureClick()
@@ -122,6 +120,7 @@ function XUiPanelFubenWeiLaStage:OnShow(type)
         end
         self:InitStarts()
     end
+    --]]
     for i = 1, #self.StageIds - 1 do
         self.Lines[i].gameObject:SetActiveEx(XDataCenter.FubenNewCharActivityManager.CheckStagePass(self.StageIds[i]))
     end
@@ -136,11 +135,13 @@ function XUiPanelFubenWeiLaStage:OnShow(type)
     if fristNewStageIndex > 1 then self:SetPanelInNewStage(self.StageGroup[fristNewStageIndex].transform) end
 
     self.LineIcon.gameObject:SetActiveEx(XDataCenter.FubenNewCharActivityManager.CheckStagePass(self.StageIds[#self.StageIds - 1]))
-    self.LineEnable:PlayTimelineAnimation()
+    if self.LineEnable then
+        self.LineEnable:PlayTimelineAnimation()
+    end
 end
 
 function XUiPanelFubenWeiLaStage:OnHide()
-    self.GameObject:SetActiveEx(false)
+    self:Close()
 end
 
 --选中关卡
@@ -169,18 +170,18 @@ function XUiPanelFubenWeiLaStage:OpenStageDetails(stageId, id)
     self.BtnCloseDetail.gameObject:SetActiveEx(true)
 
     if self.PanelType == XFubenNewCharConfig.KoroPanelType.Teaching then
-        self.UiRoot:OpenOneChildUi(UIFUBENKOROTUTORIA_TEACHING_DETAIL, self)
-        self.UiRoot:FindChildUiObj(UIFUBENKOROTUTORIA_TEACHING_DETAIL):SetStageDetail(stageId, id)
+        self.Parent:OpenOneChildUi(UIFUBENKOROTUTORIA_TEACHING_DETAIL, self)
+        self.Parent:FindChildUiObj(UIFUBENKOROTUTORIA_TEACHING_DETAIL):SetStageDetail(stageId, id)
         if XLuaUiManager.IsUiShow(UIFUBENKOROTUTORIA_CHALLENGE_DETAIL) then
-            self.UiRoot:FindChildUiObj(UIFUBENKOROTUTORIA_CHALLENGE_DETAIL):Close()
+            self.Parent:FindChildUiObj(UIFUBENKOROTUTORIA_CHALLENGE_DETAIL):Close()
         end
     end
 
     if self.PanelType == XFubenNewCharConfig.KoroPanelType.Challenge then
-        self.UiRoot:OpenOneChildUi(UIFUBENKOROTUTORIA_CHALLENGE_DETAIL, self)
-        self.UiRoot:FindChildUiObj(UIFUBENKOROTUTORIA_CHALLENGE_DETAIL):SetStageDetail(stageId, id)
+        self.Parent:OpenOneChildUi(UIFUBENKOROTUTORIA_CHALLENGE_DETAIL, self)
+        self.Parent:FindChildUiObj(UIFUBENKOROTUTORIA_CHALLENGE_DETAIL):SetStageDetail(stageId, id)
         if XLuaUiManager.IsUiShow(UIFUBENKOROTUTORIA_TEACHING_DETAIL) then
-            self.UiRoot:FindChildUiObj(UIFUBENKOROTUTORIA_TEACHING_DETAIL):Close()
+            self.Parent:FindChildUiObj(UIFUBENKOROTUTORIA_TEACHING_DETAIL):Close()
         end
     end
     if self.AssetPanel then
@@ -195,12 +196,12 @@ function XUiPanelFubenWeiLaStage:CloseStageDetails()
     self.BtnCloseDetail.gameObject:SetActiveEx(false)
 
     if XLuaUiManager.IsUiShow(UIFUBENKOROTUTORIA_TEACHING_DETAIL) then
-        self.UiRoot:FindChildUiObj(UIFUBENKOROTUTORIA_TEACHING_DETAIL):CloseDetailWithAnimation()
+        self.Parent:FindChildUiObj(UIFUBENKOROTUTORIA_TEACHING_DETAIL):CloseDetailWithAnimation()
     end
 
 
     if XLuaUiManager.IsUiShow(UIFUBENKOROTUTORIA_CHALLENGE_DETAIL) then
-        self.UiRoot:FindChildUiObj(UIFUBENKOROTUTORIA_CHALLENGE_DETAIL):CloseDetailWithAnimation()
+        self.Parent:FindChildUiObj(UIFUBENKOROTUTORIA_CHALLENGE_DETAIL):CloseDetailWithAnimation()
     end
     self.PanelStageContentRaycast.raycastTarget = true
     self:ClearNodesSelect()
@@ -252,7 +253,7 @@ end
 
 function XUiPanelFubenWeiLaStage:OnBtnTreasureBgClick()
     self.TreasureDisable:PlayTimelineAnimation(function()
-        self.UiRoot:ShowTopBtn()
+        self.Parent:ShowTopBtn()
         self.PanelTreasure.gameObject:SetActiveEx(false)
         self:InitStarts()
     end)
@@ -260,7 +261,7 @@ end
 
 function XUiPanelFubenWeiLaStage:OnBtnTreasureClick()
     self:InitTreasureGrade()
-    self.UiRoot:HideTopBtn()
+    self.Parent:HideTopBtn()
     self.PanelTreasure.gameObject:SetActiveEx(true)
     self.TreasureEnable:PlayTimelineAnimation()
 end

@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiGuildPanelWelfare = XLuaUiManager.Register(XLuaUi, "UiGuildPanelWelfare")
 local XUiGridWelfareItem = require("XUi/XUiGuild/XUiChildItem/XUiGridWelfareItem")
 

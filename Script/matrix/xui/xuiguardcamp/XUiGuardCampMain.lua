@@ -3,9 +3,6 @@ local mathFloor = math.floor
 local stringFormat = string.format
 local TenThousand = 10000
 local Billion = 100000000
--- en
-local Thousand = 1000
-local Million = Thousand * Thousand
 
 local S = 60
 local H = 3600
@@ -107,22 +104,11 @@ function XUiGuardCampMain:InitPondAdd()
 end
 
 function XUiGuardCampMain:GetNumConver(num)
-    -- if num % Billion == 0 then
-    --     return stringFormat("%d%s", num / Billion, CSXTextManagerGetText("AHundredMillion"))
-    -- end
-
-    -- if num % TenThousand == 0 then
-    --     return stringFormat("%d%s", num / TenThousand, CSXTextManagerGetText("TenThousand"))
-    -- end
-    
-    -- en使用m
-    if num % Million == 0 then
-        return stringFormat("%d%s", num / Million, CSXTextManagerGetText("MillionEN"))
+    if num % Billion == 0 then
+        return stringFormat("%d%s", num / Billion, CSXTextManagerGetText("AHundredMillion"))
     end
-
-    -- en使用k
-    if num % Thousand == 0 then
-        return stringFormat("%d%s", num / Thousand, CSXTextManagerGetText("ThousandEN"))
+    if num % TenThousand == 0 then
+        return stringFormat("%d%s", num / TenThousand, CSXTextManagerGetText("TenThousand"))
     end
 
     local numTemp = num / TenThousand

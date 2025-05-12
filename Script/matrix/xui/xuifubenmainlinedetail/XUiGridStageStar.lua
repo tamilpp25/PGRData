@@ -1,4 +1,4 @@
-XUiGridStageStar = XClass(nil, "XUiGridStageStar")
+local XUiGridStageStar = XClass(nil, "XUiGridStageStar")
 
 function XUiGridStageStar:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -6,7 +6,7 @@ function XUiGridStageStar:Ctor(ui)
     self:InitAutoScript()
 end
 
-function XUiGridStageStar:Refresh(desc, active)
+function XUiGridStageStar:Refresh(desc, active, descEventId)
     self.TxtUnActive.text = desc
     self.TxtActive.text = desc
     local isDescNotEmpty = desc == nil or desc == ""
@@ -16,6 +16,15 @@ function XUiGridStageStar:Refresh(desc, active)
     else
         self.PanelUnActive.gameObject:SetActive(not active)
         self.PanelActive.gameObject:SetActive(active)
+    end
+    
+    if XTool.IsNumberValid(descEventId) then
+        local isUnlockEventId = XDataCenter.FubenManager.GetUnlockHideStageById(descEventId)
+        if not isUnlockEventId then
+            self.TxtUnActive.text = "???"
+            self.PanelUnActive.gameObject:SetActive(true)
+            self.PanelActive.gameObject:SetActive(false)
+        end
     end
 end
 

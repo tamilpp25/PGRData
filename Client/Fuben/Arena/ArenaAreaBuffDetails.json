@@ -24,7 +24,7 @@
         "Id": 4010,
         "Name": "Uniframe",
         "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon01.png",
-        "Desc": "Dodging increases your character's DMG by 30% and reflecting increases Ice DMG by 30%. Additional triggers refresh the duration.",
+        "Desc": "Speed Attack increases your character's DMG by 30% and reflecting increases Ice DMG by 30%. Additional triggers refresh the duration.",
         "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixDuyuUp.png"
     },
     {
@@ -52,7 +52,7 @@
         "Id": 4017,
         "Name": "Blazing Furnace",
         "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon08.png",
-        "Desc": "Every time upon dealing damage via Basic Attack, gaining 5% Signature Move Extra DMG Bonus for 3s. Can be stacked up to 15 times. The duration will refresh whenever it is triggered.",
+        "Desc": "Every time upon dealing damage via Basic Attack, gains 5% Signature Move Extra DMG Bonus for 3s. Can be stacked up to 15 times. The duration will refresh whenever it is triggered.",
         "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixHuoyanUp.png"
     },
     {
@@ -110,5 +110,117 @@
         "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon15.png",
         "Desc": "CRIT Rate and CRIT DMG increase by 30% and 100% for 10s after triggering Matrix.",
         "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixWuliUp.png"
+    },
+    {
+        "Id": 4026,
+        "Name": "Fire of Enlightenment",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon16.png",
+        "Desc": "3-Pings performed within 8s after the character enters the battlefield deal 50% more Fire DMG.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixHuoyanUp.png"
+    },
+    {
+        "Id": 4027,
+        "Name": "Astral Atlas",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon17.png",
+        "Desc": "The character deals 15% more Ice DMG after a 3-Ping. Stacks up to 4 times. Lasts 8s. Duration resets every time the effect is triggered.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixBingshuangUp.png"
+    },
+    {
+        "Id": 4029,
+        "Name": "Thunder Unbounded",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon18.png",
+        "Desc": "When the character pings a Signal Orb of the same color as their last ping, they will deal 60% more Lightning DMG for 8s. Triggering this effect again will renew its duration.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixLeiDianUp.png"
+    },
+    {
+        "Id": 4030,
+        "Name": "Electro Rage",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon19.png",
+        "Desc": "Character gains an 80% Lightning DMG bonus for 8s every upon entering the battlefield.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixLeiDianUp.png"
+    },
+    {
+        "Id": 4059,
+        "Name": "Valley Echos",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon20.png",
+        "Desc": "The character gains 80% CRIT DMG dealt for 8s every time when healed. Duration resets every time it is triggered.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixWuliUp.png"
+    },
+    {
+        "Id": 4061,
+        "Name": "Depths of the Sea",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon21.png",
+        "Desc": "Every ping of the character will make them deal 25% more Dark DMG for 8s. Can be stacked up to 4 times.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixAnnengUp.png"
+    },
+    {
+        "Id": 4070,
+        "Name": "Fiery Blossom",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon22.png",
+        "Desc": "The character's Fire DMG increases by 60% for 8s after every 3-Ping. Duration resets every time it is triggered.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixHuoyanUp.png"
+    },
+    {
+        "Id": 4071,
+        "Name": "Abyss of Tabula Akasha",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon23.png",
+        "Desc": "Ice DMG increases by 30% after a 3-Ping. Lasts 8s. Can be stacked up to 2 times. Duration resets every time the effect is triggered.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixBingshuangUp.png"
+    },
+    {
+        "Id": 4087,
+        "Name": "Primary Stack",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon24.png",
+        "Desc": "Nihil DMG increases by 60% for 8s after the character casting Signature. Duration resets every time the effect is triggered.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixNihilityUp.png"
+    },
+    {
+        "Id": 4103,
+        "Name": "Nightflyer's Tap",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon25.png",
+        "Desc": "After pinging a Signal Orb, the character's CRIT DMG increases by 80% for 6s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixWuliUp.png"
+    },
+    {
+        "Id": 4104,
+        "Name": "Abrupt Blizzard",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon23.png",
+        "Desc": "Character gains a 60% Ice DMG bonus upon entering the battlefield. The bonus decreases to 20% in 12s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixBingshuangUp.png"
+    },
+    {
+        "Id": 4116,
+        "Name": "Hyper Charge",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon12.png",
+        "Desc": "The character deals 30% more Lightning DMG and 40% more Plasma Beam DMG.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixDianshuUp.png"
+    },
+    {
+        "Id": 4117,
+        "Name": "Blade Will",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon25.png",
+        "Desc": "The character deals 5% more Physical DMG for each Signal Orb pinged, stacking up to 8 times and lasting for 8s. Duration resets every time the effect is triggered. The character Ultima deals 40% more damage through Ultima Slash.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixZhanjiUp.png"
+    },
+    {
+        "Id": 4118,
+        "Name": "Thunderclap",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon12.png",
+        "Desc": "The character deals 20% more Fire DMG for 8s every after a 3-Ping. This effect can stack up to 3 times. Duration resets every time the effect is triggered.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixHuoyanUp.png"
+    },
+    {
+        "Id": 4119,
+        "Name": "Hyper Charge",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon12.png",
+        "Desc": "The character deals 30% more Lightning DMG and 40% more Plasma Beam DMG. Meanwhile, gains 1 Red Orb every time when activating the Plasma Beam.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixDianshuUp.png"
+    },
+    {
+        "Id": 4130,
+        "Name": "Electro Overflow",
+        "BuffBg": "Assets/Product/Texture/Image/UiArena/UiArenaBuffIcon18.png",
+        "Desc": "After casting a Signal Orb skill, Lightning DMG of the character increases by 20% for 8s, stacking up to 3 times. Duration resets every time it is triggered.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/IconAffixLeiDianUp.png"
     }
 ]

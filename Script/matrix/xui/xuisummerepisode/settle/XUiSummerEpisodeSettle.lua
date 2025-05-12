@@ -7,7 +7,8 @@ function XUiSummerEpisodeSettle:OnAwake()
     self:RegisterClickEvent(self.BtnContinue, self.OnBtnContinueClick)
 end
 
-function XUiSummerEpisodeSettle:OnStart(cb)
+function XUiSummerEpisodeSettle:OnStart(winData, cb)
+    self.WinData = winData
     self:Init()
     XEventManager.AddEventListener(XEventId.EVENT_ROOM_KICKOUT, self.OnKickOut, self)
     self.Cb = cb
@@ -29,9 +30,9 @@ function XUiSummerEpisodeSettle:OnBtnContinueClick()
 end
 
 function XUiSummerEpisodeSettle:Init()
-    local beginData = XDataCenter.FubenManager.GetFightBeginData()
-    local PlayerList = beginData.PlayerList
-    local dpsTable = XDataCenter.FubenManager.SummerEpisodeDpsTable
+    local PlayerList = self.WinData.PlayerList
+    local settleData = self.WinData.SettleData
+    local dpsTable = self:GetSummerEpisodeDpsTable(settleData.EpisodeFightResult)
     if not dpsTable then
         return
     end
@@ -51,7 +52,7 @@ function XUiSummerEpisodeSettle:Init()
     for _, v in pairs(PlayerList) do
         local dps = dpsTable[v.Id]
         local grid = self.GridList[v.Id]
-        grid:Init(v, index)
+        grid:Init(v, index, self.WinData.StageId)
         grid:Refresh(dps)
         if v.Id == XPlayer.Id then
             grid:SwitchMyself()
@@ -103,3 +104,38 @@ end
 function XUiSummerEpisodeSettle:OnApplyFriend(playerId)
     XDataCenter.SocialManager.ApplyFriend(playerId)
 end
+
+function XUiSummerEpisodeSettle:GetSummerEpisodeDpsTable(episodeFightResult)
+    --夏活拍照关数据
+    local photoMvp = -1
+    local mischiefMvp = -1
+    local photoValue = -1
+    local mischiefValue = -1
+    local resultTable = {}
+    XTool.LoopMap(episodeFightResult, function(roleId, v)
+        resultTable[roleId] = {}
+        resultTable[roleId].ScorePhoto = v.ScoreByTakePhoto
+        resultTable[roleId].ScoreByMischief = v.ScoreByMischief
+        resultTable[roleId].RoleId = roleId
+        if v.ScoreByTakePhoto > photoValue then
+            photoValue = v.ScoreByTakePhoto
+            photoMvp = roleId
+        end
+        if v.ScoreByMischief > mischiefValue then
+            mischiefValue = v.ScoreByMischief
+            mischiefMvp = roleId
+        end
+    end)
+
+    if mischiefMvp ~= -1 and resultTable[mischiefMvp] then
+        resultTable[mischiefMvp].IsMischiefMvp = true
+    end
+
+    if photoMvp ~= -1 and resultTable[photoMvp] then
+        resultTable[photoMvp].IsPhotoMvp = true
+    end
+
+    return resultTable
+end
+
+return XUiSummerEpisodeSettle

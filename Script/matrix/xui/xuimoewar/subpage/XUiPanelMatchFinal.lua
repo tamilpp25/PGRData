@@ -1,3 +1,4 @@
+local XUiPanelMatch = require("XUi/XUiOnlineBoss/XUiPanelMatch")
 local XUiPanelMatchFinal = XClass(nil, "XUiPanelMatchFinal")
 
 local XUiScheduleGridPlayer = require("XUi/XUiMoeWar/ChildItem/XUiScheduleGridPlayer")

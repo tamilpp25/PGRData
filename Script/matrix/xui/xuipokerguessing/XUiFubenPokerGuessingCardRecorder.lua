@@ -28,6 +28,7 @@ function XUiFubenPokerGuessingCardRecorder:InitButtonGroup()
         self:RefreshPanelGrid(index)
     end)
     self.ButtonGroup:SelectIndex(1)
+    self.PanelTabTc.gameObject:SetActiveEx(false)
 end
 
 function XUiFubenPokerGuessingCardRecorder:RefreshPanelGrid(type)

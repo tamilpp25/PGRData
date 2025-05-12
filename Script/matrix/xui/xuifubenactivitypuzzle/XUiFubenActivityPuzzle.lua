@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local tableInsert = table.insert
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
@@ -16,12 +17,12 @@ end
 function XUiFubenActivityPuzzle:OnStart()
     self.RedPointIdArr = {}
     self:AutoRegisterBtn()
-    self.AssetPanel = XUiPanelActivityAsset.New(self.PanelAsset, true)
-    self.AssetPanel:Refresh({ XDataCenter.FubenActivityPuzzleManager.GetActivityInfo().ItemId })
+    self.AssetPanel = XUiPanelActivityAsset.New(self.PanelAsset, self, true)
     self:InitBtnGroup()
 end
 
 function XUiFubenActivityPuzzle:OnEnable()
+    self.AssetPanel:Refresh({ XDataCenter.FubenActivityPuzzleManager.GetActivityInfo().ItemId })
     self:RefreshBtnTab()
     self:StartActivityTimer()
     local defaultTabIndex = XDataCenter.FubenActivityPuzzleManager.FindDefaultSelectTabIndex()
@@ -36,7 +37,8 @@ function XUiFubenActivityPuzzle:OnDisable()
 end
 
 function XUiFubenActivityPuzzle:OnDestroy()
-    self:RemoveRedPointEvent()
+    self:RemoveAllRedPoints()
+    self.PanelGame:OnRelease()
 end
 
 function XUiFubenActivityPuzzle:OnGetEvents()
@@ -213,7 +215,7 @@ function XUiFubenActivityPuzzle:StartActivityTimer()
         self.ActivityTimer = XScheduleManager.ScheduleForever(function()
             local time = XTime.GetServerNowTimestamp()
             if time > endTime then
-                XLuaUiManager.RunMain()
+                self:Close()
                 XUiManager.TipError(CS.XTextManager.GetText("DragPuzzleActivityEnd"))
                 self:StopActivityTimer()
                 return
@@ -230,7 +232,7 @@ function XUiFubenActivityPuzzle:StopActivityTimer()
     end
 end
 
-function XUiFubenActivityPuzzle:RemoveRedPointEvent()
+function XUiFubenActivityPuzzle:RemoveAllRedPoints()
     for _, redPointId in ipairs(self.RedPointIdArr) do
         XRedPointManager.RemoveRedPointEvent(redPointId)
     end

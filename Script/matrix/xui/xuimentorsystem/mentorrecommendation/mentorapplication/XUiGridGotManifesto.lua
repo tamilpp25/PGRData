@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridGotManifesto = XClass(nil, "XUiGridGotManifesto")
 local CSTextManagerGetText = CS.XTextManager.GetText
 
@@ -72,7 +73,7 @@ function XUiGridGotManifesto:SetManifestoInfo(data)
     self.TxtName.text = data.PlayerName
     self.ManifestoTxt.text = data.Announcement
     XUiPlayerLevel.UpdateLevel(data.Level, self.TxtLevel)
-    XUiPLayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.Head)
     self:SetTagList(self.TagObjs, data.Tag, XMentorSystemConfigs.TagType.Normal)
     self:SetTagList(self.TimeTagObjs, data.OnlineTag, XMentorSystemConfigs.TagType.Time)
 end

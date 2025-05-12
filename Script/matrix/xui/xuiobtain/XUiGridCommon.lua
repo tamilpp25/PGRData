@@ -4,19 +4,16 @@ local CONDITION_COLOR = {
     [true] = CS.UnityEngine.Color.black,
     [false] = CS.UnityEngine.Color.red,
 }
---===============
---XRewardType <=> 道具数据类型
---===============
-local RewardTypeToTemplateType = {
-        [XArrangeConfigs.Types.Medal] = "Medal",
-    }
 
+---@class XUiGridCommon
 local XUiGridCommon = XClass(nil, "XUiGridCommon")
 local XUiPanelNameplate = require("XUi/XUiNameplate/XUiPanelNameplate")
+---@param rootUi XLuaUi
 function XUiGridCommon:Ctor(rootUi, ui)
     if not ui then
         ui = rootUi
     else
+        ---@type XLuaUi
         self.RootUi = rootUi
     end
 
@@ -24,10 +21,28 @@ function XUiGridCommon:Ctor(rootUi, ui)
     self.Transform = ui.transform
     self:InitAutoScript()
     self.TextCount = XUiHelper.TryGetComponent(self.Transform, "TextCount", nil)
+    self.ProxyClickFunc = nil
+    self.CustomItemTipFunc = nil
+    self._WeaopnFashionId = nil
+    self._ShowWeaopnFashionDesc = nil
 end
 
 function XUiGridCommon:Init(rootUi)
     self.RootUi = rootUi
+end
+
+function XUiGridCommon:SetProxyClickFunc(value)
+    self.ProxyClickFunc = value
+end
+
+function XUiGridCommon:SetCustomItemTip(value)
+    self.CustomItemTipFunc = value
+end
+
+---【显示武器涂装】勾选框
+function XUiGridCommon:SetCustomWeaopnFashionId(fashionId, desc)
+    self._WeaopnFashionId = fashionId
+    self._ShowWeaopnFashionDesc = desc
 end
 
 -- auto
@@ -42,6 +57,7 @@ end
 function XUiGridCommon:AutoInitUi()
     self.TxtCount = XUiHelper.TryGetComponent(self.Transform, "TxtCount", "Text")
     if not self.TxtCount then self.TxtCount = XUiHelper.TryGetComponent(self.Transform, "PanelTxt/TxtCount", "Text") end -- 兼容不同grid结构
+    if not self.TxtCount then self.TxtCount = XUiHelper.TryGetComponent(self.Transform, "ImgCountBg/TxtCount", "Text") end -- 兼容不同grid结构
     self.TxtName = XUiHelper.TryGetComponent(self.Transform, "TxtName", "Text")
     self.TxtHave = XUiHelper.TryGetComponent(self.Transform, "TxtHave", "Text")
     if not self.TxtHave then self.TxtHave = XUiHelper.TryGetComponent(self.Transform, "PanelTxt/TxtHave", "Text") end -- 兼容不同grid结构
@@ -60,6 +76,11 @@ function XUiGridCommon:AutoInitUi()
     self.ImgQualityTag = XUiHelper.TryGetComponent(self.Transform, "ImgQualityTag", "Image")
     self.TxtStock = XUiHelper.TryGetComponent(self.Transform, "TxtStock", "Text")
     self.ImgNone = XUiHelper.TryGetComponent(self.Transform, "ImgNone", nil)
+    -- 特殊标记
+    self.PanelTag = XUiHelper.TryGetComponent(self.Transform, "PanelTag")
+    self.PanelDrawTag = XUiHelper.TryGetComponent(self.Transform, "PanelDrawTag")
+    --赠品标记
+    self.GiftTag = XUiHelper.TryGetComponent(self.Transform, "CoatingTips")
 end
 
 function XUiGridCommon:AutoAddListener()
@@ -76,8 +97,15 @@ function XUiGridCommon:OnBtnClickClick()
         return
     end
     -- 匹配中
-    if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
-        return
+    --if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
+    --    return
+    --end
+
+    if self.ProxyClickFunc then
+        local continue = self.ProxyClickFunc()
+        if not continue then
+            return
+        end
     end
 
     if self.GoodsShowParams.RewardType == XRewardManager.XRewardType.Character then
@@ -90,7 +118,7 @@ function XUiGridCommon:OnBtnClickClick()
         XDataCenter.AutoWindowManager.StopAutoWindow()
         XLuaUiManager.Open("UiCharacterDetail", self.TemplateId)
     elseif self.GoodsShowParams.RewardType == XRewardManager.XRewardType.Equip then
-        XLuaUiManager.Open("UiEquipDetail", self.TemplateId, true)
+        XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipPreview(self.TemplateId)
         --从Tips的ui跳转需要关闭Tips的UI
         if self.RootUi and self.RootUi.Ui.UiData.UiType == CsXUiType.Tips then
             self.RootUi:Close()
@@ -108,17 +136,9 @@ function XUiGridCommon:OnBtnClickClick()
             XLuaUiManager.Open("UiFurnitureDetail", nil, configId, furnitureRewardId, nil, true)
         end
     elseif self.GoodsShowParams.RewardType == XRewardManager.XRewardType.Fashion then
-        local buyData
-        if self.Data and self.Data.ItemCount and self.Data.ItemIcon and self.Data.BuyCallBack then
-            buyData = {}
-            local isHave, isLimitTime = XRewardManager.CheckRewardOwn(self.GoodsShowParams.RewardType, self.GoodsShowParams.TemplateId)
-            buyData.IsHave = isHave and not isLimitTime
-            buyData.ItemIcon = self.Data.ItemIcon
-            buyData.ItemCount = self.Data.ItemCount
-            buyData.GiftRewardId = self.Data.GiftRewardId
-            buyData.BuyCallBack = self.Data.BuyCallBack
-        end
-        XLuaUiManager.Open("UiFashionDetail", self.TemplateId, false, buyData)
+        local buyData = self:GetBuyData()
+        -- WeaopnFashionId如果有值，则在界面左下角显示一个勾选框，勾选后显示该自定义武器涂装
+        XLuaUiManager.Open("UiFashionDetail", self.TemplateId, false, buyData, nil, nil, self._WeaopnFashionId, self._ShowWeaopnFashionDesc)
     elseif self.GoodsShowParams.RewardType == XRewardManager.XRewardType.Partner then
         --从Tips的ui跳转需要关闭Tips的UI
         if self.RootUi and self.RootUi.Ui.UiData.UiType == CsXUiType.Tips then
@@ -132,13 +152,42 @@ function XUiGridCommon:OnBtnClickClick()
         XLuaUiManager.Open("UiPartnerPreview", partner)
 
     elseif XDataCenter.ItemManager.IsWeaponFashion(self.TemplateId) then
+        local buyData = self:GetBuyData()
         local weaponFashionId = XDataCenter.ItemManager.GetWeaponFashionId(self.TemplateId)
-        XLuaUiManager.Open("UiFashionDetail", weaponFashionId, true)
+        XLuaUiManager.Open("UiFashionDetail", weaponFashionId, true, buyData)
+    elseif self.GoodsShowParams.RewardType == XArrangeConfigs.Types.WeaponFashion then
+        XLuaUiManager.Open("UiFashionDetail", self.TemplateId, true, self:GetBuyData())
     elseif self.GoodsShowParams.RewardType == XRewardManager.XRewardType.Nameplate then
         XLuaUiManager.Open("UiNameplateTip", self.TemplateId, true, true, true)
     elseif self.GoodsShowParams.RewardType == XRewardManager.XRewardType.Medal then
         XLuaUiManager.Open("UiMeadalDetail", self.GoodsShowParams.Config, XDataCenter.MedalManager.Preview)
+    elseif self.GoodsShowParams.RewardType == XRewardManager.XRewardType.Background then    -- v1.29 场景预览
+        XLuaUiManager.Open("UiSceneTip", self.TemplateId)
+    elseif self.GoodsShowParams.RewardType == XRewardManager.XRewardType.DlcHuntChip then    -- DLC
+        local itemId = self.TemplateId
+        if XDlcHuntChipConfigs.IsExist(itemId) then
+            local XDlcHuntChip = require("XEntity/XDlcHunt/XDlcHuntChip")
+            ---@type XDlcHuntChip
+            local virtualChip = XDlcHuntChip.New()
+            virtualChip:SetData({
+                Id = -1,
+                TemplateId = itemId,
+                Level = 1,
+                Exp = 0,
+                Breakthrough = 0,
+                IsLock = false,
+                CreateTime = 0
+            })
+            XLuaUiManager.Open("UiDlcHuntChipDetails", virtualChip)
+        else
+            XLuaUiManager.Open("UiDlcHuntTip", self.Data and self.Data or self.TemplateId, self.HideSkipBtn, self.RootUi and self.RootUi.Name, self.LackNum)
+        end
+        
     else
+        if self.CustomItemTipFunc then
+            self.CustomItemTipFunc(self.Data and self.Data or self.TemplateId, self.HideSkipBtn, self.RootUi and self.RootUi.Name, self.LackNum)
+            return
+        end
         XLuaUiManager.Open("UiTip", self.Data and self.Data or self.TemplateId, self.HideSkipBtn, self.RootUi and self.RootUi.Name, self.LackNum)
     end
 end
@@ -202,6 +251,12 @@ function XUiGridCommon:Refresh(data, params, isBigIcon, hideSkipBtn, curCount)
         XLog.Error("获取道具数据有误，Data :", data)
         return
     end
+    -- 如果Data是下发的XRewardGoods（关联RewardGoods.tab）希望能使配置自定义品质的功能生效
+    if type(self.Data) == "table" then
+        if XTool.IsNumberValid(self.Data.Quality) then
+            self.GoodsShowParams.Quality = self.Data.Quality
+        end
+    end
     
     params = params or {}
 
@@ -243,6 +298,11 @@ function XUiGridCommon:Refresh(data, params, isBigIcon, hideSkipBtn, curCount)
             --self.RootUi:SetUiSprite(self.RImgIcon, icon)
             self.RImgIcon:SetRawImage(icon)
             self:SetUiActive(self.RImgIcon, true)
+        end
+        if self.GoodsShowParams.IsShowMedalEffect then
+            XDataCenter.MedalManager.LoadMedalEffect(self, self.RImgIcon, self.Data.TemplateId)
+        elseif not XTool.UObjIsNil(self.MedalEffectPrefab) then
+            self.MedalEffectPrefab.gameObject:SetActiveEx(false)
         end
     end
 
@@ -288,56 +348,13 @@ function XUiGridCommon:Refresh(data, params, isBigIcon, hideSkipBtn, curCount)
         end
         --
         if self.PanelSite then
-            self:SetUiActive(self.PanelSite, self.GoodsShowParams.Site ~= XEquipConfig.EquipSite.Weapon)
+            self:SetUiActive(self.PanelSite, self.GoodsShowParams.Site ~= XEnumConst.EQUIP.EQUIP_SITE.WEAPON)
             self.TxtSite.text = "0" .. self.GoodsShowParams.Site
         end
     end
     --铭牌
-    if self.GoodsShowParams.RewardType == XRewardManager.XRewardType.Nameplate then
-        self:SetUiActive(self.ImgQuality, false)
-        self:SetUiActive(self.RImgIcon, false)
-        local BtnSiblingIndex = 0
-        if self.BtnClick then
-            BtnSiblingIndex = self.BtnClick.transform:GetSiblingIndex()
-        end
-
-        if not self.PanelNamePlate then
-            local prefab = self.GameObject:LoadPrefab(XMedalConfigs.XNameplatePanelPath)
-            prefab.transform:SetSiblingIndex(BtnSiblingIndex)
-            local rectTransform = prefab.transform:GetComponent("RectTransform")
-            if rectTransform then
-                local vX = 0
-                local vY = 15
-                local scale = CS.UnityEngine.Vector3(0.6, 0.6, 0.6)
-                if self.Bg then
-                    local tmpTrans = self.Bg:GetComponent("RectTransform")
-                    local vect = tmpTrans.anchoredPosition
-                    rectTransform.anchorMin = tmpTrans.anchorMin
-                    rectTransform.anchorMax = tmpTrans.anchorMax
-                    vX = vect.x
-                    vY = vect.y
-                    local bgX= self.Bg:GetComponent("RectTransform").sizeDelta.x
-                    local bgScale = self.Bg.transform.localScale.x
-                    local realBgWidth = bgX * bgScale
-                    local tempX = rectTransform.sizeDelta.x
-                    local scaleNum = 0.9 * realBgWidth/tempX 
-                    scale = CS.UnityEngine.Vector3(scaleNum, scaleNum, scaleNum)  -- 铭牌大小为标准背景宽高的90%防止超出格子
-                end
-                rectTransform.anchoredPosition = CS.UnityEngine.Vector2(vX, vY)
-                rectTransform.localScale = scale
-            end
-            self.PanelNamePlate = XUiPanelNameplate.New(prefab, self.RootUi)
-        end
-        self.PanelNamePlate.GameObject:SetActiveEx(true)
-        self.PanelNamePlate:UpdateDataById(self.TemplateId)
-    else
-        if self.PanelNamePlate then
-            self.PanelNamePlate.GameObject:SetActiveEx(false)
-        else
-            local prefab = self.GameObject:LoadPrefab(XMedalConfigs.XNameplatePanelPath)
-            prefab.gameObject:SetActiveEx(false)
-        end
-    end
+    self:RefreshNameplate()
+    
     -- 特殊 : Params
     -- Params.ShowUp
     if self.ImgUp then
@@ -387,9 +404,25 @@ function XUiGridCommon:Refresh(data, params, isBigIcon, hideSkipBtn, curCount)
         self:SetUiActive(self.TxtHave, isShowTextHave)
         self:SetUiActive(self.TxtCount, not isShowTextHave)
     end
-
+    
+    --赠品
+    if self.GiftTag then
+        if not XTool.IsTableEmpty(self.Data) then
+            self.GiftTag.gameObject:SetActiveEx(self.Data.IsGift and true or false)
+        else
+            self.GiftTag.gameObject:SetActiveEx(false)
+        end
+    end
+    self:RefreshLabel()
     --清除临时的同步数据
     self:ClearSynData()
+end
+
+function XUiGridCommon:ShowIcon(icon)
+    if self.RImgIcon then
+        self.RImgIcon:SetRawImage(icon)
+        self.RImgIcon.gameObject:SetActiveEx(true)
+    end
 end
 
 function XUiGridCommon:ShowCount(show)
@@ -452,6 +485,18 @@ function XUiGridCommon:SetUpImg(img)
     end
 end
 
+function XUiGridCommon:SetPanelTag(isTag)
+    if self.PanelTag then
+        self.PanelTag.gameObject:SetActiveEx(isTag)
+    end
+end
+
+function XUiGridCommon:SetPanelDrawTag(isTag)
+    if self.PanelDrawTag then
+        self.PanelDrawTag.gameObject:SetActiveEx(isTag)
+    end
+end
+
 function XUiGridCommon:SetClickCallback(callback)
     XUiHelper.RegisterClickEvent(self, self.BtnClick, callback, true)
 end
@@ -477,6 +522,19 @@ function XUiGridCommon:SetName(value)
     if not self.TxtName then return end
     self.TxtName.text = value
 end
+
+function XUiGridCommon:SetNeedCount(value)
+    if self.TxtNeedCount then
+        self.TxtNeedCount.text = value
+    end
+end
+
+function XUiGridCommon:SetCount(value)
+    if self.TxtCount then
+        self.TxtCount.text = value
+        self:SetUiActive(self.TxtCount, true)
+    end
+end
 --============
 --获取物品显示数据
 --============
@@ -485,9 +543,20 @@ function XUiGridCommon:GetGoodsShowParams()
         XLog.Error("错误日志：显示的道具数据TemplateId为空！")
         return
     end
-    local templateType = self.Data and self.Data.RewardType and RewardTypeToTemplateType[self.Data.RewardType] or "Default"
+    local templateType = self.Data and self.Data.RewardType and self:GetRewardType(self.Data.RewardType) or "Default"
     return self["Get" .. templateType .. "GoodsShowParams"](self)
 end
+
+function XUiGridCommon:GetRewardType(rewardType)
+    --===============
+    --XRewardType <=> 道具数据类型
+    --===============
+    if rewardType == XRewardManager.XRewardType.Medal then
+        return "Medal"
+    end
+    return "Default"
+end
+
 --=============
 --获取一般道具显示数据(默认项)
 --=============
@@ -503,11 +572,123 @@ function XUiGridCommon:GetMedalGoodsShowParams()
     if not medal then return end
     local goodsShowParams = {
         Name = medal.Name,
-        Icon = medal.MedalIcon,
+        Icon = medal.MedalImg,
+        IsShowMedalEffect = true,
         Config = medal,
         RewardType = XRewardManager.XRewardType.Medal
     }
     return goodsShowParams
+end
+
+function XUiGridCommon:RefreshNameplate()
+    if self.GoodsShowParams.RewardType == XRewardManager.XRewardType.Nameplate then
+        self:SetUiActive(self.ImgQuality, false)
+        self:SetUiActive(self.RImgIcon, false)
+        local BtnSiblingIndex = 0
+        if self.BtnClick then
+            BtnSiblingIndex = self.BtnClick.transform:GetSiblingIndex()
+        end
+
+        if not self.PanelNamePlate then
+            local prefab = self.GameObject:LoadPrefab(XMedalConfigs.XNameplatePanelPath)
+            prefab.transform:SetSiblingIndex(BtnSiblingIndex)
+            local rectTransform = prefab.transform:GetComponent("RectTransform")
+            if rectTransform then
+                local vX = 0
+                local vY = 15
+                local scale = CS.UnityEngine.Vector3(0.6, 0.6, 0.6)
+                if self.Bg then
+                    local tmpTrans = self.Bg:GetComponent("RectTransform")
+                    local vect = tmpTrans.anchoredPosition
+                    rectTransform.anchorMin = tmpTrans.anchorMin
+                    rectTransform.anchorMax = tmpTrans.anchorMax
+                    vX = vect.x
+                    vY = vect.y
+                    local bgX= self.Bg:GetComponent("RectTransform").sizeDelta.x
+                    local bgScale = self.Bg.transform.localScale.x
+                    local realBgWidth = bgX * bgScale
+                    local tempX = rectTransform.sizeDelta.x
+                    local scaleNum = 0.9 * realBgWidth/tempX
+                    scale = CS.UnityEngine.Vector3(scaleNum, scaleNum, scaleNum)  -- 铭牌大小为标准背景宽高的90%防止超出格子
+                end
+                rectTransform.anchoredPosition = CS.UnityEngine.Vector2(vX, vY)
+                rectTransform.localScale = scale
+            end
+            self.PanelNamePlate = XUiPanelNameplate.New(prefab, self.RootUi)
+        end
+        self.PanelNamePlate.GameObject:SetActiveEx(true)
+        self.PanelNamePlate:UpdateDataById(self.TemplateId)
+    else
+        if self.PanelNamePlate then
+            self.PanelNamePlate.GameObject:SetActiveEx(false)
+        else
+            local prefab = self.GameObject:LoadPrefab(XMedalConfigs.XNameplatePanelPath)
+            prefab.gameObject:SetActiveEx(false)
+        end
+    end
+end
+
+function XUiGridCommon:SetNameplateEffectActive(isActive)
+    if self.PanelNamePlate then
+        self.PanelNamePlate:SetEffectActive(isActive)
+    end
+end
+
+function XUiGridCommon:RefreshLabel()
+    if self.GoodsLabel then
+        self.GoodsLabel:Close()
+    end
+    if XTool.IsTableEmpty(self.GoodsShowParams) then
+        return
+    end
+    local templateId = self.GoodsShowParams.TemplateId
+    if not XUiConfigs.CheckHasLabel(templateId) then
+        return
+    end
+    if not self.GoodsLabel then
+        self.GoodsLabel = XUiHelper.CreateGoodsLabel(templateId, self.Transform, self.PanelPet)
+    end
+    self.GoodsLabel:Refresh(templateId, self.PanelPet ~= nil)
+end
+
+function XUiGridCommon:GetBuyData()
+    local buyData
+    if self.Data and self.Data.ItemCount and self.Data.ItemIcon and self.Data.BuyCallBack then
+        buyData = {}
+        local isHave, isLimitTime = XRewardManager.CheckRewardOwn(self.GoodsShowParams.RewardType, self.GoodsShowParams.TemplateId)
+        buyData.IsHave = isHave and not isLimitTime
+        buyData.ItemIcon = self.Data.ItemIcon
+        buyData.ItemCount = self.Data.ItemCount
+        buyData.GiftRewardId = self.Data.GiftRewardId
+        buyData.BuyCallBack = self.Data.BuyCallBack
+
+        if not XTool.IsTableEmpty(self._BuyDataCustomParams) then
+            for k, v in pairs(self._BuyDataCustomParams) do
+                buyData[k] = v
+            end
+        end
+    end
+    
+    return buyData
+end
+
+function XUiGridCommon:SetQualityShowCustom(quality)
+    -- 品质底图
+    if self.ImgQuality then
+        XUiHelper.SetQualityIcon(self.RootUi, self.ImgQuality, quality)
+
+        self:SetUiActive(self.ImgQuality, true)
+    end
+
+    -- 品质底图（大）
+    if self.ImgIconQuality then
+        XUiHelper.SetQualityIcon(self.RootUi, self.ImgIconQuality, quality)
+        self:SetUiActive(self.ImgQuality, true)
+    end
+end
+
+function XUiGridCommon:SetBuyDataCustomParams(params)
+    self._BuyDataCustomParams = params
 end
 
 return XUiGridCommon

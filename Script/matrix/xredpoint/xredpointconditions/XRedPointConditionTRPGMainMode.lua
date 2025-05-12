@@ -12,16 +12,16 @@ function XRedPointConditionTRPGMainMode.GetSubConditions()
 end
 
 function XRedPointConditionTRPGMainMode.Check()
-    if XRedPointTRPGTruthRoadReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TRPG_TRUTH_ROAD_REWARD) then
         return true
     end
-    if XRedPointTRPGCollectionMemoir.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TRPG_COLLECTION_MEMOIR) then
         return true
     end
-    if XRedPointTRPGAreaReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TRPG_AREA_REWARD) then
         return true
     end
-    if XRedPointTRPGWorldBossReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TRPG_WORLD_BOSS_REWARD) then
         return true
     end
     return false

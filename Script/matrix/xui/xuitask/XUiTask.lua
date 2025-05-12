@@ -1,3 +1,10 @@
+local XUiPanelTask = require("XUi/XUiMoneyReward/XUiPanelTask")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiPanelTaskDaily = require("XUi/XUiTask/XUiPanelTaskDaily")
+local XUiPanelTaskActivity = require("XUi/XUiTask/XUiPanelTaskActivity")
+local XUiPanelTaskStory = require("XUi/XUiTask/XUiPanelTaskStory")
+local XUiPanelTaskWeekly = require("XUi/XUiTask/XUiPanelTaskWeekly")
+---@class XUiTask:XLuaUi
 local XUiTask = XLuaUiManager.Register(XLuaUi, "UiTask")
 local MaintainerActionIcon = CS.XGame.ClientConfig:GetString("MaintainerActionIconInTaskUI")
 local PANEL_INDEX = {
@@ -29,15 +36,17 @@ function XUiTask:OnEnable()
     self:CheckTogLockStatus()
     self:CheckFunctionalFilter()
     self:SetupBountyTask()
-    self:AddRedPointEvent()
+    self:CheckHideStoryTog()
     self.TabPanelGroup:SelectIndex(self.CurToggleType)
     self:PlayAnimation("AnimStartEnable")
     if self.TaskStoryModule then
         self.TaskStoryModule:RefreshCourse()
     end
+    self:AddRedPointEventListener()
 end
 
 function XUiTask:Init()
+    ---@type XUiPanelAsset
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset,
     XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
 
@@ -47,9 +56,13 @@ function XUiTask:Init()
     
     self.BtnMoneyReward.CallBack = function() self:OnBtnMoneyRewardClick() end
 
+    ---@type XUiPanelTaskStory
     self.TaskStoryModule = XUiPanelTaskStory.New(self.PanelTaskStory, self)
+    ---@type XUiPanelTaskDaily
     self.TaskDailyModule = XUiPanelTaskDaily.New(self.PanelTaskDaily, self)
+    ---@type XUiPanelTaskWeekly
     self.TaskWeeklyModule = XUiPanelTaskWeekly.New(self.PanelTaskWeekly, self)
+    ---@type XUiPanelTaskActivity
     self.TaskActivityModule = XUiPanelTaskActivity.New(self.PanelTaskActivity, self)
 
     self.TabList = {}
@@ -60,9 +73,6 @@ function XUiTask:Init()
     self.TabPanelGroup:Init(self.TabList, function(index) self:OnTaskPanelSelect(index) end)
     local lastSelectTab = XDataCenter.TaskManager.GetNewPlayerHint(XDataCenter.TaskManager.TaskLastSelectTab, PANEL_INDEX.Story)
     self.CurToggleType = self.CurToggleType or lastSelectTab
-    
-    -- 红点
-    self:AddRedPointEvent()
 end
 
 function XUiTask:CheckTogLockStatus()
@@ -125,6 +135,9 @@ function XUiTask:OnDisable()
 end
 
 function XUiTask:OnDestroy()
+    if self.TaskDailyModule then
+        self.TaskDailyModule:OnDestroy()
+    end
     XDataCenter.TaskManager.UpdateViewCallback = nil
     XEventManager.RemoveEventListener(XEventId.EVENT_FINISH_TASK, self.OnTaskChangeSync, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_FINISH_MULTI, self.OnTaskChangeSync, self)
@@ -135,17 +148,17 @@ function XUiTask:OnDestroy()
 end
 
 --添加点事件
-function XUiTask:AddRedPointEvent()
-    XRedPointManager.AddRedPointEvent(self.ImgStoryNewTag, self.RefreshStoryTabRedDot, self,
+function XUiTask:AddRedPointEventListener()
+    self:AddRedPointEvent(self.ImgStoryNewTag, self.RefreshStoryTabRedDot, self,
     { XRedPointConditions.Types.CONDITION_TASK_TYPE, XRedPointConditions.Types.CONDITION_TASK_COURSE }, XDataCenter.TaskManager.TaskType.Story)
 
-    self.DailyPointId = XRedPointManager.AddRedPointEvent(self.ImgDailyNewTag, self.RefreshDailyTabRedDot, self,
+    self.DailyPointId = self:AddRedPointEvent(self.ImgDailyNewTag, self.RefreshDailyTabRedDot, self,
     { XRedPointConditions.Types.CONDITION_TASK_TYPE }, XDataCenter.TaskManager.TaskType.Daily)
 
-    XRedPointManager.AddRedPointEvent(self.ImgWeeklyNewTag, self.RefreshWeeklyTabRedDot, self,
+    self:AddRedPointEvent(self.ImgWeeklyNewTag, self.RefreshWeeklyTabRedDot, self,
     { XRedPointConditions.Types.CONDITION_TASK_TYPE }, {XDataCenter.TaskManager.TaskType.Weekly, XDataCenter.TaskManager.TaskType.ArenaOnlineWeekly, XDataCenter.TaskManager.TaskType.InfestorWeekly})
 
-    XRedPointManager.AddRedPointEvent(self.ImgActivetyNewTag, self.RefreshActivityTabRedDot, self,
+    self:AddRedPointEvent(self.ImgActivetyNewTag, self.RefreshActivityTabRedDot, self,
     { XRedPointConditions.Types.CONDITION_TASK_TYPE }, XDataCenter.TaskManager.TaskType.Activity)
 end
 
@@ -166,12 +179,14 @@ end
 
 --日常标签红点
 function XUiTask:RefreshDailyTabRedDot(count)
-    self.ImgDailyNewTag.gameObject:SetActive(count >= 0)
+    local isShow = count >= 0 and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.TaskDay)
+    self.ImgDailyNewTag.gameObject:SetActive(isShow)
 end
 
 -- 每周标签红点
 function XUiTask:RefreshWeeklyTabRedDot(count)
-    self.ImgWeeklyNewTag.gameObject:SetActive(count >= 0)
+    local isShow = count >= 0 and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.TaskWeekly)
+    self.ImgWeeklyNewTag.gameObject:SetActive(isShow)
 end
 
 --活动标签红点
@@ -192,8 +207,8 @@ end
 
 function XUiTask:InitBtnSound()
     self.SpecialSoundMap = {}
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnBack, "onClick")] = XSoundManager.UiBasicsMusic.Return
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnMainUi, "onClick")] = XSoundManager.UiBasicsMusic.Return
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnBack, "onClick")] = XLuaAudioManager.UiBasicsMusic.Return
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnMainUi, "onClick")] = XLuaAudioManager.UiBasicsMusic.Return
 end
 
 function XUiTask:OnTaskChangeTab(index)
@@ -281,4 +296,41 @@ function XUiTask:OnTaskPanelSelect(index)
         XDataCenter.TaskManager.SaveNewPlayerHint(XDataCenter.TaskManager.TaskLastSelectTab, index)
         self:PlayAnimation("TaskActivityQieHuan")
     end
+end
+
+-- 检测是否隐藏剧情页签
+function XUiTask:CheckHideStoryTog()
+    if not self:IsShowStoryTog() then
+        self.TogStory.gameObject:SetActiveEx(false)
+        if self.CurToggleType == PANEL_INDEX.Story then
+            self.CurToggleType = PANEL_INDEX.Daily
+        end
+    end
+end
+
+-- 是否显示剧情页签
+function XUiTask:IsShowStoryTog()
+    local tasks = XDataCenter.TaskManager.GetStoryTaskList()
+    if #tasks > 0 then
+        return true
+    end
+
+    -- 历程奖励
+    local allMainlineChapterCfg = XFubenMainLineConfigs.GetChapterCfg()
+    for chapterId, chapterCfg in pairs(allMainlineChapterCfg) do
+        -- local finalChapterId = XDataCenter.TaskManager.GetFinalChapterId()
+        local courseInfo = XDataCenter.TaskManager.GetCourseInfo(chapterId)
+        if courseInfo then
+            for _, courseData in ipairs(courseInfo.Courses) do
+                local canGet = courseData.CouresType == XDataCenter.TaskManager.CourseType.Reward and XDataCenter.TaskManager.CheckCourseCanGet(courseData.StageId)
+                if canGet then
+                    return true
+                end
+            end
+            
+        end
+    end
+
+    
+    return false
 end

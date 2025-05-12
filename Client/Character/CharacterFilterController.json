@@ -1,7 +1,7 @@
 [
     {
         "UiName": "UiCharacterV2P6",
-        "Desc": "\u6210\u5458\u4e3b\u754c\u9762",
+        "Desc": "Member Main Interface",
         "CharacterListPrefabPath": null,
         "EnableFolder": 1.0,
         "DisableAutoSeleGrid": null,
@@ -12,9 +12,12 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": 2.0,
         "SortTagList": [
             6.0,
+            14.0,
             7.0,
+            15.0,
             2.0,
             4.0,
             3.0,
@@ -24,7 +27,7 @@
     },
     {
         "UiName": "UiCharacterPropertyV2P6",
-        "Desc": "\u57f9\u517b\u754c\u9762",
+        "Desc": "Training Interface",
         "CharacterListPrefabPath": null,
         "EnableFolder": null,
         "DisableAutoSeleGrid": 1.0,
@@ -35,6 +38,7 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
         "SortTagList": [
             6.0,
             7.0,
@@ -47,7 +51,7 @@
     },
     {
         "UiName": "UiFashion",
-        "Desc": "\u6d82\u88c5\u754c\u9762",
+        "Desc": "Coating Interface",
         "CharacterListPrefabPath": null,
         "EnableFolder": null,
         "DisableAutoSeleGrid": 1.0,
@@ -58,6 +62,7 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
         "SortTagList": [
             6.0,
             7.0,
@@ -69,8 +74,29 @@
         ]
     },
     {
+        "UiName": "UiCharacterAttributeDetail",
+        "Desc": "Effect Details Pop-up Window Related Rankings of Members",
+        "CharacterListPrefabPath": null,
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
+        "SortTagList": [
+            55.0,
+            2.0,
+            4.0,
+            5.0
+        ]
+    },
+    {
         "UiName": "UiBattleRoomRoleDetail",
-        "Desc": "\u901a\u7528\u7f16\u961f",
+        "Desc": "Common Formation",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -81,11 +107,12 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
         "SortTagList": []
     },
     {
         "UiName": "UiFubenBossSingle",
-        "Desc": "\u5e7b\u75db\u56da\u7b3c",
+        "Desc": "Phantom Pain Cage",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -96,11 +123,12 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
         "SortTagList": []
     },
     {
-        "UiName": "UiArenaStage",
-        "Desc": "\u7eb7\u4e89\u6218\u533a",
+        "UiName": "UiArenaChapterDetail",
+        "Desc": "War Zone",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailSViewV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -111,11 +139,12 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
         "SortTagList": []
     },
     {
         "UiName": "UiStrongholdRoomCharacterV2P6",
-        "Desc": "\u8bfa\u4e9a\u590d\u5174\u6218",
+        "Desc": "Noah Revival Plan",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListStrongholdRoomV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -126,19 +155,20 @@
         "EnableSupportTag": 1.0,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
         "SortTagList": [
             57.0,
             55.0,
             8.0,
-            11.0,
-            56.0,
             4.0,
-            5.0
+            15.0,
+            11.0,
+            56.0
         ]
     },
     {
         "UiName": "UiTheatre3RoleRoomDetail",
-        "Desc": "\u8089\u9e3d3.0",
+        "Desc": "Roguelike 3.0",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/UiTheatre3/CharacterListBattleRoomRoleDetail.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -149,19 +179,21 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [
-            "\u8bd5\u73a9"
+            "Trial"
         ],
+        "BtnGeneralSkillType": 1.0,
         "SortTagList": [
             8.0,
             55.0,
             12.0,
             4.0,
+            15.0,
             56.0
         ]
     },
     {
         "UiName": "UiCharacterTowerBattle",
-        "Desc": "\u652f\u7ebf-\u672c\u6211\u56de\u5eca\uff08\u89d2\u8272\u5854\uff09",
+        "Desc": "Side Story - Arcade Anima (Character Tower)",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailCharacterTowerV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -172,6 +204,7 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
         "SortTagList": [
             8.0,
             55.0,
@@ -181,7 +214,7 @@
     },
     {
         "UiName": "UiFubenMainLineChapterDP",
-        "Desc": "\u652f\u7ebf-\u6d6e\u70b9\u7eaa\u5b9e",
+        "Desc": "Side Story - Floating Record",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -192,11 +225,12 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
         "SortTagList": []
     },
     {
         "UiName": "UiBabelTowerBase",
-        "Desc": "\u5df4\u522b\u5854",
+        "Desc": "Babel Tower",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -207,6 +241,7 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
         "SortTagList": [
             8.0,
             4.0
@@ -214,7 +249,7 @@
     },
     {
         "UiName": "UiTheatreMainMassage",
-        "Desc": "\u8089\u9e3d1.0-\u67e5\u770b\u961f\u5458",
+        "Desc": "Roguelike 1.0 - Check Members",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -225,11 +260,12 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
         "SortTagList": []
     },
     {
         "UiName": "UiTheatreBattleRoomDetail",
-        "Desc": "\u8089\u9e3d1.0-\u7f16\u961f",
+        "Desc": "Roguelike 1.0 - Formation",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -240,11 +276,36 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
-        "SortTagList": []
+        "BtnGeneralSkillType": 1.0,
+        "SortTagList": [
+            8.0,
+            4.0,
+            5.0
+        ]
+    },
+    {
+        "UiName": "UiTheatreMultiRoleDetail",
+        "Desc": "Roguelike 1.0 - Multiple-team Formation",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": 1.0,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
+        "SortTagList": [
+            8.0,
+            4.0,
+            5.0
+        ]
     },
     {
         "UiName": "UiGuildWarCharacterSelect",
-        "Desc": "\u516c\u4f1a\u6218",
+        "Desc": "Guild War",
         "CharacterListPrefabPath": null,
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -255,11 +316,12 @@
         "EnableSupportTag": 1.0,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
         "SortTagList": []
     },
     {
         "UiName": "UiAssignRoomCharacter",
-        "Desc": "\u8fb9\u754c\u516c\u7ea6",
+        "Desc": "Border Pact",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListAssignRoomV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -270,11 +332,12 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
         "SortTagList": []
     },
     {
         "UiName": "UiAwarenessRoomCharacter",
-        "Desc": "\u610f\u8bc6\u516c\u7ea6",
+        "Desc": "Memory Pact",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListAssignRoomV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -285,11 +348,32 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
         "SortTagList": []
     },
     {
-        "UiName": "UiAssignRoomCharacter",
-        "Desc": "\u9ec4\u91d1\u4e4b\u6da1",
+        "UiName": "UiBiancaTheatreMainMassage",
+        "Desc": "Roguelike 2.0 - Member",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/PanelBiancaTheatreMainMassage.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
+        "SortTagList": [
+            8.0,
+            4.0,
+            5.0
+        ]
+    },
+    {
+        "UiName": "UiTheatre2BattleRoomDetail",
+        "Desc": "Roguelike 2.0 - Formation",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -300,6 +384,198 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
+        "SortTagList": [
+            8.0,
+            4.0,
+            5.0
+        ]
+    },
+    {
+        "UiName": "UiFunbenKoroTutoriaTeachingDetail",
+        "Desc": "Trial Event Formation",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
+        "SortTagList": [
+            8.0,
+            11.0,
+            2.0,
+            4.0,
+            3.0,
+            5.0
+        ]
+    },
+    {
+        "UiName": "UiSelectCharacterAssignOccupy",
+        "Desc": "Border Pact Station",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListAssignOccupy.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
+        "SortTagList": [
+            57.0,
+            55.0,
+            56.0,
+            15.0
+        ]
+    },
+    {
+        "UiName": "UiSelectCharacterAwarenessOccupy",
+        "Desc": "Memory Pact Stationing",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListAssignOccupy.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
+        "SortTagList": [
+            57.0,
+            55.0,
+            56.0,
+            15.0
+        ]
+    },
+    {
+        "UiName": "UiTwoSideTowerBattle",
+        "Desc": "Inverted Tower 3.0",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
+        "SortTagList": [
+            8.0,
+            4.0
+        ]
+    },
+    {
+        "UiName": "UiSelectCharacterPlayerSupport",
+        "Desc": "Commandant - Support",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListDefaultV2P6.prefab",
+        "EnableFolder": 1.0,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": 2.0,
+        "SortTagList": [
+            55.0,
+            4.0
+        ]
+    },
+    {
+        "UiName": "UiRiftCharacter",
+        "Desc": "The Mythic Paradise",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
+        "SortTagList": [
+            8.0,
+            4.0,
+            5.0,
+            2.0,
+            3.0,
+            7.0,
+            6.0,
+            9.0
+        ]
+    },
+    {
+        "UiName": "UiKotodamaRoomRoleDetail",
+        "Desc": "Common Formation - Kotodama Mode Independent Configuration",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": null,
+        "SortTagList": [
+            8.0,
+            11.0,
+            2.0,
+            4.0,
+            3.0,
+            5.0
+        ]
+    },
+    {
+        "UiName": "UiTheatre4BattleRoomDetail",
+        "Desc": "Roguelike 4.0 Formation",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/UiTheatre4/GridCharacterList.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": 1.0,
+        "SortTagList": [
+            8.0,
+            4.0,
+            5.0
+        ]
+    },
+    {
+        "UiName": "UiSelectCharacterStrongholdSupport",
+        "Desc": "Mine optional support character",
+        "CharacterListPrefabPath": null,
+        "EnableFolder": 1.0,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "BtnGeneralSkillType": 2.0,
         "SortTagList": []
     }
 ]

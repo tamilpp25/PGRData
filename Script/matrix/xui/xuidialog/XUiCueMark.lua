@@ -38,6 +38,10 @@ function XUiCueMark:OnStart(title, content, content2, closeCallback, sureCallbac
         self.BtnHint:SetButtonState(isSelect and CS.UiButtonState.Select or CS.UiButtonState.Normal)
         self.BtnHint.gameObject:SetActiveEx(true)
         self.IsNeedClose = hintInfo.IsNeedClose
+        
+        if hintInfo.HintText and hintInfo.HintText ~= "" then
+            self.TxtHint.text = hintInfo.HintText
+        end 
     else
         self.BtnHint.gameObject:SetActiveEx(false)
     end
@@ -74,3 +78,5 @@ function XUiCueMark:OnBtnHintClick()
         self:OnBtnCloseClick()
     end
 end
+
+return XUiCueMark

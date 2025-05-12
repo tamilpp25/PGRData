@@ -1,10 +1,10 @@
 local XUiMainLeftMid = XClass(nil, "XUiMainLeftMid")
 local TextManager = CS.XTextManager
 
-function XUiMainLeftMid:Ctor(rootUi)
-    self.Transform = rootUi.PanelLeftMid.gameObject.transform
-    XTool.InitUiObject(self)
-    self.RootUi = rootUi
+function XUiMainLeftMid:OnStart(rootUi)
+    -- self.Transform = rootUi.PanelLeftMid.gameObject.transform
+    -- XTool.InitUiObject(self)
+    -- self.RootUi = rootUi
     --ClickEvent
     self.BtnGiftExpire.CallBack = function() self:OnBtnGiftExpire() end
     self.BtnYKExpire.CallBack = function() self:OnBtnYKExpire() end
@@ -20,17 +20,16 @@ function XUiMainLeftMid:OnEnable()
     XEventManager.AddEventListener(XEventId.EVENT_AUTO_FIGHT_START, self.OnAutoFightStart, self)
     XEventManager.AddEventListener(XEventId.EVENT_AUTO_FIGHT_CHANGE, self.OnAutoFightChange, self)
     XEventManager.AddEventListener(XEventId.EVENT_AUTO_FIGHT_REMOVE, self.OnAutoFightRemove, self)
-    XEventManager.AddEventListener(XEventId.EVENT_PURCAHSE_YKMAINREFRESH, self.UpdateYKExpire, self)
     -- XEventManager.AddEventListener(XEventId.EVENT_LB_EXPIRE_NOTIFY, self.UpdatePurchaseGift, self)
     self:SetPurchaseGiftExpire()
     self:UpdateYKExpire()
+
 end
 
 function XUiMainLeftMid:OnDisable()
     XEventManager.RemoveEventListener(XEventId.EVENT_AUTO_FIGHT_START, self.OnAutoFightStart, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_AUTO_FIGHT_CHANGE, self.OnAutoFightChange, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_AUTO_FIGHT_REMOVE, self.OnAutoFightRemove, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_PURCAHSE_YKMAINREFRESH, self.UpdateYKExpire, self)
     -- XEventManager.RemoveEventListener(XEventId.EVENT_LB_EXPIRE_NOTIFY, self.UpdatePurchaseGift, self)
     self.PanelGiftExpire.gameObject:SetActiveEx(false)
 end
@@ -97,7 +96,6 @@ end
 
 -- 月卡
 function XUiMainLeftMid:UpdateYKExpire()
-    XDataCenter.PurchaseManager.SetYKLocalCache()
     local flag = XDataCenter.PurchaseManager.CheckYKContinueBuy()
     self.PanelYKExpire.gameObject:SetActiveEx(flag)
 end

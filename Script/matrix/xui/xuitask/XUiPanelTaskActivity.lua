@@ -1,4 +1,8 @@
-XUiPanelTaskActivity = XClass(nil, "XUiPanelTaskActivity")
+local XUiPanelTask = require("XUi/XUiMoneyReward/XUiPanelTask")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+---@class XUiPanelTaskActivity
+local XUiPanelTaskActivity = XClass(nil, "XUiPanelTaskActivity")
 local IsMulting = false
 local ShowRewardList = {}
 
@@ -108,3 +112,5 @@ function XUiPanelTaskActivity:OnDynamicTableEvent(event, index, grid)
         grid:ResetData(data)
     end
 end
+
+return XUiPanelTaskActivity

@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridAddContactItem = XClass(nil, "XUiGridAddContactItem")
 
 function XUiGridAddContactItem:Ctor(ui)
@@ -44,7 +45,7 @@ function XUiGridAddContactItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -133,8 +134,8 @@ function XUiGridAddContactItem:Refresh(info)
         self.TxtTime.text = CS.XTextManager.GetText("FriendLatelyLogin") .. XUiHelper.CalcLatelyLoginTime(info.LastLoginTime)
     end
     
-    XUiPLayerHead.InitPortrait(info.Icon, info.HeadFrameId, self.PanelRoleOnLine)
-    XUiPLayerHead.InitPortrait(info.Icon, info.HeadFrameId, self.PanelRoleOffLine)
+    XUiPlayerHead.InitPortrait(info.Icon, info.HeadFrameId, self.PanelRoleOnLine)
+    XUiPlayerHead.InitPortrait(info.Icon, info.HeadFrameId, self.PanelRoleOffLine)
     
     self:Show()
 end

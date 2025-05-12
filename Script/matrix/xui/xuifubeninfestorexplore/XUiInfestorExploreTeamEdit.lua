@@ -1,3 +1,4 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local PlatForm = CS.UnityEngine.Application.platform
 local IsWindows = PlatForm == CS.UnityEngine.RuntimePlatform.WindowsEditor or PlatForm == CS.UnityEngine.RuntimePlatform.WindowsPlayer
@@ -66,7 +67,7 @@ end
 function XUiInfestorExploreTeamEdit:GetCurTeamCharacterType()
     for _, characterId in pairs(self.CharacterIds) do
         if characterId > 0 then
-            return XCharacterConfigs.GetCharacterType(characterId)
+            return XMVCA.XCharacter:GetCharacterType(characterId)
         end
     end
 end
@@ -211,8 +212,8 @@ function XUiInfestorExploreTeamEdit:UpdateCaptainSkill(captainPos)
         return
     end
 
-    local captianSkillInfo = XDataCenter.CharacterManager.GetCaptainSkillInfo(captainId)
-    self.RImgCapIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(captainId))
+    local captianSkillInfo = XMVCA.XCharacter:GetCaptainSkillInfo(captainId)
+    self.RImgCapIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(captainId))
     self:SetUiSprite(self.ImgSkillIcon, captianSkillInfo.Icon)
     self.TxtSkillName.text = captianSkillInfo.Name
     self.TxtSkillDesc.text = captianSkillInfo.Level > 0 and captianSkillInfo.Intro or CS.XTextManager.GetText("CaptainSkillLock")
@@ -223,13 +224,13 @@ function XUiInfestorExploreTeamEdit:UpdateCharacterInfo()
     if self.IsShowCharacterInfo then
         self.BtnShowInfoToggle:SetButtonState(XUiButtonState.Select)
         for i = 1, #self.CharacterIds do
-            local character = XDataCenter.CharacterManager.GetCharacter(self.CharacterIds[i])
+            local character = XMVCA.XCharacter:GetCharacter(self.CharacterIds[i])
             if character == nil then
                 self["CharacterInfo" .. i].gameObject:SetActiveEx(false)
             else
                 self["CharacterInfo" .. i].gameObject:SetActiveEx(true)
                 self["TxtFight" .. i].text = math.floor(character.Ability)
-                self["RImgType" .. i]:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(character.Type))
+                self["RImgType" .. i]:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(character.Type))
             end
         end
     else

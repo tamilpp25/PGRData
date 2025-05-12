@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelUnionKillMainRank = XClass(nil, "XUiPanelUnionKillMainRank")
 local XUiPanelUnionKillMyRank = require("XUi/XUiFubenUnionKill/XUiPanelUnionKillMyRank")
 local XUiGridUnionRankItem = require("XUi/XUiFubenUnionKill/XUiGridUnionRankItem")
@@ -33,7 +34,7 @@ function XUiPanelUnionKillMainRank:Refresh(rankType)
         local unionKillInfo = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
         if unionKillInfo then
             local beginTime, endTime = XFubenUnionKillConfigs.GetUnionActivityTimes(unionKillInfo.Id)
-            local dayFormat = "yyyy/MM/dd"
+            local dayFormat = CS.XTextManager.GetText("UnionCnFormatDate")
             local beginTimeStr = XTime.TimestampToGameDateTimeString(beginTime, dayFormat)
             local endTimeStr = XTime.TimestampToGameDateTimeString(endTime, dayFormat)
 

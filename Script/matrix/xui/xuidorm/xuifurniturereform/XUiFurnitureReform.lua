@@ -1,154 +1,426 @@
--- 家具摆放界面
+
+---@class XUiFurnitureReform : XLuaUi
+---@field BtnDrdSort UnityEngine.UI.Dropdown
+---@field IsEntrance boolean 是否首次进入
+---@field ChildViewTab XUiComponent.XUiButton[] 子页面按钮列表
+---@field BtnContent XUiButtonGroup
+---@field CurFurniture XHomeFurnitureObj 是否需要刷新数量
 local XUiFurnitureReform = XLuaUiManager.Register(XLuaUi, "UiFurnitureReform")
 
-local XUiPanelMenu = require("XUi/XUiDorm/XUiFurnitureReform/XUiPanelMenu")
-local XUiFurnitureAttrGrid = require("XUi/XUiDorm/XUiFurnitureReform/XUiFurnitureAttrGrid")
+local XUiGridFurnitureScore = require("XUi/XUiDorm/XUiFurnitureReform/XUiGridFurnitureScore")
+local XUiPanelSViewReform = require("XUi/XUiDorm/XUiFurnitureReform/XUiPanelSViewReform")
 
-local FurnitureCache = {}
-local delayRefreshTimer = nil
-local delayUpdateScoresTimer = nil
+local TargetCameraDistance = 13
+
+local BtnType = {
+    Primary     = 1, --一级按钮
+    Secondary   = 2, --二级按钮
+}
+
+local FurnitureCache = {} --家具数据缓存
+local DormTemplateCache = {} --宿舍模板数据缓存
+
+local DefaultSuitId= 0
 
 function XUiFurnitureReform:OnAwake()
-    self.SuitCFG = XFurnitureConfigs.GetFurnitureSuitTemplates()
-    self.RefreshFurnitureList = function() self:RefreshFurntiureReform() end
-    XEventManager.AddEventListener(XEventId.EVENT_FURNITURE_ON_MODIFY, self.RefreshFurnitureList, self)
-
-    self.BtnFilter.CallBack = function() self:OnBtnFilterClick() end
-    self.BtnBack.CallBack = function() self:OnBtnBackClick() end
-    self.BtnRecover.CallBack = function() self:OnBtnRecoverClick() end
-    self.BtnUndo.CallBack = function() self:OnBtnUndoClick() end
-    self.BtnSaveAndQuit.CallBack = function() self:OnBtnSaveClick() end
-    self.BtnExplain.CallBack = function() self:OnBtnExplainClick() end
-    self.BtnFilterBack.CallBack = function() self:OnBtnFilterBackClick() end
-    self:RegisterClickEvent(self.BtnDrdSort, self.OnBtnShowDormAttr)
+    self:InitUi()
+    self:InitCb()
 end
 
 function XUiFurnitureReform:OnStart(roomId, roomType)
-    self.PanelMenu.gameObject:SetActive(false)
-
-    self.MenuPanel = XUiPanelMenu.New(self, self.PanelMenu)
-    self.MainPanelGo = self.Transform:Find("SafeAreaContentPane").gameObject
-
-    XHomeDormManager.SetClickFurnitureCallback(function(furniture) self:ShowFurnitureMenu(furniture, false, false) end)
-    XHomeDormManager.ReformRoom(roomId, true)
-    XHomeCharManager.HideAllCharacter()
-
-    self.CameraController = XHomeSceneManager.GetSceneCameraController()
-    if not XTool.UObjIsNil(self.CameraController) then
-        self.OldCameraDistance = self.CameraController.Distance
-        self.OldCameraTarget = self.CameraController.TargetObj
-        self.TargetAngleX = self.CameraController.TargetAngleX
-        self.TargetAngleY = self.CameraController.TargetAngleY
-        XCameraHelper.SetCameraTarget(self.CameraController, self.OldCameraTarget, 13)
-    end
-
     self.RoomId = roomId
     self.RoomType = roomType
-    self.IsMyRoom = roomType == XDormConfig.DormDataType.Self
-    self.GridSuitPool = {}
-    self.GridBaseTypePool = {}
-    self.GridSubTypePool = {}
-    self.BtnTabGoList = {}
-    self.PanelFilterGameObject = self.PanelFilter.gameObject
-    self.CurrentBaseTypeId = nil
-    self.CurrentSubTypeId = nil
-    self.CurrentSuitId = 1--by default
-    self.DefaultBaseType = CS.XGame.ClientConfig:GetInt("UiFurnitureReformDefaultBaseType")
-    self:Init()
-end
+    self.IsOwnRoom = roomType == XDormConfig.DormDataType.Self
+    self.IsEntrance = self.IsOwnRoom
+    self.SuitId = DefaultSuitId
+    self:InitData()
+    self:InitView()
+end 
 
 function XUiFurnitureReform:OnEnable()
-    XDataCenter.FurnitureManager.SetInRefeform(true)
+    self:RefreshChildView()
+    XDataCenter.FurnitureManager.SetInReform(true)
 end
 
 function XUiFurnitureReform:OnDisable()
+    self:ClearTemplateDormitoryCache()
+    XDataCenter.FurnitureManager.SetInReform(false)
+end
+
+function XUiFurnitureReform:OnDestroy()
+    --清除点击事件
     XHomeDormManager.SetClickFurnitureCallback(nil)
+    --显示角色
+    XHomeCharManager.ShowAllCharacter(true)
+    --显示宠物
+    XHomeCharManager.ShowAllPet(true)
+    --清空按钮缓存
+    self.ChildViewTab = {}
+    --清空家具缓存
+    self:ResetCache()
+    --模板缓存
+    self:ClearTemplateDormitoryCache()
+    if self:IsInFurniture() then
+        self:RestoreCamera()
+    end
+
     XHomeDormManager.AttachSurfaceToRoom()
     XHomeDormManager.ReformRoom(self.RoomId, false)
-    XDataCenter.FurnitureManager.SetInRefeform(false)
+
+    XEventManager.RemoveEventListener(XEventId.EVENT_FURNITURE_GET_FURNITURE, self.RefreshFurnitureReform, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_FURNITURE_ON_MODIFY, self.RefreshFurnitureReform, self)
+    
+    CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_FURNITURE_HIDE_ALL_ATTR_TAG_DETAIL)
 end
 
-function XUiFurnitureReform:OnHideBlockGrids()
-    if self.CurFurniture then
-        XHomeDormManager.OnHideBlockGrids(self.CurFurniture.HomePlatType, self.CurFurniture.RotateAngle)
+function XUiFurnitureReform:OnGetEvents()
+    return {
+        XEventId.EVENT_FURNITURE_ONDRAG_ITEM_CHANGED,
+        XEventId.EVENT_FURNITURE_CLEAN_ROOM,
+        XEventId.EVENT_FURNITURE_REFRESH,
+        XEventId.EVENT_CLICK_FURNITURE_ON_ROOM
+    }
+end
+
+function XUiFurnitureReform:OnNotify(evt, ...)
+    if evt == XEventId.EVENT_FURNITURE_ONDRAG_ITEM_CHANGED then
+        self:UpdateCacheFurniture(...)
+        self:RefreshChildView()
+        self:RefreshRoomScore()
+        
+    elseif evt == XEventId.EVENT_FURNITURE_CLEAN_ROOM then
+        self:RefreshRoomScore()
+        
+    elseif evt == XEventId.EVENT_FURNITURE_REFRESH then
+        self:RefreshFurnitureReform()
+        
+    elseif evt == XEventId.EVENT_CLICK_FURNITURE_ON_ROOM then
+        self:OnSelectTabByFurniture(...)
     end
 end
-function XUiFurnitureReform:OnBtnCancelClick()
-    if self.RoomId then
-        XHomeDormManager.RevertRoom(self.RoomId)
-        self:CloseFurnitureReform()
+
+function XUiFurnitureReform:Close()
+    if self:IsInFurniture() then
+        local targetAngle = CS.XGame.ClientConfig:GetInt("DefaultDormTargetAngle")
+        local allowYAxis = CS.XGame.ClientConfig:GetInt("DefaultAllowYAxis")
+        XHomeSceneManager.ChangeAngleYAndYAxis(targetAngle, allowYAxis == 1)
     end
+    CS.XCameraController.IsCheckOnPointOver = false
+    self.Super.Close(self)
 end
 
-function XUiFurnitureReform:OnBtnBackClick()
-    if self.RoomId and XHomeDormManager.IsNeedSave(self.RoomId, self.RoomType) then
-        XUiManager.DialogTip(CS.XTextManager.GetText("FurnitureTips"), CS.XTextManager.GetText("FurnitureIsSave"), XUiManager.DialogType.Normal, function()
-            XHomeDormManager.RevertRoom(self.RoomId)
-            self:CloseFurnitureReform()
-        end, function()
-            XHomeDormManager.SaveRoomModification(self.RoomId, false, function()
-                self:CloseFurnitureReform()
-            end)
-        end)
-    else
-        self:CloseFurnitureReform()
+function XUiFurnitureReform:InitUi()
+    --隐藏菜单按钮
+    self.PanelMenu.gameObject:SetActive(false)
+    self.MenuPanel = require("XUi/XUiDorm/XUiFurnitureReform/XUiPanelMenu").New(self, self.PanelMenu)
+    
+    --分数下拉框
+    local scoreTag = XFurnitureConfigs.GetFurnitureTagTypeTemplates() or {}
+    self.ScoreIndex2TagId = {}
+    local index = 0
+    self.BtnDrdSort:ClearOptions()
+    for id, template in pairs(scoreTag) do
+        local dOp = CS.UnityEngine.UI.Dropdown.OptionData()
+        dOp.text = template.TagName
+        self.BtnDrdSort.options:Add(dOp)
+        self.ScoreIndex2TagId[index] = id
+        index = index + 1
     end
+    self.BtnDrdSort.value = 0 --默认选中[隐藏数值]选项
+   
+    --总分控件
+    self.ScorePanels = {}
+    
+    self:RefreshTabActive(false)
+    
+    --动态列表
+    self.SViewFurniturePanel = XUiPanelSViewReform.New(self.PanelSViewFurniture, self, require("XUi/XUiDorm/XUiFurnitureReform/XUiGridFurnitureItem"))
+    self.SViewTemplatePanel = XUiPanelSViewReform.New(self.PanelSViewTemplate, self, require("XUi/XUiDorm/XUiFurnitureReform/XUiGridTemplateItem"))
+    self.SViewTemplatePanel:RegisterClickGrid(handler(self, self.OnSelectTemplate))
+    
+    self.OnSelectSuitCb = handler(self, self.OnSelectSuit)
+    self.OnSaveTemplateCb = handler(self, self.DoSaveRoom)
+    self.OnJumpToQuickBuildCb = handler(self, self.OnJumpToQuickBuild)
+    self.OnSortFurnitureCb = handler(self, self.SortFurniture)
+    
+    CS.XCameraController.IsCheckOnPointOver = true
+end 
+
+function XUiFurnitureReform:InitCb()
+    self.BtnBack.CallBack = function() 
+        self:OnBtnBackClick()
+    end
+    --下拉框
+    self.BtnDrdSort.onValueChanged:AddListener(function(index) 
+        self:OnBtnDrdSortChanged(index)
+    end)
+    --模板预设
+    self.BtnPreset.CallBack = function()
+        self:OnJumpToChildView(XDormConfig.ReformPanelIndex.Template)
+    end
+    --宿舍家具
+    self.BtnFurniture.CallBack = function() 
+        self:OnJumpToChildView(XDormConfig.ReformPanelIndex.Furniture)
+    end
+    --子界面关闭
+    self.BtnReturn.CallBack = function() 
+        self:OnBtnReturnClick()
+    end
+    --回收
+    self.BtnRecover.CallBack = function() 
+        self:OnBtnRecoverClick()
+    end
+    --撤销
+    self.BtnUndo.CallBack = function()
+        self:OnBtnUndoClick()
+    end
+    --保存
+    self.BtnSaveAndQuit.CallBack = function()
+        self:OnBtnSaveAndQuitClick()
+    end
+    --预览模板
+    self.BtnOverview.CallBack = function() 
+        self:OnBtnOverviewClick()
+    end
+end 
+
+function XUiFurnitureReform:InitData()
+    self:RestoreCache()
+    
+    XEventManager.AddEventListener(XEventId.EVENT_FURNITURE_GET_FURNITURE, self.RefreshFurnitureReform, self)
+    XEventManager.AddEventListener(XEventId.EVENT_FURNITURE_ON_MODIFY, self.RefreshFurnitureReform, self)
 end
 
-function XUiFurnitureReform:CloseFurnitureReform()
-    self:RestoreViewAngles()
-    self:Close()
+function XUiFurnitureReform:InitView()
+    --子界面页签
+    self:InitChildTab()
+    --宿舍场景
+    XHomeDormManager.SetClickFurnitureCallback(function(furniture) self:ShowFurnitureMenu(furniture, false, false) end)
+    XHomeDormManager.ReformRoom(self.RoomId, true)
+    XHomeDormManager.ClearFurnitureAnimation(self.RoomId)
+    --隐藏角色
+    XHomeCharManager.HideAllCharacter()
+    XHomeCharManager.ReleaseAllCharLongPressTrigger()
+    --隐藏宠物
+    XHomeCharManager.HideAllPet()
+    --分数显示
+    self.PanelTool.gameObject:SetActiveEx(self.IsOwnRoom)
+    self:RefreshRoomScore()
+    --下拉框
+    self.BtnDrdSort.gameObject:SetActiveEx(self.IsOwnRoom)
+    --如果不是自己房间，直接跳往家具编辑
+    if not self.IsOwnRoom then
+        self:OnJumpToChildView(XDormConfig.ReformPanelIndex.Furniture)
+    end
+    self.BtnReturn.gameObject:SetActiveEx(self.IsOwnRoom)
 end
 
-function XUiFurnitureReform:OnBtnShowDormAttr()
-
-    if self.FurnitureTagTypeShow then
-        self.Template.gameObject:SetActiveEx(false)
-        self.FurnitureTagTypeShow = false
+function XUiFurnitureReform:InitCamera()
+    self.CameraCtrl = XHomeSceneManager.GetSceneCameraController()
+    if XTool.UObjIsNil(self.CameraCtrl) then
         return
     end
-
-    self.FurnitureTagTypeShow = true
-    self.Template.gameObject:SetActiveEx(true)
-    self.DynamicTable:SetTotalCount(#self.FurnitureTagType)
-    self.DynamicTable:ReloadDataSync()
+    self.LastDistance = self.CameraCtrl.Distance
+    self.LastTarget = self.CameraCtrl.TargetObj
+    self.TargetAngleX = self.CameraCtrl.TargetAngleX
+    self.TargetAngleY = self.CameraCtrl.TargetAngleY
+    
+    XCameraHelper.SetCameraTarget(self.CameraCtrl, self.LastTarget, TargetCameraDistance)
 end
 
-function XUiFurnitureReform:OnBtnFilterClick()
-    self:ShowPanelFilter()
+function XUiFurnitureReform:RestoreCamera()
+    if XTool.UObjIsNil(self.CameraCtrl) then
+        return
+    end
+    
+    self.CameraCtrl:SetTartAngle(CS.UnityEngine.Vector2(self.TargetAngleX, self.TargetAngleY))
+    XCameraHelper.SetCameraTarget(self.CameraCtrl, self.LastTarget, self.LastDistance)
+    self.CameraCtrl = nil
 end
 
-function XUiFurnitureReform:OnBtnFilterBackClick()
-    self:HidePanelFilter()
+--初始化子界面页签
+function XUiFurnitureReform:InitChildTab()
+    --一级/二级页签按钮
+    self.BtnFirst.gameObject:SetActiveEx(false)
+    self.BtnSecond.gameObject:SetActiveEx(false)
+    local tabConfig = XDataCenter.DormManager.GetReformTabConfig()
+    self.TabIndex2Config = {}
+    self.ChildViewTab = {}
+    local btnIndex = 0
+    for _, config in ipairs(tabConfig) do
+        local hasChild = config.HasChild
+        local btn = self:CreateButton(BtnType.Primary)
+        btn:SetSprite(config.Icon)
+        btn:SetNameByGroup(0,  config.Name)
+        btnIndex = btnIndex + 1
+        table.insert(self.ChildViewTab, btn)
+        self.TabIndex2Config[btnIndex] = config
+        if hasChild then
+            local firstIndex = btnIndex
+            for _, child in ipairs(config.Children) do
+                local childBtn = self:CreateButton(BtnType.Secondary)
+                childBtn.SubGroupIndex = firstIndex
+                childBtn:SetNameByGroup(0,  child.Name)
+                table.insert(self.ChildViewTab, childBtn)
+                btnIndex = btnIndex + 1
+                self.TabIndex2Config[btnIndex] = child
+            end
+        end
+    end
+    self.BtnContent:SetIsXScale(true)
+    self.BtnContent:Init(self.ChildViewTab, function(tabIndex) self:OnSelectTab(tabIndex) end)
+    
+    ---@type UnityEngine.RectTransform
+    local container = self.ScrollTitleTab.transform.parent
+    --安全区域
+    local sizeX = CS.XUiManager.RealScreenWidth - (CS.XAppPlatBridge.GetNotchSize() + CS.XUiSafeAreaAdapter.SpecialScreenOff) * 2
+    for i = 0, container.childCount - 1 do
+        local child = container:GetChild(i)
+        if child.name == self.ScrollTitleTab.name then
+            break
+        elseif child.gameObject.activeInHierarchy then
+            sizeX = sizeX - child.rect.size.x
+        end
+    end
+    self.ScrollTitleTab.sizeDelta = CS.UnityEngine.Vector2(sizeX, self.ScrollTitleTab.rect.size.y)
 end
 
--- 全部收起
-function XUiFurnitureReform:OnBtnRecoverClick()
-    XUiManager.DialogTip(CS.XTextManager.GetText("FurnitureTips"), CS.XTextManager.GetText("FurnitureCleanRoom"), XUiManager.DialogType.Normal, nil, function()
-        XHomeDormManager.CleanRoom(self.RoomId)
-    end)
+--region   ------------------UI刷新 start-------------------
+
+--刷新房间分数
+function XUiFurnitureReform:RefreshRoomScore()
+    if not XTool.IsNumberValid(self.RoomId) or XDormConfig.IsTemplateRoom(self.RoomType) then
+        return
+    end
+    
+    local newAttrs = XHomeDormManager.GetFurnitureScoresByRoomId(self.RoomId)
+    local oldAttrs = XHomeDormManager.GetFurnitureScoresByUnSaveRoom(self.RoomId)
+    self.ScoreTotalPanel = self.ScoreTotalPanel or XUiGridFurnitureScore.New(self.PanelTotal)
+    self.ScoreTotalPanel:RefreshTotal(newAttrs, oldAttrs)
+    for i = 1, #newAttrs.AttrList do
+        local panel = self.ScorePanels[i]
+        if not panel then
+            panel = XUiGridFurnitureScore.New(self["PanelTool"..i])
+            self.ScorePanels[i] = panel
+        end
+        local typeData = XFurnitureConfigs.GetDormFurnitureType(i)
+        panel:Refresh(newAttrs.AttrList[i], oldAttrs.AttrList[i], typeData.TypeIcon, i)
+    end
 end
 
--- 重置房间
-function XUiFurnitureReform:OnBtnUndoClick()
-    XUiManager.DialogTip(CS.XTextManager.GetText("FurnitureTips"), CS.XTextManager.GetText("FurnitureRevertRoom"), XUiManager.DialogType.Normal, nil, function()
-        XHomeDormManager.RevertRoom(self.RoomId)
-        CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_FURNITURE_ATTR_TAG, self.FurnitureTagType[self.SelectIndex].AttrIndex)
-    end)
+function XUiFurnitureReform:RefreshFurnitureReform()
+    self:ResetCache()
+    self:RestoreCache()
+    self:RefreshTabCount()
+    self:RefreshRoomScore()
+    if self:IsInTemplate() and self.SelectRoomData then
+        local roomData = XDataCenter.DormManager.GetRoomDataByRoomId(self.SelectRoomData:GetRoomId(), self.SelectRoomData:GetRoomDataType())
+        local room = XHomeDormManager.GetRoom(self.RoomId)
+        if room then
+            room:ReplaceFurniture(roomData)
+        end
+        self.TemplateIndex = self.SViewTemplatePanel:GetStartIndex()
+        self:SetupDynamicTable()
+    end
 end
 
--- 保存房间
-function XUiFurnitureReform:OnBtnSaveClick()
-    XHomeDormManager.SaveRoomModification(self.RoomId)
+function XUiFurnitureReform:RefreshChildView()
+    self.PanelEntrance.gameObject:SetActiveEx(self.IsEntrance)
+    self.PanelReform.gameObject:SetActiveEx(not self.IsEntrance)
+
+    if self.IsEntrance then
+        self.BtnPreset:SetNameByGroup(0, XDataCenter.DormManager.GetTemplateDormitoryCount())
+        self.BtnFurniture:SetNameByGroup(0, self:GetFurnitureNumsBySuitId(0))
+    else
+        self:RefreshTabCount()
+    end
+
+    if self:IsInFurniture() then
+        self.BtnOverview.gameObject:SetActiveEx(true)
+        self:InitCamera()
+    else
+        self.BtnOverview.gameObject:SetActiveEx(false)
+        self:RestoreCamera()
+    end
 end
 
-function XUiFurnitureReform:OnBtnExplainClick()
-    XUiManager.UiFubenDialogTip(CS.XTextManager.GetText("DormDes"), CS.XTextManager.GetText("FurnitureDescription") or "")
+--刷新页签按钮显示
+function XUiFurnitureReform:RefreshTabBtn()
+    for tabIndex, btn in pairs(self.ChildViewTab) do
+        if btn and not XTool.UObjIsNil(btn) and btn.SubGroupIndex <= 0 then
+            local cfg = self.TabIndex2Config[tabIndex]
+            self.BtnContent:ShowButtonGroup(btn, false)
+            btn.gameObject:SetActiveEx(cfg.TabIndex == self.ChildType)
+        end
+    end
 end
 
--- 显示家具菜单
+--设置动态列表数据
+function XUiFurnitureReform:SetupDynamicTable()
+    if not self.TabIndex then
+        return
+    end
+    self.SViewTemplatePanel:ClearCache()
+    self.SViewFurniturePanel:ClearCache()
+    local config = self.TabIndex2Config[self.TabIndex]
+    if self.ChildType == XDormConfig.ReformPanelIndex.Template then --模板
+        self.SViewFurniturePanel:Hide()
+        local template = XDormConfig.GetDormTemplateGroupCfg(config.Param)
+        local dormType = template and template.DormType or XDormConfig.DormDataType.Template
+        local data = self:GetTemplateDormitoryCache(dormType)
+        data = self:SortTempDormData(data)
+        self.SViewTemplatePanel:Show(data, self.TemplateIndex, self.RoomId, self.RoomType)
+    else --家具
+        self.SViewTemplatePanel:Hide()
+        local template = XFurnitureConfigs.GetFurnitureTypeById(config.Param)
+        local cacheKey = self:GetCacheKey(template.MinorType, template.Category)
+        self:SwitchViewAngle(template.MinorType)
+        self.LastMinorType = template.MinorType 
+        self:SortFurnitureCache(FurnitureCache[cacheKey])
+        local filterCache
+        if self.IsOwnRoom then
+            filterCache = self:FilterCacheBySuitId(FurnitureCache[cacheKey] or {})
+        else
+            filterCache = XFurnitureConfigs.GetFurnitureCfgList(template.MinorType, template.Category, self.SuitId)
+        end
+        if self.IsExpand then
+            local temp
+            for _, list in pairs(filterCache or {}) do
+                local furniture = list[1]
+                if furniture.ConfigId == self.ExpandFurnitureConfigId then
+                    temp = list
+                    break
+                end
+            end
+            filterCache = temp
+        end
+        self.SViewFurniturePanel:Show(filterCache, self.OpenIndex, self.RoomId, self.RoomType)
+    end
+end
+
+--展开家具
+function XUiFurnitureReform:ExpandFurniture(furnitureList)
+    if XTool.IsTableEmpty(furnitureList) then
+        return
+    end
+    self.IsExpand = true
+    local furniture = furnitureList[1]
+    self.ExpandFurnitureConfigId = furniture.ConfigId
+    self.BtnExpand:SetNameByGroup(0, furniture:GetFurnitureName())
+    self:RefreshTabActive(true)
+    self.SViewTemplatePanel:Hide()
+    self.OpenIndex = self.SViewFurniturePanel:GetStartIndex()
+    self.SViewFurniturePanel:Show(furnitureList, nil, self.RoomId, self.RoomType)
+end
+
+--- 显示家具菜单
+---@param furniture XHomeFurnitureObj
+---@param isFollowMouse boolean
+---@param isNew boolean
+---@return
+--------------------------
 function XUiFurnitureReform:ShowFurnitureMenu(furniture, isFollowMouse, isNew)
-    self.MainPanelGo:SetActive(not furniture)
+    self.SafeAreaContentPane.gameObject:SetActiveEx(not furniture)
     local isOutOfLimit = false
     if furniture and (not XDataCenter.FurnitureManager.CheckFurnitureUsing(furniture.Data.Id)) then
         local minorType = XFurnitureConfigs.GetFurnitureTypeCfgByConfigId(furniture.Data.CfgId).MinorType
@@ -157,659 +429,604 @@ function XUiFurnitureReform:ShowFurnitureMenu(furniture, isFollowMouse, isNew)
         isOutOfLimit = (curCapacity > 0) and (curLength >= curCapacity) or false
     end
     self.MenuPanel:SetFurniture(furniture, isFollowMouse, isNew, isOutOfLimit)
-
+    
     self.CurFurniture = furniture
     self:OnShowBlockGrids()
 end
 
 function XUiFurnitureReform:OnShowBlockGrids()
-    if self.CurFurniture then
-        XHomeDormManager.OnShowBlockGrids(self.CurFurniture.HomePlatType, self.CurFurniture.GridOffset, self.CurFurniture.RotateAngle)
-    end
-end
-
---初始化begin
-function XUiFurnitureReform:Init()
-    self:InitType()
-    self:RestoreCache()
-    local roomFurnitureCount = XDataCenter.DormManager.GetRoomDataByRoomId(self.RoomId, self.RoomType).FurnitureCount
-    self.SViewFurniture = XUiPanelSViewFurniture.New(self.PanelSViewFurniture, self, roomFurnitureCount, self.RoomType)
-    --初始化家具类型
-    self.TypeList = XFurnitureConfigs.GetFurnitureTypeGroupList()
-    self.FurnitureGroupList = self:GenerateFurnitureGroupList(self.TypeList)
-    self:InitFurnitureTabGroup()
-
-    self.GridOption.gameObject:SetActive(false)
-    if not self.SuitCFG then
-        XLog.Warning("XUiFurnitureReform:Init error: self.SuitCFG is nil")
-    end
-
-    self:InitFurnitureAttrTag()
-
-    if not self.DynamicTableSuit then
-        self.DynamicTableSuit = XDynamicTableNormal.New(self.SViewFilter.gameObject)
-        self.DynamicTableSuit:SetProxy(XUiGridOption)
-        self.DynamicTableSuit:SetDelegate(self)
-    end
-    self:UpdateScores()
-    self:SwitchSuitFilter(self.CurrentSuitId or 1)
-end
-
-function XUiFurnitureReform:InitType()
-    self.BtnDrdSort.gameObject:SetActiveEx(self.IsMyRoom)
-    self.PanelTool.gameObject:SetActiveEx(self.IsMyRoom)
-end
-
-function XUiFurnitureReform:InitFurnitureAttrTag()
-
-    self.FurnitureTagType = XFurnitureConfigs.GetFurnitureTagTypeTemplates()
-    self.FurnitureTagTypeShow = false
-
-
-    --local key = tostring(XPlayer.Id) .. "FurnitureAttr"
-    self.SelectIndex = 1
-    XHomeDormManager.FurnitureShowAttrType = -1
-
-
-    self.BtnDrdSortLabel.text = self.FurnitureTagType[self.SelectIndex].TagName
-
-    --家具属性tips
-    self.DynamicTable = XDynamicTableNormal.New(self.Template)
-    self.DynamicTable:SetProxy(XUiFurnitureAttrGrid)
-    self.DynamicTable:SetDelegate(self)
-    self.DynamicTable:SetDynamicEventDelegate(function(...)
-        self:OnFurnitureAttrDynamicTableEvent(...)
-    end)
-
-
-    self.SelectGrid = nil
-
-    CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_FURNITURE_ATTR_TAG, self.FurnitureTagType[self.SelectIndex].AttrIndex)
-
-end
-
-function XUiFurnitureReform:GenerateFurnitureGroupList()
-    local groupList = {}
-
-    for i = 1, #self.TypeList do
-        local typeList = self.TypeList[i]
-        table.insert(groupList, {
-            MinorType = typeList.MinorType,
-            MinorName = typeList.MinorName,
-            isBaseType = true
-        })
-        local subIndex = #groupList
-        for index = 1, #typeList.CategoryList do
-            local categoryData = typeList.CategoryList[index]
-            table.insert(groupList, {
-                MinorType = typeList.MinorType,
-                MinorName = typeList.MinorName,
-                SubIndex = subIndex,
-                CategoryType = categoryData.Category,
-                CategoryName = categoryData.CategoryName,
-            })
-        end
-    end
-    return groupList
-end
-
-function XUiFurnitureReform:InitFurnitureTabGroup()
-    for i = 1, #self.FurnitureGroupList do
-        local tempGroup = self.FurnitureGroupList[i]
-        if not self.BtnTabGoList[i] then
-            local tempBtnTab
-            if tempGroup.SubIndex and tempGroup.SubIndex > 0 then
-                tempBtnTab = CS.UnityEngine.Object.Instantiate(self.Obj:GetPrefab("BtnTabFurnitureSubType"))
-            else
-                tempBtnTab = CS.UnityEngine.Object.Instantiate(self.Obj:GetPrefab("BtnTabFurnitureBaseType"))
-            end
-            tempBtnTab.transform:SetParent(self.TabGroupContent.transform, false)
-            local uiButton = tempBtnTab:GetComponent("XUiButton")
-            uiButton.SubGroupIndex = tempGroup.SubIndex
-            table.insert(self.BtnTabGoList, uiButton)
-        end
-        self.BtnTabGoList[i].gameObject:SetActive(true)
-    end
-
-    for i = #self.FurnitureGroupList + 1, #self.BtnTabGoList do
-        self.BtnTabGoList[i].gameObject:SetActive(false)
-    end
-    self.TabFurnitureGroup:Init(self.BtnTabGoList, function(index) self:OnSelectFurnitureType(index) end)
-
-    for i = 0, #self.FurnitureGroupList - 1 do
-        local furnitureGroup = self.FurnitureGroupList[i + 1]
-        if furnitureGroup then
-            if furnitureGroup.SubIndex and furnitureGroup.SubIndex > 0 then
-                self.TabFurnitureGroup.TabBtnList[i]:SetNameByGroup(0, furnitureGroup.CategoryName)
-
-                local count
-                local categoryList = self:GetCategoryListByMinorType(furnitureGroup.MinorType)
-                if #categoryList <= 0 then
-                    count = self:GetBaseTypeCount(furnitureGroup.MinorType)
-                else
-                    if furnitureGroup.CategoryType == 0 then
-                        count = self:GetBaseTypeCount(furnitureGroup.MinorType)
-                    else
-                        count = self:GetSubTypeCount(furnitureGroup.MinorType, furnitureGroup.CategoryType)
-                    end
-                end
-                self.TabFurnitureGroup.TabBtnList[i]:SetNameByGroup(1, count)
-            else
-                self.TabFurnitureGroup.TabBtnList[i]:SetNameByGroup(0, furnitureGroup.MinorName)
-            end
-        end
-    end
-
-    self.TabFurnitureGroup:SelectIndex(1)
-
-end
-
-function XUiFurnitureReform:OnSelectFurnitureType(index)
-    local furnitureGroup = self.FurnitureGroupList[index]
-    self.LastSelectGroupIndex = index
-    if furnitureGroup then
-        self.LastBaseTypeId = self.CurrentBaseTypeId
-        self.CurrentBaseTypeId = furnitureGroup.MinorType
-
-        --选中二级菜单
-        local categoryList = self:GetCategoryListByMinorType(self.CurrentBaseTypeId)
-        if #categoryList <= 0 then
-            self:SwitchSubType(0)
-        else
-            self:SwitchSubType(furnitureGroup.CategoryType)
-        end
-    end
-end
-
-function XUiFurnitureReform:SelectTypeByFurniture(furnitureId)
-    if not furnitureId or furnitureId <= 0 then return end
-
-    local furntiureDatas = XDataCenter.FurnitureManager.GetFurnitureById(furnitureId)
-    if not furntiureDatas then return end
-
-    local furnitureTemplates = XFurnitureConfigs.GetFurnitureTemplateById(furntiureDatas.ConfigId)
-    if not furnitureTemplates then return end
-
-    local furnitureTypeTemplates = XFurnitureConfigs.GetFurnitureTypeById(furnitureTemplates.TypeId)
-    if not furnitureTypeTemplates then return end
-
-    local index = 0
-    local subIndex = 0
-    for tabKey, tabValue in ipairs(self.FurnitureGroupList) do
-        if furnitureTypeTemplates.MinorType == tabValue.MinorType and tabValue.CategoryType and tabValue.CategoryType == furnitureTypeTemplates.Category then
-            index = tabKey
-        end
-        if furnitureTypeTemplates.MinorType == tabValue.MinorType and tabValue.CategoryType == nil then
-            subIndex = tabKey
-        end
-    end
-
-    if index == 0 or (self.LastSelectGroupIndex and self.LastSelectGroupIndex == index) then return end
-
-    local furnitureGroup = self.FurnitureGroupList[self.LastSelectGroupIndex]
-    if subIndex > 0 and furnitureGroup and furnitureGroup.MinorType ~= furnitureTypeTemplates.MinorType then
-        self.TabFurnitureGroup:SelectIndex(subIndex)
-    end
-    self.TabFurnitureGroup:SelectIndex(index)
-end
-
-function XUiFurnitureReform:GetCategoryListByMinorType(minor)
-    local typeList = XFurnitureConfigs.GetFurnitureTypeList()
-    for _, v in pairs(typeList) do
-        if v.MinorType == minor then
-            return v.CategoryList
-        end
-    end
-    return {}
-end
-
-function XUiFurnitureReform:OnDynamicTableEvent(event, index, grid)
-    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        self:OnRefreshSuit(index, grid)
-    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        self:OnRefreshSuit(index, grid)
-    end
-end
-
-function XUiFurnitureReform:OnRefreshSuit(index, grid)
-    local data = self.SuitCFG[index]
-    if not data then return end
-    grid:Init(data, self)
-end
-
---切换选择家具基础类型
-function XUiFurnitureReform:SwitchBaseType(baseTypeId)
-    if not baseTypeId then return end
-    self.CurrentBaseTypeId = baseTypeId
-    self.CurrentSubTypeId = nil
-
-    self:UpdateItemsByFilter()
-    self:UpdatePanelLimit()
-    self:SwitchViewAngle(baseTypeId)
-end
-
-function XUiFurnitureReform:SwitchViewAngle(minor)
-    local viewAngles = XFurnitureConfigs.GetFurnitureViewAngleByMinor(minor)
-    if not viewAngles then return end
-    if self.LastBaseTypeId then
-        local lastViewAngles = XFurnitureConfigs.GetFurnitureViewAngleByMinor(self.LastBaseTypeId)
-        if lastViewAngles and lastViewAngles.GroupId == viewAngles.GroupId then return end
-    end
-
-    XHomeSceneManager.ChangeAngleYAndYAxis(viewAngles.TargetAngleY, viewAngles.AllowYAxis == 1)
-end
-
-function XUiFurnitureReform:RestoreViewAngles()
-    local defaultTargetAngle = CS.XGame.ClientConfig:GetInt("DefaultDormTargetAngle")
-    local defaultAllowYAxis = CS.XGame.ClientConfig:GetInt("DefaultAllowYAxis")
-    XHomeSceneManager.ChangeAngleYAndYAxis(defaultTargetAngle, defaultAllowYAxis == 1)
-end
-
---切换选择家具二级类型
-function XUiFurnitureReform:SwitchSubType(subTypeId)
-    if not subTypeId then return end
-    if subTypeId == 0 then
-        self:SwitchBaseType(self.CurrentBaseTypeId)
+    if not self.CurFurniture then
         return
     end
-    self.CurrentSubTypeId = subTypeId
-    self:UpdateItemsByFilter()
-    self:UpdatePanelLimit()
+    XHomeDormManager.OnShowBlockGrids(self.CurFurniture.HomePlatType, self.CurFurniture.GridOffset, self.CurFurniture.RotateAngle)
 end
 
---隐藏二级类型
-function XUiFurnitureReform:HideSubTypePanel()
-    if self.PanelSubType.gameObject.activeSelf then
-        self.PanelSubType.gameObject:SetActive(false)
+function XUiFurnitureReform:OnHideBlockGrids()
+    if not self.CurFurniture then
+        return
+    end
+    XHomeDormManager.OnHideBlockGrids(self.CurFurniture.HomePlatType, self.CurFurniture.RotateAngle)
+end
+
+--刷新按钮上的数量显示
+function XUiFurnitureReform:RefreshTabCount()
+    for index, btn in pairs(self.ChildViewTab) do
+        local cfg = self.TabIndex2Config[index]
+        if self.ChildType == cfg.TabIndex then
+            btn:SetNameByGroup(1,  " " .. self:GetItemCount(cfg.Param))
+            btn:ShowReddot(self:CheckRedPoint(cfg.Param))
+        end
     end
 end
 
---显示套装过滤面板
-function XUiFurnitureReform:ShowPanelFilter()
-    self.PanelFilterGameObject:SetActive(true)
+function XUiFurnitureReform:SwitchViewAngle(minorType)
+    local viewAngle = XFurnitureConfigs.GetFurnitureViewAngleByMinor(minorType)
+    if not viewAngle then
+        return
+    end
 
-    if not self.DynamicTableSuit then return end
-    self.DynamicTableSuit:SetDataSource(self.SuitCFG)
-    self.DynamicTableSuit:ReloadDataASync(1)
+    if self.LastMinorType then
+        local lastViewAngle = XFurnitureConfigs.GetFurnitureViewAngleByMinor(self.LastMinorType)
+        if lastViewAngle and lastViewAngle.GroupId == viewAngle.GroupId then
+            return
+        end
+    end
 
-    self.FilterEnable:PlayTimelineAnimation()
+    XHomeSceneManager.ChangeAngleYAndYAxis(viewAngle.TargetAngleY, viewAngle.AllowYAxis == 1)
 end
 
---隐藏套装过滤面板
-function XUiFurnitureReform:HidePanelFilter()
-    self.FilterDisable:PlayTimelineAnimation(function()
-        self.PanelFilterGameObject:SetActive(false)
-    end)
+function XUiFurnitureReform:RefreshTabActive(isExpand)
+    self.ScrollTitleTab.gameObject:SetActiveEx(not isExpand)
+    self.ScrollTitleTabOpen.gameObject:SetActiveEx(isExpand)
 end
 
---选择套装过滤
-function XUiFurnitureReform:SwitchSuitFilter(suitId)
-    self:HidePanelFilter()
-    self.CurrentSuitId = suitId
-    self.BtnFilter:SetNameByGroup(0, self.SuitCFG[suitId].SuitName)
+--endregion------------------UI刷新 finish------------------
 
-    self:UpdateItemsByFilter()
-    self:UpdateCountOnChanged()
-    self:UpdatePanelLimit()
-end
+--region   ------------------UI回调 start-------------------
 
-function XUiFurnitureReform:UpdateCountOnChanged()
-    -- 切换了套装，数量要重新结算
-    self:UpdateSubTypeCount()
-    -- 获得套装数量
-    if self.CurrentSuitId then
-        self.BtnFilter:SetNameByGroup(1, self:CalcFurnitureNumsBySuitId(self.CurrentSuitId))
+--分数设置回调
+function XUiFurnitureReform:OnBtnDrdSortChanged(index)
+    if self.ScoreTagIndex == index then
+        return
+    end
+    self.ScoreTagIndex = index
+    local scoreTag = XFurnitureConfigs.GetFurnitureTagTypeTemplates() or {}
+    local template = scoreTag[self.ScoreIndex2TagId[index]]
+    if template then
+        XHomeDormManager.FurnitureShowAttrType = template.AttrIndex
+        CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_FURNITURE_ATTR_TAG, template.AttrIndex)
     end
 end
 
-function XUiFurnitureReform:CalcFurnitureNumsBySuitId(suitId)
-    if not self.RoomId then return 0 end
-    if self.IsMyRoom then
-        return XDataCenter.FurnitureManager.GetFurnitureCountBySuitId(self.RoomId, FurnitureCache, suitId)
-    end
-
-    return XFurnitureConfigs.GetSuitCount(suitId)
+--跳转到子界面
+function XUiFurnitureReform:OnJumpToChildView(childType)
+    self.IsEntrance = false
+    self.ChildType = childType
+    self:RefreshTabBtn()
+    self.BtnContent:SelectIndex(self:GetValidTabIndex(self.ChildType))
+    self:RefreshChildView()
 end
 
---根据条件过滤家具
-function XUiFurnitureReform:UpdateItemsByFilter()
-    if delayRefreshTimer then
-        XScheduleManager.UnSchedule(delayRefreshTimer)
-        delayRefreshTimer = nil
+--关闭子界面
+function XUiFurnitureReform:OnBtnReturnClick()
+    if self.IsExpand then --关闭展开
+        self.IsExpand = false
+        self:RefreshTabActive(false)
+        self:SetupDynamicTable()
+        self.OpenIndex = nil
+    else --关闭子界面
+        local function onClose()
+            self.IsEntrance = true
+            self.ChildType = nil
+            self.SelectRoomData = nil
+            self.SViewTemplatePanel:ClearCache()
+            self.SViewFurniturePanel:ClearCache()
+            self:RefreshChildView()
+        end
+        if XHomeDormManager.IsNeedSave(self.RoomId, self.RoomType) then
+            self:BackOnFurnitureChanged(onClose)
+            return
+        end
+        onClose()
+    end
+end
+
+--选中页签
+function XUiFurnitureReform:OnSelectTab(tabIndex)
+    if self.TabIndex == tabIndex then
+        return
+    end
+    self:PlayAnimation("QieHuan")
+    self.TabIndex = tabIndex
+    self:SetupDynamicTable()
+
+    local btn = self.ChildViewTab[self.TabIndex]
+    btn:ShowReddot(false)
+    if btn.SubGroupIndex > 0 then
+        local subBtn = self.ChildViewTab[btn.SubGroupIndex]
+        local cfg = self.TabIndex2Config[btn.SubGroupIndex]
+        subBtn:ShowReddot(self:CheckRedPoint(cfg.Param))
+    end
+end
+
+--关闭界面
+function XUiFurnitureReform:OnBtnBackClick()
+    if not XTool.IsNumberValid(self.RoomId) then
+        self:Close()
+        return
+    end
+    if XHomeDormManager.IsNeedSave(self.RoomId, self.RoomType) then
+        self:BackOnFurnitureChanged(function() 
+            self:Close()
+        end)
+    else
+        self:Close()
+    end
+end
+
+function XUiFurnitureReform:BackOnFurnitureChanged(closeCb)
+    XUiManager.DialogTip(XUiHelper.GetText("FurnitureTips"), XUiHelper.GetText("FurnitureIsSave"),
+            nil, function()
+                XHomeDormManager.RevertRoom(self.RoomId)
+                if closeCb then closeCb() end
+            end, function()
+                self:DoSaveRoom(false, closeCb)
+            end)
+end
+
+function XUiFurnitureReform:OnBtnRecoverClick()
+    if not XTool.IsNumberValid(self.RoomId) then
+        return
+    end
+    
+    if not self.OnRecoverCb then
+        self.OnRecoverCb = function() 
+            XHomeDormManager.CleanRoom(self.RoomId)
+        end
+    end
+    
+    XUiManager.DialogTip(XUiHelper.GetText("FurnitureTips"), XUiHelper.GetText("FurnitureCleanRoom"), nil, nil, self.OnRecoverCb)
+end
+
+function XUiFurnitureReform:OnBtnUndoClick()
+    if not XTool.IsNumberValid(self.RoomId) then
+        return
     end
 
-    delayRefreshTimer = XScheduleManager.ScheduleOnce(function()
-        local cacheKey = self:GetCacheKey(self.CurrentBaseTypeId, self.CurrentSubTypeId)
-        self:SortFurnitureCache(FurnitureCache[cacheKey])
+    if not self.OnUndoCb then
+        self.OnUndoCb = function()
+            XHomeDormManager.RevertRoom(self.RoomId)
+            local index = self.ScoreTagIndex
+            local scoreTag = XFurnitureConfigs.GetFurnitureTagTypeTemplates() or {}
+            local template = scoreTag[self.ScoreIndex2TagId[index]]
+            if template then
+                CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_FURNITURE_ATTR_TAG, template.AttrIndex)
+            end
+        end
+    end
 
-        local filterSuitCache
-        if self.IsMyRoom then
-            filterSuitCache = self:FilterCacheBySuitId(FurnitureCache[cacheKey] or {})
+    XUiManager.DialogTip(XUiHelper.GetText("FurnitureTips"), XUiHelper.GetText("FurnitureRevertRoom"), nil, nil, self.OnUndoCb)
+end
+
+function XUiFurnitureReform:OnBtnSaveAndQuitClick()
+    if not XTool.IsNumberValid(self.RoomId) then
+        return
+    end
+    --家具装修
+    if self:IsInTemplate() and self.SelectRoomData then
+        local unOwnFurniture = XDataCenter.DormManager.GetNotOwnedFurniture(self.RoomId,
+                self.SelectRoomData:GetRoomId(), self.SelectRoomData:GetRoomDataType())
+        if not XTool.IsTableEmpty(unOwnFurniture) then
+            XDataCenter.DormManager.OpenNotification(XUiHelper.GetText("DormSaveDressUp"), XUiHelper.GetText("DormNoFurnitureOnPut"),
+                    self.OnSaveTemplateCb, self.OnJumpToQuickBuildCb, XUiHelper.GetText("DormSaveDirectly"), XUiHelper.GetText("DormQuickBuild"))
         else
-            filterSuitCache = XFurnitureConfigs.GetFurnitureCfgList(self.CurrentBaseTypeId, self.CurrentSubTypeId, self.CurrentSuitId)
+            self:DoSaveRoom()
         end
-
-        if self.SViewFurniture then
-            self.SViewFurniture:UpdateItems(filterSuitCache)
-            self.AnimFurnitureList:PlayTimelineAnimation()
-        end
-    end, 100)
-
-end
-
-function XUiFurnitureReform:FilterCacheBySuitId(cache)
-    local suitCache = {}
-
-    if (not self.CurrentSuitId) or (not cache) or self.CurrentSuitId == 1 then return cache end
-
-    for _, v in ipairs(cache) do
-        local furntiureTemplate = XFurnitureConfigs.GetFurnitureTemplateById(v.ConfigId)
-        if furntiureTemplate.SuitId == self.CurrentSuitId then
-            table.insert(suitCache, v)
-        end
-    end
-    return suitCache
-end
-
-function XUiFurnitureReform:SortFurnitureCache(cache)
-
-    if not cache then return end
-
-    local j
-
-    for i = 2, #cache do
-        local temp = cache[i]
-        j = i - 1
-        while (j > 0) do
-            local totalJScores = XDataCenter.FurnitureManager.GetFurnitureScore(cache[j].Id)
-            local totalIScores = XDataCenter.FurnitureManager.GetFurnitureScore(temp.Id)
-            if totalIScores <= totalJScores then
-                break
-            end
-            cache[j + 1] = cache[j]
-            j = j - 1
-        end
-        cache[j + 1] = temp
-    end
-
-end
-
--- 更新家具的数量
-function XUiFurnitureReform:UpdateSubTypeCount()
-    if not self.FurnitureGroupList then return end
-    for i = 0, #self.FurnitureGroupList - 1 do
-        local furnitureGroup = self.FurnitureGroupList[i + 1]
-        if furnitureGroup then
-            local categoryList = self:GetCategoryListByMinorType(furnitureGroup.MinorType)
-
-            local count
-            if #categoryList <= 0 then
-                count = self:GetBaseTypeCount(furnitureGroup.MinorType)
-            else
-                if furnitureGroup.CategoryType == nil or furnitureGroup.CategoryType == 0 then
-                    count = self:GetBaseTypeCount(furnitureGroup.MinorType)
-                else
-                    count = self:GetSubTypeCount(furnitureGroup.MinorType, furnitureGroup.CategoryType)
-                end
-            end
-
-            self.TabFurnitureGroup.TabBtnList[i]:SetNameByGroup(1, count)
-        end
+    else
+        self:DoSaveRoom()
     end
 end
 
-function XUiFurnitureReform:GetBaseTypeCount(minor)
-    if self.IsMyRoom then
-        local cacheKey = self:GetCacheKey(minor, nil)
-        return XDataCenter.FurnitureManager.GetFurnitureCountByMinorTypeAndSuitId(self.RoomId, FurnitureCache[cacheKey], self.CurrentSuitId, minor)
+function XUiFurnitureReform:DoSaveRoom(isBehaviour, cb)
+    if not XTool.IsNumberValid(self.RoomId) then
+        return
     end
-
-    return XFurnitureConfigs.GetCountByMinor(minor, self.CurrentSuitId)
-end
-
-function XUiFurnitureReform:GetSubTypeCount(minor, category)
-    if self.IsMyRoom then
-        local cacheKey = self:GetCacheKey(minor, category)
-        return XDataCenter.FurnitureManager.GetFurnitureCountByMinorAndCategoryAndSuitId(self.RoomId, FurnitureCache[cacheKey], self.CurrentSuitId, minor, category)
+    if self.SelectRoomData and self:IsInTemplate() then
+        self.SViewTemplatePanel:ClearCache()
     end
-
-    return XFurnitureConfigs.GetCountByCategory(minor, category, self.CurrentSuitId)
+    self.SelectRoomData = nil
+    XHomeDormManager.SaveRoomModification(self.RoomId, isBehaviour, cb)
 end
 
-function XUiFurnitureReform:GetCurrentSuitId()
-    return self.CurrentSuitId or 1
-end
-
---更新放置限制面板
-function XUiFurnitureReform:UpdatePanelLimit()
-    if not self.CurrentBaseTypeId then return end
-    local typeList = XFurnitureConfigs.GetFurnitureTypeList()
-    for _, v in pairs(typeList) do
-        if self.CurrentBaseTypeId == v.MinorType then
-            self.TxtLimit.text = v.MinorName
-            if self.CurrentSubTypeId ~= nil and #v.CategoryList > 0 then
-                for _, category in pairs(v.CategoryList) do
-                    if self.CurrentSubTypeId == category.Category then
-                        self.TxtLimit.text = string.format("%s-%s", v.MinorName, category.CategoryName)
-                        break
-                    end
-                end
-            end
+function XUiFurnitureReform:OnSelectTabByFurniture(furnitureId)
+    if not XTool.IsNumberValid(furnitureId) or 
+            self.ChildType ~= XDormConfig.ReformPanelIndex.Furniture then
+        return
+    end
+    local furniture = XDataCenter.FurnitureManager.GetFurnitureById(furnitureId)
+    if not furniture then
+        return
+    end
+    local template = XFurnitureConfigs.GetFurnitureTemplateById(furniture:GetConfigId())
+    if not template then
+        return
+    end
+    local tabIndex
+    for index, config in ipairs(self.TabIndex2Config) do
+        if config.Param == template.TypeId then
+            tabIndex = index
             break
         end
     end
+    self.BtnContent:SelectIndex(tabIndex)
 end
 
-
-function XUiFurnitureReform:UpdateScores()
-    if self.RoomType ~= XDormConfig.DormDataType.Self then
-        return
+function XUiFurnitureReform:OnSelectSuit(suitId)
+    self.SuitId = suitId or XFurnitureConfigs.FURNITURE_SUIT_CATEGORY_ALL_ID
+    if self:IsInFurniture() then
+        self:RefreshTabCount()
+        self:SetupDynamicTable()
     end
-
-    if delayUpdateScoresTimer then
-        XScheduleManager.UnSchedule(delayUpdateScoresTimer)
-        delayUpdateScoresTimer = nil
-    end
-    delayUpdateScoresTimer = XScheduleManager.ScheduleOnce(function()
-        if self.RoomId then
-            local newFurnitureAttrs = XHomeDormManager.GetFurnitureScoresByRoomId(self.RoomId)
-            local oldFurnitureAttrs = XHomeDormManager.GetFurnitureScoresByUnsaveRoom(self.RoomId)
-
-            -- 总评分
-            local oldScores = oldFurnitureAttrs.TotalScore
-            local newScores = newFurnitureAttrs.TotalScore
-            self.TxtTotalScore.text = XFurnitureConfigs.GetFurnitureTotalAttrLevelNewColorDescription(1, newScores)
-            self.ImgTotalScoreDown.gameObject:SetActive(newScores < oldScores)
-            self.ImgTotalScoreUp.gameObject:SetActive(newScores > oldScores)
-
-            -- 三个属性分
-            for i = 1, #newFurnitureAttrs.AttrList do
-                local attrOldVal = oldFurnitureAttrs.AttrList[i]
-                local attrNewVal = newFurnitureAttrs.AttrList[i]
-                local typeDatas = XFurnitureConfigs.GetDormFurnitureType(i)
-                self:SetUiSprite(self[string.format("ImgTool%d", i)], typeDatas.TypeIcon)
-                self[string.format("TxtAttrTool%d", i)].text = XFurnitureConfigs.GetFurnitureAttrLevelNewDescription(1, i, attrNewVal)
-                self[string.format("ImgScoreUp%d", i)].gameObject:SetActive(attrOldVal < attrNewVal)
-                self[string.format("ImgScoreDown%d", i)].gameObject:SetActive(attrOldVal > attrNewVal)
-            end
-        end
-    end, 50)
 end
 
+--- 选中模板回调
+---@param homeData XHomeRoomData 模板数据
+---@return
+--------------------------
+function XUiFurnitureReform:OnSelectTemplate(homeData)
+    self.SelectRoomData = homeData
+end
+
+function XUiFurnitureReform:OnBtnOverviewClick()
+    XLuaUiManager.Open("UiDormDressingOverview", self.SuitId, self.RoomType, FurnitureCache, self.OnSelectSuitCb)
+end
+
+--- 快捷制造
+---@return
+--------------------------
+function XUiFurnitureReform:OnJumpToQuickBuild()
+    XDataCenter.FurnitureManager.OpenFurnitureOrderBuild(self.RoomId, self.SelectRoomData:GetRoomId(), 
+            self.SelectRoomData:GetRoomDataType(), self.SelectRoomData:GetRoomName(), " ")
+end
+
+--endregion------------------UI回调 finish------------------
+
+--- 获取按钮
+---@param btnType number 按钮类型
+---@return XUiComponent.XUiButton
+--------------------------
+function XUiFurnitureReform:CreateButton(btnType)
+    local prefab = btnType == BtnType.Primary and self.BtnFirst or self.BtnSecond
+    local btn = XUiHelper.Instantiate(prefab, self.BtnContent.transform)
+    return btn
+end
+
+--- 家具缓存Key
+---@param baseType number
+---@param subType number
+---@return string
+--------------------------
 function XUiFurnitureReform:GetCacheKey(baseType, subType)
     return XDataCenter.FurnitureManager.GenerateCacheKey(baseType, subType)
 end
 
+--- 根据页签类型获取有效的页签下标
+---@param panelIndex number
+---@return number
+--------------------------
+function XUiFurnitureReform:GetValidTabIndex(panelIndex)
+    if not XTool.IsNumberValid(panelIndex) then
+        return 1
+    end
+    if XTool.IsNumberValid(self.TabIndex) then
+        local config = self.TabIndex2Config[self.TabIndex]
+        --当前选中的TabIndex符合选项
+        if config.TabIndex == panelIndex then
+            return self.TabIndex
+        end
+    end
+    for index, config in pairs(self.TabIndex2Config) do
+        if config.TabIndex == panelIndex then
+            return index
+        end
+    end
+    return 1
+end
+
+-- 清除家具数据缓存
 function XUiFurnitureReform:ResetCache()
     FurnitureCache = {}
 end
 
+-- 重新计算家具缓存
 function XUiFurnitureReform:RestoreCache()
-    local typeList = XFurnitureConfigs.GetFurnitureTypeList()
-    for _, typeDatas in pairs(typeList) do
-        local baseType = typeDatas.MinorType
-        local cacheBaseKey = self:GetCacheKey(baseType, nil)
-        FurnitureCache[cacheBaseKey] = XDataCenter.FurnitureManager.FilterDisplayFurnitures(self.RoomId, 1, baseType, nil)
+    local allTypeTemplate = XFurnitureConfigs.GetAllFurnitureTypes()
+    for _, data in pairs(allTypeTemplate) do
+        local cacheKey = self:GetCacheKey(data.MinorType, data.Category)
+        FurnitureCache[cacheKey] = XDataCenter.FurnitureManager.FilterAndMergeDisplayFurnitureList(
+                XFurnitureConfigs.FURNITURE_SUIT_CATEGORY_ALL_ID, data.MinorType, data.Category)
+    end
+end
 
-        for _, categoryList in pairs(typeDatas.CategoryList) do
-            local subType = categoryList.Category
-            if subType ~= 0 then
-                local cacheSubKey = self:GetCacheKey(baseType, subType)
-                FurnitureCache[cacheSubKey] = XDataCenter.FurnitureManager.FilterDisplayFurnitures(self.RoomId, 1, baseType, subType)
+function XUiFurnitureReform:UpdateCacheFurniture(isRemove, furnitureId)
+    if not XTool.IsNumberValid(furnitureId) then
+        return
+    end
+
+    if self:IsInTemplate() then
+        return
+    end
+    
+    local furniture = XDataCenter.FurnitureManager.GetFurnitureById(furnitureId)
+    if not furniture then
+        return
+    end
+    local template = XFurnitureConfigs.GetFurnitureTemplateById(furniture:GetConfigId())
+    if not template then
+        return
+    end
+    local typeTemplate = XFurnitureConfigs.GetFurnitureTypeById(template.TypeId)
+    if not typeTemplate then
+        return
+    end
+    
+    local cacheKey = self:GetCacheKey(typeTemplate.MinorType, typeTemplate.Category)
+
+    if isRemove then
+        self:AddCacheToList(FurnitureCache[cacheKey], furniture)
+    else
+        self:RemoveCacheFromList(FurnitureCache[cacheKey], furniture)
+    end
+    self.OpenIndex = self.SViewFurniturePanel:GetStartIndex()
+    self:SetupDynamicTable()
+end
+
+function XUiFurnitureReform:AddCacheToList(cache, furniture)
+    local isNewList = false
+    if not furniture or not cache then
+        return isNewList
+    end
+    if #cache <= 0 then
+        isNewList = true
+        table.insert(cache, { furniture })
+        return isNewList
+    end
+    local configId = furniture:GetConfigId()
+    local furnitureId = furniture.Id
+    local index
+    for idx, list in pairs(cache) do
+        for _, data in pairs(list) do
+            if furnitureId == data.Id then
+                return isNewList
             end
         end
-    end
-end
-
-function XUiFurnitureReform:UpdateCacheFurniture(isRemove, furntiureId)
-
-    local furnitureDatas = XDataCenter.FurnitureManager.GetFurnitureById(furntiureId)
-    if not furnitureDatas then return end
-    local furnitureTemplates = XFurnitureConfigs.GetFurnitureTemplateById(furnitureDatas.ConfigId)
-    local furntiureTypeTemplates = XFurnitureConfigs.GetFurnitureTypeById(furnitureTemplates.TypeId)
-
-    local baseCacheKey = self:GetCacheKey(furntiureTypeTemplates.MinorType, nil)
-    local baseSubCacheKey = self:GetCacheKey(furntiureTypeTemplates.MinorType, furntiureTypeTemplates.Category)
-    if isRemove then--收纳家具
-        self:AddCacheToList(FurnitureCache[baseCacheKey], furnitureDatas)
-        if FurnitureCache[baseSubCacheKey] then
-            self:AddCacheToList(FurnitureCache[baseSubCacheKey], furnitureDatas)
-        end
-    else--摆放家具
-        self:RemoveCacheFromList(FurnitureCache[baseCacheKey], furntiureId)
-        if FurnitureCache[baseSubCacheKey] then
-            self:RemoveCacheFromList(FurnitureCache[baseSubCacheKey], furntiureId)
-        end
-    end
-
-    self:UpdateItemsByFilter()
-
-end
-
-function XUiFurnitureReform:AddCacheToList(cache, furnitureDatas)
-    for _, v in pairs(cache) do
-        if v.Id == furnitureDatas.Id then
-            return
-        end
-    end
-
-    table.insert(cache, furnitureDatas)
-end
-
-function XUiFurnitureReform:RemoveCacheFromList(cache, furnitureId)
-    local index = 0
-    local length = #cache
-    for k, v in pairs(cache) do
-        if v.Id == furnitureId then
-            index = k
+        local temp = list[1]
+        if temp and temp:GetConfigId() == configId then
+            index = idx
             break
         end
     end
-    if index == 0 then return end
-    cache[index] = nil
-    for i = index, length - 1 do
-        cache[i] = cache[i + 1]
-    end
-    cache[length] = nil
 
+    if XTool.IsNumberValid(index) then
+        table.insert(cache[index], furniture)
+        isNewList = false
+    else
+        table.insert(cache, { furniture })
+        isNewList = true
+    end
+    self:SortFurnitureCache(cache)
+    return isNewList
 end
 
-function XUiFurnitureReform:OnGetEvents()
-    return { XEventId.EVENT_FURNITURE_ONDRAGITEM_CHANGED, XEventId.EVENT_FURNITURE_REFRESH, XEventId.EVENT_FURNITURE_CLEANROOM, XEventId.EVENT_CLICKFURNITURE_ONROOM }
-end
-
-function XUiFurnitureReform:OnNotify(evt, ...)
-    if evt == XEventId.EVENT_FURNITURE_ONDRAGITEM_CHANGED then
-        local args = { ... }
-        if not args then return end
-        self:UpdateCacheFurniture(args[1], args[2])
-        self:UpdateCountOnChanged()
-        self:UpdatePanelLimit()
-        self:UpdateScores()
-
-    elseif evt == XEventId.EVENT_FURNITURE_REFRESH then
-        self:RefreshFurntiureReform()
-    elseif evt == XEventId.EVENT_FURNITURE_CLEANROOM then
-
-        self:UpdatePanelLimit()
-        self:UpdateScores()
-
-    elseif evt == XEventId.EVENT_CLICKFURNITURE_ONROOM then
-
-        local args = { ... }
-        if not args then return end
-        self:SelectTypeByFurniture(args[1])
+function XUiFurnitureReform:RemoveCacheFromList(cache, furniture)
+    if XTool.IsTableEmpty(cache) or not furniture then
+        return false
     end
-end
-
-function XUiFurnitureReform:RefreshFurntiureReform()
-    self:RestoreCache()
-    self:UpdateItemsByFilter()
-
-    self:UpdateCountOnChanged()
-    self:UpdatePanelLimit()
-    self:UpdateScores()
-end
-
-function XUiFurnitureReform:OnDestroy()
-    if delayRefreshTimer then
-        XScheduleManager.UnSchedule(delayRefreshTimer)
-        delayRefreshTimer = nil
-    end
-
-    if delayUpdateScoresTimer then
-        XScheduleManager.UnSchedule(delayUpdateScoresTimer)
-        delayUpdateScoresTimer = nil
-    end
-    XEventManager.RemoveEventListener(XEventId.EVENT_FURNITURE_ON_MODIFY, self.RefreshFurnitureList, self)
-    local isResetPosition = true
-    XHomeCharManager.ShowAllCharacter(isResetPosition)
-
-    if not XTool.UObjIsNil(self.CameraController) then
-        self.CameraController:SetTartAngle(CS.UnityEngine.Vector2(self.TargetAngleX, self.TargetAngleY))
-        XCameraHelper.SetCameraTarget(self.CameraController, self.OldCameraTarget, self.OldCameraDistance)
-    end
-    self.CameraController = nil
-    self.OldCameraTarget = nil
-    self.OldCameraDistance = nil
-    self.TargetAngleX = nil
-    self.TargetAngleY = nil
-    XDataCenter.FurnitureManager.SetInRefeform(false)
-    CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_FURNITURE_HIDE_ALL_ATTR_TAG_DETAIL)
-end
-
-
-function XUiFurnitureReform:OnFurnitureAttrDynamicTableEvent(event, index, grid)
-    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-
-        local isSelect = false
-        if self.SelectIndex == index then
-            self.SelectGrid = grid
-            isSelect = true
+    local furnitureId = furniture.Id
+    local i, j
+    for idx, list in pairs(cache) do
+        for jIdx, data in pairs(list) do
+            if furnitureId == data.Id then
+                i = idx
+                j = jIdx
+                break
+            end
         end
-        grid:SetSelect(isSelect)
-        grid:SetContent(self.FurnitureTagType[index])
-
-    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
-
-        if self.SelectIndex == index then
-            return
-        end
-
-        if self.SelectGrid then
-            self.SelectGrid:SetSelect(false)
-        end
-
-        self.SelectGrid = grid
-        self.SelectIndex = index
-        grid:SetSelect(true)
-
-        local cfg = self.FurnitureTagType[index]
-        self.BtnDrdSortLabel.text = cfg.TagName
-
-        XHomeDormManager.FurnitureShowAttrType = cfg.AttrIndex
-        --CS.UnityEngine.PlayerPrefs.SetInt(tostring(XPlayer.Id) .. "FurnitureAttr", cfg.AttrIndex)
-        --CS.UnityEngine.PlayerPrefs.Save()
-        CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_FURNITURE_ATTR_TAG, cfg.AttrIndex)
     end
+    local isDelList = false
+
+    if XTool.IsNumberValid(i) and XTool.IsNumberValid(j) then
+        isDelList = #cache[i] <= 1
+        table.remove(cache[i], j)
+        if #cache[i] <= 0 then
+            table.remove(cache, i)
+        end
+    end 
+    
+    return isDelList
+end
+
+-- 重新排序家具缓存
+function XUiFurnitureReform:SortFurnitureCache(cache)
+    if XTool.IsTableEmpty(cache) then
+        return
+    end
+    --先对堆叠的家具排序
+    for i, cacheList in pairs(cache) do
+        if #cacheList > 1 then
+            table.sort(cache[i], self.OnSortFurnitureCb)
+        end
+    end
+    --再对整体进行排序
+    table.sort(cache, function(a, b) 
+        return self:SortFurniture(a[1], b[1])
+    end)
+end
+
+function XUiFurnitureReform:SortFurniture(furnitureA, furnitureB)
+    local configIdA, configIdB = furnitureA:GetConfigId(), furnitureB:GetConfigId()
+    
+    local isMaxA = XDataCenter.FurnitureManager.CheckIsMaxScore(configIdA) 
+    local isMaxB = XDataCenter.FurnitureManager.CheckIsMaxScore(configIdB)
+    
+    if isMaxA ~= isMaxB then
+        return isMaxA
+    end
+    
+    local idA, idB = furnitureA:GetInstanceID(), furnitureB:GetInstanceID()
+    
+    local scoreA = furnitureA.GetScore and furnitureA:GetScore() or 0
+    local scoreB = furnitureB.GetScore and furnitureB:GetScore() or 0
+
+    if scoreA ~= scoreB then
+        return scoreA > scoreB
+    end
+    return idA < idB
+end
+
+-- 过滤套装
+function XUiFurnitureReform:FilterCacheBySuitId(cache)
+
+    --if not self.SuitId or self.SuitId == DefaultSuitId then
+    if XFurnitureConfigs.IsAllSuit(self.SuitId) then
+        return cache
+    end
+    
+    local suitCache = {}
+    local result = {}
+    for _, list in ipairs(cache) do
+        suitCache = {}
+        for _, v in ipairs(list) do
+            local template = XFurnitureConfigs.GetFurnitureTemplateById(v.ConfigId)
+            if template.SuitId == self.SuitId then
+                table.insert(suitCache, v)
+            end
+        end
+        if #suitCache > 0 then
+            table.insert(result, suitCache)
+        end
+    end
+
+    return result
+end
+
+-- 宿舍模板缓存
+function XUiFurnitureReform:GetTemplateDormitoryCache(dormDataType)
+    if DormTemplateCache[dormDataType] then
+        return DormTemplateCache[dormDataType]
+    end
+    local data = XDataCenter.DormManager.GetTemplateDormitoryData(dormDataType)
+    DormTemplateCache[dormDataType] = data
+    
+    return data
+end
+
+---@param dataList XHomeRoomData[]
+function XUiFurnitureReform:SortTempDormData(dataList)
+    if XTool.IsTableEmpty(dataList) then
+        return
+    end
+    local homeData = XDataCenter.DormManager.GetRoomDataByRoomId(self.RoomId)
+    local curConnectId = homeData:GetConnectDormId()
+    table.sort(dataList, function(a, b)
+        local roomIdA = a.GetRoomId and a:GetRoomId() or XMath.IntMax()
+        local roomIdB = b.GetRoomId and b:GetRoomId() or XMath.IntMax()
+
+        local isConnectA, isConnectB = roomIdA == curConnectId, roomIdB == curConnectId
+
+        if isConnectA ~= isConnectB then
+            return isConnectA
+        end
+
+        return roomIdA < roomIdB
+    end)
+
+    return dataList
+end
+
+-- 清除宿舍模板缓存
+function XUiFurnitureReform:ClearTemplateDormitoryCache()
+    DormTemplateCache = {}
+end
+
+--获取Tab对应的Item数量
+function XUiFurnitureReform:GetItemCount(param)
+    if self.ChildType == XDormConfig.ReformPanelIndex.Template then
+        local template = XDormConfig.GetDormTemplateGroupCfg(param)
+        return XDataCenter.DormManager.GetTemplateDormitoryCount(template.DormType)
+    elseif self.ChildType == XDormConfig.ReformPanelIndex.Furniture  then
+        if type(param) == "number" then
+            return self:GetFurnitureCountByMinorAndCategoryAndSuitId(param)
+        else
+            local total = 0
+            for _, typeId in pairs(param) do
+                total = total + self:GetFurnitureCountByMinorAndCategoryAndSuitId(typeId)
+            end
+            return total
+        end
+    end
+    return 0
+end
+
+function XUiFurnitureReform:CheckRedPoint(param)
+    if not self.IsOwnRoom then
+        return false
+    end
+    if self.ChildType == XDormConfig.ReformPanelIndex.Template then
+        return false
+    end
+    local getCfgList = function(typeId)
+        local typeTemplate = XFurnitureConfigs.GetFurnitureTypeById(typeId)
+        local list = XFurnitureConfigs.GetFurnitureConfigIdList(typeTemplate.MinorType, typeTemplate.Category, self.SuitId)
+        return list
+    end
+
+    if type(param) == "number" then
+        return XDataCenter.FurnitureManager.CheckIsMaxScoreByConfigIds(getCfgList(param))
+    else
+        for _, typeId in pairs(param) do
+            if XDataCenter.FurnitureManager.CheckIsMaxScoreByConfigIds(getCfgList(typeId)) then
+                return true
+            end
+        end
+    end
+    
+    return false
+end
+
+function XUiFurnitureReform:GetFurnitureCountByMinorAndCategoryAndSuitId(typeId)
+    local template = XFurnitureConfigs.GetFurnitureTypeById(typeId)
+    if not self.IsOwnRoom then
+        return XFurnitureConfigs.GetCountByCategory(template.MinorType, template.Category, self.SuitId)
+    end
+    local cacheKey = self:GetCacheKey(template.MinorType, template.Category)
+    local count = XDataCenter.FurnitureManager.GetFurnitureCountByMinorAndCategoryAndSuitId(self.RoomId, 
+            FurnitureCache[cacheKey], self.SuitId, template.MinorType, template.Category)
+    return count
+end
+
+function XUiFurnitureReform:GetFurnitureNumsBySuitId(suitId)
+    if not XTool.IsNumberValid(self.RoomId) then
+        return 0
+    end
+
+    if self.IsOwnRoom then
+        return XDataCenter.FurnitureManager.GetFurnitureCountBySuitId(FurnitureCache, suitId)
+    end
+    return XFurnitureConfigs.GetSuitCount(suitId)
+end
+
+function XUiFurnitureReform:IsInFurniture()
+    return self.ChildType == XDormConfig.ReformPanelIndex.Furniture
+end
+
+function XUiFurnitureReform:IsInTemplate()
+    return self.ChildType == XDormConfig.ReformPanelIndex.Template
+end
+
+function XUiFurnitureReform:CheckNeedSaveTemplate()
+    if not self.SelectRoomData then
+        return false
+    end
+    return XHomeDormManager.IsNeedSaveByTemplate(self.SelectRoomData:GetRoomId(), self.SelectRoomData:GetRoomDataType(), self.RoomId)
 end

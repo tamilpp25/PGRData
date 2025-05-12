@@ -1,3 +1,6 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local TAB_BTN_NUM = 3 --侧边栏任务类型按钮数量
 
 local XUiAreaWarTask = XLuaUiManager.Register(XLuaUi, "UiAreaWarTask")
@@ -6,7 +9,7 @@ function XUiAreaWarTask:OnAwake()
     self:InitTabGroup()
     self:AutoAddListener()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.AreaWarCoin,

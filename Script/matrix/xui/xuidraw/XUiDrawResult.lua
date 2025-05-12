@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiDrawResult = XLuaUiManager.Register(XLuaUi, "UiDrawResult")
 
 local MODE_LOOP = 1
@@ -6,7 +7,7 @@ function XUiDrawResult:OnAwake()
     self:InitAutoScript()
 end
 
-function XUiDrawResult:OnStart(drawInfo, rewardList, backCb)
+function XUiDrawResult:OnStart(drawInfo, rewardList, backCb,background)
     local behaviour = self.GameObject:AddComponent(typeof(CS.XLuaBehaviour))
     if self.Update then
         behaviour.LuaUpdate = function() self:Update() end
@@ -35,6 +36,12 @@ function XUiDrawResult:OnStart(drawInfo, rewardList, backCb)
         self.AniResultGridGainLoop.extrapolationMode = MODE_LOOP
         self.StartShow = true
     end)
+    if not string.IsNilOrEmpty(background) then
+        local bg = self.GameObject:FindTransform("Bg1")
+        if bg then
+            bg.transform:GetComponent("RawImage"):SetRawImage(background)
+        end
+    end
 end
 
 function XUiDrawResult:Update()
@@ -99,7 +106,7 @@ function XUiDrawResult:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -143,7 +150,7 @@ end
 function XUiDrawResult:ShowResult()
     self.GridObj[self.ShowIndex].GameObject:SetActive(true)
     self.GridObj[self.ShowIndex].GameObject:PlayTimelineAnimation()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiDrawCard_Reward_Normal)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiDrawCard_Reward_Normal)
     self.LastShowTime = CS.UnityEngine.Time.time
     self.ShowIndex = self.ShowIndex + 1
 end
@@ -160,7 +167,7 @@ function XUiDrawResult:ShowTrans()
                 tempTransEffect.transform:SetParent(self.PanelContent, false)
                 tempTransEffect.gameObject:SetActive(true)
                 tempTransEffect.transform.localPosition = self.GridObj[i].GameObject.transform.localPosition + self.PanelGainList.transform.localPosition
-                CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiDrawCard_Reward_Suipian)
+                XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiDrawCard_Reward_Suipian)
             end
         end
     end

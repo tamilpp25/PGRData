@@ -26,7 +26,7 @@ function XUiGridReportMsgItem:Refresh(reportData)
         local nameText = CSTextManagerGetText("WorldBossReportName")
         local wordText = reportCfg.Message
 
-        XUiPLayerHead.InitPortrait(headId, 0, headObj)
+        XUiPlayerHead.InitPortrait(headId, 0, headObj)
         nameObj.text = nameText
         wordObj.text = wordText
     else
@@ -40,7 +40,7 @@ function XUiGridReportMsgItem:Refresh(reportData)
         local score = playerInfo.Score
         local wordText = string.format(reportCfg.Message,nameText,score)
 
-        XUiPLayerHead.InitPortrait(headId, headFrameId, headObj)
+        XUiPlayerHead.InitPortrait(headId, headFrameId, headObj)
         nameObj.text = nameText
         wordObj.text = wordText
     end

@@ -6,6 +6,8 @@ local TeamTypeCfg
 local TeamCfg
 local TeamTypeDic = {}
 
+XTeamConfig.MEMBER_AMOUNT = 3
+
 function XTeamConfig.Init()
     TeamTypeCfg = XTableManager.ReadByIntKey(TABLE_TEAMTYPE, XTable.XTableTeamType, "TeamId")
     TeamCfg = XTableManager.ReadByIntKey(TABLE_PATH, XTable.XTableTeam, "Id")

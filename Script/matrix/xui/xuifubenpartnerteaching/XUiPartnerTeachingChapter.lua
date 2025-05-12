@@ -85,7 +85,7 @@ function XUiPartnerTeachingChapter:OpenStageDetail(stageId)
     self.ChapterContent:SelectStage(stageId)
 
     local detailType
-    local stageType = XFubenConfigs.GetStageType(stageId)
+    local stageType = XFubenConfigs.GetStageMainlineType(stageId)
     if stageType == XFubenConfigs.STAGETYPE_FIGHT or stageType == XFubenConfigs.STAGETYPE_FIGHTEGG
             or stageType == XFubenConfigs.STAGETYPE_COMMON then
         detailType = FIGHT_DETAIL

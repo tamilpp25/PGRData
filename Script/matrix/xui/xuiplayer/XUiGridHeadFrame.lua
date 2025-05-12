@@ -1,9 +1,7 @@
-local XUiGridHeadFrame = XClass(nil, "XUiGridHeadFrame")
+local XUiGridHeadFrame = XClass(XUiNode, "XUiGridHeadFrame")
 
-function XUiGridHeadFrame:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridHeadFrame:OnStart(rootUi)
+    self._RootUi = rootUi
     self:AutoAddListener()
 end
 
@@ -14,7 +12,7 @@ function XUiGridHeadFrame:AutoAddListener()
 end
 
 function XUiGridHeadFrame:OnBtnRoleClick()
-    local IsTrueHeadFrame = self.Base:SetHeadFrameImgRole(self.HeadFrameId)
+    self.Base:SetHeadFrameImgRole(self.HeadFrameId)
     self:SetSelectShow(self.Base)
     if self.Base.OldFrameSelectGrig then
         self.Base.OldFrameSelectGrig:SetSelectShow(self.Base)
@@ -22,7 +20,7 @@ function XUiGridHeadFrame:OnBtnRoleClick()
     self.Base.OldFrameSelectGrig = self
     self:ShowRedPoint(false, true)
 
-    self.Base:ShowHeadFramePanel(IsTrueHeadFrame)
+    self.Base:ShowHeadFramePanel()
     self.Base:RefreshHeadFrameDynamicTable()
 end
 
@@ -51,12 +49,14 @@ function XUiGridHeadFrame:UpdateGrid(chapter, parent)
 end
 
 function XUiGridHeadFrame:SetSelectShow(parent)
-    if parent.TempHeadFrameId == self.HeadFrameId then
+    local accessor = self._RootUi or parent
+    
+    if accessor.TempHeadFrameId == self.HeadFrameId then
         self:ShowSelect(true)
     else
         self:ShowSelect(false)
     end
-    if parent.CurrHeadFrameId == self.HeadFrameId then
+    if accessor.CurrHeadFrameId == self.HeadFrameId then
         self:ShowTxt(true)
         if not self.Base.OldFrameSelectGrig then
             self.Base.OldFrameSelectGrig = self
@@ -76,6 +76,7 @@ function XUiGridHeadFrame:ShowTxt(bShow)
 end
 
 function XUiGridHeadFrame:ShowLock(unLock)
+    self.Base:SetFrameUnLockMark(self.HeadFrameId, unLock)
     self.SelRoleHead.gameObject:SetActive(unLock)
     self.LockRoleHead.gameObject:SetActive(not unLock)
 end
@@ -88,8 +89,10 @@ function XUiGridHeadFrame:ShowRedPoint(bShow,IsClick)
     end
 
     if not bShow and IsClick then
+        local accessor = self._RootUi or self.Base
+
         XDataCenter.HeadPortraitManager.SetHeadPortraitForOld(self.HeadFrameId)
-        self.Base:ShowHeadFrameRedPoint()
+        accessor:ShowHeadFrameRedPoint()
     end
 end
 

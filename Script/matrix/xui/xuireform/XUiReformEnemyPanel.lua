@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local CsXTextManager = CS.XTextManager
 
 --######################## XUiReformTargetGrid ########################
@@ -27,8 +28,8 @@ function XUiReformTargetGrid:SetData(target, baseStage, evolvableStage, targetPa
     self.TxtLevel.text = target:GetShowLevel()
     self.TxtScore.text = target:GetScore()
     self.PanelSelect.gameObject:SetActiveEx(target:GetIsActive())
-    local buffViewModels = target:GetBuffDetailViewModels()
-    for i = 1, 2 do
+    local buffViewModels = target:GetReformBuffDetailViewModels()
+    for i = 1, 3 do
         if buffViewModels[i] then
             self["RImgBuff" .. i].gameObject:SetActiveEx(true)
             self["RImgBuff" .. i]:SetRawImage(buffViewModels[i].Icon)
@@ -45,13 +46,16 @@ function XUiReformTargetGrid:SetData(target, baseStage, evolvableStage, targetPa
 end
 
 function XUiReformTargetGrid:OnBtnBuffClicked()
+    if XDataCenter.GuideManager.CheckIsInGuide() then
+        return
+    end
     local buffDatas = self.Target:GetBuffDetailViewModels()
     if #buffDatas > 0 then
         XLuaUiManager.Open("UiReformBuffTips", buffDatas, CsXTextManager.GetText("ReformEnemyBuffTipsTitle"))
     end
 end
 
-function XUiReformTargetGrid:DynamicTouched(source)
+function XUiReformTargetGrid:DynamicTouched(source, groupIndex)
     local isActive = self.Target:GetIsActive()
     if isActive then
         -- 取消激活，检查取消后是否能够继续满足分数
@@ -64,17 +68,27 @@ function XUiReformTargetGrid:DynamicTouched(source)
             return
         end
     end
-    local replaceIdDic = XTool.Clone(self.EvolvableStage:GetEnemyReplaceIdDic())
+    local replaceIdDic = XTool.Clone(self.EvolvableStage:GetEnemyReplaceIdDic(groupIndex))
     if isActive then
         replaceIdDic[self.Target:GetSourceId()] = 0
     else
         replaceIdDic[source:GetId()] = self.Target:GetId()
     end
     local replaceIdData = {}
+    local enemyGroup = self.EvolvableStage:GetEvolvableGroupByType(XReformConfigs.EvolvableGroupType.Enemy)[groupIndex]
+    local buffIds = nil
     for sourceId, targetId in pairs(replaceIdDic) do
+        if targetId > 0 then
+            buffIds = enemyGroup:GetEnemyReformBuffIdsByTargetId(sourceId, targetId)
+        else
+            buffIds = enemyGroup:GetDefaultTargetBuffIds(sourceId)
+        end
         table.insert(replaceIdData, {
             SourceId = sourceId,
             TargetId = targetId,
+            EnemyGroupId = enemyGroup:GetId(),
+            EnemyType = enemyGroup:GetEnemyGroupType(),
+            AffixSourceId = buffIds
         })
     end
     XDataCenter.ReformActivityManager.EnemyReplaceRequest(self.BaseStage:GetId(), self.EvolvableStage:GetDifficulty()
@@ -89,10 +103,13 @@ function XUiReformTargetGrid:DynamicTouched(source)
             if not isActive then
                 self.TargetPanel.RootPanel:PlaySourceGridRefreshAnim(selectedIndex)
             end
-        end)
+        end, enemyGroup:GetId(), enemyGroup:GetEnemyGroupType())
 end
 
 function XUiReformTargetGrid:OnClicked()
+    if XDataCenter.GuideManager.CheckIsInGuide() then
+        return
+    end
     -- 检查图鉴是否已经开放
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Archive, false, true) then
         XUiManager.TipError(CsXTextManager.GetText("ReformMonsterOpenTip"))
@@ -104,8 +121,8 @@ function XUiReformTargetGrid:OnClicked()
         XUiManager.TipText("ArchiveMonsterLock")
         return
     end
-    XDataCenter.ArchiveManager.GetMonsterEvaluateFromSever(monsterEntity:GetNpcId(), function()
-        XLuaUiManager.Open("UiArchiveMonsterDetail", { monsterEntity }, 1, XArchiveConfigs.MonsterDetailUiType.Show)
+    XMVCA.XArchive:GetMonsterEvaluateFromSever(monsterEntity:GetNpcId(), function()
+        XLuaUiManager.Open("UiArchiveMonsterDetail", { monsterEntity }, 1, XEnumConst.Archive.MonsterDetailUiType.Show)
     end)
 end
 
@@ -144,6 +161,10 @@ function XUiReformTargetPanel:Open()
     self.GameObject:SetActiveEx(true)
 end
 
+function XUiReformTargetPanel:GetIsShow()
+    return self.GameObject.activeSelf
+end
+
 function XUiReformTargetPanel:Close()
     self.RootPanel.PanelReformEnable:Stop()
     self.GameObject:SetActiveEx(false)
@@ -167,7 +188,7 @@ function XUiReformTargetPanel:OnDynamicTableEvent(event, index, grid)
         grid:SetData(self.DynamicTable.DataSource[index]
             , self.BaseStage, self.EvolvableStage, self)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
-        grid:DynamicTouched(self.Source)
+        grid:DynamicTouched(self.Source, self.RootPanel.CurrentEvolvableGroupIndex)
     end
 end
 
@@ -250,12 +271,14 @@ function XUiReformSourceGrid:SetEntityData(source)
     self.TxtLevel.text = CsXTextManager.GetText("ReformEnemyLevelText", source:GetShowLevel())
     self.TxtCost.text = score
     local buffViewModels = self.Data:GetBuffDetailViewModels()
-    for i = 1, 2 do
+    for i = 1, 3 do
+        self["BtnBuff" .. i].gameObject:SetActiveEx(true)
+        self["RImgBuff" .. i].gameObject:SetActiveEx(buffViewModels[i] ~= nil)
+        if self["TextNone" .. i] then 
+            self["TextNone" .. i].gameObject:SetActiveEx(buffViewModels[i] == nil)
+        end
         if buffViewModels[i] then
-            self["BtnBuff" .. i].gameObject:SetActiveEx(true)
             self["RImgBuff" .. i]:SetRawImage(buffViewModels[i].Icon)
-        else
-            self["BtnBuff" .. i].gameObject:SetActiveEx(false)
         end
     end
 end
@@ -319,15 +342,16 @@ function XUiReformSourceGrid:OnBtnClickClicked()
     --     end
     -- end
     -- XDataCenter.ArchiveManager.GetMonsterEvaluateFromSever(monsterEntity:GetNpcId(), function()
-    --     XLuaUiManager.Open("UiArchiveMonsterDetail", monsterEntities, selfIndex, XArchiveConfigs.MonsterDetailUiType.Show)
+    --     XLuaUiManager.Open("UiArchiveMonsterDetail", monsterEntities, selfIndex, XEnumConst.Archive.MonsterDetailUiType.Show)
     -- end)
-    XDataCenter.ArchiveManager.GetMonsterEvaluateFromSever(monsterEntity:GetNpcId(), function()
-        XLuaUiManager.Open("UiArchiveMonsterDetail", { monsterEntity }, 1, XArchiveConfigs.MonsterDetailUiType.Show)
+    XMVCA.XArchive:GetMonsterEvaluateFromSever(monsterEntity:GetNpcId(), function()
+        XLuaUiManager.Open("UiArchiveMonsterDetail", { monsterEntity }, 1, XEnumConst.Archive.MonsterDetailUiType.Show)
     end)
 end
 
 --######################## XUiReformEnemyPanel ########################
-local XUiReformEnemyPanel = XClass(nil, "XUiReformEnemyPanel")
+local XUiReformEnemyGroupGrid = require("XUi/XUiReform/XUiReformEnemyGroupGrid")
+local XUiReformEnemyPanel = XClass(XSignalData, "XUiReformEnemyPanel")
 
 function XUiReformEnemyPanel:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -335,7 +359,8 @@ function XUiReformEnemyPanel:Ctor(ui)
     XTool.InitUiObject(self)
     self.BaseStage = nil
     self.EvolvableStage = nil
-    self.EvolvableGroup = nil
+    self.EvolvableGroups = nil
+    self.CurrentEvolvableGroupIndex = 1
     -- 动态列表
     self.GridEnemy.gameObject:SetActiveEx(false)
     self.DynamicTable = XDynamicTableNormal.New(self.PanelEnemyList)
@@ -350,12 +375,24 @@ function XUiReformEnemyPanel:Ctor(ui)
 end
 
 function XUiReformEnemyPanel:SetData(baseStage, evolvableStage)
+    self.CurrentEvolvableGroupIndex = 1
     self.BaseStage = baseStage
     self.EvolvableStage = evolvableStage
-    self.EvolvableGroup = evolvableStage:GetEvolvableGroupByType(XReformConfigs.EvolvableGroupType.Enemy)
+    self.EvolvableGroups = evolvableStage:GetEvolvableGroupByType(XReformConfigs.EvolvableGroupType.Enemy)
     -- 刷新源列表
     self:RefreshDynamicTable()
     self:CloseTargetReformPanel()
+    self:RefreshEnemyGroupInfo()
+end
+
+function XUiReformEnemyPanel:SetCurrentGroupIndex(value)
+    self.CurrentEvolvableGroupIndex = value
+    self:EmitSignal("RefreshChallengeScore", false, value)
+    self.AnimSwitch:Play()
+end
+
+function XUiReformEnemyPanel:GetCurrentGroupIndex()
+    return self.CurrentEvolvableGroupIndex
 end
 
 function XUiReformEnemyPanel:RefreshEvolvableData()
@@ -371,7 +408,10 @@ function XUiReformEnemyPanel:RefreshEvolvableData()
     else
         self:RefreshDynamicTable(sources)
     end
-    self.UiReformTargetPanel:Refresh()
+    if self.UiReformTargetPanel:GetIsShow() then
+        self.UiReformTargetPanel:Refresh()
+    end
+    self:RefreshEnemyGroupInfo()
 end
 
 function XUiReformEnemyPanel:OpenTargetReformPanel(source)
@@ -422,7 +462,7 @@ function XUiReformEnemyPanel:OnDynamicTableEvent(event, index, grid)
 end
 
 function XUiReformEnemyPanel:GetSourcesWithEntity()
-    local entities, nextAddSource, emptyPosCount = self.EvolvableGroup:GetSourcesWithEntity()
+    local entities, nextAddSource, emptyPosCount = self.EvolvableGroups[self.CurrentEvolvableGroupIndex]:GetSourcesWithEntity()
     if nextAddSource then
         table.insert(entities, 1, {
             source = nextAddSource,
@@ -435,7 +475,7 @@ function XUiReformEnemyPanel:GetSourcesWithEntity()
 end
 
 function XUiReformEnemyPanel:GetSources()
-    return self.EvolvableGroup:GetSourcesWithEntity()
+    return self.EvolvableGroups[self.CurrentEvolvableGroupIndex]:GetSourcesWithEntity()
 end
 
 function XUiReformEnemyPanel:GetSourceIndex(source)
@@ -485,5 +525,33 @@ function XUiReformEnemyPanel:PlaySourceGridRefreshAnim(index)
     grid:PlayRefreshAnim()
 end
 
+-- 刷新敌人波次改造信息
+function XUiReformEnemyPanel:RefreshEnemyGroupInfo()
+    if self.__ReformEnemyGroupGridDic == nil then
+        self.__ReformEnemyGroupGridDic = {}
+    end
+    local enemyGroup = nil
+    local isActive = false
+    local isFirstAdd = true
+    XUiHelper.RefreshCustomizedList(self.PanelTabTop, self.ReformGroup, #self.EvolvableGroups, function(index, grid)
+        local groupGrid = self.__ReformEnemyGroupGridDic[index]
+        if groupGrid == nil then
+            groupGrid = XUiReformEnemyGroupGrid.New(grid, self)
+            self.__ReformEnemyGroupGridDic[index] = groupGrid
+        end
+        enemyGroup = self.EvolvableGroups[index]
+        groupGrid:SetData(index, enemyGroup)
+        groupGrid:SetSelectedIndex(self.CurrentEvolvableGroupIndex)
+        isActive = enemyGroup:GetIsActive()
+        if enemyGroup:GetEnemyGroupType() == XReformConfigs.EnemyGroupType.ExtraEnemy then
+            if not isActive and isFirstAdd then
+                grid.gameObject:SetActiveEx(true)
+                isFirstAdd = false
+                return
+            end
+            grid.gameObject:SetActiveEx(isFirstAdd)
+        end
+    end)
+end
 
 return XUiReformEnemyPanel

@@ -14,7 +14,7 @@ function XChessPursuitScene:OnEnterScene()
     
     local config = XChessPursuitConfig.GetChessPursuitMapTemplate(self.MapId)
     local sceneAssetUrl = config.Perfab
-    self.Resource = CS.XResourceManager.Load(sceneAssetUrl)
+    XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
     if not self.Resource.Asset then
         XLog.Error("XChessPursuitScene LoadScene error, instantiate error, name: " .. sceneAssetUrl)
         return

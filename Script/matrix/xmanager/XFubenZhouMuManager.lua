@@ -5,13 +5,24 @@ XFubenZhouMuManagerCreator = function()
 
     ---
     --- 实现FubenManager中的接口，初始化StageInfo
-    function XFubenZhouMuManager.InitStageInfo()
+    --function XFubenZhouMuManager.InitStageInfo()
+    --    local zhouMuChapterCfg = XFubenZhouMuConfigs.GetAllZhouMuChapterCfg()
+    --    for _, data in pairs(zhouMuChapterCfg) do
+    --        for i,stageId in ipairs(data.StageId) do
+    --            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    --            stageInfo.Type = XDataCenter.FubenManager.StageType.ZhouMu
+    --            stageInfo.OrderId = i
+    --        end
+    --    end
+    --end
+    
+    function XFubenZhouMuManager.GetOrderId(stageIdToCheck)
         local zhouMuChapterCfg = XFubenZhouMuConfigs.GetAllZhouMuChapterCfg()
         for _, data in pairs(zhouMuChapterCfg) do
             for i,stageId in ipairs(data.StageId) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                stageInfo.Type = XDataCenter.FubenManager.StageType.ZhouMu
-                stageInfo.OrderId = i
+                if stageIdToCheck == stageId then
+                    return i
+                end
             end
         end
     end

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --虚像地平线战斗准备换人界面：角色列表
 local XUiExpeditionRoomCharListPanel = XClass(nil, "XUiExpeditionRoomCharListPanel")
 local XUiExpeditionRoomCharListGrid = require("XUi/XUiExpedition/Battle/ChangeMember/XUiExpeditionRoomCharListGrid")

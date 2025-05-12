@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridInfoSupportCondition = require("XUi/XUiFubenBabelTower/XUiGridInfoSupportCondition")
 
 local XUiPanelBabelTower = XClass(nil, "XUiPanelBabelTower")

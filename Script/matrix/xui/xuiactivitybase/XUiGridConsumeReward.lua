@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridConsumeReward = XClass(nil, "XUiGridConsumeReward")
 
 function XUiGridConsumeReward:Ctor(rootUi, ui)

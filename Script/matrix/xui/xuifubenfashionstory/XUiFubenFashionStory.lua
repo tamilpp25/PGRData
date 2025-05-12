@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenFashionStory = XLuaUiManager.Register(XLuaUi, "UiFubenFashionStory")
 
 local XUiFashionStoryChapter = require("XUi/XUiFubenFashionStory/XUiFashionStoryChapter")
@@ -18,8 +20,9 @@ function XUiFubenFashionStory:OnAwake()
     self:AddListener()
 end
 
-function XUiFubenFashionStory:OnStart(activityId,trialStageId)
+function XUiFubenFashionStory:OnStart(activityId,trialStageId,singleLineId)
     self.TrialStageId = trialStageId
+    self.SingleLineId=singleLineId
     self:LoadActivity(activityId)
 end
 
@@ -101,7 +104,7 @@ function XUiFubenFashionStory:OnBtnBackClick()
     if XLuaUiManager.IsUiShow(FIGHT_DETAIL) or XLuaUiManager.IsUiShow(STORY_DETAIL) then
         self:CloseStageDetail()
     else
-        if self.Mode == XFashionStoryConfigs.Mode.Chapter then
+        if self.Type ~= XFashionStoryConfigs.Type.OnlyChapter and self.Mode == XFashionStoryConfigs.Mode.Chapter then
             self:OnBtnSwitchClick(XFashionStoryConfigs.Mode.Trial)
         else
             self:Close()
@@ -186,10 +189,10 @@ function XUiFubenFashionStory:LoadChapter()
     end
 
     -- 预制体
-    local prefabPath = XFashionStoryConfigs.GetChapterPrefab(self.ActivityId)
+    local prefabPath = XFashionStoryConfigs.GetChapterPrefab(self.SingleLineId)
     if prefabPath then
         local go = self.PanelChapterContent:LoadPrefab(prefabPath)
-        self.ChapterContent = XUiFashionStoryChapter.New(go, self.ActivityId)
+        self.ChapterContent = XUiFashionStoryChapter.New(go, self.ActivityId,self.SingleLineId)
     end
 end
 
@@ -368,7 +371,7 @@ function XUiFubenFashionStory:OpenStageDetail(stageId)
     self.ChapterContent:SelectStage(stageId)
 
     local detailType
-    local stageType = XFubenConfigs.GetStageType(stageId)
+    local stageType = XFubenConfigs.GetStageMainlineType(stageId)
     if stageType == XFubenConfigs.STAGETYPE_FIGHT or stageType == XFubenConfigs.STAGETYPE_FIGHTEGG
             or stageType == XFubenConfigs.STAGETYPE_COMMON then
         detailType = FIGHT_DETAIL

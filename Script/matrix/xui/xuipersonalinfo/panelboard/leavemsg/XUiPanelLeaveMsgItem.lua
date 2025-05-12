@@ -1,4 +1,5 @@
-XUiPanelLeaveMsgItem = XClass(nil, "XUiPanelLeaveMsgItem")
+local XUiPanelLeaveMsg = require("XUi/XUiPersonalInfo/PanelBoard/LeaveMsg/XUiPanelLeaveMsg")
+local XUiPanelLeaveMsgItem = XClass(nil, "XUiPanelLeaveMsgItem")
 
 function XUiPanelLeaveMsgItem:Ctor(rootUi,ui)
     self.GameObject = ui.gameObject
@@ -46,7 +47,7 @@ function XUiPanelLeaveMsgItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 

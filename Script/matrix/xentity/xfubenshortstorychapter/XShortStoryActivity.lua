@@ -1,27 +1,31 @@
 local type = type
 local pairs = pairs
-local next = next
-local ipairs = ipairs
 
 --[[
 public class NotifyShortStoryActivity
 {
-    public List<int> Chapters = new List<int>();
-    public long EndTime;
-    public long HideChapterBeginTime;
+    public int ActivityId -- 活动Id
 }
 ]]
 
 local Default = {
-    _ActivityChapters = {}, --活动抢先体验ChapterId列表
-    _EndTime = 0, --活动抢先体验结束时间
+    _ActivityId = 0,           -- 活动Id
+    _ActivityChapters = {},    --活动抢先体验ChapterId列表
+    _EndTime = 0,              --活动抢先体验结束时间
     _HideChapterBeginTime = 0, --活动抢先体验结束时间(隐藏模式)
-    _ActivityTimer = nil, --定时器
+    _ActivityTimer = nil,      --定时器
+    _IsActivity = {},          --活动是否结束
 }
-local IsActivity = {} --活动是否结束
-local XShortStoryActivity = XClass(nil,"XShortStoryActivity")
+---@class XShortStoryActivity
+---@field _ActivityId number 活动Id
+---@field _ActivityChapters table<number, number> 活动抢先体验ChapterId列表
+---@field _EndTime number 活动抢先体验结束时间
+---@field _HideChapterBeginTime number 活动抢先体验结束时间(隐藏模式)
+---@field _ActivityTimer number 定时器
+---@field _IsActivity table<number, boolean> 活动是否结束
+local XShortStoryActivity = XClass(nil, "XShortStoryActivity")
 
-function XShortStoryActivity:Ctor(activityCb)
+function XShortStoryActivity:Ctor()
     for key, value in pairs(Default) do
         if type(value) == "table" then
             self[key] = {}
@@ -29,120 +33,114 @@ function XShortStoryActivity:Ctor(activityCb)
             self[key] = value
         end
     end
-    self.ActivityCallback = activityCb
 end
 
 function XShortStoryActivity:UpdateData(data)
+    self._ActivityId = data.ActivityId or self._ActivityId
+
+    if not XTool.IsNumberValid(self._ActivityId) then
+        self._EndTime = 0
+        self._HideChapterBeginTime = 0
+        self:ShortStoryActivityEnd()
+        return
+    end
+
+    local shortStoryActivityCfg = XFubenShortStoryChapterConfigs.GetShortStoryActivity(self._ActivityId)
+    local chapterIds = shortStoryActivityCfg.ChapterId
+    local chapterTimeId = shortStoryActivityCfg.ChapterTimeId
+    local hideChapterTimeId = shortStoryActivityCfg.HideChapterTimeId
+
     local now = XTime.GetServerNowTimestamp()
-    self._EndTime = data.EndTime or self._EndTime
-    self._HideChapterBeginTime = data.HideChapterBeginTime or self._HideChapterBeginTime
+    self._EndTime = XFunctionManager.GetEndTimeByTimeId(chapterTimeId) or self._EndTime
+    self._HideChapterBeginTime = XFunctionManager.GetStartTimeByTimeId(hideChapterTimeId) or self._HideChapterBeginTime
 
     if now < self._EndTime then
         --清理上次活动状态
-        if next(self._ActivityChapters) then
+        if not XTool.IsTableEmpty(self._ActivityChapters) then
             self:ShortStoryActivityEnd()
         end
-        self._ActivityChapters = { Chapters = data.Chapters } or self._ActivityChapters
+        self._ActivityChapters = chapterIds or {}
         self:ShortStoryActivityStart()
+    else
+        self:ShortStoryActivityEnd()
     end
-    self:ShortStoryActivityEnd()
 end
 
 --活动开始
 function XShortStoryActivity:ShortStoryActivityStart()
-    if not self:IsShortStoryActivityOpen() then return end
-    --定时器
-    if self._ActivityTimer then
-        XScheduleManager.UnSchedule(self._ActivityTimer)
-        self._ActivityTimer = nil
+    if not self:IsShortStoryActivityOpen() then
+        return
     end
-    local time = XTime.GetServerNowTimestamp()
+    self:StopActivityTimer()
     local challengeWaitUnlock = true
-    self._ActivityTimer = XScheduleManager.ScheduleForever(function()
-        time = time + 1
-        if time >= self._HideChapterBeginTime then
+    self._ActivityTimer = XScheduleManager.ScheduleForeverEx(function()
+        local nowTime = XTime.GetServerNowTimestamp()
+        if nowTime >= self._HideChapterBeginTime then
             if challengeWaitUnlock then
                 self:UnlockActivityChapters()
                 challengeWaitUnlock = nil
             end
         end
-        if time >= self._EndTime then
+        if nowTime >= self._EndTime then
             self:ShortStoryActivityEnd()
         end
-    end, XScheduleManager.SECOND, 0)
+    end, XScheduleManager.SECOND)
     self:UnlockActivityChapters()
 end
 
 --活动关闭
 function XShortStoryActivity:ShortStoryActivityEnd()
-    if self._ActivityTimer then
-        XScheduleManager.UnSchedule(self._ActivityTimer)
-        self._ActivityTimer = nil
-    end
+    self:StopActivityTimer()
     --活动结束处理
-    local chapterIds = self._ActivityChapters.Chapters
-    if chapterIds then
-        for _, chapterId in pairs(chapterIds) do
+    if not XTool.IsTableEmpty(self._ActivityChapters) then
+        for _, chapterId in pairs(self._ActivityChapters) do
             if XTool.IsNumberValid(chapterId) then
-                IsActivity[chapterId] = false
+                self._IsActivity[chapterId] = false
+                XDataCenter.ShortStoryChapterManager.CheckStageStatus(chapterId, false)
             end
         end
     end
-    
-    self.ActivityCallback.UpdateStageInfo(true)
-    self:ShortStoryActivityStart()
-    CsXGameEventManager.Instance:Notify(XEventId.EVENT_ACTIVITY_SHORT_STORY_CHAPTER_STATE_CHANGE)
-    XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_REFRESH_STAGE_DATA)
+    XDataCenter.ShortStoryChapterManager.RefreshChapterData()
 end
 
 function XShortStoryActivity:UnlockActivityChapters()
-    if not next(self._ActivityChapters) then return end
-    for _, chapterId in pairs(self._ActivityChapters.Chapters) do
+    if XTool.IsTableEmpty(self._ActivityChapters) then
+        return
+    end
+    for _, chapterId in pairs(self._ActivityChapters) do
         if XTool.IsNumberValid(chapterId) then
             self:UnlockChapterViaActivity(chapterId)
         end
     end
-    CsXGameEventManager.Instance:Notify(XEventId.EVENT_ACTIVITY_SHORT_STORY_CHAPTER_STATE_CHANGE)
 end
 
 function XShortStoryActivity:UnlockChapterViaActivity(chapterId)
     --开启章节，标识活动状态
-    if not chapterId then return end
-    IsActivity[chapterId] = true
-    
-    self.ActivityCallback.UpdateChapterData(chapterId)
-
-    local stageIds = XFubenShortStoryChapterConfigs.GetStageIdByChapterId(chapterId)
-    for index, stageId in ipairs(stageIds) do
-        local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-        stageInfo.Unlock = true
-        stageInfo.IsOpen = true
-        --章节第一关无视前置条件
-        if index ~= 1 then
-            local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-            --其余关卡只检测前置条件组
-            for _, prestageId in pairs(stageCfg.PreStageId or {}) do
-                if prestageId > 0 then
-                    local stageData = XDataCenter.FubenManager.GetStageData(prestageId)
-                    if not stageData or not stageData.Passed then
-                        stageInfo.Unlock = false
-                        stageInfo.IsOpen = false
-                        break
-                    end
-                end
-            end
-        end
+    if not XTool.IsNumberValid(chapterId) then
+        return
     end
+    self._IsActivity[chapterId] = true
+    XDataCenter.ShortStoryChapterManager.ChangeChapterUnlock(chapterId)
+    XDataCenter.ShortStoryChapterManager.CheckStageStatus(chapterId, true)
 end
 
 function XShortStoryActivity:CheckDiffHasActivity(chapterId)
-    if not next(self._ActivityChapters) then return false end
-    for _, Id in pairs(self._ActivityChapters.Chapters) do
-        if Id == chapterId then
+    if XTool.IsTableEmpty(self._ActivityChapters) then
+        return false
+    end
+    for _, id in pairs(self._ActivityChapters) do
+        if id == chapterId then
             return true
         end
     end
     return false
+end
+
+function XShortStoryActivity:StopActivityTimer()
+    if self._ActivityTimer then
+        XScheduleManager.UnSchedule(self._ActivityTimer)
+        self._ActivityTimer = nil
+    end
 end
 
 function XShortStoryActivity:IsShortStoryActivityOpen()
@@ -162,7 +160,7 @@ function XShortStoryActivity:GetActivityHideChapterBeginTime()
 end
 
 function XShortStoryActivity:IsActivity(chapterId)
-    return IsActivity[chapterId]
+    return self._IsActivity[chapterId]
 end
 
 return XShortStoryActivity

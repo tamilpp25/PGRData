@@ -21,12 +21,13 @@ function XUiGuildBossStageLevel:Init(data, parentUi, status)
     self.ParentUi = parentUi
     local info = XGuildBossConfig.GetBossStageInfo(self.Data.StageId)
     self.ImgBG:SetRawImage(info.BackGround)
-    self.RImgIcon:SetRawImage(info.Icon)
+    local buffInfo = XGuildBossConfig.GetBuff(data.EffectId)
+    self.RImgIcon:SetRawImage(buffInfo.Icon)
     self.TxtCode.text = info.Code .. self.Data.NameOrder
-    self.ImgPoint.fillAmount = self.Data.BuffNeed / 100
+    self.ImgPoint.fillAmount = self.Data.CurEffectCount / self.Data.TotalEffectCount  -- 进度条改为安稳度触发次数进度 nzwjV3
     --剩余0说明技能已发动
-    if self.Data.BuffNeed == 0 then
-    end
+    -- if self.Data.BuffNeed == 0 then
+    -- end
     self:UpdateStatus(status)
     self:HideOrder()
     self:SetOrderMark(false)
@@ -46,6 +47,14 @@ end
 --设置是否显示优先标记
 function XUiGuildBossStageLevel:SetOrderMark(isOrder)
     self.ImgOrder.gameObject:SetActiveEx(isOrder)
+end
+
+--设置战术布局发布后外部的显示序号 nzwjV3
+function XUiGuildBossStageLevel:SetOrderOutSide(num)
+    self.ImgOrderGreen.gameObject:SetActiveEx(num)
+    if num and type(num) == "number" then
+        self.TxtOrderGreen.text = num
+    end
 end
 
 --设置战术布局显示数字

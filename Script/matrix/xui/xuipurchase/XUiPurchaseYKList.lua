@@ -11,7 +11,7 @@ function XUiPurchaseYKListItem:Ctor(ui, notEnoughCb)
     XUiHelper.RegisterClickEvent(self, self.BtnBuy, self.OnBtnBuyClicked)
 end
 
--- data : XPurchasePackage
+---@param data XPurchasePackage
 function XUiPurchaseYKListItem:SetData(data, finishedFunc)
     self.PurchasePackage = data
     self.FinishedFunc = finishedFunc
@@ -43,9 +43,9 @@ function XUiPurchaseYKListItem:OnBtnBuyClicked()
             self.FinishedFunc()
         end
     end
-    local notEnoughCb = function()
+    local notEnoughCb = function(_, payCount)
         if self.NotEnoughCb then
-            self.NotEnoughCb(XPurchaseConfigs.TabsConfig.Pay)
+            self.NotEnoughCb(XPurchaseConfigs.TabsConfig.Pay, nil, payCount)
         end
     end
     self.PurchaseManager.OpenPurchaseBuyUiByPurchasePackage(self.PurchasePackage, notEnoughCb, nil, buyFnishedFunc)

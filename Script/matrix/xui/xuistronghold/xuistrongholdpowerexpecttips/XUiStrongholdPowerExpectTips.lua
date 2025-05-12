@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiStrongholdPowerExpectTipsGrid = require("XUi/XUiStronghold/XUiStrongholdPowerExpectTips/XUiStrongholdPowerExpectTipsGrid")
 
 local XUiStrongholdPowerExpectTips = XLuaUiManager.Register(XLuaUi, "UiStrongholdPowerExpectTips")

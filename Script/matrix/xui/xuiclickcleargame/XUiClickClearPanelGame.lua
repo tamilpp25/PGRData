@@ -1,3 +1,5 @@
+local XUiPanelActive = require("XUi/XUiTask/XUiPanelActive")
+local XDynamicTableCurve = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableCurve")
 local textManager = CS.XTextManager
 local tableInsert = table.insert
 local XUiGridClickClearGamePage = require("XUi/XUiClickClearGame/XUiGridClickClearGamePage")

@@ -8,7 +8,7 @@ end
 
 function XUiSimulatedCombatBuffTip:OnStart(additionId)
     local musicKey = self:GetAutoKey(self.BtnBack, "onClick")
-    self.SpecialSoundMap[musicKey] = XSoundManager.UiBasicsMusic.Return
+    self.SpecialSoundMap[musicKey] = XLuaAudioManager.UiBasicsMusic.Return
     self.Data = XFubenSimulatedCombatConfig.GetAdditionById(additionId)
     self:PlayAnimation("AnimStart")
 end

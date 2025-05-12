@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --######################## XUiGuildDormPanelActionItem ########################
 local XUiGuildDormPanelActionItem = XClass(nil, "XUiGuildDormPanelActionItem")
 

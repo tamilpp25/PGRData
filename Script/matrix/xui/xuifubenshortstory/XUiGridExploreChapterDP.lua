@@ -9,7 +9,7 @@ function XUiGridExploreChapterDP:Ctor(rootUi, ui, stageType)
     self.RootUi = rootUi
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
-    self.StageType = stageType or XDataCenter.FubenManager.StageType.Mainline
+    self.StageType = stageType or XEnumConst.FuBen.StageType.Mainline
     XTool.InitUiObject(self)
     self.GridStageList = {}
     self.GridEggStageList = {}
@@ -88,7 +88,7 @@ function XUiGridExploreChapterDP:UpdateChapterGrid(data)
     self.EggStageList = {}
     self.NormalStageList = {}
     for _, v in pairs(data.StageList) do
-        local stageCfg = XDataCenter.FubenManager.GetStageCfg(v)
+        local stageCfg = XMVCA.XFuben:GetStageCfg(v)
         if self:IsEggStage(stageCfg) then
             local eggNum = self:GetEggNum(data.StageList, stageCfg)
             if eggNum ~= 0 then
@@ -107,7 +107,7 @@ end
 function XUiGridExploreChapterDP:ClickStageGridByStageId(selectStageId)
     if not selectStageId then return end
     local IsEggStage = false
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(selectStageId)
+    local stageInfo = XMVCA.XFuben:GetStageInfo(selectStageId)
     if not stageInfo.IsOpen then return end
 
     local index = 0
@@ -158,16 +158,16 @@ function XUiGridExploreChapterDP:SetStageList()
     -- 初始化副本显示列表，i作为order id，从1开始
     for i = 1, #self.NormalStageList do
         local stageId = self.NormalStageList[i]
-        local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
+        local stageCfg = XMVCA.XFuben:GetStageCfg(stageId)
         local exploreInfoList
-        if self.StageType == XDataCenter.FubenManager.StageType.ShortStory then
+        if self.StageType == XEnumConst.FuBen.StageType.ShortStory then
             local exploreGroupId  = XFubenShortStoryChapterConfigs.GetExploreGroupIdByChapterId(self.ChapterId)
             exploreInfoList = XFubenShortStoryChapterConfigs.GetExploreGroupInfoByGroupId(exploreGroupId)
         end
         local preShowIndex = exploreInfoList[i] or {}
         local IsShow = true
         for _, index in pairs(preShowIndex or {}) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.NormalStageList[index])
+            local stageInfo = XMVCA.XFuben:GetStageInfo(self.NormalStageList[index])
             if not stageInfo or not stageInfo.Passed then
                 IsShow = IsShow and false
             end
@@ -196,11 +196,11 @@ function XUiGridExploreChapterDP:SetStageList()
 
     for i = 1, #self.EggStageList do
         local stageId = self.EggStageList[i].Id
-        local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-        local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+        local stageCfg = XMVCA.XFuben:GetStageCfg(stageId)
+        local stageInfo = XMVCA.XFuben:GetStageInfo(stageId)
 
         if stageInfo.IsOpen then
-            if XDataCenter.FubenManager.GetUnlockHideStageById(stageId) then
+            if XMVCA.XFuben:GetUnlockHideStageById(stageId) then
                 local grid = self.GridEggStageList[i]
                 if not grid then
                     local uiName = "GridStageSquare"
@@ -238,9 +238,9 @@ function XUiGridExploreChapterDP:ClickStageGrid(grid)
         return
     end
 
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(grid.Stage.StageId)
+    local stageInfo = XMVCA.XFuben:GetStageInfo(grid.Stage.StageId)
     if not stageInfo.Unlock then
-        XUiManager.TipMsg(XDataCenter.FubenManager.GetFubenOpenTips(grid.Stage.StageId))
+        XUiManager.TipMsg(XMVCA.XFuben:GetFubenOpenTips(grid.Stage.StageId))
         return
     end
 
@@ -256,9 +256,8 @@ function XUiGridExploreChapterDP:ClickStageGrid(grid)
     self.CurStageGrid = grid
     self.IsNotPassedFightStage = false
 
-    local stageCfg = XDataCenter.FubenManager.GetStageCfg(grid.Stage.StageId)
-    if stageCfg.StageType == XFubenConfigs.STAGETYPE_FIGHT or
-            stageCfg.StageType == XFubenConfigs.STAGETYPE_COMMON then
+    local stageCfg = XMVCA.XFuben:GetStageCfg(grid.Stage.StageId)
+    if stageCfg.StageType == XFubenConfigs.STAGETYPE_FIGHT or stageCfg.StageType == XFubenConfigs.STAGETYPE_COMMON then
         self.IsNotPassedFightStage = not stageInfo.Passed
     end
 

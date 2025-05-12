@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 -- 白色情人节约会活动邀约界面成员动态列表控件
 local XUiWhiteValenInviteMemberDynamicTable = XClass(nil, "XUiWhiteValenInviteMemberDynamicTable")
 

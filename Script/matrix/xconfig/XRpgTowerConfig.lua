@@ -15,12 +15,14 @@ local TABLE_MONSTER = CLIENT_TABLE_PATH .. "RpgMonsters.tab"
 local TABLE_BASE_CHARACTER = CLIENT_TABLE_PATH .. "RpgBaseCharacter.tab"
 local TABLE_ITEM_CONFIG = CLIENT_TABLE_PATH .. "RpgItemConfig.tab"
 local TABLE_TALENT_TYPE = CLIENT_TABLE_PATH .. "RpgTalentType.tab"
+local TABLE_TAG = CLIENT_TABLE_PATH .. "RpgTag.tab"
 --    ===================原表数据
 local RpgTowerConfig = {}
 local RCharacterConfig = {}
 local RCharaTalentConfig = {}
 local RCharaTalentLayerConfig = {}
 local RStageConfig = {}
+local RTagConfig = {}
 local RMonsterConfig = {}
 local RBaseCharacterConfig = {}
 local RItemConfig = {}
@@ -30,8 +32,11 @@ local RTalentTypeConfig = {}
 local CharacterAndLevel2RCharacterDic = {}
 local RCharacter2TalentDic = {}
 local StageId2RStageCfgDic = {}
+local RTagStageIdDic = {}
 local ActivityId2RStageListDic = {}
 local CharacterId2TalentsDic = {}
+local CharacterId2TalentTypeDic = {}
+local SkillIdToConfigDic = {}
 
 --    ===================变量
 local TheLatestConfigIndex
@@ -128,6 +133,14 @@ local CreateCharaAndLevel2RCharaDic = function()
     end
 end
 
+local CreateSkillIdToConfigDic = function()
+    for _, rCharaCfg in pairs(RCharacterConfig) do
+        for k, skillId in pairs(rCharaCfg.SkillIds) do
+            SkillIdToConfigDic[skillId] = rCharaCfg
+        end
+    end
+end
+
 --[[
 ================
 初始化角色配置表
@@ -137,6 +150,7 @@ local InitCharacterConfig = function()
     RCharacterConfig = XTableManager.ReadByIntKey(TABLE_CHARACTER, XTable.XTableRpgCharacter, "Id")
     RBaseCharacterConfig = XTableManager.ReadByIntKey(TABLE_BASE_CHARACTER, XTable.XTableRpgBaseCharacter, "Id")
     CreateCharaAndLevel2RCharaDic()
+    CreateSkillIdToConfigDic()
 end
 
 --[[
@@ -149,6 +163,19 @@ local CreateStageId2RStageCfgDic = function()
         if not StageId2RStageCfgDic[rStageCfg.StageId] then
             StageId2RStageCfgDic[rStageCfg.StageId] = rStageCfg
         end
+    end
+end
+--[[
+================
+构建字典：StageId转到TagId
+================
+]]
+local CreateTagStageIdDic = function()
+    for _, rStageCfg in ipairs(RStageConfig) do
+        if not RTagStageIdDic[rStageCfg.TagId] then
+            RTagStageIdDic[rStageCfg.TagId] = {}
+        end
+        table.insert(RTagStageIdDic[rStageCfg.TagId], rStageCfg)
     end
 end
 
@@ -174,6 +201,15 @@ local InitStageConfig = function()
     RStageConfig = XTableManager.ReadByIntKey(TABLE_STAGE, XTable.XTableRpgStage, "Id")
     CreateStageId2RStageCfgDic()
     CreateActivityId2RStageListDic()
+    CreateTagStageIdDic()
+end
+--[[
+================
+
+================
+]]
+local InitTagConfig = function()
+    RTagConfig = XTableManager.ReadByIntKey(TABLE_TAG, XTable.XTableRpgTag, "Id")
 end
 --[[
 ================
@@ -197,6 +233,19 @@ local CreateCharacterId2TalentsDic = function()
             CharacterId2TalentsDic[talentCfg.CharacterId][talentCfg.LayerId] = {}
         end
         table.insert(CharacterId2TalentsDic[talentCfg.CharacterId][talentCfg.LayerId], talentCfg)
+    end
+end
+
+local CreateCharacterId2TalentTypesDic = function()
+    for _, talentCfg in pairs(RTalentTypeConfig) do
+        if not CharacterId2TalentTypeDic[talentCfg.CharacterId] then
+            CharacterId2TalentTypeDic[talentCfg.CharacterId] = {}
+        end
+        
+        if not CharacterId2TalentTypeDic[talentCfg.CharacterId][talentCfg.TalentType] then
+            CharacterId2TalentTypeDic[talentCfg.CharacterId][talentCfg.TalentType] = {}
+        end
+        CharacterId2TalentTypeDic[talentCfg.CharacterId][talentCfg.TalentType] = talentCfg
     end
 end
 --[[
@@ -225,9 +274,11 @@ function XRpgTowerConfig.Init()
     InitConfig()
     InitCharacterConfig()
     InitStageConfig()
+    InitTagConfig()
     InitMonsterConfig()
     InitTalentConfig()
     InitItemConfig()
+    CreateCharacterId2TalentTypesDic()
 end
 
 --================
@@ -323,6 +374,13 @@ function XRpgTowerConfig.GetRStageList()
 end
 --[[
 ================
+================
+]]
+function XRpgTowerConfig.GetRTagConfigs()
+    return RTagConfig
+end
+--[[
+================
 通过活动ID获取活动所属所有关卡列表
 ================
 ]]
@@ -371,6 +429,9 @@ function XRpgTowerConfig.GetRStageCfgByStageId(stageId)
     return StageId2RStageCfgDic[stageId]
 end
 
+function XRpgTowerConfig.GetStageListByTagId(tagId)
+    return RTagStageIdDic[tagId]
+end
 --[[
 ================
 使用关卡ID查找相应的兵法蓝图关卡Id
@@ -597,5 +658,25 @@ end
 --=================
 function XRpgTowerConfig.GetTalentTypeBattleRoomBgById(talentTypeId)
     return RTalentTypeConfig[talentTypeId] and RTalentTypeConfig[talentTypeId].BattleRoomBg
+end
+
+-- 根据角色Id和天赋类型获得天赋描述数据
+function XRpgTowerConfig.GetTalentTypeConfigByCharacterId(characterId, talentTypeId)
+    local config = CharacterId2TalentTypeDic[characterId]
+    if not characterId or not config then -- 判空 没有数据默认拿第一个角色的
+        return CharacterId2TalentTypeDic[RTalentTypeConfig[1].CharacterId][talentTypeId]
+    end
+
+    return config[talentTypeId]
+end
+
+-- 根据skillId拿到当前skillId的解锁等级
+function XRpgTowerConfig.GetSkillUnLockLevelBySkillId(skillId)
+    local config = SkillIdToConfigDic[skillId]
+    if not skillId or not config then
+        return 1
+    end
+
+    return config.Level
 end
 

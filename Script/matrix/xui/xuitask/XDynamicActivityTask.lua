@@ -1,4 +1,5 @@
-XDynamicActivityTask = XClass(nil, "XDynamicActivityTask")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XDynamicActivityTask = XClass(nil, "XDynamicActivityTask")
 
 function XDynamicActivityTask:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -65,8 +66,6 @@ function XDynamicActivityTask:ResetData(data, base)
 
     local canGet = self.Data.State == XDataCenter.TaskManager.TaskState.Achieved
     self.ImgNotFinish.gameObject:SetActiveEx(not isFinish and not canGet)
-    
-    self.ImgNotFinish.gameObject:SetActiveEx(not isFinish and self.Data.State ~= XDataCenter.TaskManager.TaskState.Achieved)
 
     if self.PanelAnimationGroup then
         self.PanelAnimationGroup.alpha = 1
@@ -78,14 +77,14 @@ function XDynamicActivityTask:OnBtnFinishClick()
     local chipCount = 0
     for i = 1, #self.RewardPanelList do
         local rewardsId = self.RewardPanelList[i].TemplateId
-        if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Weapon) then
+        if XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
             weaponCount = weaponCount + 1
-        elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Awareness) then
+        elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
             chipCount = chipCount + 1
         end
     end
-    if weaponCount > 0 and XDataCenter.EquipManager.CheckBagCount(weaponCount, XEquipConfig.Classify.Weapon) == false or
-    chipCount > 0 and XDataCenter.EquipManager.CheckBagCount(chipCount, XEquipConfig.Classify.Awareness) == false then
+    if weaponCount > 0 and XMVCA.XEquip:CheckBagCount(weaponCount, XEnumConst.EQUIP.CLASSIFY.WEAPON) == false or
+    chipCount > 0 and XMVCA.XEquip:CheckBagCount(chipCount, XEnumConst.EQUIP.CLASSIFY.AWARENESS) == false then
         return
     end
 
@@ -128,3 +127,5 @@ function XDynamicActivityTask:UpdateProgress(data)
         self.OldMark = data.IsMark and 1 or 0
     end
 end
+
+return XDynamicActivityTask

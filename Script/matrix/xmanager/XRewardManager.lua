@@ -23,6 +23,14 @@ local XRewardType = {
     Nameplate = 18,
     RankScore = 20,
     Medal = 21, --勋章
+    DrawTicket = 22,--免费抽奖券
+    GuildGoods = 23, --公会道具
+    DlcHuntChip = 24, --dlcHunt芯片
+    ItemCollection = 25, --道具收藏
+    ChatBoard = 26, --聊天框
+    SgDormFurniture = 27, --空花宿舍家具
+    SgDormFashion = 28, --空花宿舍涂装
+    QuestItem = 29, --空花任务道具
 }
 
 --local HeadPortraitQuality = CS.XGame.Config:GetInt("HeadPortraitQuality")
@@ -30,6 +38,7 @@ local TABLE_REWARD_PATH = "Share/Reward/Reward.tab"
 local TABLE_REWARD_GOODS_PATH = "Share/Reward/RewardGoods.tab"
 
 --local RewardTemplates = {}
+---@type table<number, XTableReward>
 local RewardSubIds = {}
 local RewardGoodsTable = {}
 
@@ -52,6 +61,12 @@ local Arrange2RewardType = {
     [XArrangeConfigs.Types.Nameplate] = XRewardType.Nameplate,
     [XArrangeConfigs.Types.RankScore] = XRewardType.RankScore,
     [XArrangeConfigs.Types.Medal] = XRewardType.Medal,
+    [XArrangeConfigs.Types.DrawTicket] = XRewardType.DrawTicket,
+    [XArrangeConfigs.Types.GuildGoods] = XRewardType.GuildGoods,
+    [XArrangeConfigs.Types.DlcHuntChip] = XRewardType.DlcHuntChip,
+    [XArrangeConfigs.Types.ItemCollection] = XRewardType.ItemCollection,
+    [XArrangeConfigs.Types.ChatBoard] = XRewardType.ChatBoard,
+    [XArrangeConfigs.Types.QuestItem] = XRewardType.QuestItem,
 }
 
 local CreateGoodsFunc = {
@@ -64,9 +79,9 @@ local CreateGoodsFunc = {
     end,
 
     [XRewardType.Character] = function(templateId, count, args)
-        local template = XCharacterConfigs.GetCharacterBorderTemplate(templateId)
+        local template = XMVCA.XCharacter:GetCharacterBorderTemplate(templateId)
         if not template then
-            local path = XCharacterConfigs.GetCharacterElementPath()
+            local path = XMVCA.XCharacter:GetCharacterElementPath()
             XLog.ErrorTableDataNotFound("CreateGoodsFunc", "template", path, "templateId", tostring(templateId))
             return
         end
@@ -114,31 +129,30 @@ local CreateGoodsFunc = {
     [XRewardType.Equip] = function(templateId, count, args)
         local len = args and #args or 0
         local level, breakthrough
-        local borderCfg = XEquipConfig.GetEquipBorderCfg(templateId)
-        if borderCfg == nil then
-            return
-        end
-        
+        local maxBreakthrough, maxLevel = XMVCA:GetAgency(ModuleId.XEquip):GetEquipMaxBreakthrough(templateId)
+        local minLevel = XEnumConst.EQUIP.MIN_LEVEL
+        local minBreakthrough = XEnumConst.EQUIP.MIN_BREAKTHROUGH
+
         if len > 0 and args[1] then
             level = args[1]
-            if level > borderCfg.MaxLevel or level < borderCfg.MinLevel then
+            if level > maxLevel or level < minLevel then
                 XLog.Error("XRewardManager CreateRewardEquip 函数错误: level 超出范围, id is ", templateId, "level is ", level,
-                " 最小 level is ", borderCfg.MinLevel, " 最大 level is ", borderCfg.MaxLevel)
+                " 最小 level is ", minLevel, " 最大 level is ", maxLevel)
                 return
             end
         else
-            level = borderCfg.MinLevel
+            level = minLevel
         end
 
         if len > 2 and args[3] > 0 then
             breakthrough = args[3]
-            if breakthrough > borderCfg.MaxBreakthrough or breakthrough < borderCfg.MinBreakthrough then
+            if breakthrough > maxBreakthrough or breakthrough < minBreakthrough then
                 XLog.Error("XRewardManager CreateRewardEquip 函数错误: breakthrough 超出范围, id is ", templateId, " breakthrough is ", breakthrough,
-                " 最小 breakthrough is ", borderCfg.MinBreakthrough, " 最大 breakthrough is ", borderCfg.MaxBreakthrough)
+                " 最小 breakthrough is ", minBreakthrough, " 最大 breakthrough is ", maxBreakthrough)
                 return
             end
         else
-            breakthrough = borderCfg.MinBreakthrough
+            breakthrough = minBreakthrough
         end
 
         return {
@@ -256,6 +270,41 @@ local CreateGoodsFunc = {
             Count = count and count or 1,
         }
     end,
+    [XRewardType.DrawTicket] = function(templateId, count)
+        return {
+            RewardType = XRewardType.DrawTicket,
+            TemplateId = templateId,
+            Count = count and count or 1,
+        }
+    end,
+    [XRewardType.DlcHuntChip] = function(templateId, count)
+        return {
+            RewardType = XRewardType.DlcHuntChip,
+            TemplateId = templateId,
+            Count = count and count or 1,
+        }
+    end,
+    [XRewardType.ItemCollection] = function(templateId, count)
+        return {
+            RewardType = XRewardType.ItemCollection,
+            TemplateId = templateId,
+            Count = count and count or 1,
+        }
+    end,
+    [XRewardType.ChatBoard] = function(templateId, count)
+        return {
+            RewardType = XRewardType.ChatBoard,
+            TemplateId = templateId,
+            Count = count and count or 1,
+        }
+    end,
+    [XRewardType.QuestItem] = function(templateId, count)
+        return {
+            RewardType = XRewardType.QuestItem,
+            TemplateId = templateId,
+            Count = count and count or 1,
+        }
+    end
 }
 
 local CloneRewardGoods = function(rewardGoods)
@@ -268,7 +317,8 @@ local CloneRewardGoods = function(rewardGoods)
         Grade = rewardGoods.Grade,
         Star = rewardGoods.Star,
         ConvertFrom = rewardGoods.ConvertFrom,
-        Breakthrough = rewardGoods.Breakthrough
+        Breakthrough = rewardGoods.Breakthrough,
+        IsGift = rewardGoods.IsGift
     }
 end
 
@@ -295,15 +345,15 @@ local SortCharacters = function(a, b)
     local tmpId1 = a.TemplateId and a.TemplateId or a.Id
     local tmpId2 = b.TemplateId and b.TemplateId or b.Id
 
-    local quality1 = a.Quality and a.Quality or XCharacterConfigs.GetCharMinQuality(tmpId1)
-    local quality2 = b.Quality and b.Quality or XCharacterConfigs.GetCharMinQuality(tmpId2)
+    local quality1 = a.Quality and a.Quality or XMVCA.XCharacter:GetCharMinQuality(tmpId1)
+    local quality2 = b.Quality and b.Quality or XMVCA.XCharacter:GetCharMinQuality(tmpId2)
 
     if quality1 ~= quality2 then
         return quality1 > quality2
     end
 
-    local priority1 = XCharacterConfigs.GetCharacterPriority(tmpId1)
-    local priority2 = XCharacterConfigs.GetCharacterPriority(tmpId2)
+    local priority1 = XMVCA.XCharacter:GetCharacterPriority(tmpId1)
+    local priority2 = XMVCA.XCharacter:GetCharacterPriority(tmpId2)
 
     if priority1 ~= priority2 then
         return priority1 > priority2
@@ -343,8 +393,8 @@ local SortEquips = function(a, b)
     local tmpId1 = a.TemplateId
     local tmpId2 = b.TemplateId
 
-    local quality1 = XDataCenter.EquipManager.GetEquipQuality(tmpId1)
-    local quality2 = XDataCenter.EquipManager.GetEquipQuality(tmpId2)
+    local quality1 = XMVCA.XEquip:GetEquipQuality(tmpId1)
+    local quality2 = XMVCA.XEquip:GetEquipQuality(tmpId2)
 
     if quality1 ~= quality2 then
         return quality1 > quality2
@@ -358,8 +408,8 @@ local SortEquips = function(a, b)
         return a.Level > b.Level
     end
 
-    local priority1 = XDataCenter.EquipManager.GetEquipPriority(tmpId1)
-    local priority2 = XDataCenter.EquipManager.GetEquipPriority(tmpId2)
+    local priority1 = XMVCA.XEquip:GetEquipPriority(tmpId1)
+    local priority2 = XMVCA.XEquip:GetEquipPriority(tmpId2)
 
     if priority1 ~= priority2 then
         return priority1 > priority2
@@ -511,12 +561,28 @@ local SortRankScore = function(a, b)
     return a.TemplateId > b.TemplateId
 end
 
+local SortDlcHuntChip = function(a, b)
+    return XDlcHuntChipConfigs.GetChipPriority(a.TemplateId) >  XDlcHuntChipConfigs.GetChipPriority(b.TemplateId)
+end
+
+local SortItemCollect = function(a, b)
+    local templateA = XItemConfigs.GetItemCollectTemplate(a.TemplateId)
+    local templateB = XItemConfigs.GetItemCollectTemplate(b.TemplateId)
+
+    if templateA.Quality ~= templateB.Quality then
+        return templateA.Quality > templateB.Quality
+    end
+
+    return a.TemplateId > b.TemplateId
+end
+
 local SortRewardTypePrioriy = {
     [XRewardType.Item] = 1,
     [XRewardType.Character] = 4,
     [XRewardType.Equip] = 2,
     [XRewardType.Fashion] = 3,
     [XRewardType.BaseEquip] = 5,
+    [XRewardType.Medal] = 7,
     [XRewardType.Furniture] = 9,
     [XRewardType.HeadPortrait] = 10,
     [XRewardType.DormCharacter] = 11,
@@ -526,6 +592,11 @@ local SortRewardTypePrioriy = {
     [XRewardType.Nameplate] = 16,
     [XRewardType.Background] = 17,
     [XRewardType.RankScore] = 18,
+    [XRewardType.DlcHuntChip] = 19,
+    [XRewardType.ItemCollection] = 20,
+    [XRewardType.ChatBoard] = 21,
+    [XRewardType.QuestItem] = 22,
+    [XRewardType.DrawTicket] = 23,
 }
 
 local SortFunc = {
@@ -544,6 +615,8 @@ local SortFunc = {
     [XRewardType.Partner] = SortPartner,
     [XRewardType.Nameplate] = SortNameplate,
     [XRewardType.RankScore] = SortRankScore,
+    [XRewardType.DlcHuntChip] = SortDlcHuntChip,
+    [XRewardType.ItemCollection] = SortItemCollect,
 }
 
 local RewardsFilter = {
@@ -580,10 +653,24 @@ local function SortRewardGoodsList(rewardGoodsList)
         local rewardType1, rewardType2 = a.RewardType, b.RewardType
 
         if rewardType1 ~= rewardType2 then
-            return SortRewardTypePrioriy[rewardType1] > SortRewardTypePrioriy[rewardType2]
+            local priority1 = SortRewardTypePrioriy[rewardType1]
+            local priority2 = SortRewardTypePrioriy[rewardType2]
+
+            if XTool.IsNumberValid(priority1) and XTool.IsNumberValid(priority2) then
+                return priority1 > priority2
+            else
+                XLog.Error('存在奖励类型未定义优先级:',
+                        'type:'..tostring(rewardType1)..', priority:'..tostring(priority1),
+                        'type:'..tostring(rewardType2)..', priority:'..tostring(priority2))
+                return priority1 and true or false
+            end
         end
 
-        return SortFunc[rewardType1](a, b)
+        local sort = SortFunc[rewardType1]
+        if sort then
+            return sort(a, b)
+        end
+        return a.TemplateId > b.TemplateId
     end)
 
     return rewardGoodsList
@@ -608,12 +695,24 @@ local function MergeRewardGoodsList(rewardGoodsList)
         goods.RewardType == XRewardType.Equip then
             tableInsert(mergeList, goods)
         else
-            local oldGoods = mergeDict[goods.TemplateId]
+            local templateId = goods.TemplateId
+
+            --- 两种黑卡合并
+            if templateId == XDataCenter.ItemManager.ItemId.PaidGem then
+                templateId = XDataCenter.ItemManager.ItemId.FreeGem
+            end
+
+            local oldGoods = mergeDict[templateId]
 
             if oldGoods then
-                mergeDict[goods.TemplateId].Count = mergeDict[goods.TemplateId].Count + goods.Count
+                mergeDict[templateId].Count = mergeDict[templateId].Count + goods.Count
             else
-                mergeDict[goods.TemplateId] = CloneRewardGoods(goods)
+                mergeDict[templateId] = CloneRewardGoods(goods)
+
+                --- 两种黑卡合并
+                if mergeDict[templateId].TemplateId == XDataCenter.ItemManager.ItemId.PaidGem then
+                    mergeDict[templateId].TemplateId = XDataCenter.ItemManager.ItemId.FreeGem
+                end
             end
         end
     end
@@ -642,19 +741,12 @@ end
 
 
 function XRewardManager.Init()
-    local rewardTable = XTableManager.ReadAllByIntKey(TABLE_REWARD_PATH, XTable.XTableReward, "Id")
-    RewardGoodsTable = XTableManager.ReadAllByIntKey(TABLE_REWARD_GOODS_PATH, XTable.XTableRewardGoods, "Id")
-
-    for k, v in pairs(rewardTable) do
-        RewardSubIds[k] = v.SubIds
-    end
-
-    --RewardTemplates = XReadOnlyTable.Create(RewardTemplates)
-    --RewardSubIds = XReadOnlyTable.Create(RewardSubIds)
+    RewardSubIds = XTableManager.ReadByIntKey(TABLE_REWARD_PATH, XTable.XTableReward, "Id")
+    RewardGoodsTable = XTableManager.ReadByIntKey(TABLE_REWARD_GOODS_PATH, XTable.XTableRewardGoods, "Id")
 end
 
 function XRewardManager.GetRewardSubId(id, index)
-    local rewardSubIds = RewardSubIds[id]
+    local rewardSubIds = XRewardManager.GetRewardSubIds(id)
     if not rewardSubIds then
         XLog.Error("XRewardManager.GetRewardSubId error: can not found SubIds, id is " .. id)
         return
@@ -663,16 +755,33 @@ function XRewardManager.GetRewardSubId(id, index)
     return rewardSubIds[index]
 end
 
+---@return number[]
+function XRewardManager.GetRewardSubIds(id)
+    local rewardSubIds = RewardSubIds[id]
+    if rewardSubIds then
+        return rewardSubIds.SubIds
+    end
+    if XMVCA.XBigWorldGamePlay:IsBigWorldOpen() then
+        rewardSubIds = XMVCA.XBigWorldService:GetDlcRewardSubIds(id, true)
+        if not rewardSubIds then
+            XLog.Error(string.format("主线奖励表(Reward.tab)与空花奖励表(BigWorldReward.tab)均无法找到奖励配置Id = %s, 请检查配置是否已经删除!", id))
+        end
+    end
+    return rewardSubIds and rewardSubIds.SubIds or nil
+end
 
-function XRewardManager.GetRewardList(id)
-    local subids = RewardSubIds[id]
+function XRewardManager.GetRewardList(rewardId)
+    if not rewardId or rewardId <= 0 then
+        return
+    end
+    local subids = XRewardManager.GetRewardSubIds(rewardId)
     if not subids then
         return
     end
 
     local list = {}
     for _, id in pairs(subids) do
-        local tab = RewardGoodsTable[id]
+        local tab = XRewardManager.GetRewardGoodsCfgById(id)
         if not tab then
             XLog.Error("XRewardManager.Init error: can not found reward, id = " .. id)
             return
@@ -681,15 +790,26 @@ function XRewardManager.GetRewardList(id)
     end
 
     if not list then
-        XLog.Error("XRewardManager.GetRewardList error: can not found reward, id is " .. id)
+        XLog.Error("XRewardManager.GetRewardList error: can not found reward, id is " .. rewardId)
         return
     end
 
     return list
 end
 
+---@return XTableRewardGoods
 function XRewardManager.GetRewardGoodsCfgById(id)
-    return RewardGoodsTable[id]
+    local template = RewardGoodsTable[id]
+    if template then
+        return template
+    end
+    if XMVCA.XBigWorldGamePlay:IsBigWorldOpen() then
+        template = XMVCA.XBigWorldService:GetDlcRewardGoodsTemplate(id, true)
+        if not template then
+            XLog.Error(string.format("主线奖励表(RewardGoods.tab)与空花奖励表(BigWorldRewardGoods.tab)均无法找到奖励配置Id = %s, 请检查配置是否已经删除!", id))
+        end
+    end
+    return template
 end
 
 function XRewardManager.GetRewardListNotCount(id)
@@ -744,6 +864,35 @@ function XRewardManager.CheckRewardOwn(rewardType, templateId)
     return isHave, ownRewardIsLimitTime, rewardIsLimitTime, leftTime
 end
 
+--- 礼包特供逻辑，需要解除对某些道具的“已拥有”限制(角色、武器不限制，涂装不与角色挂钩）
+function XRewardManager.CheckRewardOwnForPackage(rewardType, templateId)
+    local isHave = false
+    local ownRewardIsLimitTime = false       --拥有的是否限时
+    local rewardIsLimitTime = false
+    local leftTime = 0
+    if not rewardType or not templateId then return isHave, ownRewardIsLimitTime, rewardIsLimitTime, leftTime end
+
+    if XRewardManager.IsRewardFashionIgnoreCharacter(rewardType, templateId) then
+        isHave = true
+    elseif XRewardManager.IsRewardWeaponFashion(rewardType, templateId) then
+        local weaponFashionId = XDataCenter.ItemManager.GetWeaponFashionId(templateId)
+        local ownWeaponFashion = XDataCenter.WeaponFashionManager.GetWeaponFashion(weaponFashionId)
+        if ownWeaponFashion then
+            isHave = XDataCenter.WeaponFashionManager.CheckHasFashion(weaponFashionId)
+            ownRewardIsLimitTime = ownWeaponFashion:IsTimeLimit()
+            rewardIsLimitTime = XDataCenter.ItemManager.IsWeaponFashionTimeLimit(templateId)
+            leftTime = ownWeaponFashion:GetLeftTime()
+        end
+    elseif XRewardManager.IsRewardHeadPortrait(rewardType, templateId) then
+        isHave = true
+    elseif XRewardManager.IsRewardDormCharacter(rewardType, templateId) then
+        isHave = true
+    elseif XRewardManager.IsRewardBackground(rewardType, templateId) then
+        isHave = true
+    end
+    return isHave, ownRewardIsLimitTime, rewardIsLimitTime, leftTime
+end
+
 -- 只要list有任意一个满足即返回true
 function XRewardManager.CheckRewardGoodsListIsOwn(rewardGoodsList)
     if not rewardGoodsList then return false end
@@ -754,6 +903,23 @@ function XRewardManager.CheckRewardGoodsListIsOwn(rewardGoodsList)
 
     for k, v in pairs(rewardGoodsList) do
         isHave, ownRewardIsLimitTime, rewardIsLimitTime, leftTime = XRewardManager.CheckRewardOwn(v.RewardType, v.TemplateId)
+        if isHave then
+            return isHave, ownRewardIsLimitTime, rewardIsLimitTime, leftTime
+        end
+    end
+    return isHave, ownRewardIsLimitTime, rewardIsLimitTime, leftTime
+end
+
+-- 只要list有任意一个满足即返回true(礼包特供）
+function XRewardManager.CheckRewardGoodsListIsOwnForPackage(rewardGoodsList)
+    if not rewardGoodsList then return false end
+    local isHave = false
+    local ownRewardIsLimitTime = false
+    local rewardIsLimitTime = false
+    local leftTime = 0
+
+    for k, v in pairs(rewardGoodsList) do
+        isHave, ownRewardIsLimitTime, rewardIsLimitTime, leftTime = XRewardManager.CheckRewardOwnForPackage(v.RewardType, v.TemplateId)
         if isHave then
             return isHave, ownRewardIsLimitTime, rewardIsLimitTime, leftTime
         end
@@ -774,13 +940,34 @@ function XRewardManager.CheckRewardGoodsListIsOwnWithAll(rewardGoodsList)
     return true
 end
 
+-- 全部满足拥有且不是限时的才会返回true（礼包特供）
+function XRewardManager.CheckRewardGoodsListIsOwnWithAllForPackage(rewardGoodsList)
+    if XTool.IsTableEmpty(rewardGoodsList) then
+        return false
+    end
+
+    local isHave = false
+    local ownRewardIsLimitTime = false
+    for k, v in pairs(rewardGoodsList) do
+        isHave, ownRewardIsLimitTime = XRewardManager.CheckRewardOwnForPackage(v.RewardType, v.TemplateId)
+        if not isHave or ownRewardIsLimitTime then
+            return false
+        end
+    end
+    return true
+end
+
 function XRewardManager.IsRewardWeaponFashion(rewardType, templateId) -- 是否拥有武器涂装
     return (rewardType == XRewardManager.XRewardType.Item or rewardType == XRewardManager.XRewardType.WeaponFashion) and XDataCenter.ItemManager.IsWeaponFashion(templateId)
 end
 
 function XRewardManager.IsRewardFashion(rewardType, templateId) -- 是否拥有涂装
     return (rewardType == XRewardManager.XRewardType.Fashion and XDataCenter.FashionManager.CheckHasFashion(templateId))
-    or (rewardType == XRewardManager.XRewardType.Character and XDataCenter.CharacterManager.IsOwnCharacter(templateId))
+    or (rewardType == XRewardManager.XRewardType.Character and XMVCA.XCharacter:IsOwnCharacter(templateId))
+end
+
+function XRewardManager.IsRewardFashionIgnoreCharacter(rewardType, templateId) -- 是否拥有涂装(忽略角色关联初始涂装）
+    return (rewardType == XRewardManager.XRewardType.Fashion and XDataCenter.FashionManager.CheckHasFashion(templateId))
 end
 
 function XRewardManager.IsRewardHeadPortrait(rewardType, templateId) -- 是否拥有头像
@@ -796,11 +983,11 @@ function XRewardManager.IsRewardBackground(rewardType, templateId) -- 是否拥�
 end
 
 function XRewardManager.IsRewardCharacter(rewardType, templateId) -- 是否拥有角色
-    return (rewardType == XRewardManager.XRewardType.Character and XDataCenter.CharacterManager.IsOwnCharacter(templateId))
+    return (rewardType == XRewardManager.XRewardType.Character and XMVCA.XCharacter:IsOwnCharacter(templateId))
 end
 
 function XRewardManager.IsRewardEquip(rewardType, templateId) -- 是否拥有武器
-    return (rewardType == XRewardManager.XRewardType.Equip and XDataCenter.EquipManager.GetFirstEquip(templateId))
+    return (rewardType == XRewardManager.XRewardType.Equip and XMVCA.XEquip:GetFirstEquip(templateId))
 end
 
 XRewardManager.XRewardType = XRewardType

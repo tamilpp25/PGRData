@@ -1,219 +1,291 @@
 local XUiPanelCombination = XClass(nil, "XUiPanelCombination")
 local XUiGridSuitDetail = require("XUi/XUiEquipAwarenessReplace/XUiGridSuitDetail")
 local CSTextManagerGetText = CS.XTextManager.GetText
-function XUiPanelCombination:Ctor(ui, parent, index)
+local Select= CS.UiButtonState.Select 
+local Normal = CS.UiButtonState.Normal
+local StateList = {"Normal", "Select"}
+
+---@class XUiPanelCombination
+function XUiPanelCombination:Ctor(ui, parent)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
+    ---@type XUiDrawOptional
+    self.Parent = parent
     XTool.InitUiObject(self)
     self:AutoAddListener()
-    self.Parent = parent
+end
+
+function XUiPanelCombination:SetData(index, drawId, goodsType, isSelect)
     self.Index = index
-    self.TxtCombination.text = CS.XTextManager.GetText("DrawCombination", index)
-end
+    self.DrawId = drawId
+    self.GoodsType = goodsType
+    self.Combination = XDataCenter.DrawManager.GetDrawCombination(drawId)
 
-function XUiPanelCombination:SetData(drawId, IsDefaultDraw, IsCanSwitch)
-    local clickCb = function(data, grid)
-        self.Parent:OnSuitGridClick(data, grid)
-    end
-
-    if self.DrawId ~= drawId then
-        self.DrawId = drawId
-        local combination = XDataCenter.DrawManager.GetDrawCombination(drawId)
-        if not combination then return end
-        local goodsList = combination.GoodsId or {}
-        self.Type = #goodsList > 0 and XArrangeConfigs.GetType(goodsList[1]) or XArrangeConfigs.Types.Error
-
-        local list = combination.GoodsId
-        if not self.Compositions then
-            self.Compositions = {}
-        end
-
-        if self.Type == XArrangeConfigs.Types.Character then
-            self:SetCharacterData(combination)
-        elseif self.Type == XArrangeConfigs.Types.Partner then
-            self:SetPartnerData(combination, list)
-        elseif self.Type ~= XArrangeConfigs.Types.Error then
-            self:SetEquipData(combination, list, clickCb)
-        else
-            self:SetBaseData()
-        end
-    end
-
-    self:SetSelectState(false)
-    self:SetPanelSwitch(IsDefaultDraw, IsCanSwitch)
-    self:SetActiveEx(true)
-
-    local drawAimProbability = XDrawConfigs.GetDrawAimProbability()
+    -- 活动中标记
     local drawInfo = XDataCenter.DrawManager.GetDrawInfo(self.DrawId)
-    local nowTime = XTime.GetServerNowTimestamp()
+    self.InActivityTag.gameObject:SetActiveEx(drawInfo.EndTime > 0)
 
-    if self.TxtTitle then
-        if drawInfo.EndTime - nowTime > 0 then
-            self.TxtTitle.text = CSTextManagerGetText("DrawAimLeftTime", XUiHelper.GetTime(drawInfo.EndTime - nowTime, XUiHelper.TimeFormatType.ACTIVITY))
-        else
-            self.TxtTitle.text = CSTextManagerGetText("DrawAimLeftTimeOver")
-        end
-        self.TxtTitle.gameObject:SetActiveEx(drawInfo.EndTime > 0)
+    -- 已选中标记
+    self.SelectTag.gameObject:SetActiveEx(self.Parent.LastSelectDrawId == drawId)
+
+    -- 商品图片
+    if self.GoodsType == XArrangeConfigs.Types.Character then
+        self:SetCharacterData()
+    elseif self.GoodsType == XArrangeConfigs.Types.Weapon then
+        self:SetEquipData()
+    elseif self.GoodsType == XArrangeConfigs.Types.Partner then
+        self:SetPartnerData()
     end
 
-    self.UpTip.gameObject:SetActiveEx(drawInfo.EndTime > 0)
-
-    if self.TxtCount then
-        self.TxtCount.gameObject:SetActiveEx(false)
-        if drawAimProbability[self.DrawId] then
-            self.TxtCount.text = drawAimProbability[self.DrawId].UpProbability or ""
-            self.TxtCount.gameObject:SetActiveEx(drawAimProbability[self.DrawId].UpProbability ~= nil)
-        end
-    end
-
-    self.Probability.gameObject:SetActiveEx(true)
-end
-
-function XUiPanelCombination:SetEquipData(combination, list, clickCb)
-    self.PanelComposition.gameObject:SetActiveEx(false)
-    self.PanelSuitCommon.gameObject:SetActiveEx(false)
-
-    for _, v in pairs(self.Compositions) do
-        CS.UnityEngine.Object.Destroy(v.GameObject)
-    end
-    self.Compositions = {}
-    for i = 1, #list do
-        if not self.Compositions[i] then
-            local go
-            if combination.Type == XDrawConfigs.CombinationsTypes.Aim then
-                go = CS.UnityEngine.Object.Instantiate(self.PanelComposition, self.PanelNormal)
-                local item = XUiGridCommon.New(self.Parent, go)
-                item.GameObject:SetActiveEx(true)
-                table.insert(self.Compositions, item)
-            elseif combination.Type == XDrawConfigs.CombinationsTypes.EquipSuit then
-                go = CS.UnityEngine.Object.Instantiate(self.PanelSuitCommon, self.PanelSuit)
-                local item = XUiGridSuitDetail.New(go, self.Parent, clickCb)
-                item.GameObject:SetActiveEx(true)
-                table.insert(self.Compositions, item)
-            end
-        end
-        self.Compositions[i]:Refresh(list[i], nil, true)
-    end
-
-    if self.InfectTip then
-        local IsIsomer = false
-        for _,composition in pairs(self.Compositions) do
-            local templateData = XEquipConfig.GetEquipCfg(composition.TemplateId)
-            if templateData.CharacterType == XEquipConfig.UserType.Isomer then
-                IsIsomer = true
-                break 
-            end
-        end
+    -- 背景图、概率
+    local drawAimProbability = XDrawConfigs.GetDrawAimProbability()
+    local probabilityInfo = drawAimProbability[self.DrawId]
+    local showProbability = probabilityInfo and probabilityInfo.UpProbabilityDesc ~= nil
+    for _, stateName in ipairs(StateList) do
+        local uiObj = self[stateName]
+        local panelProbability = uiObj:GetObject("PanelProbability")
+        panelProbability.gameObject:SetActiveEx(showProbability)
+        uiObj:GetObject("Bg"):SetRawImage(probabilityInfo.Bg)
         
-        self.InfectTip.gameObject:SetActiveEx(IsIsomer)
-    end
-end
+        if showProbability then
+            panelProbability:SetRawImage(probabilityInfo.ProbabilityBg)
 
-function XUiPanelCombination:SetPartnerData(combination, list)
-    self.PanelComposition.gameObject:SetActiveEx(false)
+            local havePercent = probabilityInfo.UpProbabilityPercent ~= nil
+            local txtProbability = uiObj:GetObject("TxtProbability")
+            local txtProbability2 = uiObj:GetObject("TxtProbability2")
+            txtProbability.gameObject:SetActiveEx(havePercent)
+            txtProbability2.gameObject:SetActiveEx(not havePercent)
 
-    for _, v in pairs(self.Compositions) do
-        CS.UnityEngine.Object.Destroy(v.GameObject)
-    end
-
-    self.Compositions = {}
-    for i = 1, #list do
-        if not self.Compositions[i] then
-            local go
-            if combination.Type == XDrawConfigs.CombinationsTypes.Aim then
-                go = CS.UnityEngine.Object.Instantiate(self.PanelComposition, self.PanelNormal)
-                local item = XUiGridCommon.New(self.Parent, go)
-                item.GameObject:SetActiveEx(true)
-                table.insert(self.Compositions, item)
+            if havePercent then
+                txtProbability.text = probabilityInfo.UpProbabilityDesc
+                uiObj:GetObject("TxtProbabilityPercent").text = probabilityInfo.UpProbabilityPercent
+            else
+                txtProbability2.text = probabilityInfo.UpProbabilityDesc
             end
         end
-        self.Compositions[i]:Refresh(list[i], nil, true)
+    end
+
+    -- 选中
+    self:SetSelectState(isSelect)
+end
+
+function XUiPanelCombination:SetCharacterData()
+    -- 随机泛用机体
+    if self.Combination.GoodsId == nil or #self.Combination.GoodsId == 0 then
+        self:SetCharacterDataEmpty()
+        return
+    end
+
+    self.BtnHelp.gameObject:SetActiveEx(true)
+    self.CharId = self.Combination.GoodsId[1]
+
+    -- 已拥有
+    local isOwn = XMVCA.XCharacter:IsOwnCharacter(self.CharId)
+    self.TxtOwn.gameObject:SetActiveEx(isOwn)
+
+    -- 图片
+    local halfBodyImage = XMVCA.XCharacter:GetCharHalfBodyImage(self.CharId)
+
+    -- 名字
+    local name = XMVCA.XCharacter:GetCharacterLogName(self.CharId)
+
+    -- 职业
+    local career = XMVCA.XCharacter:GetCharDetailCareer(self.CharId)
+    local careerConfig = XMVCA.XCharacter:GetNpcTypeTemplate(career)
+    local careerIcon = careerConfig.Icon
+
+    -- 能量
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(self.CharId)
+    local elementList = detailConfig.ObtainElementList
+    local elementInfoList = {}
+    for i, eleId in ipairs(elementList) do
+        local eleValue = detailConfig.ObtainElementValueList[i]
+        table.insert(elementInfoList, {Id = eleId, Value = eleValue})
+    end
+    table.sort(elementInfoList, function(a, b) 
+        return a.Value > b.Value
+    end)
+
+    -- 刷新
+    for _, stateName in ipairs(StateList) do
+        local uiObj = self[stateName]
+        uiObj:GetObject("RoleMask").gameObject:SetActiveEx(true)
+        uiObj:GetObject("Bg2").gameObject:SetActiveEx(true)
+        uiObj:GetObject("RImgRole"):SetRawImage(halfBodyImage)
+        uiObj:GetObject("TxtName").text = name
+        if uiObj:GetObject("Bg3") then
+            uiObj:GetObject("Bg3").gameObject:SetActiveEx(true)
+        end
+        local rawImgCareerIcon = uiObj:GetObject("RawImgCareerIcon")
+        rawImgCareerIcon.gameObject:SetActiveEx(true)
+        rawImgCareerIcon:SetRawImage(careerIcon)
+
+        -- 能量
+        for i = 1, 2 do
+            local rImg = uiObj:GetObject("RImgCharElement" .. i)
+            if elementInfoList[i] then
+                rImg.gameObject:SetActiveEx(true)
+                local elementConfig = XMVCA.XCharacter:GetCharElement(elementInfoList[i].Id)
+                rImg:SetRawImage(elementConfig.Icon2)
+            else
+                rImg.gameObject:SetActiveEx(false)
+            end
+        end
     end
 end
 
-function XUiPanelCombination:SetCharacterData(combination)
-    local goodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(combination.GoodsId[1])
-    local quality = XCharacterConfigs.GetCharMinQuality(combination.GoodsId[1])
+function XUiPanelCombination:SetCharacterDataEmpty()
+    self.BtnHelp.gameObject:SetActiveEx(false)
+    self.TxtOwn.gameObject:SetActiveEx(false)
 
-    self.CharId = combination.GoodsId[1]
-    self.AimImgBottomIco:SetRawImage(goodsShowParams.Icon)
-    self.AimImgBottomRank:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality))
-
-    if goodsShowParams.Quality then
-        local qualityIcon = goodsShowParams.QualityIcon
-
-        if qualityIcon then
-            self.Parent:SetUiSprite(self.AimImgQuality, qualityIcon)
-        else
-            XUiHelper.SetQualityIcon(self.Parent, self.AimImgQuality, goodsShowParams.Quality)
+    for _, stateName in ipairs(StateList) do
+        local uiObj = self[stateName]
+        uiObj:GetObject("RawImgCareerIcon").gameObject:SetActiveEx(false)
+        uiObj:GetObject("RoleMask").gameObject:SetActiveEx(false)
+        uiObj:GetObject("Bg2").gameObject:SetActiveEx(false)
+        if uiObj:GetObject("Bg3") then
+            uiObj:GetObject("Bg3").gameObject:SetActiveEx(false)
         end
     end
 end
 
-function XUiPanelCombination:SetBaseData()
-    --self.Probability.gameObject:SetActiveEx(false)
-    --local drawInfo = XDataCenter.DrawManager.GetDrawInfo(self.DrawId)
-    --self.TxtCount.text = string.format("%d/%d",drawInfo.BottomTimes,drawInfo.MaxBottomTimes)
-end
+function XUiPanelCombination:SetEquipData()
+    self.EquipTemplateId = self.Combination.GoodsId[1]
 
-function XUiPanelCombination:SetPanelSwitch(IsDefaultDraw, IsCanSwitch)
-    if not IsDefaultDraw and not IsCanSwitch then
-        if self.BtnSelect then
-            self.BtnSelect.gameObject:SetActiveEx(false)
-        end
-        if self.TxtSelected then
-            self.TxtSelected.gameObject:SetActiveEx(false)
-        end
-        if self.PanelCanNotSelect then
-            self.PanelCanNotSelect.gameObject:SetActiveEx(true)
-        end
-    else
-        if self.PanelCanNotSelect then
-            self.PanelCanNotSelect.gameObject:SetActiveEx(false)
+    -- 已拥有
+    local isOwn = XMVCA.XEquip:IsOwnEquip(self.EquipTemplateId)
+    self.TxtOwn.gameObject:SetActiveEx(isOwn)
+
+    -- 武器图、推荐角色图
+    local weaponIcon = XMVCA.XEquip:GetEquipLiHuiPath(self.EquipTemplateId)
+    local equipCfg = XMVCA.XEquip:GetConfigEquip(self.EquipTemplateId)
+    local charId = equipCfg.RecommendCharacterId
+    local haveChar = charId and charId ~= 0
+    local charIcon = nil
+    local roleName = nil
+    if haveChar then
+        charIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(charId, true)
+        roleName = XMVCA.XCharacter:GetCharacterLogName(charId)
+    end
+
+    -- 刷新
+    for _, stateName in ipairs(StateList) do
+        local uiObj = self[stateName]
+        local rImgWeapon = uiObj:GetObject("RImgWeapon")
+        rImgWeapon:SetRawImage(weaponIcon)
+        self:CheckIconPosAndSizeChange(rImgWeapon)
+
+        local rImgRole = uiObj:GetObject("RImgRole")
+        rImgRole.gameObject:SetActiveEx(haveChar)
+        uiObj:GetObject("WeaponInfo").gameObject:SetActiveEx(haveChar)
+        if haveChar then
+            rImgRole:SetRawImage(charIcon)
+            uiObj:GetObject("TxtRoleName").text = roleName
         end
     end
 end
 
-function XUiPanelCombination:SetSelectState(bool)
+function XUiPanelCombination:SetPartnerData()
+    self.PartnerTemplateId = self.Combination.GoodsId[1]
 
-    self.BtnSelect.gameObject:SetActiveEx(not bool)
-    self.TxtSelected.gameObject:SetActiveEx(bool)
+    -- 已拥有
+    local isOwn = XDataCenter.PartnerManager.GetPartnerCountByTemplateId(self.PartnerTemplateId) > 0
+    self.TxtOwn.gameObject:SetActiveEx(isOwn)
 
-    if self.Type == XArrangeConfigs.Types.Character then
-        self.Up.gameObject:SetActiveEx(bool)
-    elseif self.Type ~= XArrangeConfigs.Types.Error then
-        if not self.Compositions then
-            return
-        end
-        for _, v in pairs(self.Compositions) do
-            v:SetShowUp(bool)
+    -- 辅助机图、推荐角色图
+    local partnerIcon = XPartnerConfigs.GetPartnerTemplateLiHuiPath(self.PartnerTemplateId)
+    local partnerCfg = XPartnerConfigs.GetPartnerTemplateById(self.PartnerTemplateId)
+    local charId = partnerCfg.RecommendCharacterId
+    local haveChar = charId and charId ~= 0
+    local charIcon = nil
+    local roleName = nil
+    if haveChar then
+        charIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(charId, true)
+        roleName = XMVCA.XCharacter:GetCharacterLogName(charId)
+    end
+
+    -- 刷新
+    for _, stateName in ipairs(StateList) do
+        local uiObj = self[stateName]
+        local rImgWeapon = uiObj:GetObject("RImgWeapon")
+        rImgWeapon:SetRawImage(partnerIcon)
+        self:CheckIconPosAndSizeChange(rImgWeapon)
+
+        local rImgRole = uiObj:GetObject("RImgRole")
+        rImgRole.gameObject:SetActiveEx(haveChar)
+        uiObj:GetObject("WeaponInfo").gameObject:SetActiveEx(haveChar)
+        if haveChar then
+            rImgRole:SetRawImage(charIcon)
+            uiObj:GetObject("TxtRoleName").text = roleName
         end
     end
 end
 
-function XUiPanelCombination:SetActiveEx(bool)
-    self.GameObject:SetActiveEx(bool)
+function XUiPanelCombination:SetSelectState(isSelect)
+    local state = isSelect and Select or Normal
+    self.BtnInfo:SetButtonState(state)
 end
 
 function XUiPanelCombination:AutoAddListener()
-    self.BtnSelect.CallBack = function() self:OnBtnSelectClick() end
-
-    if self.BtnClick then
-        self.BtnClick.CallBack = function()
-            self:OnBtnClickClick()
-        end
-    end
-end
--- auto
-function XUiPanelCombination:OnBtnSelectClick()
-    self.Parent:SelectCombination(self.Index, self.DrawId)
-    --CS.XUiManager.ViewManager:Pop()
+    self.BtnInfo.ExitCheck = false
+    XUiHelper.RegisterClickEvent(self, self.BtnInfo, self.OnClickBtnInfo)
+    XUiHelper.RegisterClickEvent(self, self.BtnHelp, self.OnBtnHelp)
 end
 
-function XUiPanelCombination:OnBtnClickClick()
-    if self.Type == XArrangeConfigs.Types.Character then
+function XUiPanelCombination:OnClickBtnInfo()
+    self.Parent:SelectCombination(self.DrawId)
+end
+
+function XUiPanelCombination:OnBtnHelp()
+    if self.GoodsType == XArrangeConfigs.Types.Character then
         XDataCenter.AutoWindowManager.StopAutoWindow()
         XLuaUiManager.Open("UiCharacterDetail", self.CharId)
+    elseif self.GoodsType == XArrangeConfigs.Types.Weapon then
+        XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipPreview(self.EquipTemplateId)
+    elseif self.GoodsType == XArrangeConfigs.Types.Partner then
+        local partnerData = { Id = 0, TemplateId = self.PartnerTemplateId }
+        local partner = XDataCenter.PartnerManager.CreatePartnerEntityByPartnerData(partnerData, true)
+        XLuaUiManager.Open("UiPartnerPreview", partner)
+    end
+end
+
+-- 检测图标的位置和大小是否需要变化
+function XUiPanelCombination:CheckIconPosAndSizeChange(weaponIcon)
+    local rectTrans = weaponIcon:GetComponent("RectTransform")
+    local drawAimProbability = XDrawConfigs.GetDrawAimProbability()
+    local pbCfg = drawAimProbability[self.DrawId]
+
+    -- 检测位置
+    local changPos = pbCfg.IsChangePos == 1
+    if not self.DefaultWeaponLocalPosition then
+        self.DefaultWeaponLocalPosition = rectTrans.localPosition
+    end
+    if changPos then
+        rectTrans.localPosition = CS.UnityEngine.Vector3(pbCfg.IconPosX, pbCfg.IconPosY, 0)
+    else
+        rectTrans.localPosition = self.DefaultWeaponLocalPosition
+    end
+
+    -- 检测大小
+    local changSize = pbCfg.IsChangeSize == 1
+    if not self.DefaultWeaponSizeDelta then
+        self.DefaultWeaponSizeDelta = rectTrans.sizeDelta
+    end
+    if changSize then
+        rectTrans.sizeDelta = CS.UnityEngine.Vector2(pbCfg.IconWidth, pbCfg.IconHeight)
+    else
+        rectTrans.sizeDelta = self.DefaultWeaponSizeDelta
+    end
+
+    -- 检测旋转
+    local changRot = pbCfg.IsChangeRot == 1
+    if not self.DefaultWeaponRotation then
+        self.DefaultWeaponRotation = rectTrans.localRotation
+    end
+    if changRot then
+        rectTrans.localRotation = CS.UnityEngine.Quaternion.Euler(0, 0, pbCfg.RotZ)
+    else
+        rectTrans.localRotation = self.DefaultWeaponRotation
     end
 end
 

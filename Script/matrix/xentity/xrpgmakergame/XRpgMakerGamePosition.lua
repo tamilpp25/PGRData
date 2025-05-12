@@ -6,7 +6,8 @@ local Default = {
     _PositionY = 0,
 }
 
---二维坐标点，非场景对象的坐标
+---推箱子二维坐标点，非场景对象的坐标
+---@class XRpgMakerGamePosition
 local XRpgMakerGamePosition = XClass(nil, "XRpgMakerGamePosition")
 
 function XRpgMakerGamePosition:Ctor()

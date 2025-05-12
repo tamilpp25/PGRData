@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelFunitureList = XClass(nil, "XUiPanelFunitureList")
 local XUiGridFurnitreTemplate = require("XUi/XUiDormTemplate/XUiGridFurnitreTemplate")
 

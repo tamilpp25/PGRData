@@ -18,7 +18,6 @@ local ActivityLastSyncShopTime = {}               -- 活动商店刷新时间
 local ShopBaseInfoDict = {}             -- 商店基础信息
 local ShopDict = {}                     -- 商店详细信息
 local ShopGroup = {}
-local GiftRewardId = nil                --海外修改，存储当前购买的涂装礼包ID
 
 local ScreenGoodsList = {}
 local ScreenTagList = {}
@@ -40,16 +39,19 @@ XShopManager.ShopType = {
     Common = 1, -- 普通商店
     Activity = 2, -- 活动商店
     Points = 3, -- 活动商店
+    Recharge = 4, -- 累充商店
+    Login = 5, -- 登陆
     Dorm = 101,
     Boss = 102,
     Arena = 103,
     Guild = 301,
     FubenDaily = 401,
     WorldBoss = 501, --世界Boss
-    SameColorGame = 601,    -- 三消游戏
-    PickFlip = 602,    -- 涂装抽卡
-    Theatre = 603,  --肉鸽玩法
-    AccumulateConsume = 701,  --累消活动
+    SameColorGame = 601, -- 三消游戏
+    PickFlip = 602, -- 涂装抽卡
+    Theatre = 603, --肉鸽玩法
+    AccumulateConsume = 701, --累消活动
+    DlcHunt = 502, --Dlc
 }
 
 XShopManager.ShopTags = {
@@ -84,6 +86,35 @@ XShopManager.ActivityShopType = {
     NieRShop = 2, --尼尔活动商店
     MoeWarShop = 3, --萌战活动商店
     AreaWar = 4, --全服决战商店
+    ColortableShop = 5, --调色板战争商店
+    Maverick2 = 6, --异构阵线2.0
+    TheatreShop = 7, --肉鸽1商店
+    PlanetShop = 8, --行星商店
+    RiftShop = 9, --大秘境商店
+    CerberusShop = 10, --三头犬小队商店
+    BlackRockChessShop = 11, --国际战旗商店
+    Maverick3Shop = 12, --孤胆枪手商店
+}
+
+--分解商店分类
+XShopManager.DecompositionShopId = {
+    [XEnumConst.EQUIP.CLASSIFY.WEAPON] = {
+        [4] = 401,
+        [5] = 402,
+        [6] = 403,
+    },
+    [XEnumConst.EQUIP.CLASSIFY.AWARENESS] = {
+        [4] = 404,
+        [5] = 405,
+        [6] = 406,
+    }
+}
+
+--累充商店分类
+XShopManager.RechargeShopType = {
+    CharacterShop = 1001,
+    EquipShop = 1002,
+    PartnerShop = 1003,
 }
 
 function XShopManager.ClearBaseInfoData()
@@ -179,7 +210,6 @@ function XShopManager.GetShopBaseInfoByTypeAndTag(type)
             end
         end
     end
-
 
     return list
 end
@@ -320,6 +350,22 @@ function XShopManager.GetShopTimeInfo(shopId)
     return info
 end
 
+function XShopManager.GetShopRewardGoods(shopId, itemId)
+    local shop = ShopDict[shopId]
+    if not shop then
+        XLog.Error("XShopManager.GetShopGoods error: can not found shop, id is " .. shopId)
+        return
+    end
+    local tempGoods
+    for _, goods in pairs(shop.GoodsList) do
+        if goods and goods.RewardGoods and goods.RewardGoods.TemplateId == itemId then
+            tempGoods = goods
+            break
+        end
+    end
+    return tempGoods
+end
+
 function XShopManager.GetLeftTime(endTime)
     return endTime > 0 and endTime - XTime.GetServerNowTimestamp() or endTime
 end
@@ -328,10 +374,12 @@ function XShopManager.IsShopExist(shopId)
     return ShopBaseInfoDict[shopId] ~= nil
 end
 
-function XShopManager.GetShopGoodsList(shopId)
+function XShopManager.GetShopGoodsList(shopId, notDebugError, ignoreSort)
     local shop = ShopDict[shopId]
     if not shop then
-        XLog.Error("XShopManager.GetShopGoodsList error: can not found shop, id is " .. shopId)
+        if not notDebugError then
+            XLog.Error("XShopManager.GetShopGoodsList error: can not found shop, id is " .. shopId)
+        end
         return {}
     end
 
@@ -349,6 +397,10 @@ function XShopManager.GetShopGoodsList(shopId)
         if not (IsLock and goods.IsHideWhenConditionLimit) then
             tableInsert(list, goods)
         end
+    end
+
+    if ignoreSort then
+        return list
     end
 
     --排序优先级
@@ -406,6 +458,63 @@ function XShopManager.GetShopGoodsList(shopId)
     return list
 end
 
+function XShopManager.GetShopGoodsListDoNotSortCondition(shopId)
+    local shop = ShopDict[shopId]
+    if not shop then
+        XLog.Error("XShopManager.GetShopGoodsList error: can not found shop, id is " .. shopId)
+        return {}
+    end
+
+    local list = {}
+    for _, goods in pairs(shop.GoodsList) do
+        local IsLock = false
+        for _, v in pairs(goods.ConditionIds) do
+            local ret = XConditionManager.CheckCondition(v)
+            if not ret then
+                IsLock = true
+                break
+            end
+        end
+
+        if not (IsLock and goods.IsHideWhenConditionLimit) then
+            tableInsert(list, goods)
+        end
+    end
+
+    --排序优先级
+    tableSort(list, function(a, b)
+        -- 是否卖光
+        if a.BuyTimesLimit > 0 or b.BuyTimesLimit > 0 then
+            -- 如果商品有次数限制，并且达到次数限制，则判断为售罄
+            local isSellOutA = a.BuyTimesLimit == a.TotalBuyTimes and a.BuyTimesLimit > 0
+            local isSellOutB = b.BuyTimesLimit == b.TotalBuyTimes and b.BuyTimesLimit > 0
+            if isSellOutA ~= isSellOutB then
+                return isSellOutB
+            end
+        end
+
+        -- 是否限时
+        if a.SelloutTime ~= b.SelloutTime then
+            if a.SelloutTime > 0 and b.SelloutTime > 0 then
+                return a.SelloutTime < b.SelloutTime
+            elseif a.SelloutTime > 0 and b.SelloutTime <= 0 then
+                return XShopManager.GetLeftTime(a.SelloutTime) > 0
+            elseif a.SelloutTime <= 0 and b.SelloutTime > 0 then
+                return XShopManager.GetLeftTime(b.SelloutTime) < 0
+            end
+        end
+
+        if a.Tags ~= b.Tags and a.Tags ~= 0 and b.Tags ~= 0 then
+            return a.Tags < b.Tags
+        end
+
+        if a.Priority ~= b.Priority then
+            return a.Priority > b.Priority
+        end
+    end)
+    return list
+end
+
 function XShopManager.GetDefaultShopId()
     local list = XShopManager.GetShopBaseInfoByTypeAndTag(XShopManager.ShopType.Common)
     return list[1].Id
@@ -428,12 +537,6 @@ local function AddBuyTimes(shopId, goodsId, count)
     end
 end
 
-function XShopManager.AddBuyTime(shopId, goodsId, count)
-    AddBuyTimes(shopId, goodsId, count)
-    --触发界面消息
-    XEventManager.DispatchEvent(XEventId.EVENT_SHOP_BUYUSERIYUAN, shopId)
-end
-
 local function SetShop(shop)
     ShopDict[shop.Id] = shop
     LastSyncShopTimes[shop.Id] = XTime.GetServerNowTimestamp()
@@ -447,6 +550,9 @@ local function SetShopBaseInfoList(shopBaseInfoList)
 end
 
 function XShopManager.GetShopInfo(shopId, cb, pleaseDoNotTip)
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon, true) then
+        return
+    end
     local now = XTime.GetServerNowTimestamp()
     local syscTime = LastSyncShopTimes[shopId]
 
@@ -459,6 +565,10 @@ function XShopManager.GetShopInfo(shopId, cb, pleaseDoNotTip)
 
     XNetwork.Call(METHOD_NAME.GetShopInfo, { Id = shopId }, function(res)
         if res.Code ~= XCode.Success then
+            if res.Code == XCode.ItemCountNotEnough then
+                XEventManager.DispatchEvent(XEventId.EVENT_SHOP_ITEM_NOT_ENOUGH, res.Code, shopId, ShopDict[shopId] ~= nil)
+                return
+            end
             if not pleaseDoNotTip then
                 XUiManager.TipCode(res.Code)
             end
@@ -466,12 +576,23 @@ function XShopManager.GetShopInfo(shopId, cb, pleaseDoNotTip)
         end
         SetShop(res.ClientShop)
         XShopManager.SetScreenData(res.ClientShop.Id)
-        if cb then cb() end
+        if cb then
+            cb()
+        end
     end)
 end
 
-function XShopManager.GetShopInfoList(shopIdList, cb, shopType)
-    shopType = shopType or XShopManager.ActivityShopType.BriefShop
+---@param shopType number XShopManager.ActivityShopType 每个商店列表都要定义，用于缓存上一次的请求时间，在SYNC_SHOP_SECOND时间内则不重复请求
+function XShopManager.GetShopInfoList(shopIdList, cb, shopType, notTip)
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon) then
+        return
+    end
+
+    if not shopType then
+        XLog.Error("XShopManager.GetShopInfoList() 请求商店列表需要传参shopType")
+        return
+    end
+
     local now = XTime.GetServerNowTimestamp()
     local syscTime = ActivityLastSyncShopTime[shopType] or 0
     if syscTime and now - syscTime < SYNC_SHOP_SECOND then
@@ -482,7 +603,9 @@ function XShopManager.GetShopInfoList(shopIdList, cb, shopType)
     end
     XNetwork.Call(METHOD_NAME.GetShopInfoList, { IdList = shopIdList }, function(res)
         if res.Code ~= XCode.Success then
-            XUiManager.TipCode(res.Code)
+            if not notTip then
+                XUiManager.TipCode(res.Code)
+            end
             return
         end
         ActivityLastSyncShopTime[shopType] = XTime.GetServerNowTimestamp()
@@ -490,7 +613,9 @@ function XShopManager.GetShopInfoList(shopIdList, cb, shopType)
             SetShop(v)
             XShopManager.SetScreenData(v.Id)
         end
-        if cb then cb() end
+        if cb then
+            cb()
+        end
     end)
 end
 
@@ -525,6 +650,9 @@ local function CheckResfreshShopLimit(shopId)
 end
 
 function XShopManager.RefreshShopGoods(shopId, cb)
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon) then
+        return
+    end
     if not CheckResfreshShopLimit(shopId) then
         return
     end
@@ -535,18 +663,28 @@ function XShopManager.RefreshShopGoods(shopId, cb)
             return
         end
         SetShop(res.ClientShop)
-        if cb then cb() end
+        if cb then
+            cb()
+        end
     end)
 end
 
 function XShopManager.GetBaseInfo(cb)
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon) then
+        return
+    end
     XNetwork.Call(METHOD_NAME.GetShopBaseInfo, nil, function(res)
         SetShopBaseInfoList(res.ShopBaseInfoList)
-        if cb then cb() end
+        if cb then
+            cb()
+        end
     end)
 end
 
 function XShopManager.BuyShop(shopId, goodsId, count, cb, err_cb)
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon) then
+        return
+    end
     local req = { ShopId = shopId, GoodsId = goodsId, Count = count }
     XNetwork.Call(METHOD_NAME.Buy, req, function(res)
         if res.Code ~= XCode.Success then
@@ -557,7 +695,7 @@ function XShopManager.BuyShop(shopId, goodsId, count, cb, err_cb)
             return
         end
         AddBuyTimes(shopId, goodsId, count)
-        cb()
+        cb(res)
     end)
 end
 
@@ -621,60 +759,68 @@ function XShopManager.SetScreenData(id)
     if ScreenGroupIDList then
         for _, screenGroupId in pairs(ScreenGroupIDList) do
             local screenGroup = ScreenGoodsList[id][screenGroupId]
-            if not screenGroup then ScreenGoodsList[id][screenGroupId] = {} end
+            if not screenGroup then
+                ScreenGoodsList[id][screenGroupId] = {}
+            end
 
             local tagGroup = ScreenTagList[id][screenGroupId]
-            if not tagGroup then ScreenTagList[id][screenGroupId] = {} end
+            if not tagGroup then
+                ScreenTagList[id][screenGroupId] = {}
+            end
 
             for _, goods in pairs(GoodsList or {}) do
                 if screenGroupId == XShopManager.ScreenType.SuitPos then
                     XShopManager.DoScreen(id, XArrangeConfigs.Types.Wafer,
-                    screenGroupId,
-                    goods,
-                    function()
-                        return { XDataCenter.EquipManager.GetEquipSiteByTemplateId(goods.RewardGoods.TemplateId) }
-                    end
+                            screenGroupId,
+                            goods,
+                            function()
+                                return { XMVCA.XEquip:GetEquipSite(goods.RewardGoods.TemplateId) }
+                            end
                     )
                 elseif screenGroupId == XShopManager.ScreenType.SuitName
-                or screenGroupId == XShopManager.ScreenType.ActivitySuitName then
+                        or screenGroupId == XShopManager.ScreenType.ActivitySuitName then
                     XShopManager.DoScreen(id, XArrangeConfigs.Types.Wafer,
-                    screenGroupId,
-                    goods,
-                    function()
-                        return { XDataCenter.EquipManager.GetSuitIdByTemplateId(goods.RewardGoods.TemplateId) }
-                    end
+                            screenGroupId,
+                            goods,
+                            function()
+                                return { XMVCA.XEquip:GetEquipSuitId(goods.RewardGoods.TemplateId) }
+                            end
                     )
                 elseif screenGroupId == XShopManager.ScreenType.WeaponType then
                     XShopManager.DoScreen(id, XArrangeConfigs.Types.Weapon,
-                    screenGroupId,
-                    goods,
-                    function()
-                        return { XDataCenter.EquipManager.GetEquipTypeByTemplateId(goods.RewardGoods.TemplateId) }
-                    end
+                            screenGroupId,
+                            goods,
+                            function()
+                                if XArrangeConfigs.GetType(goods.RewardGoods.TemplateId) == XArrangeConfigs.Types.Weapon then
+                                    return { XMVCA.XEquip:GetEquipType(goods.RewardGoods.TemplateId) }
+                                else
+                                    return { XDataCenter.WeaponFashionManager.GetEquipTypeByTemplateId(goods.RewardGoods.TemplateId) }
+                                end
+                            end
                     )
                 elseif screenGroupId == XShopManager.ScreenType.FashionType then
                     XShopManager.DoScreen(id, XArrangeConfigs.Types.Fashion,
-                    screenGroupId,
-                    goods,
-                    function()
-                        return { XDataCenter.FashionManager.GetCharacterId(goods.RewardGoods.TemplateId) }
-                    end
+                            screenGroupId,
+                            goods,
+                            function()
+                                return { XDataCenter.FashionManager.GetCharacterId(goods.RewardGoods.TemplateId) }
+                            end
                     )
                 elseif screenGroupId == XShopManager.ScreenType.ItemType then
                     XShopManager.DoScreen(id, XArrangeConfigs.Types.Item,
-                    screenGroupId,
-                    goods,
-                    function()
-                        return { XDataCenter.ItemManager.GetItemType(goods.RewardGoods.TemplateId) }
-                    end
+                            screenGroupId,
+                            goods,
+                            function()
+                                return { XDataCenter.ItemManager.GetItemType(goods.RewardGoods.TemplateId) }
+                            end
                     )
                 elseif screenGroupId == XShopManager.ScreenType.AwakeItemType then
                     XShopManager.DoScreen(id, XArrangeConfigs.Types.Item,
-                    screenGroupId,
-                    goods,
-                    function()
-                        return XDataCenter.EquipManager.GetAwakeItemApplicationScope(goods.RewardGoods.TemplateId)
-                    end
+                            screenGroupId,
+                            goods,
+                            function()
+                                return XMVCA.XEquip:GetAwakeItemApplicationScope(goods.RewardGoods.TemplateId)
+                            end
                     )
                 end
             end
@@ -699,7 +845,7 @@ function XShopManager.DoScreen(id, goodstype, screenGroupId, goods, getkeyList)
     local tmpScreenData = XShopManager.GetShopScreenGroupDataById(screenGroupId)
     local screenGroup = ScreenGoodsList[id][screenGroupId]
     local tagGroup = ScreenTagList[id][screenGroupId]
-    if XArrangeConfigs.GetType(goods.RewardGoods.TemplateId) == goodstype then
+    if XShopManager.CheckIsSameType(goods.RewardGoods.TemplateId, goodstype) then
         local IsIn = false
         local keyList = getkeyList()
         if keyList and tmpScreenData and tmpScreenData.ScreenID then
@@ -782,6 +928,24 @@ function XShopManager.DoScreen(id, goodstype, screenGroupId, goods, getkeyList)
     end
 end
 
+function XShopManager.CheckIsSameType(templateId, type)
+    if XArrangeConfigs.GetType(templateId) == type then
+        return true
+    end
+
+    -- 1.31新增武器涂装
+    if type == XShopManager.ScreenType.WeaponType and XArrangeConfigs.GetType(templateId) == XArrangeConfigs.Types.Item then
+        local subTypeParams = XItemConfigs.GetItemSubTypeParams(templateId)
+        if subTypeParams and #subTypeParams > 0 then
+            local isWeaponFashion = XWeaponFashionConfigs.IsWeaponFashion(subTypeParams[1])
+            if isWeaponFashion then
+                return true
+            end
+        end
+    end
+
+    return false
+end
 
 function XShopManager.CheckDailyShopSuitIsNew(suitId, suitShopItemList)
     for _, v in ipairs(suitShopItemList) do
@@ -807,7 +971,7 @@ function XShopManager.CheckDailyShopHasNewSuit(shopItemList)
 
     for _, data in ipairs(shopItemList) do
         if data.Tags == XShopManager.ShopTags.New then
-            local suitId = XDataCenter.EquipManager.GetSuitIdByTemplateId(data.RewardGoods.TemplateId)
+            local suitId = XMVCA.XEquip:GetEquipSuitId(data.RewardGoods.TemplateId)
             local key = COOKIE_DAILYSHOPNEWSUIT_KEY .. suitId
             if not XShopManager.ReadCookie(key) then
                 return true
@@ -815,14 +979,6 @@ function XShopManager.CheckDailyShopHasNewSuit(shopItemList)
         end
     end
     return false
-end
-
-function XShopManager.SetGiftFashionID(id)
-    GiftRewardId = id
-end
-
-function XShopManager.GetGiftFashionID()
-    return GiftRewardId
 end
 
 function XShopManager.GetCookieKeyStr(key)
@@ -841,37 +997,148 @@ function XShopManager.GetShopIsHide(shopId)
     return XShopConfigs.CheckShopIdIsHide(shopId)
 end
 
-XShopManager.ShopBuyCallbackMap = {}
-function XShopManager.SetBuyCallback(shopId, cb)
-    if XShopManager.ShopBuyCallbackMap[shopId] then
-        local callbackEntity = XShopManager.ShopBuyCallbackMap[shopId]
-        callbackEntity.Count = callbackEntity.Count + 1
-    else
-        local callbackEntity = {
-            Callback = cb,
-            Count = 1,
-        }
-        XShopManager.ShopBuyCallbackMap[shopId] = callbackEntity
+-- region v1.29 商店优化
+-- 在shop表里新增字段refreshtips，控制对应的商店页签倒计时旁是否显示刷新tips，以及tips文本内容，若填写内容则显示tips按钮以及点击按钮后显示配置文本，若未填写，则不显示按钮。
+function XShopManager.GetShopShowRefreshTips(shopId)
+    local info = ShopDict[shopId]
+    if not info then
+        XLog.Error("XShopManager.GetShopShowRefreshTips error: can not found info, id is " .. shopId)
+        return
     end
+    local refreshTips = info.RefreshTips
+    if not refreshTips or refreshTips == "" then
+        return false
+    end
+    return refreshTips
 end
-function XShopManager.InvokeShopBuyCallback(shopId)
-    if shopId and shopId ~= 0 then
-        if XShopManager.ShopBuyCallbackMap[shopId] then
-            local callbackEntity = XShopManager.ShopBuyCallbackMap[shopId]
-            if callbackEntity.Callback then
-                callbackEntity.Callback()
-            end
-            callbackEntity.Count = callbackEntity.Count - 1
-            if callbackEntity.Count <= 0 then
-                XShopManager.ShopBuyCallbackMap[shopId] = nil
-            end
-        end
+
+function XShopManager.GetTagScreenAll()
+    return ScreenAll
+end
+
+function XShopManager.GetTagScreenOther()
+    return ScreenOther
+end
+
+function XShopManager.SaveGoodsOrder(goodsList, goodsOrder)
+    for i = 1, #goodsList do
+        local id = goodsList[i].Id
+        local order = i
+        goodsOrder[id] = order
     end
 end
 
---商店使用日元购买完成之后服务端主动推
-XRpc.BuyResponse = function(data)
-    XShopManager.AddBuyTime(data.ShopId, data.GoodsId, data.Count)
-    XDataCenter.PayManager.ClearCurrentPayId(data.GoodsId)
-    XShopManager.InvokeShopBuyCallback(data.ShopId)
+function XShopManager.SortByOldGoodsOrder(goodsList, goodsOrder)
+    -- clone是因为这是从shopManager拿的数据,不能修改manager里保存的顺序
+    goodsList = XTool.Clone(goodsList)
+    table.sort(goodsList, function(a, b)
+        local orderA = goodsOrder[a.Id] or math.huge
+        local orderB = goodsOrder[b.Id] or math.huge
+        return orderB > orderA
+    end)
+    return goodsList
+end
+
+function XShopManager.GetScreenGoodsListByTagEx(shopId, group, tag)
+    local goodsList = ScreenGoodsList[shopId][group]
+    if not goodsList then
+        return {}
+    end
+    return goodsList[tag] or {}
+end
+
+--endregion
+
+--===================v1.31【商店优化】大额消费二次确认=======================
+-- 二次确认弹窗
+-- @consumeId:货币ItemId
+-- @consumeCount:商品单价
+-- @buyCount:商品购买数量
+-- @targetId:购买的目标物Id
+function XShopManager.OpenBuySecondConfirm(consumeId, consumeCount, buyCount, targetId, closeCallBack, confirmCallBack)
+    local secondConfirmData = {
+        ConsumeId = consumeId,
+        ConsumeCount = consumeCount,
+        BuyCount = buyCount,
+        TargetId = targetId,
+        CancelCB = closeCallBack,
+        ConfirmCB = confirmCallBack
+    }
+    XLuaUiManager.Open("UiBuySecondConfirm", secondConfirmData)
+end
+
+-- 判断是否需要二级弹窗确认购买
+-- @consumeId:货币ItemId
+-- @consumeCount:商品单价
+-- @buyCount:商品购买数量
+function XShopManager.IsNeedSecondConfirm(consumeId, consumeCount)
+    local costNum = XShopConfigs.GetCostNumByItemId(consumeId)
+    if XTool.IsNumberValid(costNum) and consumeCount >= costNum then
+        return true
+    else
+        return false
+    end
+end
+
+-- 获取购买后货币剩余值
+-- @consumeId:货币ItemId
+-- @consumeCount:商品单价
+-- @buyCount:商品购买数量
+function XShopManager.GetAfterSecondConfirmCoin(consumeId, consumeCount)
+    local costNum = consumeCount
+    local nowNum = XDataCenter.ItemManager.GetCount(consumeId)
+    return nowNum - costNum
+end
+--==========================================================================
+
+function XShopManager.GetShopScreenGroupSelectValueAndScreenNum(shopId, screenId)
+    local screenGroupIDList = XShopManager.GetShopScreenGroupIDList(shopId)
+    if XTool.IsTableEmpty(screenGroupIDList) then
+        return nil
+    end
+
+    local screenNum
+    local text
+    for index, screenGroupId in ipairs(screenGroupIDList) do
+        local screenGroup = XShopConfigs.GetShopScreenGroupTemplate()[screenGroupId]
+        for i, id in ipairs(screenGroup.ScreenID) do
+            if screenId == id then
+                text = screenGroup.ScreenName[i]
+                screenNum = index
+            end
+        end
+    end
+
+    local info = XShopManager.GetScreenTagListById(shopId, screenGroupIDList[screenNum])
+    if not info then
+        return nil
+    end
+    if not string.IsNilOrEmpty(text) then
+        for index, item in ipairs(info) do
+            if text == item["Text"] then
+                return index, screenNum
+            end
+        end
+    end
+    return nil
+end
+
+-- 需要登陆请求商店数据玩法的统一在这里添加shopId
+function XShopManager.OnLoginRequestShopList()
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon, nil, true) then
+        return
+    end
+    local shopIds = {}
+
+    -- 渡边模拟经营
+    if XMVCA.XRogueSim:GetIsOpen(true) then
+        local rogueSimShopId = XMVCA.XRogueSim:GetShopId()
+        if rogueSimShopId then
+            table.insert(shopIds, rogueSimShopId)
+        end
+    end
+
+    if #shopIds > 0 then
+        XShopManager.GetShopInfoList(shopIds, nil, XShopManager.ShopType.Login, true)
+    end
 end

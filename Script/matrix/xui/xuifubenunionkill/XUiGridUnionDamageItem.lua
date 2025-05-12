@@ -17,7 +17,7 @@ function XUiGridUnionDamageItem:Refresh(damageInfo)
     local playerHeadFrameId = damageInfo.HeadFrameId
     local damageHp = damageInfo.KillBossHp
 
-    XUiPLayerHead.InitPortrait(playerHeadPortraitId, playerHeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(playerHeadPortraitId, playerHeadFrameId, self.Head)
 
     self.TxtPlayerName.text = playerName
     self.TxtLevel.text = damageInfo.Position

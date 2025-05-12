@@ -1,23 +1,27 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local XUiGridStrongHoldTeamMember = require("XUi/XUiStronghold/XUiGridStrongHoldTeamMember")
-local XUiGridStrongholdPlugin = require("XUi/XUiStronghold/XUiGridStrongholdPlugin")
+local XUiGridStrongholdGeneralSkill = require('XUi/XUiStronghold/GeneralSkill/XUiGridStrongholdGeneralSkill')
 
 local CsXTextManagerGetText = CsXTextManagerGetText
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
+local LongClickIntervel = 100
+local AddCountPerPressTime = 1 / 150
 
+---@class XUiGridStrongholdTeam
 local XUiGridStrongholdTeam = XClass(nil, "XUiGridStrongholdTeam")
 
-function XUiGridStrongholdTeam:Ctor(ui, fightCb)
+function XUiGridStrongholdTeam:Ctor(ui, fightCb, checkCountCb, countChangeCb, getMaxCountCb)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     self.MemberGrids = {}
-    self.PluginGrids = {}
     self.FightCb = fightCb
+    self.CheckCountCb = checkCountCb
+    self.CountChangeCb = countChangeCb
+    self.GetMaxCountCb = getMaxCountCb
+    self.Count = 0
 
     XTool.InitUiObject(self)
 
-    self.BtnLeader.CallBack = function()
-        self:OnBtnLeaderClick()
-    end
     self.BtnRune.CallBack = function()
         self:OnBtnRuneClick()
     end
@@ -27,56 +31,74 @@ function XUiGridStrongholdTeam:Ctor(ui, fightCb)
     self.BtnReset.CallBack = function()
         self:OnBtnResetClick()
     end
+    XUiHelper.RegisterClickEvent(self, self.BtnAddSelect, self.OnClickAdd)
+    XUiHelper.RegisterClickEvent(self, self.BtnMinusSelect, self.OnClickReduce)
+    XUiButtonLongClick.New(self.BtnAddSelect, LongClickIntervel, self, nil, self.OnLongClickBtnAdd, nil, true)
+    XUiButtonLongClick.New(self.BtnMinusSelect, LongClickIntervel, self, nil, self.OnLongClickBtnReduce, nil, true)
 
     self.GridDeployMember.gameObject:SetActiveEx(false)
-    self.GridPlugin.gameObject:SetActiveEx(false)
+    self.RImgTool1:SetRawImage(XStrongholdConfigs.GetElectricIcon())
 
     XEventManager.AddEventListener(XEventId.EVENT_STRONGHOLD_PLUGIN_CHANGE_ACK, self.UpdateView, self)
+
+    self.PanelGeneralSkill = XUiGridStrongholdGeneralSkill.New(self.PaneGeneralSkill, self)
+    self.PanelGeneralSkill:Open()
 end
 
 function XUiGridStrongholdTeam:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_STRONGHOLD_PLUGIN_CHANGE_ACK, self.UpdateView, self)
 end
 
-function XUiGridStrongholdTeam:Refresh(teamList, teamId, groupId, isPrefab)
+function XUiGridStrongholdTeam:InitElectric(count)
+    self.Count = count
+end
+
+function XUiGridStrongholdTeam:Refresh(teamList, teamId, groupId, isPrefab, teamPropId)
+    ---@type XStrongholdTeam[]
     self.TeamList = teamList
-    --队伍数据更改赋值
-    self.TeamListClip = XDataCenter.StrongholdManager.GetTeamListClipTemp(groupId, teamList)
     --仅显示用
     self.TeamId = teamId
+    self.TeamPropId = teamPropId
+    self.IsPrefab = isPrefab
     self.GroupId = groupId
     local team = self:GetTeam()
+    self.Plugin = team:GetPlugin(XEnumConst.StrongHold.AttrPluginId)
+    self.IsTeamEmpty = team:GetInTeamMemberCount() == 0
+
+    if team:IsRune() then
+        local runeDesc = team:GetRuneDesc()
+        self.TxtTitle.text = team:GetRuneName()
+        self.TxtBuff.text = runeDesc
+        self.TxtNone.gameObject:SetActiveEx(false)
+    else
+        self.TxtTitle.text = ""
+        self.TxtBuff.text = ""
+        self.TxtNone.gameObject:SetActiveEx(true)
+    end
 
     if isPrefab then
         --队伍预设
-        self.TxtTitle.text = CsXTextManagerGetText("StrongholdTeamTitle", teamId)
-
-        local runeDesc = team:GetRuneDesc()
-        self.TxtBuff.text = runeDesc
-        self.TxtBuff.gameObject:SetActiveEx(true)
-
-        self.PanelRequire.gameObject:SetActiveEx(false)
+        self.TxtTeamTitle.text = ""
+        self.TxtTeamBuffDetail.text = ""
+        self.TxtTeamName.text = CsXTextManagerGetText("StrongholdTeamTitle" .. teamId)
         self.PanelVictory.gameObject:SetActiveEx(false)
         self.BtnFight.gameObject:SetActiveEx(false)
     else
         --战斗编队
         local stageIndex = teamId
-
-        self.TxtTitle.text = XDataCenter.StrongholdManager.GetGroupStageName(groupId, stageIndex)
-
-        local requireAbility = XDataCenter.StrongholdManager.GetGroupRequireAbility(groupId)
-        self.TxtRequireAbility.text = requireAbility
-        self.PanelRequire.gameObject:SetActiveEx(true)
-
-        local buffDes = XDataCenter.StrongholdManager.GetGroupStageBuffDesc(groupId, stageIndex)
-        local runeDesc = team:GetRuneDesc()
-        self.TxtBuff.text = buffDes .. runeDesc
-        self.TxtBuff.gameObject:SetActiveEx(true)
-
         local isFinished = XDataCenter.StrongholdManager.IsGroupStageFinished(groupId, stageIndex)
+        self.TxtTeamTitle.text = XDataCenter.StrongholdManager.GetGroupStageName(groupId, teamId)
+        local buffDesc = XDataCenter.StrongholdManager.GetGroupStageBuffDesc(groupId, teamId)
+        local extendBuffDesc = XDataCenter.StrongholdManager.GetGroupStageExtendBuffDesc(groupId, teamId)
+        if extendBuffDesc == "" then
+            self.TxtTeamBuffDetail.text = buffDesc
+        else
+            self.TxtTeamBuffDetail.text = string.format("%s%s", buffDesc, extendBuffDesc)
+        end
+        self.TxtTeamName.text = ""
         self.PanelVictory.gameObject:SetActiveEx(isFinished)
-
         self.BtnFight.gameObject:SetActiveEx(true)
+        self.BtnFight:SetButtonState(self.IsTeamEmpty and CS.UiButtonState.Disable or CS.UiButtonState.Normal)
     end
 
     local hasRune = team:HasRune()
@@ -91,20 +113,18 @@ function XUiGridStrongholdTeam:Refresh(teamList, teamId, groupId, isPrefab)
 
     local doNotShowEffect = true
     self:UpdateView(doNotShowEffect)
+    self.PanelGeneralSkill:Refresh()
 end
 
 function XUiGridStrongholdTeam:UpdateView(doNotShowEffect)
     self:UpdateTeam()
-    self:UpdatePlugins(doNotShowEffect)
+    self:UpdateCount()
 end
 
 function XUiGridStrongholdTeam:UpdateTeam()
     local groupId = self.GroupId
     local teamId = self.TeamId
     local teamList = self.TeamList
-
-    local team = self:GetTeam(true)
-    self.TxtLeaderSkill.text = team:GetCaptainSkillDesc()
 
     local requireMemberNum = XStrongholdConfigs.GetGroupRequireTeamMemberNum(groupId, teamId)
     if not XTool.IsNumberValid(requireMemberNum) then
@@ -129,7 +149,7 @@ function XUiGridStrongholdTeam:UpdateTeam()
             self.MemberGrids[index] = grid
         end
 
-        grid:Refresh(teamList, teamId, index, groupId)
+        grid:Refresh(teamList, teamId, index, groupId, self.TeamPropId)
 
         --蓝色放到第一位
         if index == 2 then
@@ -144,59 +164,12 @@ function XUiGridStrongholdTeam:UpdateTeam()
     end
 end
 
-function XUiGridStrongholdTeam:UpdatePlugins(doNotShowEffect)
-    local team = self:GetTeam()
-    local plugins = team:GetAllPlugins()
-
-    for index = 1, #plugins do
-        local grid = self.PluginGrids[index]
-        if not grid then
-            local go =
-                index == 1 and self.GridPlugin or CSUnityEngineObjectInstantiate(self.GridPlugin, self.PanelCoreContent)
-            local clickCb = handler(self, self.OnClickPlugin)
-            grid = XUiGridStrongholdPlugin.New(go, clickCb)
-            self.PluginGrids[index] = grid
-        end
-
-        local plugin = plugins[index]
-        local isAllPluginEmpty = team:IsAllPluginEmpty()
-        grid:Refresh(plugin, isAllPluginEmpty, doNotShowEffect)
-        grid.GameObject:SetActiveEx(true)
-    end
-    for index = #plugins + 1, #self.PluginGrids do
-        self.PluginGrids[index].GameObject:SetActiveEx(false)
-    end
-end
-
-function XUiGridStrongholdTeam:OnBtnLeaderClick()
-    local groupId = self.GroupId
-    local teamId = self.TeamId
-    local requireMemberNum = XStrongholdConfigs.GetGroupRequireTeamMemberNum(groupId, teamId)
-    local team = self:GetTeam()
-    local teamClip = self:GetTeam(true)
-    local characterIdList, characterIdToIsIsAssitantDic = team:GenarateTeamCharacterList(requireMemberNum)
-    local captainPos = team:GetCaptainPos()
-    XLuaUiManager.Open(
-        "UiNewRoomSingleTip",
-        self,
-        characterIdList,
-        captainPos,
-        function(index)
-            team:SetCaptainPos(index)
-            teamClip:SetCaptainPos(index)
-            self:UpdateTeam()
-        end,
-        characterIdToIsIsAssitantDic
-    )
-end
-
 function XUiGridStrongholdTeam:OnClickPlugin()
     XLuaUiManager.Open("UiStrongholdCoreTips", self.TeamList, self.TeamId, self.GroupId)
 end
 
-function XUiGridStrongholdTeam:GetTeam(isUseClip)
-    -- isUseClip时仅显示队伍数据用
-    return isUseClip and self.TeamListClip[self.TeamId] or self.TeamList[self.TeamId]
+function XUiGridStrongholdTeam:GetTeam()
+    return self.TeamList[self.TeamPropId]
 end
 
 function XUiGridStrongholdTeam:OnBtnRuneClick()
@@ -207,10 +180,14 @@ function XUiGridStrongholdTeam:OnBtnRuneClick()
     end
     local team = self:GetTeam()
     local runeId, subRuneId = team:GetRune()
-    XLuaUiManager.Open("UiStrongholdRune", self.TeamList, self.TeamId, self.GroupId, runeId)
+    XLuaUiManager.Open("UiStrongholdRune", self.TeamList, self.TeamPropId, self.GroupId, runeId)
 end
 
 function XUiGridStrongholdTeam:OnBtnFightClick()
+    if self.IsTeamEmpty then
+        XUiManager.TipText("StrongholdTeamEmpty")
+        return
+    end
     if self.FightCb then
         self.FightCb()
     end
@@ -226,6 +203,72 @@ function XUiGridStrongholdTeam:OnBtnResetClick()
     local title = CSXTextManagerGetText("StrongholdTeamResetStageConfirmTitle")
     local content = CSXTextManagerGetText("StrongholdTeamResetStageConfirmContent")
     XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, callFunc)
+end
+
+function XUiGridStrongholdTeam:OnClickAdd()
+    self:AddCount(1)
+end
+
+function XUiGridStrongholdTeam:OnLongClickBtnAdd(pressingTime)
+    local maxCount = self.GetMaxCountCb(self.Plugin:GetCostElectricSingle())
+    local addCount = XMath.Clamp(math.floor(pressingTime * AddCountPerPressTime), 1, maxCount)
+    local countLimitLeft = self.Plugin:GetCountLimit() - self.Count
+    if countLimitLeft < 1 then
+        countLimitLeft = 1
+    end
+    addCount = XMath.Clamp(addCount, 1, countLimitLeft)
+
+    if addCount > 0 then
+        self:AddCount(addCount)
+    else
+        XUiManager.TipText("StrongholdPluginAddFail")
+    end
+end
+
+function XUiGridStrongholdTeam:OnClickReduce()
+    self:SubCount(1)
+end
+
+function XUiGridStrongholdTeam:OnLongClickBtnReduce(pressingTime)
+    local subCount = XMath.Clamp(math.floor(pressingTime * AddCountPerPressTime), 0, self.Count)
+    self:SubCount(subCount)
+end
+
+function XUiGridStrongholdTeam:AddCount(addCount)
+    local costElectric = self.Plugin:GetCostElectricSingle() * addCount
+    if not self.CheckCountCb(costElectric) then
+        XUiManager.TipText("StrongholdPluginAddFail")
+        return
+    end
+
+    local newCount = self.Count + addCount
+    local countLimit = self.Plugin:GetCountLimit()
+    if newCount > countLimit then
+        XUiManager.TipText("StrongholdPluginAddOverLimit")
+        return
+    end
+
+    self.Count = newCount
+    self:UpdateCount()
+    self.CountChangeCb(costElectric)
+end
+
+function XUiGridStrongholdTeam:SubCount(subCount)
+    local newCount = self.Count - subCount
+    if newCount < 0 then
+        return
+    end
+
+    local costElectric = self.Plugin:GetCostElectricSingle() * subCount
+    self.Count = newCount
+    self:UpdateCount()
+    self.CountChangeCb(-costElectric)
+end
+
+function XUiGridStrongholdTeam:UpdateCount()
+    self.TxtNum.text = self.Count * XStrongholdConfigs.GetPluginUseElectric(XEnumConst.StrongHold.AttrPluginId)
+    self.TxtBuffDetail.text = XUiHelper.GetText("StrongholdPluginAddAttr", self.Count * XStrongholdConfigs.GetPluginAddAbility(XEnumConst.StrongHold.AttrPluginId))
+    self.TeamList[self.TeamPropId]:SetPlugin(XEnumConst.StrongHold.AttrPluginId, self.Count)
 end
 
 return XUiGridStrongholdTeam

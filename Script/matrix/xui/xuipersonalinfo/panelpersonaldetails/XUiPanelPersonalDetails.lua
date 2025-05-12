@@ -1,4 +1,7 @@
-XUiPanelPersonalDetails = XClass(nil, "XUiPanelPersonalDetails")
+local XUiPanelJubao = require("XUi/XUiPersonalInfo/PanelPersonalDetails/XUiPanelJubao")
+local XUiPanelSupport = require("XUi/XUiPersonalInfo/PanelPersonalDetails/XUiPanelSupport")
+local XUiPanelPersonalDetailsCombat = require("XUi/XUiPersonalInfo/PanelPersonalDetails/XUiPanelPersonalDetailsCombat")
+local XUiPanelPersonalDetails = XClass(nil, "XUiPanelPersonalDetails")
 
 function XUiPanelPersonalDetails:Ctor(ui, rootUi)
     self.GameObject = ui.gameObject
@@ -80,7 +83,7 @@ function XUiPanelPersonalDetails:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -133,7 +136,7 @@ end
 function XUiPanelPersonalDetails:OnBtnPrivateChatClick()
     self.RootUi:OnBtnBackClick()
 
-    XUiHelper.CloseUiChatServeMain()
+    XLuaUiManager.Close("UiChatServeMain")
 
     if XLuaUiManager.IsUiShow("UiSocial") then
         XLuaUiManager.PopThenOpen("UiSocial", function()

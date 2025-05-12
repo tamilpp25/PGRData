@@ -77,7 +77,7 @@ function XUiSBBCEquip:OnBtnWeaponReplaceClick()
         XUiManager.TipText("SSBRobotCantEditEquip")
         return
     end
-    XLuaUiManager.Open("UiEquipReplaceNew", self.Chara:GetId(), nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipReplace(self.Chara:GetId(), nil, true)
 end
 
 function XUiSBBCEquip:OnAwarenessClick(site)
@@ -85,7 +85,7 @@ function XUiSBBCEquip:OnAwarenessClick(site)
         XUiManager.TipText("SSBRobotCantEditEquip")
         return
     end
-    XLuaUiManager.Open("UiEquipAwarenessReplace", self.Chara:GetId(), nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipAwareness(self.Chara:GetId())
 end
 
 function XUiSBBCEquip:OnClickBtnPartner()

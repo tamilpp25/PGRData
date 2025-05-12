@@ -61,7 +61,7 @@ function XUiTheatreDetail:Refresh()
     self.TxtSkillName.text = XTheatreConfigs.GetDecorationName(theatreDecorationId)
 
     --描述
-    self.TxtDesc.text = XUiHelper.ReplaceTextNewLine(XTheatreConfigs.GetDecorationDesc(theatreDecorationId))
+    self.TxtDesc.text = XTheatreConfigs.GetDecorationDesc(theatreDecorationId)
 
     --条件描述和达成状态
     local conditionId = XTheatreConfigs.GetDecorationConditionId(theatreDecorationId)

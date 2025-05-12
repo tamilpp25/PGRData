@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiPanelFubenTab = require("XUi/XUiFubenCoinSkill/XUiPanelFubenTab")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 
 local XUiFubenResourceDetail = XLuaUiManager.Register(XLuaUi, "UiFubenResourceDetail")
 
@@ -183,7 +186,7 @@ function XUiFubenResourceDetail:UpdateDetailText()
     self.TxtTitle.text = self.Stage.Name
     self.TxtLevelVal.text = self.Stage.RecommandLevel
     self.TxtDesc.text = self.Stage.Description
-    self.TxtATNums.text = self.Stage.RequireActionPoint
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(self.Stage.StageId)
 
     -- local stageData = XDataCenter.FubenManager.GetStageData(self.Stage.StageId)
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.Stage.StageId)

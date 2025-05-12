@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiDormPersonSelect = XClass(nil, "XUiDormPersonSelect")
 local XUiDormPersonSelectListItem = require("XUi/XUiDormPerson/XUiDormPersonSelectListItem")
 local Next = next
@@ -129,6 +130,7 @@ function XUiDormPersonSelect:RefreshSelectedPanel(index)
         self.DynamicSelectTable:ReloadDataASync(1)
         return
     end
+
     self.ListData = {}
     local conditions = {XDormConfig.GetDormCharacterType(index)}
     for _, v in pairs(d) do
@@ -158,6 +160,11 @@ function XUiDormPersonSelect:BtnCancelClick()
 
     self.DynamicSelectTable:Clear()
     self.UiRoot:PlayAnimation("SelectDisable")
+    self:Close()
+end
+
+function XUiDormPersonSelect:Close()
+    self:OnDisable()
     self.GameObject:SetActive(false)
 end
 
@@ -214,4 +221,13 @@ function XUiDormPersonSelect:GetTotalSeleCharacter()
 
     return data
 end
+
+function XUiDormPersonSelect:OnEnable()
+    XDataCenter.UiPcManager.OnUiEnable(self, "BtnCancelClick")
+end
+
+function XUiDormPersonSelect:OnDisable()
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
+end
+
 return XUiDormPersonSelect

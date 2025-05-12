@@ -1,3 +1,4 @@
+local XUiBtnTab = require("XUi/XUiBase/XUiBtnTab")
 local XUiAwarenessTfBtnPos = XClass(nil, "XUiAwarenessTfBtnPos")
 
 --has:是否拥有1个以上该位置的意识
@@ -70,7 +71,7 @@ function XUiAwarenessTfBtnPos:Refresh(posNum, templateId)
     self.PosNum = posNum
     self.TemplateId = templateId
     self.TxtPosNum.text = self.PosNum
-    if XDataCenter.EquipManager.GetEquipCountByTemplateID(self.TemplateId) > 0 then
+    if XMVCA.XEquip:GetEquipCount(self.TemplateId) > 0 then
         self.UiBtnBackHas.gameObject:SetActive(true)
         self.UiBtnBackNone.gameObject:SetActive(false)
     else

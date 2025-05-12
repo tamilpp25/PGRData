@@ -38,7 +38,7 @@ function XUiGridWelfareItem:OnBtnWelfareClick()
     if self.WelfareConfig.SkipId == SkipShopType then
         if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon) then
             -- 4001 是绩点商店的id
-            XLuaUiManager.Open("UiShop", XShopManager.ShopType.Guild, nil, 4001)
+            XLuaUiManager.Open("UiShop", XShopManager.ShopType.Guild)
         end
     elseif self.WelfareConfig.SkipId == SkipTalentType then
         XDataCenter.GuildManager.EnterGuildTalent()

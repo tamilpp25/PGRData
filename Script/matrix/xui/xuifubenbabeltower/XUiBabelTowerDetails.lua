@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiBabelTowerDetails = XLuaUiManager.Register(XLuaUi, "UiBabelTowerDetails")
 local XUiGridInfoEnvironmentItem = require("XUi/XUiFubenBabelTower/XUiGridInfoEnvironmentItem")
 local XUiGridInfoChallengeItem = require("XUi/XUiFubenBabelTower/XUiGridInfoChallengeItem")

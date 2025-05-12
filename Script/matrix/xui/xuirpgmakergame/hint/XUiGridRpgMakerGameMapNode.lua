@@ -19,10 +19,10 @@ function XUiGridRpgMakerGameMapNode:Init(uiRoot)
     self.UiRoot = uiRoot
 end
 
-function XUiGridRpgMakerGameMapNode:Refresh(blockId, mapId, isNotShowLine)
+function XUiGridRpgMakerGameMapNode:Refresh(mapObjList, mapId, isNotShowLine, row)
     local cardGrids = self.CardGrids
-    local blockColList = XRpgMakerGameConfigs.GetRpgMakerGameBlockColList(blockId)
-    for colIndex, blockStatus in ipairs(blockColList) do
+    -- local blockColList = XRpgMakerGameConfigs.GetRpgMakerGameBlockColList(mapObjList)
+    for colIndex, colDataList in ipairs(mapObjList) do
         local grid = cardGrids[colIndex]
         if not grid then
             local ui = CSUnityEngineObjectInstantiate(self.GridCardMini, self.Transform)
@@ -30,7 +30,7 @@ function XUiGridRpgMakerGameMapNode:Refresh(blockId, mapId, isNotShowLine)
             grid = XUiGridRpgMakerGameCardMini.New(ui, self.UiRoot)
             cardGrids[colIndex] = grid
         end
-        grid:Refresh(blockId, colIndex, blockStatus, mapId, isNotShowLine)
+        grid:Refresh(row, colIndex, colDataList, mapId, isNotShowLine)
     end
 end
 

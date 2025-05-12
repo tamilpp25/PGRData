@@ -30,13 +30,18 @@ function XUiGridEquipResonanceSkillPreview:SetIsResonanceInfo()
 end
 
 function XUiGridEquipResonanceSkillPreview:IsResonance()
-    local equip = XDataCenter.EquipManager.GetEquip(self.Params.equipId)
+    -- 忽略显示已共鸣信息
+    if self.Params.isIgnoreResonance then
+        return
+    end
+
+    local equip = XMVCA.XEquip:GetEquip(self.Params.equipId)
     if equip.ResonanceInfo then
         for i,v in pairs(equip.ResonanceInfo) do
             local bindCharacterId = v.CharacterId
             if bindCharacterId == self.Params.selectCharacterId then
-                local skillInfo = XDataCenter.EquipManager.GetResonanceSkillInfo(self.Params.equipId, v.Slot)
-                if XDataCenter.EquipManager.IsClassifyEqual(self.Params.equipId, XEquipConfig.Classify.Awareness) then
+                local skillInfo = XMVCA.XEquip:GetResonanceSkillInfo(self.Params.equipId, v.Slot)
+                if XMVCA.XEquip:IsClassifyEqualByEquipId(self.Params.equipId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
                     if self.Params.skillInfo:IsSame(skillInfo) and v.Slot == self.Params.pos then
                         return true, v.Slot
                     end

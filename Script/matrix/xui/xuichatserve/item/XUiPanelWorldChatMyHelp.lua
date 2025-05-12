@@ -1,9 +1,7 @@
-XUiPanelWorldChatMyHelp = XClass(nil, "XUiPanelWorldChatMyHelp")
+local XUiPanelWorldChatMyHelp = XClass(XUiNode, "XUiPanelWorldChatMyHelp")
 local XUiPanelNameplate = require("XUi/XUiNameplate/XUiPanelNameplate")
-function XUiPanelWorldChatMyHelp:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+
+function XUiPanelWorldChatMyHelp:OnStart()
     if self.BtnGive then
         self.BtnGive.CallBack = function()
             self:OnClickBtnGive()
@@ -16,6 +14,9 @@ function XUiPanelWorldChatMyHelp:Ctor(ui)
     local prefab = self.PanelMsg:Find("PanelName"):LoadPrefab(XMedalConfigs.XNameplatePanelPath)
     self.UiPanelNameplate = XUiPanelNameplate.New(prefab, self)
     -- self.UiPanelNameplate = XUiPanelNameplate.New(self.PanelNameplate, self)
+    if self.PanelBg then
+        self._PanelChatBoard = require('XUi/XUiChatServe/XUiChatBoard').New(self.PanelBg, self)
+    end
 end
 
 function XUiPanelWorldChatMyHelp:OnClickBtnGive()
@@ -51,7 +52,7 @@ function XUiPanelWorldChatMyHelp:Refresh(chatData)
     else
         self.ImgMedalIcon.gameObject:SetActiveEx(false)
     end
-    XUiPLayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
 
     if XTool.IsNumberValid(chatData.NameplateId) then
         self.UiPanelNameplate:UpdateDataById(chatData.NameplateId)
@@ -59,6 +60,9 @@ function XUiPanelWorldChatMyHelp:Refresh(chatData)
     else
         self.UiPanelNameplate.GameObject:SetActiveEx(false)
     end
+
+    -- 设置聊天框
+    self._PanelChatBoard:Refresh(chatData.ChatBoardId, chatData.SenderId == XPlayer.Id)
 end
 
 function XUiPanelWorldChatMyHelp:OnBtnViewClick()
@@ -68,3 +72,5 @@ function XUiPanelWorldChatMyHelp:OnBtnViewClick()
     end
     XDataCenter.PersonalInfoManager.ReqShowInfoPanel(self.SenderId, nil, nil, self.ChatContent)
 end
+
+return XUiPanelWorldChatMyHelp

@@ -11,6 +11,11 @@ function XUiArchiveMonsterEvaluate:OnEnable()
     self:SetPaneBaseInfo()
     self:SetData()
     self:SetPanelTag()
+
+end
+
+function XUiArchiveMonsterEvaluate:OnDisable()
+
 end
 
 function XUiArchiveMonsterEvaluate:OnStart(base, callBack)
@@ -97,7 +102,7 @@ function XUiArchiveMonsterEvaluate:OnBtnSubmitClick()
     end
 
     if IsScoreChange or IsDifficultyChange or IsTagChange then
-        XDataCenter.ArchiveManager.MonsterGiveEvaluate(self.Base.Data:GetNpcId(self.Base.CurType), self.MyScore, self.MyDifficulty, self.MyTagIds, function()
+        self._Control:MonsterGiveEvaluate(self.Base.Data:GetNpcId(self.Base.CurType), self.MyScore, self.MyDifficulty, self.MyTagIds, function()
             self:Close()
         end, self.CallBack)
     else
@@ -113,9 +118,12 @@ function XUiArchiveMonsterEvaluate:SetData()
     self.OldMyDifficulty = self.MySelfEvaluateData and self.MySelfEvaluateData.Difficulty or 0
     self.MyTagIds = {}
     self.OldMyTagIds = {}
-    for _, tag in pairs(self.MySelfEvaluateData and self.MySelfEvaluateData.Tags or {}) do
-        tableInsert(self.MyTagIds, tag)
-        tableInsert(self.OldMyTagIds, tag)
+
+    if self.MySelfEvaluateData and not XTool.IsTableEmpty(self.MySelfEvaluateData.Tags) then
+        for _, tag in pairs(self.MySelfEvaluateData.Tags) do
+            tableInsert(self.MyTagIds, tag)
+            tableInsert(self.OldMyTagIds, tag)
+        end
     end
 end
 
@@ -151,9 +159,12 @@ function XUiArchiveMonsterEvaluate:SetPanelTag()
                     self:OnBtnTag()
                 end
             end
-            self.PanelTag.TagItem[index].TxtTag.text = XArchiveConfigs.GetArchiveTagCfgById(self.MyTagIds[index]).Name
-            self.PanelTag.TagItem[index].TxtTag.color = XUiHelper.Hexcolor2Color(XArchiveConfigs.GetArchiveTagCfgById(self.MyTagIds[index]).Color)
-            local bgImg = XArchiveConfigs.GetArchiveTagCfgById(self.MyTagIds[index]).Bg
+            
+            local archiveTagCfg = self._Control:GetArchiveTagCfgById(self.MyTagIds[index])
+            
+            self.PanelTag.TagItem[index].TxtTag.text = archiveTagCfg.Name
+            self.PanelTag.TagItem[index].TxtTag.color = XUiHelper.Hexcolor2Color(archiveTagCfg.Color)
+            local bgImg = archiveTagCfg.Bg
             if bgImg then self:SetUiSprite(self.PanelTag.TagItem[index].Bg, bgImg) end
         end
         self.PanelTag.TagItemObj[index].gameObject:SetActiveEx(self.MyTagIds[index] and true or false)

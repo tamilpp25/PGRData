@@ -1,3 +1,4 @@
+local XUiPanelBountyTask = require("XUi/XUiFubenMainLineChapter/XUiPanelBountyTask")
 local XUiPanelBountyTaskInGrid = XClass(nil, "XUiPanelBountyTaskInGrid")
 
 function XUiPanelBountyTaskInGrid:Ctor(ui, task)

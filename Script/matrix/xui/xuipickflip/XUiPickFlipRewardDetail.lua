@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPickFlipRewardGrid = require("XUi/XUiPickFlip/XUiPickFlipRewardGrid")
 local XUiPickFlipRewardDetail = XLuaUiManager.Register(XLuaUi, "UiPickFlipSelect")
 

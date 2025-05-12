@@ -1,5 +1,6 @@
-local XUiGridFubenRepeatchallengeLevel = require("XUi/XUiFubenRepeatchallenge/XUiGridFubenRepeatchallengeLevel")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 
+local XUiGridFubenRepeatchallengeLevel = require("XUi/XUiFubenRepeatchallenge/XUiGridFubenRepeatchallengeLevel")
 local XUiFubenRepeatchallengeLevelDes = XLuaUiManager.Register(XLuaUi, "UiFubenRepeatchallengeLevelDes")
 
 function XUiFubenRepeatchallengeLevelDes:OnAwake()

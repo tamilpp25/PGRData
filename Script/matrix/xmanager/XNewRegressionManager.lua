@@ -140,6 +140,10 @@ XNewRegressionManagerCreator = function()
         if not XNewRegressionManager.GetIsOpen(true) then
             return
         end
+        --活动分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
         XLuaUiManager.Open("UiReturnActivity")
     end
 

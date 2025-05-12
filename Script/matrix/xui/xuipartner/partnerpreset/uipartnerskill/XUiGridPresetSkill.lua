@@ -39,7 +39,7 @@ end
 function XUiGridPresetSkill:OnBtnSkillClick()
 
     if self.Locked then
-        XUiManager.TipMsg(XUiHelper.GetText("PartnerSkillFieldIsLock", XPartnerConfigs.QualityString[self.UnlockQuality]))
+        XUiManager.TipMsg(XUiHelper.GetText("PartnerSkillFieldIsLock", XPartnerConfigs.GetQualityString(self.UnlockQuality)))
         return
     end
 
@@ -84,8 +84,8 @@ function XUiGridPresetSkill:Refresh(skillGroup, partner, lock, type, unlockQuali
         skillIcon:SetRawImage(icon)
 
         if partner and self.IsCarry then
-            local charElement = XCharacterConfigs.GetCharacterElement(chrId)
-            local elementConfig = XCharacterConfigs.GetCharElement(charElement)
+            local charElement = XMVCA.XCharacter:GetCharacterElement(chrId)
+            local elementConfig = XMVCA.XCharacter:GetCharElement(charElement)
             self.RawElement:SetRawImage(elementConfig.Icon2)
             self.RawElement.gameObject:SetActiveEx(true)
         else

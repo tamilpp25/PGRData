@@ -1,9 +1,11 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --玩法关卡点击后的关卡详细
 local XUiGridStageBuffIcon = require("XUi/XUiFubenSimulatedCombat/ChildItem/XUiGridStageBuffIcon")
 local XUiSimulatedCombatStageDetail = XLuaUiManager.Register(XLuaUi, "UiSimulatedCombatStageDetail")
 function XUiSimulatedCombatStageDetail:OnAwake()
     XTool.InitUiObject(self)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
     self.AssetActivityPanel:SetQueryFunc(XDataCenter.FubenSimulatedCombatManager.GetCurrencyByItem)
 end
 
@@ -44,7 +46,7 @@ function XUiSimulatedCombatStageDetail:SetUi()
     
     self.TxtTitle.text = self.StageCfg.Name
     --ImgCostIcon
-    self.TxtATNums.text = self.IsPassed and 0 or self.StageCfg.RequireActionPoint
+    self.TxtATNums.text = self.IsPassed and 0 or XDataCenter.FubenManager.GetRequireActionPoint(self.StageId)
     self.BtnClose.CallBack = function() self:OnBtnClose()  end
     self.BtnEnter.CallBack = function() self:OnBtnEnter()  end
     self.AssetActivityPanel:Refresh(self.ActTemplate.ConsumeIds)

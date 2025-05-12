@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --兵法蓝图主页面
 local XUiRpgTowerMain = XLuaUiManager.Register(XLuaUi, "UiRpgTowerMain")
 local XUiRpgTowerMonstersPanel = require("XUi/XUiRpgTower/MainPage/PanelMonsters/XUiRpgTowerMonstersPanel")
@@ -10,12 +11,25 @@ function XUiRpgTowerMain:OnAwake()
     XTool.InitUiObject(self)
     XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     XDataCenter.RpgTowerManager.SetNewBegining()
+    -- self:InitTeamLevel()
+    self.RedEvents = {}
+end
+
+function XUiRpgTowerMain:OnStart(tagData)
+    self.CurTagData = tagData
+    self:InitLoadScene()
     self:InitButtons()
     self:InitMonsterPanel()
     self:InitStageDetailPanel()
     self:InitStageList()
-    self:InitTeamLevel()
-    self.RedEvents = {}
+end
+
+-- 不同标签加载不同的场景
+function XUiRpgTowerMain:InitLoadScene()
+    if not self.CurTagData or not self.CurTagData.SceneUrl then
+        return
+    end
+    self:LoadUiScene(self.CurTagData.SceneUrl, self.CurTagData.ModelUrl)
 end
 
 function XUiRpgTowerMain:OnEnable()
@@ -26,6 +40,7 @@ function XUiRpgTowerMain:OnEnable()
         self:OnActivityReset()
         return
     end
+    self.RImgTitle:SetRawImage(self.CurTagData.Icon)
     self:OnShowPanel()
     self:AddRedPointEvents()
     --[[
@@ -37,7 +52,7 @@ end
 
 function XUiRpgTowerMain:OnDisable()
     self:StopTimer()
-    self:RemoveRedPointEvents()
+    self:RemoveAllRedPoints()
     CS.XShadowHelper.SetDisableUIGlobalShadowMeshHeight(false)
 end
 
@@ -50,8 +65,8 @@ function XUiRpgTowerMain:OnNotify(evt, ...)
     if evt == XEventId.EVENT_RPGTOWER_RESET then
         self:OnActivityReset()
     elseif evt == XEventId.EVENT_RPGTOWER_REFRESH_DAILYREWARD then
-        self:RefreshSupply()
-        self:RefreshTeamLevel()
+        -- self:RefreshSupply()
+        -- self:RefreshTeamLevel()
     end
 end
 
@@ -65,7 +80,7 @@ function XUiRpgTowerMain:InitButtons()
     self.BtnEnterStage.CallBack = function() self:OnEnterStageClick() end
     self.BtnActivityTask.CallBack = function() self:OnTaskClick() end
     self.BtnTeam.CallBack = function() self:OnTeamClick() end
-    XUiHelper.RegisterClickEvent(self, self.ImgSupply, function() self:OnSupplyClick() end)
+    -- XUiHelper.RegisterClickEvent(self, self.ImgSupply, function() self:OnSupplyClick() end)
 end
 --================
 --返回按钮
@@ -142,6 +157,7 @@ function XUiRpgTowerMain:OnClickStageGrid(rStage)
     self.StageDetail:RefreshStage(self.RStage)
     self.MonstersPanel:RefreshMonsters(self.RStage)
     local isShowScore = self.RStage:GetIsShowScore()
+    self.TxtScore.gameObject:SetActiveEx(isShowScore)
     self.TxtStageScore.gameObject:SetActiveEx(isShowScore)
     if isShowScore then self:SetStageScoreText() end
 end
@@ -150,14 +166,11 @@ end
 --================
 function XUiRpgTowerMain:SetStageScoreText()
     local score = self.RStage:GetScore()
-    if score > 100000000 then
-        local billion = math.floor(score / 100000000)
-        local delta = score - billion * 100000000
-        local scoreNum = string.format("%.2f",delta / 10000)
-        self.TxtStageScore.text = XUiHelper.GetText("RpgTowerStageScoreBiggerThenBillion", billion, scoreNum)
+    if score > 10000 then
+        local scoreNum = string.format("%.2f", score / 10000)
+        self.TxtStageScore.text = XUiHelper.GetText("RpgTowerStageScoreStr2", scoreNum)
     else
-        local scoreNum = string.format("%.2f",score / 10000)
-        self.TxtStageScore.text = XUiHelper.GetText("RpgTowerStageScoreStr", scoreNum)
+        self.TxtStageScore.text = score
     end
 end
 
@@ -166,8 +179,8 @@ end
 --================
 function XUiRpgTowerMain:OnShowPanel()
     self.StageList:UpdateData()
-    self:RefreshSupply()
-    self:RefreshTeamLevel()
+    -- self:RefreshSupply()
+    -- self:RefreshTeamLevel()
     self:SetTimer()
 end
 --================
@@ -187,8 +200,8 @@ function XUiRpgTowerMain:SetResetTime()
     local endTimeSecond = XDataCenter.RpgTowerManager.GetEndTime()
     local now = XTime.GetServerNowTimestamp()
     local leftTime = endTimeSecond - now
-    local remainTime = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
-    self.TxtRemainTime.text = CS.XTextManager.GetText("RpgTowerRemainTime", remainTime)
+    local remainTime = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.STRONGHOLD)
+    self.TxtRemainTime.text = CS.XTextManager.GetText("ShopActivityItemCount", remainTime)
     if leftTime <= 0 then
         self:OnActivityReset()
     end
@@ -245,7 +258,7 @@ end
 --================
 --注销页面红点事件
 --================
-function XUiRpgTowerMain:RemoveRedPointEvents()
+function XUiRpgTowerMain:RemoveAllRedPoints()
     if not self.AlreadyAddRed then return end
     for _, eventId in pairs(self.RedEvents) do
         XRedPointManager.RemoveRedPointEvent(eventId)

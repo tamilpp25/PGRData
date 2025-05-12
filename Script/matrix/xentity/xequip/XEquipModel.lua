@@ -43,20 +43,20 @@ end
 --@model: 武器模型
 --@modelId: 武器模型id
 --==============================--
-function XEquipModel:AutoRotateWeapon(rootGo, model, modelId)
+function XEquipModel:AutoRotateWeapon(rootGo, model, modelId, notWeapon, center)
     self:UnScheduleRotate()
 
-    local delay = XEquipConfig.GetEquipUiAutoRotateDelay(modelId)
+    local delay = notWeapon and 0 or XMVCA.XEquip:GetEquipUiAutoRotateDelay(modelId)
     if delay and delay > 0 then
         self.RotateScheduleId = XScheduleManager.ScheduleOnce(function()
-            self:DoAutoRotateWeapon(rootGo, model)
+            self:DoAutoRotateWeapon(rootGo, model, center)
         end, delay)
     else
-        self:DoAutoRotateWeapon(rootGo, model)
+        self:DoAutoRotateWeapon(rootGo, model, center)
     end
 end
 ---@param rootGo UnityEngine.Transform
-function XEquipModel:DoAutoRotateWeapon(rootGo, model)
+function XEquipModel:DoAutoRotateWeapon(rootGo, model, center)
     if XTool.UObjIsNil(rootGo) or XTool.UObjIsNil(model) then
         return
     end
@@ -72,6 +72,11 @@ function XEquipModel:DoAutoRotateWeapon(rootGo, model)
         rotate.Inited = false
         rotate.Target = model.transform
     end
+    -- Inited实则是在找旋转中心, 外部设置的情况下, 不需要init
+    if center then
+        rotate:SetCenterPoint(center)
+        rotate.Inited = true
+    end
 end
 
 --==============================--
@@ -81,31 +86,43 @@ end
 --@modelId: 武器模型id
 --@rotateCenter: 旋转参照节点（一般不需要）
 --==============================--
-function XEquipModel:DragRotateWeapon(panelDrag, model, modelId, rotateCenter)
+function XEquipModel:DragRotateWeapon(panelDrag, model, modelId, rotateCenter, notWeapon, antiClockwise)
     self:UnScheduleRotate()
 
-    local delay = XEquipConfig.GetEquipUiAutoRotateDelay(modelId)
+    local delay
+    if notWeapon then
+        delay = 0
+    else
+        delay = XMVCA.XEquip:GetEquipUiAutoRotateDelay(modelId)
+    end
     if delay and delay > 0 then
         self.RotateScheduleId = XScheduleManager.ScheduleOnce(function()
-                self:DoDragRotateWeapon(panelDrag, model, rotateCenter)
+                self:DoDragRotateWeapon(panelDrag, model, rotateCenter, antiClockwise)
             end, delay)
     else
-        self:DoDragRotateWeapon(panelDrag, model, rotateCenter)
+        self:DoDragRotateWeapon(panelDrag, model, rotateCenter, antiClockwise)
     end
 end
 
-function XEquipModel:DoDragRotateWeapon(panelDrag, model, rotateCenter)
+function XEquipModel:DoDragRotateWeapon(panelDrag, model, rotateCenter, antiClockwise)
     if XTool.UObjIsNil(panelDrag) or XTool.UObjIsNil(model) then
         return
     end
 
+    ---@type XDragAutoRotate
     local rotate = panelDrag:GetComponent("XDragAutoRotate")
     if rotate then
         rotate:SetTarget(model.transform) 
     end
-    
-    if rotateCenter then
-        rotate:SetCenterPoint(rotateCenter.transform)
+
+    if rotate then
+        if rotateCenter then
+            rotate:SetCenterPoint(rotateCenter.transform)
+        end
+
+        if antiClockwise then
+            rotate:SetDirection(false)
+        end
     end
 end
 

@@ -16,7 +16,7 @@ function XRedPointConditionFavorabilityAction.Check(checkArgs)
     if characterId == nil then return false end
     local isOpen = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FavorabilityFile)
     if not isOpen then return false end
-    return XDataCenter.FavorabilityManager.HasActionToBeUnlock(characterId)
+    return XMVCA.XFavorability:HasActionToBeUnlock(characterId)
 end
 
 return XRedPointConditionFavorabilityAction

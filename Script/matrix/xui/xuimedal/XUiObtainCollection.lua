@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiObtainCollection = XLuaUiManager.Register(XLuaUi, "UiObtainCollection")
 local VIEW_MAX = 5
 function XUiObtainCollection:OnStart(rewardGoodsList)
@@ -5,11 +6,11 @@ function XUiObtainCollection:OnStart(rewardGoodsList)
     self.GridCommon.gameObject:SetActive(false)
     self:Refresh(rewardGoodsList)
     self:AutoAddListener()
+    self:PlayAnimation("AniObtain")
 end
 
 function XUiObtainCollection:OnEnable()
-    self:PlayAnimation("AniObtain")
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Common_UiObtain)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Common_UiObtain)
 end
 
 function XUiObtainCollection:OnDestroy()

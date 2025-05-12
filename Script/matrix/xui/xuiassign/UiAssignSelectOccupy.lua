@@ -80,27 +80,26 @@ function XUiAssignSelectOccupy:Refresh()
         self.BtnConfirm:SetButtonState(self.IsSelected and CS.UiButtonState.Normal or CS.UiButtonState.Disable)
     end
 
-    local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList()
+    local ownCharacters = XMVCA.XCharacter:GetOwnCharacterList()
 
     -- 排序
     -- 未占领>已占领>不可委派 战力>解放阶段>品质
     local tmpChapterData = XDataCenter.FubenAssignManager.GetChapterDataById(self.ChapterId)
     local weights = {} -- 满足条件[1位] + 战力[6位] + 终解等级[1位] + 品质[1位]
     local CheckCharacterInOccupy = XDataCenter.FubenAssignManager.CheckCharacterInOccupy
-    local GetCharacterAbility = XDataCenter.CharacterManager.GetCharacterAbility
     local GetCharacterGrowUpLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel
     for _, character in ipairs(ownCharacters) do
         local isInOccupy = CheckCharacterInOccupy(character.Id)
         local isMatch = tmpChapterData:IsCharConditionMatch(character.Id)
         local state = isMatch and (not isInOccupy and 3 or 2) or 1
-        local ability = GetCharacterAbility(character)
+        local ability = XMVCA.XCharacter:GetCharacterAbility(character)
         local growUpLevel = GetCharacterGrowUpLevel(character.Id)
         local weightState = state * 100000000
         local weightAbility = ability * 100
         local weightGrowUpLevel = growUpLevel * 10
         local weightQuality = character.Quality
         weights[character.Id] = weightState + weightAbility + weightGrowUpLevel + weightQuality
-        -- XLog.Debug("Sort " .. XCharacterConfigs.GetCharacterTradeName(character.Id) .. ": " .. character.Id .. ", weight: " .. weights[character.Id], {"isInOccupy, isMatch, state, ability, growUpLevel", isInOccupy, isMatch, state, ability, growUpLevel})
+        -- XLog.Debug("Sort " .. XMVCA.XCharacter:GetCharacterTradeName(character.Id) .. ": " .. character.Id .. ", weight: " .. weights[character.Id], {"isInOccupy, isMatch, state, ability, growUpLevel", isInOccupy, isMatch, state, ability, growUpLevel})
     end
 
     table.sort(ownCharacters, function(a, b)

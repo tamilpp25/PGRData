@@ -1,4 +1,5 @@
-XUiPanelDeviceUpgradeInfo = XClass(nil, "XUiPanelDeviceUpgradeInfo")
+local XUiGridFuncUpgradeInfoItem = require("XUi/XUiHostelDeviceDetail/XUiGridFuncUpgradeInfoItem")
+local XUiPanelDeviceUpgradeInfo = XClass(nil, "XUiPanelDeviceUpgradeInfo")
 local table_insert = table.insert
 
 function XUiPanelDeviceUpgradeInfo:Ctor(rootUi, ui, type, funcBackUpgarding)
@@ -56,7 +57,7 @@ function XUiPanelDeviceUpgradeInfo:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -189,3 +190,5 @@ function XUiPanelDeviceUpgradeInfo:GetFactoryContent(datas, deveice, config, nex
 
     table_insert(datas, { CS.XTextManager.GetText("HostelWorkSlot"), #curSlotData, #nextsLotData })
 end
+
+return XUiPanelDeviceUpgradeInfo

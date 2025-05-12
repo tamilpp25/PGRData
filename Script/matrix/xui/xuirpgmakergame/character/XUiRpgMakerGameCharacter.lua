@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiRpgMakerGameCharacterGrid = require("XUi/XUiRpgMakerGame/Character/XUiRpgMakerGameCharacterGrid")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 local XUiPanelGraphic = require("XUi/XUiRpgMakerGame/Character/XUiPanelGraphic")

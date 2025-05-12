@@ -59,7 +59,7 @@ function XUiAutoFightRecord:InitCharacters()
             end
 
             local img = transform:Find("RImgIcon"):GetComponent("RawImage")
-            local icon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(id)
+            local icon = XMVCA.XCharacter:GetCharRoundnessHeadIcon(id)
             img:SetRawImage(icon)
         end
     end

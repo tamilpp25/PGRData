@@ -32,7 +32,7 @@ function XUiGuildWarRankTab:OnClick()
     --if not self.TabData.IsActive then return end
     if self.BtnType == ComboBtnType.ChildComboType then
         self.RootUi:RefreshRanking(self.TabData.Params[1], self.TabData.Params[2], self.TabData.RankingTarget)
-        self.RootUi:RefreshRankingName(self.TabData.Name)
+        self.RootUi:RefreshRankingName(self.TabData.RankingTarget, self.TabData.Name)
     end
 end
 return XUiGuildWarRankTab

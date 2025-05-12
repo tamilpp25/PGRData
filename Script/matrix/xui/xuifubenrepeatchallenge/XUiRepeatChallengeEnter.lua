@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CONDITION_COLOR = {
     [true] = CS.UnityEngine.Color.black,
     [false] = CS.UnityEngine.Color.red,
@@ -43,8 +44,8 @@ function XUiRepeatChallengeEnter:ChangeChallengeCount(newCount)
     self.BtnAdd.gameObject:SetActiveEx(canAdd)
     self.ImgCantAdd.gameObject:SetActiveEx(not canAdd)
 
-    local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-    self.TxtATNums.text = stageCfg.RequireActionPoint * newCount
+    local actionPoint = XDataCenter.FubenManager.GetRequireActionPoint(stageId)
+    self.TxtATNums.text = actionPoint * newCount
 
     local exConsumeId, exConsumeNum = XDataCenter.FubenManager.GetStageExCost(stageId)
     if exConsumeId ~= 0 and exConsumeNum ~= 0 then
@@ -112,20 +113,15 @@ function XUiRepeatChallengeEnter:OnBtnCloseClick()
 end
 
 function XUiRepeatChallengeEnter:OnBtnEnterClick()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Main_huge)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Main_huge)
     self:Close()
     if XDataCenter.FubenManager.CheckPreFight(self.Stage, self.ChallengeCount) then
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", self.StageId, nil, {
-                EnterFight = function(proxy, team, stageId, challengeCount, isAssist)
-                    XDataCenter.FubenDailyManager.SetFubenDailyRecord(stageId)
-                    proxy.Super.EnterFight(proxy, team, stageId, challengeCount, isAssist)
-                end
-            }, self.ChallengeCount)
-        else
-            local data = {ChallengeCount = self.ChallengeCount}
-            XLuaUiManager.Open("UiNewRoomSingle", self.StageId, data)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId, nil, {
+            EnterFight = function(proxy, team, stageId, challengeCount, isAssist)
+                XDataCenter.FubenDailyManager.SetFubenDailyRecord(stageId)
+                proxy.Super.EnterFight(proxy, team, stageId, challengeCount, isAssist)
+            end
+        }, self.ChallengeCount)
     end
 end
 

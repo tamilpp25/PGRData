@@ -87,7 +87,7 @@ function XUiPanelExpDetail:UpdateFurnitureInfo(characterId)
     self.TxtNextDesc.text = isMax and CS.XTextManager.GetText("DormMaxRecovery") or CS.XTextManager.GetText("DormNextRecovery")
 
     local scoreA, scoreB, scoreC = XDataCenter.DormManager.GetDormitoryScore(self.CurRoomId)
-    local allFurnitureAttrs = XHomeDormManager.GetFurnitureScoresByUnsaveRoom(self.CurRoomId)
+    local allFurnitureAttrs = XHomeDormManager.GetFurnitureScoresByUnSaveRoom(self.CurRoomId)
     local allScores = allFurnitureAttrs.TotalScore
 
     local indexA = XFurnitureConfigs.AttrType.AttrA - 1

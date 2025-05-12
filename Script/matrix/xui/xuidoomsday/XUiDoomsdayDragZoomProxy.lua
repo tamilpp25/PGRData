@@ -6,18 +6,25 @@ local CSMathf = CS.UnityEngine.Mathf
 local TouchPhase = CS.UnityEngine.TouchPhase
 ---@type UnityEngine.Touch
 local oldTouch1,oldTouch2
-function XUiDoomsdayDragZoomProxy:Ctor(proxy)
+function XUiDoomsdayDragZoomProxy:Ctor(proxy, isKickBack)
     ---@type UnityEngine.UI.XDragZoomComponent
     self.Proxy = proxy
     ---@type UnityEngine.RectTransform
     self.Target = self.Proxy.target
     ---@type UnityEngine.RectTransform
     self.Area = self.Proxy.area
+    ---@type UnityEngine.RectTransform
+    self.View = self.Proxy.view
     self.AreaPos = self.Area.anchoredPosition
     self.AreaSize = self.Area.sizeDelta
-    self.TargetSize = self.Target.sizeDelta
+    self.TargetOriginPos = self.Target.localPosition
+    --是否需要回弹到原始位置
+    self.IsKickBack = isKickBack
     self.Proxy.moveFixHandler = function(eventData) 
         self:MoveBehaviour(eventData)
+    end
+    self.Proxy.kickBackFixHandler = function(eventData) 
+        self:KickBackBehaviour(eventData)
     end
     self.Proxy.mouseZoomFixHandler = function()
         self:TouchZoom()
@@ -33,10 +40,48 @@ function XUiDoomsdayDragZoomProxy:MoveBehaviour(eventData)
         local pos = self.Target.anchoredPosition
         pos.x = pos.x + eventData.delta.x 
         pos.y = pos.y + eventData.delta.y
-        pos.x = CSMathf.Clamp(pos.x, self.AreaPos.x - self.AreaSize.x / 2 + self.TargetSize.x / 2, self.AreaPos.x + self.AreaSize.x / 2 - self.TargetSize.x / 2)
-        pos.y = CSMathf.Clamp(pos.y, self.AreaPos.y - self.AreaSize.y / 2 + self.TargetSize.y / 2, self.AreaPos.y + self.AreaSize.y / 2 - self.TargetSize.y / 2)
-        self.Target.anchoredPosition = pos
+        --local minX = self.AreaPos.x - self.AreaSize.x / 2 + self.Target.sizeDelta.x / 2
+        --local maxX = self.AreaPos.x + self.AreaSize.x / 2 - self.Target.sizeDelta.x / 2
+        --local minY = self.AreaPos.y - self.AreaSize.y / 2 + self.Target.sizeDelta.y / 2
+        --local maxY = self.AreaPos.y + self.AreaSize.y / 2 - self.Target.sizeDelta.y / 2
+        self:LimitTargetPos(pos)
     end
+end
+
+--==============================
+ ---@desc 限制Target位置,避免缩放后露馅
+ ---@pos target 当前位置
+--==============================
+function XUiDoomsdayDragZoomProxy:LimitTargetPos(pos)
+    local halfAreaSizeX, halfAreaSizeY = self.AreaSize.x / 2, self.AreaSize.y / 2
+    local halfTargetSizeX = self.Target.sizeDelta.x / 2 * self.Target.localScale.x
+    local halfTargetSizeY = self.Target.sizeDelta.y / 2 * self.Target.localScale.y
+    local X1 = self.AreaPos.x - halfAreaSizeX + halfTargetSizeX
+    local X2 = self.AreaPos.x + halfAreaSizeX - halfTargetSizeX
+    local Y1 = self.AreaPos.y - halfAreaSizeY + halfTargetSizeY
+    local Y2 = self.AreaPos.y + halfAreaSizeY - halfTargetSizeY
+    pos.x = CSMathf.Clamp(pos.x, math.min(X1, X2), math.max(X1, X2))
+    pos.y = CSMathf.Clamp(pos.y, math.min(Y1, Y2), math.max(Y1, Y2))
+    self.Target.anchoredPosition = pos
+end
+
+--==============================
+ ---@desc 超出可视范围回弹
+ ---@eventData eventData 
+--==============================
+function XUiDoomsdayDragZoomProxy:KickBackBehaviour(eventData)
+    if not self.IsKickBack then
+        return
+    end
+    --local pos = self.Target.localPosition
+    --local halfTargetSizeX = self.Target.sizeDelta.x / 2 * self.Target.localScale.x
+    --local halfTargetSizeY = self.Target.sizeDelta.y / 2 * self.Target.localScale.y
+    --local tmpX = math.abs(self.View.sizeDelta.x / 2 - halfTargetSizeX);
+    --local tmpY = math.abs(self.View.sizeDelta.y / 2 - halfTargetSizeY);
+    --pos.x = CSMathf.Clamp(pos.x, -tmpX, tmpX)
+    --pos.y = CSMathf.Clamp(pos.y, -tmpY, tmpY)
+    --self.Target.transform:DOLocalMove(pos, XDataCenter.FubenMainLineManager.UiGridChapterMoveDuration)
+    self.Target.transform:DOLocalMove(self.TargetOriginPos, XDataCenter.FubenMainLineManager.UiGridChapterMoveDuration)
 end
 
 function XUiDoomsdayDragZoomProxy:MouseZoom()
@@ -50,10 +95,12 @@ function XUiDoomsdayDragZoomProxy:MouseZoom()
         scale.z = CSMathf.Clamp(scale.z + direction * self.Proxy.zoomSpeed, self.Proxy.minScale, self.Proxy.maxScale)
         self.Proxy.target.localScale = scale
         self.Proxy.area.localScale = scale
-        
+        self:LimitTargetPos(self.Target.anchoredPosition)
+
     else
         self.Target.pivot = self.Proxy.defaultPivot
     end
+    
 end
 
 function XUiDoomsdayDragZoomProxy:TouchZoom()
@@ -83,6 +130,8 @@ function XUiDoomsdayDragZoomProxy:TouchZoom()
     
     oldTouch1 = newTouch1
     oldTouch2 = newTouch2
+
+    self:LimitTargetPos(self.Target.anchoredPosition)
     
     --if Input.touchCount == 2 then
     --if touch1.phase == TouchPhase.Began and touch2.phase == TouchPhase.Began then

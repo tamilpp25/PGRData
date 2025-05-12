@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiMoeWarVote = XLuaUiManager.Register(XLuaUi, "UiMoeWarVote")
 local XUiPanelPlayerVote = require("XUi/XUiMoeWar/SubPage/XUiPanelPlayerVote")
 local tableInsert = table.insert
@@ -33,7 +34,7 @@ function XUiMoeWarVote:OnStart(defaultSelectIndex)
     self:UpdateMatchTime()
     if self.PanelSpecialTool then
         self.ActInfo = XDataCenter.MoeWarManager.GetActivityInfo()
-        self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+        self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
         self.AssetActivityPanel:Refresh(self.ActInfo.CurrencyId)
         for i = 1, #self.ActInfo.CurrencyId do
             XDataCenter.ItemManager.AddCountUpdateListener(self.ActInfo.CurrencyId[i], function()
@@ -157,7 +158,7 @@ end
 function XUiMoeWarVote:PlayModelAnimation(playerEntity, playerModel, type)
     self.IsPlayAnimation = true
     playerModel:PlayAnima(playerEntity:GetAnim(type))
-    self.PlayingCv = XSoundManager.PlaySoundByType(playerEntity:GetCv(type), XSoundManager.SoundType.CV)
+    self.PlayingCv = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Voice, playerEntity:GetCv(type))
     if self.AnimationTimer then
         CS.XScheduleManager.UnSchedule(self.AnimationTimer)
     end

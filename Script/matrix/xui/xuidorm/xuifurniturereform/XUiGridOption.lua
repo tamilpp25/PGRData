@@ -1,5 +1,6 @@
+local XUiBtnTab = require("XUi/XUiBase/XUiBtnTab")
 -- 家具套装筛选节点
-XUiGridOption = XClass(nil, "XUiGridOption")
+local XUiGridOption = XClass(nil, "XUiGridOption")
 
 function XUiGridOption:Ctor(ui)
     self.GameObject = ui.gameObject

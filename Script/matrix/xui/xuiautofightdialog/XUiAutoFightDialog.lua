@@ -22,7 +22,7 @@ function XUiAutoFightDialog:OnStart(stageId)
     local autoFightCfg = XAutoFightConfig.GetCfg(stageCfg.AutoFightId)
     self.DailyLimit = stageCfg.MaxChallengeNums > 0 and stageCfg.MaxChallengeNums or autoFightCfg.DailyLimit
 
-    local requireAP = stageCfg.RequireActionPoint
+    local requireAP = XDataCenter.FubenManager.GetRequireActionPoint(stageId)
     local apId = XDataCenter.ItemManager.ItemId.ActionPoint
     local apCount = XDataCenter.ItemManager.GetCount(apId)
     local max = mathfloor(apCount / requireAP)
@@ -64,7 +64,7 @@ function XUiAutoFightDialog:InitCharacters(characterIds)
             end
 
             local img = transform:Find("RImgIcon"):GetComponent("RawImage")
-            local icon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(id)
+            local icon = XMVCA.XCharacter:GetCharRoundnessHeadIcon(id)
             img:SetRawImage(icon)
         end
     end

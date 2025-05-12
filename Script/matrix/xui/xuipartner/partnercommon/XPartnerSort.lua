@@ -1,4 +1,4 @@
-XPartnerSort = XPartnerSort or {}
+local XPartnerSort = {}
 local sortDic = {}
 
 sortDic[XPartnerConfigs.SortType.Ability] = function(a, b, IsDescend)
@@ -326,3 +326,6 @@ function XPartnerSort.PresetSort(partnerList, carriedPartnerDict)
         return a:GetId() > b:GetId()
     end)
 end
+
+
+return XPartnerSort

@@ -4,6 +4,8 @@ XActivityCalendarManagerCreator = function()
     local XActivityInfo = require("XEntity/XActivityCalendar/XActivityInfo")
     local XActivityCalendarManager = {}
     local ActivityInfoDic = {}
+    local HOUR = 60 * 60
+    local WeekCalenderKey = {}
 
     local function Init()
         local activityConfigs = XActivityCalendarConfigs.GetActivityConfigs()
@@ -35,11 +37,12 @@ XActivityCalendarManagerCreator = function()
         end
         return tempList
     end
-
-    --有新活动解锁
-    function XActivityCalendarManager.CheckNewActivityUnlock()
+    
+    -- 检测红点显示
+    function XActivityCalendarManager.CheckActivityRedPoint()
         --本周内的活动
         local showActivityList = XActivityCalendarManager.GetInCalendarActivity()
+        
 
         for _, activityInfo in pairs(showActivityList) do
             --是否达成开启活动的要求
@@ -47,11 +50,14 @@ XActivityCalendarManagerCreator = function()
                 goto continue
             end
 
-            local activityStartTime = activityInfo:GetStartTime()
-            local todayTime = XTime.GetServerNowTimestamp()
+            local beforeEndTime = CS.XGame.ClientConfig:GetInt("ActivityCalendarBeforeEndTime")  -- 单位小时
+            local activityEndTime = activityInfo:GetEndTime()
+            local now = XTime.GetServerNowTimestamp()
 
-            --活动开始时间和当前时间在同一天
-            if XTime.IsToday(activityStartTime, todayTime) and activityStartTime < todayTime then
+            local isInFight = activityInfo:IsInFightTimeId() -- 正在进行
+            local isComingOpen = now < activityEndTime and now > activityEndTime - beforeEndTime * HOUR -- 即将结束
+            local isClick = XActivityCalendarManager.CheckWeekIsClick() -- 是否点击
+            if (isInFight or isComingOpen) and not isClick then
                 return true
             end
 
@@ -60,61 +66,40 @@ XActivityCalendarManagerCreator = function()
         return false
     end
 
-    --有活动准备结束
-    function XActivityCalendarManager.CheckActivityReadyEnd()
-        --本周内的活动
-        local showActivityList = XActivityCalendarManager.GetInCalendarActivity()
-
-        for _, activityInfo in pairs(showActivityList) do
-            --是否达成开启活动的要求
-            if not activityInfo:IsJudgeOpen() then
-                goto continue
-            end
-
-            local activityEndTime = activityInfo:GetEndTime()
-            local yesterdayTime = activityEndTime - CS.XDateUtil.ONE_DAY_SECOND
-            local todayTime = XTime.GetServerNowTimestamp()
-
-            --活动结束的前一天或者当天
-            if XTime.IsToday(todayTime, yesterdayTime) or
-                    (XTime.IsToday(todayTime, activityEndTime) and activityEndTime > todayTime) then
-                return true
-            end
-
-            :: continue ::
+    -- 每日提示key
+    function XActivityCalendarManager.GetWeekCalenderKey()
+        --每秒都在调用，使用缓存
+        local id = XPlayer.Id
+        if not WeekCalenderKey[id] then
+            WeekCalenderKey = {}
+            WeekCalenderKey[id] = string.format("%s_%s", "ActivityCalendarWhetherClickButton", id)
         end
-        return false
+        return WeekCalenderKey[id]
     end
 
     function XActivityCalendarManager.CheckWeekIsClick()
-        local data = XSaveTool.GetData("ActivityCalendarWhetherClickButton")
-        if data then
-            local todayTime = XTime.GetServerNowTimestamp()
-            if XTime.IsToday(data.Time, todayTime) then
-                return data.IsClick
-            end
+        local key = XActivityCalendarManager.GetWeekCalenderKey()
+        local updateTime = XSaveTool.GetData(key)
+        if not updateTime then
+            return false
         end
-        return false
+        return XTime.GetServerNowTimestamp() < updateTime
     end
 
-    function XActivityCalendarManager.SaveWeekClick(isClick)
+    function XActivityCalendarManager.SaveWeekClick()
         if XActivityCalendarManager.CheckWeekIsClick() then
             return
         end
-        
-        local isShowRedPoint = XDataCenter.ActivityCalendarManager.CheckNewActivityUnlock() or
-                XDataCenter.ActivityCalendarManager.CheckActivityReadyEnd()
-        
+
+        local isShowRedPoint = XActivityCalendarManager.CheckActivityRedPoint()
+
         if not isShowRedPoint then
             return
         end
-        
-        local todayTime = XTime.GetServerNowTimestamp()
-        local value = {
-            Time = todayTime,
-            IsClick = isClick
-        }
-        XSaveTool.SaveData("ActivityCalendarWhetherClickButton", value)
+
+        local key = XActivityCalendarManager.GetWeekCalenderKey()
+        local updateTime = XTime.GetSeverTomorrowFreshTime()
+        XSaveTool.SaveData(key, updateTime)
     end
     
     Init()

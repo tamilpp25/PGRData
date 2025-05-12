@@ -4,11 +4,15 @@
 local XUiSuperSmashBrosReady = XLuaUiManager.Register(XLuaUi, "UiSuperSmashBrosReady")
 
 function XUiSuperSmashBrosReady:OnStart()
+    ---@type XSmashBMode
     self.Mode = XDataCenter.SuperSmashBrosManager.GetPlayingMode()
     self.FirstIn = true
     self:InitPanels() --初始化各子面板
     self:InitBaseBtns() --注册基础按钮
     self:SetActivityTimeLimit() --设置活动关闭时处理
+    if self.Mode:GetId() == XSuperSmashBrosConfig.ModeType.DeathRandom then
+        XDataCenter.GuideManager.CheckGuideOpen()
+    end
 end
 --==============
 --注册基础按钮

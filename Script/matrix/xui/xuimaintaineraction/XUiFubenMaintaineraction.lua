@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiFubenMaintaineraction = XLuaUiManager.Register(XLuaUi, "UiFubenMaintaineraction")
 local XUiPanelBelow = require("XUi/XUiMaintainerAction/XUiPanelBelow")
 local XUiPanelIntermediate = require("XUi/XUiMaintainerAction/XUiPanelIntermediate")
@@ -114,6 +115,7 @@ end
 function XUiFubenMaintaineraction:UsedCard(targetNodeId)
     self.BelowPanel:GetNewCard()
     self.IntermediatePanel:MovePlayerById(XPlayer.Id,targetNodeId,function ()
+            XLuaUiManager.SetMask(false)
             self:CheckEvent(targetNodeId, true, function ()
                     self:UpdatePanel()
                 end)

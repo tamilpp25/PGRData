@@ -1,4 +1,4 @@
-XUiPanelEnterFightDialog = XClass(nil, "XUiPanelEnterFightDialog")
+local XUiPanelEnterFightDialog = XClass(nil, "XUiPanelEnterFightDialog")
 
 function XUiPanelEnterFightDialog:Ctor(ui, rootUi)
     self.GameObject = ui.gameObject
@@ -71,9 +71,9 @@ function XUiPanelEnterFightDialog:PreCheckChapterCondition()
     if self.StageId then
         local chapterId = XDataCenter.PrequelManager.GetChapterIdByStageId(self.StageId)
         if chapterId then
-            local unlockDescription = XDataCenter.PrequelManager.GetChapterUnlockDescription(chapterId)
-            if unlockDescription then
-                XUiManager.TipMsg(unlockDescription)
+            local isLock = XDataCenter.PrequelManager.GetChapterLockStatus(chapterId)
+            if isLock then
+                XUiManager.TipMsg(XDataCenter.PrequelManager.GetChapterUnlockDescription(chapterId))
                 self:OnCloseDialog()
                 return true
             end
@@ -83,6 +83,7 @@ function XUiPanelEnterFightDialog:PreCheckChapterCondition()
 end
 
 function XUiPanelEnterFightDialog:OnShowStoryDialog(stageId, callback)
+    XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnMaskBClick")
     self.StageId = stageId
     self.Callback = callback
     self.PanelStory.gameObject:SetActiveEx(true)
@@ -95,6 +96,7 @@ function XUiPanelEnterFightDialog:OnShowStoryDialog(stageId, callback)
 end
 
 function XUiPanelEnterFightDialog:OnShowFightDialog(stageId, callback)
+    XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnMaskBClick")
     self.StageId = stageId
     self.Callback = callback
     self.PanelFight.gameObject:SetActiveEx(true)
@@ -115,6 +117,7 @@ end
 
 function XUiPanelEnterFightDialog:OnCloseDialog()
     if XTool.UObjIsNil(self.GameObject) then return end
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
     self.GameObject:SetActiveEx(false)
 end
 

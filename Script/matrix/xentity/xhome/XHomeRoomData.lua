@@ -1,7 +1,13 @@
+---@class XHomeRoomData 宿舍房间数据
+---@field
 XHomeRoomData = XClass(nil, "XHomeRoomData")
 
 function XHomeRoomData:Ctor(id)
     self.Id = id or 0
+    self:Init()
+end
+
+function XHomeRoomData:Init()
     self.PlayerId = XPlayer.Id
     self.Name = nil
     self.IsUnlock = false
@@ -9,7 +15,7 @@ function XHomeRoomData:Ctor(id)
     self.Order = 0
     self.CreateTieme = 0
     self.PicturePath = nil
-    self.ConnectDormId = 0
+    self.ConnectDormId = 0 --注意模板数据的ConnectId不准确，一个模板可能被多个房间引用
     self.ShareId = nil  -- 分享ID
     self.FurnitureCount = 0
 
@@ -20,6 +26,10 @@ function XHomeRoomData:Ctor(id)
     self.GroundFurniture = nil
     self.CeillingFurniture = nil
     self.WallFurniture = nil
+    self.HideCharacter = false --由于场景为异步加载，在选中宿舍后无法同步屏蔽角色
+    self.BornPetFurnitureLimit = XDormConfig.GetBornPetFurnitureLimitNum()
+    self.PetDict = {} -- k: 家具唯一Id, v: 宠物配置Id
+    self.BornPetFurnitureCount = 0
 end
 
 -- 判断数据是自己还是其他人的
@@ -64,6 +74,10 @@ function XHomeRoomData:WhetherRoomUnlock()
 end
 
 function XHomeRoomData:AddFurniture(instId, cfgId, x, y, rotateAngle)
+    --避免断线重连时重复添加
+    if self.FurnitureDic[instId] then
+        return
+    end
     local furniture = {}
     furniture.Id = instId or 0
     furniture.ConfigId = cfgId
@@ -77,9 +91,38 @@ function XHomeRoomData:AddFurniture(instId, cfgId, x, y, rotateAngle)
     if not self.FurnitureConfigDic[cfgId] then
         self.FurnitureConfigDic[cfgId] = {}
     end
+    
+    self:AddPet(instId, cfgId)
 
     self.FurnitureCount = self.FurnitureCount + 1
     table.insert(self.FurnitureConfigDic[cfgId], instId)
+end
+
+function XHomeRoomData:RemoveFurniture(instId, cfgId)
+    if not self.FurnitureDic[instId] then
+        return
+    end
+    self.FurnitureDic[instId] = nil
+    self:ClearBaseData(cfgId)
+    
+    self.FurnitureCount = self.FurnitureCount - 1
+
+    local list = self.FurnitureConfigDic[cfgId]
+    if not XTool.IsTableEmpty(list) then
+        local index
+        for idx, fId in pairs(list) do
+            if fId == instId then
+                index = idx
+                break
+            end
+        end
+
+        if index then
+            table.remove(self.FurnitureConfigDic[cfgId], index)
+        end
+    end
+
+    self:RemovePet(instId)
 end
 
 -- 设置地板，天花板，墙
@@ -91,6 +134,18 @@ function XHomeRoomData:SetBaseData(furniture)
         self.CeillingFurniture = furniture
     elseif XFurnitureConfigs.IsFurnitureMatchTypeByConfigId(furniture.ConfigId, baseType.Wall) then
         self.WallFurniture = furniture
+    end
+end
+
+-- 设置地板，天花板，墙
+function XHomeRoomData:ClearBaseData(configId)
+    local baseType = XFurnitureConfigs.HomeSurfaceBaseType
+    if XFurnitureConfigs.IsFurnitureMatchTypeByConfigId(configId, baseType.Ground) then
+        self.GroundFurniture = nil
+    elseif XFurnitureConfigs.IsFurnitureMatchTypeByConfigId(configId, baseType.Ceiling) then
+        self.CeillingFurniture = nil
+    elseif XFurnitureConfigs.IsFurnitureMatchTypeByConfigId(configId, baseType.Wall) then
+        self.WallFurniture = nil
     end
 end
 
@@ -121,6 +176,7 @@ end
 function XHomeRoomData:ClearFruniture()
     self.FurnitureCount = 0
     self.FurnitureDic = {}
+    self.PetDict = {}
     self.FurnitureConfigDic = {}
 end
 
@@ -128,9 +184,33 @@ function XHomeRoomData:GetFurnitureDic()
     return self.FurnitureDic
 end
 
+function XHomeRoomData:GetFurnitureList()
+    local list = {}
+    for _, v in pairs(self.FurnitureDic) do
+        table.insert(list, v)
+    end
+    
+    table.sort(list, function(a, b)
+        local tA = XFurnitureConfigs.GetFurnitureTemplateById(a.ConfigId)
+        local tB = XFurnitureConfigs.GetFurnitureTemplateById(b.ConfigId)
+
+        local placeTypeA = XFurnitureConfigs.GetFurniturePlaceType(tA.TypeId)
+        local placeTypeB = XFurnitureConfigs.GetFurniturePlaceType(tB.TypeId)
+
+        if placeTypeA ~= placeTypeB then
+            return placeTypeA < placeTypeB
+        end
+        return a.Id < b.Id
+    end)
+    
+    return list
+end
+
 function XHomeRoomData:SetFurnitureConfigDic()
     self.FurnitureConfigDic = {}
     self.FurnitureCount = 0
+    self.PetDict = {}
+    self.BornPetFurnitureCount = 0
     for _, v in pairs(self.FurnitureDic) do
         self:SetBaseData(v)
 
@@ -140,6 +220,8 @@ function XHomeRoomData:SetFurnitureConfigDic()
 
         self.FurnitureCount = self.FurnitureCount + 1
         table.insert(self.FurnitureConfigDic[v.ConfigId], v.Id)
+        
+        self:AddPet(v.Id, v.ConfigId)
     end
 end
 
@@ -153,6 +235,12 @@ end
 
 --添加角色
 function XHomeRoomData:AddCharacter(character)
+    for index, data in pairs(self.Character) do
+        if data.CharacterId == character.CharacterId then
+            self.Character[index] = character
+            return
+        end
+    end
     table.insert(self.Character, character)
 end
 
@@ -186,10 +274,16 @@ function XHomeRoomData:GetCharacterById(CharacterId)
 end
 
 function XHomeRoomData:GetCharacter()
+    if self.HideCharacter then
+        return
+    end
     return self.Character
 end
 
 function XHomeRoomData:GetCharacterIds()
+    if self.HideCharacter then
+        return {}
+    end
     local ids = {}
     if not self.Character or #self.Character <= 0 then
         return ids
@@ -261,7 +355,7 @@ function XHomeRoomData:GetRoomPicture(cb)
     end)
 end
 
-local FurnitrueSortFunc = function(a, b)
+local FurnitureSortFunc = function(a, b)
     if a.MinorType ~= b.MinorType then
         return a.MinorType < b.MinorType
     end
@@ -279,7 +373,7 @@ function XHomeRoomData:GetEnoughFurnitures()
     for k, v in pairs(self.FurnitureConfigDic) do
         local myCount = #v
         local roomType = XDormConfig.DormDataType.Self
-        local targetCount = XDataCenter.DormManager.GetFunritureCountInDorm(self.ConnectDormId, roomType, k, true)
+        local targetCount = XDataCenter.DormManager.GetFurnitureCountInDorm(self.ConnectDormId, roomType, k, true)
         if targetCount >= myCount then
             local data = {}
             data.ConfigId = k
@@ -290,7 +384,7 @@ function XHomeRoomData:GetEnoughFurnitures()
         end
     end
 
-    table.sort(list, FurnitrueSortFunc)
+    table.sort(list, FurnitureSortFunc)
     return list
 end
 
@@ -304,7 +398,7 @@ function XHomeRoomData:GetNotEnoughFurnitures()
     for k, v in pairs(self.FurnitureConfigDic) do
         local myCount = #v
         local roomType = XDormConfig.DormDataType.Self
-        local targetCount = XDataCenter.DormManager.GetFunritureCountInDorm(self.ConnectDormId, roomType, k, true)
+        local targetCount = XDataCenter.DormManager.GetFurnitureCountInDorm(self.ConnectDormId, roomType, k, true)
         if targetCount < myCount then
             local data = {}
             data.ConfigId = k
@@ -315,27 +409,28 @@ function XHomeRoomData:GetNotEnoughFurnitures()
         end
     end
 
-    table.sort(list, FurnitrueSortFunc)
+    table.sort(list, FurnitureSortFunc)
     return list
 end
 
 -- 获取宿舍所有家具
 function XHomeRoomData:GetAllFurnitures()
-    if self.ConnectDormId > 0 then
+    if self.ConnectDormId > 0 and self.RoomDataType ~= XDormConfig.DormDataType.Self then
         local list = {}
         for k, v in pairs(self.FurnitureConfigDic) do
             local myCount = #v
             local roomType = XDormConfig.DormDataType.Self
-            local targetCount = XDataCenter.DormManager.GetFunritureCountInDorm(self.ConnectDormId, roomType, k, true)
+            local targetCount = XDataCenter.DormManager.GetFurnitureCountInDorm(self.ConnectDormId, roomType, k, true)
             local data = {}
             data.ConfigId = k
             data.Count = myCount
             data.TargetCount = targetCount
             data.ConnectDormId = self.ConnectDormId
+            data.RoomDataType = self.RoomDataType
             table.insert(list, data)
         end
 
-        table.sort(list, FurnitrueSortFunc)
+        table.sort(list, FurnitureSortFunc)
         return list
     else
         local list = {}
@@ -344,10 +439,67 @@ function XHomeRoomData:GetAllFurnitures()
             data.ConfigId = k
             data.Count = #v
             data.ConnectDormId = self.ConnectDormId
+            data.RoomDataType = self.RoomDataType
             table.insert(list, data)
         end
 
-        table.sort(list, FurnitrueSortFunc)
+        table.sort(list, FurnitureSortFunc)
         return list
     end
+end
+
+function XHomeRoomData:GetAllFurnitureConfig()
+    local list = {}
+    for _, data in pairs(self.FurnitureDic) do
+        local config = XFurnitureConfigs.GetFurnitureTemplateById(data.ConfigId)
+        if config then
+            table.insert(list, config)
+        end
+    end
+    
+    return list
+end
+
+function XHomeRoomData:IsAsyncLoad()
+    -- 是否需要异步加载： 家具数量大于阈值 & 宿舍家具总量大于阈值
+    return self.FurnitureCount > XDormConfig.LoadThresholdSingle and (not XHomeDormManager.CheckLoadFurnitureOnEnter())
+end 
+
+function XHomeRoomData:SetHideCharacter(value)
+    self.HideCharacter = value
+end
+
+function XHomeRoomData:GetPetDict()
+    return self.PetDict
+end
+
+function XHomeRoomData:GetPetId(insId)
+    local petId = self.PetDict[insId]
+    return petId and petId or 0
+end
+
+function XHomeRoomData:IsPetLimit(count)
+    count = count or self.BornPetFurnitureCount
+    return count >= self.BornPetFurnitureLimit
+end
+
+function XHomeRoomData:AddPet(instanceId, cfgId)
+    if self.PetDict[instanceId] then
+        return
+    end
+
+    local petId = XFurnitureConfigs.GetFurniturePetId(cfgId)
+    if petId and petId > 0 and self.BornPetFurnitureCount < self.BornPetFurnitureLimit then
+        self.PetDict[instanceId] = petId
+        self.BornPetFurnitureCount = self.BornPetFurnitureCount + 1
+    end
+end
+
+function XHomeRoomData:RemovePet(instanceId)
+    if not self.PetDict[instanceId] then
+        return
+    end
+
+    self.PetDict[instanceId] = nil
+    self.BornPetFurnitureCount = self.BornPetFurnitureCount - 1
 end

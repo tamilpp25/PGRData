@@ -1,4 +1,4 @@
-XUiPanelStory = XClass(nil, "XUiPanelStory")
+local XUiPanelStory = XClass(nil, "XUiPanelStory")
 
 
 function XUiPanelStory:Ctor(ui)
@@ -64,3 +64,6 @@ end
 
 
 
+
+
+return XUiPanelStory

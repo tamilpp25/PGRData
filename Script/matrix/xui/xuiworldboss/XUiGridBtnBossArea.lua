@@ -42,12 +42,7 @@ function XUiGridBtnBossArea:UpdateData(data)
         local IsHaveRed = XDataCenter.WorldBossManager.CheckWorldBossBossArearRedPoint(data:GetId())
         
         self.Title.text = CSTextManagerGetText("WorldBossBossAreaSchedule")
-        local hpProcess = hpPercent * 100 -- 海外修改如果小于百分之一，向上取整
-        if hpProcess > 1 then
-            self.PercentageText.text = string.format("%d%s",math.floor(hpProcess),"%")
-        else
-            self.PercentageText.text = string.format("%d%s",math.ceil(hpProcess),"%")
-        end
+        self.PercentageText.text = string.format("%d%s",math.floor(hpPercent * 100),"%")
         if data:GetIsLock() then
             self.BtnBoss:SetSprite(data:GetAreaLockImg())
         else

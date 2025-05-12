@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMultiDimSelectDifficult = XLuaUiManager.Register(XLuaUi, "UiMultiDimSelectDifficult")
 local XUiGuidMultiDimSelectDifficult = require("XUi/XUiMultiDim/XUiGuidMultiDimSelectDifficult")
 

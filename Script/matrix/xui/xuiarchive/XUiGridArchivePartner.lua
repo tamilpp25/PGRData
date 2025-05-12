@@ -1,11 +1,9 @@
-local XUiGridArchivePartner = XClass(nil, "XUiGridArchivePartner")
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
+local XUiGridArchivePartner = XClass(XUiNode, "XUiGridArchivePartner")
 
 local LockNameText = CS.XTextManager.GetText("ArchiveLockNameText")
 
-function XUiGridArchivePartner:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchivePartner:OnStart()
     self:SetButtonCallBack()
 end
 

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMultiDimDetails = XLuaUiManager.Register(XLuaUi, "UiMultiDimDetails")
 local XUiEnvironmentGrid = require("XUi/XUiMultiDim/XUiMultiDimEnvironmentGrid")
 local DefaultIndex = 1
@@ -71,9 +72,7 @@ function XUiMultiDimDetails:RefreshBuffDetail(index)
             go = CS.UnityEngine.Object.Instantiate(self.RImgBuffDetail, self.BuffDetailContent)
             go:GetComponent("RawImage"):SetRawImage(value)
         end
-        if go then
-            go.gameObject:SetActiveEx(true)
-        end
+        go.gameObject:SetActiveEx(true)
     end
 end
 

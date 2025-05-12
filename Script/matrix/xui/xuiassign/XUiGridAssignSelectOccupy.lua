@@ -1,3 +1,4 @@
+local XUiGridCharacter = require("XUi/XUiCharacter/XUiGridCharacter")
 local XUiGridAssignSelectOccupy = XClass(nil, "XUiGridAssignSelectOccupy")
 
 function XUiGridAssignSelectOccupy:Ctor(rootUi, ui)

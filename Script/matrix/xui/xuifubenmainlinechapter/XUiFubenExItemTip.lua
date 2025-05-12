@@ -1,3 +1,5 @@
+local XUiGridExploreItem = require("XUi/XUiFubenMainLineChapter/XUiGridExploreItem")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenExItemTip = XLuaUiManager.Register(XLuaUi, "UiFubenExItemTip")
 
 function XUiFubenExItemTip:OnStart(base)

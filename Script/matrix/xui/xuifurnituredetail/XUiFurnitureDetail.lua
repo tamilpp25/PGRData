@@ -16,28 +16,34 @@ function XUiFurnitureDetail:OnDisable()
     XEventManager.RemoveEventListener(XEventId.EVENT_DORM_CLOSE_DETAIL, self.OnBtnCloseClick, self)
 end
 
-function XUiFurnitureDetail:OnStart(furnitureId, furnitureConfigId, furnitureRewardId, recycleCallBack, isCloseRecycle, isCloseSuit)
+function XUiFurnitureDetail:OnStart(furnitureId, furnitureConfigId, furnitureRewardId, recycleCallBack, isCloseRecycle, isCloseSuit, isCloseRemake)
     self.FurnitureId = furnitureId
     self.FurnitureConfigId = furnitureConfigId
     self.FurnitureRewardId = furnitureRewardId
     self.RecycleCallBack = recycleCallBack
+    self.IsCloseRemake = isCloseRemake
 
+    local isIgnoreRecycle = XFurnitureConfigs.IsIgnoreRecoverySuitByConfigId(furnitureConfigId)
     -- 是否显示回收按钮
-    if isCloseRecycle ~= nil and isCloseRecycle then
-        self.BtnRecovery.gameObject:SetActive(not isCloseRecycle)
-    end
+    local isHideBtnRecovery = isIgnoreRecycle or (isCloseRecycle ~= nil and isCloseRecycle)
 
-    if isCloseSuit ~= nil and isCloseSuit then
-        self.BtnSuitInfo.gameObject:SetActive(not isCloseSuit)
+    self.BtnRecovery.gameObject:SetActiveEx(not isHideBtnRecovery)
+
+    if (isCloseSuit == nil or isCloseSuit) then
+        self.BtnSuitInfo.gameObject:SetActiveEx(false)
     end
 
     self:InitConfigInfo()
 
     if self.FurnitureId then
-        self:InitOwerInfoByObjectId()
+        self:InitOwnerInfoByObjectId()
+        XDataCenter.FurnitureManager.SetDetailData(true, furnitureConfigId)
     else
-        self:InitOwerInfoByConfigId()
+        self:InitOwnerInfoByConfigId()
+        XDataCenter.FurnitureManager.SetDetailData(false, furnitureConfigId)
     end
+    
+    self:RefreshLabel(furnitureConfigId)
 end
 
 function XUiFurnitureDetail:AddListener()
@@ -45,6 +51,7 @@ function XUiFurnitureDetail:AddListener()
     self:RegisterClickEvent(self.BtnBg, self.OnBtnCloseClick)
     self:RegisterClickEvent(self.BtnSuitInfo, self.OnBtnSuitInfoClick)
     self:RegisterClickEvent(self.BtnRecovery, self.OnBtnRecoveryClick)
+    self:RegisterClickEvent(self.BtnReCreate, self.OnBtnReCreateClick)
 end
 
 function XUiFurnitureDetail:InitLockButtons()
@@ -75,33 +82,48 @@ function XUiFurnitureDetail:OnBtnRecoveryClick()
         XUiManager.TipMsg(CS.XTextManager.GetText("DormCannotRecycleLockFurniture"))
         return
     end
-    local funitureRecycleList = { self.FurnitureId }
+    local furnitureRecycleList = { self.FurnitureId }
 
     -- 屏蔽使用中的家具
-    for i = 1, #funitureRecycleList do
-        local isUseing = XDataCenter.FurnitureManager.CheckFurnitureUsing(funitureRecycleList[i])
-        if isUseing then
+    for i = 1, #furnitureRecycleList do
+        local isUsing = XDataCenter.FurnitureManager.CheckFurnitureUsing(furnitureRecycleList[i])
+        if isUsing then
             XUiManager.TipText("DormFurnitureRecycelUsingTip")
             return
         end
     end
-
-    XLuaUiManager.Open("UiFurnitureRecycleObtain", funitureRecycleList, function()
-        XDataCenter.FurnitureManager.DecomposeFurniture(funitureRecycleList, function(rewardItems, successIds)
-            -- 打开回收界面
-            XLuaUiManager.Open("UiDormBagRecycle", successIds, rewardItems, function()
-                 -- 将分解成功的家具从缓存中移除
-                for _, id in ipairs(successIds) do
-                    XDataCenter.FurnitureManager.RemoveFurniture(id)
-                end
-
-                -- 回收回调
-                if self.RecycleCallBack then
-                    self.RecycleCallBack()
-                end
-            end)
-        end)
+    
+    XLuaUiManager.Open("UiFurnitureRecycleObtain", furnitureRecycleList, function()
+        XDataCenter.FurnitureManager.DecomposeFurniture(furnitureRecycleList, nil, self.RecycleCallBack)
     end)
+end
+
+--重置
+function XUiFurnitureDetail:OnBtnReCreateClick()
+    if XDataCenter.FurnitureManager.GetFurnitureIsLocked(self.FurnitureId) then
+        XUiManager.TipText("DormCannotRecycleLockFurniture")
+        return
+    end
+
+    local roomId
+    if XDataCenter.FurnitureManager.CheckFurnitureUsing(self.FurnitureId) then
+        --XUiManager.TipText("DormFurnitureRecycelUsingTip")
+        --return
+        local furniture = XDataCenter.FurnitureManager.GetFurnitureById(self.FurnitureId)
+        if furniture then
+            roomId = furniture.DormitoryId
+        end
+    end
+
+    if not self.RemakeEnough then
+        XUiManager.TipText("FurnitureZeroCoin")
+        return
+    end
+    
+    local furnitureIds = { self.FurnitureId }
+    local furniture = XDataCenter.FurnitureManager.GetFurnitureById(self.FurnitureId)
+    local costA, costB, costC = furniture:GetBaseAttr()
+    XDataCenter.FurnitureManager.FurnitureRemake(furnitureIds, costA, costB, costC, roomId)
 end
 
 function XUiFurnitureDetail:OnBtnLock()
@@ -133,7 +155,7 @@ function XUiFurnitureDetail:InitConfigInfo()
 
     -- 套装
     local tp = XFurnitureConfigs.GetFurnitureTemplateById(self.FurnitureConfigId)
-    self.BtnSuitInfo.gameObject:SetActive(tp.SuitId ~= nil and tp.SuitId > 0)
+    --self.BtnSuitInfo.gameObject:SetActive(tp.SuitId ~= nil and tp.SuitId > 0)
 
     local suitInfo = nil
 
@@ -157,7 +179,7 @@ function XUiFurnitureDetail:InitConfigInfo()
     self.TxtEffectScore.gameObject:SetActive(false)
 end
 
-function XUiFurnitureDetail:InitOwerInfoByObjectId()
+function XUiFurnitureDetail:InitOwnerInfoByObjectId()
     local redTypeName = XFurnitureConfigs.GetDormFurnitureTypeName(attrRed)
     local yoellowTypeName = XFurnitureConfigs.GetDormFurnitureTypeName(attrYellow)
     local blueTypeName = XFurnitureConfigs.GetDormFurnitureTypeName(attrBule)
@@ -207,9 +229,26 @@ function XUiFurnitureDetail:InitOwerInfoByObjectId()
             self.TxtSuit.text = CS.XGame.ClientConfig:GetString("DormSuitBgmTitleDesc")
         end
     end
+    
+    local costA, costB, costC = furnitureData:GetBaseAttr()
+    local createCount = costA + costB + costC
+    local showReCreate = createCount > 0
+    self.BtnReCreate.gameObject:SetActiveEx(showReCreate and not self.IsCloseRemake)
+    if showReCreate then
+        local coinId = XDataCenter.ItemManager.ItemId.FurnitureCoin
+        local recycleCount = self:GetRewardCount()
+        local cost = math.max(createCount - recycleCount, 0)
+        local own = XDataCenter.ItemManager.GetCount(coinId)
+        self.RemakeEnough = own >= cost 
+        local key = self.RemakeEnough and "DormBuildEnoughCount" or "DormBuildNoEnoughCount"
+        self.BtnReCreate:SetNameByGroup(1, XUiHelper.GetText(key, cost))
+        self.BtnReCreate:SetDisable(not self.RemakeEnough, self.RemakeEnough)
+        self.BtnReCreate:SetRawImage(XDataCenter.ItemManager.GetItemIcon(coinId))
+    end
 end
 
-function XUiFurnitureDetail:InitOwerInfoByConfigId()
+function XUiFurnitureDetail:InitOwnerInfoByConfigId()
+    self.BtnReCreate.gameObject:SetActiveEx(false)
     local template = XFurnitureConfigs.GetFurnitureReward(self.FurnitureRewardId)
     if not template then
         return
@@ -256,4 +295,39 @@ function XUiFurnitureDetail:InitOwerInfoByConfigId()
 
     self.TxtEffectDesc.text = XFurnitureConfigs.GetAdditionalRandomIntroduce(additionId)
     self.TxtEffectScore.text = additionScoreDesc
+end
+
+function XUiFurnitureDetail:GetRewardCount()
+    if not XTool.IsNumberValid(self.FurnitureId) then
+        return 0
+    end
+    local rewards = XDataCenter.FurnitureManager.GetRemakeRewards(self.FurnitureId)
+    local coinId = XDataCenter.ItemManager.ItemId.FurnitureCoin
+    
+    local count = rewards[coinId] and rewards[coinId].Count or 0
+    
+    return count
+end
+
+function XUiFurnitureDetail:RefreshLabel(templateId)
+    if self.PanelPet then
+        self.PanelPet.gameObject:SetActiveEx(false)
+    end
+    if self.GoodsLabel then
+        self.GoodsLabel:Close()
+    end
+    if not XTool.IsNumberValid(templateId) then
+        return
+    end
+    if not XUiConfigs.CheckHasLabel(templateId) then
+        return
+    end
+    if not self.GoodsLabel then
+        self.GoodsLabel = XUiHelper.CreateGoodsLabel(templateId, self.RImgIcon.transform)
+    end
+    if self.PanelPet then
+        self.TxtFuncDesc.text = XUiConfigs.GetLabelDescription(templateId)
+        self.PanelPet.gameObject:SetActiveEx(true)
+    end
+    self.GoodsLabel:Refresh(templateId, self.PanelPet ~= nil)
 end

@@ -1,15 +1,10 @@
-local XUiTogFriendBox = XClass(nil, "XUiTogFriendBox")
+local XUiTogFriendBox = XClass(XUiNode, "XUiTogFriendBox")
 
-function XUiTogFriendBox:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-end
 
-function XUiTogFriendBox:Init(rootUi)
-    self.RootUi = rootUi
+function XUiTogFriendBox:OnStart()
+    self.RootUi=self.Parent.Parent
     self.ImgNewTag.gameObject:SetActive(false)
-    self.RedPointId = XRedPointManager.AddRedPointEvent(self.ImgNewTag, self.OnCheckUnReadMsgCount, self, { XRedPointConditions.Types.CONDITION_FRIEND_CHAT_PRIVATE }, nil, false)
+    self.RedPointId = self:AddRedPointEvent(self.ImgNewTag, self.OnCheckUnReadMsgCount, self, { XRedPointConditions.Types.CONDITION_FRIEND_CHAT_PRIVATE }, nil, false)
 end
 
 function XUiTogFriendBox:OnCheckUnReadMsgCount(count, args)
@@ -43,7 +38,7 @@ function XUiTogFriendBox:UpdateLastChatText()
         self.BtnBackground:SetTxtByObjName("TxtNewChat", XDataCenter.ChatManager.CreateGiftTips(chatData))
     elseif chatData.MsgType == ChatMsgType.Gift then
         self.BtnBackground:SetTxtByObjName("TxtNewChat", XDataCenter.ChatManager.CreateGiftTips(chatData))
-    elseif chatData.MsgType == ChatMsgType.RoomMsg then
+    elseif chatData.MsgType == ChatMsgType.RoomMsg or chatData.MsgType == ChatMsgType.DlcRoomMsg then
         self.BtnBackground:SetTxtByObjName("TxtNewChat", chatData:GetRoomMsgContent())
     else
         self.BtnBackground:SetTxtByObjName("TxtNewChat", chatData.Content)
@@ -58,7 +53,7 @@ function XUiTogFriendBox:Refresh(friendData, isSelect)
     self.FriendId = friendData.FriendId
     self:SetSelect(isSelect)
     self:UpdateLastChatText()
-    XUiPLayerHead.InitPortrait(friendData.Icon, friendData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(friendData.Icon, friendData.HeadFrameId, self.Head)
     self.BtnBackground:SetTxtByObjName("TxtFriendName", XDataCenter.SocialManager.GetPlayerRemark(self.FriendId, friendData.NickName))
     XRedPointManager.Check(self.RedPointId, self.FriendId)
 end

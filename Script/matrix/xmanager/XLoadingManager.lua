@@ -1,6 +1,8 @@
 LoadingType = {
     Fight = "10101", --战斗
     Dormitory = "902", --宿舍
+    Restaurant = "903", --餐厅
+    GuildDorm = "1901", --工会宿舍
 }
 
 XLoadingManagerCreator = function()
@@ -21,12 +23,17 @@ XLoadingManagerCreator = function()
             return
         end
 
+        --未完成分包下载时，不读取图鉴资源
+        if XUiManager.IsHideFunc or not XMVCA.XSubPackage:CheckNecessaryComplete() then
+            CustomLoadingState = XSetConfigs.LoadingType.Default
+            type = XLoadingConfig.DEFAULT_TYPE
+        end
         if CustomLoadingState == XSetConfigs.LoadingType.Custom
                 and XLoadingConfig.CheckCustomAllowType(type)
                 and #CustomLoadingList >= 1
                 and math.random(1, 10000) <= XLoadingConfig.GetCustomRate() then
             local id = CustomLoadingList[math.random(#CustomLoadingList)]
-            return XDataCenter.ArchiveManager.GetArchiveCgEntity(id), XSetConfigs.LoadingType.Custom
+            return XMVCA.XArchive:GetArchiveCgEntity(id), XSetConfigs.LoadingType.Custom
         else
             local loadingList = XLoadingConfig.GetCfgByType(type)
 
@@ -35,7 +42,27 @@ XLoadingManagerCreator = function()
                 return
             end
 
-            return XTool.WeightRandomSelect(loadingList), XSetConfigs.LoadingType.Default
+            local loadingListSatisfied = {}
+            local isInsert
+            for i = 1, #loadingList do
+                local config = loadingList[i]
+                local conditionList = config.ShowCondition
+                isInsert = true
+                if conditionList and conditionList[1] then
+                    for j = 1, #conditionList do
+                        local condition = conditionList[j]
+                        if not XConditionManager.CheckCondition(condition) then
+                            isInsert = false
+                            break
+                        end
+                    end
+                end
+                if isInsert then
+                    loadingListSatisfied[#loadingListSatisfied + 1] = config
+                end
+            end
+
+            return XTool.WeightRandomSelect(loadingListSatisfied), XSetConfigs.LoadingType.Default
         end
     end
 
@@ -65,6 +92,10 @@ XLoadingManagerCreator = function()
     end
 
     function XLoadingManager.GetCustomLoadingState()
+        --分包未下载完时，选中默认
+        if not XMVCA.XSubPackage:CheckNecessaryComplete() then
+            return XSetConfigs.LoadingType.Default
+        end
         return CustomLoadingState
     end
 

@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiTheatreSkillGrid = require("XUi/XUiTheatre/XUiTheatreSkillGrid")
 local XUiTheatreContinue = XLuaUiManager.Register(XLuaUi, "UiTheatreContinue")
 

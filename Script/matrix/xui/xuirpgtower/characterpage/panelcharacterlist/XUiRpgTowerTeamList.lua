@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 -- 兵法蓝图队伍列表面板
 local XUiRpgTowerTeamList = XClass(nil, "XUiRpgTowerTeamList")
 local XUiRpgTowerTeamListItem = require("XUi/XUiRpgTower/CharacterPage/PanelCharacterList/XUiRpgTowerTeamListItem")
@@ -27,7 +28,7 @@ end
 --================
 --刷新列表
 --================
-function XUiRpgTowerTeamList:UpdateData()
+function XUiRpgTowerTeamList:UpdateData(index)
     self.TeamList = XDataCenter.RpgTowerManager.GetTeam()
     -- 获取当前选中角色在列表中的序号，若没有选中角色则默认列表第一个角色
     local rChara = self.RootUi.RCharacter
@@ -39,9 +40,9 @@ function XUiRpgTowerTeamList:UpdateData()
             end
         end
     end
-    self.CurrentIndex = self.CurrentIndex or 1
+    self.CurrentIndex = index or self.CurrentIndex or 1
     self.DynamicTable:SetDataSource(self.TeamList)
-    self.DynamicTable:ReloadDataASync(1)
+    self.DynamicTable:ReloadDataASync(index or 1)
 end
 --================
 --列表项选中事件
@@ -58,10 +59,10 @@ end
 --================
 --显示面板
 --================
-function XUiRpgTowerTeamList:ShowPanel(isUpdate)
+function XUiRpgTowerTeamList:ShowPanel(index)
     self.GameObject:SetActiveEx(true)
     self.RootUi:PlayAnimation("SViewCharacterListEnable")
-    self:UpdateData()
+    self:UpdateData(index)
 end
 --================
 --隐藏面板

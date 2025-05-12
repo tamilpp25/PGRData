@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiGridRogueLikeCharacter = require("XUi/XUiFubenRogueLike/XUiGridRogueLikeCharacter")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
@@ -8,12 +9,12 @@ local TabBtnIndex = {
     Isomer = 2,
 }
 local CharacterTypeConvert = {
-    [TabBtnIndex.Normal] = XCharacterConfigs.CharacterType.Normal,
-    [TabBtnIndex.Isomer] = XCharacterConfigs.CharacterType.Isomer,
+    [TabBtnIndex.Normal] = XEnumConst.CHARACTER.CharacterType.Normal,
+    [TabBtnIndex.Isomer] = XEnumConst.CHARACTER.CharacterType.Isomer,
 }
 local TabBtnIndexConvert = {
-    [XCharacterConfigs.CharacterType.Normal] = TabBtnIndex.Normal,
-    [XCharacterConfigs.CharacterType.Isomer] = TabBtnIndex.Isomer,
+    [XEnumConst.CHARACTER.CharacterType.Normal] = TabBtnIndex.Normal,
+    [XEnumConst.CHARACTER.CharacterType.Isomer] = TabBtnIndex.Isomer,
 }
 
 local XUiRogueLikeRoomCharacter = XLuaUiManager.Register(XLuaUi, "UiRogueLikeRoomCharacter")
@@ -40,13 +41,13 @@ function XUiRogueLikeRoomCharacter:OnAwake()
         local leftAbility = leftCharacter.Ability
         local leftLevel = leftCharacter.Level
         local leftQuality = leftCharacter.Quality
-        local leftPriority = XCharacterConfigs.GetCharacterPriority(leftCharacter.Id)
+        local leftPriority = XMVCA.XCharacter:GetCharacterPriority(leftCharacter.Id)
 
         local rightInTeam = self:IsInTeam(rightCharacter.Id)
         local rightAbility = rightCharacter.Ability
         local rightLevel = rightCharacter.Level
         local rightQuality = rightCharacter.Quality
-        local rightPriority = XCharacterConfigs.GetCharacterPriority(rightCharacter.Id)
+        local rightPriority = XMVCA.XCharacter:GetCharacterPriority(rightCharacter.Id)
 
         if leftInTeam ~= rightInTeam then
             return leftInTeam
@@ -168,8 +169,8 @@ function XUiRogueLikeRoomCharacter:InitCharacterTypeBtns()
     --检查选择角色类型是否和副本限制类型冲突
     local characterType = XDataCenter.FubenManager.GetDefaultCharacterTypeByCharacterLimitType(self.CharacterLimitType)
     local tempCharacterType = self:GetTeamCharacterType()
-    if tempCharacterType and not (tempCharacterType == XCharacterConfigs.CharacterType.Normal and lockGouzaoti
-    or tempCharacterType == XCharacterConfigs.CharacterType.Isomer and lockShougezhe) then
+    if tempCharacterType and not (tempCharacterType == XEnumConst.CHARACTER.CharacterType.Normal and lockGouzaoti
+    or tempCharacterType == XEnumConst.CHARACTER.CharacterType.Isomer and lockShougezhe) then
         characterType = tempCharacterType
     end
     self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[characterType])
@@ -177,41 +178,41 @@ end
 
 function XUiRogueLikeRoomCharacter:TrySelectCharacterType(index)
     local characterType = CharacterTypeConvert[index]
-    if characterType == XCharacterConfigs.CharacterType.Isomer and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer) then return end
+    if characterType == XEnumConst.CHARACTER.CharacterType.Isomer and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer) then return end
 
     local characterLimitType = self.CharacterLimitType
     if characterLimitType == XFubenConfigs.CharacterLimitType.Normal then
-        if characterType == XCharacterConfigs.CharacterType.Isomer then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
             XUiManager.TipText("TeamSelectCharacterTypeLimitTipNormal")
             return
         end
     elseif characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
-        if characterType == XCharacterConfigs.CharacterType.Normal then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
             XUiManager.TipText("TeamSelectCharacterTypeLimitTipIsomer")
             return
         end
     elseif characterLimitType == XFubenConfigs.CharacterLimitType.IsomerDebuff then
-        if characterType == XCharacterConfigs.CharacterType.Isomer then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
             -- local buffDes = XFubenConfigs.GetBuffDes(self.LimitBuffId)
             -- local content = CSXTextManagerGetText("TeamSelectCharacterTypeLimitTipIsomerDebuff", buffDes)
             -- local sureCallBack = function()
             --     self:OnSelectCharacterType(index)
             -- end
             -- local closeCallback = function()
-            --     self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XCharacterConfigs.CharacterType.Normal])
+            --     self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XEnumConst.CHARACTER.CharacterType.Normal])
             -- end
             -- XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, closeCallback, sureCallBack)
             -- return
         end
     elseif characterLimitType == XFubenConfigs.CharacterLimitType.NormalDebuff then
-        if characterType == XCharacterConfigs.CharacterType.Normal then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
             -- local buffDes = XFubenConfigs.GetBuffDes(self.LimitBuffId)
             -- local content = CSXTextManagerGetText("TeamSelectCharacterTypeLimitTipNormalDebuff", buffDes)
             -- local sureCallBack = function()
             --     self:OnSelectCharacterType(index)
             -- end
             -- local closeCallback = function()
-            --     self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XCharacterConfigs.CharacterType.Isomer])
+            --     self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XEnumConst.CHARACTER.CharacterType.Isomer])
             -- end
             -- XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, closeCallback, sureCallBack)
             -- return
@@ -230,7 +231,7 @@ function XUiRogueLikeRoomCharacter:OnSelectCharacterType(index)
     local charlist
     local characterType = CharacterTypeConvert[index]
     if self:IsCharacterType() then
-        charlist = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+        charlist = XMVCA.XCharacter:GetOwnCharacterList(characterType)
         table.sort(charlist, self.SortFunction[XRoomCharFilterTipsConfigs.EnumSortTag.Default])
     else
         charlist = XDataCenter.FubenRogueLikeManager.GetAssistRobots(characterType)
@@ -281,7 +282,7 @@ function XUiRogueLikeRoomCharacter:UpdateCharacterList(charlist)
             self.GridIndex[i] = grid
         end
         if self:IsCharacterType() then
-            grid:UpdateGrid(XDataCenter.CharacterManager.GetCharacter(characterId))
+            grid:UpdateGrid(XMVCA.XCharacter:GetCharacter(characterId))
             grid:SetArrowUp(XDataCenter.FubenRogueLikeManager.IsTeamEffectCharacter(characterId))
         else
             grid:UpdateGrid(XRobotManager.GetRobotTemplate(characterId))
@@ -299,7 +300,7 @@ function XUiRogueLikeRoomCharacter:UpdateCharacterList(charlist)
 
     if not selectId or selectId == 0
     or not self.CharacterGrids[selectId]
-    or characterType ~= XCharacterConfigs.GetCharacterType(selectId)
+    or characterType ~= XMVCA.XCharacter:GetCharacterType(selectId)
     or not charDic[selectId]
     then
         selectId = charlist[1].Id
@@ -402,12 +403,12 @@ end
 
 function XUiRogueLikeRoomCharacter:OnBtnConsciousnessClick()
     if not self.CurCharacter then return end
-    XLuaUiManager.Open("UiEquipAwarenessReplace", self.CurCharacter.Id, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipAwareness(self.CurCharacter.Id)
 end
 
 function XUiRogueLikeRoomCharacter:OnBtnWeaponClick()
     if not self.CurCharacter then return end
-    XLuaUiManager.Open("UiEquipReplaceNew", self.CurCharacter.Id, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipReplace(self.CurCharacter.Id, nil, true)
 end
 
 -- 加入队伍
@@ -423,7 +424,7 @@ function XUiRogueLikeRoomCharacter:OnBtnJoinTeamClick()
     -- 角色类型不一致拦截
     local inTeamCharacterType = self:GetTeamCharacterType()
     if inTeamCharacterType then
-        local characterType = XCharacterConfigs.GetCharacterType(selectId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(selectId)
         if characterType and characterType ~= inTeamCharacterType then
             local content = CSXTextManagerGetText("TeamCharacterTypeNotSame")
             local sureCallBack = function()
@@ -466,7 +467,7 @@ end
 function XUiRogueLikeRoomCharacter:GetTeamCharacterType()
     for k, v in pairs(self.TeamCharIdMap) do
         if v ~= 0 then
-            return XCharacterConfigs.GetCharacterType(v)
+            return XMVCA.XCharacter:GetCharacterType(v)
         end
     end
 end
@@ -475,10 +476,10 @@ function XUiRogueLikeRoomCharacter:Filter(selectTagGroupDic, sortTagId, isThereF
     local judgeCb = function(groupId, tagValue, character)
         local detailConfig
         if self:IsCharacterType() then
-            detailConfig = XCharacterConfigs.GetCharDetailTemplate(character.Id)
+            detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(character.Id)
         else
             local robotTemplate = XRobotManager.GetRobotTemplate(character.Id)
-            detailConfig = XCharacterConfigs.GetCharDetailTemplate(robotTemplate.CharacterId)
+            detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(robotTemplate.CharacterId)
         end
 
         local compareValue
@@ -489,7 +490,7 @@ function XUiRogueLikeRoomCharacter:Filter(selectTagGroupDic, sortTagId, isThereF
                 return true
             end
         elseif groupId == XRoomCharFilterTipsConfigs.EnumFilterTagGroup.Element then
-            compareValue = detailConfig.ObtainElementList
+            compareValue = XMVCA.XCharacter:GetCharacterAllElement(character.Id, true)
             for _, element in pairs(compareValue) do
                 if element == tagValue then
                     -- 当前角色满足该标签
@@ -505,7 +506,7 @@ function XUiRogueLikeRoomCharacter:Filter(selectTagGroupDic, sortTagId, isThereF
     local allChar
     local characterType = CharacterTypeConvert[self.SelectTabBtnIndex]
     if self:IsCharacterType() then
-        allChar = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+        allChar = XMVCA.XCharacter:GetOwnCharacterList(characterType)
     else
         allChar = XDataCenter.FubenRogueLikeManager.GetAssistRobots(characterType)
     end

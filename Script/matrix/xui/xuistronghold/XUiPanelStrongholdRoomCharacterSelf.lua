@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridStrongholdCharacter = require("XUi/XUiStronghold/XUiGridStrongholdCharacter")
 
 local handler = handler
@@ -40,6 +41,7 @@ function XUiPanelStrongholdRoomCharacterSelf:Hide()
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:Show(teamList, teamId, memberIndex, groupId, isSelectIsomer, pos)
+    ---@type XStrongholdTeam[]
     self.TeamList = teamList
     self.TeamId = teamId
     self.MemberIndex = memberIndex
@@ -127,7 +129,7 @@ function XUiPanelStrongholdRoomCharacterSelf:GetTeamDynamicCharacterTypes()
     if not isInCurTeam then
         local type = self:GetSelectCharacterType()
         if self.CharacterId then
-            local template = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+            local template = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
             type = template.Type
         end
         table.insert(result, type)
@@ -263,7 +265,7 @@ function XUiPanelStrongholdRoomCharacterSelf:OnBtnConsciousnessClick()
         XUiManager.TipText("StrongholdRobotRefuseAwareness")
         return
     end
-    XLuaUiManager.Open("UiEquipAwarenessReplace", self.CharacterId, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipAwareness(self.CharacterId)
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:OnBtnWeaponClick()
@@ -271,7 +273,7 @@ function XUiPanelStrongholdRoomCharacterSelf:OnBtnWeaponClick()
         XUiManager.TipText("StrongholdRobotRefuseWeapon")
         return
     end
-    XLuaUiManager.Open("UiEquipReplaceNew", self.CharacterId, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipReplace(self.CharacterId, nil, true)
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:OnClickBtnFashion()
@@ -279,7 +281,7 @@ function XUiPanelStrongholdRoomCharacterSelf:OnClickBtnFashion()
         --XUiManager.TipText("StrongholdRobotRefuseFashion")
         --return
         local characterId = XRobotManager.GetCharacterId(self.CharacterId)
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
         if not isOwn then
             XUiManager.TipText("CharacterLock")
             return
@@ -363,7 +365,7 @@ function XUiPanelStrongholdRoomCharacterSelf:OnClickBtnJoinTeam(btnSelfObj, pref
             local inTeamId = XDataCenter.StrongholdManager.GetCharacterInTeamId(characterId, teamList)
             local title = CsXTextManagerGetText("StrongholdDeployTipTitle")
             local showCharacterId = XRobotManager.GetCharacterId(characterId)
-            local characterName = XCharacterConfigs.GetCharacterName(showCharacterId)
+            local characterName = XMVCA.XCharacter:GetCharacterName(showCharacterId)
             local content = CsXTextManagerGetText("StrongholdDeployTipContent", characterName, inTeamId, teamId)
             self:AddDialogTipCount()
 
@@ -461,7 +463,7 @@ function XUiPanelStrongholdRoomCharacterSelf:GetMember(prefabMemberIndex)
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:GetSelectCharacterType()
-    return self.IsSelectIsomer and XCharacterConfigs.CharacterType.Isomer or XCharacterConfigs.CharacterType.Normal
+    return self.IsSelectIsomer and XEnumConst.CHARACTER.CharacterType.Isomer or XEnumConst.CHARACTER.CharacterType.Normal
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:GetCharacterType(characterId)
@@ -471,7 +473,7 @@ function XUiPanelStrongholdRoomCharacterSelf:GetCharacterType(characterId)
     end
 
     local showCharacterId = XRobotManager.GetCharacterId(characterId)
-    return XCharacterConfigs.GetCharacterType(showCharacterId)
+    return XMVCA.XCharacter:GetCharacterType(showCharacterId)
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:IsPrefab()
@@ -528,8 +530,10 @@ function XUiPanelStrongholdRoomCharacterSelf:UpdateTeamPrefab(team)
     local teamData = team and team.TeamData
     local firstFightPos = team and team.FirstFightPos
     local captainPos = team and team.CaptainPos
+    local enterCgIndex = team and team.EnterCgIndex or 0
+    local settleCgIndex = team and team.SettleCgIndex or 0
 
-    local updateTeam = function(teamData, firstFightPos, captainPos)
+    local updateTeam = function(teamData, firstFightPos, captainPos, enterCgIndex, settleCgIndex)
         for index, characterId in ipairs(teamData or {}) do
             self:OnClickBtnJoinTeam(nil, characterId, index)
         end
@@ -537,6 +541,8 @@ function XUiPanelStrongholdRoomCharacterSelf:UpdateTeamPrefab(team)
         local team = self:GetTeam()
         team:SetCaptainPos(captainPos)
         team:SetFirstPos(firstFightPos)
+        team:SetEnterCgIndex(enterCgIndex)
+        team:SetSettleCgIndex(settleCgIndex)
     end
 
     for _, characterId in ipairs(teamData or {}) do
@@ -547,7 +553,7 @@ function XUiPanelStrongholdRoomCharacterSelf:UpdateTeamPrefab(team)
                 local content = CSXTextManagerGetText("TeamCharacterTypeNotSame")
                 local sureCallback = function()
                     team:Clear()
-                    updateTeam(teamData, firstFightPos, captainPos)
+                    updateTeam(teamData, firstFightPos, captainPos, enterCgIndex, settleCgIndex)
                 end
                 self:AddDialogTipCount()
 
@@ -560,7 +566,7 @@ function XUiPanelStrongholdRoomCharacterSelf:UpdateTeamPrefab(team)
                 )
                 return
             end
-            updateTeam(teamData, firstFightPos, captainPos)
+            updateTeam(teamData, firstFightPos, captainPos, enterCgIndex, settleCgIndex)
             return
         end
     end

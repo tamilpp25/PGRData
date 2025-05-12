@@ -1,4 +1,4 @@
-XUiGridRestCharItem = XClass(nil, "XUiGridRestCharItem")
+local XUiGridRestCharItem = XClass(nil, "XUiGridRestCharItem")
 
 function XUiGridRestCharItem:Ctor(rootUi, ui)
     self.GameObject = ui.gameObject
@@ -41,7 +41,7 @@ function XUiGridRestCharItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -64,7 +64,7 @@ function XUiGridRestCharItem:SetData(data)
         self.PanelWorking.gameObject:SetActive(false)
         return
     end
-    -- local character = XDataCenter.CharacterManager.GetCharacter(self.CharId)
+    -- local character = XMVCA.XCharacter:GetCharacter(self.CharId)
     if XDataCenter.HostelManager.IsCharacterInWork(self.CharId) then
         self.PanelWorking.gameObject:SetActive(true)
     else
@@ -83,3 +83,6 @@ end
 function XUiGridRestCharItem:GetRectTransform()
     return self.GameObject:GetComponent("RectTransform")
 end
+
+
+return XUiGridRestCharItem

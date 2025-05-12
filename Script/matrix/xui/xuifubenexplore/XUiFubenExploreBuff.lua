@@ -1,4 +1,4 @@
-XUiFubenExploreBuff = XClass(nil, "XUiFubenExploreBuff")
+local XUiFubenExploreBuff = XClass(nil, "XUiFubenExploreBuff")
 function XUiFubenExploreBuff:Ctor(ui, buffInfo)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
@@ -31,3 +31,5 @@ function XUiFubenExploreBuff:Update(buffInfo, isInit)
         self.ImgProgress.fillAmount = unLockProgress
     end
 end
+
+return XUiFubenExploreBuff

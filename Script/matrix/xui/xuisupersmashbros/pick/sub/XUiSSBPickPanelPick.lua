@@ -8,6 +8,7 @@ local Panels = {
 }
 
 function XUiSSBPickPanelPick:Ctor(rootUi)
+    ---@type XSmashBMode
     self.Mode = rootUi.Mode
     self.RootUi = rootUi
     XTool.InitUiObjectByUi(self, self.RootUi.PanelPick)
@@ -52,6 +53,8 @@ end
 function XUiSSBPickPanelPick:InitPanelEnergy()
     local script = require("XUi/XUiSuperSmashBros/Common/XUiSSBPanelEnergy")
     self.EnergyPanel = script.New(self.PanelEnergy)
+
+    self.RefreshEnergyCb = handler(self, self.TryRefreshEnergy)
 end
 
 function XUiSSBPickPanelPick:InitPanels()
@@ -76,7 +79,7 @@ function XUiSSBPickPanelPick:OnEnable()
     for _, panel in pairs(Panels) do
         panel.OnEnable()
     end
-    if self.EnergyPanel then self.EnergyPanel:Refresh() end
+    self:TryRefreshEnergy()
     self:AddEventListeners()
 end
 
@@ -99,17 +102,23 @@ function XUiSSBPickPanelPick:OnDestroy()
     end
 end
 
+function XUiSSBPickPanelPick:TryRefreshEnergy()
+    if self.EnergyPanel then
+        self.EnergyPanel:Refresh()
+    end
+end
+
 local EventAddFlag
 
 function XUiSSBPickPanelPick:AddEventListeners()
     if EventAddFlag then return end
-    XEventManager.AddEventListener(XEventId.EVENT_SSB_ENERGY_REFRESH, function() if self.EnergyPanel then self.EnergyPanel:Refresh() end end)
+    XEventManager.AddEventListener(XEventId.EVENT_SSB_ENERGY_REFRESH, self.RefreshEnergyCb)
     EventAddFlag = true
 end
 
 function XUiSSBPickPanelPick:RemoveEventListeners()
     if not EventAddFlag then return end
-    XEventManager.RemoveEventListener(XEventId.EVENT_SSB_ENERGY_REFRESH, function() if self.EnergyPanel then self.EnergyPanel:Refresh() end end)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SSB_ENERGY_REFRESH, self.RefreshEnergyCb)
     EventAddFlag = nil
 end
 
@@ -132,6 +141,9 @@ function XUiSSBPickPanelPick:OnClickBtnMonster()
         end
     end
     if not next(displayMonsterGroups) then
+        if self.Mode:GetId() == XSuperSmashBrosConfig.ModeType.DeathRandom then
+            return
+        end
         XUiManager.TipText("SSBNeedSelectMonster")
         return
     end

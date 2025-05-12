@@ -21,7 +21,7 @@ function XUiGridRedEnvelopeInfo:Refresh(info)
     if id == self.Parent.LeaderTemplateId then
         name = XPlayer.Name
         if self.Head then
-            XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
+            XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
         end
     else
         local config = XRedEnvelopeConfigs.GetNpcConfig(id)

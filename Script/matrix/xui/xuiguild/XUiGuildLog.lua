@@ -1,3 +1,4 @@
+local XDynamicTableIrregular = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableIrregular")
 local XUiGuildLog = XLuaUiManager.Register(XLuaUi, "UiGuildLog")
 
 local XUiGridGuildLogItem = require("XUi/XUiGuild/XUiChildItem/XUiGridGuildLogItem")

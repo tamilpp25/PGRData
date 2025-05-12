@@ -1,14 +1,10 @@
-local XUiBtnKeyItem = XClass(nil, "XUiBtnKeyItem")
+local XUiBtnKeyItem = XClass(XUiNode, "XUiBtnKeyItem")
 
 local XInputManager = CS.XInputManager
 local ToInt32 = CS.System.Convert.ToInt32
 
-function XUiBtnKeyItem:Ctor(ui, uiRoot)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.UiRoot = uiRoot
-    XTool.InitUiObject(self)
-    self._KeySetType = false
+function XUiBtnKeyItem:OnStart()
+    self._KeySetType = self._KeySetType or false
 
     if self.BtnClear then
         XUiHelper.RegisterClickEvent(self, self.BtnClear, self.OnBtnClearClick)
@@ -17,10 +13,10 @@ function XUiBtnKeyItem:Ctor(ui, uiRoot)
 end
 
 function XUiBtnKeyItem:OnBtnClearClick()
-    if not self.Data then
+    if not self.DefaultKeyMapTable then
         return
     end
-    CS.XInputManager.ClearKeySetting(self.Data.OperationKey, ToInt32(self._KeySetType), self.CurOperationType)
+    CS.XInputManager.InputMapper:ClearKeySetting(self.DefaultKeyMapTable.OperationKey, ToInt32(self._KeySetType), self.CurInputMapId, self.CurOperationType)
     self:Refresh()
 end
 
@@ -29,27 +25,31 @@ function XUiBtnKeyItem:SetKeySetType(keySetType)
 end
 
 function XUiBtnKeyItem:IsKeyboard()
-    return self._KeySetType == CS.KeySetType.Keyboard
+    return self._KeySetType == CS.InputDeviceType.Keyboard
 end
 
-function XUiBtnKeyItem:SetData(data, cb, curOperationType)
+function XUiBtnKeyItem:SetData(data, cb, curInputMapId, curOperationType)
     if data and not self.Data then
-        self.Data = data    --KeyboardMap、ControllerMap配置
+        self.Data = data    --ControllerMap配置
         self.Cb = cb
+        self.DefaultKeyMapTable = XSetConfigs.GetDefaultKeyMapTable(data.DefaultKeyMapIds[1])
     end
+    self.CurInputMapId = curInputMapId or self.CurInputMapId
     self.CurOperationType = curOperationType or self.CurOperationType
 end
 
-function XUiBtnKeyItem:Refresh(data, cb, resetTextOnly, curOperationType)
-    self:SetData(data, cb, curOperationType)
-        
+function XUiBtnKeyItem:Refresh(data, cb, resetTextOnly, curInputMapId, curOperationType)
+    self:SetData(data, cb, curInputMapId, curOperationType)
+    
     local isKeyboard = self:IsKeyboard()
-    local operationKey = self.Data.OperationKey
+    local operationKey = self.DefaultKeyMapTable and self.DefaultKeyMapTable.OperationKey
+    local keyCodeType = self.DefaultKeyMapTable and self.DefaultKeyMapTable.KeyCodeType
 
     self.TxtTitle.text = self.Data.Title
     if operationKey and self._KeySetType then
-        local operationTypeToEnum = CS.XOperationType.__CastFrom(self.CurOperationType)
-        local name = XInputManager.GetKeyCodeString(self._KeySetType, operationTypeToEnum, operationKey)
+        local curInputMapIdEnum = CS.XInputMapId.__CastFrom(self.CurInputMapId)
+        local curOperationTypeEnum = CS.XInputManager.XOperationType.__CastFrom(self.CurOperationType)
+        local name = keyCodeType == XSetConfigs.KeyCodeType.NotCustomIgnoreCheck and self.DefaultKeyMapTable.KeyboardKeyCode or XInputManager.GetKeyCodeString(self._KeySetType, curInputMapIdEnum, operationKey, curOperationTypeEnum)
         self.BtnKeyItem:SetName(name)
 
         if isKeyboard then
@@ -59,7 +59,8 @@ function XUiBtnKeyItem:Refresh(data, cb, resetTextOnly, curOperationType)
                 self.Icon2.gameObject:SetActiveEx(false)
             end
         else
-            local icons = XInputManager.GetKeyCodeIcon(operationTypeToEnum, operationKey, CS.PressKeyIndex.End)
+            local icons = keyCodeType == XSetConfigs.KeyCodeType.NotCustomIgnoreCheck and XInputManager.GetKeyCodeIcon(self._KeySetType, self.DefaultKeyMapTable.Id)
+                    or XInputManager.GetKeyCodeIcon(self._KeySetType, curInputMapIdEnum, operationKey, CS.PressKeyIndex.End, curOperationTypeEnum)
             if icons and icons.Count ~= 0 then
                 self.Icon1:SetSprite(icons[0])
                 self.Icon1.gameObject:SetActiveEx(true)
@@ -79,7 +80,7 @@ function XUiBtnKeyItem:Refresh(data, cb, resetTextOnly, curOperationType)
             end
         end
         
-        local isCustom = XInputManager.IsCustomKey(operationKey, 0)
+        local isCustom = XInputManager.IsCustomKey(operationKey, 0, self._KeySetType, self.CurInputMapId)
         self.BtnKeyItem.enabled = isCustom
         self.BtnKeyItem.CallBack = function()
             self.Cb(operationKey, self)
@@ -92,7 +93,7 @@ function XUiBtnKeyItem:Refresh(data, cb, resetTextOnly, curOperationType)
     else
         self.GroupRecommend.gameObject:SetActiveEx(false)
         self.BtnKeyItem.enabled = false
-        self.TxtKeyName.text = self.Data.KeyName
+        self.TxtKeyName.text = ""
     end
 end
 
@@ -107,7 +108,7 @@ function XUiBtnKeyItem:SetRecommendText(operationKey)
     end
 
     if recommendKey.Count == 1 then
-        self.UiRoot:SetUiSprite(self.ImgGamePad1, recommendKey[0])
+        self.Parent:SetUiSprite(self.ImgGamePad1, recommendKey[0])
         self.ImgGamePad1.gameObject:SetActiveEx(true)
         self.TxtPlus.gameObject:SetActiveEx(false)
         self.ImgGamePad2.gameObject:SetActiveEx(false)
@@ -115,10 +116,22 @@ function XUiBtnKeyItem:SetRecommendText(operationKey)
         self.ImgGamePad1.gameObject:SetActiveEx(true)
         self.TxtPlus.gameObject:SetActiveEx(true)
         self.ImgGamePad2.gameObject:SetActiveEx(true)
-        self.UiRoot:SetUiSprite(self.ImgGamePad1, recommendKey[0])
-        self.UiRoot:SetUiSprite(self.ImgGamePad2, recommendKey[1])
+        self.Parent:SetUiSprite(self.ImgGamePad1, recommendKey[0])
+        self.Parent:SetUiSprite(self.ImgGamePad2, recommendKey[1])
     end
     self.GroupRecommend.gameObject:SetActiveEx(true)
+end
+
+function XUiBtnKeyItem:GetCurOperationType()
+    return self.CurOperationType
+end
+
+function XUiBtnKeyItem:GetCurInputMapId()
+    return self.CurInputMapId
+end
+
+function XUiBtnKeyItem:GetDataId()
+    return self.Data and self.Data.Id
 end
 
 return XUiBtnKeyItem

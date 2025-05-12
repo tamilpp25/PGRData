@@ -1,7 +1,9 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridMulitiplayerRoomChar = XClass(nil, "XUiGridMulitiplayerRoomChar")
 local RImgArmsColor = CS.UnityEngine.Color.white
 local XUiPanelMultiDimRoomChar = require("XUi/XUiMultiDim/XUiPanelMultiDimRoomChar")
 local XUiPanelMultiDimAbility = require("XUi/XUiMultiDim/XUiPanelMultiDimAbility")
+local XSpecialTrainActionRandom = require("XUi/XUiSpecialTrainBreakthrough/XSpecialTrainActionRandom")
 
 function XUiGridMulitiplayerRoomChar:Ctor(ui, parent, index, rolePanel, effectObj, params)
     self.GameObject = ui.gameObject
@@ -9,6 +11,7 @@ function XUiGridMulitiplayerRoomChar:Ctor(ui, parent, index, rolePanel, effectOb
     self.Parent = parent
     self.Index = index
     self.RolePanel = rolePanel
+    self.CuteRandomController = XSpecialTrainActionRandom.New()
     self.EffectObj = effectObj
     self.Params = params or {}
     XTool.InitUiObject(self)
@@ -24,7 +27,7 @@ function XUiGridMulitiplayerRoomChar:Ctor(ui, parent, index, rolePanel, effectOb
     XUiHelper.RegisterClickEvent(self, self.BtnMultiDimFriend, self.OnBtnFriendClick)
     XUiHelper.RegisterClickEvent(self, self.BtnMultiDimGuild, self.OnBtnGuildClick)
     self.CharacterPets:GetObject("BtnClick").CallBack = function()
-        self:OnBtnItemClick()
+        self:OnBtnPetClick()
     end
     self:InitMultiDim()
     self.PanelMultiDimNoCharacter.gameObject:SetActiveEx(self.Params.IsMultiDim == true)
@@ -123,9 +126,9 @@ function XUiGridMulitiplayerRoomChar:RefreshPlayer(playerData, callback)
     -- 战斗类型
     local charId = playerData.FightNpcData.Character.Id
     local quality = playerData.FightNpcData.Character.Quality
-    local npcId = XCharacterConfigs.GetCharNpcId(charId, quality)
-    local npcTemplate = XCharacterConfigs.GetNpcTemplate(npcId)
-    self.RImgArms:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(npcTemplate.Type))
+    local npcId = XMVCA.XCharacter:GetCharNpcId(charId, quality)
+    local npcTemplate = XMVCA.XCharacter:GetNpcTemplate(npcId)
+    self.RImgArms:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(npcTemplate.Type))
 
     -- 战斗力
     self.TxtAbility.text = playerData.FightNpcData.Character.Ability
@@ -174,16 +177,53 @@ function XUiGridMulitiplayerRoomChar:RefreshPlayer(playerData, callback)
     end
 
     -- 模型s
-    self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, XDataCenter.FubenSpecialTrainManager.IsStageCute(stageId))
     self.RolePanel:ShowRoleModel()
+    local charId = playerData.FightNpcData.Character.Id
+    if XCharacterCuteConfig.CheckHasCuteModel(charId) and XMVCA.XAprilFoolDay:IsInCuteModelTime() then
+        self.RolePanel:UpdateCuteModel(nil, charId, nil, nil, nil, nil, true)
+        self.CuteRandomController:Stop()
+        self.CuteRandomController:SetAnimator(self.RolePanel:GetAnimator(), {}, self.RolePanel)
+        self.CuteRandomController:Play()
+    else
+        local isCute = XDataCenter.FubenSpecialTrainManager.IsStageCute(stageId)
+        local needDisplayController = false
+        if isCute then
+            needDisplayController = XCharacterCuteConfig.GetNeedDisplayController(stageId)
+        end
+        --拍照关特殊处理，防止对其他活动产生影响
+        if XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Photo) then
+            self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController,true)
+        else
+            self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController, nil, playerData.Id == XPlayer.Id)
+        end
+    end
+    local char = playerData.FightNpcData.Character
+    if XTool.IsNumberValid(char.LiberateAureoleId) then
+        local resourcesId
+        local fashionId = char.FashionId
+        if XTool.IsNumberValid(fashionId) then
+            resourcesId = XDataCenter.FashionManager.GetResourcesId(fashionId)
+        else
+            resourcesId = XDataCenter.FashionManager.GetFashionResourceIdByCharId(char.Id)
+        end
+    
+        local modelName
+        if resourcesId then
+            modelName = XMVCA.XCharacter:GetCharResModel(resourcesId)
+        else
+            modelName = self:GetModelName(char.Id)
+        end
+        local rootName, _ = XDataCenter.FashionManager.GetFashionLiberationEffectRootAndPath(char.FashionId) -- 获取该角色手环挂点名字
+        self.RolePanel:SetLiberationEffect(modelName, rootName, char.LiberateAureoleId, char.Id)
+    end
     self:CheckOpenEffctObje()
     
     --特训关特殊处理
-    self:RefreshSpecialTrain(playerData.RankScore)
+    self:RefreshSpecialTrain(playerData)
     --多维挑战特殊处理
-    self.PanelAbility.gameObject:SetActiveEx(not self.Params.IsMultiDim)
     self.PanelMultiDimAbility.gameObject:SetActiveEx(self.Params.IsMultiDim)
     if self.Params.IsMultiDim then
+        self.PanelAbility.gameObject:SetActiveEx(not self.Params.IsMultiDim)
         self.MultiDimAbilityPanel:Refresh(playerData)
     end
 end
@@ -250,33 +290,31 @@ function XUiGridMulitiplayerRoomChar:OpenSelectCharView()
                 require("XUi/XUiSpecialTrainYuanXiao/XUiSpecialTrainBattleRoomRoleDetail"))
     elseif XDataCenter.FubenSpecialTrainManager.IsStageCute(stageId) then
         charId = XDataCenter.FubenSpecialTrainManager.GetRobotIdByStageIdAndCharId(stageId, charId)
-        xpcall(function()
-            XLuaUiManager.Open("UiBattleRoomRoleDetailCute", 
-            stageId, 
-            XDataCenter.TeamManager.CreateTempTeam({charId, 0, 0}), 
-            1, {
-                AOPCloseBefore = function(proxy, rootUi)
-                    self:OnSelectCharacter(rootUi.Team:GetEntityIds())
-                end
-            })
-        end, function(msg)
-            XLog.Error(msg)
-        end)
+        XLuaUiManager.Open("UiBattleRoomRoleDetailCute", 
+        stageId, 
+        XDataCenter.TeamManager.CreateTempTeam({charId, 0, 0}), 
+        1, {
+            AOPCloseBefore = function(proxy, rootUi)
+                self:OnSelectCharacter(rootUi.Team:GetEntityIds())
+            end
+        })
     else
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoomRoleDetail", stageId
-                , XDataCenter.TeamManager.CreateTempTeam({charId, 0, 0})
-                , 1, {
-                AOPSetJoinBtnIsActiveAfter = function(proxy, rootUi)
-                    rootUi.BtnQuitTeam.gameObject:SetActiveEx(false)
-                end,
-                AOPCloseBefore = function(proxy, rootUi)
-                    self:OnSelectCharacter(rootUi.Team:GetEntityIds())
-                end
-            })
-        else
-            XLuaUiManager.Open("UiRoomCharacter", { [1] = playerData.FightNpcData.Character.Id }, 1, handler(self, self.OnSelectCharacter), stageInfo.Type, characterLimitType, { IsHideQuitButton = true, LimitBuffId = limitBuffId, StageId = stageId })
-        end
+        XLuaUiManager.Open("UiBattleRoomRoleDetail", stageId
+            , XDataCenter.TeamManager.CreateTempTeam({charId, 0, 0})
+            , 1, {
+            AOPSetJoinBtnIsActiveAfter = function(proxy, rootUi)
+                rootUi.BtnQuitTeam.gameObject:SetActiveEx(false)
+            end,
+            AOPCloseBefore = function(proxy, rootUi)
+                self:OnSelectCharacter(rootUi.Team:GetEntityIds())
+            end,
+            GetEntities = function()
+                return XMVCA.XCharacter:GetOwnCharacterList()
+            end,
+            --IsHideGeneralSkill = function()
+            --    return true
+            --end,
+        })
     end
 end
 
@@ -304,6 +342,9 @@ function XUiGridMulitiplayerRoomChar:OnSelectCharacter(charIdMap)
         elseif XDataCenter.FubenSpecialTrainManager.IsSpecialTrainBreakthroughType(stageType) then
             XDataCenter.FubenSpecialTrainManager.RequestBreakthroughSetRobotId(charId)
         else
+            if stageType == XDataCenter.FubenManager.StageType.SpecialTrainSnow then
+                XDataCenter.FubenSpecialTrainManager.SetSnowGameRobotId(charId)
+            end
             XUiManager.TipText("OnlineFightSuccess", XUiManager.UiTipType.Success)
         end
     end)
@@ -350,7 +391,9 @@ function XUiGridMulitiplayerRoomChar:RefreshChat(chatDataLua)
     self.PanelChat.gameObject:SetActiveEx(true)
     self.PanelDailog.gameObject:SetActive(not isEmoji)
     self.PanelEmoji.gameObject:SetActive(isEmoji)
-    self.PanelChatEnable:PlayTimelineAnimation()
+    if self.PanelChatEnable.gameObject.activeInHierarchy then
+        self.PanelChatEnable:PlayTimelineAnimation()
+    end
 end
 
 ----------------------- 按钮回调 -----------------------
@@ -397,6 +440,31 @@ function XUiGridMulitiplayerRoomChar:OnBtnItemClick()
     end
 end
 
+function XUiGridMulitiplayerRoomChar:OnBtnPetClick()
+    local playerData = self.PlayerData
+    if not playerData or playerData.State == XDataCenter.RoomManager.PlayerState.Ready then
+        XUiManager.TipText("OnlineCancelReadyBeforeSelectCharacter")
+        return
+    end
+    if self.PlayerData.Id ~= XPlayer.Id then
+        self:OnBtnItemClick()
+        return
+    end
+    local charId = playerData.FightNpcData.Character.Id
+    if XRobotManager.CheckIsRobotId(charId) then
+        self:OnBtnItemClick()
+        return
+    end
+    local isCanOpenUiPartner = XDataCenter.PartnerManager.GoPartnerCarry(charId, false, function()
+        XDataCenter.RoomManager.EndSelectRequest(function()
+            XDataCenter.RoomManager.Select(charId)
+        end)
+    end)
+    if isCanOpenUiPartner then
+        XDataCenter.RoomManager.BeginSelectRequest()
+    end
+end
+
 function XUiGridMulitiplayerRoomChar:OnBtnFriendClick()
     self.Parent:CloseAllOperationPanel()
     local roomData = XDataCenter.RoomManager.RoomData
@@ -408,6 +476,8 @@ function XUiGridMulitiplayerRoomChar:OnBtnFriendClick()
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(roomData.StageId)
     if stageInfo.Type == XDataCenter.FubenManager.StageType.ArenaOnline then
         roomType = MultipleRoomType.ArenaOnline
+    elseif stageInfo.Type == XDataCenter.FubenManager.StageType.FubenPhoto then
+        roomType=MultipleRoomType.FubenPhoto    
     end
 
     XLuaUiManager.Open("UiMultiplayerInviteFriend", roomType)
@@ -455,23 +525,46 @@ function XUiGridMulitiplayerRoomChar:OnBtnTeamClick()
     self.Parent:CloseAllOperationPanel(self.Index)
 end
 
-function XUiGridMulitiplayerRoomChar:RefreshSpecialTrain(rankScore)
+function XUiGridMulitiplayerRoomChar:RefreshSpecialTrain(playerData)
+    local rankScore = playerData.RankScore
     local stageId = XDataCenter.RoomManager.RoomData.StageId
     --冰雪感谢祭
     local isSpecialTrainSnow = XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Snow)
     --元宵
     local isSpecialTrainRhythm = XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Rhythm)
-    local isSpecialTrainBreakthrough = XFubenSpecialTrainConfig.IsBreakthroughStage(stageId)
-    if isSpecialTrainSnow or isSpecialTrainRhythm or isSpecialTrainBreakthrough then
+    if isSpecialTrainSnow or isSpecialTrainRhythm then
         self.RImgArms.color = RImgArmsColor
         local icon = XDataCenter.FubenSpecialTrainManager.GetIconByScore(rankScore)
         self.RImgArms:SetRawImage(icon)
-        self.TxtAbility.gameObject:SetActiveEx(false)
-        self.TxtParameter.gameObject:SetActiveEx(false)
+        --self.TxtAbility.gameObject:SetActiveEx(false)
+        --self.TxtParameter.gameObject:SetActiveEx(false)
         self.CharacterPets.gameObject:SetActiveEx(false)
+        self.Skill.gameObject:SetActiveEx(false)
         if self.TxtScore then
             self.TxtScore.text = rankScore
         end
+        --region 元宵2023
+        if isSpecialTrainRhythm then
+            self.Skill.gameObject:SetActiveEx(true)
+            if not self._YuanXiaoSkill then
+                local XUi2023YuanXiaoRoomSkill = require("XUi/XUiSpecialTrainYuanXiao/YuanXiao2023/XUi2023YuanXiaoRoomSkill")
+                self._YuanXiaoSkill = XUi2023YuanXiaoRoomSkill.New(self.Skill)
+            end
+            self._YuanXiaoSkill:Update(playerData)
+            self.CharacterPets.gameObject:SetActiveEx(false)
+        end
+        --endregion 元宵2023
+    end
+    -- 拍照2.0
+    local isSummerEpisodeNew = XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Photo)
+    if isSummerEpisodeNew then
+        self.PanelAbility.gameObject:SetActiveEx(false)
+        self.CharacterPets.gameObject:SetActiveEx(false)
+    end
+    -- 魔方2.0
+    if XFubenSpecialTrainConfig.IsBreakthroughStage(stageId) then
+        self.CharacterPets.gameObject:SetActiveEx(false)
+        self.PanelSpecialTrainIcon.gameObject:SetActiveEx(false)
     end
 end
 

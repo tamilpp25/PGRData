@@ -1,3 +1,5 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
+local XUiBagItem = require("XUi/XUiBag/XUiBagItem")
 local XUiBagItemInfoPanel = XLuaUiManager.Register(XLuaUi, "UiBagItemInfoPanel")
 
 local MIN_SELET_COUNT = 1
@@ -8,7 +10,7 @@ function XUiBagItemInfoPanel:OnAwake()
     self:InitAutoScript()
 end
 
-function XUiBagItemInfoPanel:OnStart(itemData, useCb, isShowUse)
+function XUiBagItemInfoPanel:OnStart(itemData, useCb, isShowUse, closeCb)
     self:CheckChangeBtnUseListener(useCb)
 
     self.SelectCount = 0
@@ -32,6 +34,7 @@ function XUiBagItemInfoPanel:OnStart(itemData, useCb, isShowUse)
     self.IsUseable = isShowUse or XDataCenter.ItemManager.IsUseable(id)
     self:SetupContent()
     self:SetBtnShowOfActionPointOverLimit()
+    self.CloseCb = closeCb
 end
 
 function XUiBagItemInfoPanel:SetupContent()
@@ -90,6 +93,9 @@ end
 
 function XUiBagItemInfoPanel:OnBtnCloseClick()
     self:Close()
+    if self.CloseCb then
+        self.CloseCb()
+    end
 end
 
 function XUiBagItemInfoPanel:OnBtnGetClick()
@@ -254,12 +260,7 @@ function XUiBagItemInfoPanel:SetupBaseInfo()
     local template = self.ItemData.Template
     self.TxtName.text = template.Name
     self.TxtDescription.text = template.Description
-    XDataCenter.ItemManager.GetItemWorldDesc(self.ItemData.Id);
-    if template.WorldDesc then 
-        self.TxtWorldDesc.text = string.gsub(template.WorldDesc, "\\n", "\n")
-    else
-        self.TxtWorldDesc.text = "";
-    end
+    self.TxtWorldDesc.text = template.WorldDesc
     local count = self:GetGridCount()
     self.TxtCount.text = tostring(count)
     self.RImgIcon:SetRawImage(template.BigIcon)

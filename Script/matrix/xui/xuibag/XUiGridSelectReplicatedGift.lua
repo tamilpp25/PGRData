@@ -1,8 +1,9 @@
+local XUiBagItem = require("XUi/XUiBag/XUiBagItem")
 --
 -- Author: wujie
 -- Note: 重复打开单选礼包界面中的子项，与XUiGridSelectGift区分，显示选择数量、长按将数量设置为0
 
-XUiGridSelectReplicatedGift = XClass(XUiBagItem, "XUiGridSelectReplicatedGift")
+local XUiGridSelectReplicatedGift = XClass(XUiBagItem, "XUiGridSelectReplicatedGift")
 
 --说明，以下修改为了适用于外部控制统一控制最大选择数量的情况
 
@@ -133,7 +134,7 @@ function XUiGridSelectReplicatedGift:RefreshSelf(NeedDefulatQulity, isSmallIcon,
     if self.TxtName then
         --对人物显示全名
         if self.Template.RewardType == XRewardManager.XRewardType.Character then
-            self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(self.TemplateId)
+            self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(self.TemplateId)
         else
             self.TxtName.text = template.Name
         end
@@ -269,3 +270,5 @@ function XUiGridSelectReplicatedGift:SetOwnedStatus(status)
         self.TxtOwned.gameObject:SetActiveEx(status)
     end
 end
+
+return XUiGridSelectReplicatedGift

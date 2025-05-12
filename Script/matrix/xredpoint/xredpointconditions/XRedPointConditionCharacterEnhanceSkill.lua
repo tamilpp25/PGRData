@@ -22,7 +22,7 @@ function XRedPointConditionCharacterEnhanceSkill.Check(characterId)
         return false
     end
     
-    return XDataCenter.CharacterManager.CheckCharacterShowRed(characterId)
+    return XMVCA.XCharacter:CheckCharacterEnhanceSkillShowRed(characterId)
 end
 
 return XRedPointConditionCharacterEnhanceSkill

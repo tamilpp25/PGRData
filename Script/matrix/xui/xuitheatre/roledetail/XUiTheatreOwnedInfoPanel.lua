@@ -36,13 +36,12 @@ function XGridSkill:OnBtnSubSkillIconBgClick()
     if not skillId or not level then
         return
     end
-    XLuaUiManager.Open("UiTheatreBuffDetails", skillId, level)
+    local configDes = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, level)
+    XLuaUiManager.Open("UiSkillDetailsTips", configDes)
 end
 
 --######################## XPanelRoleSkill 技能详细面板 ########################
 local BALL_SKILL_COUNT = 3  --信号球数量
-local MAIN_SKILL_INDEX = 4  --主动技能
-local PASSIVE_SKILL_INDEX = 5 --被动技能
 local XPanelRoleSkill = XClass(nil, "XPanelRoleSkill")
 
 function XPanelRoleSkill:Ctor(ui, backClickCb, panelIndex)
@@ -68,83 +67,89 @@ function XPanelRoleSkill:Init()
     self.TxtNormalMassage.text = descs[2]
     self.TxtPressMassage.text = descs[2]
 
+    self.SkillGrids = {}
     self.BallSkillGrids = {}
-    self.ActiveSkillGrids = {}
-    self.PassiveSkillGrids = {}
-    self.GridSkillBall.gameObject:SetActiveEx(false)
     self.GridActiveSkill.gameObject:SetActiveEx(false)
-    self.GridSubSkill.gameObject:SetActiveEx(false)
+    self.BasicSkills.gameObject:SetActiveEx(false)
+    for i = 2, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
+        local panel = self["PanelSkillGroup" .. i]
+        local grid = XUiHelper.TryGetComponent(panel, "PanelActiveSkill/GridActiveSkill")
+        if grid then
+            grid.gameObject:SetActiveEx(false)
+        end
+    end
 end
 
 function XPanelRoleSkill:SetData(adventureRole)
     local skills = adventureRole:GetSkill()
-    --信号球
-    self:UpdateBallSkillList(skills)
-    --主动技能
-    self:UpdateActiveSkillList(skills)
-    --被动技能
-    self:UpdatePassiveSkillList(skills)
+    self:UpdateSkill(skills)
+end
+
+function XPanelRoleSkill:UpdateSkill(skills)
+    -- 特殊处理
+    local ballSkill1 = {}
+    local ballSkill2 = {}
+    for _, subSkill in pairs(skills[1].subSkills or {}) do
+        local skillType = XMVCA.XCharacter:GetSkillType(subSkill.configDes.SkillId)
+        if skillType <= BALL_SKILL_COUNT then
+            table.insert(ballSkill1, subSkill)
+        else
+            table.insert(ballSkill2, subSkill)
+        end
+    end
+    self:UpdateBallSkillList(ballSkill1)
+    self:UpdateSkillList(ballSkill2, self.GridActiveSkill, self.PanelBasicskills, 1)
+
+    for i = 2, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
+        local panel = self["PanelSkillGroup" .. i]
+        local parent =  XUiHelper.TryGetComponent(panel, "PanelActiveSkill")
+        local grid = XUiHelper.TryGetComponent(panel, "PanelActiveSkill/GridActiveSkill")
+
+        self:UpdateSkillList(skills[i].subSkills, grid, parent, i)
+    end
 end
 
 function XPanelRoleSkill:UpdateBallSkillList(skills)
-    if not skills then
-        for i, v in ipairs(self.BallSkillGrids) do
-            v.GameObject:SetActiveEx(false)
-        end
+    if XTool.IsTableEmpty(skills) then
+        self:DisableSkillGrid(self.BallSkillGrids)
         return
     end
-    for i = 1, BALL_SKILL_COUNT do
-        local skillGrid = self.BallSkillGrids[i]
-        if not skillGrid then
-            skillGrid = XGridSkill.New(XUiHelper.Instantiate(self.GridSkillBall, self.PanelSkilBall))
-            skillGrid.GameObject:SetActiveEx(true)
-            self.BallSkillGrids[i] = skillGrid
-        end
 
-        local data = skills[i].subSkills[1]
-        skillGrid:SetData({Icon = data.configDes.Icon, Level = data.Level, SkillId = data.configDes.SkillId})
+    self:RefreshGrid(#skills, skills, self.BallSkillGrids, self.BasicSkills, self.PanelBasicskills)
+end
+
+function XPanelRoleSkill:UpdateSkillList(skills, grid, parent, index)
+    if XTool.IsTableEmpty(self.SkillGrids[index]) then
+        self.SkillGrids[index] = {}
+    end
+    if XTool.IsTableEmpty(skills) then
+        self:DisableSkillGrid(self.SkillGrids[index])
+        return
+    end
+
+    self:RefreshGrid(#skills, skills, self.SkillGrids[index], grid, parent)
+end
+
+function XPanelRoleSkill:DisableSkillGrid(skillGirdList)
+    for _, grid in ipairs(skillGirdList) do
+        grid.GameObject:SetActiveEx(false)
     end
 end
 
-function XPanelRoleSkill:UpdateActiveSkillList(skills)
-    if not skills then
-        for i, v in ipairs(self.ActiveSkillGrids) do
-            v.GameObject:SetActiveEx(false)
+function XPanelRoleSkill:RefreshGrid(length, skills, grids, grid, parent)
+    for idx = 1, length do
+        local item  = grids[idx]
+        if not item then
+            local ui = XUiHelper.Instantiate(grid, parent);
+            item = XGridSkill.New(ui)
+            item.GameObject:SetActiveEx(true)
+            grids[idx] = item
         end
-        return
+        item:SetData({Icon = skills[idx].configDes.Icon, Level = skills[idx].Level, SkillId = skills[idx].configDes.SkillId})
     end
 
-    local mainSkill = skills[MAIN_SKILL_INDEX]
-    for i, v in ipairs(mainSkill.subSkills) do
-        local skillGrid = self.ActiveSkillGrids[i]
-        if not skillGrid then
-            skillGrid = XGridSkill.New(XUiHelper.Instantiate(self.GridActiveSkill, self.PanelActiveSkill))
-            skillGrid.GameObject:SetActiveEx(true)
-            self.ActiveSkillGrids[i] = skillGrid
-        end
-
-        skillGrid:SetData({Icon = v.configDes.Icon, Level = v.Level, SkillId = v.configDes.SkillId})
-    end
-end
-
-function XPanelRoleSkill:UpdatePassiveSkillList(skills)
-    if not skills then
-        for i, v in ipairs(self.PassiveSkillGrids) do
-            v.GameObject:SetActiveEx(false)
-        end
-        return
-    end
-
-    local passiveSkill = skills[PASSIVE_SKILL_INDEX]
-    for i, v in ipairs(passiveSkill.subSkills) do
-        local skillGrid = self.PassiveSkillGrids[i]
-        if not skillGrid then
-            skillGrid = XGridSkill.New(XUiHelper.Instantiate(self.GridSubSkill, self.PanelPassiveSkill))
-            skillGrid.GameObject:SetActiveEx(true)
-            self.PassiveSkillGrids[i] = skillGrid
-        end
-
-        skillGrid:SetData({Icon = v.configDes.Icon, Level = v.Level, SkillId = v.configDes.SkillId})
+    for i = length + 1, #grids do
+        grids[i].GameObject:SetActiveEx(false)
     end
 end
 
@@ -164,6 +169,9 @@ local GridSkillIndexs = {
     ExSkill = 3, --必杀
     PassiveSkill = 4, --核心被动
 }
+local MAIN_SKILL_INDEX = 1  --主动技能
+local PASSIVE_SKILL_INDEX = 2 --被动技能
+
 local XPanelSkill = XClass(nil, "XPanelSkill")
 
 function XPanelSkill:Ctor(ui)
@@ -200,18 +208,18 @@ end
 function XPanelSkill:SetData(adventureRole)
     local skills = adventureRole:GetSkill()
     local mainSkill = skills[MAIN_SKILL_INDEX]
-    local data = mainSkill.subSkills[1]
+    local data = mainSkill.subSkills[4]
 
     --普攻
     for _, grid in ipairs(self.SkillGrids[GridSkillIndexs.NormalAtk]) do
-        grid:SetData({Icon = XTheatreConfigs.GetSkillPosIcon(GridSkillIndexs.NormalAtk), Level = data.Level})
+        grid:SetData({Icon = XTheatreConfigs.GetSkillPosIcon(GridSkillIndexs.NormalAtk), Level = data and data.Level or 0})
     end 
 
     --信号球
     local ballLevel = 0
     for i = 1, BALL_SKILL_COUNT do
-        data = skills[i].subSkills[1]
-        ballLevel = ballLevel + data.Level
+        data = mainSkill.subSkills[i]
+        ballLevel = ballLevel + (data and data.Level or 0)
     end
     ballLevel = ballLevel / BALL_SKILL_COUNT
     for _, grid in ipairs(self.SkillGrids[GridSkillIndexs.Ball]) do
@@ -219,16 +227,16 @@ function XPanelSkill:SetData(adventureRole)
     end
 
     --必杀
-    data = mainSkill.subSkills[2]
+    local passiveSkill = skills[PASSIVE_SKILL_INDEX]
+    data = passiveSkill.subSkills[2]
     for _, grid in ipairs(self.SkillGrids[GridSkillIndexs.ExSkill]) do
-        grid:SetData({Icon = XTheatreConfigs.GetSkillPosIcon(GridSkillIndexs.ExSkill), Level = data.Level})
+        grid:SetData({Icon = XTheatreConfigs.GetSkillPosIcon(GridSkillIndexs.ExSkill), Level = data and data.Level or 0})
     end
 
     --核心被动
-    local passiveSkill = skills[PASSIVE_SKILL_INDEX]
     data = passiveSkill.subSkills[1]
     for _, grid in ipairs(self.SkillGrids[GridSkillIndexs.PassiveSkill]) do
-        grid:SetData({Icon = XTheatreConfigs.GetSkillPosIcon(GridSkillIndexs.PassiveSkill), Level = data.Level})
+        grid:SetData({Icon = XTheatreConfigs.GetSkillPosIcon(GridSkillIndexs.PassiveSkill), Level = data and data.Level or 0})
     end
 end
 
@@ -276,11 +284,11 @@ function XGridSuit:Refresh(data)
 
     --意识套装没有质量等级，默认用套装第一个部位的品级
     local suitId = data.SuitId
-    if XEquipConfig.IsDefaultSuitId(suitId) then
+    if XMVCA.XEquip:IsDefaultSuitId(suitId) then
         self.ImgQuality.gameObject:SetActive(false)
     else
-        local ids = XDataCenter.EquipManager.GetEquipTemplateIdsBySuitId(suitId)
-        self.ImgQuality:SetSprite(XDataCenter.EquipManager.GetEquipQualityPath(ids[1]))
+        local ids = XMVCA.XEquip:GetSuitEquipIds(suitId)
+        self.ImgQuality:SetSprite(XMVCA.XEquip:GetEquipQualityPath(ids[1]))
         self.ImgQuality.gameObject:SetActive(true)
     end
     -- self.GridSuit:Refresh(data.SuitId)
@@ -338,9 +346,7 @@ function XPanelAwareness:SetData(adventureRole)
     self.WeaponGridNormal:Refresh(weaponEquip)
     self.WeaponGridPress:Refresh(weaponEquip)
 
-    --意识四件套和二件套
-    local suitMergeActiveDatas = adventureRole:GetSuitMergeActiveDatas()
-    for i, data in ipairs(suitMergeActiveDatas) do
+    for i = 1, 2 do
         local suitGrids = self.SuitGrids[i]
         if not suitGrids then
             suitGrids = {}
@@ -348,7 +354,12 @@ function XPanelAwareness:SetData(adventureRole)
             suitGrids[2] = XPanelSuit.New(self["PanelPressAwareness" .. i], self.RootUi)
             self.SuitGrids[i] = suitGrids
         end
-
+    end
+    
+    --意识四件套和二件套
+    local suitMergeActiveDatas = adventureRole:GetSuitMergeActiveDatas()
+    for i, data in ipairs(suitMergeActiveDatas) do
+        local suitGrids = self.SuitGrids[i]
         for i, suitGrid in ipairs(suitGrids) do
             suitGrid:Refresh(data)
             suitGrid.GameObject:SetActiveEx(true)
@@ -411,7 +422,7 @@ function XPaneRolelAwareness:SetData(adventureRole)
 
     --意识
     self.WearingAwarenessGrids = self.WearingAwarenessGrids or {}
-    for i, equipSite in pairs(XEquipConfig.EquipSite.Awareness) do
+    for i, equipSite in pairs(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS) do
         local panelAwareness = self["PanelAwareness" .. equipSite]
         local gridAwareness = XUiHelper.TryGetComponent(panelAwareness.transform, "GridAwareness")
         local equip = adventureRole:GetWearingEquipBySite(equipSite)
@@ -569,6 +580,7 @@ local AnimationPanel = {
 }
 
 --选择的角色详情
+---@class XUiTheatreOwnedInfoPanel
 local XUiTheatreOwnedInfoPanel = XClass(nil, "XUiTheatreOwnedInfoPanel")
 
 function XUiTheatreOwnedInfoPanel:Ctor(ui, switchRoleStateCb, rootUi)
@@ -614,10 +626,16 @@ function XUiTheatreOwnedInfoPanel:AddButtonClick()
     self.BtnSkill.CallBack = function() self:OnChangePanel(PanelIndex.Skill) end
     self.BtnCut.CallBack = function() self:OnBtnCutClick() end
     XUiHelper.RegisterClickEvent(self, self.BtnCareerTips, self.OnBtnCareerTipsClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill1, function ()
+        self:OnBtnGeneralSkillClick(1)
+    end)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill2, function ()
+        self:OnBtnGeneralSkillClick(2)
+    end)
 end
 
 function XUiTheatreOwnedInfoPanel:OnBtnCareerTipsClick()
-    XLuaUiManager.Open("UiCharacterCarerrTips", self.AdventureRole:GetCharacterId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.AdventureRole:GetCharacterId())
 end
 
 function XUiTheatreOwnedInfoPanel:OnBtnCutClick()
@@ -626,7 +644,7 @@ function XUiTheatreOwnedInfoPanel:OnBtnCutClick()
     end
 
     local characterId = self.AdventureRole:GetCharacterId()
-    if not self.AdventureRole:GetIsLocalRole() and not XDataCenter.CharacterManager.GetCharacter(characterId) then
+    if not self.AdventureRole:GetIsLocalRole() and not XMVCA.XCharacter:GetCharacter(characterId) then
         XUiManager.TipText("NotOwnCurRole")
         return
     end
@@ -698,6 +716,17 @@ function XUiTheatreOwnedInfoPanel:SetData(adventureRole, entityId)
         end
     end
 
+    -- 机制
+    local generalSkillIds = XMVCA.XCharacter:GetCharactersActiveGeneralSkillIdList(adventureRole:GetFilterId())
+    for i = 1, self.ListGeneralSkillDetail.childCount, 1 do
+        local id = generalSkillIds[i]
+        self["BtnGeneralSkill"..i].gameObject:SetActiveEx(id)
+        if id then
+            local generalSkillConfig = XMVCA.XCharacter:GetModelCharacterGeneralSkill()[id]
+            self["BtnGeneralSkill"..i]:SetRawImage(generalSkillConfig.Icon)
+        end
+    end
+
     --未解锁使用自身角色文本
     local useOwnCharacterFa = XTheatreConfigs.GetTheatreConfig("UseOwnCharacterFa").Value
     self.TxtLockSwitchRole.text = XUiHelper.GetText("TheatreUnlockOwnRoleDesc", useOwnCharacterFa)
@@ -720,7 +749,17 @@ function XUiTheatreOwnedInfoPanel:SetData(adventureRole, entityId)
 end
 
 function XUiTheatreOwnedInfoPanel:OnBtnElementDetailClick()
-    XLuaUiManager.Open("UiCharacterElementDetail", self.CharacterViewModel:GetId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterViewModel:GetId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
+end
+
+function XUiTheatreOwnedInfoPanel:OnBtnGeneralSkillClick(index)
+    local characterId = self.CharacterViewModel:GetId()
+
+    local activeGeneralSkillIds = XMVCA.XCharacter:GetCharactersActiveGeneralSkillIdList(characterId)
+    local curId = activeGeneralSkillIds[index]
+    local realIndex = XMVCA.XCharacter:GetIndexInCharacterGeneralSkillIdsById(characterId, curId)
+
+    XLuaUiManager.Open("UiCharacterAttributeDetail", characterId, XEnumConst.UiCharacterAttributeDetail.BtnTab.GeneralSkill, realIndex)
 end
 
 return XUiTheatreOwnedInfoPanel

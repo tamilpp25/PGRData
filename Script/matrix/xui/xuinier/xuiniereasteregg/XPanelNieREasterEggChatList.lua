@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XPanelNieREasterEggChatList = XClass(nil, "XPanelNieREasterEggChatList")
 local XGridNieREasterEggChatList = require("XUi/XUiNieR/XUiNieREasterEgg/XGridNieREasterEggChatList")
 

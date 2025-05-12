@@ -10,6 +10,11 @@ function XRedPointListener:Ctor()
 
 end
 
+function XRedPointListener:Init(listener, func)
+    self.listener = listener
+    self.func = func
+end
+
 function XRedPointListener:Release()
     self.listener = nil
     self.func = nil

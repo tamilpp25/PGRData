@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenYuanXiaoMedalTips = XLuaUiManager.Register(XLuaUi,"UiFubenYuanXiaoMedalTips")
 local XUiGridFubenYuanXiaoMedal = require("XUi/XUiSpecialTrainYuanXiao/XUiGridFubenYuanXiaoMedal")
 
@@ -6,6 +7,7 @@ function XUiFubenYuanXiaoMedalTips:OnStart()
     self:RegisterButtonClick()
     self:InitDynamicTable()
     self:SetupDynamicTable()
+    self:BindExitBtns(self.BtnClose)
 
     -- 开启自动关闭检查
     local endTime = XDataCenter.FubenSpecialTrainManager.GetActivityEndTime()

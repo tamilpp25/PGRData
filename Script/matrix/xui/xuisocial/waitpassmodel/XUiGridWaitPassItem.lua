@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridWaitPassItem = XClass(nil, "XUiGridWaitPassItem")
 
 function XUiGridWaitPassItem:Ctor(ui)
@@ -37,7 +38,7 @@ function XUiGridWaitPassItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -118,8 +119,8 @@ function XUiGridWaitPassItem:Refresh(data, cb)
         self.TxtTime.gameObject:SetActiveEx(true)
     end
     
-    XUiPLayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOnLine)
-    XUiPLayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOffLine)
+    XUiPlayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOnLine)
+    XUiPlayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOffLine)
 
     self:Show()
 end

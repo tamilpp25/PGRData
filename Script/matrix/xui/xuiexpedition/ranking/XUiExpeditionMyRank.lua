@@ -7,7 +7,7 @@ function XUiExpeditionMyRank:Ctor(ui, rootUi)
 end
 
 function XUiExpeditionMyRank:Refresh()
-    XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
     self.TxtPlayerName.text = XPlayer.Name
     self:RefreshRankingText()
     self:RefreshRankScore()

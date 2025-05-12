@@ -90,7 +90,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "The sound of downpour is echoing in the deepest part of her memories and M.I.N.D."
+            "The sound of a downpour is echoing in the deepest part of her memories and M.I.N.D."
         ]
     },
     {
@@ -206,7 +206,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Her friend's complaint has caught Bianca's attention. She looks at the female in front of her. As chilling raindrops fall on her arm, her vision and other senses are slowly restored. She realizes Chiko is pulling her as they both are running in the rain."
+            "Her friend's complaint has caught Bianca's attention. She looks at the female in front of her. As chilling raindrops fall on her arm, her vision and other senses are slowly restored. She realizes Chiko is pulling her as they are both running in the rain."
         ]
     },
     {
@@ -323,7 +323,7 @@
         "EndDelay": null,
         "Params": [
             "Bianca",
-            "Really? I kinda like it. \"If laws are no longer in force, I shall punish the evil in the name of God. But will such killing violate God's heavenly laws...?\"",
+            "Really? I kinda like it. \"If laws are no longer enforced, I shall punish the evil in the name of God. But will such killing violate God's heavenly laws...?\"",
             1.0
         ]
     },
@@ -601,7 +601,7 @@
         "Params": [
             "1",
             "Chiko",
-            "This era is so absurd that it forces us to kill our most important ones with our own hands. The world needs us, so the rest of humans won't have to suffer what we go through.",
+            "This era is so absurd that it forces us to kill our most important ones with our own hands. The world needs us, so the remaining humans won't have to suffer what we go through.",
             1.0
         ]
     },
@@ -1200,7 +1200,7 @@
         "EndDelay": null,
         "Params": [
             "Chiko",
-            "If only I could be less hesitant and kill my sister on that day... Those people might not have to die.",
+            "If only I was less hesitant and killed my sister on that day... Those people might not have had to die.",
             1.0
         ]
     },
@@ -2797,7 +2797,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Bianca <//CHIKO> gazes down at the bodies on the snow."
+            "Bianca <//CHIKO> gazes down at the bodies in the snow."
         ]
     },
     {
@@ -3160,7 +3160,7 @@
         "EndDelay": null,
         "Params": [
             "Chiko",
-            "But this guilt was too heavy for me to carry, for emotions could rule over rational judgment. Ever since that, I chose the easiest way to live: I treated everything with zero emotion to maximize the result. Without humanity, life no longer felt \"painful.\""
+            "But this guilt was too heavy for me to carry, for emotions could rule over rational judgment. Ever since then, I chose the easiest way to live: I treated everything with zero emotion to maximize the result. Without humanity, life no longer felt \"painful.\""
         ]
     },
     {
@@ -3271,7 +3271,7 @@
         "Params": [
             "1",
             "Purifying Force Member",
-            "Do you think such a thing exists in such a world? If you still hold such a naive thought as the captain of the Purifying Force, you are only going to make others believe that the battles are worth fighting. Having such unnecessary morals will only make them die in vain.",
+            "Does it even have any place in such a world?",
             1.0
         ]
     },
@@ -3287,8 +3287,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Bianca",
-            "It's true that many have died on the battlefield. But wars are still fought by humans, and there are always some values we must uphold. Without bottom lines, the cruelty of wars will only continue to increase."
+            "He erupts into a burst of furious laughter, as if he has just heard an absurd joke."
         ]
     },
     {
@@ -3304,7 +3303,7 @@
         "EndDelay": null,
         "Params": [
             "Purifying Force Member",
-            "You are trying to find goodness in hell. It will never change the nature of war!",
+            "I can't believe you still hold such a naive, ridiculous belief as the captain of the Purifying Force... You are only going to make others believe that the battles are worth fighting. Killing is just killing. Having such unnecessary morals will only make them die in vain!",
             1.0
         ]
     },
@@ -3321,7 +3320,7 @@
         "EndDelay": null,
         "Params": [
             "Bianca",
-            "The world is composed of multiple distinct dimensions of values. Different dimensions cannot simply replace one another."
+            "Sacrifice is inevitable in war. Anyone should be aware and prepared for it before stepping on the battlefield!"
         ]
     },
     {
@@ -3337,12 +3336,77 @@
         "EndDelay": null,
         "Params": [
             "Bianca",
-            "When human society is in chaos, the importance of many values becomes even more significant."
+            "But because we are not mere killing machines, there are some values we must uphold. Without bottom lines, the cruelty of wars will only continue to increase, bringing even more sacrifices."
         ]
     },
     {
         "Id": 209,
         "ActionId": 209,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Bianca",
+            "One day, such a vicious cycle will distort everything we fight for."
+        ]
+    },
+    {
+        "Id": 210,
+        "ActionId": 210,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Purifying Force Member",
+            "You are trying to find goodness in hell. It will never change the nature of war!",
+            1.0
+        ]
+    },
+    {
+        "Id": 211,
+        "ActionId": 211,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Bianca",
+            "Goodness isn't necessarily linked to humanity. Even humanity itself has multiple distinct dimensions of values. None of them can be directly equated to life."
+        ]
+    },
+    {
+        "Id": 212,
+        "ActionId": 212,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Bianca",
+            "Holding a weapon doesn't grant us the ability to judge the value of life. We may find ourselves in hell, but that only makes it more important to not trade our bottom lines for a brief moment of peace."
+        ]
+    },
+    {
+        "Id": 213,
+        "ActionId": 213,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -3358,8 +3422,8 @@
         ]
     },
     {
-        "Id": 210,
-        "ActionId": 210,
+        "Id": 214,
+        "ActionId": 214,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -3373,8 +3437,8 @@
         ]
     },
     {
-        "Id": 211,
-        "ActionId": 211,
+        "Id": 215,
+        "ActionId": 215,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -3389,8 +3453,8 @@
         ]
     },
     {
-        "Id": 212,
-        "ActionId": 212,
+        "Id": 216,
+        "ActionId": 216,
         "NextActionId": null,
         "Type": 502,
         "IsBlock": null,
@@ -3404,8 +3468,8 @@
         ]
     },
     {
-        "Id": 213,
-        "ActionId": 213,
+        "Id": 217,
+        "ActionId": 217,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -3419,8 +3483,8 @@
         ]
     },
     {
-        "Id": 214,
-        "ActionId": 214,
+        "Id": 218,
+        "ActionId": 218,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -3435,8 +3499,8 @@
         ]
     },
     {
-        "Id": 215,
-        "ActionId": 215,
+        "Id": 219,
+        "ActionId": 219,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -3453,71 +3517,6 @@
         ]
     },
     {
-        "Id": 216,
-        "ActionId": 216,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Chiko shows up on a bench in the Purifying Force's lounge. She quietly looks at Bianca."
-        ]
-    },
-    {
-        "Id": 217,
-        "ActionId": 217,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Bianca",
-            "Everyone acknowledges your strength and your decisive style."
-        ]
-    },
-    {
-        "Id": 218,
-        "ActionId": 218,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Chiko",
-            "They just admire the strong. But my strength came from the fact that I was willing to sacrifice everything.",
-            1.0
-        ]
-    },
-    {
-        "Id": 219,
-        "ActionId": 219,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Chiko",
-            "Killing is evil. Each time I made a decision to kill, darkness haunted me.",
-            1.0
-        ]
-    },
-    {
         "Id": 220,
         "ActionId": 220,
         "NextActionId": null,
@@ -3529,9 +3528,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Chiko",
-            "But you'll never see yourself as innocent. You won't conveniently blame the Punishing Virus or the wrongdoings in this world.",
-            1.0
+            "Chiko shows up on a bench in the Purifying Force's lounge. She quietly looks at Bianca."
         ]
     },
     {
@@ -3546,9 +3543,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Chiko",
-            "You understand your sins very well. Knowing that you are on a way to hell, you still can't help to respond to the voices asking for help.",
-            1.0
+            "Bianca",
+            "Everyone acknowledges your strength and your decisive style."
         ]
     },
     {
@@ -3564,7 +3560,7 @@
         "EndDelay": null,
         "Params": [
             "Chiko",
-            "After you respond to them, you can still execute them when you know they are beyond redemption, and carry on with this guilt.",
+            "They just admire the strong. But my strength came from the fact that I was willing to sacrifice everything.",
             1.0
         ]
     },
@@ -3572,7 +3568,7 @@
         "Id": 223,
         "ActionId": 223,
         "NextActionId": null,
-        "Type": 501,
+        "Type": 301,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -3580,15 +3576,16 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryWhiteNew.prefab",
-            "2"
+            "Chiko",
+            "Killing is evil. Each time I made a decision to kill, darkness haunted me.",
+            1.0
         ]
     },
     {
         "Id": 224,
         "ActionId": 224,
         "NextActionId": null,
-        "Type": 101,
+        "Type": 301,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -3596,7 +3593,9 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory143.png"
+            "Chiko",
+            "But you'll never see yourself as innocent. You won't conveniently blame the Punishing Virus or the wrongdoings in this world.",
+            1.0
         ]
     },
     {
@@ -3612,29 +3611,13 @@
         "EndDelay": null,
         "Params": [
             "Chiko",
-            "Is this what they said in the movie? \"We are all alerted about the evil ones. But there is another evil that we must beware. It is the indifference of the kind-hearted.\"",
+            "You understand your sins very well. Knowing that you are on the way to hell, you still can't help but to respond to the voices asking for help.",
             1.0
         ]
     },
     {
         "Id": 226,
         "ActionId": 226,
-        "NextActionId": null,
-        "Type": 204,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "1"
-        ]
-    },
-    {
-        "Id": 227,
-        "ActionId": 227,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -3645,15 +3628,15 @@
         "EndDelay": null,
         "Params": [
             "Chiko",
-            "Bianca, your rare, precious mind will never be corrupted by the outside world... That's what I envy most about, for I myself am always indifferent.",
+            "When you know they are beyond redemption, you can still execute them with your very own hands and carry on with this guilt.",
             1.0
         ]
     },
     {
-        "Id": 228,
-        "ActionId": 228,
+        "Id": 227,
+        "ActionId": 227,
         "NextActionId": null,
-        "Type": 301,
+        "Type": 501,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -3661,7 +3644,23 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "The train has arrived at the station. Chiko gently tides up the hair near Bianca's ears."
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryWhiteNew.prefab",
+            "2"
+        ]
+    },
+    {
+        "Id": 228,
+        "ActionId": 228,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory143.png"
         ]
     },
     {
@@ -3677,29 +3676,13 @@
         "EndDelay": null,
         "Params": [
             "Chiko",
-            "Sorry for saying so much. I couldn't help it.",
+            "Is this what they said in the movie? \"We are all alerted about the evil ones. But there is another evil that we must beware. It is the indifference of the kind-hearted.\"",
             1.0
         ]
     },
     {
         "Id": 230,
         "ActionId": 230,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Bianca",
-            "Chiko..."
-        ]
-    },
-    {
-        "Id": 231,
-        "ActionId": 231,
         "NextActionId": null,
         "Type": 204,
         "IsBlock": null,
@@ -3714,8 +3697,89 @@
         ]
     },
     {
+        "Id": 231,
+        "ActionId": 231,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Chiko",
+            "Bianca, your rare, precious mind will never be corrupted by the outside world... That's what I envy most about you, for I myself am always indifferent.",
+            1.0
+        ]
+    },
+    {
         "Id": 232,
         "ActionId": 232,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The train has arrived at the station. Chiko gently tidies up the hair near Bianca's ears."
+        ]
+    },
+    {
+        "Id": 233,
+        "ActionId": 233,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Chiko",
+            "Sorry for saying so much. I couldn't help it.",
+            1.0
+        ]
+    },
+    {
+        "Id": 234,
+        "ActionId": 234,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Bianca",
+            "Chiko..."
+        ]
+    },
+    {
+        "Id": 235,
+        "ActionId": 235,
+        "NextActionId": null,
+        "Type": 204,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "1"
+        ]
+    },
+    {
+        "Id": 236,
+        "ActionId": 236,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -3731,8 +3795,8 @@
         ]
     },
     {
-        "Id": 233,
-        "ActionId": 233,
+        "Id": 237,
+        "ActionId": 237,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -3746,8 +3810,8 @@
         ]
     },
     {
-        "Id": 234,
-        "ActionId": 234,
+        "Id": 238,
+        "ActionId": 238,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -3761,8 +3825,8 @@
         ]
     },
     {
-        "Id": 235,
-        "ActionId": 235,
+        "Id": 239,
+        "ActionId": 239,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -3777,8 +3841,8 @@
         ]
     },
     {
-        "Id": 236,
-        "ActionId": 236,
+        "Id": 240,
+        "ActionId": 240,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -3793,8 +3857,8 @@
         ]
     },
     {
-        "Id": 237,
-        "ActionId": 237,
+        "Id": 241,
+        "ActionId": 241,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -3808,8 +3872,8 @@
         ]
     },
     {
-        "Id": 238,
-        "ActionId": 238,
+        "Id": 242,
+        "ActionId": 242,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -3824,8 +3888,8 @@
         ]
     },
     {
-        "Id": 239,
-        "ActionId": 239,
+        "Id": 243,
+        "ActionId": 243,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -3839,8 +3903,8 @@
         ]
     },
     {
-        "Id": 240,
-        "ActionId": 240,
+        "Id": 244,
+        "ActionId": 244,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -3857,8 +3921,8 @@
         ]
     },
     {
-        "Id": 241,
-        "ActionId": 241,
+        "Id": 245,
+        "ActionId": 245,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -3873,8 +3937,8 @@
         ]
     },
     {
-        "Id": 242,
-        "ActionId": 242,
+        "Id": 246,
+        "ActionId": 246,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -3889,8 +3953,8 @@
         ]
     },
     {
-        "Id": 243,
-        "ActionId": 243,
+        "Id": 247,
+        "ActionId": 247,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -3905,8 +3969,8 @@
         ]
     },
     {
-        "Id": 244,
-        "ActionId": 244,
+        "Id": 248,
+        "ActionId": 248,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -3920,8 +3984,8 @@
         ]
     },
     {
-        "Id": 245,
-        "ActionId": 245,
+        "Id": 249,
+        "ActionId": 249,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -3936,8 +4000,8 @@
         ]
     },
     {
-        "Id": 246,
-        "ActionId": 246,
+        "Id": 250,
+        "ActionId": 250,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -3951,8 +4015,8 @@
         ]
     },
     {
-        "Id": 247,
-        "ActionId": 247,
+        "Id": 251,
+        "ActionId": 251,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -3969,8 +4033,8 @@
         ]
     },
     {
-        "Id": 248,
-        "ActionId": 248,
+        "Id": 252,
+        "ActionId": 252,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -3985,8 +4049,8 @@
         ]
     },
     {
-        "Id": 249,
-        "ActionId": 249,
+        "Id": 253,
+        "ActionId": 253,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -4001,8 +4065,8 @@
         ]
     },
     {
-        "Id": 250,
-        "ActionId": 250,
+        "Id": 254,
+        "ActionId": 254,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -4017,8 +4081,8 @@
         ]
     },
     {
-        "Id": 251,
-        "ActionId": 251,
+        "Id": 255,
+        "ActionId": 255,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -4032,8 +4096,8 @@
         ]
     },
     {
-        "Id": 252,
-        "ActionId": 252,
+        "Id": 256,
+        "ActionId": 256,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -4048,8 +4112,8 @@
         ]
     },
     {
-        "Id": 253,
-        "ActionId": 253,
+        "Id": 257,
+        "ActionId": 257,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -4063,8 +4127,8 @@
         ]
     },
     {
-        "Id": 254,
-        "ActionId": 254,
+        "Id": 258,
+        "ActionId": 258,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -4081,8 +4145,8 @@
         ]
     },
     {
-        "Id": 255,
-        "ActionId": 255,
+        "Id": 259,
+        "ActionId": 259,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4097,8 +4161,8 @@
         ]
     },
     {
-        "Id": 256,
-        "ActionId": 256,
+        "Id": 260,
+        "ActionId": 260,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -4113,8 +4177,8 @@
         ]
     },
     {
-        "Id": 257,
-        "ActionId": 257,
+        "Id": 261,
+        "ActionId": 261,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -4129,8 +4193,8 @@
         ]
     },
     {
-        "Id": 258,
-        "ActionId": 258,
+        "Id": 262,
+        "ActionId": 262,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -4144,8 +4208,8 @@
         ]
     },
     {
-        "Id": 259,
-        "ActionId": 259,
+        "Id": 263,
+        "ActionId": 263,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -4160,8 +4224,8 @@
         ]
     },
     {
-        "Id": 260,
-        "ActionId": 260,
+        "Id": 264,
+        "ActionId": 264,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -4175,8 +4239,8 @@
         ]
     },
     {
-        "Id": 261,
-        "ActionId": 261,
+        "Id": 265,
+        "ActionId": 265,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -4193,8 +4257,8 @@
         ]
     },
     {
-        "Id": 262,
-        "ActionId": 262,
+        "Id": 266,
+        "ActionId": 266,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4209,8 +4273,8 @@
         ]
     },
     {
-        "Id": 263,
-        "ActionId": 263,
+        "Id": 267,
+        "ActionId": 267,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4226,8 +4290,8 @@
         ]
     },
     {
-        "Id": 264,
-        "ActionId": 264,
+        "Id": 268,
+        "ActionId": 268,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -4241,8 +4305,8 @@
         ]
     },
     {
-        "Id": 265,
-        "ActionId": 265,
+        "Id": 269,
+        "ActionId": 269,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4256,8 +4320,8 @@
         ]
     },
     {
-        "Id": 266,
-        "ActionId": 266,
+        "Id": 270,
+        "ActionId": 270,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4271,8 +4335,8 @@
         ]
     },
     {
-        "Id": 267,
-        "ActionId": 267,
+        "Id": 271,
+        "ActionId": 271,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4282,12 +4346,12 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "...They will then have a simple chat in the lounge. Occasionally, they would watch a movie in the Golden Age together during their vacation."
+            "...They will then have a simple chat in the lounge. Occasionally, they would watch a movie from the Golden Age together during their vacation."
         ]
     },
     {
-        "Id": 268,
-        "ActionId": 268,
+        "Id": 272,
+        "ActionId": 272,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -4302,8 +4366,8 @@
         ]
     },
     {
-        "Id": 269,
-        "ActionId": 269,
+        "Id": 273,
+        "ActionId": 273,
         "NextActionId": null,
         "Type": 505,
         "IsBlock": null,
@@ -4317,8 +4381,8 @@
         ]
     },
     {
-        "Id": 270,
-        "ActionId": 270,
+        "Id": 274,
+        "ActionId": 274,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -4332,8 +4396,8 @@
         ]
     },
     {
-        "Id": 271,
-        "ActionId": 271,
+        "Id": 275,
+        "ActionId": 275,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -4348,8 +4412,8 @@
         ]
     },
     {
-        "Id": 272,
-        "ActionId": 272,
+        "Id": 276,
+        "ActionId": 276,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -4364,8 +4428,8 @@
         ]
     },
     {
-        "Id": 273,
-        "ActionId": 273,
+        "Id": 277,
+        "ActionId": 277,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4379,8 +4443,8 @@
         ]
     },
     {
-        "Id": 274,
-        "ActionId": 274,
+        "Id": 278,
+        "ActionId": 278,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4394,8 +4458,8 @@
         ]
     },
     {
-        "Id": 275,
-        "ActionId": 275,
+        "Id": 279,
+        "ActionId": 279,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4409,8 +4473,8 @@
         ]
     },
     {
-        "Id": 276,
-        "ActionId": 276,
+        "Id": 280,
+        "ActionId": 280,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4425,8 +4489,8 @@
         ]
     },
     {
-        "Id": 277,
-        "ActionId": 277,
+        "Id": 281,
+        "ActionId": 281,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4440,8 +4504,8 @@
         ]
     },
     {
-        "Id": 278,
-        "ActionId": 278,
+        "Id": 282,
+        "ActionId": 282,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -4455,8 +4519,8 @@
         ]
     },
     {
-        "Id": 279,
-        "ActionId": 279,
+        "Id": 283,
+        "ActionId": 283,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -4471,8 +4535,8 @@
         ]
     },
     {
-        "Id": 280,
-        "ActionId": 280,
+        "Id": 284,
+        "ActionId": 284,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4483,71 +4547,6 @@
         "EndDelay": null,
         "Params": [
             "The petite girl silently gazes at the Hetero-Humanoid curled up amidst the Red Tide. This terrifying creature was significantly wounded during the tragic battle it fought with Liv."
-        ]
-    },
-    {
-        "Id": 281,
-        "ActionId": 281,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Now only the female Hetero-Creature is barely surviving. It is immersed in the Red Tide like a fetus floating in the amniotic fluid."
-        ]
-    },
-    {
-        "Id": 282,
-        "ActionId": 282,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500308"
-        ]
-    },
-    {
-        "Id": 283,
-        "ActionId": 283,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Cinderelik",
-            "Only the remains of the Hetero-Humanoid were retrieved. Even after the Red Tide had repaired them, there is only an empty shell left.",
-            1.0
-        ]
-    },
-    {
-        "Id": 284,
-        "ActionId": 284,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500513"
         ]
     },
     {
@@ -4562,17 +4561,14 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "Lithos",
-            "But that's okay... It's enough as an experiment subject.",
-            1.0
+            "Now only the female Hetero-Creature is barely surviving. It is immersed in the Red Tide like a fetus floating in the amniotic fluid."
         ]
     },
     {
         "Id": 286,
         "ActionId": 286,
         "NextActionId": null,
-        "Type": 301,
+        "Type": 201,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -4580,9 +4576,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Lithos",
-            "If this project can work... Many who are unable to become Constructs can still embrace a more complete rebirth.",
-            1.0
+            "1",
+            "500308"
         ]
     },
     {
@@ -4597,8 +4592,9 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Lithos",
-            "So will your mother, Cinderelik.",
+            "1",
+            "Cinderelik",
+            "Only the remains of the Hetero-Humanoid were retrieved. Even after the Red Tide had repaired them, there was only an empty shell left.",
             1.0
         ]
     },
@@ -4615,12 +4611,80 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500308"
+            "500513"
         ]
     },
     {
         "Id": 289,
         "ActionId": 289,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lithos",
+            "But that's okay... It's enough as an experiment subject.",
+            1.0
+        ]
+    },
+    {
+        "Id": 290,
+        "ActionId": 290,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lithos",
+            "If this project can work... Many who are unable to become Constructs can still embrace a more complete rebirth.",
+            1.0
+        ]
+    },
+    {
+        "Id": 291,
+        "ActionId": 291,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lithos",
+            "So will your mother, Cinderelik.",
+            1.0
+        ]
+    },
+    {
+        "Id": 292,
+        "ActionId": 292,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500308"
+        ]
+    },
+    {
+        "Id": 293,
+        "ActionId": 293,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4637,8 +4701,8 @@
         ]
     },
     {
-        "Id": 290,
-        "ActionId": 290,
+        "Id": 294,
+        "ActionId": 294,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -4654,8 +4718,8 @@
         ]
     },
     {
-        "Id": 291,
-        "ActionId": 291,
+        "Id": 295,
+        "ActionId": 295,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4672,8 +4736,8 @@
         ]
     },
     {
-        "Id": 292,
-        "ActionId": 292,
+        "Id": 296,
+        "ActionId": 296,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -4688,8 +4752,8 @@
         ]
     },
     {
-        "Id": 293,
-        "ActionId": 293,
+        "Id": 297,
+        "ActionId": 297,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -4705,8 +4769,8 @@
         ]
     },
     {
-        "Id": 294,
-        "ActionId": 294,
+        "Id": 298,
+        "ActionId": 298,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -4723,8 +4787,8 @@
         ]
     },
     {
-        "Id": 295,
-        "ActionId": 295,
+        "Id": 299,
+        "ActionId": 299,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4741,8 +4805,8 @@
         ]
     },
     {
-        "Id": 296,
-        "ActionId": 296,
+        "Id": 300,
+        "ActionId": 300,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4758,8 +4822,8 @@
         ]
     },
     {
-        "Id": 297,
-        "ActionId": 297,
+        "Id": 301,
+        "ActionId": 301,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4775,8 +4839,8 @@
         ]
     },
     {
-        "Id": 298,
-        "ActionId": 298,
+        "Id": 302,
+        "ActionId": 302,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4792,8 +4856,8 @@
         ]
     },
     {
-        "Id": 299,
-        "ActionId": 299,
+        "Id": 303,
+        "ActionId": 303,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4809,8 +4873,8 @@
         ]
     },
     {
-        "Id": 300,
-        "ActionId": 300,
+        "Id": 304,
+        "ActionId": 304,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4826,8 +4890,8 @@
         ]
     },
     {
-        "Id": 301,
-        "ActionId": 301,
+        "Id": 305,
+        "ActionId": 305,
         "NextActionId": null,
         "Type": 204,
         "IsBlock": null,
@@ -4839,74 +4903,6 @@
         "Params": [
             "2",
             "2"
-        ]
-    },
-    {
-        "Id": 302,
-        "ActionId": 302,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Lithos",
-            "...Do you think you have another option?",
-            2.0
-        ]
-    },
-    {
-        "Id": 303,
-        "ActionId": 303,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Lithos",
-            "You're exhausted, Grace.",
-            2.0
-        ]
-    },
-    {
-        "Id": 304,
-        "ActionId": 304,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Lithos",
-            "The never-ending escape. The Red Tide and Corrupted... You fear death, yet you don't know when it will arrive.",
-            2.0
-        ]
-    },
-    {
-        "Id": 305,
-        "ActionId": 305,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Lithos",
-            "You are willing to believe in anything just to survive... Be it God, or the weapon in your hand. Isn't that right?",
-            2.0
         ]
     },
     {
@@ -4922,7 +4918,7 @@
         "EndDelay": null,
         "Params": [
             "Lithos",
-            "You lied to many people and made them come here. You knew it well long ago.",
+            "...Do you think you have another option?",
             2.0
         ]
     },
@@ -4938,9 +4934,9 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Grace",
-            "I...!",
-            1.0
+            "Lithos",
+            "You're exhausted, Grace.",
+            2.0
         ]
     },
     {
@@ -4956,13 +4952,81 @@
         "EndDelay": null,
         "Params": [
             "Lithos",
-            "If you can revive in her body, your words, divination and identity will all be verified. You no longer need to fear the Punishing Virus either. Isn't that good?",
+            "The never-ending escape. The Red Tide and Corrupted... You fear death, yet you don't know when it will arrive.",
             2.0
         ]
     },
     {
         "Id": 309,
         "ActionId": 309,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lithos",
+            "You are willing to believe in anything just to survive... Be it God, or the weapon in your hand. Isn't that right?",
+            2.0
+        ]
+    },
+    {
+        "Id": 310,
+        "ActionId": 310,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lithos",
+            "You lied to many people and made them come here. You knew it well long ago.",
+            2.0
+        ]
+    },
+    {
+        "Id": 311,
+        "ActionId": 311,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Grace",
+            "I...!",
+            1.0
+        ]
+    },
+    {
+        "Id": 312,
+        "ActionId": 312,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lithos",
+            "If you can revive in her body, your words, divination and identity will all be verified. You no longer need to fear the Punishing Virus either. Isn't that good?",
+            2.0
+        ]
+    },
+    {
+        "Id": 313,
+        "ActionId": 313,
         "NextActionId": null,
         "Type": 204,
         "IsBlock": null,
@@ -4977,8 +5041,8 @@
         ]
     },
     {
-        "Id": 310,
-        "ActionId": 310,
+        "Id": 314,
+        "ActionId": 314,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -4994,8 +5058,8 @@
         ]
     },
     {
-        "Id": 311,
-        "ActionId": 311,
+        "Id": 315,
+        "ActionId": 315,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5011,8 +5075,8 @@
         ]
     },
     {
-        "Id": 312,
-        "ActionId": 312,
+        "Id": 316,
+        "ActionId": 316,
         "NextActionId": null,
         "Type": 204,
         "IsBlock": null,
@@ -5026,8 +5090,8 @@
         ]
     },
     {
-        "Id": 313,
-        "ActionId": 313,
+        "Id": 317,
+        "ActionId": 317,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5043,8 +5107,8 @@
         ]
     },
     {
-        "Id": 314,
-        "ActionId": 314,
+        "Id": 318,
+        "ActionId": 318,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -5059,8 +5123,8 @@
         ]
     },
     {
-        "Id": 315,
-        "ActionId": 315,
+        "Id": 319,
+        "ActionId": 319,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -5076,8 +5140,8 @@
         ]
     },
     {
-        "Id": 316,
-        "ActionId": 316,
+        "Id": 320,
+        "ActionId": 320,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -5092,8 +5156,8 @@
         ]
     },
     {
-        "Id": 317,
-        "ActionId": 317,
+        "Id": 321,
+        "ActionId": 321,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -5108,8 +5172,8 @@
         ]
     },
     {
-        "Id": 318,
-        "ActionId": 318,
+        "Id": 322,
+        "ActionId": 322,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5123,8 +5187,8 @@
         ]
     },
     {
-        "Id": 319,
-        "ActionId": 319,
+        "Id": 323,
+        "ActionId": 323,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -5139,8 +5203,8 @@
         ]
     },
     {
-        "Id": 320,
-        "ActionId": 320,
+        "Id": 324,
+        "ActionId": 324,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -5155,8 +5219,8 @@
         ]
     },
     {
-        "Id": 321,
-        "ActionId": 321,
+        "Id": 325,
+        "ActionId": 325,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5173,8 +5237,8 @@
         ]
     },
     {
-        "Id": 322,
-        "ActionId": 322,
+        "Id": 326,
+        "ActionId": 326,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -5189,8 +5253,8 @@
         ]
     },
     {
-        "Id": 323,
-        "ActionId": 323,
+        "Id": 327,
+        "ActionId": 327,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -5205,72 +5269,6 @@
         ]
     },
     {
-        "Id": 324,
-        "ActionId": 324,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "More Purifying Force soldiers swarm in and surround the two. Holding their weapons, they are all alerted and dare not go any closer."
-        ]
-    },
-    {
-        "Id": 325,
-        "ActionId": 325,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500541",
-            "5"
-        ]
-    },
-    {
-        "Id": 326,
-        "ActionId": 326,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Grace",
-            "...What are you doing??",
-            1.0
-        ]
-    },
-    {
-        "Id": 327,
-        "ActionId": 327,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500028"
-        ]
-    },
-    {
         "Id": 328,
         "ActionId": 328,
         "NextActionId": null,
@@ -5282,10 +5280,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "Delapoer",
-            "Out of the way! Do you want to get killed by this Ascendant?!",
-            1.0
+            "More Purifying Force soldiers swarm in and surround the two. Holding their weapons, they are all alerted and dare not go any closer."
         ]
     },
     {
@@ -5319,7 +5314,7 @@
         "Params": [
             "1",
             "Grace",
-            "But she said...",
+            "...What are you doing??",
             1.0
         ]
     },
@@ -5336,13 +5331,82 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500498",
-            "4"
+            "500028"
         ]
     },
     {
         "Id": 332,
         "ActionId": 332,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Delapoer",
+            "Out of the way! Do you want to get killed by this Ascendant?!",
+            1.0
+        ]
+    },
+    {
+        "Id": 333,
+        "ActionId": 333,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500541",
+            "5"
+        ]
+    },
+    {
+        "Id": 334,
+        "ActionId": 334,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Grace",
+            "But she said...",
+            1.0
+        ]
+    },
+    {
+        "Id": 335,
+        "ActionId": 335,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500498",
+            "4"
+        ]
+    },
+    {
+        "Id": 336,
+        "ActionId": 336,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5359,8 +5423,8 @@
         ]
     },
     {
-        "Id": 333,
-        "ActionId": 333,
+        "Id": 337,
+        "ActionId": 337,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5376,8 +5440,8 @@
         ]
     },
     {
-        "Id": 334,
-        "ActionId": 334,
+        "Id": 338,
+        "ActionId": 338,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -5392,8 +5456,8 @@
         ]
     },
     {
-        "Id": 335,
-        "ActionId": 335,
+        "Id": 339,
+        "ActionId": 339,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5410,8 +5474,8 @@
         ]
     },
     {
-        "Id": 336,
-        "ActionId": 336,
+        "Id": 340,
+        "ActionId": 340,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5425,8 +5489,8 @@
         ]
     },
     {
-        "Id": 337,
-        "ActionId": 337,
+        "Id": 341,
+        "ActionId": 341,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -5442,8 +5506,8 @@
         ]
     },
     {
-        "Id": 338,
-        "ActionId": 338,
+        "Id": 342,
+        "ActionId": 342,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5460,8 +5524,8 @@
         ]
     },
     {
-        "Id": 339,
-        "ActionId": 339,
+        "Id": 343,
+        "ActionId": 343,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5471,12 +5535,12 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Chiko sneers with a furrowed brow. She exchanges a look with Norris, the latter immediately understands her instruction."
+            "Chiko sneers with a furrowed brow. She exchanges a look with Norris, and the latter immediately understands her instruction."
         ]
     },
     {
-        "Id": 340,
-        "ActionId": 340,
+        "Id": 344,
+        "ActionId": 344,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5490,8 +5554,8 @@
         ]
     },
     {
-        "Id": 341,
-        "ActionId": 341,
+        "Id": 345,
+        "ActionId": 345,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -5507,8 +5571,8 @@
         ]
     },
     {
-        "Id": 342,
-        "ActionId": 342,
+        "Id": 346,
+        "ActionId": 346,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5525,8 +5589,8 @@
         ]
     },
     {
-        "Id": 343,
-        "ActionId": 343,
+        "Id": 347,
+        "ActionId": 347,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -5537,73 +5601,6 @@
         "EndDelay": null,
         "Params": [
             "1"
-        ]
-    },
-    {
-        "Id": 344,
-        "ActionId": 344,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500514",
-            "2"
-        ]
-    },
-    {
-        "Id": 345,
-        "ActionId": 345,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Chiko's words seem to have touched on a forbidden topic. Lithos rises to his feet from the execution chair, and everyone can feel his invisible rage. The ground underneath begins to tremble, as if some sort of waves are surging toward them."
-        ]
-    },
-    {
-        "Id": 346,
-        "ActionId": 346,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Lithos",
-            "Compared with what those people did... I'm far from being dirty, or a \"Swindler\".",
-            1.0
-        ]
-    },
-    {
-        "Id": 347,
-        "ActionId": 347,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Lithos",
-            "Yet, you are taking their side and fighting to protect them.",
-            1.0
         ]
     },
     {
@@ -5619,8 +5616,8 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500498",
-            "4"
+            "500514",
+            "2"
         ]
     },
     {
@@ -5636,16 +5633,14 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "Chiko",
-            "What are you talking about?",
-            1.0
+            "Chiko's words seem to have touched on a forbidden topic. Lithos rises to his feet from the execution chair, and everyone can feel his invisible rage. The ground underneath begins to tremble, as if some sort of waves are surging toward them."
         ]
     },
     {
         "Id": 350,
         "ActionId": 350,
         "NextActionId": null,
-        "Type": 201,
+        "Type": 301,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -5653,9 +5648,9 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "500514",
-            "2"
+            "Lithos",
+            "Compared with what those people did... I'm far from being dirty, or a \"Swindler\".",
+            1.0
         ]
     },
     {
@@ -5670,9 +5665,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
             "Lithos",
-            "Kugawa Kurono...",
+            "Yet, you are taking their side and fighting to protect them.",
             1.0
         ]
     },
@@ -5689,7 +5683,8 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500308"
+            "500498",
+            "4"
         ]
     },
     {
@@ -5705,8 +5700,8 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "Cinderelik",
-            "...",
+            "Chiko",
+            "What are you talking about?",
             1.0
         ]
     },
@@ -5741,7 +5736,7 @@
         "Params": [
             "1",
             "Lithos",
-            "Daedalus...?",
+            "Kugawa Kurono...",
             1.0
         ]
     },
@@ -5758,8 +5753,7 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500498",
-            "4"
+            "500308"
         ]
     },
     {
@@ -5775,8 +5769,8 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "Chiko",
-            "...!",
+            "Cinderelik",
+            "...",
             1.0
         ]
     },
@@ -5794,7 +5788,7 @@
         "Params": [
             "1",
             "500514",
-            "1"
+            "2"
         ]
     },
     {
@@ -5811,7 +5805,7 @@
         "Params": [
             "1",
             "Lithos",
-            "Don't worry. I have no interest in fighting for revenge.",
+            "Daedalus...?",
             1.0
         ]
     },
@@ -5819,7 +5813,7 @@
         "Id": 360,
         "ActionId": 360,
         "NextActionId": null,
-        "Type": 204,
+        "Type": 201,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -5828,7 +5822,8 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "2"
+            "500498",
+            "4"
         ]
     },
     {
@@ -5843,8 +5838,9 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Lithos",
-            "However... Since you described this project as \"dirty,\" I shall make you experience this dirty in person, although it's not even half as horrible as what they did.",
+            "1",
+            "Chiko",
+            "...!",
             1.0
         ]
     },
@@ -5861,13 +5857,81 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500498",
-            "4"
+            "500514",
+            "1"
         ]
     },
     {
         "Id": 363,
         "ActionId": 363,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lithos",
+            "Don't worry. I have no interest in fighting for revenge.",
+            1.0
+        ]
+    },
+    {
+        "Id": 364,
+        "ActionId": 364,
+        "NextActionId": null,
+        "Type": 204,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2"
+        ]
+    },
+    {
+        "Id": 365,
+        "ActionId": 365,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lithos",
+            "However... Since you described this project as \"dirty,\" I shall make you experience this dirty in person, although it's not even half as horrible as what they did.",
+            1.0
+        ]
+    },
+    {
+        "Id": 366,
+        "ActionId": 366,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500498",
+            "4"
+        ]
+    },
+    {
+        "Id": 367,
+        "ActionId": 367,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5884,8 +5948,8 @@
         ]
     },
     {
-        "Id": 364,
-        "ActionId": 364,
+        "Id": 368,
+        "ActionId": 368,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -5899,8 +5963,8 @@
         ]
     },
     {
-        "Id": 365,
-        "ActionId": 365,
+        "Id": 369,
+        "ActionId": 369,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -5915,8 +5979,8 @@
         ]
     },
     {
-        "Id": 366,
-        "ActionId": 366,
+        "Id": 370,
+        "ActionId": 370,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -5931,8 +5995,8 @@
         ]
     },
     {
-        "Id": 367,
-        "ActionId": 367,
+        "Id": 371,
+        "ActionId": 371,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5946,8 +6010,8 @@
         ]
     },
     {
-        "Id": 368,
-        "ActionId": 368,
+        "Id": 372,
+        "ActionId": 372,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5962,8 +6026,8 @@
         ]
     },
     {
-        "Id": 369,
-        "ActionId": 369,
+        "Id": 373,
+        "ActionId": 373,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5977,8 +6041,8 @@
         ]
     },
     {
-        "Id": 370,
-        "ActionId": 370,
+        "Id": 374,
+        "ActionId": 374,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -5993,8 +6057,8 @@
         ]
     },
     {
-        "Id": 371,
-        "ActionId": 371,
+        "Id": 375,
+        "ActionId": 375,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -6010,8 +6074,8 @@
         ]
     },
     {
-        "Id": 372,
-        "ActionId": 372,
+        "Id": 376,
+        "ActionId": 376,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6028,8 +6092,8 @@
         ]
     },
     {
-        "Id": 373,
-        "ActionId": 373,
+        "Id": 377,
+        "ActionId": 377,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6045,8 +6109,8 @@
         ]
     },
     {
-        "Id": 374,
-        "ActionId": 374,
+        "Id": 378,
+        "ActionId": 378,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6062,8 +6126,8 @@
         ]
     },
     {
-        "Id": 375,
-        "ActionId": 375,
+        "Id": 379,
+        "ActionId": 379,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6078,8 +6142,8 @@
         ]
     },
     {
-        "Id": 376,
-        "ActionId": 376,
+        "Id": 380,
+        "ActionId": 380,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6095,8 +6159,8 @@
         ]
     },
     {
-        "Id": 377,
-        "ActionId": 377,
+        "Id": 381,
+        "ActionId": 381,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6110,8 +6174,8 @@
         ]
     },
     {
-        "Id": 378,
-        "ActionId": 378,
+        "Id": 382,
+        "ActionId": 382,
         "NextActionId": null,
         "Type": 203,
         "IsBlock": null,
@@ -6127,8 +6191,8 @@
         ]
     },
     {
-        "Id": 379,
-        "ActionId": 379,
+        "Id": 383,
+        "ActionId": 383,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6144,8 +6208,8 @@
         ]
     },
     {
-        "Id": 380,
-        "ActionId": 380,
+        "Id": 384,
+        "ActionId": 384,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6159,8 +6223,8 @@
         ]
     },
     {
-        "Id": 381,
-        "ActionId": 381,
+        "Id": 385,
+        "ActionId": 385,
         "NextActionId": null,
         "Type": 203,
         "IsBlock": null,
@@ -6176,8 +6240,8 @@
         ]
     },
     {
-        "Id": 382,
-        "ActionId": 382,
+        "Id": 386,
+        "ActionId": 386,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6193,8 +6257,8 @@
         ]
     },
     {
-        "Id": 383,
-        "ActionId": 383,
+        "Id": 387,
+        "ActionId": 387,
         "NextActionId": null,
         "Type": 204,
         "IsBlock": null,
@@ -6209,8 +6273,8 @@
         ]
     },
     {
-        "Id": 384,
-        "ActionId": 384,
+        "Id": 388,
+        "ActionId": 388,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6226,8 +6290,8 @@
         ]
     },
     {
-        "Id": 385,
-        "ActionId": 385,
+        "Id": 389,
+        "ActionId": 389,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -6242,8 +6306,8 @@
         ]
     },
     {
-        "Id": 386,
-        "ActionId": 386,
+        "Id": 390,
+        "ActionId": 390,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -6258,8 +6322,8 @@
         ]
     },
     {
-        "Id": 387,
-        "ActionId": 387,
+        "Id": 391,
+        "ActionId": 391,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -6274,8 +6338,8 @@
         ]
     },
     {
-        "Id": 388,
-        "ActionId": 388,
+        "Id": 392,
+        "ActionId": 392,
         "NextActionId": null,
         "Type": 402,
         "IsBlock": null,
@@ -6289,8 +6353,8 @@
         ]
     },
     {
-        "Id": 389,
-        "ActionId": 389,
+        "Id": 393,
+        "ActionId": 393,
         "NextActionId": null,
         "Type": 505,
         "IsBlock": null,
@@ -6304,8 +6368,8 @@
         ]
     },
     {
-        "Id": 390,
-        "ActionId": 390,
+        "Id": 394,
+        "ActionId": 394,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -6319,8 +6383,8 @@
         ]
     },
     {
-        "Id": 391,
-        "ActionId": 391,
+        "Id": 395,
+        "ActionId": 395,
         "NextActionId": null,
         "Type": 505,
         "IsBlock": null,
@@ -6334,8 +6398,8 @@
         ]
     },
     {
-        "Id": 392,
-        "ActionId": 392,
+        "Id": 396,
+        "ActionId": 396,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -6350,8 +6414,8 @@
         ]
     },
     {
-        "Id": 393,
-        "ActionId": 393,
+        "Id": 397,
+        "ActionId": 397,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -6366,8 +6430,8 @@
         ]
     },
     {
-        "Id": 394,
-        "ActionId": 394,
+        "Id": 398,
+        "ActionId": 398,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6378,74 +6442,6 @@
         "EndDelay": null,
         "Params": [
             "The flashback comes to an abrupt stop, freezing at the moment that Chiko melts into a Hetero-Humanoid."
-        ]
-    },
-    {
-        "Id": 395,
-        "ActionId": 395,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "What was the look on her face? Was she in fear, or determined as always? Or... perhaps she was a little unwilling to go?"
-        ]
-    },
-    {
-        "Id": 396,
-        "ActionId": 396,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500498",
-            1.0
-        ]
-    },
-    {
-        "Id": 397,
-        "ActionId": 397,
-        "NextActionId": null,
-        "Type": 205,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "0.5",
-            0.5,
-            0.0
-        ]
-    },
-    {
-        "Id": 398,
-        "ActionId": 398,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Chiko?",
-            "...",
-            1.0
         ]
     },
     {
@@ -6460,15 +6456,14 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Bianca does not know. The illusion of Chiko has been rewound to the moment Bianca first stepped in, staring at her in silence.",
-            1.0
+            "What was the look on her face? Was she in fear, or determined as always? Or... perhaps she was a little unwilling to go?"
         ]
     },
     {
         "Id": 400,
         "ActionId": 400,
         "NextActionId": null,
-        "Type": 301,
+        "Type": 201,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -6476,7 +6471,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Finally figured out everything, Bianca knows this place is where Chiko was lost, also where the Hetero-Humanoid\u2014now with Chiko's mind inside\u2014saved her.",
+            "1",
+            "500498",
             1.0
         ]
     },
@@ -6494,8 +6490,8 @@
         "Params": [
             "1",
             "0.5",
-            0.0,
-            3.0
+            0.5,
+            0.0
         ]
     },
     {
@@ -6510,7 +6506,9 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "She hugs Chiko's illusion. It disappears in her arms, as if it has been waiting for this very moment all along.",
+            "1",
+            "Chiko?",
+            "...",
             1.0
         ]
     },
@@ -6518,15 +6516,15 @@
         "Id": 403,
         "ActionId": 403,
         "NextActionId": null,
-        "Type": 202,
+        "Type": 301,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
         "EndAnim": null,
-        "BeginDelay": 3000.0,
+        "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
+            "Bianca does not know. The illusion of Chiko has been rewound to the moment Bianca first stepped in, staring at her in silence.",
             1.0
         ]
     },
@@ -6542,12 +6540,78 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Behind the illusion is a large glass wall of the aquarium. Bianca sees her own reflection in it. The Punishing Virus has eroded and peeled off the coating of Stigmata, revealing another look of her: a witch holding a Swordstaff."
+            "Finally figuring everything out, Bianca knows this place is where Chiko was lost, and also where the Hetero-Humanoid\u2014now with Chiko's mind inside\u2014saved her.",
+            1.0
         ]
     },
     {
         "Id": 405,
         "ActionId": 405,
+        "NextActionId": null,
+        "Type": 205,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.5",
+            0.0,
+            3.0
+        ]
+    },
+    {
+        "Id": 406,
+        "ActionId": 406,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "She hugs Chiko's illusion. It disappears in her arms, as if it has been waiting for this very moment all along.",
+            1.0
+        ]
+    },
+    {
+        "Id": 407,
+        "ActionId": 407,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": 3000.0,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            1.0
+        ]
+    },
+    {
+        "Id": 408,
+        "ActionId": 408,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Behind the illusion is a large glass wall of the aquarium. Bianca sees her own reflection in it. The Punishing Virus has eroded and peeled off the coating of Stigmata, revealing another look of her: a witch holding a Swordstaff."
+        ]
+    },
+    {
+        "Id": 409,
+        "ActionId": 409,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -6562,8 +6626,8 @@
         ]
     },
     {
-        "Id": 406,
-        "ActionId": 406,
+        "Id": 410,
+        "ActionId": 410,
         "NextActionId": null,
         "Type": 504,
         "IsBlock": null,
@@ -6577,8 +6641,8 @@
         ]
     },
     {
-        "Id": 407,
-        "ActionId": 407,
+        "Id": 411,
+        "ActionId": 411,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -6592,8 +6656,8 @@
         ]
     },
     {
-        "Id": 408,
-        "ActionId": 408,
+        "Id": 412,
+        "ActionId": 412,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -6610,8 +6674,8 @@
         ]
     },
     {
-        "Id": 409,
-        "ActionId": 409,
+        "Id": 413,
+        "ActionId": 413,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6628,8 +6692,8 @@
         ]
     },
     {
-        "Id": 410,
-        "ActionId": 410,
+        "Id": 414,
+        "ActionId": 414,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -6644,8 +6708,8 @@
         ]
     },
     {
-        "Id": 411,
-        "ActionId": 411,
+        "Id": 415,
+        "ActionId": 415,
         "NextActionId": null,
         "Type": 504,
         "IsBlock": null,
@@ -6659,8 +6723,8 @@
         ]
     },
     {
-        "Id": 412,
-        "ActionId": 412,
+        "Id": 416,
+        "ActionId": 416,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -6674,8 +6738,8 @@
         ]
     },
     {
-        "Id": 413,
-        "ActionId": 413,
+        "Id": 417,
+        "ActionId": 417,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -6690,8 +6754,8 @@
         ]
     },
     {
-        "Id": 414,
-        "ActionId": 414,
+        "Id": 418,
+        "ActionId": 418,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6705,8 +6769,8 @@
         ]
     },
     {
-        "Id": 415,
-        "ActionId": 415,
+        "Id": 419,
+        "ActionId": 419,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6716,12 +6780,12 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Bianca ties up her long hair and puts on the earrings Chiko left her. She wipes out the blood stain around her mouth, cleans her coating, then waves goodbye to where Chiko's illusion was standing."
+            "Bianca ties up her long hair and puts on the earrings Chiko left her. She wipes out the blood stain around her mouth, cleans her coating, and then waves goodbye to where Chiko's illusion was standing."
         ]
     },
     {
-        "Id": 416,
-        "ActionId": 416,
+        "Id": 420,
+        "ActionId": 420,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -6736,8 +6800,8 @@
         ]
     },
     {
-        "Id": 417,
-        "ActionId": 417,
+        "Id": 421,
+        "ActionId": 421,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -6753,8 +6817,8 @@
         ]
     },
     {
-        "Id": 418,
-        "ActionId": 418,
+        "Id": 422,
+        "ActionId": 422,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6771,8 +6835,8 @@
         ]
     },
     {
-        "Id": 419,
-        "ActionId": 419,
+        "Id": 423,
+        "ActionId": 423,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -6787,8 +6851,8 @@
         ]
     },
     {
-        "Id": 420,
-        "ActionId": 420,
+        "Id": 424,
+        "ActionId": 424,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -6803,8 +6867,8 @@
         ]
     },
     {
-        "Id": 421,
-        "ActionId": 421,
+        "Id": 425,
+        "ActionId": 425,
         "NextActionId": null,
         "Type": 205,
         "IsBlock": null,
@@ -6822,8 +6886,8 @@
         ]
     },
     {
-        "Id": 422,
-        "ActionId": 422,
+        "Id": 426,
+        "ActionId": 426,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -6837,8 +6901,8 @@
         ]
     },
     {
-        "Id": 423,
-        "ActionId": 423,
+        "Id": 427,
+        "ActionId": 427,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -6853,8 +6917,8 @@
         ]
     },
     {
-        "Id": 424,
-        "ActionId": 424,
+        "Id": 428,
+        "ActionId": 428,
         "NextActionId": null,
         "Type": 504,
         "IsBlock": null,
@@ -6868,8 +6932,8 @@
         ]
     },
     {
-        "Id": 425,
-        "ActionId": 425,
+        "Id": 429,
+        "ActionId": 429,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -6885,8 +6949,8 @@
         ]
     },
     {
-        "Id": 426,
-        "ActionId": 426,
+        "Id": 430,
+        "ActionId": 430,
         "NextActionId": null,
         "Type": 205,
         "IsBlock": null,
@@ -6903,66 +6967,6 @@
         ]
     },
     {
-        "Id": 427,
-        "ActionId": 427,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 200.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory143.png"
-        ]
-    },
-    {
-        "Id": 428,
-        "ActionId": 428,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 200.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory54.jpg"
-        ]
-    },
-    {
-        "Id": 429,
-        "ActionId": 429,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 200.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory46.jpg"
-        ]
-    },
-    {
-        "Id": 430,
-        "ActionId": 430,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 200.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory133.png"
-        ]
-    },
-    {
         "Id": 431,
         "ActionId": 431,
         "NextActionId": null,
@@ -6974,7 +6978,7 @@
         "BeginDelay": null,
         "EndDelay": 200.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory347.jpg"
+            "Assets/Product/Texture/Image/BgStory/Bgstory143.png"
         ]
     },
     {
@@ -6989,7 +6993,7 @@
         "BeginDelay": null,
         "EndDelay": 200.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory122.png"
+            "Assets/Product/Texture/Image/BgStory/Bgstory54.jpg"
         ]
     },
     {
@@ -7002,9 +7006,9 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": 150.0,
+        "EndDelay": 200.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory143.png"
+            "Assets/Product/Texture/Image/BgStory/BgStory46.jpg"
         ]
     },
     {
@@ -7017,9 +7021,9 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": 150.0,
+        "EndDelay": 200.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory54.jpg"
+            "Assets/Product/Texture/Image/BgStory/Bgstory133.png"
         ]
     },
     {
@@ -7032,9 +7036,9 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": 150.0,
+        "EndDelay": 200.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory46.jpg"
+            "Assets/Product/Texture/Image/BgStory/Bgstory347.jpg"
         ]
     },
     {
@@ -7047,9 +7051,9 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": 150.0,
+        "EndDelay": 200.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory347.jpg"
+            "Assets/Product/Texture/Image/BgStory/Bgstory122.png"
         ]
     },
     {
@@ -7064,7 +7068,7 @@
         "BeginDelay": null,
         "EndDelay": 150.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory347.jpg"
+            "Assets/Product/Texture/Image/BgStory/Bgstory143.png"
         ]
     },
     {
@@ -7077,9 +7081,9 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": 100.0,
+        "EndDelay": 150.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory122.png"
+            "Assets/Product/Texture/Image/BgStory/Bgstory54.jpg"
         ]
     },
     {
@@ -7092,9 +7096,9 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": 100.0,
+        "EndDelay": 150.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory143.png"
+            "Assets/Product/Texture/Image/BgStory/BgStory46.jpg"
         ]
     },
     {
@@ -7107,9 +7111,9 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": 100.0,
+        "EndDelay": 150.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory54.jpg"
+            "Assets/Product/Texture/Image/BgStory/Bgstory347.jpg"
         ]
     },
     {
@@ -7122,9 +7126,9 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": 100.0,
+        "EndDelay": 150.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory46.jpg"
+            "Assets/Product/Texture/Image/BgStory/Bgstory347.jpg"
         ]
     },
     {
@@ -7139,7 +7143,7 @@
         "BeginDelay": null,
         "EndDelay": 100.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory133.png"
+            "Assets/Product/Texture/Image/BgStory/Bgstory122.png"
         ]
     },
     {
@@ -7154,12 +7158,72 @@
         "BeginDelay": null,
         "EndDelay": 100.0,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory122.png"
+            "Assets/Product/Texture/Image/BgStory/Bgstory143.png"
         ]
     },
     {
         "Id": 444,
         "ActionId": 444,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": 100.0,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory54.jpg"
+        ]
+    },
+    {
+        "Id": 445,
+        "ActionId": 445,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": 100.0,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory46.jpg"
+        ]
+    },
+    {
+        "Id": 446,
+        "ActionId": 446,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": 100.0,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory133.png"
+        ]
+    },
+    {
+        "Id": 447,
+        "ActionId": 447,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": 100.0,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory122.png"
+        ]
+    },
+    {
+        "Id": 448,
+        "ActionId": 448,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -7173,8 +7237,8 @@
         ]
     },
     {
-        "Id": 445,
-        "ActionId": 445,
+        "Id": 449,
+        "ActionId": 449,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -7189,8 +7253,8 @@
         ]
     },
     {
-        "Id": 446,
-        "ActionId": 446,
+        "Id": 450,
+        "ActionId": 450,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -7206,8 +7270,8 @@
         ]
     },
     {
-        "Id": 447,
-        "ActionId": 447,
+        "Id": 451,
+        "ActionId": 451,
         "NextActionId": null,
         "Type": 101,
         "IsBlock": null,
@@ -7221,8 +7285,8 @@
         ]
     },
     {
-        "Id": 448,
-        "ActionId": 448,
+        "Id": 452,
+        "ActionId": 452,
         "NextActionId": null,
         "Type": 504,
         "IsBlock": null,
@@ -7236,8 +7300,8 @@
         ]
     },
     {
-        "Id": 449,
-        "ActionId": 449,
+        "Id": 453,
+        "ActionId": 453,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -7255,8 +7319,8 @@
         ]
     },
     {
-        "Id": 450,
-        "ActionId": 450,
+        "Id": 454,
+        "ActionId": 454,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,

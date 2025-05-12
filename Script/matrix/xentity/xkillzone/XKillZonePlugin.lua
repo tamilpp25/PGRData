@@ -17,6 +17,7 @@ local Default = {
     _Slot = 0, --穿戴槽位
 }
 
+---@class XKillZonePlugin
 local XKillZonePlugin = XClass(nil, "XKillZonePlugin")
 
 function XKillZonePlugin:Ctor(id)
@@ -55,14 +56,12 @@ function XKillZonePlugin:GetLevel()
     return self._Level
 end
 
---获取插件展示等级（包含未解锁/未激活/正常/最大等级）
+--获取插件展示等级（包含未解锁/正常/最大等级）
 local MaxLevelStr = CS.XTextManager.GetText("KillZonePlguinMaxLevelStr")
 function XKillZonePlugin:GetShowLevelStr()
     local level = self._Level
 
-    if self:IsLock()
-    or self:IsUnActive()
-    then
+    if self:IsLock() then
         level = 1
     end
 
@@ -84,11 +83,6 @@ end
 --是否未解锁
 function XKillZonePlugin:IsLock()
     return self:GetLevel() < 0
-end
-
---是否未激活
-function XKillZonePlugin:IsUnActive()
-    return self:GetLevel() == 0
 end
 
 --是否达到最大等级

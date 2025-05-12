@@ -1,12 +1,13 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFurnitureRecycleObtain = XLuaUiManager.Register(XLuaUi, "UiFurnitureRecycleObtain")
 
 function XUiFurnitureRecycleObtain:OnAwake()
     self:AddListener()
 end
 
-function XUiFurnitureRecycleObtain:OnStart(furnitureIds, comfirmCb)
+function XUiFurnitureRecycleObtain:OnStart(furnitureIds, confirm)
     self.Items = {}
-    self.ComfirmCb = comfirmCb
+    self.ConfirmCb = confirm
     self:Refresh(furnitureIds)
 end
 
@@ -40,8 +41,8 @@ end
 
 function XUiFurnitureRecycleObtain:OnBtnSureClick()
     self:Close()
-    if self.ComfirmCb then
-        self.ComfirmCb()
+    if self.ConfirmCb then
+        self.ConfirmCb()
     end
     XEventManager.DispatchEvent(XEventId.EVENT_DORM_CLOSE_DETAIL)
 end

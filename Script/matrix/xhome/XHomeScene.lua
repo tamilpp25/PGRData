@@ -1,18 +1,19 @@
+---@class XHomeScene 宿舍场景
+---@field Camera UnityEngine.Camera
 XHomeScene = XClass(nil, "XHomeScene")
 
 local SCENE_FAR_CLIP_PLANE = 350
 
-function XHomeScene:Ctor(senceNane, sceneAssetUrl, onLoadCompleteCb, onLeaveCb)
+function XHomeScene:Ctor(sceneName, sceneAssetUrl, onLoadCompleteCb, onLeaveCb)
     self.OnLoadCompleteCb = onLoadCompleteCb
     self.OnLeaveCb = onLeaveCb
-
-    self.NameOne = "sushe003_1"
-    self.NameTwo = "sushe003_2"
-    self.NameThree = "sushe003_3"
-    self.CurName = self.NameOne
-    self.Name = senceNane
+    
+    for _, v in pairs(XDormConfig.SceneType) do
+        self["Name"..v] = "sushe003_"..v
+    end
+    self.CurName = self["Name"..XDormConfig.SceneType.One]
+    self.Name = sceneName
     self.SceneAssetUrl = sceneAssetUrl
-    self.Resource = nil
     self.GameObject = nil
 
     self.CameraFollowTarget1 = nil
@@ -32,14 +33,13 @@ end
 
 function XHomeScene:OnEnterScene()
     --XSceneResourceManager.InitPool()
-    self.Resource = CS.XResourceManager.LoadAsync(self.SceneAssetUrl)
-    CS.XTool.WaitCoroutine(self.Resource, function()
-        if not self.Resource.Asset then
+    XSceneResourceManager.LoadAsync(self.SceneAssetUrl, function(asset)
+        if not asset then
             XLog.Error("XHomeScene LoadScene error, instantiate error, name: " .. self.SceneAssetUrl)
             return
         end
 
-        self.GameObject = CS.UnityEngine.Object.Instantiate(self.Resource.Asset)
+        self.GameObject = CS.UnityEngine.Object.Instantiate(asset)
         self:OnLoadComplete()
     end)
 end
@@ -53,9 +53,9 @@ function XHomeScene:OnLeaveScene()
     self.GameObject = nil
 
     self.CurrentGlobalIllumSoPath = nil
-    for _, v in pairs(self.GlobalIllumSOResourceMap) do
-        if v then
-            v:Release()
+    if not XTool.IsTableEmpty(self.GlobalIllumSOResourceMap) then
+        for url, _ in pairs(self.GlobalIllumSOResourceMap) do
+            XSceneResourceManager.Unload(url)
         end
     end
     self.GlobalIllumSOResourceMap = nil
@@ -73,11 +73,8 @@ function XHomeScene:OnLeaveScene()
     end
     self.GlobalPointLightMap = nil
 
-    CS.XGlobalIllumination.SetSceneType(CS.XSceneType.Ui)
-
-    if self.Resource then
-        self.Resource:Release()
-    end
+    XUiHelper.SetSceneType(CS.XSceneType.Ui)
+    XSceneResourceManager.Unload(self.SceneAssetUrl)
 end
 
 function XHomeScene:OnLoadComplete()
@@ -93,19 +90,13 @@ function XHomeScene:InitCamera()
     self.PhysicsRaycaster = self.Camera.gameObject:AddComponent(typeof(CS.UnityEngine.EventSystems.PhysicsRaycaster))
 
     CS.XGraphicManager.BindCamera(self.Camera)
-    local target1 = CS.UnityEngine.GameObject.Find("@Target_1")
-    local target2 = CS.UnityEngine.GameObject.Find("@Target_2")
-    local target3 = CS.UnityEngine.GameObject.Find("@Target_3")
-    if not XTool.UObjIsNil(target1) then
-        self.CameraFollowTarget1 = target1.transform
-        self.CurCameraFollowTarget = target1.transform
-    end
-    if not XTool.UObjIsNil(target2) then
-        self.CameraFollowTarget2 = target2.transform
-    end
-    if not XTool.UObjIsNil(target3) then
-        self.CameraFollowTarget3 = target3.transform
-    end
+    for _, v in pairs(XDormConfig.SceneType) do
+        local target = CS.UnityEngine.GameObject.Find("@Target_" .. v)
+        if not XTool.UObjIsNil(target) then
+            self["CameraFollowTarget"..v] = target.transform
+        end
+    end  
+    self.CurCameraFollowTarget = self["CameraFollowTarget"..XDormConfig.SceneType.One]
     self.CameraController = self.Camera.gameObject:GetComponent(typeof(CS.XCameraController))
 
     self.CameraController:SetParam(self.CurName)
@@ -114,7 +105,7 @@ function XHomeScene:InitCamera()
 end
 
 function XHomeScene:ChangeCameraToScene(cb)
-    XLuaUiManager.Open("UiBlackScreen", self.CurCameraFollowTarget, false, self.CurName, cb)
+    XHomeSceneManager.SafeOpenBlack(self.CurCameraFollowTarget, false, self.CurName, cb)
     local camera = self:GetCamera()
     if not XTool.UObjIsNil(camera) then
         camera.farClipPlane = SCENE_FAR_CLIP_PLANE
@@ -122,21 +113,13 @@ function XHomeScene:ChangeCameraToScene(cb)
 end
 
 function XHomeScene:ChangeCameraToSceneById(sceneId, cb)
-    if sceneId == XDormConfig.SenceType.Two then
-        self.CurCameraFollowTarget = self.CameraFollowTarget2
-        self.CurName = self.NameTwo
-    elseif sceneId == XDormConfig.SenceType.One then
-        self.CurCameraFollowTarget = self.CameraFollowTarget1
-        self.CurName = self.NameOne
-    elseif sceneId == XDormConfig.SenceType.Three then
-        self.CurCameraFollowTarget = self.CameraFollowTarget3
-        self.CurName = self.NameThree
-    end
+    self.CurCameraFollowTarget = self["CameraFollowTarget" .. sceneId]
+    self.CurName = self["Name" .. sceneId]
 
-    XLuaUiManager.Open("UiBlackScreen", self.CurCameraFollowTarget, false, self.CurName, function()
+    XHomeSceneManager.SafeOpenBlack(self.CurCameraFollowTarget, false, self.CurName, function()
         XCameraHelper.SetCameraTarget(self.CameraController, self.CurCameraFollowTarget)
         if cb then cb() end
-    end)
+    end )
 end
 
 function XHomeScene:GetCamera()
@@ -159,21 +142,23 @@ function XHomeScene:SetGlobalIllumSO(soPath)
     end
 
     self.CurrentGlobalIllumSoPath = soPath
-
-    local resource = self.GlobalIllumSOResourceMap[soPath]
-    if not resource then
-        resource = CS.XResourceManager.Load(soPath)
-        self.GlobalIllumSOResourceMap[soPath] = resource
+    local asset = self.GlobalIllumSOResourceMap[soPath]
+    if not asset then
+        asset = XSceneResourceManager.LoadSync(soPath)
+        self.GlobalIllumSOResourceMap[soPath] = asset
     end
-
-    CS.XGlobalIllumination.SetGlobalIllumSO(resource.Asset)
+    if not asset then
+        XLog.Error("加载光照信息异常：", soPath)
+        return
+    end
+    CS.XGlobalIllumination.SetGlobalIllumSO(asset)
 end
 
 -- 重置为当前场景全局光
 function XHomeScene:ResetToCurrentGlobalIllumination()
-    local resource = self.GlobalIllumSOResourceMap[self.CurrentGlobalIllumSoPath]
-    if resource then
-        CS.XGlobalIllumination.SetGlobalIllumSO(resource.Asset)
+    local asset = self.GlobalIllumSOResourceMap[self.CurrentGlobalIllumSoPath]
+    if asset then
+        CS.XGlobalIllumination.SetGlobalIllumSO(asset)
     end
 end
 ----------------------------光照信息接口 end-----------------------------

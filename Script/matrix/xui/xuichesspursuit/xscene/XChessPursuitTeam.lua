@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XChessPursuitModel = require("XUi/XUiChessPursuit/XScene/XChessPursuitModel")
 local XChessPursuitTeam = XClass(XChessPursuitModel, "XChessPursuitTeam")
 local XChessPursuitSceneManager = require("XUi/XUiChessPursuit/XScene/XChessPursuitSceneManager")
@@ -21,8 +22,8 @@ function XChessPursuitTeam:LoadCaptainCharacter(captainCharacterId)
         local sceneGameObject = chessPursuitScene:GetSceneGameObject()
         local config = XDormConfig.GetCharacterStyleConfigById(self.CaptainCharacterId)
         local parent = sceneGameObject.transform:Find("Playmaker/Character")
-        self.Resource = CS.XResourceManager.Load(config.Model)
-    
+        XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
+
         if not self.Resource.Asset then
             XLog.Error("XChessPursuitTeam LoadBoss error, instantiate error, name: " .. config.Model)
             return
@@ -45,6 +46,11 @@ function XChessPursuitTeam:Dispose()
     if self.GameObject then
         self.CSXChessPursuitModel:Dispose()
         CS.UnityEngine.GameObject.Destroy(self.GameObject)
+    end
+
+    if self.Resource then
+        CS.XResourceManager.Unload(self.Resource)
+        self.Resource = nil
     end
 
     self.Func = nil

@@ -1,3 +1,4 @@
+---@class XDrawGroupBtnBaseEntity
 local XDrawGroupBtnBaseEntity = XClass(nil, "XDrawGroupBtnBaseEntity")
 function XDrawGroupBtnBaseEntity:Ctor()
     self.Id = 0
@@ -66,6 +67,7 @@ function XDrawGroupBtnBaseEntity:GetOrder()
     return self.Order
 end
 
+---@param root XUiNewDrawMain
 function XDrawGroupBtnBaseEntity:DoSelect(root)
     root:CreateBanner(self)
     return true

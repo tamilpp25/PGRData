@@ -2,9 +2,6 @@ local XUiBigListGridItem = require("XUi/XUiNewRegression/Discount/XUiBigListGrid
 
 local RestTypeConfig = XPurchaseConfigs.RestTypeConfig
 local LBGetTypeConfig = XPurchaseConfigs.LBGetTypeConfig
-local Application = CS.UnityEngine.Application
-local Platform = Application.platform
-local RuntimePlatform = CS.UnityEngine.RuntimePlatform
 
 local XUiBigListGrid = XClass(nil, "XUiBigListGrid")
 
@@ -147,15 +144,6 @@ function XUiBigListGrid:UpdatePanel()
         self.RawImageConsume.gameObject:SetActiveEx(false)
     end
 
-    if self.Data.PayKeySuffix then --海外修改，直购价格显示
-        local key = XPayConfigs.GetProductKey(self.Data.PayKeySuffix)
-        local payConfig = XPayConfigs.GetPayTemplate(key)
-        self.RawImageConsume.gameObject:SetActiveEx(true)
-        local path = CS.XGame.ClientConfig:GetString("PurchaseBuyRiYuanIconPath")
-        self.RawImageConsume:SetRawImage(path)
-        self.BtnBuy:SetName(payConfig.Amount)
-    end
-
     --礼包限购
     local isSellOut = data.BuyLimitTimes and data.BuyLimitTimes > 0 and data.BuyTimes == data.BuyLimitTimes
     self.TxtPurchaselimit.text = (not isSellOut and data.BuyLimitTimes and data.BuyLimitTimes > 0) and CsXTextManagerGetText("PurchaseLimitBuy", data.BuyTimes, data.BuyLimitTimes) or ""
@@ -171,12 +159,10 @@ function XUiBigListGrid:OnBtnBuyClick()
     end
 
     --免费的礼包不二次弹窗
-    if not self.Data.PayKeySuffix then
-        local costItemCount = data.ConsumeCount
-        if not XTool.IsNumberValid(costItemCount) then
-            XDataCenter.PurchaseManager.PurchaseRequest(id, self.BuyCallback)
-            return 
-        end
+    local costItemCount = data.ConsumeCount
+    if not XTool.IsNumberValid(costItemCount) then
+        XDataCenter.PurchaseManager.PurchaseRequest(id, self.BuyCallback)
+        return 
     end
 
     XLuaUiManager.Open("UiPurchaseBuyTips", data, self.CheckBuyFun, self.BuyCallback, nil, XPurchaseConfigs.GetLBUiTypesList())

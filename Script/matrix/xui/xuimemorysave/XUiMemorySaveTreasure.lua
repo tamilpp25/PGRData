@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiMemorySaveTreasure = XClass(nil, "XUiMemorySaveTreasure")
 
 function XUiMemorySaveTreasure:Ctor(rootUi, ui, treasureType)

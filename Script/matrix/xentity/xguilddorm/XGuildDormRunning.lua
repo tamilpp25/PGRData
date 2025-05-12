@@ -3,6 +3,7 @@ local Input = CS.UnityEngine.Input
 local KeyCode = CS.UnityEngine.KeyCode
 local Vector2 = CS.UnityEngine.Vector2
 local Env = CS.XLuaEngine.Env
+---@class XGuildDormRunning
 local XGuildDormRunning = XClass(nil, "XGuildDormRunning")
 
 function XGuildDormRunning:Ctor(gameObject)
@@ -24,6 +25,7 @@ function XGuildDormRunning:SetUiGuildDormCommon(value)
     self.UiGuildDormCommon = value
 end
 
+---@param room XGuildDormRoom
 function XGuildDormRunning:SetData(room)
     self.CurrentRoom = room
     self.CurrentRoom:Init()
@@ -75,6 +77,13 @@ function XGuildDormRunning:Update()
                 self.GuildDormManager.HandleSyncPlayerExit(msg.Data)
             elseif msg.SyncType == XGuildDormConfig.SyncMsgType.Furniture then
                 self.GuildDormManager.HandleSyncFurniture(msg.Data)
+            elseif msg.SyncType == XGuildDormConfig.SyncMsgType.BGM then
+                self.GuildDormManager.HandleSyncBGM(msg.Data)            
+            elseif msg.SyncType == XGuildDormConfig.SyncMsgType.Theme then
+                self.GuildDormManager.HandleSyncTheme(msg.Data)
+                return -- 主题更换直接返回，后续不处理
+            elseif msg.SyncType == XGuildDormConfig.SyncMsgType.NpcGroup then
+                self.GuildDormManager.HandleSyncNpcGroup(msg.Data)
             end
         end
         self.CurrentRoom:Update(Time.deltaTime)

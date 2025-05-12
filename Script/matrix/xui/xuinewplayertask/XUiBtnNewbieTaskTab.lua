@@ -1,4 +1,4 @@
-XUiBtnNewbieTaskTab = XClass(nil, "XUiBtnNewbieTaskTab")
+local XUiBtnNewbieTaskTab = XClass(nil, "XUiBtnNewbieTaskTab")
 
 function XUiBtnNewbieTaskTab:Ctor(ui, rootUi, tabInfos)
     self.GameObject = ui.gameObject

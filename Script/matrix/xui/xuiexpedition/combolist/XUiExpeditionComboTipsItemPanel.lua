@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --虚像地平线羁绊展示页面：羁绊列表控件
 local XUiExpeditionComboTipsItemPanel = XClass(nil, "XUiExpeditionComboTipsItemPanel")
 local XUiExpeditionComboTipsItem = require("XUi/XUiExpedition/ComboList/XUiExpeditionComboTipsItem")

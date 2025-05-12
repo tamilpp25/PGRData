@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiTheatreSkillGrid = require("XUi/XUiTheatre/XUiTheatreSkillGrid")
 local XUiTheatreInfiniteSettleWin = XLuaUiManager.Register(XLuaUi, "UiTheatreInfiniteSettleWin")
 
@@ -85,6 +87,12 @@ function XUiTheatreInfiniteSettleWin:OnStart(adventureEnd, lastChapteEndStoryId)
     -- 播放最后一章剧情
     if lastChapteEndStoryId then
         XDataCenter.MovieManager.PlayMovie(lastChapteEndStoryId)
+    end
+end
+
+function XUiTheatreInfiniteSettleWin:OnDisable()
+    if XLuaUiManager.IsUiLoad("UiTheatrePlayMain") then
+        XLuaUiManager.Remove("UiTheatrePlayMain")
     end
 end
 

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local tableInsert = table.insert
 
 local XUiGridRedEnvelopeInfo = require("XUi/XUiRedEnvelope/XUiGridRedEnvelopeInfo")

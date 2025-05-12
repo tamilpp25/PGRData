@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --虚像地平线战斗结算界面
 local XUiExpeditionSettleWin = XLuaUiManager.Register(XLuaUi, "UiExpeditionSettleWin")
 local XUiExpeditionSettleWinHeadIcon = require("XUi/XUiExpedition/Battle/XUiExpeditionSettleWinHeadIcon")

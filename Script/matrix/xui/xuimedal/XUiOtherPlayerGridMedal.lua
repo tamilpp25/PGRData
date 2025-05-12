@@ -1,4 +1,4 @@
-XUiOtherPlayerGridMedal = XClass(nil, "XUiOtherPlayerGridMedal")
+local XUiOtherPlayerGridMedal = XClass(nil, "XUiOtherPlayerGridMedal")
 
 function XUiOtherPlayerGridMedal:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -51,3 +51,5 @@ function XUiOtherPlayerGridMedal:OnOpenMedalDetail(id)
         XLuaUiManager.Open("UiMeadalDetail", info, XDataCenter.MedalManager.InType.OtherPlayer)
     end
 end
+
+return XUiOtherPlayerGridMedal

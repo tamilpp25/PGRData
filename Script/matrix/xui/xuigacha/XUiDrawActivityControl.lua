@@ -45,7 +45,7 @@ end
 function XUiDrawActivityControl:ShowGacha()
 
     XDataCenter.AntiAddictionManager.BeginDrawCardAction()
-    self.UiGacha.OpenSound = CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiDrawCard_GachaOpen)
+    self.UiGacha.OpenSound = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiDrawCard_GachaOpen)
 
     if self.GachaCb then
         self.GachaCb()
@@ -64,7 +64,7 @@ end
 
 
 function XUiDrawActivityControl:OnDraw(gachaCount)
-    if XDataCenter.EquipManager.CheckBoxOverLimitOfDraw() then
+    if XMVCA.XEquip:CheckBoxOverLimitOfDraw() then
         return
     end
 
@@ -82,8 +82,8 @@ function XUiDrawActivityControl:OnDraw(gachaCount)
         end
         return
     end
-    local dtCount = XDataCenter.GachaManager.GetMaxCountOfAll() - XDataCenter.GachaManager.GetCurCountOfAll()
-    if dtCount < gachaCount and not XDataCenter.GachaManager.GetIsInfinite() then
+    local dtCount = XDataCenter.GachaManager.GetMaxCountOfAll(self.GachaCfg.Id) - XDataCenter.GachaManager.GetCurCountOfAll(self.GachaCfg.Id)
+    if dtCount < gachaCount and not XDataCenter.GachaManager.GetIsInfinite(self.GachaCfg.Id) then
         XUiManager.TipMsg(CS.XTextManager.GetText("GachaIsNotEnough"))
         return
     end
@@ -97,11 +97,10 @@ function XUiDrawActivityControl:OnDraw(gachaCount)
         self.UiGacha.ImgMask.gameObject:SetActiveEx(true)
 
         XDataCenter.GachaManager.DoGacha(self.GachaCfg.Id, gachaCount, function(rewardList)
-            self.RewardList = rewardList
             self.UiGacha:PlayAnimation("DrawRetract", function()
-                --self.UiGacha.IsReadyForGacha = true
-                self:ShowGacha()
+                self.UiGacha.IsReadyForGacha = true
             end)
+            self.RewardList = rewardList
         end, function()
             self.UiGacha.ImgMask.gameObject:SetActiveEx(false)
         end)

@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 -- 兵法蓝图活动任务页面
 local XUiRpgTowerTask = XLuaUiManager.Register(XLuaUi, "UiRpgTowerTask")
 local TaskList = require("XUi/XUiRpgTower/Task/XUiRpgTowerTaskList")

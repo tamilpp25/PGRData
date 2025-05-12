@@ -1,4 +1,4 @@
-XUiPanelPersonalDetailsCombatItem = XClass(nil, "XUiPanelPersonalDetailsCombatItem")
+local XUiPanelPersonalDetailsCombatItem = XClass(nil, "XUiPanelPersonalDetailsCombatItem")
 
 function XUiPanelPersonalDetailsCombatItem:Ctor(ui,parent)
     self.GameObject = ui.gameObject
@@ -42,7 +42,7 @@ function XUiPanelPersonalDetailsCombatItem:RegisterListener(uiNode, eventName, f
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -59,8 +59,8 @@ end
 function XUiPanelPersonalDetailsCombatItem:Refresh(data)
     if data then
         self.TxtLevel.text = data.Level
-        self.Parent:SetUiSprite(self.ImgIcon, XDataCenter.CharacterManager.GetCharSmallHeadIcon(data.CharacterId))
-        self.Parent:SetUiSprite(self.ImgRoleQulity, XCharacterConfigs.GetCharacterQualityIcon(data.Quality))
+        self.Parent:SetUiSprite(self.ImgIcon, XMVCA.XCharacter:GetCharSmallHeadIcon(data.CharacterId))
+        self.Parent:SetUiSprite(self.ImgRoleQulity, XMVCA.XCharacter:GetCharacterQualityIcon(data.Quality))
 
         self.PanelHaveData.gameObject:SetActive(true)
         self.PanelNoData.gameObject:SetActive(false)

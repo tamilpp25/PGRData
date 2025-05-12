@@ -1,3 +1,5 @@
+---@field _Control XCharacterControl
+---@class XUiEnhanceSkillActivation : XLuaUi
 local XUiEnhanceSkillActivation = XLuaUiManager.Register(XLuaUi, "UiEnhanceSkillActivation")
 local CSTextManagerGetText = CS.XTextManager.GetText
 function XUiEnhanceSkillActivation:OnStart(type, skillGroup, characterId)
@@ -24,14 +26,9 @@ function XUiEnhanceSkillActivation:UpdatePanel()
         self:PlayAnimationWithMask("AnimSpEnable")
     end
 
-    local fullBodyImage = XCharacterConfigs.GetCharFullBodyImg(self.CharacterId)
-    local resource = CS.XResourceManager.Load(fullBodyImage)
-    local texture = resource.Asset
-    self.MeshImg.sharedMaterial:SetTexture("_MainTex", texture)
-    if self.Resource then
-        CS.XResourceManager.Unload(self.Resource)
-    end
-    self.Resource = resource
+    local fullBodyImage = XMVCA.XCharacter:GetCharFullBodyImg(self.CharacterId)
+    local resource = self._Control:GetLoader():Load(fullBodyImage)
+    self.MeshImg.sharedMaterial:SetTexture("_MainTex", resource)
     self.FxUiChuxian.gameObject:SetActiveEx(false)
     XScheduleManager.ScheduleOnce(function()
             self.FxUiChuxian.gameObject:SetActiveEx(true)
@@ -46,13 +43,18 @@ function XUiEnhanceSkillActivation:UpdatePanel()
 end
 
 function XUiEnhanceSkillActivation:IsEnhance()
-    return self.Type == XCharacterConfigs.SkillUnLockType.Enhance
+    return self.Type == XEnumConst.CHARACTER.SkillUnLockType.Enhance
 end
 
 function XUiEnhanceSkillActivation:IsSp()
-    return self.Type == XCharacterConfigs.SkillUnLockType.Sp
+    return self.Type == XEnumConst.CHARACTER.SkillUnLockType.Sp
 end
 
 function XUiEnhanceSkillActivation:OnBtnDetermineClick()
     self:Close()
+end
+
+function XUiEnhanceSkillActivation:OnDestroy()
+    local fullBodyImage = XMVCA.XCharacter:GetCharFullBodyImg(self.CharacterId)
+    self._Control:GetLoader():Unload(fullBodyImage)
 end

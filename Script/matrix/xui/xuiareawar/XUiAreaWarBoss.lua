@@ -1,5 +1,11 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local AUTO_REQ_ACTIVITY_DATA_INTERVAL = 2 * 60 * 1000 --界面打开后自动请求最新活动数据时间间隔(ms)
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
+local ColorEnum = {
+    Enough = XUiHelper.Hexcolor2Color("ffffff"),
+    NotEnough = XUiHelper.Hexcolor2Color("ff0000")
+}
 
 local XUiAreaWarBoss = XLuaUiManager.Register(XLuaUi, "UiAreaWarBoss")
 
@@ -12,16 +18,13 @@ function XUiAreaWarBoss:OnStart(blockId, closeCb)
     self.CloseCb = closeCb
     self.RewardGrids = {}
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
-    XDataCenter.ItemManager.AddCountUpdateListener(
-    {
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
+    XDataCenter.ItemManager.AddCountUpdateListener({
         XDataCenter.ItemManager.ItemId.AreaWarCoin,
         XDataCenter.ItemManager.ItemId.AreaWarActionPoint
-    },
-    handler(self, self.UpdateAssets),
-    self.AssetActivityPanel
-    )
+    }, handler(self, self.UpdateAssets), self.AssetActivityPanel)
 
+    self.AssetActivityPanel:Open()
     self.GridCommon.gameObject:SetActiveEx(false)
     self.PanelTime = self.Transform:FindTransform("PanelTime")
 
@@ -95,6 +98,16 @@ function XUiAreaWarBoss:AutoAddListener()
     self.BtnFight.CallBack = function()
         self:OnClickBtnFight()
     end
+
+    self.BtnAdd.CallBack = function()
+        self:OnClickBtnAdd()
+    end
+    self.BtnSub.CallBack = function()
+        self:OnClickBtnSub()
+    end
+    self.BtnMax.CallBack = function()
+        self:OnClickBtnMax()
+    end
 end
 
 function XUiAreaWarBoss:InitView()
@@ -161,14 +174,16 @@ function XUiAreaWarBoss:UpdateView()
 
     local isOpen = XDataCenter.AreaWarManager.IsBlockWorldBossOpen(blockId)
     local isFinished = XDataCenter.AreaWarManager.IsBlockWorldBossFinish(blockId) --已攻破
-    local isFighting = not isFinished and isOpen --战斗中
+    local isRepeatChallengeTime = XDataCenter.AreaWarManager.IsRepeatChallengeTime()
+    local isClear = XDataCenter.AreaWarManager.IsBlockClear(blockId)
+    local isFighting = (not isFinished and isOpen) or (isRepeatChallengeTime and isClear) --战斗中
     local isUnOpen = not isFinished and not isOpen --未开启
-
+    
     self.PanelDefeat.gameObject:SetActiveEx(isFinished)
     self.PanelLock.gameObject:SetActiveEx(isUnOpen)
-    self.Hint.gameObject:SetActiveEx(isFighting)
+    self.Hint.gameObject:SetActiveEx(not isFinished and isOpen)
     self.TxtUnOpen.gameObject:SetActiveEx(isUnOpen)
-    self.TxtEnd.gameObject:SetActiveEx(isFinished)
+    self.TxtEnd.gameObject:SetActiveEx(isFinished and not isRepeatChallengeTime)
     self.PanelTime.gameObject:SetActiveEx(false)
 
     --已攻破
@@ -203,11 +218,12 @@ function XUiAreaWarBoss:UpdateView()
         end
     end
 
-    local showFight = isFinished or isOpen --显示作战按钮
+    --local showFight = isFinished or isOpen or isRepeatChallengeTime --显示作战按钮
+    local showFight = isFighting --显示作战按钮
     self.PanelOpen.gameObject:SetActiveEx(showFight)
     self.PanelUnopen.gameObject:SetActiveEx(not showFight)
     self.BtnFight:SetDisable(not isFighting, isFighting)
-
+    self.PanelNumBtn.gameObject:SetActiveEx(false)
     if showFight then
         --消耗行动点
         local costCount = XAreaWarConfigs.GetBlockActionPoint(blockId)
@@ -215,12 +231,20 @@ function XUiAreaWarBoss:UpdateView()
 
         local icon = XDataCenter.AreaWarManager.GetActionPointItemIcon()
         self.RImgCost:SetRawImage(icon)
+        self:UpdateMultiChallenge(blockId)
     else
-        local openTime = XDataCenter.AreaWarManager.GetBlockWorldBossTime(blockId)
-        self.TxtOpenDay.text = XTime.TimestampToGameDateTimeString(openTime, "MM/dd")
+        local worldBossOpenTime = block:GetWorldBossOpenTime()
+        local validTime = XTool.IsNumberValid(worldBossOpenTime)
+        self.TxtOpenDay.gameObject:SetActiveEx(validTime)
+        self.TxtOpenTime.gameObject:SetActiveEx(validTime)
+        --解锁与数据更新有时差
+        if validTime then
+            local openTime = XDataCenter.AreaWarManager.GetBlockWorldBossTime(blockId)
+            self.TxtOpenDay.text = XTime.TimestampToGameDateTimeString(openTime, "MM/dd")
 
-        local startHour, endHour = XAreaWarConfigs.GetBlockWorldBossHour(blockId)
-        self.TxtOpenTime.text = CsXTextManagerGetText("AreaWarWorldBossOpenHour", startHour, endHour)
+            local startHour, endHour = XAreaWarConfigs.GetBlockWorldBossHour(blockId)
+            self.TxtOpenTime.text = CsXTextManagerGetText("AreaWarWorldBossOpenHour", startHour, endHour)
+        end
     end
 
     --全服奖励展示
@@ -240,6 +264,38 @@ function XUiAreaWarBoss:UpdateView()
     for index = #rewards + 1, #self.RewardGrids do
         self.RewardGrids[index].GameObject:SetActiveEx(false)
     end
+end
+
+function XUiAreaWarBoss:UpdateMultiChallenge(blockId)
+    local personal = XDataCenter.AreaWarManager.GetPersonal()
+    local isShowChangeNum = personal:IsOpenMultiChallenge()
+    self.PanelNumBtn.gameObject:SetActiveEx(isShowChangeNum)
+    if not isShowChangeNum then
+        self.ChallengeCount = 1
+        return
+    end
+    --消耗行动点
+    local costCount = XAreaWarConfigs.GetBlockActionPoint(blockId)
+    self.ChallengeCount, self.MaxCount = personal:GetSelectSkipNum(costCount), personal:GetSkipNum()
+    
+    self:RefreshCount()
+end
+
+function XUiAreaWarBoss:RefreshCount()
+    local lessOne = self.ChallengeCount <= 1
+    self.BtnSub:SetDisable(lessOne, not lessOne)
+    local biggerMax = self.ChallengeCount >= self.MaxCount
+    self.BtnAdd:SetDisable(biggerMax, not biggerMax)
+
+    self.TxtChallengeNum.text = self.ChallengeCount
+
+    local costCount = XAreaWarConfigs.GetBlockActionPoint(self.BlockId) * self.ChallengeCount
+    local isEnough = XDataCenter.AreaWarManager.CheckActionPoint(costCount)
+
+    self.TxtCost.text = costCount
+    self.TxtCost.color = isEnough and ColorEnum.Enough or ColorEnum.NotEnough
+
+    self.BtnMax:ShowReddot(XDataCenter.AreaWarManager.GetPersonal():CheckMaxRedPoint())
 end
 
 function XUiAreaWarBoss:UpdateLeftTime()
@@ -270,7 +326,15 @@ function XUiAreaWarBoss:OnClickBtnList()
 end
 
 function XUiAreaWarBoss:OnClickBtnFight()
-    XDataCenter.AreaWarManager.TryEnterFight(self.BlockId)
+    if not self.ChallengeCount then
+        self.ChallengeCount = 1
+    end
+    self.ChallengeCount = math.max(1, self.ChallengeCount)
+    local personal = XDataCenter.AreaWarManager.GetPersonal()
+    if personal:IsOpenMultiChallenge() then
+        personal:SetSelectLocal(self.ChallengeCount)
+    end
+    XDataCenter.AreaWarManager.TryEnterFight(self.BlockId, self.ChallengeCount)
 end
 
 --活动数据刷新定时器
@@ -296,6 +360,34 @@ function XUiAreaWarBoss:DisposeTimer()
         XScheduleManager.UnSchedule(self.LeftTimeTimer)
         self.LeftTimeTimer = nil
     end
+end
+
+function XUiAreaWarBoss:OnClickBtnAdd()
+    if self.ChallengeCount >= self.MaxCount then
+        self.ChallengeCount = self.MaxCount
+        return
+    end
+    self.ChallengeCount = self.ChallengeCount + 1
+    if self.ChallengeCount >= self.MaxCount then
+        XDataCenter.AreaWarManager.GetPersonal():MarkMaxRedPoint()
+    end
+    self:RefreshCount()
+end
+
+function XUiAreaWarBoss:OnClickBtnSub()
+    if self.ChallengeCount <= 1 then
+        self.ChallengeCount = 1
+        return
+    end
+    self.ChallengeCount = self.ChallengeCount - 1
+    self:RefreshCount()
+end
+
+function XUiAreaWarBoss:OnClickBtnMax()
+    self.ChallengeCount = self.MaxCount
+
+    XDataCenter.AreaWarManager.GetPersonal():MarkMaxRedPoint()
+    self:RefreshCount()
 end
 
 return XUiAreaWarBoss

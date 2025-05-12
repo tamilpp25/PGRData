@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiChongzhiTanchuangListItem = XClass(nil, "XUiChongzhiTanchuangListItem")
 
 function XUiChongzhiTanchuangListItem:Ctor(ui)

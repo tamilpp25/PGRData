@@ -6,6 +6,7 @@ local XDoomsdayTarget = require("XEntity/XDoomsday/XDoomsdayTarget")
 local XDoomsdayTeam = require("XEntity/XDoomsday/XDoomsdayTeam")
 local XDoomsdayResource = require("XEntity/XDoomsday/XDoomsdayResource")
 local XDoomsdayAttribute = require("XEntity/XDoomsday/XDoomsdayAttribute")
+local XDoomsdayBroadcast = require("XEntity/XDoomsday/XDoomsdayBroadcast")
 
 local tableInsert = table.insert
 local tableSort = table.sort
@@ -39,9 +40,10 @@ local Default = {
     _Teams = {}, --探索队伍
     _PlacesDic = {}, --探索地点
     _AccDeadInhabitantCount = 0, --累积死亡居民数量
-    _CurDeathCount = 0,
-    --当天死亡人数
+    _CurDeathCount = 0, --当天死亡人数
     _CanExplore = false, --是否解锁探索
+    _BuildingGainAndConsumeInfo = {}, --建筑产出消耗信息
+    _PoppedEvents = {}, --已弹出事件
     -------------UI数据（ViewModel）---------
     _Opening = false, --开启状态（前置关卡是否通关）
     _Passed = false, --通关状态
@@ -57,7 +59,12 @@ local Default = {
     _BuildingHistoryResourceDic = {}, --每日结算建筑资源变化
     _TeamHistoryResourceDic = {}, --每日结算小队资源变化
     _TeamHistoryAddInhabitant = 0, --每日结算小队增加居民数量
-    _UnlockPlaceIds = {} --已解锁探索地点Id
+    _UnlockPlaceIds = {}, --已解锁探索地点Id
+    _FinishEndingId = 0, --完成的结局Id
+    _CurWeatherId = 0, --当前天气
+    _FutureWeathers = {}, --未来天气
+    _Broadcast = nil, --当前播报
+    _BroadcastList = {}, --播报队列
 }
 
 --末日生存玩法单局战斗（生存解谜）
@@ -84,6 +91,11 @@ function XDoomsdayStage:InitData(stageId)
     end
 end
 
+function XDoomsdayStage:Reset()
+    self.Super.Reset(self)
+    self._Broadcast = nil
+end
+
 function XDoomsdayStage:UpdateData(data)
     self:SetProperty("_Id", data.Id)
     self:SetProperty("_Day", data.DayCount)
@@ -93,9 +105,10 @@ function XDoomsdayStage:UpdateData(data)
     self:SetProperty("_Fighting", self._Day ~= 0)
     self:SetProperty("_CanExplore", data.CanExplore)
     self:SetProperty("_ForceLose", data.ForceLose)
+    self:SetProperty("_FinishEndingId", data.FinishEndingId)
 
-    --资源
-    self:UpdateResourceList(data.ResourceList)
+    --更新天气
+    self:UpdateWeather(data.Weathers)
 
     --居民
     self:UpdateInhabitants(data.PeopleDbList)
@@ -105,6 +118,9 @@ function XDoomsdayStage:UpdateData(data)
 
     --更新建筑居民关联
     self:UpdateBuildingWorkingInhabitantCount()
+
+    --资源
+    self:UpdateResourceList(data.ResourceList)
 
     --关卡目标
     self:UpdateTargets(data.TaskDbList)
@@ -146,12 +162,17 @@ end
 
 --结算是否胜利（最后一天 and 关卡主目标达成）
 function XDoomsdayStage:IsWin()
-    if not self:GetProperty("_IsLastDay") then
+    --if not self:GetProperty("_IsLastDay") then
+    --    return false
+    --end
+    --
+    --local mainTargetId = XDoomsdayConfigs.StageConfig:GetProperty(self._Id, "MainTaskId")
+    --return self:IsTargetFinished(mainTargetId)
+    if not XTool.IsNumberValid(self._FinishEndingId) then
         return false
     end
-
-    local mainTargetId = XDoomsdayConfigs.StageConfig:GetProperty(self._Id, "MainTaskId")
-    return self:IsTargetFinished(mainTargetId)
+    local isWin = XDoomsdayConfigs.StageEndingConfig:GetProperty(self._FinishEndingId, "IsSuccess")
+    return isWin
 end
 
 --获取结算失败原因
@@ -187,11 +208,11 @@ function XDoomsdayStage:CheckIsExtraTarget(targetId)
         return false
     end
 
-    for _, subTargetId in pairs(XDoomsdayConfigs.StageConfig:GetProperty(self._Id, "SubTaskId")) do
-        if subTargetId == targetId then
-            return false
-        end
-    end
+    --for _, subTargetId in pairs(XDoomsdayConfigs.StageConfig:GetProperty(self._Id, "SubTaskId")) do
+        --if subTargetId == targetId then
+            --return false
+        --end
+    --end
 
     return
 end
@@ -254,7 +275,7 @@ end
 function XDoomsdayStage:UpdateUnhealthyInhabitantCount()
     local tmpAttrDic, tmpValue =
         {
-            [XDoomsdayConfigs.HOMELESS_ATTR_TYPE] = 0 --强行插入一条无家可归异常状态记录
+            [XDoomsdayConfigs.HOMELESS_ATTR_TYPE] = 0, --强行插入一条无家可归异常状态记录
         },
         0
 
@@ -288,7 +309,7 @@ function XDoomsdayStage:UpdateUnhealthyInhabitantCount()
     end
 
     for _, attrType in ipairs(attrTypes) do
-        local count = tmpAttrDic[attrType]
+        local count = tmpAttrDic[attrType] or 0
         if XTool.IsNumberValid(count) then
             tableInsert(
                 list,
@@ -301,6 +322,9 @@ function XDoomsdayStage:UpdateUnhealthyInhabitantCount()
     end
 
     self:SetProperty("_UnhealthyInhabitantInfoList", list)
+
+    --更新资源消耗
+    self:UpdateAllResourceConsume()
 end
 
 function XDoomsdayStage:CheckInhabitantAttrBad(attrType)
@@ -384,7 +408,7 @@ function XDoomsdayStage:GetSortedIdleInhabitantIdsByCount(requireCount, tmpIdDic
             ids,
             function(aId, bId)
                 local aInhabitant = self:GetInhabitant(aId)
-                local bInhabitant = self:GetInhabitant(aId)
+                local bInhabitant = self:GetInhabitant(bId)
 
                 --居民健康值从大到小
                 local aValue = aInhabitant:GetAttr(XDoomsdayConfigs.ATTRUBUTE_TYPE.HEALTH):GetProperty("_Value")
@@ -454,11 +478,14 @@ function XDoomsdayStage:UpdateInhabitants(data)
         inhabitant:UpdateData(info)
 
         --初始化关卡内居民属性配置
-        for _, attrId in pairs(XDoomsdayConfigs.StageConfig:GetProperty(self._Id, "AttributeId")) do
+        local attrList = XDoomsdayConfigs.WeatherConfig:GetProperty(self._CurWeatherId, "AttributeId")
+        for _, attrId in pairs(attrList) do
             if XTool.IsNumberValid(attrId) then
                 local attrType = XDoomsdayConfigs.AttributeConfig:GetProperty(attrId, "Type")
                 local threshold = XDoomsdayConfigs.AttributeConfig:GetProperty(attrId, "Threshold")
                 inhabitant:GetAttr(attrType):SetProperty("_Threshold", threshold)
+                local averageAttr = self:GetAverageInhabitantAttr(attrType)
+                averageAttr:SetProperty("_Threshold", threshold)
             end
         end
 
@@ -518,6 +545,7 @@ function XDoomsdayStage:UpdateResourceList(data)
         local resource = self:GetResource(info.CfgId)
         if resource then
             resource:UpdateData(info)
+            --self:UpdateResourceConsume(info.CfgId)
         end
     end
 end
@@ -637,6 +665,114 @@ function XDoomsdayStage:AddResource(addResourceDic)
         self:GetResource(resourceId):AddCount(addCount)
     end
 end
+
+--==============================
+ ---@desc 资源日常开销(居民每日消耗)
+ ---@resourceId 资源Id 
+ ---@return number
+--==============================
+function XDoomsdayStage:GetResourceOverheads(resourceId)
+    local attrList = XDoomsdayConfigs.WeatherConfig:GetProperty(self._CurWeatherId, "AttributeId")
+    local recoveryNeedCount = 0
+    for _, attrId in ipairs(attrList or {}) do
+        local attr = XDoomsdayConfigs.AttributeConfig:GetConfig(attrId)
+        if resourceId == attr.ResourceId then
+            local attrType = attr.Type
+            local attrRecoveryRatio = XTool.IsNumberValid(attr.DailyRecoveryRatio) and attr.DailyRecoveryRatio or 1
+            local attrMaxValue = XDoomsdayConfigs.AttributeTypeConfig:GetProperty(attrType, "MaxValue")
+            local attrDailyChangeValue = attr.DailyChangeValue
+            for _, inhabitant in pairs(self._InhabitantDic) do
+                --local curValue = inhabitant:GetAttr(attrType):GetProperty("_Value")
+                local curValue = inhabitant:GetTodayValue(attrId, attrType)
+                local todayDown = math.max(0, curValue + attrDailyChangeValue)
+                --该居民回满需要资源数
+                local needCount = math.ceil((attrMaxValue - todayDown) / attrRecoveryRatio)
+                recoveryNeedCount = recoveryNeedCount + needCount
+            end
+            return recoveryNeedCount
+        end
+    end
+    return 0
+end
+
+--==============================
+ ---@desc 资源开销 = 建筑生产 - 建筑消耗 - 日常开销
+ ---@resourceId 资源Id 
+ ---@return number
+--==============================
+function XDoomsdayStage:UpdateResourceConsume(resourceId)
+    --日常消耗
+    local overheads = self:GetResourceOverheads(resourceId)
+    local buildingGain, buildingConsume = 0, 0
+    for _, gainAndConsumeInfo in pairs(self._BuildingGainAndConsumeInfo) do
+        local gainInfo = gainAndConsumeInfo.Gain or {}
+        --建筑生产
+        for rId, info in pairs(gainInfo) do
+            if rId == resourceId then
+                buildingGain = buildingGain + info.Count
+            end
+        end
+        local consumeInfo = gainAndConsumeInfo.Consume or {}
+        --建筑消耗
+        for rId, info in pairs(consumeInfo) do
+            if rId == resourceId then
+                buildingConsume = buildingConsume + info.Count
+            end
+        end 
+    end
+
+    local resource = self:GetResource(resourceId)
+    resource:SetProperty("_Consume", buildingGain - overheads - buildingConsume)
+end
+
+--==============================
+ ---@desc 资源开销/产出描述
+ ---@resourceId 资源Id 
+ ---@return string
+--==============================
+function XDoomsdayStage:GetResourceConsumeDesc(resourceId)
+    local desc = XDoomsdayConfigs.ResourceConfig:GetProperty(resourceId, "Desc")
+    local unit = XUiHelper.GetText("DoomsdayUnitDaily")
+    if resourceId == XDoomsdayConfigs.RESOURCE_TYPE.FOOD 
+            or resourceId == XDoomsdayConfigs.RESOURCE_TYPE.MEDICINE then
+        --日常开销
+        desc = string.format("%s%s", desc, XDoomsdayConfigs.GetNumberText(self:GetResourceOverheads(resourceId) * -1, false, false, false, unit))
+        local descDict = {}
+        for _, gainAndConsumeInfo in pairs(self._BuildingGainAndConsumeInfo) do
+            local gainInfo = gainAndConsumeInfo.Gain or {}
+            for rId, info in pairs(gainInfo) do
+                if rId == resourceId then
+                    local count = descDict[XDoomsdayConfigs.BuildingConfig:GetProperty(info.Id, "Name")] or 0 
+                    descDict[XDoomsdayConfigs.BuildingConfig:GetProperty(info.Id, "Name")] = info.Count + count
+                end
+            end
+
+            local consumeInfo = gainAndConsumeInfo.Consume or {}
+            for rId, info in pairs(consumeInfo) do
+                if rId == resourceId then
+                    local count = descDict[XDoomsdayConfigs.BuildingConfig:GetProperty(info.Id, "Name")] or 0
+                    descDict[XDoomsdayConfigs.BuildingConfig:GetProperty(info.Id, "Name")] = count - info.Count  
+                end
+            end
+        end
+
+        for name, count in pairs(descDict) do
+            desc = string.format("%s, %s: %s ", desc, name, 
+                    XDoomsdayConfigs.GetNumberText(count, false, false, false, unit))
+        end
+        return desc
+    end 
+    return desc
+end
+
+--更新所有资源消耗
+function XDoomsdayStage:UpdateAllResourceConsume()
+    local resourceIds = XDoomsdayConfigs.GetResourceIds()
+    for _, id in ipairs(resourceIds) do
+        self:UpdateResourceConsume(id)
+    end
+end
+
 ---------------资源 end-----------------
 ---------------建筑 begin-----------------
 function XDoomsdayStage:UpdateBuildings(data)
@@ -696,7 +832,11 @@ function XDoomsdayStage:UpdateBuildingWorkingInhabitantCount()
         local count = buildingIdHoldCountDic[building:GetProperty("_Id")] or 0
         building:SetProperty("_WorkingInhabitantCount", count)
         self:UpdateBuildingState(buildingIndex)
+        self:UpdateResourceBuildingGainAndConsume(buildingIndex)
     end
+
+    --更新资源消耗
+    self:UpdateAllResourceConsume()
 end
 
 --获取建筑中工作的居民Id字典
@@ -727,16 +867,68 @@ end
 --更新建筑状态
 function XDoomsdayStage:UpdateBuildingState(buildingIndex)
     local building = self:GetBuilding(buildingIndex)
+    
     local state = XDoomsdayConfigs.BUILDING_STATE.EMPTY
-    if self:IsBuildingBuilding(buildingIndex) or self:IsBuildingWorking(buildingIndex) then
-        state = XDoomsdayConfigs.BUILDING_STATE.WORKING
-    elseif self:IsBuildingPending(buildingIndex) then
+    if self:IsBuildingPending(buildingIndex) then
         state = XDoomsdayConfigs.BUILDING_STATE.PENDING
+    elseif self:IsBuildingBuilding(buildingIndex) then 
+        state = XDoomsdayConfigs.BUILDING_STATE.BUILDING
+    elseif self:IsBuildingProducing(buildingIndex) then
+        state = XDoomsdayConfigs.BUILDING_STATE.WORKING
     elseif self:IsBuildingWaiting(buildingIndex) then
         state = XDoomsdayConfigs.BUILDING_STATE.WAITING
+    elseif self:IsBuildingUnderstaffed(buildingIndex) then
+        state = XDoomsdayConfigs.BUILDING_STATE.UNDERSTAFFED
     end
 
     building:SetProperty("_State", state)
+end
+
+--更新建筑产出/消耗
+function XDoomsdayStage:UpdateResourceBuildingGainAndConsume(buildingIndex)
+    local building = self:GetBuilding(buildingIndex)
+    local state = building:GetProperty("_State")
+    if state ~= XDoomsdayConfigs.BUILDING_STATE.WORKING then
+        --建筑不工作  不 生产/消耗
+        self._BuildingGainAndConsumeInfo[buildingIndex] = {}
+        return
+    end
+    local buildingCfgId = building:GetProperty("_CfgId")
+    
+    local gainInfo = XDoomsdayConfigs.GetBuildingDailyGainResourceInfos(buildingCfgId)
+    local gainResourceInfo = {}
+    for _, resInfo in ipairs(gainInfo or {}) do
+        local item = gainResourceInfo[resInfo.Id]
+        if item then
+            item.Count = item.Count + resInfo.Count
+        else
+            item = {
+                Id = buildingCfgId,
+                Count = resInfo.Count
+            }
+        end
+        gainResourceInfo[resInfo.Id] = item
+    end
+
+    local consumeInfo = XDoomsdayConfigs.GetBuildingDailyConsumeResourceInfos(buildingCfgId)
+    local consumeResourceInfo = {}
+    for _, resInfo in ipairs(consumeInfo or {}) do
+        local item = consumeResourceInfo[resInfo.Id]
+        if item then
+            item.Count = item.Count + resInfo.Count
+        else
+            item = {
+                Id = buildingCfgId,
+                Count = resInfo.Count
+            }
+        end
+        consumeResourceInfo[resInfo.Id] = item
+    end
+
+    self._BuildingGainAndConsumeInfo[buildingIndex] = {
+        Gain    = gainResourceInfo,
+        Consume = consumeResourceInfo,
+    }
 end
 
 --拆除建筑
@@ -752,10 +944,12 @@ function XDoomsdayStage:DeleteBuilding(buildingIndex)
             inhabitant:SetProperty("_LivingBuildingId", 0)
         end
     end
-
-    self:UpdateIdleInhabitantCount()
-    self:UpdateUnhealthyInhabitantCount() --更新无家可归状态
     building:Reset()
+    --self:UpdateIdleInhabitantCount()
+    --self:UpdateUnhealthyInhabitantCount() --更新无家可归状态
+    -- 更新资源产出/消耗
+    self:UpdateResourceBuildingGainAndConsume(buildingIndex)
+    self:UpdateAllResourceConsume()
 end
 
 --是否建造中
@@ -791,9 +985,9 @@ function XDoomsdayStage:IsBuildingProducing(buildingIndex)
     end
 
     local limit = XDoomsdayConfigs.BuildingConfig:GetProperty(building:GetProperty("_CfgId"), "LockPeopleOnWorking")
-    if not XTool.IsNumberValid(limit) then
-        return false
-    end
+    --if not XTool.IsNumberValid(limit) then
+    --    return false
+    --end
 
     return building:GetProperty("_WorkingInhabitantCount") == limit
 end
@@ -811,15 +1005,29 @@ function XDoomsdayStage:IsBuildingWaiting(buildingIndex)
         return false
     end
 
-    if not building:GetProperty("_IsDone") then
-        return false
+    --if not building:GetProperty("_IsDone") then
+    --    return false
+    --end
+    
+    local isDone = building:GetProperty("_IsDone")
+    local limit
+    if isDone then
+        limit = XDoomsdayConfigs.BuildingConfig:GetProperty(building:GetProperty("_CfgId"), "LockPeopleOnWorking")
+        if not XTool.IsNumberValid(limit) then
+            return false
+        end
+    else
+        limit = XDoomsdayConfigs.BuildingConfig:GetProperty(building:GetProperty("_CfgId"), "LockPeopleOnBuilding")
+        if not XTool.IsNumberValid(limit) then
+            return false
+        end
     end
 
     return building:GetProperty("_WorkingInhabitantCount") == 0
 end
 
---是否工作中断
-function XDoomsdayStage:IsBuildingWorkPending(buildingIndex)
+--是否工作时人手不足
+function XDoomsdayStage:IsBuildingWorkUnderstaffed(buildingIndex)
     local building = self:GetBuilding(buildingIndex)
 
     if building:IsEmpty() then
@@ -838,8 +1046,8 @@ function XDoomsdayStage:IsBuildingWorkPending(buildingIndex)
     return building:GetProperty("_WorkingInhabitantCount") ~= limit
 end
 
---是否建造中断
-function XDoomsdayStage:IsBuildingBuildPending(buildingIndex)
+--是否建造时人手不足
+function XDoomsdayStage:IsBuildingBuildUnderstaffed(buildingIndex)
     local building = self:GetBuilding(buildingIndex)
 
     if building:IsEmpty() then
@@ -858,9 +1066,37 @@ function XDoomsdayStage:IsBuildingBuildPending(buildingIndex)
     return building:GetProperty("_WorkingInhabitantCount") ~= limit
 end
 
---是否工作中断/建造中断
+--是否工作/建造 人手不足
+function XDoomsdayStage:IsBuildingUnderstaffed(buildingIndex)
+    return self:IsBuildingWorkUnderstaffed(buildingIndex) or self:IsBuildingBuildUnderstaffed(buildingIndex)
+end
+
+--是否被事件打断
 function XDoomsdayStage:IsBuildingPending(buildingIndex)
-    return self:IsBuildingWorkPending(buildingIndex) or self:IsBuildingBuildPending(buildingIndex)
+    local building = self:GetBuilding(buildingIndex)
+    
+    if building:IsEmpty() then
+        return false
+    end
+
+    local recoveryDay = building:GetProperty("_RecoveryDay")
+    if recoveryDay <= 0 then
+        return false
+    end
+    
+    return self._Day < recoveryDay
+end
+
+--获取已经完成的某种建筑数量
+function XDoomsdayStage:GetFinishBuildingMember(buildingCfgId)
+    local count = 0
+    for _, building in ipairs(self._BuildingList) do
+        if building:GetProperty("_IsDone") 
+                and building:GetProperty("_CfgId") == buildingCfgId then
+            count = count + 1
+        end
+    end
+    return count
 end
 ---------------建筑 end-----------------
 ---------------关卡事件 begin-----------------
@@ -881,9 +1117,8 @@ function XDoomsdayStage:UpdateEvents(data)
             tableInsert(self._Events, event)
         end
         event:UpdateData(info)
-
         --事件提醒
-        if not event:GetProperty("_Finished") then
+        if event:IsActive(self._Day) then
             eventType = event:GetProperty("_Type")
             if not remindDic[eventType] then
                 remindDic[eventType] = event
@@ -902,11 +1137,21 @@ function XDoomsdayStage:UpdateEvents(data)
 end
 
 --获取自动剧情事件列表
-function XDoomsdayStage:GetNextPopupEvent(popedEventIdDic)
+function XDoomsdayStage:GetNextPopupEvent()
     for _, event in pairs(self._Events) do
-        if not popedEventIdDic[event._Id] and event:IsAutoPopupEvent() and not event:GetProperty("_Finished") then
-            popedEventIdDic[event._Id] = event._Id
-            return event
+        if not self._PoppedEvents[event._Id] and event:IsAutoPopupEvent() and event:IsActive(self._Day) then
+            --达成结局
+            if XTool.IsNumberValid(self._FinishEndingId) then
+                local eventId = XDoomsdayConfigs.StageEndingConfig:GetProperty(self._FinishEndingId, "EventId")
+                if event:GetProperty("_CfgId") == eventId then
+                    self._PoppedEvents[event._Id] = event._Id
+                    return event
+                end
+            else
+                self._PoppedEvents[event._Id] = event._Id
+                return event
+            end
+            
         end
     end
 end
@@ -915,7 +1160,8 @@ end
 function XDoomsdayStage:IsEventsFinished(eventType)
     for _, event in pairs(self._Events) do
         if not eventType or eventType == event:GetProperty("_Type") then
-            if not event:GetProperty("_Finished") then
+            --if not event:GetProperty("_Finished") then
+            if event:IsActive(self._Day) then
                 return false
             end
         end
@@ -927,7 +1173,8 @@ end
 function XDoomsdayStage:GetPlaceEventDic()
     local eventDic = {}
     for _, event in pairs(self._Events) do
-        if not event:GetProperty("_Finished") then
+        --if not event:GetProperty("_Finished") then
+        if event:IsActive(self._Day) then
             local placeId = event:GetProperty("_PlaceId")
             if XTool.IsNumberValid(placeId) then
                 eventDic[placeId] = event
@@ -940,7 +1187,8 @@ end
 --获取指定关联地点未完成关卡事件
 function XDoomsdayStage:GetPlaceEvent(placeId)
     for _, event in pairs(self._Events) do
-        if not event:GetProperty("_Finished") then
+        --if not event:GetProperty("_Finished") then
+        if event:IsActive(self._Day) then
             if placeId == event:GetProperty("_PlaceId") then
                 return event
             end
@@ -951,7 +1199,7 @@ end
 --获取指定未完成事件关联地点
 function XDoomsdayStage:GetEventPlaceId(eventId)
     for _, event in pairs(self._Events) do
-        if event:GetProperty("_Id") == eventId and not event:GetProperty("_Finished") then
+        if event:GetProperty("_Id") == eventId and event:IsActive(self._Day) then
             return event:GetProperty("_PlaceId")
         end
     end
@@ -963,7 +1211,8 @@ function XDoomsdayStage:GetBuildingEventDic()
 
     local events = {}
     for _, event in pairs(self._Events) do
-        if not event:GetProperty("_Finished") then
+        --if not event:GetProperty("_Finished") then
+        if event:IsActive(self._Day) then
             local placeId = event:GetProperty("_PlaceId")
             if not XTool.IsNumberValid(placeId) then
                 tableInsert(events, event)
@@ -981,6 +1230,38 @@ function XDoomsdayStage:GetBuildingEventDic()
     end
 
     return eventDic
+end
+
+function XDoomsdayStage:GetEvent(eventId)
+    if not XTool.IsNumberValid(eventId) then
+        return
+    end
+
+    for _, event in pairs(self._Events) do
+        local id = event:GetProperty("_CfgId")
+        if id == eventId then
+            return event
+        end
+    end
+end
+
+--清除已弹出事件缓存
+function XDoomsdayStage:ClearPoppedEvent()
+    self._PoppedEvents = {}
+end
+
+--检查结局事件是否完成
+function XDoomsdayStage:CheckEndEventFinish()
+    if not XTool.IsNumberValid(self._FinishEndingId) then
+        return 
+    end
+    local eventId = XDoomsdayConfigs.StageEndingConfig:GetProperty(self._FinishEndingId, "EventId")
+    for _, event in ipairs(self._Events) do
+        if event:GetProperty("_CfgId") == eventId and event:IsActive(self._Day) then
+            return false
+        end
+    end
+    return true
 end
 ---------------关卡事件 end-----------------
 ---------------探索地点 begin-----------------
@@ -1037,6 +1318,22 @@ end
 
 function XDoomsdayStage:CheckPlaceHasSelectTeamId(placeId)
     return XTool.IsNumberValid(self:GetPlaceSelectTeamId(placeId))
+end
+
+--检查指定队伍是否在指定地点
+function XDoomsdayStage:CheckTeamInPlace(teamId, placeId)
+    if not XTool.IsNumberValid(teamId) or not XTool.IsNumberValid(placeId) then
+        return false
+    end
+    
+    local team = self._Teams[teamId]
+    if not team then
+        return false
+    end
+    if placeId == team:GetProperty("_PlaceId") or placeId == team:GetProperty("_TargetPlaceId") then
+        return true
+    end
+    return false
 end
 ---------------探索地点 end-----------------
 ---------------探索队伍 begin-----------------
@@ -1151,5 +1448,98 @@ function XDoomsdayStage:IsTeamInCamp(teamIndex)
     return not XTool.IsNumberValid(placeId) or
         placeId == XDoomsdayConfigs.StageConfig:GetProperty(self._Id, "FirstPlace")
 end
+
+--已经组建的队伍列表
+function XDoomsdayStage:GetAlreadySetUpTeamList()
+    local teamList = {}
+    for _, team in ipairs(self._Teams) do
+        if not team:IsEmpty() then
+            tableInsert(teamList, team)
+        end
+    end
+    return teamList
+end
 ---------------探索队伍 end-----------------
+--region   ------------------天气 start-------------------
+function XDoomsdayStage:UpdateWeather(data)
+    if XTool.IsTableEmpty(data) then
+        return
+    end
+    self:SetProperty("_CurWeatherId", data[1])
+    local futureWeathers = {}
+    --未来几天
+    local maxFutureDays = tonumber(XDoomsdayConfigs.CommonConfig:GetProperty("WeatherNeedCount", "Value"))
+    --未来第一天，是列表第二个
+    for idx = 2, maxFutureDays do
+        local wId = data[idx]
+        if not XTool.IsNumberValid(wId) then
+            break
+        end
+        tableInsert(futureWeathers, wId)
+    end
+    self:SetProperty("_FutureWeathers", futureWeathers)
+end
+--endregion------------------天气 finish------------------
+
+--region   ------------------结局 start-------------------
+
+--==============================
+ ---@desc 是否达成解决
+ ---@return boolean
+--==============================
+function XDoomsdayStage:IsFinishEndAndTips()
+    local isEnd = XTool.IsNumberValid(self._FinishEndingId)
+    if not isEnd then
+        return false
+    end
+    XUiManager.TipText("DoomsdayStageHasEnd")
+    return true
+end
+
+--==============================
+ ---@desc 获取结局描述
+ ---@return string
+--==============================
+function XDoomsdayStage:GetEndingDesc()
+    local isEnd = XTool.IsNumberValid(self._FinishEndingId)
+    if not isEnd then
+        return ""
+    end
+    return XDoomsdayConfigs.StageEndingConfig:GetProperty(self._FinishEndingId, "Desc")
+end
+--endregion------------------结局 finish------------------
+
+--region   ------------------播报 start-------------------
+
+function XDoomsdayStage:PushBroadcast(broadcastType, count)
+    local broadcast = XDoomsdayBroadcast.New(broadcastType, count)
+    tableInsert(self._BroadcastList, broadcast)
+end
+
+--移除播报队头
+function XDoomsdayStage:PopBroadcast()
+    local tmp
+    if #self._BroadcastList > 0 then
+        tmp = self._BroadcastList[1]
+        table.remove(self._BroadcastList, 1)
+    end
+    return tmp
+end
+
+--更新当前播报
+function XDoomsdayStage:UpdateCurBroadcast()
+    local tmp = self._BroadcastList[1]
+    if not tmp then
+        self._Broadcast = nil
+    else
+        self:SetProperty("_Broadcast", tmp)
+    end
+end
+
+function XDoomsdayStage:DispatchBroadcast()
+    if not self._Broadcast then
+        self:UpdateCurBroadcast()
+    end
+end
+--endregion------------------播报 finish------------------
 return XDoomsdayStage

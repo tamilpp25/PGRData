@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridManifesto = XClass(nil, "XUiGridManifesto")
 local CSTextManagerGetText = CS.XTextManager.GetText
 
@@ -61,10 +62,10 @@ function XUiGridManifesto:SetManifestoInfo(data)
     self.HearStudent.gameObject:SetActiveEx(mentorData:IsTeacher())
 
     if mentorData:IsTeacher() then
-        XUiPLayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.HearStudent:GetObject("Head"))
+        XUiPlayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.HearStudent:GetObject("Head"))
     else
         local maxStudentCount = XMentorSystemConfigs.GetMentorSystemData("MaxStudentCount")
-        XUiPLayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.HearMentor:GetObject("Head"))
+        XUiPlayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.HearMentor:GetObject("Head"))
         self.HearMentor:GetObject("TextMemberNum").text = string.format("%d/%d",data.StudentCount,maxStudentCount)
     end
 

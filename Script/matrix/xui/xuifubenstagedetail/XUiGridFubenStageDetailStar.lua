@@ -1,4 +1,4 @@
-XUiGridFubenStageDetailStar = XClass(nil, "XUiGridFubenStageDetailStar")
+local XUiGridFubenStageDetailStar = XClass(nil, "XUiGridFubenStageDetailStar")
 
 function XUiGridFubenStageDetailStar:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -38,7 +38,7 @@ function XUiGridFubenStageDetailStar:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -54,7 +54,7 @@ end
 
 function XUiGridFubenStageDetailStar:Refresh(desc)
     if desc == nil or desc =="" then
-        desc = "-"
+        desc = ""
     end
 
     self.ImgStarActive.gameObject:SetActive(true)
@@ -62,3 +62,5 @@ function XUiGridFubenStageDetailStar:Refresh(desc)
     self.TxtStarActive.text = desc
     text.text = desc
 end
+
+return XUiGridFubenStageDetailStar

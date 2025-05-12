@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 
 local XUiPanelSave = XClass(nil, "XUiPanelSave")
 local XUiGridTemplateSave = require("XUi/XUiDormTemplate/XUiGridTemplateSave")
@@ -87,6 +88,7 @@ function XUiPanelSave:DormCollectLayoutReq(isCover, name)
     end
 
     XDataCenter.DormManager.DormCollectLayoutReq(id, name, furnitrueList, function(roomId)
+        self.IsSave = true
         -- 更换相机截屏
         local imgName = tostring(XPlayer.Id) .. tostring(roomId)
         local texture = XHomeSceneManager.CaptureCamera(imgName, false)
@@ -123,6 +125,10 @@ end
 
 function XUiPanelSave:Close()
     self.GameObject:SetActiveEx(false)
+    if self.IsSave and self.SceneHomeRoomData and 
+            self.SceneHomeRoomData:GetRoomDataType() == XDormConfig.DormDataType.Self then
+        self.RootUi:OnBtnBackClick()
+    end
 end
 
 function XUiPanelSave:Open(sceneHomeRoomData)
@@ -160,6 +166,8 @@ function XUiPanelSave:Open(sceneHomeRoomData)
     if noRoonIndex then
         self.PageDatas[self.SelectIndex].IsDefaultSelect = true
     end
+    
+    self.IsSave = false
 
     self.DynamicTable:SetDataSource(self.PageDatas)
     self.DynamicTable:ReloadDataSync(self.SelectIndex)

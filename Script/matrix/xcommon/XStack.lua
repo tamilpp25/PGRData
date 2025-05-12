@@ -1,3 +1,4 @@
+---@class XStack 栈
 XStack = XClass(nil, "XStack")
 
 function XStack:Ctor()
@@ -38,6 +39,10 @@ function XStack:Pop()
     self.__Container[endIndex] = nil
 
     return element
+end
+
+function XStack:GetContainer()
+    return self.__Container
 end
 
 function XStack:Peek()

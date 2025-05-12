@@ -61,6 +61,24 @@ function XUiGridDraft:Refresh(data, count)
     else
         self.TxtDraftCount.text = CS.XTextManager.GetText("DormBuildNoEnoughCount", data.Count)
     end
+    
+    self:RefreshLabel(data.Id)
+end
+
+function XUiGridDraft:RefreshLabel(templateId)
+    if self.GoodsLabel then
+        self.GoodsLabel:Close()
+    end
+    if not XTool.IsNumberValid(templateId) then
+        return
+    end
+    if not XUiConfigs.CheckHasLabel(templateId) then
+        return
+    end
+    if not self.GoodsLabel then
+        self.GoodsLabel = XUiHelper.CreateGoodsLabel(templateId, self.Transform, self.PanelPet)
+    end
+    self.GoodsLabel:Refresh(templateId, self.PanelPet ~= nil)
 end
 
 return XUiGridDraft

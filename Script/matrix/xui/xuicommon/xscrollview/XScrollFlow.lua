@@ -1,4 +1,6 @@
-XScrollFlowHelper = {}
+local XScrollConfig = require("XUi/XUiCommon/XScrollView/XScrollConfig")
+local XScrollView = require("XUi/XUiBase/XScrollView")
+local XScrollFlowHelper = {}
 
 local EDGE_SCALE = 0.35
 
@@ -8,7 +10,7 @@ function XScrollFlowHelper.GetScrollFlow(uiName)
     return ScrollFlowList[uiName]
 end
 
-XScrollFlow = XClass(XScrollView, "XScrollFlow")
+local XScrollFlow = XClass(XScrollView, "XScrollFlow")
 
 function XScrollFlow:Ctor(rootUi, ui, scrollItems, paramsObj)
     self.paramsObj = paramsObj
@@ -91,3 +93,5 @@ function XScrollFlow:Evaluate(curveValue, transform)
 
     return position, alpha, scale
 end
+
+return XScrollFlow

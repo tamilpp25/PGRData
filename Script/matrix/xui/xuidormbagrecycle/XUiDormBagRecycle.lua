@@ -1,3 +1,4 @@
+local XUiBagItem = require("XUi/XUiBag/XUiBagItem")
 local XUiDormBagRecycle = XLuaUiManager.Register(XLuaUi, "UiDormBagRecycle")
 local XUiGridFurniture = require("XUi/XUiDormBag/XUiGridFurniture")
 

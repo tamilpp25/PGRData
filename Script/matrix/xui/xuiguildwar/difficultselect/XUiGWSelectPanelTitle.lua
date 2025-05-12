@@ -20,9 +20,21 @@ function XUiGWSelectPanelTitle:InitPanel()
 end
 
 function XUiGWSelectPanelTitle:ShowRemainTime()
+    local textId
+    if XDataCenter.GuildWarManager.CheckRoundIsInTime() then
+        textId = "GuildWarRoundLeftTime"
+    else
+        textId = "GuildWarRoundLeftTime2" 
+    end
+    local remainTime = XDataCenter.GuildWarManager.GetRoundLeftTime()
+    if remainTime <= 0 and XDataCenter.GuildWarManager.IsLastRound() then
+        remainTime = XDataCenter.GuildWarManager.GetActivityLeftTime()
+        textId = "GuildWarRoundLeftTime3"
+    end
+    
     self.TxtTime.text = XUiHelper.GetText(
-        "GuildWarRoundLeftTime",
-        XUiHelper.GetTime(XDataCenter.GuildWarManager.GetRoundLeftTime(), XUiHelper.TimeFormatType.ACTIVITY)
+        textId,
+        XUiHelper.GetTime(remainTime, XUiHelper.TimeFormatType.ACTIVITY)
     )
 end
 

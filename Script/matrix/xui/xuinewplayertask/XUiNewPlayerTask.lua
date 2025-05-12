@@ -1,17 +1,30 @@
+local XUiPanelNewbieActive = require("XUi/XUiNewPlayerTask/XUiPanelNewbieActive")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridNewbieTaskItem = require("XUi/XUiNewPlayerTask/XUiGridNewbieTaskItem")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiNewPlayerTask = XLuaUiManager.Register(XLuaUi, "UiNewPlayerTask")
 
 local ITEM_TASK_PROGRESS_ID = CS.XGame.ClientConfig:GetInt("NewPlayerTaskExpId")
 local FULL_PROGRESS = 0.9
+local SELF_ACTIVITY_BTN_ID = 2 -- ActivityBtn.tab
 
 function XUiNewPlayerTask:OnAwake()
     self:InitBottomView()
     self:InitDayTabView()
     self:InitNewbieTaskView()
 
+    self.MaskClickCount = 0
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-    self.BtnBack.CallBack = function() self:Close() end
-    self.BtnMainUi.CallBack = function() XLuaUiManager.RunMain() end
-    self.BtnSkipChat.CallBack = function() self:OnEndTalkClick() end
+    self.BtnBack.CallBack = function()
+        self:Close()
+    end
+    self.BtnMainUi.CallBack = function()
+        XLuaUiManager.RunMain()
+    end
+    self.BtnSkipChat.CallBack = function()
+        self:OnEndTalkClick()
+    end
 
     XDataCenter.ItemManager.AddCountUpdateListener(ITEM_TASK_PROGRESS_ID, function()
         self:RefreshBottomView()
@@ -35,14 +48,14 @@ function XUiNewPlayerTask:InitDayTabView()
     self.BtnsTabInfos = XTaskConfig.GetNewPlayerTaskGroupTemplate()
     self.BtnsDayTab = {}
     self.BtnsDayTab[1] = self.BtnNewbieTaskTab
-    self.BtnsDayTab[1].gameObject.name = string.format( "%s%d", tabName, 1 )
+    self.BtnsDayTab[1].gameObject.name = string.format("%s%d", tabName, 1)
     self:UpdateTaskListTag(self.BtnsDayTab[1], self.BtnsTabInfos[1].OpenDay)
 
-    for i=2, #self.BtnsTabInfos do
+    for i = 2, #self.BtnsTabInfos do
         local btnTab = self.BtnsDayTab[i]
         if not btnTab then
             local tabUi = CS.UnityEngine.Object.Instantiate(self.BtnNewbieTaskTab.gameObject)
-            tabUi.name = string.format( "%s%d", tabName, i )
+            tabUi.name = string.format("%s%d", tabName, i)
             tabUi.transform:SetParent(self.UiContent, false)
             btnTab = tabUi.transform:GetComponent("XUiButton")
             btnTab:SetName(CS.XTextManager.GetText("NewbieDayTab1", self.BtnsTabInfos[i].OpenDay))
@@ -52,7 +65,9 @@ function XUiNewPlayerTask:InitDayTabView()
         self:UpdateTaskListTag(btnTab, self.BtnsTabInfos[i].OpenDay)
     end
 
-    self.TabBtnGroup:Init(self.BtnsDayTab, function(index) self:OnBtnDaySelected(index) end)
+    self.TabBtnGroup:Init(self.BtnsDayTab, function(index)
+        self:OnBtnDaySelected(index)
+    end)
 end
 
 function XUiNewPlayerTask:UpdateTaskListTag(tab, openDay)
@@ -77,7 +92,7 @@ function XUiNewPlayerTask:InitBottomView()
     self.TotalCount = #newbieActiveness.Activeness
     self.MaxProgress = newbieActiveness.Activeness[self.TotalCount]
     self.ProgressStage = {}
-    for i=1, self.TotalCount do
+    for i = 1, self.TotalCount do
         self.ProgressStage[i] = newbieActiveness.Activeness[i]
     end
 
@@ -86,7 +101,7 @@ function XUiNewPlayerTask:InitBottomView()
     self.TemplateRect = self.PanelNewbieActive:GetComponent("RectTransform")
 
     self.TotalProgress[1] = XUiPanelNewbieActive.New(self.PanelNewbieActive.gameObject, self, 1, self.ProgressStage[1])
-    for i=2, #self.ProgressStage do
+    for i = 2, #self.ProgressStage do
         local progress = self.TotalProgress[i]
         if not progress then
             local ui = CS.UnityEngine.Object.Instantiate(self.PanelNewbieActive)
@@ -102,7 +117,7 @@ function XUiNewPlayerTask:UpdateNewbieActivePositions()
     -- 更新位置
     local totalWdith = self.ImgProgressRect.rect.size.x
     local activeWidthOffset = self.TemplateRect.rect.size.x / 2
-    for i=1, #self.ProgressStage do
+    for i = 1, #self.ProgressStage do
         local currProgress = self.ProgressStage[i] * 1.0 / self.MaxProgress * FULL_PROGRESS
         local progress = self.TotalProgress[i]
         if progress then
@@ -111,14 +126,13 @@ function XUiNewPlayerTask:UpdateNewbieActivePositions()
     end
 end
 
-
 function XUiNewPlayerTask:OnStart(selectIdx)
     self.OnStartState = true
     self.DefaultIdx = selectIdx
+    self:InitBtnTab()
     XEventManager.AddEventListener(XEventId.EVENT_TASK_SYNC, self.OnTaskChangeSync, self)
     XEventManager.AddEventListener(XEventId.EVENT_NEWBIETASK_DAYCHANGED, self.OnTaskChangeSync, self)
 end
-
 
 function XUiNewPlayerTask:OnEnable()
     local hintTab = XDataCenter.TaskManager.GetNewPlayerHint(XDataCenter.TaskManager.NewPlayerLastSelectTab, self.BtnsTabInfos[1].OpenDay)
@@ -131,25 +145,62 @@ function XUiNewPlayerTask:OnEnable()
     self:UpdateTabGroupStatus()
     self.TabBtnGroup:SelectIndex(hintTab)
 
-    -- 不是第一次播放了，可以直接播入場動畫
-    if self.OnStartState and hintTabFirstOpen == 1 then
+    -- 不是第一次播放或功能引导中，可以直接播入場動畫
+    if (XDataCenter.GuideManager.CheckIsInGuide()) or (self.OnStartState and hintTabFirstOpen == 1) then
         self:PlayAnimation("AnimEnableOpen", function()
             self.AnimEnableOpenDirector:Stop()
             XLuaUiManager.SetMask(false)
         end,
-        function()
-            XLuaUiManager.SetMask(true)
-        end)
+                function()
+                    XLuaUiManager.SetMask(true)
+                end)
     end
     self.OnStartState = false
 end
 
-
 function XUiNewPlayerTask:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_TASK_SYNC, self.OnTaskChangeSync, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_NEWBIETASK_DAYCHANGED, self.OnTaskChangeSync, self)
+    XDataCenter.ItemManager.RemoveCountUpdateListener(self.TxtCurProgress)
 end
 
+function XUiNewPlayerTask:InitBtnTab()
+    local newPlayerTaskCollection = XMVCA.XUiMain:GetNewPlayerTaskCollection()
+    for index, data in ipairs(newPlayerTaskCollection) do
+        local btnTab = self["BtnTab" .. index]
+        local bestRewardGrid = self["BtnTabBestReward" .. index]
+        local activityBtnId = data.ActivityBtnId
+        local activityBtnConfig = XMVCA.XUiMain:GetActivityBtnConfigById(activityBtnId)
+        if activityBtnId == SELF_ACTIVITY_BTN_ID then
+            btnTab:SetButtonState(XUiButtonState.Select)
+            btnTab.enabled = false
+            btnTab.gameObject:SetActiveEx(true)
+        else
+            local isShow = XMVCA.XUiMain:CheckActivityBtnShow(activityBtnConfig, true)
+            if isShow then
+                btnTab.CallBack = function()
+                    XFunctionManager.SkipInterface(activityBtnConfig.SkipId)
+                    self:Remove()
+                end
+                btnTab.gameObject:SetActiveEx(true)
+            else
+                btnTab.gameObject:SetActiveEx(false)
+            end
+        end
+        local bestRewardId = data.BestRewardId
+        if XTool.IsNumberValid(bestRewardId) then
+            local gridCommon = XUiGridCommon.New(self, bestRewardGrid)
+            gridCommon:Refresh(XRewardManager.GetRewardList(bestRewardId)[1])
+        end
+        local redPointConditions = {}
+        for _, redPointCondition in ipairs(activityBtnConfig.RedPointConditions) do
+            table.insert(redPointConditions, XRedPointConditions.Types[redPointCondition])
+        end
+        if not XTool.IsTableEmpty(redPointConditions) then
+            self:AddRedPointEvent(btnTab.ReddotObj, nil, self, redPointConditions)
+        end
+    end
+end
 
 function XUiNewPlayerTask:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
@@ -159,7 +210,7 @@ function XUiNewPlayerTask:OnDynamicTableEvent(event, index, grid)
         if data ~= nil then
             grid:OnRefreshDatas(data)
         end
-    -- elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
+        -- elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
     end
 end
 
@@ -174,7 +225,7 @@ function XUiNewPlayerTask:RefreshBottomView()
     local currentProgress = taskProgressCount * 1.0 / maxProgress * FULL_PROGRESS
     self.ImgProgress.fillAmount = (currentProgress > FULL_PROGRESS) and 1 or currentProgress
 
-    for i=1, #self.TotalProgress do
+    for i = 1, #self.TotalProgress do
         self.TotalProgress[i]:UpdateNewbieActiveView(taskProgressCount, maxProgress)
     end
     -- 更新
@@ -184,10 +235,13 @@ end
 -- [更新左边立绘信息]
 function XUiNewPlayerTask:RefreshLeftView(day)
     local talkConfig = XDataCenter.TaskManager.GetNewPlayerTaskTalkConfig(day)
-    if not talkConfig then return end
+    if not talkConfig then
+        return
+    end
 
     self.RImgTabBoard:SetRawImage(talkConfig.RoleHalfIcon)
-    self.TxtBoardName.text = XCharacterConfigs.GetCharacterName(talkConfig.ShowCharId)
+    self.TxtBoardName.text = XMVCA.XCharacter:GetCharacterName(talkConfig.ShowCharId)
+    self.TxtEngName.text = XMVCA.XCharacter:GetCharacterEnName(talkConfig.ShowCharId)
     self.TxtBoardPinyin.text = talkConfig.SpellName
 end
 
@@ -195,7 +249,9 @@ end
 -- [刷新第几天的任务列表]
 function XUiNewPlayerTask:RefreshNewbieTaskView(group)
     local curNewbieTask = XDataCenter.TaskManager.GetNewPlayerTaskListByGroup(group)
-    if curNewbieTask == nil then return end
+    if curNewbieTask == nil then
+        return
+    end
     self.CurrentNewbieTasks = {}
     for _, v in pairs(curNewbieTask) do
         local stateTask = XDataCenter.TaskManager.GetTaskDataById(v)
@@ -214,13 +270,15 @@ function XUiNewPlayerTask:RefreshNewbieTaskView(group)
 end
 
 function XUiNewPlayerTask:IsCurrentLock(day)
-    if XPlayer.NewPlayerTaskActiveDay == nil then return true end
+    if XPlayer.NewPlayerTaskActiveDay == nil then
+        return true
+    end
 
     return day > XPlayer.NewPlayerTaskActiveDay
 end
 
 function XUiNewPlayerTask:UpdateTabGroupStatus()
-    for i=1, #self.BtnsDayTab do
+    for i = 1, #self.BtnsDayTab do
         if self:IsCurrentLock(self.BtnsTabInfos[i].OpenDay) then
             self.BtnsDayTab[i]:SetButtonState(CS.UiButtonState.Disable)
             self.BtnsDayTab[i]:ShowReddot(false)
@@ -257,7 +315,7 @@ function XUiNewPlayerTask:OnBtnDaySelected(day)
         local hintFirstOpenTab = string.format("%s%d", XDataCenter.TaskManager.NewPLayerTaskFirstTalk, day)
         local isFirstOpen = XDataCenter.TaskManager.GetNewPlayerHint(hintFirstOpenTab, 0)
 
-        if isFirstOpen == 1 then
+        if isFirstOpen == 1 or XDataCenter.GuideManager.CheckIsInGuide() then
             self.AnimQieHuan:PlayTimelineAnimation(function()
                 self:UpdateNewbieActivePositions()
             end)
@@ -281,7 +339,9 @@ function XUiNewPlayerTask:OnBtnDaySelected(day)
 end
 
 function XUiNewPlayerTask:OnEndTalkClick()
-    if self.MaskClickCount and self.MaskClickCount >= 1 then return end
+    if self.MaskClickCount and self.MaskClickCount >= 1 then
+        return
+    end
     self.PanelRightCanvas.alpha = 1
     self.PanelContent.gameObject:SetActive(true)
     self.EndTalkEnable:PlayTimelineAnimation(function()
@@ -290,4 +350,17 @@ function XUiNewPlayerTask:OnEndTalkClick()
     end)
     self:UpdateNewbieActivePositions()
     self.MaskClickCount = self.MaskClickCount + 1
+end
+
+function XUiNewPlayerTask:CheckRewardReceiveStatus()
+    if not XDataCenter.TaskManager.CheckNewbieTaskAvailable() then
+        -- 当所有任务都完成时
+        local skipId = XMVCA.XUiMain:GetFirstCanSkipNewPlayerTaskCollectionSKipId()
+        if XTool.IsNumberValid(skipId) then
+            XFunctionManager.SkipInterface(skipId)
+            self:Remove()
+        else
+            self:Close()
+        end
+    end
 end

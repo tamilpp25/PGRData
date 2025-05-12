@@ -21,12 +21,13 @@ XCoupletGameManagerCreator = function()
         local activityId = data.ActivityId
         ActivityInfo = XCoupletGameConfigs.GetCoupletBaseActivityById(activityId)
         CoupletsDataByServer = {}
-        for _, coupletData in ipairs(data.WordList) do
+        for _, coupletData in ipairs(data.WordList or {}) do
             CoupletsDataByServer[coupletData.CoupletId] = coupletData
         end
-        CurrentCoupletId = CoupletsDataByServer[#CoupletsDataByServer].CoupletId
-
-        CurrentCoupletIndex = XCoupletGameManager.GetCoupletIndexById(CurrentCoupletId)
+        if not XTool.IsTableEmpty(CoupletsDataByServer) then
+            CurrentCoupletId = CoupletsDataByServer[#CoupletsDataByServer].CoupletId
+            CurrentCoupletIndex = XCoupletGameManager.GetCoupletIndexById(CurrentCoupletId)
+        end
     end
 
     function XCoupletGameManager.CheckHasServerData()

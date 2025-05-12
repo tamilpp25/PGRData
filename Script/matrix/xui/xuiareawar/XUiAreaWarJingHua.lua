@@ -2,8 +2,10 @@ local XUiGridAreaWarPlugin = require("XUi/XUiAreaWar/XUiGridAreaWarPlugin")
 
 local XUiAreaWarJingHua = XLuaUiManager.Register(XLuaUi, "UiAreaWarJingHua")
 
+--===========================================================================
+--region 生命周期
+--===========================================================================
 function XUiAreaWarJingHua:OnAwake()
-    self.BtnExpand.gameObject:SetActiveEx(true)
     self.GridBuff.gameObject:SetActiveEx(false)
     self:AutoAddListener()
 end
@@ -23,9 +25,87 @@ function XUiAreaWarJingHua:OnEnable()
     end
 
     self:UpdatePurificationLevel()
-    self:UpdatePluginSlots()
     self:UpdatePlugins()
     self.UiInited = true
+end
+--==========================================================================
+--endregion
+--==========================================================================
+
+--==========================================================================
+--region 初始化
+--==========================================================================
+
+function XUiAreaWarJingHua:AutoAddListener()
+    self:BindHelpBtn(self.BtnHelp, "AreaWarJingHua")
+    self.BtnBack.CallBack = function()
+        self:Close()
+    end
+    self.BtnMainUi.CallBack = function()
+        XLuaUiManager.RunMain()
+    end
+end
+
+--==========================================================================
+--endregion
+--==========================================================================
+
+--==========================================================================
+--region 数据更新
+--==========================================================================
+
+--更新插件列表
+function XUiAreaWarJingHua:UpdatePlugins()
+    local pluginIds = XAreaWarConfigs.GetAllPluginIds()
+    local isFirst=true
+    local pluginCount=#pluginIds
+    for index, pluginId in ipairs(pluginIds) do
+        local grid = self.BuffGrids[index]
+        if not grid then
+            local go = index == 1 and self.GridBuff or CSObjectInstantiate(self.GridBuff, self.BuffListContent)
+            local clickCb = handler(self, self.OnClickPlugin)
+            grid = XUiGridAreaWarPlugin.New(go, clickCb)
+            self.BuffGrids[index] = grid
+        end
+        grid:Refresh(pluginId,isFirst,index==pluginCount)
+        grid.GameObject:SetActiveEx(true)
+        isFirst=false
+    end
+    for index = #pluginIds + 1, #self.BuffGrids do
+        self.BuffGrids[index].GameObject:SetActiveEx(false)
+    end
+end
+
+--更新增幅等级
+function XUiAreaWarJingHua:UpdatePurificationLevel()
+    local level = XDataCenter.AreaWarManager.GetSelfPurificationLevel()
+    local curExp = XDataCenter.AreaWarManager.GetSelfPurificationExp()
+    local maxExp = XAreaWarConfigs.GetPfLevelNextLevelExp(level)
+
+    --属性
+    local addAttrs = XAreaWarConfigs.GetPfLevelAddAttrs(level)
+    for index, attr in ipairs(addAttrs) do
+        self["TxtAttr" .. index].text = attr
+    end
+end
+
+--==========================================================================
+--endregion
+--==========================================================================
+
+--==========================================================================
+--region 事件处理
+--==========================================================================
+
+function XUiAreaWarJingHua:OnClickPlugin(pluginId)
+    local canUnlock = XDataCenter.AreaWarManager.IsPluginCanUnlock(pluginId) --可解锁
+    if canUnlock then
+        --待解锁时点击则请求解锁
+        XDataCenter.AreaWarManager.AreaWarUnlockPurificationBuffRequest(pluginId)
+    else
+        --未解锁或者已解锁则看效果
+        XLuaUiManager.Open("UiAreaWarJingHuaUp", pluginId, 1)
+    end
 end
 
 function XUiAreaWarJingHua:OnGetEvents()
@@ -60,149 +140,12 @@ function XUiAreaWarJingHua:OnNotify(evt, ...)
     end
 end
 
-function XUiAreaWarJingHua:AutoAddListener()
-    self:BindHelpBtn(self.BtnHelp, "AreaWarJingHua")
-    self.BtnBack.CallBack = function()
-        self:Close()
-    end
-    self.BtnMainUi.CallBack = function()
-        XLuaUiManager.RunMain()
-    end
-    self.BtnExpand.CallBack = function()
-        self:OnClickBtnExpand()
-    end
-    for slot = 1, XAreaWarConfigs.PluginSlotCount do
-        self["BtnBuff" .. slot].CallBack = function()
-            self:OnClickSlot(slot)
-        end
-    end
-end
+--==========================================================================
+--endregion
+--==========================================================================
 
-function XUiAreaWarJingHua:UpdatePurificationLevel()
-    local level = XDataCenter.AreaWarManager.GetSelfPurificationLevel()
-    local curExp = XDataCenter.AreaWarManager.GetSelfPurificationExp()
-    local maxExp = XAreaWarConfigs.GetPfLevelNextLevelExp(level)
 
-    if not XTool.IsNumberValid(maxExp) then
-        --满级
-        self.TxtExp.text = CSXTextManagerGetText("AreaWarAreaPurificationLevelMax")
-        self.ImgProgressFillAmount.fillAmount = 1
-    else
-        self.TxtExp.text = curExp .. "/" .. maxExp
-        self.ImgProgressFillAmount.fillAmount = curExp / maxExp
-    end
-    self.TxtLevel.text = level
 
-    --属性
-    local addAttrs = XAreaWarConfigs.GetPfLevelAddAttrs(level)
-    for index, attr in ipairs(addAttrs) do
-        self["TxtAttr" .. index].text = attr
-    end
-end
 
---更新插件槽
-function XUiAreaWarJingHua:UpdatePluginSlots()
-    for slot = 1, XAreaWarConfigs.PluginSlotCount do
-        local btn = self["BtnBuff" .. slot]
 
-        local isUnlock = XDataCenter.AreaWarManager.IsPluginSlotUnlock(slot)
-        btn:SetDisable(not isUnlock)
 
-        local grid = self.BtnGrids[slot]
-        if not grid then
-            grid = XTool.InitUiObjectByUi({}, btn)
-            self.BtnGrids[slot] = grid
-        end
-
-        local isEmpty = XDataCenter.AreaWarManager.IsPluginSlotEmpty(slot)
-        if not isEmpty then
-            local pluginId = XDataCenter.AreaWarManager.GetSlotPluginId(slot)
-            grid.RImgBuff:SetRawImage(XAreaWarConfigs.GetBuffIcon(pluginId))
-        end
-        grid.PanelEmpty.gameObject:SetActiveEx(isEmpty)
-        grid.PanelNormal.gameObject:SetActiveEx(not isEmpty)
-    end
-end
-
---更新插件列表
-function XUiAreaWarJingHua:UpdatePlugins()
-    local pluginIds = XAreaWarConfigs.GetAllPluginIds()
-    for index, pluginId in ipairs(pluginIds) do
-        local grid = self.BuffGrids[index]
-        if not grid then
-            local go = index == 1 and self.GridBuff or CSObjectInstantiate(self.GridBuff, self.BuffListContent)
-            local clickCb = handler(self, self.OnClickPlugin)
-            grid = XUiGridAreaWarPlugin.New(go, clickCb)
-            self.BuffGrids[index] = grid
-        end
-        grid:Refresh(pluginId)
-        grid.GameObject:SetActiveEx(true)
-    end
-    for index = #pluginIds + 1, #self.BuffGrids do
-        self.BuffGrids[index].GameObject:SetActiveEx(false)
-    end
-end
-
---装备插件时的特效
-function XUiAreaWarJingHua:ShowBtnEffect(slot)
-    local btn = self["BtnBuff" .. slot]
-    btn:ShowTag(false)
-    btn:ShowTag(true)
-end
-
---展开动画
-function XUiAreaWarJingHua:OnClickBtnExpand()
-    if not self.UiInited then
-        return
-    end
-
-    local asynPlayAnimation = asynTask(self.PlayAnimationWithMask, self)
-    RunAsyn(
-        function()
-            --展开动画只生效一次
-            self.BtnExpand.gameObject:SetActiveEx(false)
-            --格子同时播放展开动画
-            for _, grid in pairs(self.BuffGrids) do
-                grid:PlayExpandAnim()
-            end
-            --UI旋转动画
-            asynPlayAnimation("PanelQuanRotate")
-            --UI循环动画
-            self:PlayAnimation("PanelQuanLoop")
-        end
-    )
-end
-
-function XUiAreaWarJingHua:OnClickSlot(slot)
-    local isUnlock = XDataCenter.AreaWarManager.IsPluginSlotUnlock(slot)
-    if not isUnlock then
-        local unlockLevel = XAreaWarConfigs.GetUnlockSlotPfLevel(slot)
-        local msg = CsXTextManagerGetText("AreaWarAreaUnlockSlotPurificationLevel", unlockLevel)
-        XUiManager.TipMsg(msg)
-        return
-    end
-
-    local isEmpty = XDataCenter.AreaWarManager.IsPluginSlotEmpty(slot)
-    if isEmpty then
-        --可用插件格子播放提示动画
-        for _, grid in pairs(self.BuffGrids) do
-            grid:PlayCanUseAnim()
-        end
-        XUiManager.TipText("AreaWarAreaSlotEmpty")
-        return
-    end
-
-    local pluginId = XDataCenter.AreaWarManager.GetSlotPluginId(slot)
-    XLuaUiManager.Open("UiAreaWarJingHuaUp", pluginId, slot, 2)
-end
-
-function XUiAreaWarJingHua:OnClickPlugin(pluginId)
-    local canUnlock = XDataCenter.AreaWarManager.IsPluginCanUnlock(pluginId) --可解锁
-    if canUnlock then
-        --待解锁
-        XDataCenter.AreaWarManager.AreaWarUnlockPurificationBuffRequest(pluginId)
-    else
-        local slot = XDataCenter.AreaWarManager.GetNextEmptyPluginSlot()
-        XLuaUiManager.Open("UiAreaWarJingHuaUp", pluginId, slot, 1)
-    end
-end

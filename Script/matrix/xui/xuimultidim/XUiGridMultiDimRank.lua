@@ -51,7 +51,7 @@ function XUiGridMultiDimRank:Refresh(rankType, rankInfo)
             txtPlayerName.text = info.Name
             captainTrans.gameObject:SetActiveEx(info.IsCaptain == 1)
             -- 头像
-            XUiPLayerHead.InitPortrait(info.HeadPortraitId, info.HeadFrameId, head)
+            XUiPlayerHead.InitPortrait(info.HeadPortraitId, info.HeadFrameId, head)
             XUiHelper.RegisterClickEvent(self, btnHead, function()
                 if not XTool.IsNumberValid(info.PlayerId) or info.PlayerId == XPlayer.Id then
                     return
@@ -61,7 +61,7 @@ function XUiGridMultiDimRank:Refresh(rankType, rankInfo)
         else
             txtPlayerName.gameObject:SetActiveEx(false)
             captainTrans.gameObject:SetActiveEx(false)
-            XUiPLayerHead.Hide(head)
+            XUiPlayerHead.Hide(head)
         end
     end
     -- 玩家使用的角色头像（只有个人排行有）
@@ -98,7 +98,7 @@ end
 
 function XUiGridMultiDimRank:GetSmallHeadIcon(roleId)
     if roleId > 0 then
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(roleId, true)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(roleId, true)
     end
     return nil
 end

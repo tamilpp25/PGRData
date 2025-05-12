@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XChessPursuitModel = require("XUi/XUiChessPursuit/XScene/XChessPursuitModel")
 local XChessPursuitCube = XClass(XChessPursuitModel, "XChessPursuitCube")
 

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 
 local XUiSuperSmashBrosBalanceTips =XLuaUiManager.Register(XLuaUi, "UiSuperSmashBrosBalanceTips")
 

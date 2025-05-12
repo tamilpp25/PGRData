@@ -2,24 +2,30 @@ local XUiTaikoMasterStageGrid = require("XUi/XUiTaikoMaster/XUiTaikoMasterStageG
 local XUiTaikoMasterCdDetail = require("XUi/XUiTaikoMaster/XUiTaikoMasterCdDetail")
 local MathLerp = CS.UnityEngine.Mathf.Lerp
 
----@class XUiTaikoMasterCdList@ 没考虑复用
-local XUiTaikoMasterCdList = XClass(nil, "XUiTaikoMasterCdList")
+---@class XUiTaikoMasterCdList : XUiNode @ 没考虑复用
+---@field _Control XTaikoMasterControl
+local XUiTaikoMasterCdList = XClass(XUiNode, "XUiTaikoMasterCdList")
 
-function XUiTaikoMasterCdList:Ctor(ui)
+function XUiTaikoMasterCdList:OnStart()
+    self:InitData()
+    self:Init()
+end
+
+function XUiTaikoMasterCdList:InitData()
     self._SelectedIndex = false
     self._SongArray = false
     -- 用于打开界面时选中关卡
     self._StageIdOnceSelected = false
 
-    self.ScrollRect = ui.PanelAllCds
-    self.ScrollPanel = ui.PanelCdZu
-    self.Grid = ui.GridCdMessage
+    self.ScrollRect = self.PanelAllCds
+    self.ScrollPanel = self.PanelCdZu
+    self.Grid = self.GridCdMessage
     self.Grid.gameObject:SetActiveEx(false)
     ---@type XUiTaikoMasterCdDetail
-    self.CdDetail = XUiTaikoMasterCdDetail.New(ui.PanelCdDaily)
+    self.CdDetail = XUiTaikoMasterCdDetail.New(self.PanelCdDaily, self)
 
-    self.PanelMusic = ui.PanelMusic
-    self.Viewport = ui.Viewport
+    self.PanelMusic = self.PanelMusic
+    self.Viewport = self.Viewport
 
     ---@type XUiTaikoMasterStageGrid[]
     self._GridArray = {}
@@ -34,15 +40,14 @@ function XUiTaikoMasterCdList:Ctor(ui)
     self._DoMoveTimer = {}
     self._IsSetMask = false
     self._IsScrolling = false
-
-    self:Init()
 end
 
 function XUiTaikoMasterCdList:Init()
-    self.CdDetail:SetActiveEx(false)
+    local usData = self._Control:GetUiData()
+    self.CdDetail:Close()
     self.PanelMusic.gameObject:SetActiveEx(false)
     self:RegisterOnDrag()
-    self:SetDataSource(XDataCenter.TaikoMasterManager.GetSongArray())
+    self:SetDataSource(usData.SongIdList)
 end
 
 function XUiTaikoMasterCdList:OnEnable(hasSelectSong)
@@ -130,14 +135,14 @@ function XUiTaikoMasterCdList:RefreshGridVisible()
         end
         usedGridIndex = usedGridIndex + 1
         local grid = self:GetGrid(usedGridIndex)
-        grid:SetActive(true)
+        grid:Open()
         if self:RefreshGrid(grid, index) then
             self:SetPosIndex(grid, index)
         end
     end
     for i = usedGridIndex + 1, #self._GridArray do
         local grid = self._GridArray[i]
-        grid:SetActive(false)
+        grid:Close()
     end
 end
 
@@ -166,8 +171,8 @@ function XUiTaikoMasterCdList:GetGrid(index)
     local grid = self._GridArray[index]
     if not grid then
         local uiGrid = CS.UnityEngine.Object.Instantiate(self.Grid, self.Grid.transform.parent)
-        grid = XUiTaikoMasterStageGrid.New(uiGrid)
-        grid:SetActive(true)
+        grid = XUiTaikoMasterStageGrid.New(uiGrid, self)
+        grid:Open()
         self._GridArray[index] = grid
     end
     return grid
@@ -195,7 +200,7 @@ function XUiTaikoMasterCdList:OnValueChanged()
     self:RefreshGridVisible()
 end
 
-function XUiTaikoMasterCdList:GetSelectedSong()
+function XUiTaikoMasterCdList:GetSelectedSongId()
     return self._SongArray[self._SelectedIndex]
 end
 
@@ -207,9 +212,9 @@ function XUiTaikoMasterCdList:RefreshGrid(grid, index)
     end
     local isDirty = grid:Refresh(gridSongId, self._SelectedIndex, index)
     if self._StageIdOnceSelected then
-        local songId = XTaikoMasterConfigs.GetSongIdByStageId(self._StageIdOnceSelected)
+        local songId = self._Control:GetSongIdByStageId(self._StageIdOnceSelected)
         if songId == gridSongId then
-            self.CdDetail:SetDifficulty(XTaikoMasterConfigs.GetDifficulty(self._StageIdOnceSelected))
+            self.CdDetail:SetDifficulty(self._Control:GetDifficulty(self._StageIdOnceSelected))
             self._StageIdOnceSelected = false
         end
     end
@@ -221,7 +226,7 @@ function XUiTaikoMasterCdList:GetSongId(index)
 end
 
 function XUiTaikoMasterCdList:SelectStage(stageId)
-    if self:SelectSong(XTaikoMasterConfigs.GetSongIdByStageId(stageId)) then
+    if self:SelectSong(self._Control:GetSongIdByStageId(stageId)) then
         self._StageIdOnceSelected = stageId
     end
 end
@@ -250,11 +255,15 @@ function XUiTaikoMasterCdList:Select(index)
     self._SelectedIndex = index
     if index then
         local songId = self:GetSongId(index)
-        XDataCenter.TaikoMasterManager.PlaySong(songId)
+        self._Control:PlaySong(songId)
         self._SelectedGridWidth = self.CdDetail:GetRectTransform().rect.width
         self:SetGridPosDirty()
         self.CdDetail:Refresh(songId)
-        self.CdDetail:SetActiveEx(true)
+        if self.CdDetail:IsNodeShow() then
+            self.CdDetail:OnEnable()
+        else
+            self.CdDetail:Open()
+        end
         self.CdDetail:PlayEnableAnimation()
         self.PanelMusic.gameObject:SetActiveEx(true)
         self:RefreshPosArray()
@@ -268,7 +277,7 @@ function XUiTaikoMasterCdList:Select(index)
         self.ScrollRect.horizontal = true
         self._SelectedGridWidth = self._GridWidth
         self:SetGridPosDirty()
-        self.CdDetail:SetActiveEx(false)
+        self.CdDetail:Close()
         self.PanelMusic.gameObject:SetActiveEx(false)
         if self:PrepareForGridMove(oldSelectedIndex) then
             if not self:PlayGridMove(oldSelectedIndex, false) then
@@ -277,7 +286,7 @@ function XUiTaikoMasterCdList:Select(index)
         else
             self:RefreshPosArray()
         end
-        XDataCenter.TaikoMasterManager.PlayDefaultBgm()
+        self._Control:PlayDefaultBgm()
     end
 end
 
@@ -360,11 +369,11 @@ function XUiTaikoMasterCdList:PrepareForGridMove(selectedIndex)
     for gridIndex = selectedGridIndex + 1, #self._GridArray do
         local grid = self._GridArray[gridIndex]
         songIndex = songIndex + 1
-        if not grid:IsActive() then
+        if not grid:IsNodeShow() then
             local curPosX = curPosArray[songIndex]
             if curPosX and curPosX < scrollRectRightX then
                 self:RefreshGrid(grid, songIndex)
-                grid:SetActive(true)
+                grid:Open()
                 self:SetPosIndex(grid, songIndex, oldPosArray[songIndex])
             end
         end
@@ -381,11 +390,15 @@ function XUiTaikoMasterCdList:PlayGridMove(selectedSongIndex, unfold)
     if not selectedGrid then
         return false
     end
-    selectedGrid:SetActive(not unfold)
+    if unfold then
+        selectedGrid:Close()
+    else
+        selectedGrid:Open()
+    end
     local movingGridAmount = 0
     for gridIndex = selectedGridIndex + 1, #self._GridArray do
         local grid = self._GridArray[gridIndex]
-        if grid:IsActive() then
+        if grid:IsNodeShow() then
             local rectTransform = grid:GetRectTransform()
             movingGridAmount = movingGridAmount + 1
             local startPos = rectTransform.offsetMin.x
@@ -437,7 +450,7 @@ end
 function XUiTaikoMasterCdList:CheckRedPointSongUnlock(songId)
     for i = 1, #self._GridArray do
         local grid = self._GridArray[i]
-        if grid:IsActive() and grid:GetSongId() == songId then
+        if grid:IsNodeShow() and grid:GetSongId() == songId then
             grid:CheckRedPointCdUnlock()
             return
         end

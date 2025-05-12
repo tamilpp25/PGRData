@@ -7,8 +7,10 @@ end
 function XUiReformBuffDetail:OnStart(data)
     self.TxtName.text = data.Name
     self.RImgIcon:SetRawImage(data.Icon)
-    self.TxtStarCount.text = data.StarCount
-    self.TxtDescription.text = data.Description
+    --self.TxtStarCount.text = data.StarCount
+    self.TxtStarCount.transform.parent.gameObject:SetActiveEx(false)
+    local desc = data.Description
+    self.TxtDescription.text = string.gsub(desc, "\\n", "\n")
 end
 
 --######################## 私有方法 ########################

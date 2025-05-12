@@ -5,28 +5,13 @@ local XUiAchvSysPanelBtn = {}
 
 local TempPanel
 
-local function InitBtnStory()
-    local btn = TempPanel.BtnStory
-    if not btn then return end
-    local reviewShowed = XDataCenter.ReviewActivityManager.GetReviewIsShown()
-    if not reviewShowed then
-        btn.gameObject:SetActiveEx(false)
-        return
-    end
-    btn.CallBack = function()
-        XDataCenter.ReviewActivityManager.GetReviewData(function()
-                XLuaUiManager.Open("UiReviewActivity2Anniversary")
-            end)
-    end
-end
-
 local function InitBtnMedal()
     local btn = TempPanel.BtnMedal
     if not btn then return end
     btn:ShowReddot(XDataCenter.MedalManager.CheckHaveNewMedalByType(XMedalConfigs.ViewType.Medal))
     btn.CallBack = function()
         if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Medal) then
-            XLuaUiManager.Open("UiAchievementMedal")
+            XLuaUiManager.Open('UiPlayerPersonalizedSetting', XHeadPortraitConfigs.HeadType.Medal)
         end
     end
 end
@@ -48,14 +33,13 @@ local function InitBtnNameplate()
     btn:ShowReddot(XDataCenter.MedalManager.CkeckHaveNewNameplate())
     btn.CallBack = function()
         if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Nameplate) then
-            XLuaUiManager.Open("UiAchievementNameplate")
+            XLuaUiManager.Open('UiPlayerPersonalizedSetting', XHeadPortraitConfigs.HeadType.Nameplate)
         end
     end
 end
 
 local function InitButtons()
     if not TempPanel then return end
-    InitBtnStory()
     InitBtnMedal()
     InitBtnCollection()
     InitBtnNameplate()
@@ -65,13 +49,29 @@ local function Clear()
     TempPanel = nil
 end
 
+local function RefreshBtnMedalReddot()
+    local btn = TempPanel.BtnMedal
+    if not btn then return end
+    btn:ShowReddot(XDataCenter.MedalManager.CheckHaveNewMedalByType(XMedalConfigs.ViewType.Medal))
+end
+
+local function RefreshBtnNameplateReddot()
+    local btn = TempPanel.BtnNameplate
+    if not btn then return end
+    btn:ShowReddot(XDataCenter.MedalManager.CkeckHaveNewNameplate())
+end
+
 XUiAchvSysPanelBtn.OnEnable = function(uiAchvSys)
     TempPanel = {}
     XTool.InitUiObjectByUi(TempPanel, uiAchvSys.PanelBtn)
     InitButtons()
+    XEventManager.AddEventListener(XEventId.EVENT_MEDAL_REDPOINT_CHANGE, RefreshBtnMedalReddot)
+    XEventManager.AddEventListener(XEventId.EVENT_NAMEPLATE_CHANGE, RefreshBtnNameplateReddot)
 end
 
 XUiAchvSysPanelBtn.OnDisable = function()
+    XEventManager.RemoveEventListener(XEventId.EVENT_MEDAL_REDPOINT_CHANGE, RefreshBtnMedalReddot)
+    XEventManager.RemoveEventListener(XEventId.EVENT_NAMEPLATE_CHANGE, RefreshBtnNameplateReddot)
     Clear()
 end
 

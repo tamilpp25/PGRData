@@ -10,7 +10,7 @@ function XRedPointConditionArchiveMonsterSkill.GetSubEvents()
 end
 
 function XRedPointConditionArchiveMonsterSkill.Check(monsterId)
-    return XDataCenter.ArchiveManager.IsHaveNewMonsterSkillByNpcId(monsterId)
+    return XMVCA.XArchive:IsHaveNewMonsterSkillByNpcId(monsterId)
 end
 
 return XRedPointConditionArchiveMonsterSkill

@@ -1,3 +1,4 @@
+local XDynamicTableCurve = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableCurve")
 local XUiPokemonMain = XLuaUiManager.Register(XLuaUi, "UiPokemonMain")
 local XUiGridPokemonStagePage = require("XUi/XUiPokemon/XUiGridPokemonStagePage")
 local XUiGridPokemonStage = require("XUi/XUiPokemon/XUiGridPokemonStage")

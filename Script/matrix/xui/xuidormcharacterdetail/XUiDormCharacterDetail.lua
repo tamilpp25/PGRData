@@ -1,20 +1,19 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiGridDetailDormCharacter = require("XUi/XUiDormCharacterDetail/XUiGridDetailDormCharacter")
 local XUiDormCharacterDetail = XLuaUiManager.Register(XLuaUi, "UiDormCharacterDetail")
 
 function XUiDormCharacterDetail:OnAwake()
     self:AddListener()
 
-    CS.XGlobalIllumination.SetSceneType(CS.XSceneType.Ui)
+    --这里处理一下场景类型
+    XUiHelper.SetSceneType(CS.XSceneType.Ui)
 
     XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_MOOD_CHANGED, self.UpdateMoodInfo, self)
     XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_VITALITY_CHANGED, self.UpdateVitalityInfo, self)
-
-    --这里处理一下场景类型
 end
 
 function XUiDormCharacterDetail:OnDisable()
     XHomeDormManager.ShowOrHideBuilding(true)
-    CS.XGlobalIllumination.SetSceneType(CS.XSceneType.Dormitory)
 end
 
 
@@ -29,6 +28,7 @@ function XUiDormCharacterDetail:OnDestroy()
     if self.Model then
         CS.UnityEngine.Object.Destroy(self.Model)
     end
+    XUiHelper.SetSceneType(CS.XSceneType.Dormitory)
 end
 
 function XUiDormCharacterDetail:OnStart(characterId, fromDorm)
@@ -90,17 +90,30 @@ function XUiDormCharacterDetail:InitStyleInfo()
     for i = 1, #charStyleConfig.LikeCharIds do
         local grid = CS.UnityEngine.Object.Instantiate(self.GridHostelCharacter)
         local gridDormCharacter = XUiGridDetailDormCharacter.New(grid)
-        gridDormCharacter:Refresh(charStyleConfig.LikeCharIds[i], true)
-        grid.transform:SetParent(self.PanelLikeConent, false)
+        gridDormCharacter:Refresh(charStyleConfig.LikeCharIds[i], true, false)
+        grid.transform:SetParent(self.PanelLikeContent, false)
         gridDormCharacter.GameObject:SetActive(true)
     end
 
     for i = 1, #charStyleConfig.HateCharIds do
         local grid = CS.UnityEngine.Object.Instantiate(self.GridHostelCharacter)
         local gridDormCharacter = XUiGridDetailDormCharacter.New(grid)
-        gridDormCharacter:Refresh(charStyleConfig.HateCharIds[i], false)
-        grid.transform:SetParent(self.PanelHateConent, false)
+        gridDormCharacter:Refresh(charStyleConfig.HateCharIds[i], false, false)
+        grid.transform:SetParent(self.PanelHateContent, false)
         gridDormCharacter.GameObject:SetActive(true)
+    end
+
+    if XTool.IsTableEmpty(charStyleConfig.LikePetIds) then
+        self.PanelRelationLikePet.gameObject:SetActiveEx(false)
+    else
+        self.PanelRelationLikePet.gameObject:SetActiveEx(true)
+        for _, petId in ipairs(charStyleConfig.LikePetIds) do
+            local grid = CS.UnityEngine.Object.Instantiate(self.GridHostelCharacter)
+            local gridDormPet = XUiGridDetailDormCharacter.New(grid)
+            gridDormPet:Refresh(petId, true, true)
+            grid.transform:SetParent(self.PanelLikePetContent, false)
+            gridDormPet.GameObject:SetActive(true)
+        end
     end
 end
 
@@ -114,6 +127,7 @@ function XUiDormCharacterDetail:InitModelInfo()
     self.Model.transform:SetParent(target, false)
     self.Model.gameObject:SetLayerRecursively(target.gameObject.layer)
     self.PanelDrag.Target = self.Model.transform
+    CS.XShadowHelper.AddShadow(self.Model, true)
 
     local animator = self.Model:GetComponent("Animator")
     animator:SetInteger("State", 1)

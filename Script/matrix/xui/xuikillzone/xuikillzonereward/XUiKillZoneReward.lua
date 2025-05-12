@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridReward = require("XUi/XUiKillZone/XUiKillZoneReward/XUiGridReward")
 
 local CsXTextManagerGetText = CsXTextManagerGetText

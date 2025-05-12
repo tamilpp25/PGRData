@@ -1,3 +1,4 @@
+---@class XUiGridInfoSupportCondition
 local XUiGridInfoSupportCondition = XClass(nil, "XUiGridInfoSupportCondition")
 
 function XUiGridInfoSupportCondition:Ctor(ui)
@@ -7,6 +8,7 @@ function XUiGridInfoSupportCondition:Ctor(ui)
     XTool.InitUiObject(self)
 end
 
+---@param uiRoot XUiPanelBabelTowerRoom
 function XUiGridInfoSupportCondition:Init(uiRoot)
     self.UiRoot = uiRoot
 end

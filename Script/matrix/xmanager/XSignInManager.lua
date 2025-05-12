@@ -2,13 +2,13 @@ XSignInManagerCreator = function()
     local XSignInManager = {}
 
     local SignInData = {}                   -- 签到数据
-    local SignInRequest = {SignInRequest = "SignInRequest", NewYearDivining = "DailyLotteryRequest"} -- 签到请求
+    local SignInRequest = {SignInRequest = "SignInRequest"} -- 签到请求
     local NotifySignIn = false     -- 是否打出服务器推送签到
-    local IsTotalDivining = false  --今天是不是已经占卜过了
-    local DiviningId
-    local DiviningRecords = {}
-    local DiviningRewards = {}
 
+    function XSignInManager.Init()
+        XEventManager.AddEventListener(XEventId.EVENT_WEEK_CARD_DATA_NOTIFY, XSignInManager.OnWeekCardDataNotify)
+    end
+    
     -- 推送初始化数据
     function XSignInManager.InitData(data)
         if not data then
@@ -45,10 +45,8 @@ XSignInManagerCreator = function()
             return signData.Round
         end
 
-        if cfg.Type == XSignInConfigs.SignType.Activity
-                or cfg.Type == XSignInConfigs.SignType.PurchasePackage then
-            return signData.Round
-        else
+
+        if cfg.Type == XSignInConfigs.SignType.Daily then
             local subRoundId = cfg.SubRoundId[signData.Round]
             local subRoundCfg = XSignInConfigs.GetSubRoundConfig(subRoundId)
             local day = 0
@@ -58,6 +56,8 @@ XSignInManagerCreator = function()
                     return i
                 end
             end
+        else
+            return signData.Round
         end
     end
 
@@ -217,6 +217,17 @@ XSignInManagerCreator = function()
         return NotifySignIn
     end
 
+    function XSignInManager.OnWeekCardDataNotify(weekCardData)
+        local id = weekCardData:GetPurchaseSignInId()
+        SignInData[id] = {
+            Id = id,
+            Round = weekCardData:GetCurRound(),
+            Day = weekCardData:GetCurDay(),
+            Got = weekCardData:GetIsGotToday(),
+            FinishDay = weekCardData:GetTotalDays(),
+        }
+    end
+    
     -- 领取签到奖励请求
     function XSignInManager.SignInRequest(signInId, successCb, failCb)
         XNetwork.Call(SignInRequest.SignInRequest, { Id = signInId }, function(res)
@@ -234,75 +245,14 @@ XSignInManagerCreator = function()
             end
         end)
     end
-
-    --请求占卜
-    function XSignInManager.RequestNewYearDivining(id, cb)
-        XNetwork.Call(SignInRequest.NewYearDivining, {Id = id}, function(res)
-                if res.Code ~= XCode.Success then
-                    XUiManager.TipCode(res.Code)
-                    return
-                end
-                table.insert(DiviningRecords, res.Record)
-                DiviningRewards = res.RewardGoodsList
-                IsTotalDivining = true
-                XEventManager.DispatchEvent(XEventId.EVENT_CARD_REFRESH_WELFARE_BTN)
-                if cb then
-                    cb()
-                end
-            end)
-    end
-
-    --服务端推送占卜记录
-    function XSignInManager.UpdateNewYearDiviningData(data)
-        for _, info in pairs(data.Lotteries) do
-            if not DiviningId or DiviningId <= info.Id then
-                IsTotalDivining = info.IsRewardGot
-                DiviningId = info.Id
-                DiviningRecords = info.Records
-            end
-        end
-        XEventManager.DispatchEvent(XEventId.EVENT_CARD_REFRESH_WELFARE_BTN)
-    end
-
-    function XSignInManager.GetDiviningActivityId()
-        return DiviningId
-    end
-
-    --得到今天的占卜状态
-    function XSignInManager.GetTodayDiviningState()
-        return IsTotalDivining
-    end
     
-    function XSignInManager.CheckTodayDiviningState()
-        local cfg = XSignInConfigs.GetNewYearSignInConfig(DiviningId)
-        if cfg and XPlayer.Level and XPlayer.Level >= cfg.OpenLevel and not IsTotalDivining and XSignInConfigs.IsShowDivining(DiviningId) then
-            return true
-        end
-        return false
-    end
-
-    --获取今天占卜的领奖数据
-    function XSignInManager.GetDiviningTodayData()
-        local data
-        
-        for _, v in pairs(DiviningRecords) do
-            data = v
-        end
-        return data
-    end
-
-    function XSignInManager.GetAllDiviningDatas()
-        return DiviningRecords
-    end
-
+    XSignInManager.Init()
+    
     return XSignInManager
 end
 
 XRpc.NotifySignInData = function(data)
     XDataCenter.SignInManager.InitData(data.SignInfos)
     XDataCenter.SignInManager.SetNotifySign(true)
-end
-
-XRpc.NotifyDailyLotteryData = function(data)
-    XDataCenter.SignInManager.UpdateNewYearDiviningData(data)
+    XEventManager.DispatchEvent(XEventId.EVENT_SIGN_IN_FIVE_OCLOCK_REFRESH)
 end

@@ -45,7 +45,7 @@ function XUiExpeditionInfinityWin:OnBtnReFightClick()
     else
         self:StopAudio()
         self:Close()
-        XLuaUiManager.Open("UiNewRoomSingle", self.EStage:GetStageId())
+        XLuaUiManager.Open("UiBattleRoleRoom", self.EStage:GetStageId())
     end
 end
 
@@ -92,7 +92,7 @@ function XUiExpeditionInfinityWin:InitComboPanel()
 end
 
 function XUiExpeditionInfinityWin:ShowWave()
-    self.AudioInfo = CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiSettle_Win_Number)
+    self.AudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiSettle_Win_Number)
     local time = CS.XGame.ClientConfig:GetFloat("BossSingleAnimaTime")
     local newWave = self.WinData.NpcGroup > 0 and self.WinData.NpcGroup or 0
     XUiHelper.Tween(time, function(f)

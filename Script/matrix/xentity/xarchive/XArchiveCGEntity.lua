@@ -1,9 +1,18 @@
+---@class XArchiveCGEntity
 local XArchiveCGEntity = XClass(nil, "XArchiveCGEntity")
 
 function XArchiveCGEntity:Ctor(id)
     self.Id = id
     self.IsLock = true
     self.LockDesc = ""
+end
+
+function XArchiveCGEntity:SetIsLock(isLock)
+    self.IsLock = isLock
+end
+
+function XArchiveCGEntity:SetLockDesc(lockDesc)
+    self.LockDesc = lockDesc
 end
 
 function XArchiveCGEntity:UpdateData(playerData)
@@ -13,7 +22,7 @@ function XArchiveCGEntity:UpdateData(playerData)
 end
 
 function XArchiveCGEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveCGDetailConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveCGDetailConfigById(self.Id)
 end
 
 function XArchiveCGEntity:GetId()
@@ -86,6 +95,10 @@ end
 
 function XArchiveCGEntity:GetBgOffSetY()
     return self:GetCfg().BgOffSetY
+end
+
+function XArchiveCGEntity:GetShowTimeStr()
+    return self:GetCfg().ShowTimeStr
 end
 
 return XArchiveCGEntity

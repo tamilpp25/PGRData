@@ -9,16 +9,16 @@ local GetDefaultSelectIndex = function(characterLimitType, tabBtnIndex, robotIdL
         if XRobotManager.CheckIsRobotId(selectCharId) then
             return tabBtnIndex.Robot
         end
-        return XCharacterConfigs.GetCharacterType(selectCharId) == XCharacterConfigs.CharacterType.Isomer and tabBtnIndex.Isomer or tabBtnIndex.Normal
+        return XMVCA.XCharacter:GetCharacterType(selectCharId) == XEnumConst.CHARACTER.CharacterType.Isomer and tabBtnIndex.Isomer or tabBtnIndex.Normal
     end
 
     local defaultTabBtnIndex
     local characterType
     if characterLimitType == XFubenConfigs.CharacterLimitType.Normal or characterLimitType == XFubenConfigs.CharacterLimitType.IsomerDebuff then
-        characterType = XCharacterConfigs.CharacterType.Normal
+        characterType = XEnumConst.CHARACTER.CharacterType.Normal
         defaultTabBtnIndex = tabBtnIndex.Normal
     elseif characterLimitType == XFubenConfigs.CharacterLimitType.Isomer or characterLimitType == XFubenConfigs.CharacterLimitType.NormalDebuff then
-        characterType = XCharacterConfigs.CharacterType.Isomer
+        characterType = XEnumConst.CHARACTER.CharacterType.Isomer
         defaultTabBtnIndex = tabBtnIndex.Isomer
     end
 
@@ -28,10 +28,10 @@ local GetDefaultSelectIndex = function(characterLimitType, tabBtnIndex, robotIdL
         local recommendCharId           --推荐角色的Id
         local recommendCharAbility = 0  --推荐角色的战力
         local ability
-        local robotAndCharList = XDataCenter.CharacterManager.GetRobotAndCharacterIdList(robotIdList, characterType)
+        local robotAndCharList = XMVCA.XCharacter:GetRobotAndCharacterIdList(robotIdList, characterType)
         for _, charId in ipairs(robotAndCharList) do
             featureMathchCount = XFubenCoupleCombatConfig.GetFeatureMatchCount(stageId, charId)
-            ability = XRobotManager.CheckIsRobotId(charId) and XRobotManager.GetRobotAbility(charId) or XDataCenter.CharacterManager.GetCharacterAbilityById(charId)
+            ability = XRobotManager.CheckIsRobotId(charId) and XRobotManager.GetRobotAbility(charId) or XMVCA.XCharacter:GetCharacterAbilityById(charId)
 
             --未锁定角色的角色特性与环境特性的重合数量多的优先，重合数量相同时战力高的优先
             if (not XDataCenter.FubenCoupleCombatManager.CheckCharacterUsed(charId)) and 
@@ -100,8 +100,8 @@ function XUiCoupleCombatRoomCharacter.SortList(roomCharacterUi, charIdList)
 
     local abilityA, abilityB
     table.sort(charIdList, function(a, b)
-        abilityA = XRobotManager.CheckIsRobotId(a) and XRobotManager.GetRobotAbility(a) or XDataCenter.CharacterManager.GetCharacterAbilityById(a)
-        abilityB = XRobotManager.CheckIsRobotId(b) and XRobotManager.GetRobotAbility(b) or XDataCenter.CharacterManager.GetCharacterAbilityById(b)
+        abilityA = XRobotManager.CheckIsRobotId(a) and XRobotManager.GetRobotAbility(a) or XMVCA.XCharacter:GetCharacterAbilityById(a)
+        abilityB = XRobotManager.CheckIsRobotId(b) and XRobotManager.GetRobotAbility(b) or XMVCA.XCharacter:GetCharacterAbilityById(b)
         
         if XDataCenter.FubenCoupleCombatManager.CheckCharacterUsed(stageId, a) ~=
                 XDataCenter.FubenCoupleCombatManager.CheckCharacterUsed(stageId, b) then    --未使用的角色优先
@@ -122,9 +122,7 @@ function XUiCoupleCombatRoomCharacter.SetPanelEmptyList(roomCharacterUi, isEmpty
     if not roomCharacterUi.PanelFeatureStage then
         roomCharacterUi.PanelFeatureStage = XUiPanelFeature.New(roomCharacterUi, roomCharacterUi.StageFeature)
         roomCharacterUi.PanelFeatureCharacter = XUiPanelFeature.New(roomCharacterUi, roomCharacterUi.CharacterFeature)
-        local stageInterInfo = XFubenCoupleCombatConfig.GetStageInfo(roomCharacterUi.StageId)
-        if not stageInterInfo then return end
-        roomCharacterUi.PanelFeatureStage:Refresh(stageInterInfo.Feature, {})
+        roomCharacterUi.PanelFeatureStage:Refresh(XDataCenter.FubenCoupleCombatManager.GetStageFeatureIdList(roomCharacterUi.StageId), {})
 
         --重写按钮回调
         roomCharacterUi.BtnPartner.CallBack = function()
@@ -176,7 +174,11 @@ end
 function XUiCoupleCombatRoomCharacter.UpdatePanelEmptyList(roomCharacterUi, charId)
     local characterId = XRobotManager.GetCharacterId(charId)
     local features = XFubenCoupleCombatConfig.GetCharacterFeature(characterId)
-    roomCharacterUi.PanelFeatureCharacter:Refresh(features, {}, characterId)
+    
+    --v1.32 角色特性与推荐特性重合刷新高亮
+    local matchDic = XDataCenter.FubenCoupleCombatManager.GetFeatureMatchOneChar(roomCharacterUi.StageId, characterId)
+    roomCharacterUi.PanelFeatureCharacter:Refresh(features, matchDic, characterId)
+    roomCharacterUi.PanelFeatureStage:Refresh(XDataCenter.FubenCoupleCombatManager.GetStageFeatureIdList(roomCharacterUi.StageId), matchDic)
 end
 
 function XUiCoupleCombatRoomCharacter.UpdateTeamBtn(roomCharacterUi, charId)
@@ -211,7 +213,7 @@ function XUiCoupleCombatRoomCharacter.GetCharInfo(roomCharacterUi, charId)
         charInfo.IsRobot = true
         charInfo.Ability = XRobotManager.GetRobotAbility(charId)
     else
-        charInfo = XDataCenter.CharacterManager.GetCharacter(charId) or {}
+        charInfo = XMVCA.XCharacter:GetCharacter(charId) or {}
     end
 
     return charInfo
@@ -223,7 +225,7 @@ end
 
 function XUiCoupleCombatRoomCharacter.OnResetEvent()
     XLuaUiManager.RunMain()
-    XDataCenter.FubenHackManager.OnActivityEnd()
+    --XDataCenter.FubenHackManager.OnActivityEnd()
 end
 
 return XUiCoupleCombatRoomCharacter

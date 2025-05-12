@@ -1,6 +1,8 @@
+local XExFubenSimulationChallengeManager = require("XEntity/XFuben/XExFubenSimulationChallengeManager")
 --- 占领副本管理器
 XFubenAssignManagerCreator = function()
-    local XFubenAssignManager = {}
+    ---@class XFubenAssignManager:XExFubenSimulationChallengeManager
+    local XFubenAssignManager = XExFubenSimulationChallengeManager.New(XFubenConfigs.ChapterType.Assign)
 
     -- 协议
     local METHOD_NAME = {
@@ -8,6 +10,7 @@ XFubenAssignManagerCreator = function()
         AssignSetTeamRequest = "AssignSetTeamRequest",
         AssignSetCharacterRequest = "AssignSetCharacterRequest",
         AssignGetRewardRequest = "AssignGetRewardRequest",
+        AssignResetStageRequest = "AssignResetStageRequest",
     }
 
     -- 常量
@@ -37,10 +40,20 @@ XFubenAssignManagerCreator = function()
     XFubenAssignManager.FIRSTFIGHT_MEMBER_INDEX = 1 -- 首发位置
     local MEMBER_MAX_COUNT = 3 -- 队伍最大成员数
 
+    -- 自定义数据
     local ChapterIdList = nil
     local ChapterDataDict = nil -- 章节
     local GroupDataDict = nil -- 关卡组
+    ---@type XAssignTeam[]
     local TeamDataDict = nil -- 队伍
+    local LoadingData = nil
+    local ChapterFirstPassTrigger = nil
+    local GeneralSkillDict = nil --效应选择缓存
+    --- 服务器下发确认的数据
+    local GroupTeamRecords = {}
+    local GroupTeamRecordsDic = {} -- GroupTeamRecords 的重定义字典
+    local FinishStageIds = {}
+    local FinishStageIdDic = {}
 
     ------ 战斗接口用的数据
     local FinishFightCb = nil
@@ -49,7 +62,6 @@ XFubenAssignManagerCreator = function()
     local MEMBER_ORDER_BY_INDEX = {[1] = 2, [2] = 1, [3] = 3 } -- 队伍中实际中的位置(index) = 面板上显示的位置(order)
     local GroupIdByStageId = nil -- {[stageId] = groupId, ...}
     local FollowGroupDict = nil -- {[前置组id] = {后置组id, ...}, ...}
-
 
     function XFubenAssignManager.Init()
     end
@@ -70,163 +82,16 @@ XFubenAssignManagerCreator = function()
         FollowGroupDict = nil
     end
 
+    function XFubenAssignManager.GetChapterFirstPassTrigger()
+        if ChapterFirstPassTrigger then
+            local tempData = ChapterFirstPassTrigger
+            ChapterFirstPassTrigger = nil
+            return tempData
+        end
+    end
+
     ----------- 章节数据 begin-----------
-    local ChapterData = XClass(nil, "ChapterData")
-    function ChapterData:Ctor(id)
-        self.Id = id
-        self.CharacterId = nil -- 驻守角色
-        self.Rewarded = false -- 已领奖
-        self.IsPassByServer = nil -- 服务器已通关标记
-    end
-    function ChapterData:GetCfg()
-        return XFubenAssignConfigs.GetChapterTemplateById(self.Id)
-    end
-    function ChapterData:GetId() return self.Id end
-    function ChapterData:GetName() return self:GetCfg().ChapterName end
-    function ChapterData:GetDesc() return self:GetCfg().ChapterEn end
-    function ChapterData:GetOrderId() return self:GetCfg().OrderId end
-    function ChapterData:GetIcon() return self:GetCfg().Cover end
-    function ChapterData:GetSkillPlusId() return self:GetCfg().SkillPlusId end
-    function ChapterData:GetAssignCondition() return self:GetCfg().AssignCondition end
-    function ChapterData:GetSelectCharCondition() return self:GetCfg().SelectCharCondition end
-    function ChapterData:GetRewardId() return self:GetCfg().RewardId end
-    function ChapterData:GetGroupId() return self:GetCfg().GroupId end
-
-    -- 获得所有加成效果的key
-    function ChapterData:GetBuffKeys()
-        if not self.BuffKeys then
-            self.BuffKeys = {}
-            local buffConfigId = self:GetSkillPlusId()
-            if buffConfigId and buffConfigId ~= 0 then
-                local plusConfig = XCharacterConfigs.GetSkillTypePlusTemplate(buffConfigId)
-                if plusConfig then
-                    local key
-
-                    local isAllMember = (#plusConfig.CharacterType == #XCharacterConfigs.GetAllCharacterCareerIds())
-                    if isAllMember then
-                        local characterType = CHARACTERTYPE_ALL
-                        for _, skillType in ipairs(plusConfig.SkillType) do
-                            key = characterType * SKILLTYPE_BITS + skillType
-                            table.insert(self.BuffKeys, key)
-                        end
-                    else
-                        for _, characterType in ipairs(plusConfig.CharacterType) do
-                            for _, skillType in ipairs(plusConfig.SkillType) do
-                                key = characterType * SKILLTYPE_BITS + skillType
-                                table.insert(self.BuffKeys, key)
-                            end
-                        end
-                    end
-                end
-            end
-            self.BuffKeys = XFubenAssignManager.SortKeys(self.BuffKeys)
-        end
-        return self.BuffKeys
-    end
-
-    function ChapterData:GetBuffDescList()
-        return XFubenAssignManager.GetBuffDescListByKeys(self:GetBuffKeys())
-    end
-
-    function ChapterData:IsCharConditionMatch(characterId)
-        local isMatch = true
-        local conditions = self:GetSelectCharCondition()
-        for _, conditionId in ipairs(conditions) do
-            if not (XConditionManager.CheckCondition(conditionId, characterId)) then
-                isMatch = false
-                break
-            end
-        end
-        return isMatch
-    end
-
-    function ChapterData:GetProgressStr()
-        local groupNum = #self:GetGroupId()
-        return math.floor((self:GetPassNum() / groupNum) * 100) .. "%"
-    end
-
-    function ChapterData:GetCharacterBodyIcon()
-        return XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharacterId)
-    end
-
-    function ChapterData:IsRewarded()
-        return self.Rewarded
-    end
-
-    function ChapterData:CanReward()
-        return (self:IsPass() and not self:IsRewarded())
-    end
-
-    function ChapterData:IsUnlock()
-        for _, groupId in ipairs(self:GetGroupId()) do
-            local groupData = XFubenAssignManager.GetGroupDataById(groupId)
-            if groupData and groupData:IsUnlock() then
-                return true
-            end
-        end
-        return false
-    end
-
-    function ChapterData:CanAssign()
-        return self:IsPass() and self:IsMatchAssignCondition()
-    end
-
-    -- server api
-    function ChapterData:SetRewarded(state)
-        self.Rewarded = state
-    end
-
-    function ChapterData:GetPassNum()
-        local passNum = 0
-        for _, groupId in ipairs(self:GetGroupId()) do
-            local groupData = XFubenAssignManager.GetGroupDataById(groupId)
-            if groupData and groupData:IsPass() then
-                passNum = passNum + 1
-            end
-        end
-        return passNum
-    end
-
-    function ChapterData:SetIsPassByServer(value)
-        self.IsPassByServer = value
-    end
-
-    function ChapterData:IsPass()
-        if self.IsPassByServer then
-            return true
-        end
-        local groupNum = #self:GetGroupId()
-        return (self:GetPassNum() >= groupNum)
-    end
-
-    function ChapterData:IsMatchAssignCondition()
-        for _, conditionId in ipairs(self:GetAssignCondition()) do
-            if not (XConditionManager.CheckCondition(conditionId)) then
-                return false
-            end
-        end
-        return true
-    end
-
-    function ChapterData:SetCharacterId(characterId)
-        self.CharacterId = characterId
-    end
-
-    function ChapterData:IsOccupy()
-        return (self.CharacterId and self.CharacterId ~= 0)
-    end
-
-    function ChapterData:GetCharacterId()
-        return self.CharacterId
-    end
-
-    function ChapterData:GetOccupyCharacterIcon()
-        return XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(self:GetCharacterId())
-    end
-
-    function ChapterData:GetOccupyCharacterName()
-        return XCharacterConfigs.GetCharacterFullNameStr(self:GetCharacterId())
-    end
+    local XAssignChapter = require("XEntity/XAssign/XAssignChapter")
 
     -- 是否当前进度章节
     function XFubenAssignManager.IsCurrentChapter(chapterId)
@@ -253,6 +118,28 @@ XFubenAssignManagerCreator = function()
             end
         end
         return passNum
+    end
+
+    function XFubenAssignManager.GetAllChapterRewardedNum()
+        local count = 0
+        for _, chapterId in ipairs(XFubenAssignManager.GetChapterIdList()) do
+            local chapterData = XFubenAssignManager.GetChapterDataById(chapterId)
+            if chapterData:IsRewarded() then
+                count = count + 1
+            end
+        end
+        return count
+    end
+
+    function XFubenAssignManager.GetAllChapterOccupyNum()
+        local count = 0
+        for _, chapterId in ipairs(XFubenAssignManager.GetChapterIdList()) do
+            local chapterData = XFubenAssignManager.GetChapterDataById(chapterId)
+            if chapterData:IsOccupy() then
+                count = count + 1
+            end
+        end
+        return count
     end
 
     function XFubenAssignManager.GetCharacterOccupyChapterId(characterId)
@@ -311,7 +198,7 @@ XFubenAssignManagerCreator = function()
             ChapterDataDict = {}
         end
         if not ChapterDataDict[id] then
-            ChapterDataDict[id] = ChapterData.New(id)
+            ChapterDataDict[id] = XAssignChapter.New(id)
         end
         return ChapterDataDict[id]
     end
@@ -333,273 +220,37 @@ XFubenAssignManagerCreator = function()
     end
     ----------- 章节数据 end-----------
     ----------- 关卡组数据 begin-----------
-    local GroupData = XClass(nil, "GroupData")
-    function GroupData:Ctor(id)
-        self.Id = id
-        self.FightCount = 0
-        self.GroupRebootCount = 0
-        self.IsPerfect = false
-    end
-    function GroupData:GetCfg()
-        return XFubenAssignConfigs.GetGroupTemplateById(self.Id)
-    end
-    function GroupData:GetId() return self.Id end
-    function GroupData:GetPreGroupId() return self:GetCfg().PreGroupId end
-    -- function GroupData:GetMaxFightCount() return self:GetCfg().ChallengeNum end
-    function GroupData:GetTeamInfoId() return self:GetCfg().TeamInfoId end
-    function GroupData:GetBaseStageId() return self:GetCfg().BaseStage end
-    function GroupData:GetStageId() return self:GetCfg().StageId end
-    function GroupData:GetName() return self:GetCfg().Name end
-    function GroupData:GetIcon() return self:GetCfg().Icon end
-
-    function GroupData:IsUnlock()
-        if self:GetFightCount() > 0 then
-            return true
-        end
-        local preGroupId = self:GetPreGroupId()
-        return ((not preGroupId or preGroupId == 0) or XFubenAssignManager.GetGroupDataById(preGroupId):IsPass())
-    end
-
-    -- 刷新关卡解锁信息
-    function GroupData:SyncStageInfo(isPass)
-        local isUnlock = self:IsUnlock()
-        for _, stageId in ipairs(self:GetStageId()) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-            stageInfo.Unlock = isUnlock
-            if isPass ~= nil then
-                stageInfo.Passed = isPass
-            end
-        end
-        local baseStageId = self:GetBaseStageId()
-        local baseStageInfo = XDataCenter.FubenManager.GetStageInfo(baseStageId)
-        baseStageInfo.Unlock = isUnlock
-        if isPass ~= nil then
-            baseStageInfo.Passed = isPass
-        end
-
-        if isUnlock then
-            XFubenAssignManager.UnlockFollowGroupStage(self:GetId())
-        end
-    end
-
-    -- server api
-    function GroupData:SetFightCount(count)
-        count = count or 0
-        local oldCount = self.FightCount
-        self.FightCount = count
-        if (not oldCount or oldCount == 0) and (count > 0) then -- 新解锁
-            self:SyncStageInfo(true)
-        end
-    end
-
-    function GroupData:GetFightCount()
-        -- do return 1 end -- for testing
-        return self.FightCount
-    end
-    function GroupData:SetIsPerfect(isPerfect)
-        self.IsPerfect = isPerfect
-    end
-    function GroupData:GetIsPerfect()
-        return self.IsPerfect
-    end
-    function GroupData:SetGroupRebootCountAdd( rebootCount )
-        self.GroupRebootCount = self.GroupRebootCount + rebootCount
-    end
-    function GroupData:GetGroupRebootCount()
-        return self.GroupRebootCount
-    end
-    function GroupData:ResetGroupRebootCount()
-        self.GroupRebootCount = 0
-    end
-    function GroupData:IsPass()
-        if self:GetFightCount() > 0 then
-            return true
-        end
-        return false
-        -- -- 根据StageInfo来  来源于XFubenManager.InitFubenData
-        -- local stageInfo = XDataCenter.FubenManager.GetStageInfo(self:GetBaseStageId())
-        -- return (stageInfo and stageInfo.Passed)
-    end
+    local XAssignGroup = require("XEntity/XAssign/XAssignGroup")
 
     function XFubenAssignManager.GetGroupDataById(id)
         if not GroupDataDict then
             GroupDataDict = {}
         end
         if not GroupDataDict[id] then
-            GroupDataDict[id] = GroupData.New(id)
+            GroupDataDict[id] = XAssignGroup.New(id)
         end
         return GroupDataDict[id]
     end
     ----------- 关卡组数据 end-----------
-    ----------- 队伍数据 begin-----------
-    ------- 队员数据
-    local MemberData = XClass(nil, "MemberData")
-    function MemberData:Ctor(index)
-        self.Index = index -- 队伍位置
-        self.CharacterId = nil
-    end
-    function MemberData:GetIndex() return self.Index end
-    function MemberData:GetCharacterId() return self.CharacterId or 0 end
-    function MemberData:HasCharacter() return (self.CharacterId and self.CharacterId ~= 0) end
-
-    function MemberData:SetCharacterId(characterId)
-        self.CharacterId = characterId
-    end
-
-    function MemberData:GetCharacterAbility()
-        return self:HasCharacter() and XDataCenter.CharacterManager.GetCharacterAbilityById(self.CharacterId) or 0
-    end
-
-    function MemberData:GetCharacterSkillInfo()
-        return self:HasCharacter() and XDataCenter.CharacterManager.GetCaptainSkillInfo(self.CharacterId) or nil
-    end
-
-    function MemberData:GetCharacterType()
-        return self:HasCharacter() and XCharacterConfigs.GetCharacterType(self.CharacterId)
-    end
-
     -------队伍数据
-    local TeamData = XClass(nil, "TeamData")
-    function TeamData:Ctor(id)
-        self.Id = id
-        self.MemberList = nil
-        self.LeaderIndex = nil
-        self.FirstFightIndex = nil
-    end
-    function TeamData:GetCfg()
-        return XFubenAssignConfigs.GetTeamInfoTemplateById(self.Id)
-    end
-    function TeamData:GetId() return self.Id end
-    function TeamData:GetBuffId() return self:GetCfg().BuffId end
-    function TeamData:GetNeedCharacter() return self:GetCfg().NeedCharacter end
-    function TeamData:GetRequireAbility() return self:GetCfg().RequireAbility end
-    function TeamData:GetCondition() return self:GetCfg().Condition end
-    function TeamData:GetDesc() return self:GetCfg().Desc end
+    local XAssignTeam = require("XEntity/XAssign/XAssignTeam")
 
-    function TeamData:CheckIsInTeam(characterId)
-        for _, member in ipairs(self:GetMemberList() or {}) do
-            local id = member:GetCharacterId()
-            if id > 0 and id == characterId then
-                return true
-            end
-        end
-        return false
+    -- 检查该group是否有服务器记录过队伍数据
+    function XFubenAssignManager.CheckGroupHadRecordTeam(groupId)
+        return GroupTeamRecordsDic[groupId]
     end
 
-    function TeamData:GetMemberList()
-        if not self.MemberList then
-            self.MemberList = {}
-            local count = self:GetNeedCharacter()
-            for i = 1, count do
-                self.MemberList[i] = MemberData.New(i)  -- 队伍位置
-            end
-            if count > 1 then -- 若是多人队伍则队长居中, 即队员索引为{2, 1, 3}
-                self.MemberList[1], self.MemberList[2] = self.MemberList[2], self.MemberList[1]
-            end
-        end
-        return self.MemberList
+    -- 检查该group是否有服务器记录过队伍数据
+    function XFubenAssignManager.GetGroupTeamRecords()
+        return GroupTeamRecords
     end
 
-    function TeamData:ClearMemberList()
-        if not self.MemberList then return end
-        for _, memberData in pairs(self.MemberList) do
-            memberData:SetCharacterId(0)
-        end
+    function XFubenAssignManager.GetFinishStageIds()
+        return FinishStageIds
     end
 
-    function TeamData:GetCharacterType()
-        if not self.MemberList then return end
-        for _, memberData in pairs(self.MemberList) do
-            if memberData:HasCharacter() then
-                return memberData:GetCharacterType()
-            end
-        end
-    end
-
-    function TeamData:GetMember(index)
-        for _, member in ipairs(self:GetMemberList()) do
-            if member:GetIndex() == index then
-                return member
-            end
-        end
-        XLog.Error("TeamData:GetMember函数无效参数index: " .. tostring(index))
-        return nil
-    end
-
-    function TeamData:SetLeaderIndex(index)
-        self.LeaderIndex = index
-    end
-
-    function TeamData:GetLeaderIndex()
-        return self.LeaderIndex or XFubenAssignManager.CAPTIAN_MEMBER_INDEX
-    end
-
-    function TeamData:SetFirstFightIndex(index)
-        self.FirstFightIndex = index
-    end
-
-    ---==========================================
-    --- 得到队伍首发位
-    --- 当首发位不为空时，直接返回首发位
-    --- 不然查看队长位是否为空，不为空则返回队长位
-    ---（因为服务器在之前只有队长位，后面区分了队长位与首发位，存在有队长位数据，没有首发位数据的情况）
-    --- 如果队长位也为空，则返回默认首发位
-    ---@return number
-    ---==========================================
-    function TeamData:GetFirstFightIndex()
-        return self.FirstFightIndex or self.LeaderIndex or XFubenAssignManager.FIRSTFIGHT_MEMBER_INDEX
-    end
-
-    function TeamData:GetLeaderSkillDesc()
-        local memberData = self:GetMember(self:GetLeaderIndex())
-        if memberData then
-            local captianSkillInfo = memberData:GetCharacterSkillInfo()
-            if captianSkillInfo then
-                return captianSkillInfo.Level > 0 and captianSkillInfo.Intro or string.format("%s%s", captianSkillInfo.Intro, CS.XTextManager.GetText("CaptainSkillLock"))
-            end
-        end
-        return ""
-    end
-
-    function TeamData:IsEnoughAbility()
-        local memberList = self:GetMemberList()
-        local need = self:GetRequireAbility()
-        for _, member in pairs(memberList) do
-            if member:GetCharacterAbility() > need then
-                return true
-            end
-        end
-        return false
-    end
-
-    function TeamData:SetMember(order, characterId)
-        self:GetMemberList()[order]:SetCharacterId(characterId)
-    end
-
-    -- 获得角色在队伍中的排序
-    function TeamData:GetCharacterOrder(characterId)
-        for order, v in pairs(self:GetMemberList()) do
-            if v:GetCharacterId() == characterId then
-                return order
-            end
-        end
-        return nil
-    end
-
-    -- server api
-    function TeamData:SetMemberList(characterIdList)
-        if characterIdList then
-            local memberList = self:GetMemberList()
-            local memberCount = #memberList
-            for index, v in pairs(memberList) do
-                local order = XFubenAssignManager.GetMemberOrderByIndex(index, memberCount)
-                v:SetCharacterId(characterIdList[order])
-            end
-        else
-            for _, v in pairs(self:GetMemberList()) do
-                v:SetCharacterId(nil)
-            end
-        end
+    function XFubenAssignManager.CheckStageFinish(stageId)
+        return FinishStageIdDic[stageId]
     end
 
     -- 角色是否已在队伍中
@@ -607,6 +258,30 @@ XFubenAssignManagerCreator = function()
         for _, teamData in pairs(TeamDataDict) do
             if teamData:GetCharacterOrder(characterId) ~= nil then
                 return true
+            end
+        end
+        return false
+    end
+
+    -- 该角色是否已有关卡进度 压制
+    function XFubenAssignManager.CheckCharacterInMultiTeamLock(characterId, groupId)
+        local groupData = XFubenAssignManager.GetGroupDataById(groupId)
+        local isIn, teamData, teamOrder = XFubenAssignManager.CheckCharacterInCurGroupTeam(characterId, groupId)
+
+        local stageList = groupData:GetStageId()
+        local stageId = stageList[teamOrder]
+
+        return XFubenAssignManager.CheckStageFinish(stageId)
+    end
+
+    -- 角色是否已在该group的队伍中
+    function XFubenAssignManager.CheckCharacterInCurGroupTeam(characterId, groupId)
+        local groupData = XFubenAssignManager.GetGroupDataById(groupId)
+
+        for order, teamId in pairs(groupData:GetTeamInfoId()) do
+            local teamData = XFubenAssignManager.GetTeamDataById(teamId)
+            if teamData:GetCharacterOrder(characterId) ~= nil then
+                return true, teamData, order
             end
         end
         return false
@@ -644,6 +319,19 @@ XFubenAssignManagerCreator = function()
         return teamIdMap, teamOrderMap
     end
 
+    function XFubenAssignManager.SwapMultiTeamMember(aTeam, aPos, bTeam, bPos)
+        local aMemberData = aTeam:GetMemberList()[aPos]
+        local bMemberData = bTeam:GetMemberList()[bPos]
+        local aTeamaPosCharId = aMemberData:GetCharacterId()
+        local bTeambPosCharId = bMemberData:GetCharacterId()
+        -- 后续维护的人：这里由于远古设计，teamList里的key不是角色真正在队伍里的pos, 要拿MemberData才行。而且这个xteam和通用的不一样，尽量不要SetMember，直接SetCharList或者拿
+        if aTeamaPosCharId == bTeambPosCharId then
+            bMemberData:SetCharacterId(0)
+        else
+            aMemberData:SetCharacterId(bTeambPosCharId)
+            bMemberData:SetCharacterId(aTeamaPosCharId)
+        end
+    end
 
     function XFubenAssignManager.SetTeamMember(teamId, targetOrder, characterId)
         local targetTeamData = XFubenAssignManager.GetTeamDataById(teamId)
@@ -664,7 +352,7 @@ XFubenAssignManagerCreator = function()
             TeamDataDict = {}
         end
         if not TeamDataDict[id] then
-            TeamDataDict[id] = TeamData.New(id)
+            TeamDataDict[id] = XAssignTeam.New(id)
         end
         return TeamDataDict[id]
     end
@@ -693,12 +381,26 @@ XFubenAssignManagerCreator = function()
 
     -- 一键上阵
     function XFubenAssignManager.AutoTeam(groupId)
-        local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local groupData = XFubenAssignManager.GetGroupDataById(groupId)
+        for k, stageId in pairs(groupData:GetStageId()) do
+            local isFinish = XFubenAssignManager.CheckStageFinish(stageId)
+            if isFinish then -- 有完成进度
+                XUiManager.TipError(CS.XTextManager.GetText("AutoTeamLimit"))
+                return
+            end
+        end
+
+        local ownCharacters = XMVCA.XCharacter:GetOwnCharacterList()
         table.sort(ownCharacters, function(a, b)
             return a.Ability > b.Ability
         end)
         -- 保留当前角色
         -- local curCharacters = XFubenAssignManager.GetOtherTeamCharacters(groupId, nil)
+        -- 先清空，再上阵
+        for _, teamId in pairs(GroupDataDict[groupId]:GetTeamInfoId()) do
+            local targetTeamData = XFubenAssignManager.GetTeamDataById(teamId)
+            targetTeamData:ClearMemberList()
+        end
         local count = 1
         local maxCount = #ownCharacters
         for _, teamId in pairs(GroupDataDict[groupId]:GetTeamInfoId()) do
@@ -717,7 +419,7 @@ XFubenAssignManagerCreator = function()
 
                 local i
                 for charIndex, char in ipairs(ownCharacters) do
-                    local charType = XCharacterConfigs.GetCharacterType(char.Id)
+                    local charType = XMVCA.XCharacter:GetCharacterType(char.Id)
                     if defaultCharacterType ~= XFubenConfigs.CharacterLimitType.All and defaultCharacterType ~= charType then
                         goto CONTINUE
                     end
@@ -746,7 +448,7 @@ XFubenAssignManagerCreator = function()
                 local teamData = XFubenAssignManager.GetTeamDataById(teamId)
                 for order = 1, teamData:GetNeedCharacter() do
                     local characterId = charIdList[order]
-                    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+                    local character = XMVCA.XCharacter:GetCharacter(characterId)
                     if character.Ability < teamData:GetRequireAbility() then
                         isMatch = false
                         break
@@ -756,6 +458,32 @@ XFubenAssignManagerCreator = function()
             end
         end
         return isMatch
+    end
+    
+    function XFubenAssignManager.GetTeamGeneralSkillId(teamId)
+        if GeneralSkillDict == nil then
+            GeneralSkillDict = XSaveTool.GetData(XFubenAssignManager.GetGeneralSkillCacheKey()) or {}
+        end
+        
+        return GeneralSkillDict[teamId] or 0
+    end
+    
+    function XFubenAssignManager.SetTeamGeneralSkillId(teamId, generalSkillId)
+        if GeneralSkillDict == nil then
+            GeneralSkillDict = XSaveTool.GetData(XFubenAssignManager.GetGeneralSkillCacheKey()) or {}
+        end
+
+        GeneralSkillDict[teamId] = generalSkillId
+    end
+    
+    function XFubenAssignManager.SaveTeamGeneralSkillDict()
+        if not XTool.IsTableEmpty(GeneralSkillDict) then
+            XSaveTool.SaveData(XFubenAssignManager.GetGeneralSkillCacheKey(), GeneralSkillDict)
+        end
+    end
+    
+    function XFubenAssignManager.GetGeneralSkillCacheKey()
+        return 'XFubenAssign'..tostring(XPlayer.Id)
     end
     ----------- 队伍数据 end-----------
     ----------- 战斗接口 begin-----------
@@ -797,31 +525,42 @@ XFubenAssignManagerCreator = function()
     end
 
     ------ 以下是在FubenManager注册的函数
-    function XFubenAssignManager.InitStageInfo()
-        local stageType = XDataCenter.FubenManager.StageType.Assign
-        local chapterData
-        local groupData
-        for _, chapterid in pairs(XFubenAssignManager.GetChapterIdList()) do
-            chapterData = XFubenAssignManager.GetChapterDataById(chapterid)
-            for _, groupId in pairs(chapterData:GetGroupId()) do
-                groupData = XFubenAssignManager.GetGroupDataById(groupId)
-
-                local isUnlock = groupData:IsUnlock()
-                for _, stageId in ipairs(groupData:GetStageId()) do
-                    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                    stageInfo.IsOpen = true
-                    stageInfo.Type = stageType
-                    stageInfo.Unlock = isUnlock
-                    stageInfo.ChapterId = chapterid
-                end
-
-                local baseStageInfo = XDataCenter.FubenManager.GetStageInfo(groupData:GetBaseStageId())
-                baseStageInfo.IsOpen = true
-                baseStageInfo.Type = stageType
-                baseStageInfo.Unlock = isUnlock
-                baseStageInfo.ChapterId = chapterid
-            end
+    --function XFubenAssignManager.InitStageInfo()
+    --    local stageType = XDataCenter.FubenManager.StageType.Assign
+    --    local chapterData
+    --    local groupData
+    --    for _, chapterid in pairs(XFubenAssignManager.GetChapterIdList()) do
+    --        chapterData = XFubenAssignManager.GetChapterDataById(chapterid)
+    --        for _, groupId in pairs(chapterData:GetGroupId()) do
+    --            groupData = XFubenAssignManager.GetGroupDataById(groupId)
+    --
+    --            local isUnlock = groupData:IsUnlock()
+    --            for _, stageId in ipairs(groupData:GetStageId()) do
+    --                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    --                --stageInfo.IsOpen = true
+    --                stageInfo.Type = stageType
+    --                stageInfo.Unlock = isUnlock
+    --                stageInfo.ChapterId = chapterid
+    --            end
+    --
+    --            local baseStageInfo = XDataCenter.FubenManager.GetStageInfo(groupData:GetBaseStageId())
+    --            --baseStageInfo.IsOpen = true
+    --            baseStageInfo.Type = stageType
+    --            baseStageInfo.Unlock = isUnlock
+    --            baseStageInfo.ChapterId = chapterid
+    --        end
+    --    end
+    --end
+    
+    function XFubenAssignManager.CheckUnlockByStageId(stageId)
+        local groupId = XFubenAssignManager.GetGroupIdByStageId(stageId)
+        local groupData = XFubenAssignManager.GetGroupDataById(groupId)
+        if not groupData then
+            XLog.Error("[XFubenAssignManager] 重写unlock可能存在错误, 取不到对应的groupData")
+            return false
         end
+        local isUnlock = groupData:IsUnlock()
+        return isUnlock
     end
 
     function XFubenAssignManager.FinishFight(settle)
@@ -843,21 +582,92 @@ XFubenAssignManagerCreator = function()
         end
     end
 
-    function XFubenAssignManager.OpenFightLoading()
-        return
+    -- 设置进入loading界面用到的数据
+    function XFubenAssignManager.SetEnterLoadingData(stageIndex, teamCharList, groupData, chapterData, isNextFight)
+        LoadingData = {
+            StageIndex = stageIndex,
+            TeamCharList = teamCharList,
+            GroupData = groupData,
+            ChapterData = chapterData,
+            IsNextFight = isNextFight,
+        }
+    end
+
+    -- 打开战斗前loading界面
+    function XFubenAssignManager.OpenFightLoading(stageId)
+        if LoadingData.IsNextFight then
+            XLuaUiManager.Open("UiAssignLoading", LoadingData)
+        else
+            XLuaUiManager.Open("UiLoading", LoadingType.Fight)
+        end
     end
 
     function XFubenAssignManager.CloseFightLoading()
+        XLuaUiManager.Remove("UiAssignLoading")
+        XLuaUiManager.Remove("UiLoading")
         if CloseLoadingCb then
             CloseLoadingCb()
         end
     end
 
     function XFubenAssignManager.ShowReward(winData)
-        if XFubenAssignManager.CheckIsGroupLastStage(winData.StageId) then
-            -- 本地挑战次数自增
-            local groupId = XFubenAssignManager.GetGroupIdByStageId(winData.StageId)
-            local groupData = XFubenAssignManager.GetGroupDataById(groupId)
+        -- 同步本地战斗后的关卡数据
+        -- 关卡通关数据要先刷新，再在下一关for循环检测，最后再清除
+        FinishStageIdDic[winData.StageId] = true
+ 
+        -- if XFubenAssignManager.CheckIsGroupLastFinishStage(winData.StageId) then
+        --     -- 本地挑战次数自增
+        --     -- local groupId = XFubenAssignManager.GetGroupIdByStageId(winData.StageId)
+        --     -- local groupData = XFubenAssignManager.GetGroupDataById(groupId)
+        --     -- groupData:SetFightCount(groupData:GetFightCount() + 1)
+        --     if not groupData:GetIsPerfect() then
+        --         -- if groupData:GetGroupRebootCount() <= 0 then
+        --         --     groupData:SetIsPerfect(true)
+        --         -- end
+        --         groupData:ResetGroupRebootCount()
+        --     end
+        --     XEventManager.DispatchEvent(XEventId.EVENET_ASSIGN_CAN_REWARD) -- 刷新红点
+        --     XLuaUiManager.Remove("UiAssignLoading")
+        --     XLuaUiManager.Open("UiAssignPostWarCount", winData)
+        -- end
+        
+        local index = nil
+        local targetNextStageId = nil
+        local groupData = LoadingData.GroupData
+        local chapterData = LoadingData.ChapterData
+        local stageIdList =  groupData:GetStageId()
+        for i = 1, #stageIdList, 1 do
+            local stageId = stageIdList[i]
+            if not XFubenAssignManager.CheckStageFinish(stageId) then
+                index = i
+                targetNextStageId = stageId
+                break
+            end
+        end
+        
+        -- 如果还有未完成的关
+        if targetNextStageId then
+            -- 且是连续挑战
+            if LoadingData.IsNextFight then
+                local isNextFight = true
+    
+                local _, teamCharListOrg, captainPosList, firstFightPosList, generalSkillIdList = XFubenAssignManager.TryGetFightTeamCharList(groupData:GetId())
+                local teamCharList = teamCharListOrg[index]
+    
+                XFubenAssignManager.SetEnterLoadingData(index, teamCharList, groupData, chapterData, isNextFight)
+                XDataCenter.FubenManager.EnterAssignFight(targetNextStageId, teamCharList, captainPosList[index], nil, nil, firstFightPosList[index], generalSkillIdList[index])
+            else
+                local curIndex = 1
+                for i = 1, #stageIdList, 1 do
+                    local stageId = stageIdList[i]
+                    if stageId == winData.StageId then
+                        curIndex = i
+                    end
+                end
+                XLuaUiManager.Open("UiAssignPostWarCount", winData, curIndex)
+            end
+        else
+            -- 如果没有未完成的关了 说明group已经作战完毕 结算
             groupData:SetFightCount(groupData:GetFightCount() + 1)
             if not groupData:GetIsPerfect() then
                 if groupData:GetGroupRebootCount() <= 0 then
@@ -865,20 +675,35 @@ XFubenAssignManagerCreator = function()
                 end
                 groupData:ResetGroupRebootCount()
             end
+
+            -- 并清除所有已完成的关卡数据
+            for k, id in pairs(stageIdList) do
+                FinishStageIdDic[id] = nil
+            end
+
+            -- 检测设置首通提示驻守trigger
+            if groupData:GetFightCount() == 1 and groupData:IsLastGroup() then
+                ChapterFirstPassTrigger = chapterData:GetId()
+                XLuaUiManager.Remove("UiPanelAssignStage")
+            end
+
             XEventManager.DispatchEvent(XEventId.EVENET_ASSIGN_CAN_REWARD) -- 刷新红点
+            XLuaUiManager.Remove("UiAssignLoading")
+            XLuaUiManager.Remove("UiAssignDeploy")
             XLuaUiManager.Open("UiAssignPostWarCount", winData)
         end
     end
     ----------- 战斗接口 end-----------
+
     -- 某角色某技能加成
     function XFubenAssignManager.GetSkillLevel(characterId, skillId)
-        local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+        local character = XMVCA.XCharacter:GetCharacter(characterId)
         if not character then return 0 end
 
         local keys, levels = XFubenAssignManager.GetBuffKeysAndLevels()
-        local npcTemplate = XCharacterConfigs.GetNpcTemplate(character.NpcId)
+        local npcTemplate = XMVCA.XCharacter:GetNpcTemplate(character.NpcId)
         local tragetCharacterType = npcTemplate.Type
-        local targetSkilType = XCharacterConfigs.GetSkillType(skillId)
+        local targetSkilType = XMVCA.XCharacter:GetSkillType(skillId)
         local level = nil
         for _, key in pairs(keys) do
             local skillType = key % SKILLTYPE_BITS
@@ -894,7 +719,7 @@ XFubenAssignManagerCreator = function()
         local keys = {}
         local levels = {}
         for _, v in ipairs(assignChapterRecords) do
-            local chapterData = ChapterData.New(v.ChapterId)
+            local chapterData = XAssignChapter.New(v.ChapterId)
             chapterData:SetCharacterId(v.CharacterId)
 
             if chapterData:IsOccupy() then
@@ -908,9 +733,9 @@ XFubenAssignManagerCreator = function()
                 end
             end
         end
-        local npcTemplate = XCharacterConfigs.GetNpcTemplate(character.NpcId)
+        local npcTemplate = XMVCA.XCharacter:GetNpcTemplate(character.NpcId)
         local tragetCharacterType = npcTemplate.Type
-        local targetSkilType = XCharacterConfigs.GetSkillType(skillId)
+        local targetSkilType = XMVCA.XCharacter:GetSkillType(skillId)
         local level = nil
         for _, key in pairs(keys) do
             local skillType = key % SKILLTYPE_BITS
@@ -926,15 +751,14 @@ XFubenAssignManagerCreator = function()
     -- 参数levels: {[key] = level, ...}
     function XFubenAssignManager.GetBuffDescListByKeys(keys, levels)
         local descList = {}
-        local GetCareerName = XCharacterConfigs.GetCareerName
-        local GetSkillTypeName = XCharacterConfigs.GetSkillTypeName
+        local GetCareerName = function (type) return XMVCA.XCharacter:GetCareerName(type) end
         local GetText = CS.XTextManager.GetText
         for _, key in ipairs(keys) do
             local skillType = key % SKILLTYPE_BITS
             local characterType = (key - skillType) / SKILLTYPE_BITS
             local level = levels and levels[key] or 1
             local memberTypeName = characterType == CHARACTERTYPE_ALL and "" or GetCareerName(characterType)
-            local str = GetText("AssignSkillPlus", memberTypeName, GetSkillTypeName(skillType), level) -- 全体{0}成员{1}等级+{2}
+            local str = GetText("AssignSkillPlus", memberTypeName, XMVCA.XCharacter:GetSkillTypeName(skillType), level) -- 全体{0}成员{1}等级+{2}
             table.insert(descList, str)
         end
         return descList
@@ -984,11 +808,13 @@ XFubenAssignManagerCreator = function()
         local teamList = {}
         local captainPosList = {}
         local firstFightPosList = {}
+        local generalSkillIdList = {}
         local teamIdList = groupData:GetTeamInfoId()
         local allTeamHasMember = (#teamIdList > 0)
         for i, teamId in ipairs(teamIdList) do
             teamList[i] = {}
             local count = 0
+            ---@type XTeam
             local teamData = XFubenAssignManager.GetTeamDataById(teamId)
             captainPosList[i] = teamData:GetLeaderIndex()
             firstFightPosList[i] = teamData:GetFirstFightIndex()
@@ -1003,8 +829,12 @@ XFubenAssignManagerCreator = function()
             if count < #memberList then
                 allTeamHasMember = false
             end
+
+            local generalSkillId = teamData:GetCurGeneralSkill() or 0
+            table.insert(generalSkillIdList, generalSkillId)      
+            
         end
-        return allTeamHasMember, teamList, captainPosList, firstFightPosList
+        return allTeamHasMember, teamList, captainPosList, firstFightPosList, generalSkillIdList
     end
 
     -- 刷新后面关卡的解锁信息
@@ -1074,7 +904,8 @@ XFubenAssignManagerCreator = function()
         end
     end
 
-    function XFubenAssignManager.IsRedPoint()
+    -- 奖励红点
+    function XFubenAssignManager.IsRewardRedPoint()
         for _, chapterId in ipairs(XFubenAssignManager.GetChapterIdList()) do
             local chapterData = XFubenAssignManager.GetChapterDataById(chapterId)
             if chapterData:CanReward() then
@@ -1085,14 +916,13 @@ XFubenAssignManagerCreator = function()
     end
 
     function XFubenAssignManager.GetCharacterListInTeam(inTeamIdMap, charType)
-        local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList(charType)
+        local ownCharacters = XMVCA.XCharacter:GetOwnCharacterList(charType)
         -- 排序 未编队>已编队  等级＞品质＞优先级
         local weights = {} -- 编队[1位] + 等级[3位] + 品质[1位] + 优先级[5位]
-        local GetCharacterPriority = XCharacterConfigs.GetCharacterPriority
         for _, character in ipairs(ownCharacters) do
             local teamOrder = inTeamIdMap[character.Id]
             local stateOrder = teamOrder and (9 - teamOrder) or 9
-            local priority = GetCharacterPriority(character.Id)
+            local priority = XMVCA.XCharacter:GetCharacterPriority(character.Id)
             local weightOrder = stateOrder * 1000000000
             local weightLevel = character.Level * 1000000
             local weightQuality = character.Quality * 100000
@@ -1116,7 +946,6 @@ XFubenAssignManagerCreator = function()
         return KeyAccountEnterAssign .. XPlayer.Id
     end
 
-
     -----------------协议----------
     function XFubenAssignManager.AssignGetDataRequest(cb)
         -- if cb then cb() return end -- for testing
@@ -1124,23 +953,33 @@ XFubenAssignManagerCreator = function()
             local info = res.AssignInfo
             local chapterRecords = info.ChapterRecords -- 章节占领角色
             XFubenAssignManager.UpdateChapterRecords(chapterRecords)
-           
+            FinishStageIdDic = {}
             local groupRecords = info.GroupRecords -- 关卡组挑战次数
             for _, v in ipairs(groupRecords) do
                 local groupData = XFubenAssignManager.GetGroupDataById(v.GroupId)
                 groupData:SetFightCount(v.Count)
                 groupData:SetIsPerfect(v.IsPerfect)
+                if not XTool.IsTableEmpty(v.FinishStageIds) then
+                    FinishStageIds = appendArray(FinishStageIds, v.FinishStageIds)
+                    for k, id in pairs(v.FinishStageIds) do
+                        -- 使用全局变量记录服务器发下来的数据
+                        -- 已通关的StageId
+                        FinishStageIdDic[id] = true
+                    end
+                end
             end
             XEventManager.DispatchEvent(XEventId.EVENET_ASSIGN_CAN_REWARD) -- 刷新红点
 
-            local groupTeamRecords = info.GroupTeamRecords -- 编队记录
-            for _, v in ipairs(groupTeamRecords) do
+            GroupTeamRecords = info.GroupTeamRecords -- 编队记录
+            GroupTeamRecordsDic = {}
+            for _, v in ipairs(GroupTeamRecords or {}) do
                 local groupData = XFubenAssignManager.GetGroupDataById(v.GroupId)
                 local teamCount = #v.TeamInfoList
                 local posCount = v.CaptainPosList and #v.CaptainPosList or 0
                 local firstFightCount = v.FirstFightPosList and #v.FirstFightPosList or 0
 
                 for i, teamId in ipairs(groupData:GetTeamInfoId()) do
+                    ---@type XTeam
                     local teamData = XFubenAssignManager.GetTeamDataById(teamId)
                     local charaterIds = (i <= teamCount) and v.TeamInfoList[i] or nil
                     local captainPos = (i <= posCount) and v.CaptainPosList[i] or XFubenAssignManager.CAPTIAN_MEMBER_INDEX
@@ -1148,7 +987,10 @@ XFubenAssignManagerCreator = function()
                     teamData:SetMemberList(charaterIds)
                     teamData:SetLeaderIndex(captainPos)
                     teamData:SetFirstFightIndex(firstFightPos)
+                    teamData:UpdateSelectGeneralSkill(XFubenAssignManager.GetTeamGeneralSkillId(teamId), true)
                 end
+                -- 队伍字典
+                GroupTeamRecordsDic[v.GroupId] = v
             end
 
             if cb then
@@ -1157,16 +999,22 @@ XFubenAssignManagerCreator = function()
         end)
     end
 
-    function XFubenAssignManager.AssignSetTeamRequest(GroupId, TeamList, captainPosList, firstFightPosList, cb)
-        -- if cb then cb() return end -- for testing
+    function XFubenAssignManager.AssignSetTeamRequest(GroupId, TeamList, captainPosList, firstFightPosList, generalSkillIds, cb)
         XNetwork.Call(METHOD_NAME.AssignSetTeamRequest, { GroupId = GroupId, TeamList = TeamList, CaptainPosList = captainPosList, FirstFightPosList = firstFightPosList }, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
                 return
             end
-            if cb then
-                cb()
+            
+            --保存效应技能
+            local groupData = XFubenAssignManager.GetGroupDataById(GroupId)
+            for i, teamId in ipairs(groupData:GetTeamInfoId()) do
+                XFubenAssignManager.SetTeamGeneralSkillId(teamId, generalSkillIds[i] or 0)
             end
+            
+            XFubenAssignManager.SaveTeamGeneralSkillDict()
+            -- 设完队伍强制刷新下
+            XFubenAssignManager.AssignGetDataRequest(cb)
         end)
     end
 
@@ -1177,7 +1025,13 @@ XFubenAssignManagerCreator = function()
                 XUiManager.TipCode(res.Code)
                 return
             end
+
+            local chapterData = XFubenAssignManager.GetChapterDataById(ChapterId)
+            chapterData:SetCharacterId(CharacterId)
+
             XEventManager.DispatchEvent(XEventId.EVENT_REFRESH_CHRACTER_ABLIITY) -- 重新计算角色战力
+            XEventManager.DispatchEvent(XEventId.EVENT_ASSIGN_SELECT_OCCUPY_END) -- 刷新驻守界面
+            CsXGameEventManager.Instance:Notify(XEventId.EVENT_ASSIGN_SELECT_OCCUPY_END) -- 刷新驻守界面
             if cb then
                 cb()
             end
@@ -1193,6 +1047,21 @@ XFubenAssignManagerCreator = function()
             local chapterData = XFubenAssignManager.GetChapterDataById(ChapterId)
             chapterData:SetRewarded(true)
             XUiManager.OpenUiObtain(res.RewardList or {})
+            if cb then
+                cb()
+            end
+        end)
+    end
+
+    -- 重置关卡
+    function XFubenAssignManager.AssignResetStageRequest(groupId, stageId, cb)
+        XNetwork.Call(METHOD_NAME.AssignResetStageRequest, { GroupId = groupId, StageId = stageId }, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            FinishStageIdDic[stageId] = nil
+
             if cb then
                 cb()
             end
@@ -1216,7 +1085,7 @@ XFubenAssignManagerCreator = function()
             return list
         end
         for _, v in ipairs(assignChapterRecords) do
-            local chapterData = ChapterData.New(v.ChapterId)
+            local chapterData = XAssignChapter.New(v.ChapterId)
             chapterData:SetCharacterId(v.CharacterId)
 
             if chapterData:IsOccupy() then
@@ -1226,6 +1095,71 @@ XFubenAssignManagerCreator = function()
         return list
     end
 
+    -- 二选1 入口红点
+    function XFubenAssignManager.CheckIsShowRedPoint()
+        if XFubenAssignManager.IsRewardRedPoint() then
+            return true
+        end
+
+        for k, chapterId in pairs(XFubenAssignManager.GetChapterIdList()) do
+            local chapter =  XFubenAssignManager.GetChapterDataById(chapterId)
+            if chapter:IsRed() then
+                return true
+            end
+        end
+
+        return false
+    end
+    ------------------副本入口扩展 start-------------------------
+    
+    -- 获取进度提示
+    function XFubenAssignManager:ExGetProgressTip() 
+        local str = ""
+        -- if not self:ExGetIsLocked() then
+        --     str = XFubenAssignManager.GetChapterProgressTxt()
+        -- end
+        local curr = XFubenAssignManager.GetAllChapterOccupyNum()
+        local total = #XFubenAssignManager.GetChapterIdList()
+        local textKeyName = "AssignOccupyProgress"
+        if curr >= total then
+            curr = XDataCenter.FubenAwarenessManager.GetAllChapterOccupyNum()
+            total = #XDataCenter.FubenAwarenessManager.GetChapterIdList()
+            textKeyName = "AwarenessCoverOccupyProgress"
+        end
+        str = CS.XTextManager.GetText(textKeyName, curr, total)
+        return str
+    end
+
+    function XFubenAssignManager:ExCheckIsShowRedPoint()
+        return XFubenAssignManager.CheckIsShowRedPoint() or XDataCenter.FubenAwarenessManager.CheckIsShowRedPoint()
+    end
+
+    function XFubenAssignManager.OpenUi(stageId)
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
+            return
+        end
+
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Assign) then
+            return
+        end
+
+        XLuaUiManager.Open("UiPanelAssignMain", stageId)
+    end
+
+    function XFubenAssignManager:ExOpenMainUi()
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
+            return
+        end
+
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Assign) then
+            return
+        end
+        
+        XLuaUiManager.Open("UiAssignAwarenessSelect")
+    end
+    
+    ------------------副本入口扩展 end-------------------------
     -------------------------------
     XFubenAssignManager.Init()
     return XFubenAssignManager

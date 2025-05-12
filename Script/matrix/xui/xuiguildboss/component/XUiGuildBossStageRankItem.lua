@@ -14,7 +14,7 @@ function XUiGuildBossStageRankItem:Init(data, rank)
     self.Id = data.Id
     self.TxtName.text = data.PlayerName
     self.TxtRank.text = "No." .. rank
-    XUiPLayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.UObjHead)
+    XUiPlayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.UObjHead)
     --data.RankLevel 职位
     self.TxtScore.text = CS.XTextManager.GetText("GuildBossTopPlayerScoreName", XUiHelper.GetLargeIntNumText(data.Score or 0))  
 end

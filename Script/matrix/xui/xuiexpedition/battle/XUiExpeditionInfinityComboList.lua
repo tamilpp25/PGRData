@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 -- 虚像地平线无尽关羁绊动态列表控件
 local XUiExpeditionInfinityComboList = XClass(nil, "XUiExpeditionInfinityComboList")
 local XUiExpeditionComboGrid = require("XUi/XUiExpedition/Recruit/XUiExpeditionComboPanel/XUiExpeditionComboGrid")

@@ -1,4 +1,4 @@
-XUiOrnamentGrid = XClass(nil, "XUiOrnamentGrid")
+local XUiOrnamentGrid = XClass(nil, "XUiOrnamentGrid")
 
 function XUiOrnamentGrid:Ctor(ui)
     self.GameObject = ui.gameObject

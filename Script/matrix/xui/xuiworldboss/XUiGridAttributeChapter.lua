@@ -1,3 +1,4 @@
+local XUiGridAttribute = require("XUi/XUiDorm/XUiDormCommom/XUiGridAttribute")
 local XUiGridAttributeStage = require("XUi/XUiWorldBoss/XUiGridAttributeStage")
 local XUiGridAttributeChapter = XClass(nil, "UiGridAttributeChapter")
 

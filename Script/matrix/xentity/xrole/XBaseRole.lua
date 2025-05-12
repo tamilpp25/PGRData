@@ -1,6 +1,7 @@
 --===================
 --基础角色数据(同时用于Robot和Character)
 --===================
+---@class XBaseRole
 local XBaseRole = XClass(nil, "XBaseRole")
 
 function XBaseRole:Ctor(rawData)
@@ -104,7 +105,7 @@ end
 --==================
 function XBaseRole:GetQualityIcon()
     local quality = self:GetQuality()
-    return XCharacterConfigs.GetCharacterQualityIcon(quality)
+    return XMVCA.XCharacter:GetCharacterQualityIcon(quality)
 end
 --==================
 --获取当前角色战力
@@ -119,7 +120,7 @@ function XBaseRole:GetCaptainSkillDesc()
     if self:GetIsRobot() then
         return XRobotManager.GetRobotCaptainSkillDesc(self.RawData.Id)
     else
-        return XDataCenter.CharacterManager.GetCaptainSkillDesc(self.RawData.Id)
+        return XMVCA.XCharacter:GetCaptainSkillDesc(self.RawData.Id)
     end
 end
 --==================
@@ -148,13 +149,13 @@ end
 --获取职业图标
 --==================
 function XBaseRole:GetCareerIcon()
-    return XCharacterConfigs.GetNpcTypeIcon(self:GetCareer())
+    return XMVCA.XCharacter:GetNpcTypeIcon(self:GetCareer())
 end
 --==================
 --检查是否授格者
 --==================
 function XBaseRole:CheckIsIsomer()
-    return XCharacterConfigs.IsIsomer(self:GetCharacterId())
+    return XMVCA.XCharacter:GetIsIsomer(self:GetCharacterId())
 end
 
 function XBaseRole:GetFashionId()
@@ -168,7 +169,7 @@ function XBaseRole:GetUsingWeaponId()
         local robotCfg = XRobotManager.GetRobotTemplate(self.RawData.Id)
         return robotCfg and robotCfg.WeaponId
     else
-        return XDataCenter.EquipManager.GetCharacterWearingWeaponId(self:GetCharacterId())
+        return XMVCA.XEquip:GetCharacterWeaponId(self:GetCharacterId())
     end
 end
 
@@ -176,9 +177,9 @@ function XBaseRole:GetWeaponEquipView()
     if self:GetIsRobot() then
         return self.RawData:GetWeaponViewModel()      
     else
-        local weapon = XDataCenter.EquipManager.GetCharacterWearingWeapon(self:GetCharacterId())
+        local weapon = XMVCA.XEquip:GetCharacterWeapon(self:GetCharacterId())
         if not weapon then return end
-        local equip = XDataCenter.EquipManager.GetEquip(weapon.Id)
+        local equip = XMVCA.XEquip:GetEquip(weapon.Id)
         return equip and equip:GetEquipViewModel()
     end
 end
@@ -190,7 +191,7 @@ function XBaseRole:GetWearingAwarenessBySiteId(siteId)
         local robotCfg = XRobotManager.GetRobotTemplate(self.RawData.Id)
         return robotCfg and robotCfg.WaferId[siteId]
     else
-        XDataCenter.EquipManager.GetWearingEquipIdBySite(self:GetCharacterId(), siteId)
+        XMVCA.XEquip:GetCharacterEquipId(self:GetCharacterId(), siteId)
     end
 end
 
@@ -199,9 +200,9 @@ function XBaseRole:GetAwarenessEquipViewBySiteId(siteId)
         local dic = self.RawData:GetAwarenessViewModelDic()
         return dic[siteId]
     else
-        local awareness = XDataCenter.EquipManager.GetWearingEquipBySite(self:GetCharacterId(), siteId)
+        local awareness = XMVCA.XEquip:GetCharacterEquip(self:GetCharacterId(), siteId)
         if not awareness then return end
-        local equip = XDataCenter.EquipManager.GetEquip(awareness.Id)
+        local equip = XMVCA.XEquip:GetEquip(awareness.Id)
         return equip and equip:GetEquipViewModel()
     end
 end

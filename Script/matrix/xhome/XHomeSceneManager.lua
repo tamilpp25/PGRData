@@ -14,6 +14,7 @@ HomeSceneLayerMask = {
     HomeCharacter = "HomeCharacter",
 }
 
+---@type XHomeScene
 local CurrentScene = nil
 local CurrentView = HomeSceneViewType.OverView
 
@@ -21,7 +22,13 @@ function XHomeSceneManager.Init()
     --TODO
 end
 
-function XHomeSceneManager.EnterScene(sceneName, sceneAssetUrl,onLoadCompleteCb, onLeaveCb)
+--- 进入宿舍场景
+---@param sceneName string 场景名
+---@param sceneAssetUrl string 场景资源路径
+---@param onLoadCompleteCb function 场景资源加载完成回调
+---@param onLeaveCb function 离开场景回调
+--------------------------
+function XHomeSceneManager.EnterScene(sceneName, sceneAssetUrl, onLoadCompleteCb, onLeaveCb)
     if CurrentScene and CurrentScene.Name == sceneName then
         return
     end
@@ -29,7 +36,10 @@ function XHomeSceneManager.EnterScene(sceneName, sceneAssetUrl,onLoadCompleteCb,
     local scene = XHomeScene.New(sceneName, sceneAssetUrl, onLoadCompleteCb, onLeaveCb)
 
     XLuaUiManager.Open("UiLoading", LoadingType.Dormitory)
+    -- 释放无用资源
     CS.UnityEngine.Resources.UnloadUnusedAssets()
+    -- 手动执行GC
+    LuaGC()
     XHomeSceneManager.LeaveScene()
     CurrentScene = scene
     CurrentScene:OnEnterScene()
@@ -43,12 +53,15 @@ function XHomeSceneManager.LeaveScene()
         XDataCenter.DormManager.ClearLocalCaptureCache()
         CurrentScene = nil
     end
+    
+    XHomeCharManager.LeaveScene()
 end
 
 function XHomeSceneManager.GetCurrentScene()
     return CurrentScene
 end
 
+---@return UnityEngine.Camera
 function XHomeSceneManager.GetSceneCamera()
     if CurrentScene then
         return CurrentScene:GetCamera()
@@ -56,6 +69,7 @@ function XHomeSceneManager.GetSceneCamera()
     return nil
 end
 
+---@return XCameraController
 function XHomeSceneManager.GetSceneCameraController()
     if CurrentScene then
         return CurrentScene:GetCameraController()
@@ -178,6 +192,14 @@ end
 
 function XHomeSceneManager.IsInHomeScene()
     return CurrentScene ~= nil
+end
+
+function XHomeSceneManager.SafeOpenBlack(targetTrans, isTweenCamera, paramName, cb)
+    local uiName = "UiBlackScreen"
+    if XLuaUiManager.IsUiShow(uiName) or XLuaUiManager.IsUiLoad(uiName) then
+        XLuaUiManager.Remove(uiName)
+    end
+    XLuaUiManager.Open(uiName, targetTrans, isTweenCamera, paramName, cb)
 end
 
 ----------------------------光照信息接口 start-----------------------------

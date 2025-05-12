@@ -1,4 +1,5 @@
-XUiPanelWaitForPassView = XClass(nil, "XUiPanelWaitForPassView")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiPanelWaitForPassView = XClass(nil, "XUiPanelWaitForPassView")
 local XUiGridWaitPassItem = require("XUi/XUiSocial/WaitPassModel/XUiGridWaitPassItem")
 
 function XUiPanelWaitForPassView:Ctor(ui, parent)
@@ -54,7 +55,7 @@ function XUiPanelWaitForPassView:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -132,3 +133,5 @@ end
 function XUiPanelWaitForPassView:OnClose()
     XEventManager.RemoveEventListener(XEventId.EVENT_BLACK_DATA_CHANGE, self.RefreshApplyList, self)
 end
+
+return XUiPanelWaitForPassView

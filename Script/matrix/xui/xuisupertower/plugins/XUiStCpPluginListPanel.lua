@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local Base = require("XUi/XUiSuperTower/Common/XUiSTChildPanel")
 local COST_MAX_NUM = 9
 --=====================

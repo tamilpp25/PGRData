@@ -1,3 +1,4 @@
+local XUiGridSelectGift = require("XUi/XUiBag/XUiGridSelectGift")
 local CsGetText = CS.XTextManager.GetText
 local XUiPanelSelectGift = XClass(nil, "XUiPanelSelectGift")
 
@@ -10,6 +11,14 @@ function XUiPanelSelectGift:Ctor(rootUi, ui)
     XTool.InitUiObject(self)
     self:AutoAddListener()
     self.GameObject:SetActiveEx(false)
+    self.CanvasGroup = self.Transform:GetComponent("CanvasGroup")
+end
+
+function XUiPanelSelectGift:OnEnable()
+    if self.GameObject.activeInHierarchy 
+            and self.CanvasGroup.alpha < 1.0 then
+        self.RootUi:PlayAnimation("AnimSelectGiftEnable")
+    end
 end
 
 function XUiPanelSelectGift:Refresh(id)
@@ -62,6 +71,11 @@ function XUiPanelSelectGift:Refresh(id)
     self.PanelCantConfirm.gameObject:SetActiveEx(self.SelectCount ~= self.SupposedCount)
     self.BtnConfirm.gameObject:SetActiveEx(self.SelectCount == self.SupposedCount)
     self.RootUi:PlayAnimation("AnimSelectGiftEnable")
+
+    if not self.IsInitPc then
+        XDataCenter.UiPcManager.OnUiEnable(self)
+        self.IsInitPc = true
+    end
 end
 
 function XUiPanelSelectGift:SelectRewardGrid(gridData, grid)
@@ -98,7 +112,7 @@ function XUiPanelSelectGift:OpenDetailUi(data)
     if data.RewardType == XRewardManager.XRewardType.Character then
         XLuaUiManager.Open("UiCharacterDetail", data.TemplateId)
     elseif data.RewardType == XRewardManager.XRewardType.Equip then
-        XLuaUiManager.Open("UiEquipDetail", data.TemplateId, true)
+        XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipPreview(data.TemplateId)
     elseif data.RewardType == XRewardManager.XRewardType.Fashion then
         XLuaUiManager.Open("UiFashionDetail", data.TemplateId, false, nil)
     elseif data.RewardType == XRewardManager.XRewardType.Partner then
@@ -280,6 +294,8 @@ function XUiPanelSelectGift:OnBtnClearSelectionClick()
 end
 
 function XUiPanelSelectGift:Close()
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
+    self.IsInitPc = false
     self.GameObject:SetActiveEx(false)
 end
 

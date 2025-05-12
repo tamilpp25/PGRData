@@ -1,3 +1,4 @@
+---@class XHomeFurnitureData
 XHomeFurnitureData = XClass(nil, "XHomeFurnitureData")
 
 function XHomeFurnitureData:Ctor(data)
@@ -11,6 +12,7 @@ function XHomeFurnitureData:Ctor(data)
     self.Addition = data.Addition
     self.AttrList = data.AttrList
     self.IsLocked = data.IsLocked
+    self.BaseAttrList = data.BaseAttrList or {0, 0, 0} --基础属性分配
 end
 
 function XHomeFurnitureData:GetInstanceID()
@@ -29,6 +31,10 @@ function XHomeFurnitureData:SetUsedDormitoryId(dormitoryId)
     self.DormitoryId = dormitoryId
 end
 
+function XHomeFurnitureData:GetDormitoryId()
+    return self.DormitoryId
+end
+
 function XHomeFurnitureData:CheckIsUsed()
     return self.DormitoryId > 0
 end
@@ -45,13 +51,13 @@ function XHomeFurnitureData:GetScore()
     return score
 end
 
-function XHomeFurnitureData:GeAttrtScore(attrType, attrScore)
+function XHomeFurnitureData:GetAttrScore(attrType, attrScore)
     local score = attrScore or 0
     if self.Addition <= 0 then
         return score
     end
 
-    local additionConfig = XFurnitureConfigs.GetAdditonAttrConfigById(self.Addition)
+    local additionConfig = XFurnitureConfigs.GetAdditionAttrConfigById(self.Addition)
     if additionConfig == nil then
         return score
     end
@@ -66,15 +72,24 @@ function XHomeFurnitureData:GeAttrtScore(attrType, attrScore)
 end
 
 function XHomeFurnitureData:GetRedScore()
-    return self:GeAttrtScore(XFurnitureConfigs.AttrType.AttrA, self.AttrList[XFurnitureConfigs.AttrType.AttrA])
+    return self:GetAttrScore(XFurnitureConfigs.AttrType.AttrA, self.AttrList[XFurnitureConfigs.AttrType.AttrA])
 end
 
 function XHomeFurnitureData:GetYellowScore()
-    return self:GeAttrtScore(XFurnitureConfigs.AttrType.AttrB, self.AttrList[XFurnitureConfigs.AttrType.AttrB])
+    return self:GetAttrScore(XFurnitureConfigs.AttrType.AttrB, self.AttrList[XFurnitureConfigs.AttrType.AttrB])
 end
 
 function XHomeFurnitureData:GetBlueScore()
-    return self:GeAttrtScore(XFurnitureConfigs.AttrType.AttrC, self.AttrList[XFurnitureConfigs.AttrType.AttrC])
+    return self:GetAttrScore(XFurnitureConfigs.AttrType.AttrC, self.AttrList[XFurnitureConfigs.AttrType.AttrC])
+end
+
+function XHomeFurnitureData:GetFurnitureTotalAttrLevel()
+    if not XTool.IsNumberValid(self.ConfigId) then
+        return XFurnitureConfigs.FurnitureAttrLevelId.LevelC
+    end
+    local template = XFurnitureConfigs.GetFurnitureTemplateById(self.ConfigId)
+    local level, _, _ = XFurnitureConfigs.GetFurnitureTotalAttrLevel(template.TypeId, self:GetScore())
+    return level
 end
 
 function XHomeFurnitureData:GetIsLocked()
@@ -83,4 +98,48 @@ end
 
 function XHomeFurnitureData:SetIsLocked(isLocked)
     self.IsLocked = isLocked
+end
+
+function XHomeFurnitureData:GetSuitId()
+    if not XTool.IsNumberValid(self.ConfigId) then
+        return 0
+    end
+    local template = XFurnitureConfigs.GetFurnitureTemplateById(self.ConfigId)
+    return template.SuitId
+end 
+
+function XHomeFurnitureData:GetTypeId()
+    if not XTool.IsNumberValid(self.ConfigId) then
+        return 0
+    end
+    local template = XFurnitureConfigs.GetFurnitureTemplateById(self.ConfigId)
+    return template.TypeId
+end
+
+function XHomeFurnitureData:CheckIsBaseFurniture()
+    return self:GetSuitId() == XFurnitureConfigs.BASE_SUIT_ID
+end 
+
+function XHomeFurnitureData:GetBaseAttrList()
+    return self.BaseAttrList
+end
+
+function XHomeFurnitureData:GetBaseAttr()
+    return table.unpack(self.BaseAttrList)
+end
+
+function XHomeFurnitureData:GetFurnitureName()
+    if not XTool.IsNumberValid(self.ConfigId) then
+        return ""
+    end
+    local template = XFurnitureConfigs.GetFurnitureTemplateById(self.ConfigId)
+    return template.Name 
+end
+
+function XHomeFurnitureData:GetAttrTotal()
+    local total = 0
+    for _, attr in pairs(self.AttrList) do
+        total = total + attr
+    end
+    return total
 end

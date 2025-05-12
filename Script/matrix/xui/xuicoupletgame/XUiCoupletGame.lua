@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local tableInsert = table.insert
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
@@ -16,7 +17,7 @@ end
 
 function XUiCoupletGame:OnStart()
     self:AutoRegisterBtn()
-    self.AssetPanel = XUiPanelActivityAsset.New(self.PanelAsset, true)
+    self.AssetPanel = XUiPanelActivityAsset.New(self.PanelAsset, self, true)
     self.AssetPanel:Refresh({ XDataCenter.CoupletGameManager.GetConsumeItemId() })
     self:InitBtnGroup()
     self:InitRedPoint()

@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelNieRTask = XClass(nil, "XUiPanelNieRTask")
 local GridTimeAnimation = 50
 function XUiPanelNieRTask:Ctor(ui, rootUi)

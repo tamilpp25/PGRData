@@ -46,15 +46,14 @@ function XUiNewRegressionForward:GetPlatformType2CustomText(platformType)
     local platformTextContent = ""
     local shareLink = self.InviteManager:GetShareLink()
     if config.TextPlayerInfo then
-        --platformTextContent = CS.XStringEx.Format(config.TextPlayerInfo, XPlayer.Name, self.InviteManager:GetCode())
-        platformTextContent = platformTextContent .. self.InviteManager:GetCode()
+        platformTextContent = CS.XStringEx.Format(config.TextPlayerInfo, XPlayer.Name, self.InviteManager:GetCode())
     end
-    --[[if config.TextContent then
+    if config.TextContent then
         platformTextContent = platformTextContent .. config.TextContent
     end
     if config.KeepLink and shareLink then
         platformTextContent = platformTextContent .. shareLink
-    end--]]
+    end
     return platformTextContent
 end
 

@@ -29,7 +29,9 @@ XDoomsdayManagerCreator = function()
         if leftTime > 0 then
             XCountDown.CreateTimer(XCountDown.GTimerName.Doomsday, leftTime)
         end
-
+        if IsNumberValid(_ActivityId) and leftTime > 0 then
+            XDoomsdayManager.ClearActivityEnd()
+        end
         _IsOpening = true
     end
 
@@ -141,6 +143,21 @@ XDoomsdayManagerCreator = function()
 
         XLuaUiManager.Open("UiDoomsdayChapter")
     end
+    
+    function XDoomsdayManager.GetActivityChapters()
+        local chapters = {}
+        if not IsNumberValid(_ActivityId) 
+                or not XFunctionManager.CheckInTimeByTimeId(XDoomsdayConfigs.ActivityConfig:GetProperty(_ActivityId, "OpenTimeId")) then
+            return chapters
+        end
+        table.insert(chapters, {
+            Id       = _ActivityId,
+            Type     = XDataCenter.FubenManager.ChapterType.Doomsday,
+            BannerBg = XDoomsdayConfigs.ActivityConfig:GetProperty(_ActivityId, "BannerBg"),
+            Name     =  XDoomsdayConfigs.ActivityConfig:GetProperty(_ActivityId, "Name")
+        })
+        return chapters
+    end
     -----------------活动入口 end------------------
     -----------------玩法战斗相关（单局生存解谜） begin------------------
     local XDoomsdayStage = require("XEntity/XDoomsday/XDoomsdayStage")
@@ -149,6 +166,7 @@ XDoomsdayManagerCreator = function()
     local _HistoryStageDataDic = {} --每一关历史战斗数据（只记录前一天）
     local _StageFinishedMainTargetDic = {} --每一关通关后达成的主目标（主目标全部达成后算作通关）
     local _StageFinishedSubTargetDic = {} --每一关通关后达成的子目标
+    local _StageFinishedEndingIds = {} --每一关达成的结局Id
 
     local function GetStageData(stageId)
         if not IsNumberValid(stageId) then
@@ -195,12 +213,14 @@ XDoomsdayManagerCreator = function()
             return
         end
         GetStageData(data.Id):UpdateData(data)
-        XDoomsdayManager.CheckSettle(data.Id)
+        --XDoomsdayManager.CheckSettle(data.Id)
     end
 
     local function UpdateStageDataEx(data)
         local stageId = data.Id
-
+        --更新已经达成的结局
+        XDoomsdayManager.UpdateStageFinishedEndingIds(stageId, data.HistoryEndingIds)
+        --更新关卡信息
         local stageInfo = data.Cur
         if not IsTableEmpty(stageInfo) then
             UpdateStageData(stageInfo)
@@ -242,6 +262,11 @@ XDoomsdayManagerCreator = function()
 
         XDoomsdayManager.UpdateStageState(stageId)
     end
+    
+    --更新关卡的结局Id
+    function XDoomsdayManager.UpdateStageFinishedEndingIds(stageId, endingIds)
+        _StageFinishedEndingIds[stageId] = endingIds
+    end
 
     --检查关卡开放
     local function CheckStageOpening()
@@ -265,7 +290,8 @@ XDoomsdayManagerCreator = function()
 
         stageData:SetProperty("_Star", XTool.GetTableCount(_StageFinishedSubTargetDic[stageId]))
 
-        local passed = not IsTableEmpty(_StageFinishedMainTargetDic[stageId])
+        --local passed = not IsTableEmpty(_StageFinishedMainTargetDic[stageId])
+        local passed = XDoomsdayManager.IsStagePassed(stageId)
         stageData:SetProperty("_Passed", passed)
 
         CheckStageOpening()
@@ -282,7 +308,18 @@ XDoomsdayManagerCreator = function()
 
     --关卡是否通关
     function XDoomsdayManager.IsStagePassed(stageId)
-        return _StageFinishedMainTargetDic[stageId] and not IsTableEmpty(_StageFinishedMainTargetDic[stageId]) or false
+        --return _StageFinishedMainTargetDic[stageId] and not IsTableEmpty(_StageFinishedMainTargetDic[stageId]) or false
+        local endingIds = _StageFinishedEndingIds[stageId]
+        if XTool.IsTableEmpty(endingIds) then
+            return false
+        end
+        for _, endingId in ipairs(endingIds) do
+            local passed = XDoomsdayConfigs.StageEndingConfig:GetProperty(endingId, "IsSuccess")
+            if passed then
+                return true
+            end
+        end
+        return false
     end
 
     --关卡子目标是否达成
@@ -317,9 +354,22 @@ XDoomsdayManagerCreator = function()
 
         local num = XDoomsdayManager.GetInhabitantDeadCount(stageId)
         if num > 0 then
-            str = XDoomsdayConfigs.GetNumerText(-num)
+            str = XDoomsdayConfigs.GetNumberText(-num, false, false, true)
         end
 
+        return str
+    end
+    
+    --获取和前一天历史数据对比：居民人数变化
+    function XDoomsdayManager.GetInhabitantCountChangeText(stageId)
+        local str = ""
+        local today     = GetStageData(stageId):GetProperty("_InhabitantCount") or 0
+        local yesterdayStage = GetHistoryStageData(stageId)
+        local yesterday = yesterdayStage and yesterdayStage:GetProperty("_InhabitantCount") or 0
+        local num = today - yesterday
+        if num ~= 0 then
+            str = XDoomsdayConfigs.GetNumberText(num, false, false, true)
+        end
         return str
     end
 
@@ -337,7 +387,7 @@ XDoomsdayManagerCreator = function()
             history:GetAverageInhabitantAttr(attrType):GetProperty("_Value")
 
         if num > 0 then
-            str = XDoomsdayConfigs.GetNumerText(num)
+            str = XDoomsdayConfigs.GetNumberText(num, false, false, true)
         end
 
         return str
@@ -437,6 +487,14 @@ XDoomsdayManagerCreator = function()
     function XDoomsdayManager.GenerateInhabitantReports(stageId)
         local reports = {}
         local stageData = XDoomsdayManager.GetStageData(stageId)
+        local finishEndingId = stageData:GetProperty("_FinishEndingId")
+        local isFinishEnd = XTool.IsNumberValid(finishEndingId)
+        --达成失败结局
+        if isFinishEnd and not stageData:IsWin() then
+            local desc = XDoomsdayConfigs.StageEndingConfig:GetProperty(finishEndingId, "Desc")
+            tableInsert(reports, desc)
+            return reports
+        end
         for _, reportId in ipairs(InHabitantReportIds) do
             local addInhabitantCount = 0
             if reportId == XDoomsdayConfigs.REPORT_ID.DEAD then
@@ -469,7 +527,47 @@ XDoomsdayManagerCreator = function()
         end
         return reports
     end
-
+    
+    --获取和前一天历史数据对比，资源产/消
+    function XDoomsdayManager.GetResourceChangeCountList(stageId)
+        local list = {}
+        
+        local history = GetHistoryStageData(stageId)
+        if not history then
+            return list
+        end
+        
+        local tmpDic = {}
+        local resourceIds = XDoomsdayConfigs.GetResourceIds()
+        for _, rId in ipairs(resourceIds) do
+            local lastResource = history:GetResource(rId)
+            local curResource = GetStageData(stageId):GetResource(rId)
+            local curCount = curResource:GetProperty("_Count")
+            local lastCount = lastResource:GetProperty("_Count")
+            tableInsert(list, {
+                Id = rId,
+                CurCount = curCount,
+                LastCount = lastCount,
+                ChangeCount = curCount - lastCount
+            })
+        end
+        return list
+    end
+    
+    --==============================
+     ---@desc 往播报队列内插入数据
+     ---@stageId 关卡Id 
+     ---@type 播报类型 
+     ---@count 数量，目前只有死亡播报需要数量
+    --==============================
+    function XDoomsdayManager.UpdateBroadcast(stageId, type, count)
+        local stageData = XDoomsdayManager.GetStageData(stageId)
+        if not stageData then
+            return
+        end
+        stageData:PushBroadcast(type, count)
+    end
+    
     --请求进入战斗
     local function DoomsdayEnterStageRequest(stageId, cb)
         local req = {StageId = stageId}
@@ -513,6 +611,7 @@ XDoomsdayManagerCreator = function()
         )
     end
 
+    --进入关卡界面
     function XDoomsdayManager.EnterFight(stageId, restart)
         local stageData = XDoomsdayManager.GetStageData(stageId)
 
@@ -527,30 +626,37 @@ XDoomsdayManagerCreator = function()
                 else
                     asynReqEnter(stageId)
                 end
+                --清除已弹出事件
+                stageData:ClearPoppedEvent()
+                
                 XLuaUiManager.Open("UiDoomsdayFubenMainGameMovie", stageId) --黑幕弹窗
 
-                asynWaitSecond(2)
+                asynWaitSecond(XDoomsdayConfigs.BLACK_MASK_DURATION)
 
                 XLuaUiManager.Close("UiDoomsdayFubenMainGameMovie") --黑幕弹窗关闭
 
                 XLuaUiManager.Open("UiDoomsdayFubenMain", stageId) --玩法主UI
 
                 --存在自动弹出事件时全部按顺序自动弹出（进入关卡/下一天/完成上一个事件之后检查）
-                local popedEventIdDic = {}
-                while true do
-                    if XDoomsdayManager.CheckSettle(stageId) then
-                        return
-                    end
-
-                    local autoEvent = stageData:GetNextPopupEvent(popedEventIdDic)
-                    if XTool.IsTableEmpty(autoEvent) then
-                        break
-                    end
-
+                --local popedEventIdDic = {}
+                --while true do
+                --    --if XDoomsdayManager.CheckSettle(stageId) then
+                --    --    return
+                --    --end
+                --
+                --    local autoEvent = stageData:GetNextPopupEvent(popedEventIdDic)
+                --    if XTool.IsTableEmpty(autoEvent) then
+                --        break
+                --    end
+                --
+                --    asynEnterEventUI(stageId, autoEvent)
+                --end
+                local autoEvent = stageData:GetNextPopupEvent()
+                if autoEvent then
                     asynEnterEventUI(stageId, autoEvent)
                 end
 
-                asynOpen("UiDoomsdayAllot", stageId) --资源分配弹窗
+                --asynOpen("UiDoomsdayAllot", stageId) --资源分配弹窗
             end
         )
     end
@@ -573,8 +679,8 @@ XDoomsdayManagerCreator = function()
                 stageData:UpdateBuildingHistoryResource(res.BuildingAddResource)
                 stageData:UpdateTeamHistoryResource(res.TeamAddResource)
                 stageData:SetProperty("_IsLastDay", res.IsEnd)
-                stageData:SetProperty("_CurDeathCount", res.DeathCount or 0)
-
+                local curDeathCount = res.DeathCount or 0
+                stageData:SetProperty("_CurDeathCount", curDeathCount)
                 if cb then
                     cb()
                 end
@@ -585,7 +691,6 @@ XDoomsdayManagerCreator = function()
     --开始下一天
     function XDoomsdayManager.EnterNextDay(stageId)
         local stageData = GetStageData(stageId)
-
         --检查主要事件是否完成
         if not stageData:IsEventsFinished(XDoomsdayConfigs.EVENT_TYPE.MAIN) then
             XUiManager.TipText("DoomsdayMainEventNotFinish")
@@ -595,40 +700,47 @@ XDoomsdayManagerCreator = function()
         local asynReq = asynTask(DoomsdayNextDayRequest)
         local asynOpen = asynTask(XLuaUiManager.Open)
         local asynEnterEventUI = asynTask(XDoomsdayManager.EnterEventUiPurely)
+        local asyncBroadcast = asynTask(stageData.DispatchBroadcast)
         RunAsyn(
             function()
                 asynReq(stageId)
 
-                if XDoomsdayManager.CheckSettle(stageId) then
-                    return
-                end
+                --if XDoomsdayManager.CheckSettle(stageId) then
+                --    return
+                --end
 
                 XLuaUiManager.Open("UiDoomsdayFubenMainGameMovie", stageId) --黑幕弹窗
-                asynWaitSecond(2)
+                asynWaitSecond(XDoomsdayConfigs.BLACK_MASK_DURATION)
                 XLuaUiManager.Close("UiDoomsdayFubenMainGameMovie")
 
                 asynOpen("UidoomsdayReport", stageId) --结算报告
 
                 --存在自动弹出事件时全部按顺序自动弹出（进入关卡/下一天/完成上一个事件之后检查）
-                local popedEventIdDic = {}
-                while true do
-                    if XDoomsdayManager.CheckSettle(stageId) then
-                        return
-                    end
+                --local popedEventIdDic = {}
+                --while true do
+                --    --if XDoomsdayManager.CheckSettle(stageId) then
+                --    --    return
+                --    --end
+                --    local autoEvent = stageData:GetNextPopupEvent(popedEventIdDic)
+                --    if XTool.IsTableEmpty(autoEvent) then
+                --        break
+                --    end
+                --    asynEnterEventUI(stageId, autoEvent)
+                --end
 
-                    local autoEvent = stageData:GetNextPopupEvent(popedEventIdDic)
-                    if XTool.IsTableEmpty(autoEvent) then
-                        break
-                    end
+                local autoEvent = stageData:GetNextPopupEvent()
+                if autoEvent then
                     asynEnterEventUI(stageId, autoEvent)
                 end
 
-                asynOpen("UiDoomsdayAllot", stageId) --资源分配弹窗
+                asyncBroadcast(stageData)
+
+                --asynOpen("UiDoomsdayAllot", stageId) --资源分配弹窗
             end
         )
     end
 
-    --检查结算（成功/失败）
+    --检查结算（失败结局直接弹结算）
     local Settling = false --结算UI展示中
     function XDoomsdayManager.CheckSettle(stageId)
         if Settling then
@@ -648,17 +760,26 @@ XDoomsdayManagerCreator = function()
         if not XLuaUiManager.IsUiLoad("UiDoomsdayFubenMain") then
             return false
         end
+        
+        local finishEndingId = stageData:GetProperty("_FinishEndingId")
+        local isFinishEnd = XTool.IsNumberValid(finishEndingId)
+        --未达成任何结局
+        if not isFinishEnd then
+            return false
+        end
+        --达成成功结局，结算权交给玩家
+        if isFinishEnd and stageData:IsWin() then
+            return false
+        end
 
         local asynOpen = asynTask(XLuaUiManager.Open)
         RunAsyn(
             function()
                 Settling = true
-
-                if not stageData:IsWin() then
-                    XLuaUiManager.Open("UiDoomsdayFubenMainGameMovie", stageId, true) --黑幕弹窗
-                    asynWaitSecond(2)
-                    XLuaUiManager.Close("UiDoomsdayFubenMainGameMovie")
-                end
+                --达成结局，但是失败结局
+                XLuaUiManager.Open("UiDoomsdayFubenMainGameMovie", stageId, true) --黑幕弹窗
+                asynWaitSecond(XDoomsdayConfigs.BLACK_MASK_DURATION)
+                XLuaUiManager.Close("UiDoomsdayFubenMainGameMovie")
 
                 XLuaUiManager.Remove("UidoomsdayEvent") --关闭玩法事件UI
                 XLuaUiManager.Remove("UiDoomsdayFubenMain") --关闭玩法主UI
@@ -672,6 +793,47 @@ XDoomsdayManagerCreator = function()
         )
 
         return true
+    end
+    
+    --请求结束关卡
+    local function DoomsdayStageFinishRequest(stageId, cb) 
+        XNetwork.Call("DoomsdayStageFinishRequest", {}, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            UpdateStageDataEx(res.StageDbExt)
+
+            if cb then cb() end
+        end)
+    end
+    
+    --结束本关
+    function XDoomsdayManager.FinishStage(stageId)
+        local stageData = GetStageData(stageId)
+        --检查主要事件是否完成
+        if not stageData:CheckEndEventFinish() then
+            XUiManager.TipText("DoomsdayMainEventNotFinish")
+            return
+        end
+        local asyncReq = asynTask(DoomsdayStageFinishRequest)
+        local asyncOpen = asynTask(XLuaUiManager.Open)
+        RunAsyn(function()
+            --请求结束关卡
+            asyncReq(stageId)
+            --结算黑幕
+            XLuaUiManager.Open("UiDoomsdayFubenMainGameMovie", stageId, true)
+            asynWaitSecond(XDoomsdayConfigs.BLACK_MASK_DURATION)
+            XLuaUiManager.Close("UiDoomsdayFubenMainGameMovie")
+            --移除UI
+            XLuaUiManager.Remove("UidoomsdayEvent") --关闭玩法事件UI
+            XLuaUiManager.Remove("UiDoomsdayFubenMain") --关闭玩法主UI
+            XLuaUiManager.Remove("UiDoomsdayExplore") --关闭玩法探索UI
+            --副本结算
+            asyncOpen("UiDoomsdaySettle", stageId) --副本结算UI
+            --重置副本数据
+            ResetStageData(stageId)
+        end)
     end
 
     --打开事件弹窗/跳转到事件指定UI
@@ -770,20 +932,24 @@ XDoomsdayManagerCreator = function()
         --SelectIndex从0开始
         local req = {EventId = eventId, SelectIndex = selectIndex - 1}
         XNetwork.Call(
-            "DoomsdayDoEventRequest",
-            req,
-            function(res)
-                if res.Code ~= XCode.Success then
-                    XUiManager.TipCode(res.Code)
-                    return
-                end
+                "DoomsdayDoEventRequest", req, function(res)
+                    if res.Code ~= XCode.Success then
+                        XUiManager.TipCode(res.Code)
+                        return
+                    end
 
-                UpdateStageData(res.StageDb)
+                    UpdateStageData(res.StageDb)
 
-                if cb then
-                    cb()
+                    if cb then cb() end
+
+                    XDoomsdayManager.CheckSettle(stageId)
+
+                    local stageData = XDoomsdayManager.GetStageData(stageId)
+                    local autoEvent = stageData:GetNextPopupEvent()
+                    if autoEvent then
+                        XDoomsdayManager.EnterEventUiPurely(stageId, autoEvent)
+                    end
                 end
-            end
         )
     end
 
@@ -902,6 +1068,7 @@ XDoomsdayManagerCreator = function()
                 end
 
                 stageData:DeleteBuilding(buildingIndex)
+                stageData:UpdateInhabitants(res.PeopleList)
                 stageData:UpdateResourceList(res.ResourceList)
                 stageData:SetProperty("_UnlockTeamCount", res.UnlockTeamCount)
 
@@ -1059,6 +1226,13 @@ XDoomsdayManagerCreator = function()
     function XDoomsdayManager.NotifyDoomsdayStageChange(data)
         UpdateStageData(data.StageDb)
     end
+    
+    --播报更新
+    function XDoomsdayManager.NotifyDoomsdayBroadcastAction(data)
+        local action = data.Action
+        local stageId = action.StageId
+        XDoomsdayManager.UpdateBroadcast(stageId, action.ActionType, action.DeathCount)
+    end
 
     return XDoomsdayManager
 end
@@ -1069,5 +1243,9 @@ end
 
 XRpc.NotifyDoomsdayStageChange = function(data)
     XDataCenter.DoomsdayManager.NotifyDoomsdayStageChange(data)
+end
+
+XRpc.NotifyDoomsdayBroadcastAction = function(data) 
+    XDataCenter.DoomsdayManager.NotifyDoomsdayBroadcastAction(data)
 end
 ---------------------Notify end------------------

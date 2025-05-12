@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildTaskDaily = XClass(nil, "XUiGuildTaskDaily")
 local XUiGridGuildTaskItem = require("XUi/XUiGuild/XUiChildItem/XUiGridGuildTaskItem")
 

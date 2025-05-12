@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiPanelRewardGird = require("XUi/XUiMoneyReward/XUiPanelRewardGird")
 local XUiMoneyRewardRank = XLuaUiManager.Register(XLuaUi, "UiMoneyRewardRank")
 
 function XUiMoneyRewardRank:OnAwake()

@@ -1,3 +1,4 @@
+---@class XGuildDormSceneEntityManager
 local XGuildDormSceneEntityManager = XClass(nil, "XGuildDormSceneEntityManager")
 
 function XGuildDormSceneEntityManager:Ctor()

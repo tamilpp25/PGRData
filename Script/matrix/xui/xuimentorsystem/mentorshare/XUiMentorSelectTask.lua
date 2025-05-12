@@ -10,7 +10,7 @@ function XUiMentorSelectTask:OnStart(IsTeacher, oldTaskId, student)
 end
 
 function XUiMentorSelectTask:OnDestroy()
-   
+
 end
 
 function XUiMentorSelectTask:OnEnable()
@@ -18,7 +18,7 @@ function XUiMentorSelectTask:OnEnable()
 end
 
 function XUiMentorSelectTask:OnDisable()
-    
+
 end
 
 function XUiMentorSelectTask:SetButtonCallBack()
@@ -34,18 +34,18 @@ end
 function XUiMentorSelectTask:InitPanel()
     local mentorData = XDataCenter.MentorSystemManager.GetMentorData()
     local studentId = self.Student and self.Student.PlayerId
-    
+
     local taskCount = 0
     if self.IsTeacher then
         taskCount = XMentorSystemConfigs.GetMentorSystemData("MentorChangeTaskDisplayCount")
     else
         taskCount = XMentorSystemConfigs.GetMentorSystemData("SysReleaseTaskCount")
     end
-    
+
     self.GridTask.gameObject:SetActiveEx(false)
     self.TaskGridList = {}
 
-    for i = 1, taskCount ,1 do
+    for i = 1, taskCount, 1 do
         local taskObj = CS.UnityEngine.Object.Instantiate(self.GridTask)
         taskObj.transform:SetParent(self.PanelCombinationContent, false)
         self.TaskGridList[i] = XUiGridSelectTask.New(taskObj, self, self.OldTaskId, studentId)
@@ -55,24 +55,31 @@ end
 function XUiMentorSelectTask:UpdatePanel()
     local mentorData = XDataCenter.MentorSystemManager.GetMentorData()
     local taskList = {}
-    
+
     if self.IsTeacher then
         taskList = XDataCenter.MentorSystemManager.GetTeacherChangeTaskList()
         local maxCount = XMentorSystemConfigs.GetMentorSystemData("ChangeTaskCount")
         local curCount = mentorData:GetDailyChangeTaskCount()
         self.CanGetText.text = CSTextManagerGetText("MentorTeacherDayCanChangeTask")
-        self.CanGetCount.text = string.format("%d/%d",maxCount - curCount , maxCount)
+        self.CanGetCount.text = string.format("%d/%d", maxCount - curCount, maxCount)
     else
         taskList = self.Student.SystemTask
+        table.sort(taskList, function(a, b)
+            if a.HasChange == b.HasChange then
+                return false
+            else
+                return a.HasChange
+            end
+        end)
         local maxCount = XMentorSystemConfigs.GetMentorSystemData("GetTaskCount")
         local curCount = mentorData:GetStudentSystemTaskCountByIndex(XMentorSystemConfigs.MySelfIndex)
         self.CanGetText.text = CSTextManagerGetText("MentorStudentDayCanGetTask")
-        self.CanGetCount.text = string.format("%d/%d",maxCount - curCount , maxCount)
+        self.CanGetCount.text = string.format("%d/%d", maxCount - curCount, maxCount)
     end
-    
+
     local taskCount = XMentorSystemConfigs.GetMentorSystemData("MentorChangeTaskDisplayCount")
 
-    for i = 1, taskCount ,1 do
+    for i = 1, taskCount, 1 do
         local grid = self.TaskGridList[i]
         if grid then
             local task = taskList[i]

@@ -1,3 +1,4 @@
+local XUiGridSkip = require("XUi/XUiTip/XUiGridSkip")
 local XUiEquipStrengthenSkip = XLuaUiManager.Register(XLuaUi, "UiEquipStrengthenSkip")
 
 function XUiEquipStrengthenSkip:OnAwake()
@@ -13,7 +14,12 @@ end
 function XUiEquipStrengthenSkip:Refresh(skipIds)
 
     XUiHelper.CreateTemplates(self, self.GridPool, skipIds, XUiGridSkip.New, self.PanelGridSkip, self.PanelContent, function(grid, data)
-        grid:Refresh(data)
+        if type(data) == "number" then
+            grid:Refresh(data)
+        elseif type(data) == "table" then
+            grid:Refresh(table.unpack(data))
+        end
+        
     end)
 end
 

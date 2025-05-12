@@ -3,7 +3,7 @@ local XUiFightPivotCombat = XLuaUiManager.Register(XLuaUi, "UiFightPivotCombat")
 local _, COLOR_EXECUTION_BAR_HIGH = CS.UnityEngine.ColorUtility.TryParseHtmlString("#C0D816")
 local _, COLOR_EXECUTION_BAR_MID = CS.UnityEngine.ColorUtility.TryParseHtmlString("#E3CB45")
 local _, COLOR_EXECUTION_BAR_LOW = CS.UnityEngine.ColorUtility.TryParseHtmlString("#ED624F")
-local MAX_MULTI_SLASH_TIMES = 4
+local MAX_MULTI_SLASH_TIMES = 8
 
 function XUiFightPivotCombat:OnAwake()
     self.ImgTimeBar.fillAmount = 0

@@ -71,6 +71,16 @@
     },
     {
         "Id": 8,
+        "Type": 3,
+        "Name": "Effect Tutorial",
+        "Description": "Learn the basic control of each Effect.",
+        "BgPath": "Assets/Product/Texture/Image/UiFubenMainMapTab/ChapterBg03B.png",
+        "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/FubenPracticeStagesCharacter.prefab",
+        "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePracticeRectangleEffect.prefab",
+        "SubTag": 3.0
+    },
+    {
+        "Id": 9,
         "Type": 4,
         "Name": "Simulated Trial",
         "Description": null,
@@ -80,43 +90,43 @@
         "SubTag": null
     },
     {
-        "Id": 9,
+        "Id": 10,
         "Type": 4,
         "Name": "Boss",
         "Description": "1. Each stage can be challenged repeatedly with customizable difficulty levels.\\n2. Only enemies that have already been unlocked in the Enemy Codex can be challenged.",
         "BgPath": "Assets/Product/Texture/Image/UiLivRealisticTraining/UiLivRealisticTrainingBg.png",
         "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/UiLivRealisticTrainingStagesCharacter.prefab",
         "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRealisticTrainingBoss.prefab",
-        "SubTag": 8.0
+        "SubTag": 9.0
     },
     {
-        "Id": 10,
+        "Id": 11,
         "Type": 4,
         "Name": "Elite",
         "Description": "1. Each stage can be challenged repeatedly with customizable difficulty levels.\\n2. Only enemies that have already been unlocked in the Enemy Codex can be challenged.",
         "BgPath": "Assets/Product/Texture/Image/UiLivRealisticTraining/UiLivRealisticTrainingBg.png",
         "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/UiLivRealisticTrainingStagesCharacter.prefab",
         "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRealisticTrainingInfernalMobs.prefab",
-        "SubTag": 8.0
+        "SubTag": 9.0
     },
     {
-        "Id": 11,
+        "Id": 12,
         "Type": 4,
         "Name": "Boss (Uniframe)",
         "Description": "1. Each stage can be challenged repeatedly with customizable difficulty levels.\\n2. Only enemies that have already been unlocked in the Enemy Codex can be challenged.",
         "BgPath": "Assets/Product/Texture/Image/UiLivRealisticTraining/UiLivRealisticTrainingBg.png",
         "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/UiLivRealisticTrainingStagesCharacter.prefab",
         "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRealisticTrainingBoss.prefab",
-        "SubTag": 8.0
+        "SubTag": 9.0
     },
     {
-        "Id": 12,
+        "Id": 13,
         "Type": 4,
         "Name": "Elite (Uniframe)",
         "Description": "1. Each stage can be challenged repeatedly with customizable difficulty levels.\\n2. Only enemies that have already been unlocked in the Enemy Codex can be challenged.",
         "BgPath": "Assets/Product/Texture/Image/UiLivRealisticTraining/UiLivRealisticTrainingBg.png",
         "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/UiLivRealisticTrainingStagesCharacter.prefab",
         "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRealisticTrainingInfernalMobs.prefab",
-        "SubTag": 8.0
+        "SubTag": 9.0
     }
 ]

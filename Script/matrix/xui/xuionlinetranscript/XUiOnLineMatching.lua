@@ -1,7 +1,6 @@
 local XUiOnLineMatching = XLuaUiManager.Register(XLuaUi, "UiOnLineMatching")
 
 function XUiOnLineMatching:OnAwake()
-
 end
 
 function XUiOnLineMatching:OnStart(cfgData)
@@ -12,6 +11,14 @@ function XUiOnLineMatching:OnStart(cfgData)
     self:StartMatching()
     XEventManager.AddEventListener(XEventId.EVENT_ROOM_ENTER_ROOM, self.OnBack, self)
     XEventManager.AddEventListener(XEventId.EVENT_ROOM_CANCEL_MATCH, self.OnCancelMatch, self)
+end
+
+function XUiOnLineMatching:OnEnable()
+
+end
+
+function XUiOnLineMatching:OnDisable()
+
 end
 
 function XUiOnLineMatching:OnDestroy()
@@ -58,7 +65,7 @@ function XUiOnLineMatching:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -143,6 +150,14 @@ end
 function XUiOnLineMatching:StartMatching()
     self:StartCountDown()
     self:SetIsShow(true)
+end
+
+function XUiOnLineMatching:PcClose()
+    if self.PanelMatchingSimplified.gameObject.activeSelf then
+        self:OnBtnReturnClick()
+        return
+    end
+    self:OnBtnBackClick()
 end
 
 return XUiOnLineMatching

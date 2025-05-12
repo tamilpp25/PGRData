@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiRegister = XLuaUiManager.Register(XLuaUi, "UiRegister")
 local XUiGridAccount = require("XUi/XUiRegister/XUiGridAccount")
 
@@ -7,7 +8,7 @@ end
 
 function XUiRegister:OnStart(loginCb)
     self.LoginCb = loginCb
-    self.InFUserId.text = XUserManager.UserId or ""
+    self.InFUserId.text = XUserManager.UserId
     self.PanelRegister.gameObject:SetActive(true)
 
     self.DynamicTable = XDynamicTableNormal.New(self.PanelAccountHistory)

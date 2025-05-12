@@ -10,13 +10,13 @@ function XUiStageItem:Ctor(rootUi, ui, chapterIndex)
     XTool.InitUiObject(self)
 end
 
-function XUiStageItem:SetNormalStage(stageId, stagePrefix, stageName)
+function XUiStageItem:SetNormalStage(stageId)
     self.PanelStageNormal.gameObject:SetActiveEx(not self.IsLock)
 
     local indexText = XFubenCoupleCombatConfig.GetStageIndexText(stageId)
     self.TxtStageTitle.text = indexText ~= nil and indexText or string.format("%02d", self.Index)
     
-    if self.IsLastOne then -- 双星第三期普通模式最后一关双前置锁UI处理
+    if self.IsLastOne then -- 双星第三期普通模式最后一关双前置锁UI处理（四期不走此逻辑）
         self.PanelStageLock.gameObject:SetActiveEx(false)
         self.PanelHardLock.gameObject:SetActiveEx(self.IsLock)
         
@@ -26,20 +26,19 @@ function XUiStageItem:SetNormalStage(stageId, stagePrefix, stageName)
         end
     else -- 普通锁处理
         self.PanelStageLock.gameObject:SetActiveEx(self.IsLock)
-        self.PanelHardLock.gameObject:SetActiveEx(false)
+        -- self.PanelHardLock.gameObject:SetActiveEx(false)（四期不走此逻辑）
     end
     self:SetPassStage()
     self:SetNodeSelect(false)
 end
 
 function XUiStageItem:SetPassStage()
-    --XDataCenter.FubenManager.CheckStageIsPass(self.StageId)
     local useList = XDataCenter.FubenCoupleCombatManager.GetStageUsedCharacter(self.StageId)
     if useList and next(useList) then
         self.PanelHead.gameObject:SetActiveEx(true)
         self.PanelStagePass.gameObject:SetActiveEx(true)
         for i, v in ipairs(useList) do
-            self["RImgHead" .. i]:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(XRobotManager.GetCharacterId(v), true))
+            self["RImgHead" .. i]:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(XRobotManager.GetCharacterId(v), true))
         end
     else
         self.PanelHead.gameObject:SetActiveEx(false)
@@ -52,7 +51,6 @@ function XUiStageItem:UpdateNode(stageId, index, chapterId)
     self.Index = index
     self.GameObject:SetActiveEx(true)
 
-    local chapterIndex = self.ChapterIndex
     local actCfg = XDataCenter.FubenCoupleCombatManager.GetCurrentActTemplate()
 
     local gridGo = self.Transform:LoadPrefab(actCfg.GridPrefab)
@@ -70,10 +68,10 @@ function XUiStageItem:UpdateNode(stageId, index, chapterId)
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
     self.IsLock = not stageInfo.Unlock
 
-    -- 双星第三期判定本关实例是否是普通模式最后一个关卡
-    if XFubenCoupleCombatConfig.GetChapterType(chapterId) == XFubenCoupleCombatConfig.ChapterType.Normal and XTool.IsNumberValid(XFubenCoupleCombatConfig.GetStageIsLastOne(stageId)) then
-        self.IsLastOne = true
-    end
+    -- 三期判定本关是否是普通模式最后一个关卡（四期不走此逻辑）
+    -- if XFubenCoupleCombatConfig.GetChapterType(chapterId) == XFubenCoupleCombatConfig.ChapterType.Normal and XTool.IsNumberValid(XFubenCoupleCombatConfig.GetStageIsLastOne(stageId)) then
+    --     self.IsLastOne = true
+    -- end
     
     self:SetNormalStage(self.StageId)
 end

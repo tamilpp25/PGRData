@@ -17,13 +17,13 @@ function XUiGuildBossPlayerRankItem:Init(data, rank)
         self.TxtRank.text = CS.XTextManager.GetText("GuildBossRankNone")
         self.TxtRankName.text = ""
     else
-        self.TxtRank.text = "No." .. rank
+        self.TxtRank.text = XUiHelper.GetText("GuildBossRank", rank)--"No." .. rank
         self.TxtRankName.text = XDataCenter.GuildManager.GetRankNameByLevel(data.RankLevel)
     end
     if self.TxtScore then
         self.TxtScore.text = XUiHelper.GetLargeIntNumText(data.Score)
     end
-    XUiPLayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.UObjHead)
+    XUiPlayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.UObjHead)
     --data.RankLevel 职位
 end
 

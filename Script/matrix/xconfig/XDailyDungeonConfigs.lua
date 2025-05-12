@@ -64,3 +64,8 @@ function XDailyDungeonConfigs.GetFubenDailyShopId(id)
     local data = DailyDungeonDataTemplates[id]
     return data and data.ShopId
 end
+
+function XDailyDungeonConfigs.GetFubenDailyTagName(id)
+    local data = DailyDungeonDataTemplates[id]
+    return data and data.TagName
+end

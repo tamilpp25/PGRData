@@ -10,7 +10,7 @@ end
 function XUiEquipResonanceSkillPreview:OnStart(params)
     self.RootUi = params.rootUi
     self.Params = params
-    self.SelectSkillInfo = params.selectSkillInfo
+    self.LastSelectSkillInfo = params.selectSkillInfo
 
     self.BtnEnter:SetDisable(true, false)
     self.BtnCancel.gameObject:SetActiveEx(self.Params.isNeedSelectSkill)
@@ -22,9 +22,14 @@ function XUiEquipResonanceSkillPreview:OnStart(params)
 end
 
 function XUiEquipResonanceSkillPreview:UpdateCharacterName()
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(self.RootUi.SelectCharacterId)
-    self.TxtCharacterName.text = charConfig.Name
-    self.TxtCharacterNameOther.text = charConfig.TradeName
+    if self.Params.selectCharacterId then
+        local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.Params.selectCharacterId)
+        self.TxtCharacterName.text = charConfig.Name
+        self.TxtCharacterNameOther.text = charConfig.TradeName
+    else
+        self.TxtCharacterName.text = ""
+        self.TxtCharacterNameOther.text = ""
+    end
 end
 
 --@region Update PreviewScroll Item
@@ -44,7 +49,7 @@ end
 
 function XUiEquipResonanceSkillPreview:UpdateSkillPreviewScroll()
     self.ResonanceSkillGrids = {}
-    local equipId = self.RootUi.EquipId
+    local equipId = self.Params.equipId
     local preSkillInfoList = self:GetPreSkillInfoList(equipId)
 
     for skillIndex, skillInfo in ipairs(preSkillInfoList) do
@@ -55,44 +60,32 @@ function XUiEquipResonanceSkillPreview:UpdateSkillPreviewScroll()
         self.ResonanceSkillGrids[skillIndex]:Refresh({
             equipId = equipId,
             skillInfo = skillInfo,
-            selectSkillInfo = self.SelectSkillInfo,
-            selectCharacterId = self.RootUi.SelectCharacterId,
-            pos = self.Params.pos
+            selectSkillInfo = self.LastSelectSkillInfo,
+            selectCharacterId = self.Params.selectCharacterId,
+            pos = self.Params.pos,
+            isIgnoreResonance = self.Params.isIgnoreResonance,
         })
     end
 end
 
 function XUiEquipResonanceSkillPreview:GetPreSkillInfoList(equipId)
-    local equipId = self.RootUi.EquipId
-    local list = XDataCenter.EquipManager.GetResonancePreSkillInfoList(equipId, self.RootUi.SelectCharacterId, self.RootUi.Pos)
-    local equip = XDataCenter.EquipManager.GetEquip(equipId)
+    local list = self._Control:GetResonancePreviewSkillInfoList(equipId, self.Params.selectCharacterId, self.Params.pos)
+    local equip = XMVCA.XEquip:GetEquip(equipId)
     
     if equip.ResonanceInfo then
-        local getWeight = function (skillInfo)
-            for i,v in pairs(equip.ResonanceInfo) do
-                local bindCharacterId = v.CharacterId
-                if bindCharacterId == self.RootUi.SelectCharacterId then
-                    local s = XDataCenter.EquipManager.GetResonanceSkillInfo(equipId, v.Slot)
-                    if XDataCenter.EquipManager.IsClassifyEqual(equipId, XEquipConfig.Classify.Awareness) then
-                        if s.Id == skillInfo.Id and v.Slot == self.Params.pos then
-                            return math.maxinteger
-                        end
-                    else
-                        if s.Id == skillInfo.Id then
-                            return math.maxinteger
-                        end
-                    end
-                end
-            end
+        -- 默认按照list的顺序
+        local skillOrderDic = {}
+        for i, skillInfo in ipairs(list) do
+            skillOrderDic[skillInfo.Id] = i
+        end
 
-            return skillInfo.Id
+        -- 已共鸣的放最后
+        for _, resInfo in pairs(equip.ResonanceInfo) do
+            skillOrderDic[resInfo.TemplateId] = math.maxinteger
         end
 
         table.sort(list, function (a, b)
-            local aWeight = getWeight(a)
-            local bWeight = getWeight(b)
-
-            return aWeight < bWeight
+            return skillOrderDic[a.Id] < skillOrderDic[b.Id]
         end)
     end
 

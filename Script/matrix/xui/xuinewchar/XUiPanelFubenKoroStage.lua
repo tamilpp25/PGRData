@@ -1,3 +1,4 @@
+local XUiGridTreasureGrade = require("XUi/XUiFubenMainLineChapter/XUiGridTreasureGrade")
 local XUiPanelFubenKoroStage = XClass(nil, "XUiPanelFubenKoroStage")
 local XUiFubenKoroStageItem = require("XUi/XUiNewChar/XUiFubenKoroStageItem")
 local UIFUBENKOROTUTORIA_TEACHING_DETAIL = "UiFunbenKoroTutoriaTeachingDetail"

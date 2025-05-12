@@ -36,6 +36,10 @@ local Default = {
     TalentSumLevel = 0,
     AllTalentLevelMax = false,
     GuildLastLevel = -1,
+    ShopCoin = 0,
+    HeadPortraits = {},
+    DormThemes = {},
+    DormBgms = {},
 }
 
 function XGuildData:Ctor(guildData)
@@ -182,7 +186,63 @@ function XGuildData:IsLeader()
     return self.GuildRankLevel == XGuildConfig.GuildRankLevel.Leader
 end
 
+-- 是否为副会长
+function XGuildData:IsCoLeader()
+    if not self.GuildRankLevel or self.GuildRankLevel == 0 then
+        return false
+    end
+    return self.GuildRankLevel == XGuildConfig.GuildRankLevel.CoLeader
+end
+
+-- 是否拥有头像
+function XGuildData:HasPortrait(iconId)
+    if not XTool.IsNumberValid(iconId) then
+        return false
+    end
+    for _, id in ipairs(self.HeadPortraits) do
+        if id == iconId then
+            return true
+        end
+    end
+    return false
+end
+
+function XGuildData:InsertPortrait(iconId)
+    table.insert(self.HeadPortraits, iconId)
+end
+
 function XGuildData:GetMemberDataByPlayerId(playerId)
     return self.MemberData[playerId]
+end
+
+function XGuildData:HasTheme(themeId)
+    if not XTool.IsNumberValid(themeId) then
+        return false
+    end
+    for _, id in ipairs(self.DormThemes) do
+        if id == themeId then
+            return true
+        end
+    end
+    return false
+end
+
+function XGuildData:UpdateDormBgm(dormBgms, isLogin)
+    if XTool.IsTableEmpty(dormBgms) then
+        self.DormBgms = {}
+        return
+    end
+    if not isLogin then
+        local newAddBgmList = XDataCenter.GuildManager.GetNewAddDormBgmList()
+        for _, bgmId in pairs(dormBgms) do
+            local isContain = table.contains(self.DormBgms, bgmId)
+            -- 新增音乐
+            if not isContain then
+                table.insert(newAddBgmList, bgmId)
+            end
+        end
+        XDataCenter.GuildManager.SaveNewAddDormBgmList(newAddBgmList)
+    end
+    self.DormBgms = dormBgms
 end
 

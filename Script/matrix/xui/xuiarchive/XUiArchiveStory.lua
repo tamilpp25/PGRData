@@ -1,3 +1,7 @@
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridArchiveStory = require("XUi/XUiArchive/XUiGridArchiveStory")
 local XUiArchiveStory = XLuaUiManager.Register(XLuaUi, "UiArchiveStory")
 local Object = CS.UnityEngine.Object
 
@@ -14,13 +18,13 @@ end
 
 function XUiArchiveStory:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelDynamicTable)
-    self.DynamicTable:SetProxy(XUiGridArchiveStory)
+    self.DynamicTable:SetProxy(XUiGridArchiveStory,self)
     self.DynamicTable:SetDelegate(self)
     self.GridStoryItem.gameObject:SetActiveEx(false)
 end
 
 function XUiArchiveStory:SetupDynamicTable(type)
-    self.PageDatas = XDataCenter.ArchiveManager.GetArchiveStoryChapterList(type)
+    self.PageDatas = self._Control:GetArchiveStoryChapterList(type)
     self.DynamicTable:SetDataSource(self.PageDatas)
     self.DynamicTable:ReloadDataSync(1)
 end
@@ -45,7 +49,7 @@ function XUiArchiveStory:SetButtonCallBack()
 end
 
 function XUiArchiveStory:InitTypeButton()
-    self.GroupList = XDataCenter.ArchiveManager.GetArchiveStoryGroupList()
+    self.GroupList = self._Control:GetArchiveStoryGroupList()
     self.CurType = 1
     self.StoryGroupBtn = {}
     for _, v in pairs(self.GroupList) do

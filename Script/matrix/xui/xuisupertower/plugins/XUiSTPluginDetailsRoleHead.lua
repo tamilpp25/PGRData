@@ -14,11 +14,11 @@ function XUiSTPluginDetailsRoleHead:RefreshData(characterId)
 end
 
 function XUiSTPluginDetailsRoleHead:RefreshName()
-    self.TxtName.text = XCharacterConfigs.GetCharacterTradeName(self.CharacterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterTradeName(self.CharacterId)
 end
 
 function XUiSTPluginDetailsRoleHead:RefreshIcon()
-    local headIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterId, true)
+    local headIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterId, true)
     self.RImgIcon:SetRawImage(headIcon)
 end
 

@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --######################## XUiReformRoleGrid ########################
 local XUiReformRoleGrid = XClass(nil, "XUiReformRoleGrid")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
@@ -31,7 +32,7 @@ function XUiReformRoleGrid:SetData(source, isSelect)
         rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActiveEx(true)
-            rImg:SetRawImage(XCharacterConfigs.GetCharElement(elementList[i]).Icon)
+            rImg:SetRawImage(XMVCA.XCharacter:GetCharElement(elementList[i]).Icon)
         else
             rImg.gameObject:SetActiveEx(false)
         end
@@ -71,7 +72,7 @@ function XUiReformRoleList:OnAwake()
     -- 模型相关
     local root = self.UiModelGo.transform
     local panelRoleModel = root:FindTransform("PanelRoleModel")
-    -- XCharacterConfigs.XUiCharacter_Camera.MAIN
+    -- XEnumConst.CHARACTER.XUiCharacter_Camera.MAIN
     self.CameraFar = {
         root:FindTransform("UiCamFarLv"),
         root:FindTransform("UiCamFarGrade"),

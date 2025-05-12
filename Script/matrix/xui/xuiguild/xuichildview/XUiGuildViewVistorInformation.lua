@@ -1,3 +1,4 @@
+local XDynamicTableIrregular = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableIrregular")
 local XUiGuildViewVistorInformation = XClass(nil, "XUiGuildViewVistorInformation")
 local XUiGuildVistorInfo = require("XUi/XUiGuild/XUiChildView/XUiGuildVistorInfo")
 local XUiGridChannelVistorItem = require("XUi/XUiGuild/XUiChildItem/XUiGridChannelVistorItem")

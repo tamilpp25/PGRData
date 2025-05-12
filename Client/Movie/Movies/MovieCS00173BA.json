@@ -11,7 +11,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
+            "Assets/Product/Texture/Image/BgStory/Bgstory390.jpg"
         ]
     },
     {
@@ -27,7 +27,7 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "201"
+            "36"
         ]
     },
     {
@@ -42,14 +42,14 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "08:41 AM"
+            "Bianca: Stigmata Spine Portrait Test"
         ]
     },
     {
         "Id": 4,
         "ActionId": 4,
         "NextActionId": null,
-        "Type": 301,
+        "Type": 211,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -57,29 +57,15 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "There is a commotion outside the book storage room. Noan flips open the vent cover to find over thirty upper-level guards charging into the Commoner Carriage and blocking the narrow passageways, causing many to groan and complain."
+            "1",
+            "1021012",
+            "1"
         ]
     },
     {
         "Id": 5,
         "ActionId": 5,
         "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500511"
-        ]
-    },
-    {
-        "Id": 6,
-        "ActionId": 6,
-        "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
         "IsEnd": null,
@@ -89,9 +75,26 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "Noan",
-            "(What's happening...)",
-            1.0
+            "Bianca",
+            "Yes. The defector case is not closed yet.",
+            101.0,
+            100001206.0
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 214,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2"
         ]
     },
     {
@@ -106,14 +109,17 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Crawling inside the air duct toward where most guards have gathered, Noan begins to see a trail of blood as if someone was dragged across the floor. Then he sees Assad's blood-soaked clothes."
+            "Bianca",
+            "Switch to Stamp 1. Smiling.",
+            101.0,
+            100001206.0
         ]
     },
     {
         "Id": 8,
         "ActionId": 8,
         "NextActionId": null,
-        "Type": 204,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -122,7 +128,7 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "4"
+            "3"
         ]
     },
     {
@@ -137,16 +143,17 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Noan",
-            "...!",
-            1.0
+            "Bianca",
+            "Switch to Stamp 2. Thinking.",
+            101.0,
+            100001206.0
         ]
     },
     {
         "Id": 10,
         "ActionId": 10,
         "NextActionId": null,
-        "Type": 202,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -155,7 +162,7 @@
         "EndDelay": null,
         "Params": [
             "1",
-            1.0
+            "4"
         ]
     },
     {
@@ -170,12 +177,31 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assad's broken bones are exposed in the air and coated in dried blood, piercing through his flesh and skin. Part of his head is missing\u2014his toothless mouth is silently bemoaning the pain he suffered before his death."
+            "Bianca",
+            "Switch to Stamp 3. Serious.",
+            101.0,
+            100001206.0
         ]
     },
     {
         "Id": 12,
         "ActionId": 12,
+        "NextActionId": null,
+        "Type": 214,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "5"
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 13,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -185,14 +211,17 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Tight ropes used to tie Assad up are twisting his body unnaturally. The guards around him seem to be displaying the cruel scene on purpose, showcasing how Assad was killed."
+            "Bianca",
+            "Switch to Stamp 4. Wearing flowers on her head.",
+            101.0,
+            100001206.0
         ]
     },
     {
-        "Id": 13,
-        "ActionId": 13,
+        "Id": 14,
+        "ActionId": 14,
         "NextActionId": null,
-        "Type": 201,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -201,25 +230,7 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500197",
-            -400.0
-        ]
-    },
-    {
-        "Id": 14,
-        "ActionId": 14,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "500197",
-            400.0
+            "1"
         ]
     },
     {
@@ -234,15 +245,32 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "Upper-Level Guard 1",
-            "Stay silent all you want, but the rest of the core members of the Cargo Crew are next! You'll witness how they're all dragged to their deaths on the train track!",
-            2.0
+            "Bianca",
+            "Switch to Stamp 5. Default.",
+            101.0,
+            100001206.0
         ]
     },
     {
         "Id": 16,
         "ActionId": 16,
+        "NextActionId": null,
+        "Type": 214,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "6",
+            "1"
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 17,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -252,33 +280,17 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Upper-Level Guard 1",
-            "Tell us where you've hidden the things if you don't want that to happen!",
-            2.0
-        ]
-    },
-    {
-        "Id": 17,
-        "ActionId": 17,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "2",
-            1.0
+            "Bianca",
+            "Switch to Stamp 5. Battle Form.",
+            101.0,
+            100001206.0
         ]
     },
     {
         "Id": 18,
         "ActionId": 18,
         "NextActionId": null,
-        "Type": 201,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -287,8 +299,7 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500515",
-            "5"
+            "7"
         ]
     },
     {
@@ -303,17 +314,17 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "Rachel",
-            "...",
-            1.0
+            "Bianca",
+            "Switch to Stamp 6. Serious Battle Form!",
+            101.0,
+            100001206.0
         ]
     },
     {
         "Id": 20,
         "ActionId": 20,
         "NextActionId": null,
-        "Type": 202,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -322,14 +333,32 @@
         "EndDelay": null,
         "Params": [
             "1",
-            1.0
+            "6"
         ]
     },
     {
         "Id": 21,
         "ActionId": 21,
         "NextActionId": null,
-        "Type": 201,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Bianca",
+            "Switch to Stamp 7. Battle Form.",
+            101.0,
+            100001206.0
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 22,
+        "NextActionId": null,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -338,25 +367,8 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500197",
-            -400.0
-        ]
-    },
-    {
-        "Id": 22,
-        "ActionId": 22,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "500197",
-            400.0
+            "1",
+            "2"
         ]
     },
     {
@@ -371,15 +383,31 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "Upper-Level Guard 2",
-            "Rachel, this isn't like one of the little brawls in the past. We could take them at face value and only punish those on the scene.",
-            2.0
+            "Bianca",
+            "Switch to Stamp 8. Exiting battle!",
+            101.0,
+            100001206.0
         ]
     },
     {
         "Id": 24,
         "ActionId": 24,
+        "NextActionId": null,
+        "Type": 212,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            1.0
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 25,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -389,33 +417,14 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Upper-Level Guard 2",
-            "But this time, it's threatening all of us. Your silence is only going to escalate things. Our boss will send us to our deaths if we don't have it all sorted out today.",
-            2.0
-        ]
-    },
-    {
-        "Id": 25,
-        "ActionId": 25,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "2",
-            1.0
+            "Normal completion. Begin losses."
         ]
     },
     {
         "Id": 26,
         "ActionId": 26,
         "NextActionId": null,
-        "Type": 201,
+        "Type": 211,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -424,8 +433,8 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500515",
-            "5"
+            "1021013",
+            "1"
         ]
     },
     {
@@ -441,16 +450,17 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "Rachel",
-            "Escalate things? The aristocrats upstairs have pushed our folks to their deaths! Does that not escalate things? Or the times when desperate people take their own lives? When you lot beat up and kill whoever you want?",
-            1.0
+            "Bianca",
+            "Yes. The defector case is not closed yet.",
+            101.0,
+            100001206.0
         ]
     },
     {
         "Id": 28,
         "ActionId": 28,
         "NextActionId": null,
-        "Type": 202,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -459,14 +469,32 @@
         "EndDelay": null,
         "Params": [
             "1",
-            1.0
+            "2"
         ]
     },
     {
         "Id": 29,
         "ActionId": 29,
         "NextActionId": null,
-        "Type": 201,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Bianca",
+            "Switch to Stamp 1. Smiling.",
+            101.0,
+            100001206.0
+        ]
+    },
+    {
+        "Id": 30,
+        "ActionId": 30,
+        "NextActionId": null,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -475,25 +503,7 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500197",
-            -400.0
-        ]
-    },
-    {
-        "Id": 30,
-        "ActionId": 30,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "500197",
-            400.0
+            "3"
         ]
     },
     {
@@ -508,17 +518,17 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "Upper-Level Guard 3",
-            "Do you think your little stunt here is going to solve anything?",
-            1.0
+            "Bianca",
+            "Switch to Stamp 2. Thinking.",
+            101.0,
+            100001206.0
         ]
     },
     {
         "Id": 32,
         "ActionId": 32,
         "NextActionId": null,
-        "Type": 301,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -526,9 +536,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Upper-Level Guard 2",
-            "We don't want to make it difficult for you. There's no need for us to make a scene here\u2014we're \"all\" working for the people upstairs. Just hand over the things, and no one else gets hurt.",
-            2.0
+            "1",
+            "4"
         ]
     },
     {
@@ -543,14 +552,17 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Rachel sneers without answering. Instead, she turns and looks at the entrance to the vents."
+            "Bianca",
+            "Switch to Stamp 3. Serious.",
+            101.0,
+            100001202.0
         ]
     },
     {
         "Id": 34,
         "ActionId": 34,
         "NextActionId": null,
-        "Type": 202,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -559,29 +571,12 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "2",
-            1.0
+            "5"
         ]
     },
     {
         "Id": 35,
         "ActionId": 35,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500511"
-        ]
-    },
-    {
-        "Id": 36,
-        "ActionId": 36,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -591,10 +586,26 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
+            "Bianca",
+            "Switch to Stamp 4. Wearing flowers on her head.",
+            101.0,
+            100001202.0
+        ]
+    },
+    {
+        "Id": 36,
+        "ActionId": 36,
+        "NextActionId": null,
+        "Type": 214,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
             "1",
-            "Noan",
-            "...",
-            1.0
+            "1"
         ]
     },
     {
@@ -609,12 +620,32 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Noan knows that Rachel is looking for him."
+            "Bianca",
+            "Switch to Stamp 5. Default.",
+            101.0,
+            100001202.0
         ]
     },
     {
         "Id": 38,
         "ActionId": 38,
+        "NextActionId": null,
+        "Type": 214,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "6",
+            "1"
+        ]
+    },
+    {
+        "Id": 39,
+        "ActionId": 39,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -624,60 +655,17 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Shel needs to receive a signal that confirms Noan's presence before she can take action\u2014but he must take advantage of the dark air ducts right now without making a sound."
-        ]
-    },
-    {
-        "Id": 39,
-        "ActionId": 39,
-        "NextActionId": null,
-        "Type": 501,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiZhuanchangBeginHei.prefab",
-            "3"
+            "Bianca",
+            "Switch to Stamp 5. Battle Form.",
+            101.0,
+            100001203.0
         ]
     },
     {
         "Id": 40,
         "ActionId": 40,
         "NextActionId": null,
-        "Type": 504,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "0.7"
-        ]
-    },
-    {
-        "Id": 41,
-        "ActionId": 41,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory602.jpg"
-        ]
-    },
-    {
-        "Id": 42,
-        "ActionId": 42,
-        "NextActionId": null,
-        "Type": 201,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -686,8 +674,41 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "500515",
-            "1"
+            "7"
+        ]
+    },
+    {
+        "Id": 41,
+        "ActionId": 41,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Bianca",
+            "Switch to Stamp 6. Serious Battle Form!",
+            101.0,
+            100001203.0
+        ]
+    },
+    {
+        "Id": 42,
+        "ActionId": 42,
+        "NextActionId": null,
+        "Type": 214,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "6"
         ]
     },
     {
@@ -702,17 +723,17 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "Rachel",
-            "...You know, sometimes I really wish you'd stick that firefly on your shoulder.",
-            1.0
+            "Bianca",
+            "Switch to Stamp 7. Battle Form.",
+            101.0,
+            100001203.0
         ]
     },
     {
         "Id": 44,
         "ActionId": 44,
         "NextActionId": null,
-        "Type": 501,
+        "Type": 214,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -720,15 +741,16 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiZhuanchangBeginHei.prefab",
-            "3"
+            "1",
+            "1",
+            "2"
         ]
     },
     {
         "Id": 45,
         "ActionId": 45,
         "NextActionId": null,
-        "Type": 504,
+        "Type": 301,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -736,14 +758,17 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "0"
+            "Bianca",
+            "Switch to Stamp 8. Exiting battle!",
+            101.0,
+            100001203.0
         ]
     },
     {
         "Id": 46,
         "ActionId": 46,
         "NextActionId": null,
-        "Type": 101,
+        "Type": 212,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -751,1981 +776,13 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
+            "1",
+            1.0
         ]
     },
     {
         "Id": 47,
         "ActionId": 47,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500511"
-        ]
-    },
-    {
-        "Id": 48,
-        "ActionId": 48,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Quietly, Noan takes out his clockwork firefly and turns on the little light bulb on its tail, gently waving it by the vent."
-        ]
-    },
-    {
-        "Id": 49,
-        "ActionId": 49,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            1.0
-        ]
-    },
-    {
-        "Id": 50,
-        "ActionId": 50,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500515"
-        ]
-    },
-    {
-        "Id": 51,
-        "ActionId": 51,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Rachel",
-            "...",
-            1.0
-        ]
-    },
-    {
-        "Id": 52,
-        "ActionId": 52,
-        "NextActionId": null,
-        "Type": 203,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "0.25",
-            "-400"
-        ]
-    },
-    {
-        "Id": 53,
-        "ActionId": 53,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "500197",
-            400.0
-        ]
-    },
-    {
-        "Id": 54,
-        "ActionId": 54,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Upper-Level Guard 2",
-            "You're stalling, aren't you? Waiting for somebody?",
-            2.0
-        ]
-    },
-    {
-        "Id": 55,
-        "ActionId": 55,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Noan",
-            "..."
-        ]
-    },
-    {
-        "Id": 56,
-        "ActionId": 56,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Upper-Level Guard 2",
-            "If you're waiting for the squad you sent out, I can tell you that they're already dead.",
-            2.0
-        ]
-    },
-    {
-        "Id": 57,
-        "ActionId": 57,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "The guard takes out his terminal and shows Rachel a recording."
-        ]
-    },
-    {
-        "Id": 58,
-        "ActionId": 58,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Upper-Level Guard 2",
-            "Thanks to this coward, the upper level is killing two birds with one stone today.",
-            1.0
-        ]
-    },
-    {
-        "Id": 59,
-        "ActionId": 59,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "He kicks Assad's body, laughing."
-        ]
-    },
-    {
-        "Id": 60,
-        "ActionId": 60,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Rachel",
-            "Fine, I'll go with you.",
-            1.0
-        ]
-    },
-    {
-        "Id": 61,
-        "ActionId": 61,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            1.0
-        ]
-    },
-    {
-        "Id": 62,
-        "ActionId": 62,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500093"
-        ]
-    },
-    {
-        "Id": 63,
-        "ActionId": 63,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Crew Captain Niino",
-            "Rachel! You can't\u2014",
-            1.0
-        ]
-    },
-    {
-        "Id": 64,
-        "ActionId": 64,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 200.0,
-        "Params": [
-            "2",
-            "1510"
-        ]
-    },
-    {
-        "Id": 65,
-        "ActionId": 65,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "1510"
-        ]
-    },
-    {
-        "Id": 66,
-        "ActionId": 66,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": "RImgBg1Shake",
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Before he can finish, two shots from two different guards graze his shoulder, hitting a young man standing behind him. The young man falls down as the people burst into screams and protests."
-        ]
-    },
-    {
-        "Id": 67,
-        "ActionId": 67,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            1.0
-        ]
-    },
-    {
-        "Id": 68,
-        "ActionId": 68,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 400.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 69,
-        "ActionId": 69,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 70,
-        "ActionId": 70,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500511",
-            1.0
-        ]
-    },
-    {
-        "Id": 71,
-        "ActionId": 71,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Noan",
-            "(I have to act now!)",
-            1.0
-        ]
-    },
-    {
-        "Id": 72,
-        "ActionId": 72,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            1.0
-        ]
-    },
-    {
-        "Id": 73,
-        "ActionId": 73,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 350.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 74,
-        "ActionId": 74,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 75,
-        "ActionId": 75,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500197",
-            1.0
-        ]
-    },
-    {
-        "Id": 76,
-        "ActionId": 76,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Upper-Level Guard 2",
-            "Look at you all huddling together. How many do you think will go down with just one grenade?",
-            1.0
-        ]
-    },
-    {
-        "Id": 77,
-        "ActionId": 77,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            1.0
-        ]
-    },
-    {
-        "Id": 78,
-        "ActionId": 78,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 300.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 79,
-        "ActionId": 79,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 80,
-        "ActionId": 80,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500093",
-            1.0
-        ]
-    },
-    {
-        "Id": 81,
-        "ActionId": 81,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Crew Captain Niino",
-            "You ******* monsters!",
-            1.0
-        ]
-    },
-    {
-        "Id": 82,
-        "ActionId": 82,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            1.0
-        ]
-    },
-    {
-        "Id": 83,
-        "ActionId": 83,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 250.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 84,
-        "ActionId": 84,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 85,
-        "ActionId": 85,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500515",
-            "5",
-            1.0
-        ]
-    },
-    {
-        "Id": 86,
-        "ActionId": 86,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Rachel",
-            "Enough! Niinon! How many defenseless people are here?! Do you want to get them all killed?!",
-            1.0
-        ]
-    },
-    {
-        "Id": 87,
-        "ActionId": 87,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            1.0
-        ]
-    },
-    {
-        "Id": 88,
-        "ActionId": 88,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 200.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 89,
-        "ActionId": 89,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 90,
-        "ActionId": 90,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500454",
-            1.0
-        ]
-    },
-    {
-        "Id": 91,
-        "ActionId": 91,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Crew Member Weyland",
-            "Boss! We can't let you\u2014",
-            1.0
-        ]
-    },
-    {
-        "Id": 92,
-        "ActionId": 92,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 50.0,
-        "Params": [
-            "2",
-            "1510"
-        ]
-    },
-    {
-        "Id": 93,
-        "ActionId": 93,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "10002001"
-        ]
-    },
-    {
-        "Id": 94,
-        "ActionId": 94,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            1.0
-        ]
-    },
-    {
-        "Id": 95,
-        "ActionId": 95,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 20.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 96,
-        "ActionId": 96,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "2559"
-        ]
-    },
-    {
-        "Id": 97,
-        "ActionId": 97,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Another gunshot interrupts him. Taking advantage of the erupted chaos, Noan throws the short sword in his hand at the light on the ceiling. Darkness and shattered glass befall the carriage instantly."
-        ]
-    },
-    {
-        "Id": 98,
-        "ActionId": 98,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 100.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 99,
-        "ActionId": 99,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 100.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 100,
-        "ActionId": 100,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 101,
-        "ActionId": 101,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500197",
-            1.0
-        ]
-    },
-    {
-        "Id": 102,
-        "ActionId": 102,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Upper-Level Guard 2",
-            "Sound the alarm!",
-            1.0
-        ]
-    },
-    {
-        "Id": 103,
-        "ActionId": 103,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "2601"
-        ]
-    },
-    {
-        "Id": 104,
-        "ActionId": 104,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            1.0
-        ]
-    },
-    {
-        "Id": 105,
-        "ActionId": 105,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 100.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 106,
-        "ActionId": 106,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 100.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 107,
-        "ActionId": 107,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500515",
-            1.0
-        ]
-    },
-    {
-        "Id": 108,
-        "ActionId": 108,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 80.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 109,
-        "ActionId": 109,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 80.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 110,
-        "ActionId": 110,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500197",
-            1.0
-        ]
-    },
-    {
-        "Id": 111,
-        "ActionId": 111,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 60.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 112,
-        "ActionId": 112,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 60.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 113,
-        "ActionId": 113,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500511",
-            1.0
-        ]
-    },
-    {
-        "Id": 114,
-        "ActionId": 114,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 40.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 115,
-        "ActionId": 115,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 40.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 116,
-        "ActionId": 116,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 1500.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 117,
-        "ActionId": 117,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 118,
-        "ActionId": 118,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500398",
-            1.0
-        ]
-    },
-    {
-        "Id": 119,
-        "ActionId": 119,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Cargo Member Shauna",
-            "Move!",
-            1.0
-        ]
-    },
-    {
-        "Id": 120,
-        "ActionId": 120,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "1510"
-        ]
-    },
-    {
-        "Id": 121,
-        "ActionId": 121,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            1.0
-        ]
-    },
-    {
-        "Id": 122,
-        "ActionId": 122,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 50.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 123,
-        "ActionId": 123,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 124,
-        "ActionId": 124,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500427",
-            400.0,
-            1.0
-        ]
-    },
-    {
-        "Id": 125,
-        "ActionId": 125,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "500427",
-            -400.0,
-            1.0
-        ]
-    },
-    {
-        "Id": 126,
-        "ActionId": 126,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "The Cargo Crew members do not hesitate upon receiving the signal, charging toward the nearby guards immediately."
-        ]
-    },
-    {
-        "Id": 127,
-        "ActionId": 127,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "2",
-            1.0
-        ]
-    },
-    {
-        "Id": 128,
-        "ActionId": 128,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 200.0,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
-        ]
-    },
-    {
-        "Id": 129,
-        "ActionId": 129,
-        "NextActionId": null,
-        "Type": 504,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "0.8"
-        ]
-    },
-    {
-        "Id": 130,
-        "ActionId": 130,
-        "NextActionId": null,
-        "Type": 101,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory600.jpg"
-        ]
-    },
-    {
-        "Id": 131,
-        "ActionId": 131,
-        "NextActionId": null,
-        "Type": 501,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiHitNew.prefab",
-            "2"
-        ]
-    },
-    {
-        "Id": 132,
-        "ActionId": 132,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "10002001"
-        ]
-    },
-    {
-        "Id": 133,
-        "ActionId": 133,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": "RImgBg1Shake",
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Making use of the darkness and confusion, Noan drops down from the vent and stabs the guard with the grenade with his Expulsion Blade before grabbing the guard's spare long sword and throwing it to the teammate beside him."
-        ]
-    },
-    {
-        "Id": 134,
-        "ActionId": 134,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500093"
-        ]
-    },
-    {
-        "Id": 135,
-        "ActionId": 135,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Crew Captain Niino",
-            "Nice!",
-            1.0
-        ]
-    },
-    {
-        "Id": 136,
-        "ActionId": 136,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "The guards have expected some conflicts, but they have not foreseen how determined the people are."
-        ]
-    },
-    {
-        "Id": 137,
-        "ActionId": 137,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Upper-Level Guard 1",
-            "Catch him... Aargh!"
-        ]
-    },
-    {
-        "Id": 138,
-        "ActionId": 138,
-        "NextActionId": null,
-        "Type": 203,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 150.0,
-        "Params": [
-            "1",
-            "0.15",
-            -150.0
-        ]
-    },
-    {
-        "Id": 139,
-        "ActionId": 139,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            1.0
-        ]
-    },
-    {
-        "Id": 140,
-        "ActionId": 140,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 300.0,
-        "Params": [
-            "2",
-            "13015111"
-        ]
-    },
-    {
-        "Id": 141,
-        "ActionId": 141,
-        "NextActionId": null,
-        "Type": 402,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "13015111"
-        ]
-    },
-    {
-        "Id": 142,
-        "ActionId": 142,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "819016"
-        ]
-    },
-    {
-        "Id": 143,
-        "ActionId": 143,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": "RImgBg1Shake",
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Niino leaps toward the still-standing guard, parrying a strike to his face. Shifting behind the guard in the dark, he pushes his blade through the guard's unarmored throat, and the gushing blood shuts the guard up."
-        ]
-    },
-    {
-        "Id": 144,
-        "ActionId": 144,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "10001004"
-        ]
-    },
-    {
-        "Id": 145,
-        "ActionId": 145,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "1512"
-        ]
-    },
-    {
-        "Id": 146,
-        "ActionId": 146,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Right after that, the sound of shouting and seized firearms firing blend together, almost deafening everyone in the cart."
-        ]
-    },
-    {
-        "Id": 147,
-        "ActionId": 147,
-        "NextActionId": null,
-        "Type": 501,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 300.0,
-        "Params": [
-            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryWhiteNew.prefab",
-            "3"
-        ]
-    },
-    {
-        "Id": 148,
-        "ActionId": 148,
-        "NextActionId": null,
-        "Type": 504,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "0"
-        ]
-    },
-    {
-        "Id": 149,
-        "ActionId": 149,
-        "NextActionId": null,
-        "Type": 505,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryWhiteNew.prefab"
-        ]
-    },
-    {
-        "Id": 150,
-        "ActionId": 150,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "By the time the emergency lights turn on, the thirty or so guards are now silent corpses alongside a few innocent bystanders, leaving only the blood-drenched people panting and trembling."
-        ]
-    },
-    {
-        "Id": 151,
-        "ActionId": 151,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500515"
-        ]
-    },
-    {
-        "Id": 152,
-        "ActionId": 152,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Rachel",
-            "There's no turning back now that we've killed their guards.",
-            1.0
-        ]
-    },
-    {
-        "Id": 153,
-        "ActionId": 153,
-        "NextActionId": null,
-        "Type": 203,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "0.25",
-            "-400"
-        ]
-    },
-    {
-        "Id": 154,
-        "ActionId": 154,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "500093",
-            400.0
-        ]
-    },
-    {
-        "Id": 155,
-        "ActionId": 155,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Crew Captain Niino",
-            "Good with me. I'm done waiting.",
-            2.0
-        ]
-    },
-    {
-        "Id": 156,
-        "ActionId": 156,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "2",
-            1.0
-        ]
-    },
-    {
-        "Id": 157,
-        "ActionId": 157,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500454",
-            -400.0,
-            1.0
-        ]
-    },
-    {
-        "Id": 158,
-        "ActionId": 158,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2",
-            "500398",
-            400.0
-        ]
-    },
-    {
-        "Id": 159,
-        "ActionId": 159,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Crew Member Weyland",
-            "Let's kick it off! They're just going to send more people down if we wait any longer!",
-            1.0
-        ]
-    },
-    {
-        "Id": 160,
-        "ActionId": 160,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Cargo Member Shauna",
-            "We await your order.",
-            2.0
-        ]
-    },
-    {
-        "Id": 161,
-        "ActionId": 161,
-        "NextActionId": null,
-        "Type": 202,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "2",
-            1.0
-        ]
-    },
-    {
-        "Id": 162,
-        "ActionId": 162,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500515"
-        ]
-    },
-    {
-        "Id": 163,
-        "ActionId": 163,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "Rachel",
-            "...Alright!",
-            1.0
-        ]
-    },
-    {
-        "Id": 164,
-        "ActionId": 164,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Rachel steps over the pools of blood and smashes the alarm of the lower floor before slotting in her ID card as the Cargo Crew Chief Captain, stopping its earsplitting shriek."
-        ]
-    },
-    {
-        "Id": 165,
-        "ActionId": 165,
-        "NextActionId": null,
-        "Type": 402,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "2601"
-        ]
-    },
-    {
-        "Id": 166,
-        "ActionId": 166,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Rachel",
-            "Do you remember your vow when you joined the Cargo Crew?",
-            1.0
-        ]
-    },
-    {
-        "Id": 167,
-        "ActionId": 167,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Rachel clenches her fist as the people watch her in silence. Her hands are covered in the blood of their enemies."
-        ]
-    },
-    {
-        "Id": 168,
-        "ActionId": 168,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Crew Member Weyland",
-            "We'll free everyone from oppression! We'll lay the dead to rest ourselves and let them know their sacrifices are not for naught!"
-        ]
-    },
-    {
-        "Id": 169,
-        "ActionId": 169,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -2735,9 +792,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Rachel",
-            "Now's the time to fulfill your promise...!",
-            1.0
+            "Test complete."
         ]
     }
 ]

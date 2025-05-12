@@ -1,4 +1,4 @@
-XUiGridDailyBanner = XClass(nil, "XUiGridDailyBanner")
+local XUiGridDailyBanner = XClass(nil, "XUiGridDailyBanner")
 
 function XUiGridDailyBanner:Ctor(ui)
     self.GameObject = ui.gameObject

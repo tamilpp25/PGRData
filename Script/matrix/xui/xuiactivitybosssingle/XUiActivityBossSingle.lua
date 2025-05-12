@@ -1,12 +1,14 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local tableInsert = table.insert
 local CsXTextManager = CS.XTextManager
 local CsXScheduleManager = XScheduleManager
 
 local XUiGridActivityBossSingle = require("XUi/XUiActivityBossSingle/XUiGridActivityBossSingle")
-
 local XUiActivityBossSingle = XLuaUiManager.Register(XLuaUi, "UiActivityBossSingle")
 
-local StageCount = 5
+local StageCount = 6
 local StarDescCount = 3
 
 function XUiActivityBossSingle:OnStart(sectionId)
@@ -21,10 +23,12 @@ function XUiActivityBossSingle:OnEnable()
     self.PanelDetail.gameObject:SetActiveEx(false)
     self.AnimBgLoop.gameObject:SetActiveEx(true)
     self:RefreshPanel()
+    self:CheckAndPlayEnableAnimation()
 end
 
 function XUiActivityBossSingle:OnDisable()
     self:DestroyActivityTimer()
+    XRedPointManager.RemoveRedPointEvent(self.StoryRedPoint)
 end
 
 --初始化面板
@@ -36,6 +40,9 @@ function XUiActivityBossSingle:InitPanel()
     self:InitStageCapter()
     self:InitStarDesc()
     self:CreateActivityTimer()
+    self:InitStoryInfo()
+    --标记首次进入
+    XDataCenter.FubenActivityBossSingleManager.MarkFirstPlay()
 end
 
 function XUiActivityBossSingle:CreateActivityTimer()
@@ -50,9 +57,15 @@ function XUiActivityBossSingle:CreateActivityTimer()
     if XDataCenter.FubenActivityBossSingleManager.IsStatusEqualFightEnd() then
         self.TxtResetDesc.text = shopStr
         self.TxtLeftTime.text = XUiHelper.GetTime(activityEndTime - time, XUiHelper.TimeFormatType.ACTIVITY)
+        if self.TxtLeftTimeMirror then
+            self.TxtLeftTimeMirror.text = XUiHelper.GetTime(activityEndTime - time, XUiHelper.TimeFormatType.ACTIVITY)
+        end
     else
         self.TxtResetDesc.text = fightStr
         self.TxtLeftTime.text = XUiHelper.GetTime(fightEndTime - time, XUiHelper.TimeFormatType.ACTIVITY)
+        if self.TxtLeftTimeMirror then
+            self.TxtLeftTimeMirror.text = XUiHelper.GetTime(fightEndTime - time, XUiHelper.TimeFormatType.ACTIVITY)
+        end
     end
 
     self.ActivityTimer = CsXScheduleManager.ScheduleForever(function()
@@ -71,12 +84,18 @@ function XUiActivityBossSingle:CreateActivityTimer()
                 if leftTime > 0 then
                     self.TxtResetDesc.text = shopStr
                     self.TxtLeftTime.text = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
+                    if self.TxtLeftTimeMirror then
+                        self.TxtLeftTimeMirror.text = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
+                    end
                 end
             else
                 local leftTime = fightEndTime - time
                 if leftTime > 0 then
                     self.TxtResetDesc.text = fightStr
                     self.TxtLeftTime.text = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
+                    if self.TxtLeftTimeMirror then
+                        self.TxtLeftTimeMirror.text = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
+                    end
                 else
                     self:DestroyActivityTimer()
                     self:CreateActivityTimer()
@@ -98,10 +117,14 @@ function XUiActivityBossSingle:InitStageCapter()
     
     for i = 1, StageCount do
         if  i > #self.StageIds then
-            self["PanelImg" .. i].gameObject:SetActiveEx(false)
+            if self["PanelImg"..i] then
+                self["PanelImg" .. i].gameObject:SetActiveEx(false)
+            end
         else
-            local chapterGrid = XUiGridActivityBossSingle.New(self, self["PanelImg" .. i])
-            tableInsert(self.ChapterGrids, chapterGrid)
+            if self["PanelImg"..i] then
+                local chapterGrid = XUiGridActivityBossSingle.New(self, self["PanelImg" .. i])
+                tableInsert(self.ChapterGrids, chapterGrid)
+            end
         end
     end
 end
@@ -109,10 +132,22 @@ end
 function XUiActivityBossSingle:RefreshPanel()
     self:RefreshSchedule()
     self:RefreshTreasureInfo()
+    self:RefreshStoryInfo()
     --统一进行刷新,根据stageId
     for gridIndex = 1, #self.ChapterGrids do
         self.ChapterGrids[gridIndex]:Refresh(self.StageIds[gridIndex], gridIndex)
     end
+end
+
+--检查并播放界面启动动画 根据情况播放关卡解锁动画
+function XUiActivityBossSingle:CheckAndPlayEnableAnimation()
+    local playStage = XDataCenter.FubenActivityBossSingleManager.GetNeedPlayUnlockAnimeStage()
+    if playStage == -1 then 
+        self:PlayEnableAnim()
+    return end
+    --播放动画
+    self:PlayAnimationWithMask("PanelImg"..playStage.."Enable")
+    XDataCenter.FubenActivityBossSingleManager.OnStageUnlockAnimePlayed()
 end
 
 --初始化详细信息面板的挑战目标
@@ -124,6 +159,19 @@ function XUiActivityBossSingle:InitStarDesc()
         local grid = XUiGridStageStar.New(ui)
         self.GridStarList[i] = grid
     end
+end
+
+--初始化左下角故事入口
+function XUiActivityBossSingle:InitStoryInfo()
+    local storyCount=XFubenActivityBossSingleConfigs.GetStoryCount(self.SectionId)
+    if self.PanelStory then
+        if storyCount==nil or storyCount<=0 then
+            self.PanelStory.gameObject:SetActiveEx(false)
+        else
+            self.PanelStory.gameObject:SetActiveEx(true)
+        end
+        self.StoryRedPoint=XRedPointManager.AddRedPointEvent(self.PanelStory,self.OnStoryRedPointCheck,self,{XRedPointConditions.Types.CONDITION_ACTIVITY_BOSS_SINGLE_NEW},nil,false)
+    end 
 end
 
 --刷新收集进度条显示
@@ -152,23 +200,25 @@ function XUiActivityBossSingle:RefreshTreasureInfo()
 
     --红点
     local isShowRedPoint = XDataCenter.FubenActivityBossSingleManager.CheckRedPoint()
-    self.ImgRedProgress.gameObject:SetActiveEx(isShowRedPoint)
+    self.BtnTreasure:ShowReddot(isShowRedPoint)
+end
+
+--刷新左下角故事入口信息
+function XUiActivityBossSingle:RefreshStoryInfo()
+    if self.StoryRedPoint then
+        XRedPointManager.Check(self.StoryRedPoint)
+    end
 end
 
 --点击副本卡的时候回调
 function XUiActivityBossSingle:SelectStageCallBack(index)
-    XLuaUiManager.SetMask(true)
-    self:PlayAnimation("FuBenImg" .. index .. "Up", function()
-            XLuaUiManager.SetMask(false)
-            
-            for i = 1, #self.StageIds do
-                local animStr = string.format("%s%d%s", "AnimFuBenImg", i, "Loop")
-                self[animStr].gameObject:SetActiveEx(false)
-                if i == self.CurrentSelectIndex then
-                    self[animStr].gameObject:SetActiveEx(true)
-                end
-            end
-        end)
+    self:PlayAnimationWithMask("FuBenImg" .. index .. "Up", function()
+        local animLoopName = "AnimFuBenImg" .. index .. "Loop"
+        if self[animLoopName] then
+            self[animLoopName].gameObject:SetActiveEx(true)
+        end
+        self:PlayAnimation("FuBenImg" .. index .. "Loop", nil, nil, CS.UnityEngine.Playables.DirectorWrapMode.Loop)
+    end)
     --标记正在显示详细信息
     self.IsInDetail = true
     self.CurrentSelectIndex = index
@@ -190,7 +240,7 @@ function XUiActivityBossSingle:InitStageDetailInfo(stageId)
     self.PanelEffectDetail.gameObject:LoadUiEffect(effectPath)
 
     --刷新消耗数量
-    self.TxtATNums.text = stageCfg.RequireActionPoint
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(stageId)
 
     --TODO  显示挑战目标
     for i = 1, StarDescCount do
@@ -255,8 +305,12 @@ end
 function XUiActivityBossSingle:OnBtnBackClick()
     if self.IsInDetail == true then
         self.IsInDetail = false
-        self:PlayAnimation("AnimEnable")
+        self:PlayEnableAnim()
         self.PanelDetail.gameObject:SetActiveEx(false)
+        local animLoopName = "AnimFuBenImg" .. self.CurrentSelectIndex .. "Loop"
+        if self[animLoopName] then
+            self[animLoopName].gameObject:SetActiveEx(false)
+        end
         self:RefreshPanel()
         return
     end
@@ -280,13 +334,16 @@ function XUiActivityBossSingle:AutoAddListener()
     self.BtnNote.CallBack = function()
         self:OnBtnNoteClick()
     end
+    self.PanelStory.CallBack=function() 
+        self:OnBtnStoryClick()
+    end
 end
 
 --作战准备按钮点击
 function XUiActivityBossSingle:OnBtnEnterClick()
     self.IsInDetail = false
     self.PanelDetail.gameObject:SetActiveEx(false)
-    XLuaUiManager.Open("UiNewRoomSingle", self.CurrentSelectStageId)
+    XDataCenter.FubenActivityBossSingleManager.JumpToRoleRoom(self.CurrentSelectStageId)
 end
 
 function XUiActivityBossSingle:OnBtnMainUiClick()
@@ -299,6 +356,10 @@ function XUiActivityBossSingle:OnBtnTreasureClick()
     end)
 end
 
+function XUiActivityBossSingle:OnBtnStoryClick()
+    XLuaUiManager.Open("UiActivityBossSingleStory")
+end
+
 --点击描述按钮显示的注意事项
 function XUiActivityBossSingle:OnBtnNoteClick()
     local attentionDesc = XFubenActivityBossSingleConfigs.GetStageAttention(self.StageIds[self.CurrentSelectIndex])
@@ -306,3 +367,13 @@ function XUiActivityBossSingle:OnBtnNoteClick()
     local title = CsXTextManager.GetText("ActivityBossSingleAttention")
     XLuaUiManager.Open("UiAttentionDesc", title, attentionDesc, attentionDescTitle)
 end
+
+function XUiActivityBossSingle:PlayEnableAnim()
+    self:PlayAnimationWithMask("AnimEnableManually")
+end
+
+---region 红点
+function XUiActivityBossSingle:OnStoryRedPointCheck(count)
+    self.PanelStory:ShowReddot(count>=0)
+end
+---endregion

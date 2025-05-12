@@ -9,7 +9,7 @@ function XUiNewRegressionMain:OnAwake()
     -- 当前打开的子页面下标
     self.CurrentIndex = 1
     -- 注册资源面板
-    XUiHelper.NewPanelActivityAsset(self.NewRegressionManager.GetAssetItemIds(), self.PanelAssetitems)
+    XUiHelper.NewPanelActivityAssetSafe(self.NewRegressionManager.GetAssetItemIds(), self.PanelAssetitems, self)
     self:RegisterUiEvents()
 end
 
@@ -183,16 +183,11 @@ function XUiNewRegressionMain:RefreshContainer(index)
     end
     --重新注册资源面板
     if manager.IsDiscount and manager:IsDiscount() then
-        XUiHelper.NewPanelActivityAsset({XDataCenter.ItemManager.ItemId.HongKa}, self.PanelAssetitems)
+        XUiHelper.NewPanelActivityAssetSafe({XDataCenter.ItemManager.ItemId.HongKa}, self.PanelAssetitems, self)
     else
-        XUiHelper.NewPanelActivityAsset(self.NewRegressionManager.GetAssetItemIds(), self.PanelAssetitems)
+        XUiHelper.NewPanelActivityAssetSafe(self.NewRegressionManager.GetAssetItemIds(), self.PanelAssetitems, self)
     end
-    --海外修改，屏蔽虹卡资源显示
-    if manager:GetButtonName() == "復帰プレゼント" then
-        self.PanelAssetitems.gameObject:SetActiveEx(false)
-    else
-        self.PanelAssetitems.gameObject:SetActiveEx(true)
-    end
+    
     self.CurrentIndex = index
     -- 播放切换动画
     if self.AnimSwitch then self.AnimSwitch:Play() end

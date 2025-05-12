@@ -309,7 +309,7 @@ XMoeWarManagerCreator = function()
 	end
 	
 	function MoeWarManager.NotifyMoeWarVoteShowChange(data)
-		if not data then return end
+		if not data or not CurMatchEntity then return end
 		CurMatchEntity:UpdateInfo(data.Match)
 		CsXGameEventManager.Instance:Notify(XEventId.EVENT_MOE_WAR_UPDATE)
 	end
@@ -1626,46 +1626,46 @@ end
 
 ---------------------(服务器推送)begin------------------
 XRpc.NotifyMoeWarActivityData = function(data)
-    XDataCenter.MoeWarManager.HandleActivityData(data)
+    --XDataCenter.MoeWarManager.HandleActivityData(data)
 end
 
 XRpc.NotifyMoeWarPreparationData = function(data)
-    XDataCenter.MoeWarManager.NotifyMoeWarPreparationData(data)
+    --XDataCenter.MoeWarManager.NotifyMoeWarPreparationData(data)
 end
 
 XRpc.NotifyMoeWarPreparationStage = function(data)
-    XDataCenter.MoeWarManager.NotifyMoeWarPreparationStage(data)
+    --XDataCenter.MoeWarManager.NotifyMoeWarPreparationStage(data)
 end
 
 XRpc.NotifyMoeWarVoteRecord = function(data)
-	XDataCenter.MoeWarManager.NotifyMoeWarVoteScreenRecord(data)
+	--XDataCenter.MoeWarManager.NotifyMoeWarVoteScreenRecord(data)
 end
 
 XRpc.NotifyMoeWarVoteShowChange = function(data)
-	XDataCenter.MoeWarManager.NotifyMoeWarVoteShowChange(data)
+	--XDataCenter.MoeWarManager.NotifyMoeWarVoteShowChange(data)
 end
 
 XRpc.NotifyMoeWarDailyReset = function(data)
-	XDataCenter.MoeWarManager.NotifyMoeWarDailyReset(data)
+	--XDataCenter.MoeWarManager.NotifyMoeWarDailyReset(data)
 end
 
 XRpc.NotifyMoeWarPreparationAssistance = function(data)
-    XDataCenter.MoeWarManager.NotifyMoeWarPreparationAssistance(data)
+    --XDataCenter.MoeWarManager.NotifyMoeWarPreparationAssistance(data)
 end
 
 XRpc.NotifyMoeWarPreparationVoteItem = function(data)
-    XDataCenter.MoeWarManager.NotifyMoeWarPreparationVoteItem(data)
+    --XDataCenter.MoeWarManager.NotifyMoeWarPreparationVoteItem(data)
 end
 
 XRpc.NotifyMoeWarPreparationHelper = function(data)
-    XDataCenter.MoeWarManager.NotifyMoeWarPreparationHelper(data)
+    --XDataCenter.MoeWarManager.NotifyMoeWarPreparationHelper(data)
 end
 
 XRpc.NotifyMoeWarPreparationDailyReset = function(data)
-    XDataCenter.MoeWarManager.NotifyMoeWarPreparationDailyReset(data)
+    --XDataCenter.MoeWarManager.NotifyMoeWarPreparationDailyReset(data)
 end
 
 XRpc.NotifyMoeWarParkourData = function(data)
-    XDataCenter.MoeWarManager.NotifyMoeWarParkourData(data)
+    --XDataCenter.MoeWarManager.NotifyMoeWarParkourData(data)
 end
 ---------------------(服务器推送)end--------------------

@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiDraw = XLuaUiManager.Register(XLuaUi, "UiDraw")
 local drawControl = require("XUi/XUiDraw/XUiDrawControl")
 local XUiGridSuitDetail = require("XUi/XUiEquipAwarenessReplace/XUiGridSuitDetail")
@@ -90,11 +92,6 @@ end
 function XUiDraw:UpdateInfo(drawInfo)
     local groupInfo = XDataCenter.DrawManager.GetDrawGroupInfoByGroupId(self.GroupId)
     self.DrawInfo = drawInfo
-    if self.DrawInfo.UseItemId then     --修复在研发界面购买礼包后道具数量刷新问题
-        XDataCenter.ItemManager.AddCountUpdateListener(self.DrawInfo.UseItemId, function()
-            self:UpdateItemCount()
-        end, self.TxtUseItemCount)
-    end
     self.DrawControl:Update(self.DrawInfo)
     local icon = XDataCenter.ItemManager.GetItemBigIcon(drawInfo.UseItemId)
     self.ImgUseItemIcon:SetRawImage(icon)
@@ -103,7 +100,6 @@ function XUiDraw:UpdateInfo(drawInfo)
     self.PanelSuitUpShow.gameObject:SetActiveEx(false)
     self.BtnPreviewLeft.gameObject:SetActiveEx(false)
     self.PanelCharacter.gameObject:SetActiveEx(false)
-    self.PanelUpShowCharacter.gameObject:SetActiveEx(false)
     self.PanelNewUp.gameObject:SetActiveEx(false)
     self.PanelUpShow.gameObject:SetActiveEx(false)
     self.PanelUpShowCharacter.gameObject:SetActiveEx(false)
@@ -230,8 +226,8 @@ function XUiDraw:UpdateLeftAimUpInfo(combination, groupInfo)
         self.PanelUpShowCharacter.gameObject:SetActiveEx(true)
         self.GoodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(combination.GoodsId[1])
         self.AimImgBottomIco:SetRawImage(self.GoodsShowParams.Icon)
-        local quality = XCharacterConfigs.GetCharMinQuality(combination.GoodsId[1])
-        self.AimImgBottomRank:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality))
+        local quality = XMVCA.XCharacter:GetCharMinQuality(combination.GoodsId[1])
+        self.AimImgBottomRank:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(quality))
 
         if self.GoodsShowParams.Quality then
             local qualityIcon = self.GoodsShowParams.QualityIcon
@@ -290,8 +286,8 @@ function XUiDraw:UpdateCharacterInfo(combination)
         -- self.ImgBottomRank = self.Transform:Find("SafeAreaContentPane/PanelDrawGroup/PanelDraw/PanelLeft/PanelCharacter/PanelCharacterBottom/UpCharacter/ImgBottomRank"):GetComponent("RawImage")
         self.GoodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(combination.GoodsId[1])
         self.ImgBottomIco:SetRawImage(self.GoodsShowParams.Icon)
-        local quality = XCharacterConfigs.GetCharMinQuality(combination.GoodsId[1])
-        self.ImgBottomRank:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality))
+        local quality = XMVCA.XCharacter:GetCharMinQuality(combination.GoodsId[1])
+        self.ImgBottomRank:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(quality))
         if #combination.GoodsId > 1 then
             -- self.Transform:Find("SafeAreaContentPane/PanelDrawGroup/PanelDraw/PanelLeft/PanelCharacter/PanelCharacterUpShow/UpCharacter2").gameObject:SetActiveEx(true)
             -- self.ImgBottomIco2 = self.Transform:Find("SafeAreaContentPane/PanelDrawGroup/PanelDraw/PanelLeft/PanelCharacter/PanelCharacterUpShow/UpCharacter2/ImgBottomIco2"):GetComponent("RawImage")
@@ -299,8 +295,8 @@ function XUiDraw:UpdateCharacterInfo(combination)
             self.UpCharacter2.gameObject:SetActiveEx(true)
             self.GoodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(combination.GoodsId[2])
             self.ImgBottomIco2:SetRawImage(self.GoodsShowParams.Icon)
-            local tmpQuality = XCharacterConfigs.GetCharMinQuality(combination.GoodsId[2])
-            self.ImgBottomRank2:SetRawImage(XCharacterConfigs.GetCharQualityIcon(tmpQuality))
+            local tmpQuality = XMVCA.XCharacter:GetCharMinQuality(combination.GoodsId[2])
+            self.ImgBottomRank2:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(tmpQuality))
         else
             -- self.Transform:Find("SafeAreaContentPane/PanelDrawGroup/PanelDraw/PanelLeft/PanelCharacter/PanelCharacterUpShow/UpCharacter2").gameObject:SetActiveEx(false)
             self.UpCharacter2.gameObject:SetActiveEx(false)
@@ -322,8 +318,8 @@ function XUiDraw:UpdateNewUpInfo(combination)
         else
             self.GoodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(combination.GoodsId[1])
             self.ImgNewUpIco:SetRawImage(self.GoodsShowParams.Icon)
-            local quality = XCharacterConfigs.GetCharMinQuality(combination.GoodsId[1])
-            self.ImgNewUpRank:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality))
+            local quality = XMVCA.XCharacter:GetCharMinQuality(combination.GoodsId[1])
+            self.ImgNewUpRank:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(quality))
 
             if self.GoodsShowParams.Quality then
                 local qualityIcon = self.GoodsShowParams.QualityIcon
@@ -418,16 +414,9 @@ end
 
 function XUiDraw:OnBtnCharacterBottomInfoClick()
     self.BtnDrawRule.interactable = false
-    local eventRules = XDataCenter.DrawManager.GetDrawGroupRule(self.GroupId).EventRules -- 海外修改，先判断是否存在eventRules，在进行跳转显示
-    if eventRules and #eventRules > 0 then
-        XLuaUiManager.Open("UiDrawLog",self.DrawInfo,IndexEventRule,function()
+    XLuaUiManager.Open("UiDrawLog",self.DrawInfo,IndexEventRule,function()
             self.BtnDrawRule.interactable = true
         end)
-    else
-        XLuaUiManager.Open("UiDrawLog",self.DrawInfo,nil,function()
-            self.BtnDrawRule.interactable = true
-        end)
-    end
 end
 function XUiDraw:OnBtnMainRuleClick(...)
     self:OnBtnDrawRuleClick(...)
@@ -457,13 +446,9 @@ function XUiDraw:OnBtnOptionalDrawClick()
 end
 
 function XUiDraw:OnBtnPreviewClick()
-    self:OpenChildUi("UiDrawOptional",self,
-        function(drawId)
-            local drawInfo = XDataCenter.DrawManager.GetDrawInfo(drawId)
-            self:UpdateInfo(drawInfo)
-        end,
-        function ()
-            self:Close()
+    self.BtnDrawRule.interactable = false
+    XLuaUiManager.Open("UiDrawLog",self.DrawInfo,IndexPreview,function()
+            self.BtnDrawRule.interactable = true
         end)
 end
 
@@ -484,7 +469,7 @@ function XUiDraw:OnBtnDrawPurchaseLBClick()
 end
 
 function XUiDraw:HideUiView(onAnimFinish)
-    self.OpenSound = CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiDrawCard_BoxOpen)
+    self.OpenSound = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiDrawCard_BoxOpen)
 
     self:PlayAnimation("DrawRetract", function()
             onAnimFinish()

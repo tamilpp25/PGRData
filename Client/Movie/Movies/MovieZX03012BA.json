@@ -139,7 +139,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "The coast is covered in bodies and injured soldiers, even you have blood all over the body. A silhouette suddenly shows up on the sea."
+            "The coast is covered in bodies and injured soldiers, even you have blood all over your body. A silhouette suddenly shows up on the sea."
         ]
     },
     {
@@ -1584,7 +1584,7 @@
         "Id": 99,
         "ActionId": 99,
         "NextActionId": null,
-        "Type": 301,
+        "Type": 401,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -1592,7 +1592,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Facing the enormous pressure to make a decision, you close your eyes hard..."
+            "1",
+            "36"
         ]
     },
     {
@@ -1607,13 +1608,28 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Bianca",
-            "Commandant..."
+            "Facing the enormous pressure to make a decision, you close your eyes hard..."
         ]
     },
     {
         "Id": 101,
         "ActionId": 101,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Bianca",
+            "Commandant..."
+        ]
+    },
+    {
+        "Id": 102,
+        "ActionId": 102,
         "NextActionId": null,
         "Type": 205,
         "IsBlock": null,
@@ -1631,8 +1647,8 @@
         ]
     },
     {
-        "Id": 102,
-        "ActionId": 102,
+        "Id": 103,
+        "ActionId": 103,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1646,8 +1662,8 @@
         ]
     },
     {
-        "Id": 103,
-        "ActionId": 103,
+        "Id": 104,
+        "ActionId": 104,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -1662,8 +1678,24 @@
         ]
     },
     {
-        "Id": 104,
-        "ActionId": 104,
+        "Id": 105,
+        "ActionId": 105,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "206"
+        ]
+    },
+    {
+        "Id": 106,
+        "ActionId": 106,
         "NextActionId": null,
         "Type": 401,
         "IsBlock": null,
@@ -1678,36 +1710,6 @@
         ]
     },
     {
-        "Id": 105,
-        "ActionId": 105,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "It is a long sword, raised high amidst the lightning and thunder."
-        ]
-    },
-    {
-        "Id": 106,
-        "ActionId": 106,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "It is so terrifying. The serrated edges look like sharp fangs that were born for slaughter, silently roaring into the fierce storm."
-        ]
-    },
-    {
         "Id": 107,
         "ActionId": 107,
         "NextActionId": null,
@@ -1719,7 +1721,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Yet, it is so determined. The sharp outline points directly to the sky above, revealing its edge in the tumbling darkness without hesitation."
+            "It is a long sword, raised high amidst the lightning and thunder."
         ]
     },
     {
@@ -1734,12 +1736,42 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "With this sword she stands in the storm, unyielding and fearless."
+            "It is so terrifying. The serrated edges look like sharp fangs that were born for slaughter, silently roaring into the fierce storm."
         ]
     },
     {
         "Id": 109,
         "ActionId": 109,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Yet, it is so determined. The sharp outline points directly to the sky above, revealing its edge in the tumbling darkness without hesitation."
+        ]
+    },
+    {
+        "Id": 110,
+        "ActionId": 110,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "With this sword she stands in the storm, unyielding and fearless."
+        ]
+    },
+    {
+        "Id": 111,
+        "ActionId": 111,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1755,8 +1787,8 @@
         ]
     },
     {
-        "Id": 110,
-        "ActionId": 110,
+        "Id": 112,
+        "ActionId": 112,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1771,8 +1803,8 @@
         ]
     },
     {
-        "Id": 111,
-        "ActionId": 111,
+        "Id": 113,
+        "ActionId": 113,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1786,8 +1818,8 @@
         ]
     },
     {
-        "Id": 112,
-        "ActionId": 112,
+        "Id": 114,
+        "ActionId": 114,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1802,8 +1834,8 @@
         ]
     },
     {
-        "Id": 113,
-        "ActionId": 113,
+        "Id": 115,
+        "ActionId": 115,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1817,8 +1849,8 @@
         ]
     },
     {
-        "Id": 114,
-        "ActionId": 114,
+        "Id": 116,
+        "ActionId": 116,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1832,24 +1864,8 @@
         ]
     },
     {
-        "Id": 115,
-        "ActionId": 115,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "36"
-        ]
-    },
-    {
-        "Id": 116,
-        "ActionId": 116,
+        "Id": 117,
+        "ActionId": 117,
         "NextActionId": null,
         "Type": 302,
         "IsBlock": null,
@@ -1860,23 +1876,7 @@
         "EndDelay": null,
         "Params": [
             "The operation will continue!",
-            "117"
-        ]
-    },
-    {
-        "Id": 117,
-        "ActionId": 117,
-        "NextActionId": null,
-        "Type": 401,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "206"
+            "118"
         ]
     },
     {
@@ -3707,7 +3707,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Before it can approach him, a scythe gets in the way, smashing the fangs in the mouth into pieces."
+            "Before it can approach him, a scythe gets in the way, smashing its fangs into pieces."
         ]
     },
     {

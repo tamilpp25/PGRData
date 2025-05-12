@@ -7,7 +7,7 @@ function XUiGrid3DObj:Ctor(ui)
     XTool.InitUiObject(self)
 end
 
-function XUiGrid3DObj:RefreshEffect(effectId, bindWorldPos)
+function XUiGrid3DObj:RefreshEffect(effectId, bindWorldPos, renderUIProxy)
     if self.EffectId == effectId then
         return
     end
@@ -16,7 +16,16 @@ function XUiGrid3DObj:RefreshEffect(effectId, bindWorldPos)
 
     local effectConfig = XDormConfig.GetMoodEffectConfig(effectId)
     self.EffectObj = self.Transform:LoadPrefab(effectConfig.Path)
+
     self.EffectObj.transform:SetParent(self.PanelEffectObj, false)
+
+    if effectConfig.Bind == 2 then
+        self.EffectObj.transform.localPosition = CS.UnityEngine.Vector3.zero
+    end
+
+    if effectConfig.Bind == 1 then
+        renderUIProxy:BindEffect(self.EffectObj)
+    end
 
     if bindWorldPos then
         self.PanelEffectObj.transform.position = bindWorldPos
@@ -26,14 +35,35 @@ function XUiGrid3DObj:RefreshEffect(effectId, bindWorldPos)
     end
 end
 
-function XUiGrid3DObj:Show(characterId, effectId, transform, bindWorldPos)
-    local styleConfig = XDormConfig.GetCharacterStyleConfigById(characterId)
-    local position = CS.UnityEngine.Vector3(0, styleConfig.EffectWidgetHight, 0)
-    self.Transform:SetParent(transform, false)
-    self.Transform.localPosition = position
-    self.GameObject:SetLayerRecursively(transform.gameObject.layer)
 
-    self:RefreshEffect(effectId, bindWorldPos)
+
+function XUiGrid3DObj:Show(id, effectId, transform, bindWorldPos, renderUIProxy, headTransform, isPet)
+    local effectConfig = XDormConfig.GetMoodEffectConfig(effectId)
+
+    if effectConfig.Bind == 2 then
+        self.Transform:SetParent(headTransform, false)
+        self.Transform.localPosition = CS.UnityEngine.Vector3.zero
+    else
+        self.Transform:SetParent(transform, false)
+        local position = Vector3.zero
+        if not isPet then
+            local styleConfig = XDormConfig.GetCharacterStyleConfigById(id)
+            position = CS.UnityEngine.Vector3(0, styleConfig.EffectWidgetHight, 0)
+        else
+            local furnitureConfigId = XDataCenter.FurnitureManager.GetFurnitureConfigId(id)
+            if XTool.IsNumberValid(furnitureConfigId) then
+                local petId = XFurnitureConfigs.GetFurniturePetId(furnitureConfigId)
+                if XTool.IsNumberValid(petId) then
+                    local template = XDormConfig.GetDormPetTemplate(petId)
+                    position = CS.UnityEngine.Vector3(0, template.EffectWidgetHeight, 0)
+                end
+            end
+        end
+        self.Transform.localPosition = position
+    end
+
+    self.GameObject:SetLayerRecursively(transform.gameObject.layer)
+    self:RefreshEffect(effectId, bindWorldPos, renderUIProxy)
     self.BtnClick.gameObject:SetActive(false)
     self.GameObject:SetActive(true)
 end

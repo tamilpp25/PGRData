@@ -18,7 +18,7 @@ function XUiKillZoneBuffTips:OnEnable()
 end
 
 function XUiKillZoneBuffTips:UpdateView()
-    local buffIds = XKillZoneConfigs.GetStageBuffIds(self.StageId)
+    local buffIds = XDataCenter.KillZoneManager.GetStageBuffIds(self.StageId)
     for index, buffId in ipairs(buffIds) do
         local grid = self.BuffGrids[index]
         if not grid then

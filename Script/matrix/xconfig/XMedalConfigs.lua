@@ -7,7 +7,7 @@ local TABLE_SCORESCREEN_TAG = "Share/ScoreTitle/ScoreScreenTag.tab"
 local TABLE_SPECOAL_COLLECTION_LEVEL = "Share/ScoreTitle/SpecialCollectionLevel.tab"
 local TABLE_COLLECTION_LEVEL = "Client/Medal/CollectionLevel.tab"
 local TABLE_SHARE_NAMEPLATE = "Share/Nameplate/Nameplate.tab"
-
+local TABLE_NAMEPLATE_CONTENT_MAP = "Client/Nameplate/NameplateContentMap.tab"
 
 
 local Meadals = {}
@@ -16,7 +16,7 @@ local ScoreScreenTag = {}
 local CollectionLevel = {}
 local SpecialCollectionLevelDic = {}
 local NameplateConfigs = {}
-local NameplateGroupDic = {}
+local NameplateContentMap = {}
 
 local ExpandInfo = {}
 
@@ -90,24 +90,9 @@ function XMedalConfigs.Init()
     ScoreScreenTag = XTableManager.ReadByIntKey(TABLE_SCORESCREEN_TAG, XTable.XTableScoreScreenTag, "Id")
     CollectionLevel = XTableManager.ReadByIntKey(TABLE_COLLECTION_LEVEL, XTable.XTableCollectionLevel, "Id")
     NameplateConfigs = XTableManager.ReadByIntKey(TABLE_SHARE_NAMEPLATE, XTable.XTableNameplate, "Id")
-
+    NameplateContentMap = XTableManager.ReadByIntKey(TABLE_NAMEPLATE_CONTENT_MAP, XTable.XTableNameplateContentMap, "Id")
+    
     XMedalConfigs.SetSpecialCollectionLevelDic()
-
-    XMedalConfigs.InitNameplateConfig()
-end
-
-function XMedalConfigs.InitNameplateConfig()
-    for _, config in pairs(NameplateConfigs) do
-        if config.Title and config.IconType == 2 then
-            if config.Title and string.Utf8Len(config.Title) > 14 then
-                XLog.Error("铭牌Title字符数量超过十四个----Id = "..config.Id.." "..config.Title)
-            end
-        elseif not config.Title and config.IconType == 2 then
-            XLog.Error("铭牌Title为空请检查" .. config.Id)
-        end
-        NameplateGroupDic[config.Group] = NameplateGroupDic[config.Group] or {}
-        table.insert(NameplateGroupDic[config.Group], config)
-    end
 end
 
 local GetExpandInfoById = function(id)
@@ -294,25 +279,6 @@ function XMedalConfigs.GetNameplateConfigById(id)
     return NameplateConfigs[id]
 end
 
-function XMedalConfigs.GetNameplateConfigsByGroup(group)
-    if not NameplateGroupDic or not NameplateGroupDic[group] then
-        XLog.ErrorTableDataNotFound("XMedalConfigs.GetNameplateConfigsByGroup", "铭牌",
-        TABLE_SHARE_NAMEPLATE, "group", tostring(group))
-    end
-    return NameplateGroupDic[group]
-end
-
-function XMedalConfigs.GetNextNameplateConfigByGroup(group, quality)
-    local groupList = XMedalConfigs.GetNameplateConfigsByGroup(group)
-    local tmpConfig
-    for _, config in pairs(groupList) do
-        if (not tmpConfig or tmpConfig.NameplateQuality > config.NameplateQuality) and config.NameplateQuality > quality then
-            tmpConfig = config
-        end
-    end
-    return tmpConfig
-end
-
 function XMedalConfigs.GetNameplateGroup(id)
     local config = XMedalConfigs.GetNameplateConfigById(id)
     if config then
@@ -351,26 +317,12 @@ function XMedalConfigs.GetNameplateIcon(id)
         if config.IconType == XMedalConfigs.NameplateShow.ShowIcon then
             return config.Icon
         else
-            return config.BackBoard, config.Title
+            return config.BackBoard, XMedalConfigs.GetNameplateMapText(config.Title)
         end
     end
     return "", ""
 end
 
--- function XMedalConfigs.GetNameplateBackBoard(id)
---     local config = XMedalConfigs.GetNameplateConfigById(id)
---     if config then
---         return config.BackBoard
---     end
---     return ""
--- end
--- function XMedalConfigs.GetNameplateTitle(id)
---     local config = XMedalConfigs.GetNameplateConfigById(id)
---     if config then
---         return config.Title
---     end
---     return ""
--- end
 function XMedalConfigs.GetNameplateQuality(id)
     local config = XMedalConfigs.GetNameplateConfigById(id)
     if config then
@@ -390,7 +342,7 @@ end
 function XMedalConfigs.GetNameplateName(id)
     local config = XMedalConfigs.GetNameplateConfigById(id)
     if config then
-        return config.Name
+        return XMedalConfigs.GetNameplateMapText(config.Name)
     end
     return ""
 end
@@ -398,7 +350,7 @@ end
 function XMedalConfigs.GetNameplateDescription(id)
     local config = XMedalConfigs.GetNameplateConfigById(id)
     if config then
-        return config.Description
+        return XMedalConfigs.GetNameplateMapText(config.Description)
     end
     return ""
 end
@@ -414,7 +366,7 @@ end
 function XMedalConfigs.GetNameplateGetWay(id)
     local config = XMedalConfigs.GetNameplateConfigById(id)
     if config then
-        return config.NameplateGetWay
+        return XMedalConfigs.GetNameplateMapText(config.NameplateGetWay)
     end
     return ""
 end
@@ -433,4 +385,31 @@ function XMedalConfigs.GetNameplateQualityIcon(id)
         return config.QualityIcon
     end
     return ""
+end
+
+function XMedalConfigs.GetNameplateMapText(mapCode)
+    local id = XMath.ToMinInt(mapCode % 10000)
+    local value = XMath.ToMinInt(mapCode / 10000)
+
+    local cfg = XMedalConfigs.GetNameplateContentMapCfg(id)
+
+    if cfg then
+        if XTool.IsNumberValid(value) then
+            return XUiHelper.FormatText(cfg.Text, value)
+        else
+            return cfg.Text
+        end
+    end
+
+    return ''
+end
+
+function XMedalConfigs.GetNameplateContentMapCfg(id)
+    local cfg = NameplateContentMap[id]
+
+    if cfg then
+        return cfg
+    else
+        XLog.Error('NameplateContentMap表找不到Id为 '..tostring(id)..' 的数据')
+    end
 end

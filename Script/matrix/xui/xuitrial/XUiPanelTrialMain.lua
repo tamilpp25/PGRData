@@ -219,7 +219,7 @@ function XUiPanelTrialMain:OnBtnTypeClick()
 
         local rewards = XRewardManager.GetRewardList(cfg.RewardId)
         if rewards and rewards[1] then
-            XLuaUiManager.Open("UiEquipDetail", rewards[1].TemplateId, true)
+            XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipPreview(rewards[1].TemplateId)
         end
     else
         local cfg = XTrialConfigs.GetTrialTypeCfg(XDataCenter.TrialManager.TrialTypeCfg.TrialBackEnd)
@@ -228,7 +228,7 @@ function XUiPanelTrialMain:OnBtnTypeClick()
         end
         local rewards = XRewardManager.GetRewardList(cfg.RewardId)
         if rewards and rewards[1] then
-            XLuaUiManager.Open("UiEquipDetail", rewards[1].TemplateId, true)
+            XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipPreview(rewards[1].TemplateId)
         end
     end
 end

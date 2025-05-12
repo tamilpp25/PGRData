@@ -19,7 +19,7 @@ function XRedPointConditionMemorySaveChapterRewardNewChapter.Check(chapterId)
     if not XDataCenter.MemorySaveManager.IsChapterOpen(chapterId) then
         return false
     end
-    if XRedPointConditionMemorySaveChapterReward.Check(chapterId) then --检查是否有奖励
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MEMORYSAVE_CHAPTER_REWARD, chapterId) then --检查是否有奖励
         return true
     end
     if XDataCenter.MemorySaveManager.IsFirstEntry(chapterId) then -- 首次进入场景

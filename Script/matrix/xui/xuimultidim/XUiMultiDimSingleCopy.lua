@@ -1,3 +1,4 @@
+local XUiMultiDimSingleStageItem = require("XUi/XUiMultiDim/XUiMultiDimSingleStageItem")
 local XUiGridChapter = require("XUi/XUiFubenMainLineChapter/XUiGridChapter")
 local XUiMultiDimSingleCopy = XLuaUiManager.Register(XLuaUi, "UiMultiDimSingleCopy")
 local XUguiDragProxy = CS.XUguiDragProxy
@@ -73,7 +74,7 @@ function XUiMultiDimSingleCopy:SetUiData(themeDataCfg)
     self.TxtChapterName.text = self.ThemeDataCfg.Name
     
     local itemId = XDataCenter.MultiDimManager.GetActivityItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
 end
 
 function XUiMultiDimSingleCopy:CreateActivityTimer(endTime)

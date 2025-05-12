@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelElement = XClass(nil, "XUiPanelElement")
 local XUiGridSkillElement = require("XUi/XUiPartner/PartnerSkillInstall/MainSkill/XUiGridSkillElement")
 local XPartnerMainSkillGroup = require("XEntity/XPartner/XPartnerMainSkillGroup")

@@ -5,6 +5,7 @@ local ShopTypeNameTemplate = {}
 local ScreenGroupTemplate = {}
 local ShowTypeTemplate = {}
 local ShopBuyLimitLabel = {}
+local CostHintTemplate = {}
 -- 体验包屏蔽的商店id数据
 local ShopHideFuncIdDic = {
     [1] = true,
@@ -29,10 +30,12 @@ local TABLE_SHOP_TYPENAME = "Client/Shop/ShopTypeName.tab"
 local TABLE_SHOP_SCREENGROUP = "Client/Shop/ScreenGroup.tab"
 local TABLE_SHOP_SHOWTYPE = "Client/Shop/ShopShowType.tab"
 local TABLE_SHOP_BUY_LIMIT_LABEL = "Client/Shop/ShopBuyLimitLabel.tab"
+local TABLE_SHOP_COST_HINT = "Client/Shop/CostHint.tab"
 
 XShopConfigs.ShowType = {
-    Normal = 0, --通常
-    Fashion = 1 --时装
+    Normal = 0,     --通常
+    Fashion = 1,    --时装
+    GuildScene = 2, --公会场景
 }
 
 XShopConfigs.BuyType = {
@@ -46,6 +49,7 @@ function XShopConfigs.Init()
     ScreenGroupTemplate = XTableManager.ReadByIntKey(TABLE_SHOP_SCREENGROUP, XTable.XTableShopScreenGroup, "Id")
     ShowTypeTemplate = XTableManager.ReadByIntKey(TABLE_SHOP_SHOWTYPE, XTable.XTableShopShowType, "Id")
     ShopBuyLimitLabel = XTableManager.ReadByIntKey(TABLE_SHOP_BUY_LIMIT_LABEL, XTable.XTableShopBuyLimitLabel, "ClockId")
+    CostHintTemplate = XTableManager.ReadByIntKey(TABLE_SHOP_COST_HINT, XTable.XTableCostHint, "Id")
 end
 
 function XShopConfigs.GetShopGroupTemplate()
@@ -80,3 +84,47 @@ end
 function XShopConfigs.CheckShopIdIsHide(shopId)
     return ShopHideFuncIdDic[shopId] or false
 end
+
+local WaferScreenShopID = false
+function XShopConfigs.IsShowSuitScreen(shopId)
+    if not WaferScreenShopID then
+        WaferScreenShopID = {}
+        local CSXGameClientConfig = CS.XGame.ClientConfig
+        local value =  CSXGameClientConfig:GetString("WaferScreenShopID")
+        if not string.IsNilOrEmpty(value) then
+            for shopId in string.gmatch(value, "(%d+)") do
+                WaferScreenShopID[#WaferScreenShopID + 1] = tonumber(shopId)
+            end
+        end
+    end
+    for i = 1, #WaferScreenShopID do
+        if shopId == WaferScreenShopID[i] then
+            return true
+        end
+    end
+    return false
+end
+
+--===================v1.31【商店优化】大额消费二次确认=======================
+function XShopConfigs.GetCostHintTemplate()
+    return CostHintTemplate
+end
+
+local CostHintDic = false
+function XShopConfigs.GetCostNumByItemId(itemId)
+    if not CostHintDic then
+        CostHintDic = {}
+        for _, template in ipairs(CostHintTemplate) do
+            for _, itemId in ipairs(template.CostItemIds) do
+                CostHintDic[itemId] = template.CostItemNum
+            end
+        end
+    end
+    local costNum = CostHintDic[itemId]
+    if XTool.IsNumberValid(costNum) then
+        return costNum
+    else
+        return nil
+    end
+end
+--==========================================================================

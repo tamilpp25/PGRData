@@ -1,5 +1,7 @@
+local XUiGridAttribute = require("XUi/XUiDorm/XUiDormCommom/XUiGridAttribute")
+local XUiGridAttributeComparable = require("XUi/XUiDorm/XUiDormCommom/XUiGridAttributeComparable")
 -- 房间分数控件
-XUiRoomScore = XClass(nil, "XUiRoomScore")
+local XUiRoomScore = XClass(nil, "XUiRoomScore")
 
 function XUiRoomScore:Ctor(rootUi, ui)
     self.RootUi = rootUi

@@ -52,7 +52,7 @@ function XUiHostelMissionComplete:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -79,9 +79,9 @@ function XUiHostelMissionComplete:Refresh()
     end
     XTool.LoopMap(self.Rewards.Items, collectData)
 
-    -- local char = XDataCenter.CharacterManager.GetCharacter(self.CharId)
-    self:SetUiSprite(self.ImgHeadIcon, XDataCenter.CharacterManager.GetCharBigHeadIcon(self.CharId))
-    self.TxtName.text = XCharacterConfigs.GetCharacterName(self.CharId)
+    -- local char = XMVCA.XCharacter:GetCharacter(self.CharId)
+    self:SetUiSprite(self.ImgHeadIcon, XMVCA.XCharacter:GetCharBigHeadIcon(self.CharId))
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterName(self.CharId)
 
     self.TxtDesc.text = CS.XTextManager.GetText("HostelWorkReward")
     self:SetUiSprite(self.ImgRewardIcon, XDataCenter.ItemManager.GetItemIcon(data.Id))

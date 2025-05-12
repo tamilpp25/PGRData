@@ -1,3 +1,4 @@
+local XActivityBrieIsOpen = require("XUi/XUiActivityBrief/XActivityBrieIsOpen")
 ----------------------------------------------------------------
 --巴别塔：0分的时候会显示红点
 

@@ -1,3 +1,5 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiChessPursuitRankLineupGrid = require("XUi/XUiChessPursuit/XUi/Rank/XUiChessPursuitRankLineupGrid")
 
 --排行榜某个玩家的详细界面
@@ -40,7 +42,7 @@ function XUiChessPursuitRankLineup:RefreshPlayerInfo()
     end
     local headPortraitId = self.RankPlayerTemplate:GetHead()
     local headFrameId = self.RankPlayerTemplate:GetFrame()
-    XUiPLayerHead.InitPortrait(headPortraitId, headFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(headPortraitId, headFrameId, self.Head)
 
     local name = self.RankPlayerTemplate:GetName()
     self.PlayerId = self.RankPlayerTemplate:GetPlayerId()

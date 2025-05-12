@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenExperimentSkinTrialDetail = XLuaUiManager.Register(XLuaUi, "UiFubenExperimentSkinTrialDetail")
 
 local XUiFubenExperimentGridStar = require("XUi/XUiFubenExperiment/XUiFubenExperimentGridStar")

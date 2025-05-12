@@ -37,8 +37,15 @@ function XUiGridStagePracticeCharacter:Refresh()
     -- 角色类型
     if self.ImgType then
         local characterId = XPracticeConfigs.GetPracticeGroupCharacterId(self.GroupId)
-        local characterType = XCharacterConfigs.GetCharDetailCareer(characterId)
-        self.ImgType:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(characterType))
+        if XTool.IsNumberValid(characterId) then
+            local characterType = XMVCA.XCharacter:GetCharDetailCareer(characterId)
+            self.ImgType:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(characterType))
+        else
+            local generalSkillId = XPracticeConfigs.GetGeneralSkillIdByGroupId(self.GroupId)
+            if XTool.IsNumberValid(generalSkillId) then
+                self.ImgType:SetRawImage(XPracticeConfigs.GetPracticeGroupIcon(self.GroupId))
+            end
+        end
     end
 end
 

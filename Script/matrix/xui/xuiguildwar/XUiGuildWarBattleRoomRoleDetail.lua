@@ -36,10 +36,10 @@ function XUiGuildWarBattleRoomRoleDetail:Ctor()
 end
 
 -- 获取实体数据
--- characterType : XCharacterConfigs.CharacterType 参数为空时要返回所有实体
+-- characterType : XEnumConst.CHARACTER.CharacterType 参数为空时要返回所有实体
 -- return : { ... }
 function XUiGuildWarBattleRoomRoleDetail:GetEntities(characterType)
-    local result = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+    local result = XMVCA.XCharacter:GetOwnCharacterList(characterType)
     appendArray(result, self.BattleManager:GetRobots(characterType))
     return result
 end

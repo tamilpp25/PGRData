@@ -1,4 +1,5 @@
-XUiPanelDetailEquipItem = XClass(nil, "XUiPanelDetailEquipItem")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiPanelDetailEquipItem = XClass(nil, "XUiPanelDetailEquipItem")
 
 function XUiPanelDetailEquipItem:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -70,7 +71,7 @@ function XUiPanelDetailEquipItem:UpdateView(recommendConfig, rank)
     self.VoteId = recommendConfig.Id
     self.TxtRank.text = rank
 
-    local template = XCharacterConfigs.GetCharDetailEquipTemplate(self.VoteId)
+    local template = XMVCA.XEquip:GetCharDetailEquipTemplate(self.VoteId)
     if not template then
         return
     end

@@ -1,4 +1,7 @@
-XUiPanelMedalListView = XClass(nil, "XUiPanelMedalListView")
+local XUiGridCollection = require("XUi/XUiMedal/XUiGridCollection")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridMedal = require("XUi/XUiMedal/XUiGridMedal")
+local XUiPanelMedalListView = XClass(nil, "XUiPanelMedalListView")
 local XUiGridNameplate = require("XUi/XUiNameplate/XUiGridNameplate")
 function XUiPanelMedalListView:Ctor(ui, type, base)
     self.GameObject = ui.gameObject
@@ -77,3 +80,5 @@ function XUiPanelMedalListView:OnDynamicTableEvent(event, index, grid)
         end
     end
 end
+
+return XUiPanelMedalListView

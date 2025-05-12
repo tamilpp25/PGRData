@@ -35,10 +35,10 @@ function XUiGridAreaWarRank:Refresh(rankItem)
         local text = ""
         if XTool.IsNumberValid(rankItem.MemberCount) and rankCount > 0 then
             local num = math.floor(rankCount / (rankItem.MemberCount) * 100)
-            if num < 1 then
-                num = 1
-            end
-            text = CS.XTextManager.GetText("BossSinglePrecentDesc", num)
+            --排行榜范围 1-99
+            num = math.min(num, 99)
+            num = math.max(num, 1)
+            text = CS.XTextManager.GetText("BossSinglePercentDesc", num)
         else
             text = CS.XTextManager.GetText("None")
         end
@@ -53,10 +53,11 @@ function XUiGridAreaWarRank:Refresh(rankItem)
         end
         self.ImgRankSpecial.gameObject:SetActiveEx(false)
     end
-
+    
     self.TxtRankScore.text = rankItem.Score
+    self.TxtNum.text = rankItem.LikeCount
     self.TxtPlayerName.text = XDataCenter.SocialManager.GetPlayerRemark(rankItem.PlayerId, rankItem.Name)
-    XUiPLayerHead.InitPortrait(rankItem.HeadPortraitId, rankItem.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(rankItem.HeadPortraitId, rankItem.HeadFrameId, self.Head)
 end
 
 function XUiGridAreaWarRank:OnBtnDetailClick()

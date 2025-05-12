@@ -1,10 +1,16 @@
+local XUiArchiveMonsterSetting = require("XUi/XUiArchive/XUiArchiveMonsterSetting")
+local XUiArchiveMonsterInfo = require("XUi/XUiArchive/XUiArchiveMonsterInfo")
+local XUiArchiveMonsterSkill = require("XUi/XUiArchive/XUiArchiveMonsterSkill")
+local XUiArchiveMonsterSynopsis = require("XUi/XUiArchive/XUiArchiveMonsterSynopsis")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiArchiveMonsterDetail = XLuaUiManager.Register(XLuaUi, "UiArchiveMonsterDetail")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
+local XUiModelUtility = require("XUi/XUiCharacter/XUiModelUtility")
 
 local tableInsert = table.insert
 local Object = CS.UnityEngine.Object
 local Vector3 = CS.UnityEngine.Vector3
-local Dropdown = CS.UnityEngine.UI.Dropdown
+-- local Dropdown = CS.UnityEngine.UI.Dropdown
 
 local FirstIndex = 1
 
@@ -29,14 +35,14 @@ function XUiArchiveMonsterDetail:OnDestroy()
 end
 
 function XUiArchiveMonsterDetail:OnAwake()
-    self.OperationType = XArchiveConfigs.MonsterDetailUiType.Default
+    self.OperationType = XEnumConst.Archive.MonsterDetailUiType.Default
 end
 
 -- dataList : XArchiveMonsterEntity list
 -- index : number
--- operationType : XArchiveConfigs.MonsterDetailUiType
+-- operationType : XEnumConst.Archive.MonsterDetailUiType
 function XUiArchiveMonsterDetail:OnStart(dataList, index, operationType)
-    if operationType == nil then operationType = XArchiveConfigs.MonsterDetailUiType.Default end
+    if operationType == nil then operationType = XEnumConst.Archive.MonsterDetailUiType.Default end
     self.OperationType = operationType
     self.Data = dataList and dataList[index]
     self.DataList = dataList
@@ -48,31 +54,29 @@ function XUiArchiveMonsterDetail:OnStart(dataList, index, operationType)
     self.MonsterIndex = index
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     self:Init()
-    XDataCenter.ArchiveManager.ClearMonsterNewTag({ self.Data })
-    -- if self.OperationType == XArchiveConfigs.MonsterDetailUiType.Default then
+    self._Control:ClearMonsterNewTag({ self.Data })
+    -- if self.OperationType == XEnumConst.Archive.MonsterDetailUiType.Default then
     --     XDataCenter.ArchiveManager.ClearMonsterNewTag({ self.Data })
     -- end
 end
 
 function XUiArchiveMonsterDetail:Init()
-    self.ArchiveMonsterSynopsis = XUiArchiveMonsterSynopsis.New(self.PanelMonsterSynopsis, self.Data, self)
-    self.ArchiveMonsterInfo = XUiArchiveMonsterInfo.New(self.PanelMonsterIntro, self.Data, self)
-    self.ArchiveMonsterSetting = XUiArchiveMonsterSetting.New(self.PanelMonsterSet, self.Data, self)
-    self.ArchiveMonsterSkill = XUiArchiveMonsterSkill.New(self.PanelMonsterSkill, self.Data, self)
+    self.ArchiveMonsterSynopsis = XUiArchiveMonsterSynopsis.New(self.PanelMonsterSynopsis, self,self.Data, self)
+    self.ArchiveMonsterInfo = XUiArchiveMonsterInfo.New(self.PanelMonsterIntro,self, self.Data, self)
+    self.ArchiveMonsterSetting = XUiArchiveMonsterSetting.New(self.PanelMonsterSet,self, self.Data, self)
+    self.ArchiveMonsterSkill = XUiArchiveMonsterSkill.New(self.PanelMonsterSkill, self,self.Data, self)
     self.IsInit = true
-    self.MosterHideParts = {}
-    self.MosterEffects = {}
     self:InitScene3DRoot()
     self:SetButtonCallBack()
     self:InitTypeGroup()
-    self:SelectDetailState(XArchiveConfigs.MonsterDetailType.Synopsis)
+    self:SelectDetailState(XEnumConst.Archive.MonsterDetailType.Synopsis)
     self:CheckNextMonsterAndPreMonster()
     self:InitUiDetailByOperationType(self.OperationType)
 end
 
 function XUiArchiveMonsterDetail:InitUiDetailByOperationType(operationType)
-    self.ArchiveMonsterSynopsis.BtnEvaluate.gameObject:SetActiveEx(operationType == XArchiveConfigs.MonsterDetailUiType.Default)
-    self.ArchiveMonsterSynopsis.BtnGroupContent.gameObject:SetActiveEx(operationType == XArchiveConfigs.MonsterDetailUiType.Default)
+    self.ArchiveMonsterSynopsis.BtnEvaluate.gameObject:SetActiveEx(operationType == XEnumConst.Archive.MonsterDetailUiType.Default)
+    self.ArchiveMonsterSynopsis.BtnGroupContent.gameObject:SetActiveEx(operationType == XEnumConst.Archive.MonsterDetailUiType.Default)
 end
 
 function XUiArchiveMonsterDetail:InitScene3DRoot()
@@ -125,73 +129,73 @@ function XUiArchiveMonsterDetail:SetButtonCallBack()
     self.BtnLast.CallBack = function()
         self:OnBtnLastClick()
     end
-    self.BtnStateWords.onValueChanged:AddListener(function()
-        self.CurNpcState = self.BtnStateWords.value + 1
-        self:UpdateModel(self.CurType)
-    end)
+    if self.BtnStateWords then
+        self.BtnStateWords.gameObject:SetActiveEx(false)
+    end
 end
 
 function XUiArchiveMonsterDetail:InitTypeGroup()
     self.TypeBtn = {}
+    self.ModelIds = {}
+    self.NpcIdMap = {}
+    self.ModelIdStateMap = {}
     self.MonsterSwitchItem.gameObject:SetActiveEx(false)
     self.CurType = 1
-    for k, _ in pairs(self.Data:GetNpcId() or {}) do
-        local btn = Object.Instantiate(self.MonsterSwitchItem)
-        btn.gameObject:SetActiveEx(true)
-        btn.transform:SetParent(self.MonsterSwitch.transform, false)
-        local btncs = btn:GetComponent("XUiButton")
-        local name = "0" .. k
-        btncs:SetName(name or "Null")
-        tableInsert(self.TypeBtn, btncs)
+    local npcIds = self.Data:GetNpcId()
+    if not XTool.IsTableEmpty(npcIds) then
+        local index = 1
+        for _, npcId in pairs(npcIds) do
+            local modelIds = XMVCA.XArchive:GetMonsterModelIds(npcId)
+
+            if not XTool.IsTableEmpty(modelIds) then
+                for i, modelId in pairs(modelIds) do
+                    local btn = Object.Instantiate(self.MonsterSwitchItem)
+                    btn.gameObject:SetActiveEx(true)
+                    btn.transform:SetParent(self.MonsterSwitch.transform, false)
+                    local btncs = btn:GetComponent("XUiButton")
+                    local name = "0" .. index
+                    btncs:SetName(name or "Null")
+                    index = index + 1
+                    self.ModelIdStateMap[modelId] = i
+                    self.NpcIdMap[modelId] = npcId
+                    tableInsert(self.ModelIds, modelId)
+                    tableInsert(self.TypeBtn, btncs)
+                end
+            end 
+        end
     end
     self.MonsterSwitch:Init(self.TypeBtn, function(index) self:SelectType(index, true) end)
     self.MonsterSwitch:SelectIndex(self.CurType)
     self.MonsterSwitch.gameObject:SetActiveEx(#self.TypeBtn >= 2)
 end
 
-function XUiArchiveMonsterDetail:UpdateDropdown(index)
-    local npcId = self.Data:GetNpcId(index)
-    self.MonsterStateList = XArchiveConfigs.GetMonsterTransDataGroup(npcId)
-    if self.MonsterStateList then
-        self.IsHasScreen = true
-    else
-        self.IsHasScreen = false
-    end
-    self.CurNpcState = 1
-    self.PanelState.gameObject:SetActiveEx(self.IsHasScreen)
-    if not self.IsHasScreen then
-        return
-    end
-
-    self.BtnStateWords:ClearOptions()
-    local tabName = self.MonsterStateList[1] and self.MonsterStateList[1].StateText or ""
-    self.BtnStateWords.captionText.text = tabName
-
-    for _, v in pairs(self.MonsterStateList) do
-        local op = Dropdown.OptionData()
-        op.text = v.StateText or ""
-        self.BtnStateWords.options:Add(op)
-    end
-
-    self.BtnStateWords.value = 0
-end
-
 function XUiArchiveMonsterDetail:SelectType(index, IsUpdateNpcModel)
     self.CurType = index
-    if self.DetailType == XArchiveConfigs.MonsterDetailType.Synopsis then
+    local npcId = self:GetNpcIdByIndex(index)
+    if self.DetailType == XEnumConst.Archive.MonsterDetailType.Synopsis then
         self.ArchiveMonsterSynopsis:SelectType(index)
-    elseif self.DetailType == XArchiveConfigs.MonsterDetailType.Info then
-        self.ArchiveMonsterInfo:SelectType(index)
-    elseif self.DetailType == XArchiveConfigs.MonsterDetailType.Setting then
-        self.ArchiveMonsterSetting:SelectType(index)
-    elseif self.DetailType == XArchiveConfigs.MonsterDetailType.Skill then
-        self.ArchiveMonsterSkill:SelectType(index)
+    elseif self.DetailType == XEnumConst.Archive.MonsterDetailType.Info then
+        self.ArchiveMonsterInfo:SelectType(npcId)
+    elseif self.DetailType == XEnumConst.Archive.MonsterDetailType.Setting then
+        self.ArchiveMonsterSetting:SelectType(npcId)
+    elseif self.DetailType == XEnumConst.Archive.MonsterDetailType.Skill then
+        self.ArchiveMonsterSkill:SelectType(npcId)
     end
     if IsUpdateNpcModel then
-        self:UpdateDropdown(index)
         self:UpdateModel(index)
     end
 end
+
+function XUiArchiveMonsterDetail:GetNpcIdByIndex(index)
+    if XTool.IsTableEmpty(self.ModelIds) or XTool.IsTableEmpty(self.NpcIdMap) then
+        return nil
+    end
+    
+    local modelId = self.ModelIds[index] or 0
+
+    return self.NpcIdMap[modelId]
+end
+
 function XUiArchiveMonsterDetail:UpdateModel(index)
     local func = function(model)
         if not model then return end
@@ -200,61 +204,19 @@ function XUiArchiveMonsterDetail:UpdateModel(index)
         self.PanelDragRight.Target = model.transform
         self.Scene3DRoot.ImgEffectHuanrenBlack.gameObject:SetActiveEx(false)
         self.Scene3DRoot.ImgEffectHuanrenBlack.gameObject:SetActiveEx(true)
-
     end
 
-    for _, prats in pairs(self.MosterHideParts) do
-        if not XTool.UObjIsNil(prats) then
-            prats.gameObject:SetActiveEx(true)
-        end
-    end
-    for _, effect in pairs(self.MosterEffects) do
-        if not XTool.UObjIsNil(effect) then
-            effect.gameObject:SetActiveEx(false)
-        end
-    end
-    self.MosterHideParts = {}
-    self.MosterEffects = {}
-    local npcId = self.Data:GetNpcId(index)
-    local modelId = XArchiveConfigs.GetMonsterModel(npcId)
-    local transDatas = XArchiveConfigs.GetMonsterTransDatas(npcId, self.CurNpcState)---yaogai
-    local effectDatas = XArchiveConfigs.GetMonsterEffectDatas(npcId, self.CurNpcState)
-
-    self.RoleModelPanel:SetDefaultAnimation(transDatas and transDatas.StandAnime)
-    self.RoleModelPanel:UpdateArchiveMonsterModel(modelId, XModelManager.MODEL_UINAME.UiArchiveMonsterDetail, nil, func)
-    self.RoleModelPanel:ShowRoleModel()
-
-    if transDatas then
-        for _, node in pairs(transDatas.HideNodeName or {}) do
-            local parts = self.RoleModelPanel.GameObject:FindTransform(node)
-            if not XTool.UObjIsNil(parts) then
-                parts.gameObject:SetActiveEx(false)
-                tableInsert(self.MosterHideParts, parts)
-            else
-                XLog.Error("HideNodeName Is Wrong :" .. node)
-            end
-        end
-    end
-
-    if effectDatas then
-        for node, effectPath in pairs(effectDatas) do
-            local parts = self.RoleModelPanel.GameObject:FindTransform(node)
-            if not XTool.UObjIsNil(parts) then
-                local effect = parts.gameObject:LoadPrefab(effectPath, false)
-                if effect then
-                    effect.gameObject:SetActiveEx(true)
-                    tableInsert(self.MosterEffects, effect)
-                end
-            else
-                XLog.Error("EffectNodeName Is Wrong :" .. node)
-            end
-        end
-    end
-
+    
+    local modelId = self.ModelIds[index] or 0
+    local npcId = self.NpcIdMap[modelId]
+    local npcState = self.ModelIdStateMap[modelId]
+    
+    XUiModelUtility.UpdateMonsterArchiveModel(self, self.RoleModelPanel, modelId, XModelManager.MODEL_UINAME.UiArchiveMonsterDetail, npcId, npcState, func)
 end
+
 function XUiArchiveMonsterDetail:SetCameraType(type)
-    local camType = (type == XArchiveConfigs.MonsterDetailType.ScreenShot) and
-    XArchiveConfigs.MonsterDetailType.Synopsis or type
+    local camType = (type == XEnumConst.Archive.MonsterDetailType.ScreenShot) and
+    XEnumConst.Archive.MonsterDetailType.Synopsis or type
 
     for k, _ in pairs(self.CamFar) do
         self.CamFar[k].gameObject:SetActiveEx(k == camType)
@@ -269,41 +231,47 @@ function XUiArchiveMonsterDetail:SelectDetailState(type)
     self.DetailType = type
     self:SetCameraType(type)
     self:SelectType(self.CurType, false)
-    self.PanelMonsterSynopsis.gameObject:SetActiveEx(type == XArchiveConfigs.MonsterDetailType.Synopsis or
-    type == XArchiveConfigs.MonsterDetailType.ScreenShot)
 
-    self.PanelMonsterIntro.gameObject:SetActiveEx(type == XArchiveConfigs.MonsterDetailType.Info)
+    if type~=XEnumConst.Archive.MonsterDetailType.Synopsis and type ~= XEnumConst.Archive.MonsterDetailType.ScreenShot then
+        self.ArchiveMonsterSynopsis:Close()
+    end
+    
+    if type ~= XEnumConst.Archive.MonsterDetailType.Info then
+        self.ArchiveMonsterInfo:Close()
+    end
+    if type ~= XEnumConst.Archive.MonsterDetailType.Setting then
+        self.ArchiveMonsterSetting:Close()
+    end
+    if type ~= XEnumConst.Archive.MonsterDetailType.Skill then
+        self.ArchiveMonsterSkill:Close()
+    end
 
-    self.PanelMonsterSet.gameObject:SetActiveEx(type == XArchiveConfigs.MonsterDetailType.Setting)
+    self.TopControl.gameObject:SetActiveEx(type ~= XEnumConst.Archive.MonsterDetailType.ScreenShot and
+    type ~= XEnumConst.Archive.MonsterDetailType.Zoom)
 
-    self.PanelMonsterSkill.gameObject:SetActiveEx(type == XArchiveConfigs.MonsterDetailType.Skill)
-
-    self.TopControl.gameObject:SetActiveEx(type ~= XArchiveConfigs.MonsterDetailType.ScreenShot and
-    type ~= XArchiveConfigs.MonsterDetailType.Zoom)
-
-    self.PanelAsset.gameObject:SetActiveEx(type ~= XArchiveConfigs.MonsterDetailType.ScreenShot and
-    type ~= XArchiveConfigs.MonsterDetailType.Zoom)
+    self.PanelAsset.gameObject:SetActiveEx(type ~= XEnumConst.Archive.MonsterDetailType.ScreenShot and
+    type ~= XEnumConst.Archive.MonsterDetailType.Zoom)
 
     self.PanelDragGroup.gameObject:SetActiveEx(not self.Data:GetIsLockMain())
 
     self.BtnRight.gameObject:SetActiveEx((not self.Data:GetIsLockMain()) and
-    type == XArchiveConfigs.MonsterDetailType.Synopsis or
-    type == XArchiveConfigs.MonsterDetailType.ScreenShot or
-    type == XArchiveConfigs.MonsterDetailType.Zoom)
+    type == XEnumConst.Archive.MonsterDetailType.Synopsis or
+    type == XEnumConst.Archive.MonsterDetailType.ScreenShot or
+    type == XEnumConst.Archive.MonsterDetailType.Zoom)
 
     self.PanelDragMid.gameObject:SetActiveEx(
-    type ~= XArchiveConfigs.MonsterDetailType.Skill and
-    type ~= XArchiveConfigs.MonsterDetailType.Setting)
+    type ~= XEnumConst.Archive.MonsterDetailType.Skill and
+    type ~= XEnumConst.Archive.MonsterDetailType.Setting)
 
-    self.PanelDragLeft.gameObject:SetActiveEx(type == XArchiveConfigs.MonsterDetailType.Skill)
+    self.PanelDragLeft.gameObject:SetActiveEx(type == XEnumConst.Archive.MonsterDetailType.Skill)
 
-    self.PanelDragRight.gameObject:SetActiveEx(type == XArchiveConfigs.MonsterDetailType.Setting)
+    self.PanelDragRight.gameObject:SetActiveEx(type == XEnumConst.Archive.MonsterDetailType.Setting)
 
     self:PlayUIAnim(type)
 end
 
 function XUiArchiveMonsterDetail:PlayUIAnim(type)
-    if type == XArchiveConfigs.MonsterDetailType.Synopsis then
+    if type == XEnumConst.Archive.MonsterDetailType.Synopsis then
         if self.IsInit then
             self:PlayAnimation("MonsterSynopsisEnable")
             self.IsInit = false
@@ -311,15 +279,15 @@ function XUiArchiveMonsterDetail:PlayUIAnim(type)
             self:PlayAnimation("MonsterSwitchEnable")
         end
 
-    elseif type == XArchiveConfigs.MonsterDetailType.Info then
+    elseif type == XEnumConst.Archive.MonsterDetailType.Info then
         self:PlayAnimation("MonsterInfoEnable")
-    elseif type == XArchiveConfigs.MonsterDetailType.Setting then
+    elseif type == XEnumConst.Archive.MonsterDetailType.Setting then
         self:PlayAnimation("MonsterSetEnable")
-    elseif type == XArchiveConfigs.MonsterDetailType.Skill then
+    elseif type == XEnumConst.Archive.MonsterDetailType.Skill then
         self:PlayAnimation("MonsterSkillEnable")
-    elseif type == XArchiveConfigs.MonsterDetailType.ScreenShot then
+    elseif type == XEnumConst.Archive.MonsterDetailType.ScreenShot then
         self:PlayAnimationWithMask("MonsterSwitchDisable", function()
-            self.PanelMonsterSynopsis.gameObject:SetActiveEx(false)
+            self.ArchiveMonsterSynopsis:Close()
         end)
     end
 end
@@ -338,16 +306,16 @@ function XUiArchiveMonsterDetail:ResetScreenShot()
 end
 
 function XUiArchiveMonsterDetail:OnBtnBackClick()
-    if self.DetailType ~= XArchiveConfigs.MonsterDetailType.Synopsis then
-        self:SelectDetailState(XArchiveConfigs.MonsterDetailType.Synopsis)
+    if self.DetailType ~= XEnumConst.Archive.MonsterDetailType.Synopsis then
+        self:SelectDetailState(XEnumConst.Archive.MonsterDetailType.Synopsis)
     else
         self:Close()
     end
 end
 
 function XUiArchiveMonsterDetail:OnBtnBackClick()
-    if self.DetailType ~= XArchiveConfigs.MonsterDetailType.Synopsis then
-        self:SelectDetailState(XArchiveConfigs.MonsterDetailType.Synopsis)
+    if self.DetailType ~= XEnumConst.Archive.MonsterDetailType.Synopsis then
+        self:SelectDetailState(XEnumConst.Archive.MonsterDetailType.Synopsis)
         self:ResetScreenShot()
     else
         self:Close()
@@ -359,7 +327,7 @@ function XUiArchiveMonsterDetail:OnBtnMainUiClick()
 end
 
 function XUiArchiveMonsterDetail:OnBtnScreenShotClick()
-    self:SelectDetailState(XArchiveConfigs.MonsterDetailType.ScreenShot)
+    self:SelectDetailState(XEnumConst.Archive.MonsterDetailType.ScreenShot)
     self.BtnScreenShot.gameObject:SetActiveEx(false)
     self.BtnHide.gameObject:SetActiveEx(true)
     self.BtnLensIn.gameObject:SetActiveEx(false)--模型精度不够，暂关闭
@@ -367,18 +335,18 @@ function XUiArchiveMonsterDetail:OnBtnScreenShotClick()
 end
 
 function XUiArchiveMonsterDetail:OnBtnHideClick()
-    self:SelectDetailState(XArchiveConfigs.MonsterDetailType.Synopsis)
+    self:SelectDetailState(XEnumConst.Archive.MonsterDetailType.Synopsis)
     self:ResetScreenShot()
 end
 
 function XUiArchiveMonsterDetail:OnBtnLensInClick()
-    self:SelectDetailState(XArchiveConfigs.MonsterDetailType.ScreenShot)
+    self:SelectDetailState(XEnumConst.Archive.MonsterDetailType.ScreenShot)
     self.BtnLensIn.gameObject:SetActiveEx(false)--模型精度不够，暂关闭
     self.BtnLensOut.gameObject:SetActiveEx(false)--模型精度不够，暂关闭
 end
 
 function XUiArchiveMonsterDetail:OnBtnLensOutClick()
-    self:SelectDetailState(XArchiveConfigs.MonsterDetailType.Zoom)
+    self:SelectDetailState(XEnumConst.Archive.MonsterDetailType.Zoom)
     self.BtnLensIn.gameObject:SetActiveEx(false)--模型精度不够，暂关闭
     self.BtnLensOut.gameObject:SetActiveEx(false)--模型精度不够，暂关闭
 end
@@ -387,7 +355,7 @@ function XUiArchiveMonsterDetail:OnBtnNextClick()
     if self.NextIndex == 0 then
         return
     end
-    XDataCenter.ArchiveManager.GetMonsterEvaluateFromSever(self.DataList[self.NextIndex]:GetNpcId(), function()
+    XMVCA.XArchive:GetMonsterEvaluateFromSever(self.DataList[self.NextIndex]:GetNpcId(), function()
         XLuaUiManager.PopThenOpen("UiArchiveMonsterDetail", self.DataList, self.NextIndex, self.OperationType)
     end)
 end
@@ -396,7 +364,7 @@ function XUiArchiveMonsterDetail:OnBtnLastClick()
     if self.PreviousIndex == 0 then
         return
     end
-    XDataCenter.ArchiveManager.GetMonsterEvaluateFromSever(self.DataList[self.PreviousIndex]:GetNpcId(), function()
+    XMVCA.XArchive:GetMonsterEvaluateFromSever(self.DataList[self.PreviousIndex]:GetNpcId(), function()
         XLuaUiManager.PopThenOpen("UiArchiveMonsterDetail", self.DataList, self.PreviousIndex, self.OperationType)
     end)
 end

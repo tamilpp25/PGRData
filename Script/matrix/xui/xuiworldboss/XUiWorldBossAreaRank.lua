@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --工会boss关卡排行榜页面
 local XUiGridWorldBossAreaRankItem = require("XUi/XUiWorldBoss/XUiGridWorldBossAreaRankItem")
 local XUiWorldBossAreaRank = XLuaUiManager.Register(XLuaUi, "UiWorldBossAreaRank")
@@ -34,7 +35,7 @@ function XUiWorldBossAreaRank:UpdateInfo()
         end
         self.TxtRank.text = self.MyRankData.Rank <= 100 and self.MyRankData.Rank or string.format("%d%s", rankRate, "%")
 
-        XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.UObjHead)
+        XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.UObjHead)
     end
     self.PanelMyAreaRank.gameObject:SetActiveEx(next(self.MyRankData))
 end

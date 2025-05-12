@@ -39,6 +39,7 @@ local TABLE_EXAMINE_ACTION_PATH = "Share/TRPG/Examine/TRPGExamineAction.tab"
 local TABLE_EXAMINE_ACTION_TYPE_PATH = "Client/TRPG/TRPGExamineActionType.tab"
 local TABLE_EXAMINE_ACTION_DIFFICULT_PATH = "Client/TRPG/TRPGExamineActionDifficult.tab"
 local TABLE_EXAMINE_PUNISH_PATH = "Share/TRPG/Examine/TRPGExaminePunish.tab"
+local TABLE_EXAMINE_PUNISH_TEXT_PATH = "Share/TRPG/Examine/TRPGExaminePunishText.tab"
 local TABLE_BUTTON_CONDITION_PATH = "Client/TRPG/TRPGButtonCondition.tab"
 local TABLE_SECOND_MAIN_PATH = "Share/TRPG/SecondMain/TRPGSecondMain.tab"
 local TABLE_SECOND_MAIN_STAGE_PATH = "Share/TRPG/SecondMain/TRPGSecondMainStage.tab"
@@ -80,6 +81,7 @@ local ExamineTemplate = {}
 local ExamineActionTemplate = {}
 local ExamineActionTypeTemplate = {}
 local PunishTemplate = {}
+local PunishTextTemplate = {}
 local ExamineActionDifficultTemplate = {}
 local SecondAreaIdToMazeIdDic = {}
 local ButtonConditionTemplate = {}
@@ -334,6 +336,7 @@ function XTRPGConfigs.Init()
     ExamineActionTemplate = XTableManager.ReadByIntKey(TABLE_EXAMINE_ACTION_PATH, XTable.XTableTRPGExamineAction, "Id")
     ExamineActionTypeTemplate = XTableManager.ReadByIntKey(TABLE_EXAMINE_ACTION_TYPE_PATH, XTable.XTableTRPGExamineActionType, "Type")
     PunishTemplate = XTableManager.ReadByIntKey(TABLE_EXAMINE_PUNISH_PATH, XTable.XTableTRPGExaminePunish, "Id")
+    PunishTextTemplate = XTableManager.ReadByIntKey(TABLE_EXAMINE_PUNISH_TEXT_PATH, XTable.XTableTRPGExaminePunishText, "Id")
     ExamineActionDifficultTemplate = XTableManager.ReadByIntKey(TABLE_EXAMINE_ACTION_DIFFICULT_PATH, XTable.XTableTRPGExamineActionDifficult, "Difficult")
     ButtonConditionTemplate = XTableManager.ReadByIntKey(TABLE_BUTTON_CONDITION_PATH, XTable.XTableTRPGButtonCondition, "Id")
     SecondMainTemplate = XTableManager.ReadByIntKey(TABLE_SECOND_MAIN_PATH, XTable.XTableTRPGSecondMain, "Id")
@@ -395,6 +398,11 @@ end
 function XTRPGConfigs.GetRoleModelId(roleId)
     local config = GetRoleConfig(roleId)
     return config.ModelId
+end
+
+function XTRPGConfigs.GetRoleIsShowTip(roleId)
+    local config = GetRoleConfig(roleId)
+    return config.IsShowTip == 1
 end
 
 --属性 begin--
@@ -1183,7 +1191,8 @@ end
 
 function XTRPGConfigs.GetPunishDesc(punishId)
     local config = GetPunishConfig(punishId)
-    return stringGsub(config.Desc, "\\n", "\n")
+    local desc = PunishTextTemplate[config.Desc].Text
+    return stringGsub(desc, "\\n", "\n")
 end
 
 function XTRPGConfigs.GetPunishParams(punishId)

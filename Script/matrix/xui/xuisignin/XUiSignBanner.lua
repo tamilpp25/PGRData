@@ -1,20 +1,24 @@
 local XUiSignBanner = XLuaUiManager.Register(XLuaUi, "UiSignBanner")
 local XUiSignPrefabContent = require("XUi/XUiSignIn/XUiSignPrefabContent")
+local XUiSClassConstructWelfare = require("XUi/XUiSClassConstructWelfare/XUiSClassConstructWelfare")
 local XUiSignFirstRecharge = require("XUi/XUiSignIn/XUiSignFirstRecharge")
 local XUiSignCard = require("XUi/XUiSignIn/XUiSignCard")
 local XUiWeekChallenge = require("XUi/XUiWeekChallenge/XUiWeekChallenge")
-local XUiNewYearSignIn = require("XUi/XUiSignIn/XUiNewYearSignIn")
-local XUiSignNewYearDrawActivity = require("XUi/XUiSignIn/XUiSignNewYearDrawActivity")
-local XUiSignFireworks = require("XOverseas/XUi/XUiFireworks/XUiFireworks")
+local XUiSignWeekCard = require("XUi/XUiSignIn/XUiSignWeekCard")
 
 function XUiSignBanner:OnAwake()
     self:AddListener()
     XEventManager.AddEventListener(XEventId.EVENT_SING_IN_OPEN_BTN, self.SetBtnActive, self)
 end
 
-function XUiSignBanner:OnStart(configId)
+function XUiSignBanner:OnStart(configId, forceInteractive)
     self.Config = XSignInConfigs.GetWelfareConfig(configId)
-    self:SetBtnActive(false)
+    self.ForceInteractive = forceInteractive
+    if forceInteractive then
+        self:SetBtnActive(true)
+    else
+        self:SetBtnActive(false)
+    end
     self:SetInfo(configId)
 end
 
@@ -43,6 +47,13 @@ function XUiSignBanner:AddListener()
     self:RegisterClickEvent(self.BtnClose, self.OnBtnCloseClick)
 end
 
+function XUiSignBanner:PcClose()
+    if not self.BtnClose.gameObject.activeSelf then
+        return
+    end
+    self:OnBtnCloseClick()
+end
+
 function XUiSignBanner:OnBtnCloseClick()
     self:Close()
     XDataCenter.AutoWindowManager.NextAutoWindow()
@@ -50,26 +61,31 @@ end
 
 function XUiSignBanner:SetInfo(configId)
     local path = XSignInConfigs.GetPrefabPath(configId)
+    if not path then
+        XLog.Error("找不到预置体路径，检查Welfare表是否正确配置FunctionType，id", configId)
+        return
+    end
 
-    self.Resource = CS.XResourceManager.Load(path)
-    local prefab = CS.UnityEngine.Object.Instantiate(self.Resource.Asset)
-    prefab.transform:SetParent(self.PanelSigGrid, false)
+    local prefab = self.PanelSigGrid:LoadPrefab(path, false)
+    if not prefab then
+        self:Close()
+        return
+    end
+    
     prefab.gameObject:SetLayerRecursively(self.PanelSigGrid.gameObject.layer)
 
     if self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.Sign then
         self.SignPrefabContent = XUiSignPrefabContent.New(prefab, self)
+    elseif self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.SClassConstructNovice then
+        self.SignPrefabContent = XUiSClassConstructWelfare.New(prefab, self)
     elseif self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.FirstRecharge then
         self.SignPrefabContent = XUiSignFirstRecharge.New(prefab, self)
     elseif self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.Card then
         self.SignPrefabContent = XUiSignCard.New(prefab, self)
     elseif self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekChallenge then
         self.SignPrefabContent = XUiWeekChallenge.New(prefab, self)
-    elseif self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewYearZhanBu then
-        self.SignPrefabContent = XUiNewYearSignIn.New(prefab, self)
-    elseif self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewYearDrawActivity then
-        self.SignPrefabContent = XUiSignNewYearDrawActivity.New(prefab, self)
-    elseif self.Config.FunctionType == XAutoWindowConfigs.AutoFuncitonType.Fireworks then
-        self.SignPrefabContent = XUiSignFireworks.New(prefab, self)
+    elseif self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekCard then
+        self.SignPrefabContent = XUiSignWeekCard.New(prefab, self)
     end
 
     self.SignPrefabContent:Refresh(self.Config.SubConfigId, true)
@@ -80,7 +96,9 @@ function XUiSignBanner:SetBtnActive(active, dayRewardConfig)
         self.SignPrefabContent:SetTomorrowOpen(dayRewardConfig)
     end
 
-    if self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.Sign then
+    if self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.Sign
+        or self.Config.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekCard
+    then
         self.PanelMask.gameObject:SetActive(not active)
     else
         self.PanelMask.gameObject:SetActive(false)
@@ -92,10 +110,6 @@ end
 
 function XUiSignBanner:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_SING_IN_OPEN_BTN, self.SetBtnActive, self)
-
-    if self.Resource then
-       self.Resource:Release()
-    end
 
     if self.SignPrefabContent then
         CS.UnityEngine.Object.Destroy(self.SignPrefabContent.GameObject)

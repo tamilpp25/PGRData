@@ -36,10 +36,14 @@ function XMentorNodeEntity:GetRewardList()
     local rewardList = {}
     local gameData = XDataCenter.MaintainerActionManager.GetGameData()
     local mentorData = XDataCenter.MentorSystemManager.GetMentorData()
+
+    ---@type XMailAgency
+    local mailAgency = XMVCA:GetAgency(ModuleId.XMail)
+
     if mentorData:IsTeacher() then
-        rewardList = XDataCenter.MailManager.GetRewardList(gameData:GetTeacherMailId())
+        rewardList = mailAgency:GetRewardList(gameData:GetTeacherMailId())
     elseif mentorData:IsStudent() then
-        rewardList = XDataCenter.MailManager.GetRewardList(gameData:GetStudentMailId())
+        rewardList = mailAgency:GetRewardList(gameData:GetStudentMailId())
     end
     return rewardList
 end

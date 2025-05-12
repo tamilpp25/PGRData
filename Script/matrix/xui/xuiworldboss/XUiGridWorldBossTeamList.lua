@@ -21,7 +21,7 @@ function XUiGridWorldBossTeamList:Init(data)
 
                 local characterId = data[i].Id
                 local headInfo = data[i].CharacterHeadInfo or {}
-                local iconPath = XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
+                local iconPath = XMVCA.XCharacter:GetCharSmallHeadIcon(characterId, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
 
                 self["ImgHead" .. i]:SetRawImage(iconPath)
 

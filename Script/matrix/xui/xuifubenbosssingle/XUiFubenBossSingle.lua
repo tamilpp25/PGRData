@@ -1,159 +1,129 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+---@class XUiFubenBossSingle : XLuaUi
+---@field _Control XFubenBossSingleControl
 local XUiFubenBossSingle = XLuaUiManager.Register(XLuaUi, "UiFubenBossSingle")
-local XUiPanelBossStgae = require("XUi/XUiFubenBossSingle/XUiPanelBossStgae")
+local XUiPanelBossStage = require("XUi/XUiFubenBossSingle/XUiPanelBossStage")
 local XUiPanelBossRankInfo = require("XUi/XUiFubenBossSingle/XUiPanelBossRankInfo")
-local XUiPanelBossDetail = require("XUi/XUiFubenBossSingle/XUiPanelBossDetail")
 local XUiPanelBossEnter = require("XUi/XUiFubenBossSingle/XUiPanelBossEnter")
-local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
+local XUiPanelRankReward = require("XUi/XUiFubenBossSingle/XUiPanelRankReward")
 
 function XUiFubenBossSingle:OnAwake()
-    self:AutoAddListener()
-    local root = self.UiModelGo.transform
-    self.ImgEffectHuanren = root:FindTransform("ImgEffectHuanren")
-    self.ImgEffectHuanrenHideBoss = root:FindTransform("ImgEffectHuanren1")
-    self.ImgEffectHuanren.gameObject:SetActiveEx(false)
-    self.ImgEffectHuanrenHideBoss.gameObject:SetActiveEx(false)
-    self.RoleModelPanel = XUiPanelRoleModel.New(root:FindTransform("PanelRoleModel"), self.Name, nil, true)
+    self:_HideEffect()
+    self:_RegisterButtonListeners()
 end
 
-function XUiFubenBossSingle:OnStart(bossSingleData, bossList)
-    XDataCenter.FubenBossSingleManager.SetBossSingleTrial(false)
-    self:Init(bossSingleData, bossList)
+function XUiFubenBossSingle:OnStart()
+    local bossSingleData = self._Control:GetBossSingleData()
+    local bossList = bossSingleData:GetBossSingleBossList()
+    
+    self._IsShowMainPanel = true
+    ---@type XUiPanelBossStage
+    self._BossList = XUiPanelBossStage.New(self.PanelBossStgae, self, bossList)
+    ---@type XUiPanelBossEnter
+    self._BossEnter = XUiPanelBossEnter.New(self.PanelBossEnter, self)
+    ---@type XUiPanelBossRankInfo
+    self._BossRankInfo = XUiPanelBossRankInfo.New(self.PanelBossRankInfo, self)
+    ---@type XUiPanelRankReward
+    self._RankReward = XUiPanelRankReward.New(self.PanelRankReward, self)
+    self._RankReward:Close()
+
+    XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
+end
+
+function XUiFubenBossSingle:OnEnable()
+    self:_Refresh()
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_REFRESH_STAGE_DATA, self.OnSyncBossData, self)
     XEventManager.AddEventListener(XEventId.EVENT_BOSS_SINGLE_GET_REWARD, self.OnRewardGet, self)
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_SINGLE_BOSS_RESET, self.OnActivityEnd, self)
 end
 
-function XUiFubenBossSingle:OnDestroy()
-    if self.BossRankInfo then
-        self.BossRankInfo:RemoveTimer()
-    end
-
-    if self.BossEnter then
-        self.BossEnter:OnDestroy()
-    end
-
+function XUiFubenBossSingle:OnDisable()
     XEventManager.RemoveEventListener(XEventId.EVENT_FUBEN_REFRESH_STAGE_DATA, self.OnSyncBossData, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_BOSS_SINGLE_GET_REWARD, self.OnRewardGet, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_FUBEN_SINGLE_BOSS_RESET, self.OnActivityEnd, self)
 end
 
-function XUiFubenBossSingle:OnEnable()
-    if XDataCenter.FubenBossSingleManager.IsNeedReset() then
-        self:OnActivityEnd()
-        return
-    end
-
-    self:PlayAnimation("AnimEnable1")
-
-    if self.BossDetail and self.BossDetail.GameObject.activeInHierarchy then
-        self.BossDetail:ShowPanel()
-    end
-end
-
-function XUiFubenBossSingle:AutoAddListener()
+function XUiFubenBossSingle:_RegisterButtonListeners()
     self:RegisterClickEvent(self.BtnBack, self.OnBtnBackClick)
     self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick)
     self:BindHelpBtn(self.BtnHelp, "BossSingle")
 end
 
-function XUiFubenBossSingle:Init(bossSingleData, bossList)
-    self.BossSingleData = bossSingleData
-    self.BossList = XUiPanelBossStgae.New(self, self.PanelBossStgae, bossList)
-    self.BossList:PanelBossContentActive(true)
-    self.BossEnter = XUiPanelBossEnter.New(self, self.PanelBossEnter, bossSingleData)
-    self.BossRankInfo = XUiPanelBossRankInfo.New(self, self.PanelBossRankInfo)
-    self.BossRankInfo:HidePanel()
-    self.BossDetail = XUiPanelBossDetail.New(self, self.PanelBossDetail)
-    self.BossDetail:HidePanel()
-    self.RoleModelPanel:HideRoleModel()
-    self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-    self:OnSyncBossData()
+function XUiFubenBossSingle:_HideEffect()
+    local root = self.UiModelGo.transform
+    local imgEffect = root:FindTransform("ImgEffectHuanren")
+    local imgEffectHide = root:FindTransform("ImgEffectHuanren1")
 
-    local scoreReardCfg = XDataCenter.FubenBossSingleManager.GetCurScoreRewardCfg()
-    self.CurScoreRewardId = scoreReardCfg and scoreReardCfg.Id or -1
+    if imgEffect then
+        imgEffect.gameObject:SetActiveEx(false)
+    end
+    if imgEffectHide then
+        imgEffectHide.gameObject:SetActiveEx(false)
+    end
+end
+
+function XUiFubenBossSingle:_Refresh()
+    self:OnSyncBossData()
+end
+
+function XUiFubenBossSingle:_OpenMainPanel(isRefresh)
+    self._IsShowMainPanel = true
+    self._BossList:Open()
+    self._BossEnter:Open()
+    self._BossEnter:Refresh(isRefresh)
+    self._BossRankInfo:Close()
+end
+
+function XUiFubenBossSingle:_OpenRankPanel()
+    self._IsShowMainPanel = false
+    self._BossList:Close()
+    self._BossEnter:Close()
+    self._BossRankInfo:Open()
 end
 
 function XUiFubenBossSingle:OnSyncBossData()
-    local bossSingleData = XDataCenter.FubenBossSingleManager.GetBoosSingleData()
-    self.BossSingleData = bossSingleData
-    local isAutoFight = self.BossDetail:CheckAutoFightOpen()
-
-    if isAutoFight then
-        self.BossEnter:ShowPanel(true, bossSingleData, isAutoFight)
-        self.BossDetail:Refresh(bossSingleData)
-        self.BossDetail:SetAutoFightClose()
-        self.BossRankInfo:HidePanel()
-        self.BossList:PanelBossContentActive(false)
-        return
-    end
-
-    self.BossEnter:ShowPanel(true, bossSingleData, false, true)
-    self.BossDetail:HidePanel()
-    self.BossDetail:Refresh(bossSingleData)
-    self.RoleModelPanel:HideRoleModel()
-    self.BossList:PanelBossContentActive(true)
-    self.BossList:RefreshBossDifficult()
-    self.BossRankInfo:HidePanel()
+    self:_OpenMainPanel(true)
 end
 
 function XUiFubenBossSingle:OnRewardGet()
-    self.BossEnter:CheckRedPoint()
+    self._BossEnter:CheckRedPoint()
 end
 
 function XUiFubenBossSingle:OnActivityEnd()
-    XDataCenter.FubenBossSingleManager.OnActivityEnd()
+    self._Control:OnActivityEnd()
 end
 
 function XUiFubenBossSingle:OnBtnBackClick()
-    if self.BossEnter.GameObject.activeSelf then
+    if not self._IsShowMainPanel then
+        self:_OpenMainPanel()
+    else
         self:Close()
-    elseif self.BossRankInfo.GameObject.activeSelf then
-        self:Back2Enter()
-    elseif self.BossDetail.GameObject.activeSelf then
-        self:Back2Enter()
     end
-end
-
-function XUiFubenBossSingle:Back2Enter()
-    self.BossEnter:ShowPanel()
-    self.BossDetail:HidePanel()
-    self.RoleModelPanel:HideRoleModel()
-    self.BossList:PanelBossContentActive(true)
-    self.BossRankInfo:HidePanel()
 end
 
 function XUiFubenBossSingle:OnBtnMainUiClick()
     XLuaUiManager.RunMain()
 end
 
-function XUiFubenBossSingle:ShowBossDetail(bossId)
-    self.BossEnter:HidePanel()
-    self.BossRankInfo:HidePanel()
-    self.BossList:PanelBossContentActive(false)
-    self.BossDetail:ShowPanel(self.BossSingleData, bossId)
-    self.RoleModelPanel:ShowRoleModel()
+function XUiFubenBossSingle:GetBossSingleData()
+    return self._Control:GetBossSingleData()
 end
 
-function XUiFubenBossSingle:ShowBossRank(levelType, rankPlatform)
-    self.BossEnter:HidePanel()
-    self.BossDetail:HidePanel()
-    self.RoleModelPanel:HideRoleModel()
-    self.BossList:PanelBossContentActive(false)
-    self.BossRankInfo:ShowPanel(levelType, rankPlatform)
-end
-
-function XUiFubenBossSingle:RefreshModel(modelId, isHideBoss)
-    self.RoleModelPanel:UpdateBossModel(modelId, XModelManager.MODEL_UINAME.XUiBossSingle)
-    self.RoleModelPanel:ShowRoleModel()
-    if isHideBoss then
-        self.ImgEffectHuanrenHideBoss.gameObject:SetActiveEx(false)
-        self.ImgEffectHuanrenHideBoss.gameObject:SetActiveEx(true)
-    else
-        self.ImgEffectHuanren.gameObject:SetActiveEx(false)
-        self.ImgEffectHuanren.gameObject:SetActiveEx(true)
-    end
+function XUiFubenBossSingle:ShowBossRank()
+    self:_OpenRankPanel()
 end
 
 function XUiFubenBossSingle:ShowBossGroupInfo(groupId)
-    self.BossEnter:ShowBossGroupInfo(groupId)
+    self._BossEnter:ShowBossGroupInfo(groupId)
 end
+
+function XUiFubenBossSingle:ShowRankRewardPanel(levelType, myRankData)
+    self._RankReward:SetData(levelType, myRankData)
+    self._RankReward:Open()
+end
+
+function XUiFubenBossSingle:ShowBossDetail(bossId)
+    XLuaUiManager.Open("UiFubenBossSingleDetail", bossId)
+end
+
+return XUiFubenBossSingle

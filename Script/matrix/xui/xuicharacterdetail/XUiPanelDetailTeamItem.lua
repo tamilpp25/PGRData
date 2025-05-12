@@ -1,4 +1,5 @@
-XUiPanelDetailTeamItem = XClass(nil, "XUiPanelDetailTeamItem")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiPanelDetailTeamItem = XClass(nil, "XUiPanelDetailTeamItem")
 
 function XUiPanelDetailTeamItem:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -60,7 +61,7 @@ function XUiPanelDetailTeamItem:UpdateView(recommendConfig, rank, curCharacterId
 
     self.TxtRank.text = rank
 
-    local template = XCharacterConfigs.GetCharDetailParnerTemplate(self.VoteId)
+    local template = XMVCA.XCharacter:GetCharDetailParnerTemplate(self.VoteId)
     local charList = template.CharacterRecomend
 
     for i = 1, 3 do
@@ -80,9 +81,9 @@ function XUiPanelDetailTeamItem:UpdateView(recommendConfig, rank, curCharacterId
         end
         grid:Refresh(templateId)
 
-        local quality = XCharacterConfigs.GetCharMinQuality(templateId)
-        self["RImgQuality" .. i]:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(quality))
-        self["TxtName" .. i].text = XCharacterConfigs.GetCharacterFullNameStr(templateId)
+        local quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
+        self["RImgQuality" .. i]:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(quality))
+        self["TxtName" .. i].text = XMVCA.XCharacter:GetCharacterFullNameStr(templateId)
     end
 
     self:UpdateVoteView()

@@ -1,9 +1,10 @@
+-- V1.29 角色技能优化 该类不在使用 具体使用在 UiSkillDetailsOther
 local RESONANCED_GRID_TEXT_COLOR = {
     [true] = XUiHelper.Hexcolor2Color("fee82aff"),
     [false] = XUiHelper.Hexcolor2Color("ffffffff"),
 }
 
-XUiGridSubSkillOther = XClass(nil, "XUiGridSubSkillOther")
+local XUiGridSubSkillOther = XClass(nil, "XUiGridSubSkillOther")
 
 function XUiGridSubSkillOther:Ctor(ui, index, npcData,assignChapterRecords, callback)
     self.GameObject = ui.gameObject
@@ -65,7 +66,7 @@ function XUiGridSubSkillOther:UpdateGrid(subSkillInfo)
     self.TxtSubSkillLevel.color = RESONANCED_GRID_TEXT_COLOR[addLevel > 0]
     self.TxtSubSkillLevel.text = curLevel
 
-    local min_max = XCharacterConfigs.GetSubSkillMinMaxLevel(subSkillInfo.SubSkillId)
+    local min_max = XMVCA.XCharacter:GetSubSkillMinMaxLevel(subSkillInfo.SubSkillId)
     if (subSkillInfo.Level >= min_max.Max) then
         self.ImgLock.gameObject:SetActive(false)
     else
@@ -89,3 +90,5 @@ end
 function XUiGridSubSkillOther:ResetSelect(subSkillId)
     self:SetSelect(self.SubSkillInfo and self.SubSkillInfo.SubSkillId == subSkillId)
 end
+
+return XUiGridSubSkillOther

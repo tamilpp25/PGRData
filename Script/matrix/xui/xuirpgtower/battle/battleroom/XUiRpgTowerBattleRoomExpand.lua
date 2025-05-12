@@ -19,8 +19,9 @@ function XUiRpgTowerBattleRoomExpand:SetData(team)
             if chara then
                 self["PanelTag" .. index].gameObject:SetActiveEx(true)
                 local talentType = chara:GetCharaTalentType()
-                self["TxtContent" .. index].text = XRpgTowerConfig.GetTalentTypeNameById(talentType)          
-                self["ImgDi" .. index]:SetSprite(XRpgTowerConfig.GetTalentTypeBattleRoomBgById(talentType))
+                self["TxtContent" .. index].text = chara:GetCharaTalentTypeName()
+                -- self["ImgDi" .. index]:SetSprite(XRpgTowerConfig.GetTalentTypeBattleRoomBgById(talentType))
+                self["ImgDi" .. index]:SetSprite(XRpgTowerConfig.GetTalentTypeConfigByCharacterId(charaId, talentType).BattleRoomBg)
             end
         end
     end

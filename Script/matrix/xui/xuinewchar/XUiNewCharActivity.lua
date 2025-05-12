@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiPanelLineChapter = require("XUi/XUiNewChar/XUiPanelLineChapter")
 local XUiNewCharActivity = XLuaUiManager.Register(XLuaUi, "UiNewCharActivity")
 

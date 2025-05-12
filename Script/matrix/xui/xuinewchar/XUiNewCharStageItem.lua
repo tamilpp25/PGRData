@@ -1,4 +1,4 @@
-XUiNewCharStageItem = XClass(nil, "XUiNewCharStageItem")
+local XUiNewCharStageItem = XClass(nil, "XUiNewCharStageItem")
 
 local XUiPanelStars = require("XUi/XUiFubenMainLineChapter/XUiPanelStars")
 

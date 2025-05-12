@@ -12,16 +12,16 @@ end
 function XUiSBBCEquipGrid:Refresh(equip, breakNum, equipSite, isWeapon, level, resonanceCount)
     local templateId = equip.TemplateId
     if self.RImgIcon and self.RImgIcon:Exist() then
-        self.RImgIcon:SetRawImage(XDataCenter.EquipManager.GetEquipIconBagPath(templateId, breakNum), nil, true)
+        self.RImgIcon:SetRawImage(XMVCA.XEquip:GetEquipIconPath(templateId, breakNum), nil, true)
     end
 
     --通用的横条品质色
     if self.ImgQuality then
-        self.ImgQuality:SetSprite(XDataCenter.EquipManager.GetEquipQualityPath(templateId))
+        self.ImgQuality:SetSprite(XMVCA.XEquip:GetEquipQualityPath(templateId))
     end
 
     if self.TxtName then
-        self.TxtName.text = XDataCenter.EquipManager.GetEquipName(templateId)
+        self.TxtName.text = XMVCA.XEquip:GetEquipName(templateId)
     end
 
     if self.TxtLevel then
@@ -37,20 +37,20 @@ function XUiSBBCEquipGrid:Refresh(equip, breakNum, equipSite, isWeapon, level, r
         end
     end
 
-    for i = 1, XEquipConfig.MAX_STAR_COUNT do
+    for i = 1, XEnumConst.EQUIP.MAX_STAR_COUNT do
         if self["ImgGirdStar" .. i] then
-            if i <= XDataCenter.EquipManager.GetEquipStar(templateId) then
+            if i <= XMVCA.XEquip:GetEquipStar(templateId) then
                 self["ImgGirdStar" .. i].transform.parent.gameObject:SetActiveEx(true)
             else
                 self["ImgGirdStar" .. i].transform.parent.gameObject:SetActiveEx(false)
             end
         end
     end
-    for i = 1, XEquipConfig.MAX_RESONANCE_SKILL_COUNT do
+    for i = 1, XEnumConst.EQUIP.MAX_RESONANCE_SKILL_COUNT do
         local obj = self["ImgResonance" .. i]
         if obj then
-            if XTool.IsNumberValid(resonanceCount) and resonanceCount >= i or (equip.Id > 0 and XDataCenter.EquipManager.CheckEquipPosResonanced(equip.Id, i)) then
-                local icon = XEquipConfig.GetEquipResoanceIconPath(XDataCenter.EquipManager.IsEquipPosAwaken(equip.Id, i))
+            if XTool.IsNumberValid(resonanceCount) and resonanceCount >= i or (equip.Id > 0 and XMVCA.XEquip:CheckEquipPosResonanced(equip.Id, i)) then
+                local icon = XMVCA.XEquip:GetResoanceIconPath(XMVCA.XEquip:IsEquipPosAwaken(equip.Id, i))
                 obj:SetSprite(icon)
                 obj.gameObject:SetActiveEx(true)
             else
@@ -66,7 +66,7 @@ function XUiSBBCEquipGrid:UpdateBreakthrough(breakthroughNum)
         return
     end
     if breakthroughNum > 0 then
-        local icon = XEquipConfig.GetEquipBreakThroughSmallIcon(breakthroughNum)
+        local icon = XMVCA.XEquip:GetEquipBreakThroughSmallIcon(breakthroughNum)
         if icon then
             self.ImgBreakthrough:SetSprite(icon)
             self.ImgBreakthrough.gameObject:SetActiveEx(true)

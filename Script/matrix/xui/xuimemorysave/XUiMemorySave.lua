@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiMemorySaveTreasure  = require("XUi/XUiMemorySave/XUiMemorySaveTreasure")
 local XUiMemorySaveStageLine = require("XUi/XUiMemorySave/XUiMemorySaveStageLine")
 local XUiMemorySave = XLuaUiManager.Register(XLuaUi, "UiMemorySave")
@@ -239,13 +241,13 @@ end
 --endregion
 
 function XUiMemorySave:ShowUIByTabIndex(tabIndex)
-    self:PlayAnimation("QieHuan")
     local chapterId = self.ChapterIds[tabIndex]
     if not XDataCenter.MemorySaveManager.IsChapterOpen(chapterId) then
         local msgTips = CsXTextManagerGetText("MemorySaveStageNotOpen", XMemorySaveConfig.GetChapterOpenTime(chapterId))
         XUiManager.TipMsg(msgTips)
         return
     end
+    self:PlayAnimation("QieHuan")
     -- 切换页签存储一下位置属性，放在CurrentSelect更新之前
     self.StageLinePanel:UpdateScrollPos()
     self.CurrentSelect = tabIndex
@@ -280,7 +282,7 @@ end
 function XUiMemorySave:UpdateChapterBtnPass()
     for idx, chapterId in ipairs(self.ChapterIds) do
         local passed = XDataCenter.MemorySaveManager.IsFinishCurChapter(chapterId)
-        self["BtnChapter"..idx]:SetNameByGroup(2, passed and "Cleared" or "")
+        self["BtnChapter"..idx]:SetNameByGroup(2, passed and "已通过" or "")
     end
 end
 

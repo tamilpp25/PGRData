@@ -1,5 +1,6 @@
+local XUiPanelStory = require("XUi/XUiActivityBrief/XUiPanelStory")
 local Object
-
+local XUiPanelStoryJump = require("XUi/XUiFubenMainLineChapter/XUiPanelStoryJump")
 local XUiTRPGTruthRoadSecondMainStages = require("XUi/XUiTRPG/XUiTRPGSecondMain/XUiTRPGTruthRoadSecondMainStages")
 
 --常规主线的关卡界面
@@ -29,14 +30,17 @@ function XUiTRPGTruthRoadSecondMain:OnStart(secondMainId)
 
     self:OnCheckRedPoint()
     self:InitStagesMap()
+    self:InitPanelStoryJump()
 end
 
 function XUiTRPGTruthRoadSecondMain:OnEnable()
     self:Refresh()
+    self.PanelStoryJump:Refresh(XDataCenter.FubenMainLineManager.TRPGChapterId, XFubenConfigs.ChapterType.MainLine, self.SecondMainId)
 end
 
 function XUiTRPGTruthRoadSecondMain:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_TRPG_GET_REWARD, self.OnCheckRedPoint, self)
+
 end
 
 function XUiTRPGTruthRoadSecondMain:InitStagesMap()
@@ -61,19 +65,21 @@ function XUiTRPGTruthRoadSecondMain:AutoAddListener()
     self:RegisterClickEvent(self.BtnMask, self.OnBtnMaskClick)
     self:RegisterClickEvent(self.BtnEnterStory, self.OnBtnEnterStoryClick)
     self:RegisterClickEvent(self.BtnEnterFight, self.OnBtnEnterFightClick)
+
 end
 
 function XUiTRPGTruthRoadSecondMain:OnBtnEnterStoryClick()
     self:CloseEnterDialog()
     local stageId = self.StageId
-    local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-    if stageInfo.Passed then
-        XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId)
+    --local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
+    --local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    local beginStoryId = XMVCA.XFuben:GetBeginStoryId(stageId)
+    if XDataCenter.TRPGManager.IsStagePass(stageId) then
+        XDataCenter.MovieManager.PlayMovie(beginStoryId)
     else
         XDataCenter.FubenManager.FinishStoryRequest(stageId, function()
             XDataCenter.TRPGManager.SetStagePass(stageId)
-            XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId)
+            XDataCenter.MovieManager.PlayMovie(beginStoryId)
         end)
     end
 end
@@ -173,4 +179,9 @@ end
 
 function XUiTRPGTruthRoadSecondMain:SetCurrSelectSecondMainStageId(currSelectSecondMainStageId)
     self.CurrSelectSecondMainStageId = currSelectSecondMainStageId
+end
+
+function XUiTRPGTruthRoadSecondMain:InitPanelStoryJump()
+    ---@type XUiPanelStoryJump
+    self.PanelStoryJump = XUiPanelStoryJump.New(self.PanelStoryJumpBottom, self)
 end

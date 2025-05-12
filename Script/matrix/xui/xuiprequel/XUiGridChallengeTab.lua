@@ -1,4 +1,4 @@
-XUiGridChallengeTab = XClass(nil, "XUiGridChallengeTab")
+local XUiGridChallengeTab = XClass(nil, "XUiGridChallengeTab")
 
 function XUiGridChallengeTab:Ctor(ui)
     self.GameObject = ui.gameObject

@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiSummerTaskReward = XLuaUiManager.Register(XLuaUi, "UiSummerTaskReward")
 
 local XUiSummerGridTask = require("XUi/XUiSummerEpisode/XUiSummerGridTask")

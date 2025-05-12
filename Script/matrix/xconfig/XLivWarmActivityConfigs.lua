@@ -201,6 +201,16 @@ function XLivWarmActivityConfigs.GetLivWarmActivityStageClientStageEnName(id)
     local config = GetLivWarmActivityStageClientConfig(id)
     return config.StageEnName
 end
+
+function XLivWarmActivityConfigs.GetLivWarmActivityStageClientCgText(id)
+    local config = GetLivWarmActivityStageClientConfig(id)
+    return config.CgText
+end
+
+function XLivWarmActivityConfigs.GetLivWarmActivityStageClientCgPic(id)
+    local config = GetLivWarmActivityStageClientConfig(id)
+    return config.CgPic
+end
 -----------------LivWarmActivityStageClientConfigs end-------------------------
 
 -----------------LivWarmActivityHeadClientConfigs begin-----------------------

@@ -1,15 +1,23 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiAreaWarBattleRoomRoleDetail = require("XUi/XUiAreaWar/XUiAreaWarBattleRoomRoleDetail")
 
 local XUiAreaWarDispatch = XLuaUiManager.Register(XLuaUi, "UiAreaWarDispatch")
 
+local ColorEnum = {
+    Enough = XUiHelper.Hexcolor2Color("ffffff"),
+    NotEnough = XUiHelper.Hexcolor2Color("A6A6A6")
+}
+
 function XUiAreaWarDispatch:OnAwake()
     self.Grid128.gameObject:SetActiveEx(false)
     self.GridCondition.gameObject:SetActiveEx(false)
+    self.PanelCondition.gameObject:SetActiveEx(false)
     self:AutoAddListener()
 end
 
-function XUiAreaWarDispatch:OnStart(blockId)
-    self.BlockId = blockId
+function XUiAreaWarDispatch:OnStart(id, isQuest)
+    self.Id = id
+    self.IsQuest = isQuest
     self.ConditionGrids = {}
     self.RewardGrids = {}
     self.TeamGrids = {}
@@ -26,13 +34,11 @@ function XUiAreaWarDispatch:OnEnable()
         self.IsEnd = true
         return
     end
-
     self:UpdateTeam()
-    self:UpdateView()
 end
 
 function XUiAreaWarDispatch:OnDestroy()
-    XDataCenter.AreaWarManager.ClearDispatchTeam()
+    XDataCenter.AreaWarManager.SaveTeam()
 end
 
 function XUiAreaWarDispatch:OnGetEvents()
@@ -46,7 +52,7 @@ function XUiAreaWarDispatch:OnNotify(evt, ...)
         return
     end
 
-    local args = {...}
+    local args = { ... }
     if evt == XEventId.EVENT_AREA_WAR_ACTIVITY_END then
         if XDataCenter.AreaWarManager.OnActivityEnd() then
             self.IsEnd = true
@@ -62,20 +68,77 @@ function XUiAreaWarDispatch:AutoAddListener()
     self.BtnDispatch.CallBack = function()
         self:OnClickBtnDispatch()
     end
+    self.BtnAdd.CallBack = function()
+        self:OnClickBtnAdd()
+    end
+    self.BtnSub.CallBack = function()
+        self:OnClickBtnSub()
+    end
+    self.BtnMax.CallBack = function()
+        self:OnClickBtnMax()
+    end
 end
 
 function XUiAreaWarDispatch:InitView()
-    local blockId = self.BlockId
-
     --派遣消耗行动点
-    local costCount = XAreaWarConfigs.GetBlockDetachActionPoint(blockId)
-    self.TxtCost.text = costCount
+    local costCount
+    local icon
+    local isShowChangeNum
+    local minCount, maxCount = 0, 0
+    --根据不同时期，获取不同的奖励配置
+    local rewardItems = {}
+    local showCost = false
+    self.PanelFull.gameObject:SetActiveEx(false)
+    if self.IsQuest then
+        local questId = self.Id
+        local rewardId = XDataCenter.AreaWarManager.GetAreaWarQuest(questId):GetRewardId()
+        if rewardId < 0 then
+            rewardItems = {}
+            self.PanelFull.gameObject:SetActiveEx(true)
+        elseif rewardId == 0 then
+            rewardItems = {}
+        else
+            rewardItems = XRewardManager.GetRewardList(rewardId)
+        end
 
-    local icon = XDataCenter.AreaWarManager.GetActionPointItemIcon()
-    self.RImgCost:SetRawImage(icon)
+        local itemId = XAreaWarConfigs.GetSkipItemId()
+        costCount = 1
+        icon = XDataCenter.ItemManager.GetItemIcon(itemId)
+        isShowChangeNum = false
+        showCost = false
 
-    --派遣奖励（基础）
-    local rewardItems = XAreaWarConfigs.GetBlockDetachBasicRewardItems(blockId)
+    else
+        local blockId = self.Id
+        if XDataCenter.AreaWarManager.IsRepeatChallengeTime() then
+            rewardItems = XAreaWarConfigs.GetBlockDetachWhippingPeriodRewardItems(blockId)
+        else
+            rewardItems = XAreaWarConfigs.GetBlockDetachBasicRewardItems(blockId)
+        end
+        costCount = XAreaWarConfigs.GetBlockDetachActionPoint(blockId)
+        icon = XDataCenter.AreaWarManager.GetActionPointItemIcon()
+        local personal = XDataCenter.AreaWarManager.GetPersonal()
+        isShowChangeNum = personal:IsOpenMultiChallenge()
+        minCount = personal:GetSelectSkipNum(costCount)
+        maxCount = personal:GetSkipNum()
+        showCost = true
+    end
+    self.TxtCost.gameObject:SetActiveEx(showCost)
+    self.RImgCost.gameObject:SetActiveEx(showCost)
+    self.DispatchCount = minCount
+    self.MaxDispatchCount = maxCount
+
+    self.PanelNumBtn.gameObject:SetActiveEx(isShowChangeNum)
+    if showCost then
+        self.TxtCost.text = costCount * self.DispatchCount
+        self.RImgCost:SetRawImage(icon)
+    end
+    self:RefreshReward(rewardItems)
+    if isShowChangeNum then
+        self:RefreshSelectCount()
+    end
+end
+
+function XUiAreaWarDispatch:RefreshReward(rewardItems)
     for index, item in ipairs(rewardItems) do
         local grid = self.RewardGrids[index]
         if not grid then
@@ -83,13 +146,30 @@ function XUiAreaWarDispatch:InitView()
             grid = XUiGridCommon.New(self, go)
             self.RewardGrids[index] = grid
         end
-
         grid:Refresh(item)
         grid.GameObject:SetActiveEx(true)
     end
     for index = #rewardItems + 1, #self.RewardGrids do
         self.RewardGrids[index].GameObject:SetActiveEx(false)
     end
+end
+
+function XUiAreaWarDispatch:RefreshSelectCount()
+    local lessOne = self.DispatchCount <= 0
+    self.BtnSub:SetDisable(lessOne, not lessOne)
+    self.BtnDispatch:SetDisable(lessOne, not lessOne)
+    local biggerMax = self.DispatchCount >= self.MaxDispatchCount
+    self.BtnAdd:SetDisable(biggerMax, not biggerMax)
+
+    self.TxtChallengeNum.text = self.DispatchCount
+
+    local costCount = XAreaWarConfigs.GetBlockDetachActionPoint(self.Id) * self.DispatchCount
+    local isEnough = XDataCenter.AreaWarManager.CheckActionPoint(costCount)
+
+    self.TxtCost.text = costCount
+    self.TxtCost.color = isEnough and ColorEnum.Enough or ColorEnum.NotEnough
+    
+    self.BtnMax:ShowReddot(XDataCenter.AreaWarManager.GetPersonal():CheckMaxRedPoint())
 end
 
 function XUiAreaWarDispatch:UpdateTeam()
@@ -115,96 +195,114 @@ function XUiAreaWarDispatch:UpdateTeam()
         end
 
         grid.BtnJoin1.CallBack = function()
-            XLuaUiManager.Open("UiBattleRoomRoleDetail", self.BlockId, self.Team, pos, XUiAreaWarBattleRoomRoleDetail)
+            self:OnBtnJoinClick(pos)
         end
-    end
-end
-
-function XUiAreaWarDispatch:UpdateView()
-    self.IsConditionAllReach = true
-
-    local blockId = self.BlockId
-    local entityIds = self.Team:GetEntityIds()
-    local conditionIdCheckDic = XAreaWarConfigs.GetDispatchCharacterCondtionIdCheckDic(entityIds)
-
-    --派遣条件
-    local conditions = XDataCenter.AreaWarManager.GetDispatchConditions(blockId)
-    for index, conditionId in ipairs(conditions) do
-        local grid = self.ConditionGrids[index]
-        if not grid then
-            local go = index == 1 and self.GridCondition or CSObjectInstantiate(self.GridCondition, self.PanelList)
-            grid = XTool.InitUiObjectByUi({}, go)
-            self.ConditionGrids[index] = grid
-        end
-
-        --条件满足状态
-        local isReach = conditionIdCheckDic[conditionId]
-        grid.Normal.gameObject:SetActiveEx(not isReach)
-        grid.Reach.gameObject:SetActiveEx(isReach)
-        if not isReach then
-            self.IsConditionAllReach = false
-        end
-
-        --派遣奖励（额外,只展示奖励物品的第一个）
-        local extraRewards = XAreaWarConfigs.GetBlockDetachDetachExtraRewardItems(blockId, index)
-        local item = extraRewards[1]
-        local itemId, count = item.TemplateId, item.Count
-        local icon = XItemConfigs.GetItemIconById(itemId)
-        grid.RImgIcon:SetRawImage(icon)
-        grid.RImgIcon2:SetRawImage(icon)
-        grid.TxtNumber.text = "+" .. count
-        grid.TxtNumber2.text = "+" .. count
-
-        --条件描述
-        local conditionDesc = XAreaWarConfigs.GetDispatchConditionDesc(conditionId)
-        conditionDesc = CsXTextManagerGetText("AreaWarDisapatchCondition", index, conditionDesc)
-        grid.TxtCondition.text = conditionDesc
-        grid.TxtCondition2.text = conditionDesc
-
-        grid.GameObject:SetActiveEx(true)
-    end
-    for index = #conditions + 1, #self.ConditionGrids do
-        self.ConditionGrids[index].GameObject:SetActiveEx(false)
     end
 end
 
 function XUiAreaWarDispatch:OnClickBtnDispatch()
-    local blockId = self.BlockId
-
-    --检查消耗体力
-    local costCount = XAreaWarConfigs.GetBlockDetachActionPoint(blockId)
-    if not XDataCenter.AreaWarManager.CheckActionPoint(costCount) then
-        XUiManager.TipText("AreaWarActionPointNotEnought")
-        return
-    end
-
     --检查队伍为空
     if self.Team:GetIsEmpty() then
         XUiManager.TipText("AreaWarDisapatchEmptyTeam")
         return
     end
 
-    local callFunc = function()
-        local characterIds, robotIds = self.Team:SpiltCharacterAndRobotIds()
-        XDataCenter.AreaWarManager.AreaWarDetachRequest(
-            blockId,
-            characterIds,
-            robotIds,
-            function(rewardGoodsList)
-                if not XTool.IsTableEmpty(rewardGoodsList) then
-                    XUiManager.OpenUiObtain(rewardGoodsList)
-                end
-            end
-        )
-        self:Close()
+    --是否满足3人
+    if not self.Team:GetIsFullMember() then
+        XUiManager.TipCode(XCode.AreaWarDetachCountError)
+        return
     end
 
-    --检查条件是否全部满足
-    if self.IsConditionAllReach then
-        callFunc()
+    if self.IsQuest then
+        self:DoDispatchQuest()
     else
-        local title = CsXTextManagerGetText("AreaWarDisapatchConfirmTitle")
-        local content = CsXTextManagerGetText("AreaWarDisapatchConfirmContent")
-        XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, callFunc)
+        self:DoDispatchBlock()
     end
 end
+
+function XUiAreaWarDispatch:DoDispatchBlock()
+    local blockId = self.Id
+
+    --检查消耗体力
+    local costCount = XAreaWarConfigs.GetBlockDetachActionPoint(blockId)
+    if not XDataCenter.AreaWarManager.CheckActionPoint(costCount * self.DispatchCount) then
+        XUiManager.TipText("AreaWarActionPointNotEnought")
+        return
+    end
+
+    local characterIds, robotIds = self.Team:SpiltCharacterAndRobotIds()
+    XDataCenter.AreaWarManager.AreaWarDetachRequest(blockId, characterIds, robotIds, self.DispatchCount, function(rewardGoodsList)
+        local personal = XDataCenter.AreaWarManager.GetPersonal()
+        if personal:IsOpenMultiChallenge() then
+            personal:SetSelectLocal(self.DispatchCount)
+        end
+        self:SyncWhenResponse(rewardGoodsList, false)
+    end
+    )
+end
+
+function XUiAreaWarDispatch:DoDispatchQuest()
+    local questId = self.Id
+    local characterIds, robotIds = self.Team:SpiltCharacterAndRobotIds()
+    XDataCenter.AreaWarManager.RequestQuestDetach(questId, characterIds, robotIds, function(rewardGoodsList)
+        self:SyncWhenResponse(rewardGoodsList, true)
+    end)
+end
+
+function XUiAreaWarDispatch:SyncWhenResponse(rewardGoodsList, isCloseDetail)
+    local closeUi = asynTask(function(cb)
+        XLuaUiManager.CloseWithCallback("UiAreaWarDispatch", cb)
+    end)
+    RunAsyn(function()
+        closeUi()
+        if not XTool.IsTableEmpty(rewardGoodsList) then
+            local openObtain = asynTask(function(cb)
+                XUiManager.OpenUiObtain(rewardGoodsList, nil, cb)
+            end)
+
+            openObtain()
+        end
+
+        if isCloseDetail then
+            XLuaUiManager.Close("UiAreaWarStageDetail")
+        end
+    end)
+end
+
+function XUiAreaWarDispatch:OnBtnJoinClick(pos)
+    local stageId
+    if self.IsQuest then
+        stageId = XDataCenter.AreaWarManager.GetAreaWarQuest(self.Id):GetStageId()
+    else
+        stageId = XAreaWarConfigs.GetBlockStageId(self.Id)
+    end
+    XLuaUiManager.Open("UiBattleRoomRoleDetail", stageId, self.Team, pos, XUiAreaWarBattleRoomRoleDetail)
+end
+
+function XUiAreaWarDispatch:OnClickBtnAdd()
+    if self.DispatchCount >= self.MaxDispatchCount then
+        self.DispatchCount = self.MaxDispatchCount
+        return
+    end
+    self.DispatchCount = self.DispatchCount + 1
+    if self.DispatchCount >= self.MaxDispatchCount then
+        XDataCenter.AreaWarManager.GetPersonal():MarkMaxRedPoint()
+    end
+    self:RefreshSelectCount()
+end
+
+function XUiAreaWarDispatch:OnClickBtnSub()
+    if self.DispatchCount <= 1 then
+        self.DispatchCount = 1
+        return
+    end
+    self.DispatchCount = self.DispatchCount - 1
+    self:RefreshSelectCount()
+end
+
+function XUiAreaWarDispatch:OnClickBtnMax()
+    self.DispatchCount = self.MaxDispatchCount
+    XDataCenter.AreaWarManager.GetPersonal():MarkMaxRedPoint()
+    self:RefreshSelectCount()
+end
+

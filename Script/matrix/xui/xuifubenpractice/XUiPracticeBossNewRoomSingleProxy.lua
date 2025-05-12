@@ -15,7 +15,7 @@ function XUiPracticeBossNewRoomSingleProxy.GetBattleTeamData(newRoomSingle)
     local team = XDataCenter.PracticeManager.LoadBossTeamLocal()
     for index, id in pairs(team.TeamData) do
         --清库之后本地缓存角色失效
-        if not XDataCenter.CharacterManager.IsOwnCharacter(id) and not XRobotManager.CheckIsRobotId(id) then
+        if not XMVCA.XCharacter:IsOwnCharacter(id) and not XRobotManager.CheckIsRobotId(id) then
             team.TeamData[index] = 0
         end
     end

@@ -26,6 +26,9 @@ function XUiBabelTowerAutoFight:OnStart(stageId, teamId, closeCb)
 
     for i = 1, XFubenBabelTowerConfigs.MAX_TEAM_MEMBER do
         local characterId = self.CharacterIds[i]
+        if XEntityHelper.GetIsRobot(characterId) then
+            characterId = XRobotManager.GetCharacterId(characterId)
+        end
         local isLock = characterId and characterId ~= 0 and self.BlackList[characterId]
         self.AutoFightGrid[i]:UpdateMember(characterId, isLock)
     end
@@ -47,6 +50,9 @@ function XUiBabelTowerAutoFight:OnBtnAutoFightClik()
     for i = 1, XFubenBabelTowerConfigs.MAX_TEAM_MEMBER do
         local characterId = self.CharacterIds[i]
         if characterId ~= nil and characterId ~= 0 then
+            if XEntityHelper.GetIsRobot(characterId) then
+                characterId = XRobotManager.GetCharacterId(characterId)
+            end
             if self.BlackList[characterId] then
                 hasBlackListMember = true
                 blackListMemberId = characterId
@@ -55,7 +61,7 @@ function XUiBabelTowerAutoFight:OnBtnAutoFightClik()
         end
     end
     if hasBlackListMember and blackListMemberId > 0 then
-        local blackName = XCharacterConfigs.GetCharacterFullNameStr(blackListMemberId)
+        local blackName = XMVCA.XCharacter:GetCharacterFullNameStr(blackListMemberId)
         XUiManager.TipMsg(CS.XTextManager.GetText("BabelTowerCharacterLock", blackName))
         return
     end

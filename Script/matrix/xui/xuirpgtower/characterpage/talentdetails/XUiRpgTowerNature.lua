@@ -97,6 +97,12 @@ end
 --点击重置按钮
 --================
 function XUiRpgTowerNature:OnClickReset()
+    local rChar = XDataCenter.RpgTowerManager.GetTeamMemberByCharacterId(self.RTalent:GetCharacterId())
+    if rChar:GetCharaTalentType() ~= self.RTalent:GetTalentType() then
+        XUiManager.TipMsg(CS.XTextManager.GetText("RpgTowerTalentCompatibilityTips"))
+        return
+    end
+
     local tipTitle = CS.XTextManager.GetText("RpgTowerResetOneTalentConfirmTitle")
     local content = CS.XTextManager.GetText("RpgTowerResetOneTalentConfirmContent")
     local confirmCb = function()

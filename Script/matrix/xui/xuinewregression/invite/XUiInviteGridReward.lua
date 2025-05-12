@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local handler = handler
 local mathMin = math.min
 local mathFloor = math.floor
@@ -55,9 +56,6 @@ function XUiInviteGridReward:UpdateReceiveState(curTotalPoint)
     self.PanelDot.gameObject:SetActiveEx(not isCanReceive)
     self.TxtCurPoint.gameObject:SetActiveEx(isCanReceive)
     self.PanelCurDot.gameObject:SetActiveEx(isCanReceive)
-    if self.RootUi then --海外修改父级红点没同步问题
-        self.RootUi:RefreshBtnsRedPoint()
-    end
 end
 
 function XUiInviteGridReward:OnBtnClick()

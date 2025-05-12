@@ -1,4 +1,6 @@
-XUiPanelDormTaskActivity = XClass(nil, "XUiPanelDormTaskActivity")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiPanelDormTaskActivity = XClass(nil, "XUiPanelDormTaskActivity")
 
 function XUiPanelDormTaskActivity:Ctor(ui, parent)
     self.GameObject = ui.gameObject
@@ -40,3 +42,5 @@ function XUiPanelDormTaskActivity:OnDynamicTableEvent(event, index, grid)
         grid:ResetData(data)
     end
 end
+
+return XUiPanelDormTaskActivity

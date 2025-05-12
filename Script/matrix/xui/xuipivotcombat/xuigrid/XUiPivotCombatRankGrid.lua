@@ -42,7 +42,7 @@ function XUiPivotCombatRankGrid:Refresh(rankItem)
         self.TxtRankNormal.text = self.RankItem:GetRanking()
     end
     --玩家头像
-    XUiPLayerHead.InitPortrait(self.RankItem:GetHeadPortraitId(), self.RankItem:GetHeadFrameId(), self.Head)
+    XUiPlayerHead.InitPortrait(self.RankItem:GetHeadPortraitId(), self.RankItem:GetHeadFrameId(), self.Head)
     --通关角色头像
     self.RankItem:RefreshHeadList(self.UiHeadList)
 end

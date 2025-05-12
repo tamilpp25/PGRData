@@ -1,4 +1,5 @@
-XUiButtonLongClick = XClass(nil, "XUiButtonLongClick")
+---@class XUiButtonLongClick
+local XUiButtonLongClick = XClass(nil, "XUiButtonLongClick")
 
 -- AddPointerDownListener
 -- AddPointerUpListener
@@ -110,6 +111,22 @@ function XUiButtonLongClick:OnUp(eventData,isLongClickCallback)
     end
 end
 
+--region 焦点丢失/恢复
+
+function XUiButtonLongClick:AddFocusOnListener(cb)
+    if self.Widget then
+        self.Widget:AddFocusOnListener(cb)
+    end
+end
+
+function XUiButtonLongClick:AddFocusExitListener(cb)
+    if self.Widget then
+        self.Widget:AddFocusExitListener(cb)
+    end
+end
+
+--endregion
+
 function XUiButtonLongClick:SetInterval(interval)
     if interval == nil or interval < 0 then
         self.Interval = 100
@@ -164,4 +181,17 @@ end
 function XUiButtonLongClick:Destroy()
     self:Reset()
     self.Widget:RemoveAllListeners()
+
+    self.GameObject = nil
+    self.Transform = nil
+    self.Caller = nil
+    self.Proxy = nil
+    self.OnlyOneCallback = nil
+    self.noAutoUp = nil
+    self.Widget = nil
+    self.ClickCallbacks = nil
+    self.LongClickCallback = nil
+    self.longClickUpCallbacks = nil
 end
+
+return XUiButtonLongClick

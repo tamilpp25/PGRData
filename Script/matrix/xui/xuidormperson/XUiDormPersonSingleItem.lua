@@ -11,24 +11,22 @@ local TextManager = CS.XTextManager
 local MaxVitalValue = 100
 local MaxMoodValue = 100
 
-function XUiDormPersonSingleItem:Ctor(ui, uiRoot)
+function XUiDormPersonSingleItem:Ctor(ui)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     MaxVitalValue = XDormConfig.DORM_VITALITY_MAX_VALUE
     MaxMoodValue = XDormConfig.DORM_MOOD_MAX_VALUE
-    self.UiRoot = uiRoot
     self.PoolObjs = {}
     self.CurObjs = {}
     XTool.InitUiObject(self)
-    local btnclick = function() self:OnBtnClick() end
-    self.UiRoot:RegisterClickEvent(self.Transform, btnclick)
+    XUiHelper.RegisterClickEvent(self, self.Transform, handler(self, self.OnBtnClick))
     self.Lovetxt = TextManager.GetText("DormLove") or ""
     self.Liketxt = TextManager.GetText("DormLike") or ""
     self.WorkingText.text = TextManager.GetText("DormWorkingText")
 end
 
 function XUiDormPersonSingleItem:OnBtnClick()
-    self.UiRoot:SetSelectList(self.DormId)
+    XEventManager.DispatchEvent(XEventId.EVENT_DORM_SELECT_CHARACTER_LIST, self.DormId)
 end
 
 function XUiDormPersonSingleItem:SetState(state)
@@ -73,7 +71,7 @@ function XUiDormPersonSingleItem:OnRefresh(characterId, dormId)
     self.ImgProgress.fillAmount = curmood / MaxMoodValue
     self.ImgProgress.color = XDormConfig.GetMoodStateColor(curmood)
     local moodConfig = XDormConfig.GetMoodStateByMoodValue(curmood)
-    self.UiRoot:SetUiSprite(self.ImgMood, moodConfig.Icon)
+    self.ImgMood:SetSprite(moodConfig.Icon)
 
     local loveicon = XDataCenter.DormManager.GetCharacterLikeIconById(characterId, XDormConfig.CharacterLikeType.LoveType)
     local likeicon = XDataCenter.DormManager.GetCharacterLikeIconById(characterId, XDormConfig.CharacterLikeType.LikeType)
@@ -95,7 +93,7 @@ function XUiDormPersonSingleItem:GetItem()
     local obj = Object.Instantiate(self.DesSingleItem)
     obj.transform:SetParent(self.DesItems.transform, false)
     obj.transform.localScale = V3O
-    local item = XUiDormPersonAttDesItem.New(obj, self.UiRoot)
+    local item = XUiDormPersonAttDesItem.New(obj)
     return item
 end
 

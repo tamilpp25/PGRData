@@ -13,6 +13,7 @@ function XUiDoomsdayExploreTcanchuang:OnStart(stageId, placeId, closeCb)
     self.StageId = stageId
     self.PlaceId = placeId
     self.CloseCb = closeCb
+    self.IsCamp =  XDoomsdayConfigs.CheckPlaceIsCamp(self.StageId, placeId)
     self.TeamIds = {1, 2}
     self.StageData = XDataCenter.DoomsdayManager.GetStageData(stageId)
 end
@@ -28,6 +29,8 @@ function XUiDoomsdayExploreTcanchuang:UpdateView()
 
     self.TxtTtile.text = XDoomsdayConfigs.PlaceConfig:GetProperty(placeId, "Name")
     self.TxtTtile01.text = XDoomsdayConfigs.PlaceConfig:GetProperty(placeId, "Desc")
+    local btnTxt = self.IsCamp and XUiHelper.GetText("DoomsdayBackCamp") or XUiHelper.GetText("DoomsdayGoExplore")
+    self.BtnGo:SetNameByGroup(0, btnTxt)
 
     --资源栏
     self:RefreshTemplateGrids(
@@ -70,7 +73,14 @@ end
 
 function XUiDoomsdayExploreTcanchuang:UpdateBtnGo()
     --确认按钮
-    local btnDisable = not self.SelectTeamId or self.StageData:CheckPlaceHasSelectTeamId(self.PlaceId)
+    local btnDisable
+    if self.IsCamp then
+        btnDisable = not XTool.IsNumberValid(self.SelectTeamId) or self.StageData:CheckTeamInPlace(self.SelectTeamId, self.PlaceId)
+    else
+        btnDisable = not XTool.IsNumberValid(self.SelectTeamId)
+                or self.StageData:CheckPlaceHasSelectTeamId(self.PlaceId)
+                or self.StageData:IsPlaceFinished(self.PlaceId)
+    end
     self.BtnGo:SetDisable(btnDisable, not btnDisable)
 end
 
@@ -87,7 +97,13 @@ function XUiDoomsdayExploreTcanchuang:OnSelectTeam(teamId)
     for index, inId in ipairs(self.TeamIds) do
         local grid = self:GetGrid(index, "TeamGrids")
         grid:SetSelect(teamId == inId)
-        grid:SetBtnDisable(self.StageData:CheckPlaceHasSelectTeamId(self.PlaceId))
+        local btnDisable
+        if self.IsCamp then
+            btnDisable = self.StageData:CheckTeamInPlace(inId, self.PlaceId)
+        else
+            btnDisable = self.StageData:CheckPlaceHasSelectTeamId(self.PlaceId) or self.StageData:IsPlaceFinished(self.PlaceId)
+        end
+        grid:SetBtnDisable(btnDisable)
     end
     self:UpdateBtnGo()
 end
@@ -99,7 +115,7 @@ end
 
 function XUiDoomsdayExploreTcanchuang:OnClickBtnClose()
     if self.CloseCb then
-        self.CloseCb()
+        self.CloseCb(self.PlaceId)
     end
     self:Close()
 end
@@ -118,6 +134,9 @@ function XUiDoomsdayExploreTcanchuang:OnClickBtnEnter()
     end
 
     self:OnClickBtnClose()
+    if self.StageData:IsFinishEndAndTips() then
+        return
+    end
     XDataCenter.DoomsdayManager.DoomsdayTargetPlaceRequest(self.StageId, teamId, self.PlaceId)
 end
 

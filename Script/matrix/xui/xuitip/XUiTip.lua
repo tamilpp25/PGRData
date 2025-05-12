@@ -1,24 +1,69 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local type = type
 
 local XUiTip = XLuaUiManager.Register(XLuaUi, "UiTip")
 
 function XUiTip:OnAwake()
+    self.StrTitle = nil
     self:InitAutoScript()
 end
 
-function XUiTip:OnStart(data, hideSkipBtn, rootUiName, lackNum, showNum)
+function XUiTip:OnStart(data, hideSkipBtn, rootUiName, lackNum, showNum, switchRainbowCard, title, isShowCount)
     local musicKey = self:GetAutoKey(self.BtnBack, "onClick")
-    self.SpecialSoundMap[musicKey] = XSoundManager.UiBasicsMusic.Return
+    self.SpecialSoundMap[musicKey] = XLuaAudioManager.UiBasicsMusic.Return
     self.HideSkipBtn = hideSkipBtn
     self.RootUiName = rootUiName
     self.Data = data
     self.LackNum = lackNum
     self.ShowNum = showNum -- 兼容自定义数量
+    if self.TxtTitle and title then
+        self.StrTitle = title
+    end
+    if self.CountBg then
+        if isShowCount == nil then
+            isShowCount = true
+        end
+        self.CountBg.gameObject:SetActiveEx(isShowCount)
+    end
     self:PlayAnimation("AnimStart")
+    if XDataCenter.UiPcManager.IsPc() then
+        if self.Data then
+            -- and (self.Data == XDataCenter.ItemManager.ItemId.HongKa or self.Data.Id == XDataCenter.ItemManager.ItemId.HongKa)
+            local dataType = type(self.Data)
+            local showCurrentRainbow = false
+            if dataType == "number" and self.Data == XDataCenter.ItemManager.ItemId.HongKa then
+                showCurrentRainbow = true
+            elseif dataType == "table" and self.Data.Id == XDataCenter.ItemManager.ItemId.HongKa then
+                showCurrentRainbow = true
+            end
+            if not showCurrentRainbow then
+                return
+            end
+            self:ShowCurrentRainbowCard()
+            self.BtnPCSwich.gameObject:SetActiveEx(false)
+        end
+    end
 end
 
 function XUiTip:OnEnable()
     self:Refresh(self.Data)
+end
+
+function XUiTip:OnDisable()
+
+end
+
+function XUiTip:OnDestroy()
+
+end
+
+function XUiTip:ShowCurrentRainbowCard()
+    if self.SwichText then
+        self.SwichText.gameObject:SetActiveEx(false)
+    end
+    if self.TxtCount then
+        self.TxtCount.text = XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.HongKa)
+    end
 end
 
 -- auto
@@ -26,6 +71,8 @@ end
 function XUiTip:InitAutoScript()
     self.SpecialSoundMap = {}
     self:AutoAddListener()
+    self.Txtcall = self.Transform:Find("SafeAreaContentPane/Txtcall"):GetComponent("Text")
+    self.Txtcall.gameObject:SetActiveEx(false)
 end
 
 function XUiTip:GetAutoKey(uiNode, eventName)
@@ -51,7 +98,7 @@ function XUiTip:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -66,6 +113,7 @@ function XUiTip:AutoAddListener()
     self:RegisterClickEvent(self.BtnGet, self.OnBtnGetClick)
     self:RegisterClickEvent(self.BtnOk, self.OnBtnOkClick)
     self:RegisterClickEvent(self.BtnTcanchaungBlack, self.OnBtnTcanchaungBlackClick)
+    self:RegisterClickEvent(self.BtnAction, self.OnBtnActionClick)
 end
 -- auto
 function XUiTip:OnBtnBackClick()
@@ -74,12 +122,12 @@ end
 
 function XUiTip:OnBtnGetClick()
     XLuaUiManager.Open(
-        "UiSkip",
-        self.TemplateId,
-        function()
-            self:Close()
-        end,
-        self.HideSkipBtn
+            "UiSkip",
+            self.TemplateId,
+            function()
+                self:Close()
+            end,
+            self.HideSkipBtn
     )
 end
 
@@ -95,6 +143,13 @@ function XUiTip:OnBtnTcanchaungBlackClick()
         XUiManager.TipMsg(CS.XTextManager.GetText("ShopNoGoodsDesc"), XUiManager.UiTipType.Tip)
     else
         XLuaUiManager.Open("UiBuyAsset", self.TemplateId, nil, nil, self.LackNum)
+    end
+end
+
+function XUiTip:OnBtnActionClick()
+    local signBoardActionId = XFubenCharacterTowerConfigs.GetSignBoardActionIdById(self.TemplateId)
+    if XTool.IsNumberValid(signBoardActionId) then
+        XLuaUiManager.Open("UiCharacterTowerPhotograph", signBoardActionId)
     end
 end
 
@@ -118,6 +173,7 @@ function XUiTip:ResetUi()
     self:SetUiActive(self.TxtDescription, false)
     self:SetUiActive(self.BtnGet, false)
     self:SetUiActive(self.CountTitle, false)
+    self:SetUiActive(self.BtnAction, false)
 end
 
 -- data 可以是 XItemData / XEquipData / XCharacterData / XFashionData
@@ -129,6 +185,9 @@ function XUiTip:Refresh(data)
     end
 
     self:ResetUi()
+    --UI数据
+    local tipNotShowCount = false --不显示道具数量
+    local tipShowBlackBg = false --显示黑色背景(针对纯白色道具Icon)
     if type(data) == "number" then
         self.TemplateId = data
     else
@@ -137,17 +196,24 @@ function XUiTip:Refresh(data)
             return
         end
         self.TemplateId = data.TemplateId and data.TemplateId or data.Id
+        tipNotShowCount = data.TipNotShowCount or false
+        tipShowBlackBg = data.TipShowBlackBg or false
     end
 
     if
-        self.TemplateId == XDataCenter.ItemManager.ItemId.AndroidHongKa or
+    self.TemplateId == XDataCenter.ItemManager.ItemId.AndroidHongKa or
             self.TemplateId == XDataCenter.ItemManager.ItemId.IosHongKa
-     then
+    then
         self.TemplateId = XDataCenter.ItemManager.ItemId.HongKa
     end
 
     local goodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(self.TemplateId)
 
+    --- 表情包和聊天框不显示数量
+    if goodsShowParams.RewardType == XRewardManager.XRewardType.ChatEmoji 
+        or goodsShowParams.RewardType == XRewardManager.XRewardType.ChatBoard then
+        tipNotShowCount = true
+    end
     -- 获取途径按钮
     local skipIdParams = XGoodsCommonManager.GetGoodsSkipIdParams(self.TemplateId)
     if skipIdParams and #skipIdParams > 0 then
@@ -156,9 +222,9 @@ function XUiTip:Refresh(data)
 
     -- 快捷兑换按钮
     if
-        XDataCenter.ItemManager.IsFastTrading(self.TemplateId) and
+    XDataCenter.ItemManager.IsFastTrading(self.TemplateId) and
             XDataCenter.ItemManager.JudjeCanFastTrading(self.RootUiName)
-     then
+    then
         self:SetUiActive(self.BtnTcanchaungBlack, true)
     end
 
@@ -170,15 +236,20 @@ function XUiTip:Refresh(data)
 
     -- 数量
     if self.TxtCount then
-        local count = nil
-        if self.ShowNum then
-            count = self.ShowNum
+        if tipNotShowCount then
+            self:SetUiActive(self.TxtCount, false)
+            self:SetUiActive(self.CountTitle, false)
         else
-            count = XGoodsCommonManager.GetGoodsCurrentCount(self.TemplateId)
+            local count = nil
+            if self.ShowNum then
+                count = self.ShowNum
+            else
+                count = XGoodsCommonManager.GetGoodsCurrentCount(self.TemplateId)
+            end
+            self.TxtCount.text = count or 0
+            self:SetUiActive(self.TxtCount, true)
+            self:SetUiActive(self.CountTitle, true)
         end
-        self.TxtCount.text = count or 0
-        self:SetUiActive(self.TxtCount, true)
-        self:SetUiActive(self.CountTitle, true)
     end
 
     -- 图标
@@ -193,17 +264,34 @@ function XUiTip:Refresh(data)
             self.RImgIcon:SetRawImage(icon)
             self:SetUiActive(self.RImgIcon, true)
         end
+
+        if self.ImgBlackBg then
+            self.ImgBlackBg.gameObject:SetActiveEx(tipShowBlackBg or false)
+        end
     end
 
     -- 特效
     if self.HeadIconEffect then
         local effect = goodsShowParams.Effect
-        if effect then
+        local config = XHeadPortraitConfigs.GetHeadPortraitsCfg()[goodsShowParams.TemplateId]
+        if effect and config.Type == XHeadPortraitConfigs.HeadType.HeadPortrait then
             self.HeadIconEffect.gameObject:LoadPrefab(effect)
             self.HeadIconEffect.gameObject:SetActiveEx(true)
             self.HeadIconEffect:Init()
         else
             self.HeadIconEffect.gameObject:SetActiveEx(false)
+        end
+    end
+
+    if self.HeadFrameEffect then
+        local effect = goodsShowParams.Effect
+        local config = XHeadPortraitConfigs.GetHeadPortraitsCfg()[goodsShowParams.TemplateId]
+        if effect and config.Type == XHeadPortraitConfigs.HeadType.HeadFrame then
+            self.HeadFrameEffect.gameObject:LoadPrefab(effect)
+            self.HeadFrameEffect.gameObject:SetActiveEx(true)
+            self.HeadFrameEffect:Init()
+        else
+            self.HeadFrameEffect.gameObject:SetActiveEx(false)
         end
     end
 
@@ -216,8 +304,14 @@ function XUiTip:Refresh(data)
     -- 世界观描述
     if self.TxtWorldDesc then
         local worldDesc = XGoodsCommonManager.GetGoodsWorldDesc(self.TemplateId)
+
+        ---黑岩超难关藏品特殊处理
+        if self.TemplateId == XEnumConst.SpecialHandling.DEADCollectiblesId then
+            worldDesc = XUiHelper.ReplaceUnicodeSpace(worldDesc)
+        end
+
         if worldDesc and #worldDesc then
-            self.TxtWorldDesc.text = string.gsub(worldDesc, "\\n", "\n");
+            self.TxtWorldDesc.text = worldDesc
             self:SetUiActive(self.TxtWorldDesc, true)
         end
     end
@@ -229,6 +323,28 @@ function XUiTip:Refresh(data)
             self.TxtDescription.text = desc
             self:SetUiActive(self.TxtDescription, true)
         end
+    end
+
+    -- 动作
+    if self.BtnAction then
+        local signBoardActionId = XFubenCharacterTowerConfigs.GetSignBoardActionIdById(self.TemplateId)
+        self:SetUiActive(self.BtnAction, XTool.IsNumberValid(signBoardActionId))
+    end
+
+    self:RefreshLabel(self.TemplateId)
+
+    if XTool.DebugIsShowItemIdOnUi() then
+        if self.StrTitle == nil then
+            self.StrTitle = self.TxtTitle.text
+        end
+        local id
+        if type(self.Data) == "number" then
+            id = self.Data
+        else
+            id = self.Data.TemplateId or self.Data.Id or "??"
+        end
+        self.TxtTitle.text = self.StrTitle .. string.format("(Id:%s)", id)
+        self.TxtTitle.transform:SetSizeWithCurrentAnchors(CS.UnityEngine.RectTransform.Axis.Horizontal, 800)
     end
 end
 --===============
@@ -274,6 +390,7 @@ function XUiTip:SetTempData(data)
         self.TemplateId = data.TemplateId
         self:SetUiActive(self.BtnGet, true)
     end
+    self:RefreshLabel(self.TemplateId)
 end
 
 function XUiTip:OnGetEvents()
@@ -285,7 +402,7 @@ end
 function XUiTip:OnNotify(evt, ...)
     if evt == XEventId.EVENT_ITEM_FAST_TRADING then
         self:Refresh(self.Data)
-        local arg = {...}
+        local arg = { ... }
         --购买后，调整缺少数量
         local lackNum = arg[1]
         if lackNum then
@@ -293,3 +410,28 @@ function XUiTip:OnNotify(evt, ...)
         end
     end
 end
+
+function XUiTip:RefreshLabel(templateId)
+    self.Txtcall.gameObject:SetActiveEx(false)
+    if self.GoodsLabel then
+        self.GoodsLabel:Close()
+    end
+    if not XTool.IsNumberValid(templateId) then
+        return
+    end
+    if not XUiConfigs.CheckHasLabel(templateId) then
+        return
+    end
+    if not self.GoodsLabel then
+        local trans = (self.RImgIcon and self.RImgIcon:Exist()) and self.RImgIcon.transform or nil
+        if not trans then
+            return
+        end
+        self.GoodsLabel = XUiHelper.CreateGoodsLabel(templateId, trans, self.PanelPet)
+    end
+    self.GoodsLabel:Refresh(templateId, self.PanelPet ~= nil)
+    self.Txtcall.text = XUiConfigs.GetLabelDescription(templateId)
+    self.Txtcall.gameObject:SetActiveEx(true)
+end
+
+return XUiTip

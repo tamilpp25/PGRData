@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMentorRecommendation = XLuaUiManager.Register(XLuaUi, "UiMentorRecommendation")
 local XUiGridManifesto = require("XUi/XUiMentorSystem/MentorRecommendation/XUiGridManifesto")
 local CSTextManagerGetText = CS.XTextManager.GetText

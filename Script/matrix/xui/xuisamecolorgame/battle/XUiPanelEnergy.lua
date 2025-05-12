@@ -1,37 +1,36 @@
+---@class XUiSCBattlePanelEnergy
 local XUiPanelEnergy = XClass(nil, "XUiPanelEnergy")
-local CSTextManagerGetText = CS.XTextManager.GetText
+local EnoughEnergyTextColor = XUiHelper.GetClientConfig("SCEnoughEnergyTextColor", XUiHelper.ClientConfigType.String)
+local NoEnoughEnergyTextColor = XUiHelper.GetClientConfig("SCNoEnoughEnergyTextColor", XUiHelper.ClientConfigType.String)
 
 function XUiPanelEnergy:Ctor(ui, base, role)
+    ---@type XUiSameColorGameBattle
+    self.Base = base
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
-    self.Base = base
+    XTool.InitUiObject(self)
+
+    ---@type XSCRole
     self.Role = role
     self.BattleManager = XDataCenter.SameColorActivityManager.GetBattleManager()
-    XTool.InitUiObject(self)
-    self:SetButtonCallBack()
     self.PanelEnergyChange.gameObject:SetActiveEx(false)
-    self.PanelEnergyChange:GetObject("EnergyCountText"):TextToSprite("0",0)
+    self.PanelEnergyChange:GetObject("EnergyCountText").text = "0"
     self:Init()
+    self:AddBtnListener()
 end
 
-function XUiPanelEnergy:AddEventListener()
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_ENERGYCHANGE, self.UpdateEnergy, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_BATTLESHOW_HINTAUTOENERGY, self.CheckAutoEnergy, self)
+function XUiPanelEnergy:OnEnable()
+    self:AddEventListener()
 end
 
-function XUiPanelEnergy:RemoveEventListener()
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_ENERGYCHANGE, self.UpdateEnergy, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_BATTLESHOW_HINTAUTOENERGY, self.CheckAutoEnergy, self)
+function XUiPanelEnergy:OnDisable()
+    self:RemoveEventListener()
 end
 
-function XUiPanelEnergy:SetButtonCallBack()
-    self.BtnEnergyHelp.CallBack = function()
-        self:OnBtnEnergyHelpClick()
-    end
-end
+
 
 function XUiPanelEnergy:Init()
-    self.EnergyText.text = CSTextManagerGetText("SameColorGameEnergyCount", self.Role:GetEnergyInit(), self.Role:GetEnergyLimit())
+    self:SetEnergyCountText(self.Role:GetEnergyInit(), self.Role:GetSkillEnergyCost())
     self.BattleManager:SetCurEnergy(self.Role:GetEnergyInit())
 
     self.EffectEnergy = {
@@ -44,7 +43,7 @@ end
 
 function XUiPanelEnergy:UpdateEnergy(data)
     if data then
-        self.EnergyText.text = CSTextManagerGetText("SameColorGameEnergyCount", self.BattleManager:GetCurEnergy(), self.Role:GetEnergyLimit())
+        self:SetEnergyCountText(self.BattleManager:GetCurEnergy(), self.Role:GetSkillEnergyCost())
 
         self.PanelEnergyChange.gameObject:SetActiveEx(true)
         --self.Base:PlayAnimation("ComboCountTextEnable")-----------TODO张爽，动画非正式
@@ -53,17 +52,10 @@ function XUiPanelEnergy:UpdateEnergy(data)
         if data.EnergyChange > 0 then
             energyChangeStr = string.format("+%d", math.abs(data.EnergyChange))
         else
-            energyChangeStr = string.format("-%d", math.abs(data.EnergyChange))
+            energyChangeStr = string.format("<color=#FF4837>-%d</color>", math.abs(data.EnergyChange))
         end
 
-        local changeFrom = ""
-        if data.EnergyChangeFrom == XSameColorGameConfigs.EnergyChangeFrom.Self then
-            changeFrom = 0
-        elseif data.EnergyChangeFrom == XSameColorGameConfigs.EnergyChangeFrom.Boss then
-            changeFrom = 1
-        end
-
-        self.PanelEnergyChange:GetObject("EnergyCountText"):TextToSprite(energyChangeStr,changeFrom)
+        self.PanelEnergyChange:GetObject("EnergyCountText").text = energyChangeStr
         self:ShowEnergyEffect(data.EnergyChange > 0)
         
         self.PanelEnergyChange.gameObject:SetActiveEx(true)
@@ -75,21 +67,26 @@ function XUiPanelEnergy:CheckAutoEnergy(round)
     local energyInfo = self.Role:GetAutoEnergyByRound(round)
     local str = ""
     if energyInfo then
-        if energyInfo.Type == XSameColorGameConfigs.EnergyChangeType.Add then
+        if energyInfo.Type == XEnumConst.SAME_COLOR_GAME.ENERGY_CHANGE_TYPE.ADD then
             if energyInfo.Count > 0 then
-                str = CSTextManagerGetText("SameColorGameEnergyPlus",energyInfo.Count)
+                str = XUiHelper.GetText("SameColorGameEnergyPlus",energyInfo.Count)
             else
-                str = CSTextManagerGetText("SameColorGameEnergyMinus",energyInfo.Count)
+                str = XUiHelper.GetText("SameColorGameEnergyMinus",energyInfo.Count)
             end
-        elseif energyInfo.Type == XSameColorGameConfigs.EnergyChangeType.Percent then
+        elseif energyInfo.Type == XEnumConst.SAME_COLOR_GAME.ENERGY_CHANGE_TYPE.PERCENT then
             if energyInfo.Count > 0 then
-                str = CSTextManagerGetText("SameColorGameEnergyMultiply",math.abs(math.floor(energyInfo.Count / 1000)))
+                str = XUiHelper.GetText("SameColorGameEnergyMultiply",math.abs(math.floor(energyInfo.Count / 1000)))
             else
-                str = CSTextManagerGetText("SameColorGameEnergyDivide",math.abs(math.floor(energyInfo.Count / 1000)))
+                str = XUiHelper.GetText("SameColorGameEnergyDivide",math.abs(math.floor(energyInfo.Count / 1000)))
             end
         end
-        XUiManager.TipMsg(CSTextManagerGetText("SameColorGameAutoEnergy", str))
+        XUiManager.TipMsg(XUiHelper.GetText("SameColorGameAutoEnergy", str))
     end
+end
+
+function XUiPanelEnergy:SetEnergyCountText(curEnerguy, energyCost)
+    local countColor = curEnerguy >= energyCost and EnoughEnergyTextColor or NoEnoughEnergyTextColor
+    self.EnergyText.text = XUiHelper.GetText("SameColorGameEnergyCount", countColor, curEnerguy, energyCost)
 end
 
 function XUiPanelEnergy:ShowEnergyEffect(IsPlus)
@@ -98,8 +95,29 @@ function XUiPanelEnergy:ShowEnergyEffect(IsPlus)
     end
 end
 
-function XUiPanelEnergy:OnBtnEnergyHelpClick()
-    XUiManager.UiFubenDialogTip(CSTextManagerGetText("SameColorGameEnergyDescTitle"), CSTextManagerGetText("SameColorGameEnergyDescText"))
+--region Btn - Listener
+function XUiPanelEnergy:AddBtnListener()
+    self.BtnEnergyHelp.CallBack = function()
+        self:OnBtnEnergyHelpClick()
+    end
 end
+
+function XUiPanelEnergy:OnBtnEnergyHelpClick()
+    local mainSkill = self.BattleManager:GetBattleRoleSkill(self.Role:GetMainSkillGroupId())
+    XLuaUiManager.Open("UiSameColorGameSkillDetails", mainSkill, nil, true)
+end
+--endregion
+
+--region Event
+function XUiPanelEnergy:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_ENERGY_CHANGE, self.UpdateEnergy, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_BATTLE_AUTO_ENERGY, self.CheckAutoEnergy, self)
+end
+
+function XUiPanelEnergy:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_ENERGY_CHANGE, self.UpdateEnergy, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_BATTLE_AUTO_ENERGY, self.CheckAutoEnergy, self)
+end
+--endregion
 
 return XUiPanelEnergy

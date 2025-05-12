@@ -11,9 +11,6 @@ local WEEK_CHALLENGE_ACTIVITY = "Share/WeekChallenge/WeekChallengeActivity.tab"
 local WEEK_CHALLENGE_TASK = "Share/WeekChallenge/WeekChallengeTask.tab"
 local WEEK_CHALLENGE_REWARD = "Share/WeekChallenge/WeekChallengeReward.tab"
 
-function XDoubleTowersConfigs.Init()
-end
-
 local _Activity = nil
 local _Task = nil
 local _Reward = nil

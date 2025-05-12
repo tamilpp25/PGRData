@@ -1,149 +1,102 @@
-local Next = next
+---@class XUiDormPerson : XLuaUi
 local XUiDormPerson = XLuaUiManager.Register(XLuaUi, "UiDormPerson")
-local XUiDormPersonListItem = require("XUi/XUiDormPerson/XUiDormPersonListItem")
 local XUiDormPersonSelect = require("XUi/XUiDormPerson/XUiDormPersonSelect")
 
+
 function XUiDormPerson:OnAwake()
-    XTool.InitUiObject(self)
-    self:InitTabs()
-    self:InitUI()
-    self:InitList()
-end
+    self:InitUi()
+    self:InitCb()
+end 
 
-function XUiDormPerson:InitList()
-    self.DynamicPersonTable = XDynamicTableNormal.New(self.PersonList)
-    self.DynamicPersonTable:SetProxy(XUiDormPersonListItem)
-    self.DynamicPersonTable:SetDelegate(self)
-end
-
--- 设置人员list
-local personlistsortfun = function(a, b)
-    return a.DormitoryId < b.DormitoryId
-end
-
-function XUiDormPerson:SetPersonList()
-    local data = {}
-    local dormdatas = XDataCenter.DormManager.GetDormitoryData(nil, self.CurDormId)
-    if Next(dormdatas) == nil then
-        data[1] = {
-            DormitoryId = -1,
-            DormitoryName = "",
-            CharacterIdList =            {
-                [1] = -1,
-            },
-        }
-    else
-        for _, v in pairs(dormdatas) do
-            if v:WhetherRoomUnlock() then
-                local singledorm = v
-                local ids = {}
-                local list = singledorm:GetCharacter()
-                for _, var in ipairs(list) do
-                    table.insert(ids, var.CharacterId)
-                end
-                table.insert(data, {
-                    DormitoryId = singledorm:GetRoomId(),
-                    DormitoryName = singledorm:GetRoomName(),
-                    CharacterIdList = ids,
-                })
-            end
-        end
-    end
-    table.sort(data, personlistsortfun)
-    self.ListData = data
-end
-
-function XUiDormPerson:UpdatePersonList()
-    self:SetPersonList()
-    if self.ListData and Next(self.ListData) then
-        for index, itemData in pairs(self.ListData) do
-            local item = self.DynamicPersonTable:GetGridByIndex(index)
-            if item then
-                item:OnRefresh(itemData, self.CurDormId)
-            end
-        end
-    end
-end
-
-function XUiDormPerson:InitPersonList()
-    self:SetPersonList()
-    if self.PanelEmpty then self.PanelEmpty.gameObject:SetActiveEx(not self.ListData or not next(self.ListData) or (self.ListData[1] and self.ListData[1].DormitoryId == -1)) end
-    self.DynamicPersonTable:SetDataSource(self.ListData)
-    self.DynamicPersonTable:ReloadDataASync(1)
-end
-
-function XUiDormPerson:SetSelectList(dormId)
-    self.SelePanel:SetList(dormId)
-    self.SelePanel.GameObject:SetActive(true)
-    self:PlayAnimation("SelectEnable")
-end
-
--- [监听动态列表事件]
-function XUiDormPerson:OnDynamicTableEvent(event, index, grid)
-    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        grid:Init(self)
-    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        local data = self.ListData[index]
-        grid:OnRefresh(data, self.CurDormId)
-    end
-end
-
-function XUiDormPerson:OnStart(curdormId)
-    self:ChangeBaseTab(curdormId)
-    self:InitPersonList()
+function XUiDormPerson:OnStart(selectType, curSceneId, curRoomId)
+    self.DefaultSceneId = curSceneId
+    self.DefaultRoomId = curRoomId
+    self:InitChildView()
+    
+    self.PanelTabGroup:SelectIndex(selectType or 1)
+    self:AddEventListener()
 end
 
 function XUiDormPerson:OnEnable()
-    self:PlayAnimation("AnimStartEnable", function()
-        self.AnimGo.extrapolationMode = 2
-    end)
+    self:PlayAnimation("AnimStartEnable", nil, nil, CS.UnityEngine.Playables.DirectorWrapMode.None)
 end
 
-function XUiDormPerson:InitUI()
-    self.SelePanel = XUiDormPersonSelect.New(self.PanelSelect, self)
-    self.SelePanel.GameObject:SetActive(false)
-    self:AddListener()
+function XUiDormPerson:OnDestroy()
+    self:DelEventListener()
 end
 
-function XUiDormPerson:InitTabs()
-    self.TabGroup = {}
-    local index = 1
-    while true do
-        if self["BtnBase" .. index] then
-            self.TabGroup[index] = self["BtnBase" .. index]
-            local num = index
-            self["BtnBase" .. index].CallBack = function() self:ChangeBaseTab(num) end
-        else
-            break
-        end
-        index = index + 1
+function XUiDormPerson:InitCb()
+    self:BindExitBtns()
+end 
+
+function XUiDormPerson:InitUi()
+    --选择入住
+    self.SelectPanel = XUiDormPersonSelect.New(self.PanelSelect, self)
+    self.SelectPanel.GameObject:SetActiveEx(false)
+    --页签
+    local tab = {
+        self.BtnTabStaff,
+        self.BtnTabDetail,
+    }
+    self.TabAnimation = { "QieHuanStaffing", "QieHuanDetails"}
+    self.PanelTabGroup:Init(tab, function(index) self:OnSelectTab(index) end)
+end 
+
+function XUiDormPerson:InitChildView()
+    self.StaffPanel = require("XUi/XUiDormPerson/XUiDormPersonStaff").New(self.PanelStaffList, self.DefaultSceneId, self.DefaultRoomId)
+    self.DetailPanel = require("XUi/XUiDormPerson/XUiDormPersonDetails").New(self.PanelStaffDetails)
+    self.ChildView = {
+        self.StaffPanel,
+        self.DetailPanel,
+    }
+
+    local animCb = handler(self, self.PlayAnimation)
+    self.StaffPanel:RegisterAnimationCb(animCb)
+    self.DetailPanel:RegisterAnimationCb(animCb)
+
+    for _, view in pairs(self.ChildView) do
+        view:Hide()
     end
 end
 
-function XUiDormPerson:ChangeBaseTab(index)
-    if not index then index = XDormConfig.SenceType.One end
-    self.CurDormId = index
-    self:SelectOneBtnTab(self.CurDormId)
-    self:InitPersonList()
+function XUiDormPerson:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_DORM_SELECT_CHARACTER_LIST, self.OnSelectList, self)
 end
 
---==================
---选中一个左侧页签(XX号基地)
---@param index:页签序号
---==================
-function XUiDormPerson:SelectOneBtnTab(index)
-    if not index then index = self.CurDormId end
-    if not index then index = XDormConfig.SenceType.One end
-    for i, btn in pairs(self.TabGroup) do
-        local isSelect = i == index
-        btn:SetButtonState(isSelect and CS.UiButtonState.Select or CS.UiButtonState.Normal)
+function XUiDormPerson:DelEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_DORM_SELECT_CHARACTER_LIST, self.OnSelectList, self)
+end
+
+function XUiDormPerson:OnSelectTab(index)
+    if self.TabIndex == index then
+        return
     end
+    local animName = self.TabAnimation[index]
+    if animName then
+        self:PlayAnimation(animName)
+    end
+    self:RefreshChildView(index)
+end 
+
+function XUiDormPerson:RefreshChildView(index)
+    if XTool.IsNumberValid(self.TabIndex) then
+        self.ChildView[self.TabIndex]:Hide()
+    end
+    self.ChildView[index]:Show()
+    self.TabIndex = index
+end 
+
+function XUiDormPerson:OnSelectList(dormId)
+    self:ShowSelectPanel(dormId)
+end 
+
+function XUiDormPerson:ShowSelectPanel(dormId)
+    self.SelectPanel:SetList(dormId)
+    self.SelectPanel.GameObject:SetActiveEx(true)
+    self.SelectPanel:OnEnable()
+    self:PlayAnimation("SelectEnable")
 end
 
-function XUiDormPerson:AddListener()
-    self:RegisterClickEvent(self.BtnBack, self.OnBtnReturnClick)
-end
-
-function XUiDormPerson:OnBtnReturnClick()
-    self:Close()
-end
+function XUiDormPerson:UpdatePersonList()
+    self.StaffPanel:SetupDynamicTable()
+end 

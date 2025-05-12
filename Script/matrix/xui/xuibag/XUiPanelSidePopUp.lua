@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 
 local DECOMPOSE_PARTNER_QUALITY = 2 --超过（包含）这个品质的伙伴分解时需要二次确认
@@ -149,7 +151,7 @@ function XUiPanelSidePopUp:RefreshDecomposionPreView(selectEquipIds, cancelStar)
     self.ImgCantDecomposionPopUp.gameObject:SetActiveEx(listEmpty)
     self.BtnDecomposionPopUp.gameObject:SetActiveEx(not listEmpty)
 
-    self.Rewards = XDataCenter.EquipManager.GetDecomposeRewards(self.SelectEquipIds)
+    self.Rewards = XMVCA.XEquip:GetDecomposeRewards(self.SelectEquipIds)
     if #self.Rewards == 1 then
         if not self.SingleItemGrid then
             local ui = CSUnityEngineObjectInstantiate(self.GridCommonPopUp, self.Transform)
@@ -238,7 +240,7 @@ function XUiPanelSidePopUp:RefreshRecyclePreView(selectEquipIds, cancelStar)
     self.ImgCantRecycle.gameObject:SetActiveEx(listEmpty)
     self.BtnRecycle.gameObject:SetActiveEx(not listEmpty)
 
-    self.Rewards = XDataCenter.EquipManager.GetRecycleRewards(self.SelectEquipIds)
+    self.Rewards = XMVCA.XEquip:GetRecycleRewards(self.SelectEquipIds)
     if #self.Rewards == 1 then
         if not self.SingleItemGrid then
             local ui = CSUnityEngineObjectInstantiate(self.GridCommonPopUp, self.Transform)
@@ -465,7 +467,7 @@ end
 
 function XUiPanelSidePopUp:EqualDecomposionPopUpClick()
     local callFunc = function()
-        XDataCenter.EquipManager.EquipDecompose(self.SelectEquipIds, function(rewardGoodsList)
+        XMVCA:GetAgency(ModuleId.XEquip):EquipDecompose(self.SelectEquipIds, function(rewardGoodsList)
             self.Parent:OperationTurn(self.Parent.OperationType.Decomposion)
             if (#rewardGoodsList > 0) then
                 XUiManager.OpenUiObtain(rewardGoodsList)
@@ -474,8 +476,8 @@ function XUiPanelSidePopUp:EqualDecomposionPopUpClick()
     end
 
     for _, equipId in pairs(self.SelectEquipIds) do
-        local equip = XDataCenter.EquipManager.GetEquip(equipId)
-        local star = XDataCenter.EquipManager.GetEquipStar(equip.TemplateId)
+        local equip = XMVCA.XEquip:GetEquip(equipId)
+        local star = XMVCA.XEquip:GetEquipStar(equip.TemplateId)
 
         if star >= DECOMPOSE_SECOND_CHECK_EQUIP_STAR then
             local title = CS.XTextManager.GetText("DecomposeConfirmTitle")
@@ -516,7 +518,7 @@ end
 
 function XUiPanelSidePopUp:OnBtnRecycleClick()
     local callFunc = function()
-        XDataCenter.EquipManager.EquipChipRecycleRequest(self.SelectEquipIds, function(rewardGoodsList)
+        XMVCA.XEquip:EquipChipRecycleRequest(self.SelectEquipIds, function(rewardGoodsList)
             self.Parent:OperationTurn(self.Parent.OperationType.Recycle)
             if (#rewardGoodsList > 0) then
                 XUiManager.OpenUiObtain(rewardGoodsList)
@@ -525,8 +527,8 @@ function XUiPanelSidePopUp:OnBtnRecycleClick()
     end
 
     for _, equipId in pairs(self.SelectEquipIds) do
-        local equip = XDataCenter.EquipManager.GetEquip(equipId)
-        local star = XDataCenter.EquipManager.GetEquipStar(equip.TemplateId)
+        local equip = XMVCA.XEquip:GetEquip(equipId)
+        local star = XMVCA.XEquip:GetEquipStar(equip.TemplateId)
 
         if star >= RECYCLE_SECOND_CHECK_EQUIP_STAR then
             local title = CS.XTextManager.GetText("EquipRecycleConfirmTitle")

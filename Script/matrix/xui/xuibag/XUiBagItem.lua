@@ -1,8 +1,9 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local mathMin = math.min
 local mathMax = math.max
 local mathFloor = math.floor
 
-XUiBagItem = XClass(nil, "XUiBagItem")
+local XUiBagItem = XClass(nil, "XUiBagItem")
 
 -- 初始化
 function XUiBagItem:Ctor(rootUi, ui, openCloseCb, clickCb)
@@ -58,7 +59,7 @@ function XUiBagItem:InitUi()
     -- 选中Image
     self.ImgSelect        = XUiHelper.TryGetComponent(self.Transform, "ImgSelect",        "Image")
     -- 选中Image背景
-    self.ImgSelectBg        = XUiHelper.TryGetComponent(self.Transform, "ImgSelectBg",    "Image")
+    self.ImgSelectBg        = XUiHelper.TryGetComponent(self.Transform, "ImgSelect/ImgSelectBg",    "RawImage")
     -- 选择数量
     self.TxtSelect        = XUiHelper.TryGetComponent(self.Transform, "TxtSelect",        "Text")
     -- 选择数量     为0自动隐藏
@@ -195,7 +196,7 @@ function XUiBagItem:OnBtnClick()
     if self.ClickCallback then
         self.ClickCallback({ Data = self.Data, GridIndex = self.GridIndex, RecycleBatch = self.RecycleBatch }, self)
     end
-    --CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiBag_Chip_Click)
+    --XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiBag_Chip_Click)
 end
 
 function XUiBagItem:OnBtnUseClick()
@@ -564,9 +565,7 @@ function XUiBagItem:RefreshSelf(NeedDefulatQulity, isSmallIcon, notCommonBg)
         elseif XDataCenter.ItemManager.IsTimeLimit(self.TemplateId) then
             local leftTime = self.RecycleBatch and self.RecycleBatch.RecycleTime - XTime.GetServerNowTimestamp()
             or XDataCenter.ItemManager.GetRecycleLeftTime(self.Data.Id)
-            local tmpTime = XUiHelper.GetBagTimeStrAndBg(leftTime)
-            sprite = XUiHelper.TagBgPath.Red
-            text = tmpTime
+            text, sprite = XUiHelper.GetBagTimeLimitTimeStrAndBg(leftTime)
         end
 
         if sprite then
@@ -681,3 +680,5 @@ end
 function XUiBagItem:SetChangeSelectCountCondition(condition)
     self.SelectCountChangeCondition = condition
 end
+
+return XUiBagItem

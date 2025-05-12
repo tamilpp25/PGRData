@@ -1,4 +1,4 @@
-XUiBaseComponent = XClass(nil, "XUiBaseComponent")
+local XUiBaseComponent = XClass(nil, "XUiBaseComponent")
 
 function XUiBaseComponent:Ctor(rootUi, ui)
     self.GameObject = ui.gameObject
@@ -18,3 +18,5 @@ end
 function XUiBaseComponent:GetTransform()
     return self.Transform
 end
+
+return XUiBaseComponent

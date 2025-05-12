@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XUiCPActionBase = require("XUi/XUiChessPursuit/XUi/XUiCPMain/XCPFSM/XUiCPActionBase")
 local XUiCPActionEndRound = XClass(XUiCPActionBase, "XUiCPActionEndRound")
 local CSXChessPursuitState = CS.XChessPursuitState

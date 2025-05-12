@@ -15,12 +15,21 @@ function XRedPointConditionFavorabilityPlot.Check(checkArgs)
         return false
     end
 
-    if not checkArgs then return false end
-    local characterId = checkArgs.CharacterId
-    if characterId == nil then return false end
+    if checkArgs == nil then
+        return false
+    end
+    
+    local characterId = type(checkArgs) == 'table' and checkArgs.CharacterId or checkArgs
+    if not XTool.IsNumberValid(characterId) then
+        return false 
+    end
+    
     local isOpen = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FavorabilityStory)
-    if not isOpen then return false end
-    return XDataCenter.FavorabilityManager.HasStroyToBeUnlock(characterId)
+    if not isOpen then
+        return false
+    end
+    
+    return XMVCA.XFavorability:HasStroyToBeUnlock(characterId) or XMVCA.XFavorability:HasStroyTaskCanFinish(characterId)
 end
 
 

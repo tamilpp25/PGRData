@@ -2,9 +2,6 @@ XRpc = XRpc or {}
 
 ------- 方便调试协议的打印 ------
 local IsPrintLuaRpc = false
-if XMain.IsEditorDebug then 
-    CS.XNetwork.IsShowNetLog = false
-end
 XRpc.IgnoreRpcNames = { ["HeartbeatRequest"] = true, ["HeartbeatResponse"] = true, ["KcpHeartbeatRequest"] = true, ["KcpHeartbeatResponse"] = true
     , ["NotifyGuildDormSyncEntities"] = true, ["GuildDormHeartbeatRequest"] = true }
 XRpc.DEBUG_TYPE = {
@@ -56,7 +53,7 @@ end
 -------------------------------
 
 local handlers = {}
-local IsHotReloadOpen = XMain.IsEditorDebug
+local IsHotReloadOpen = CS.XApplication.Debug
 
 function XRpc.Do(name, content)
     local handler = handlers[name]
@@ -64,10 +61,10 @@ function XRpc.Do(name, content)
         XLog.Error("XRpc.Do 函数错误, 没有定义相应的接收服务端数据的函数, 函数名是: " .. name)
         return
     end
-
+    
     local request, error = XMessagePack.Decode(content)
     if request == nil then
-        XLog.Error("XRpc.Do 函数错误, 服务端返回的数据解码错误, 错误原因: " .. error)
+        XLog.Error("XRpc.Do 函数(" .. name ..")错误, 服务端返回的数据解码错误, 错误原因: " .. error)
         return
     end
 

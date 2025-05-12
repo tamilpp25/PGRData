@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridStrongholdBuff = require("XUi/XUiStronghold/XUiGridStrongholdBuff")
 
 local CsXTextManagerGetText = CsXTextManagerGetText
@@ -22,6 +23,13 @@ function XUiStrongholdDetail:OnStart(groupId, closeCb, skipCb)
     self.BaseBuffGrids = {}
 
     self:UpdateData(groupId)
+    self:CheckBtnAutoFightActive(groupId)
+end
+
+function XUiStrongholdDetail:CheckBtnAutoFightActive(groupId)
+    local isAutoFight = XDataCenter.StrongholdManager.IsAutoFightByGroupId(groupId)
+    self.BtnAutoFight.gameObject:SetActiveEx(isAutoFight)
+    self.TxtCondition.text = XDataCenter.StrongholdManager.GetAutoFightConditionDesc(groupId)
 end
 
 function XUiStrongholdDetail:UpdateData(groupId)
@@ -31,14 +39,14 @@ end
 
 function XUiStrongholdDetail:OnEnable()
     self:UpdateView()
-    self:UpdateEndurance()
     self:UpdateSupport()
+
 end
+
 
 function XUiStrongholdDetail:OnGetEvents()
     return {
         XEventId.EVENT_STRONGHOLD_FINISH_GROUP_CHANGE,
-        XEventId.EVENT_STRONGHOLD_ENDURANCE_CHANGE,
         XEventId.EVENT_STRONGHOLD_TEAMLIST_CHANGE,
     }
 end
@@ -46,8 +54,6 @@ end
 function XUiStrongholdDetail:OnNotify(evt, ...)
     if evt == XEventId.EVENT_STRONGHOLD_FINISH_GROUP_CHANGE then
         self:UpdateView()
-    elseif evt == XEventId.EVENT_STRONGHOLD_ENDURANCE_CHANGE then
-        self:UpdateEndurance()
     elseif evt == XEventId.EVENT_STRONGHOLD_TEAMLIST_CHANGE then
         self:UpdateSupport()
     end
@@ -146,6 +152,7 @@ function XUiStrongholdDetail:UpdateView()
         if not grid then
             local go = index == 1 and self.GridBaseBuff or CSUnityEngineObjectInstantiate(self.GridBaseBuff, self.PanelBaseBuff)
             grid = XUiGridStrongholdBuff.New(go, nil, self.SkipCb)
+            grid.Transform.name = string.format("GridBaseBuff%s", index)
             self.BaseBuffGrids[index] = grid
         end
 
@@ -162,13 +169,6 @@ function XUiStrongholdDetail:UpdateView()
 
 end
 
-function XUiStrongholdDetail:UpdateEndurance()
-    local groupId = self.GroupId
-    local costEndurance = XDataCenter.StrongholdManager.GetGroupCostEndurance(groupId)
-    local curEndurance = XDataCenter.StrongholdManager.GetCurEndurance()
-    self.TxtEndurance.text = costEndurance .. "/" .. curEndurance
-end
-
 function XUiStrongholdDetail:UpdateSupport()
     local groupId = self.GroupId
     local isActive = XDataCenter.StrongholdManager.CheckGroupSupportAcitve(groupId)
@@ -179,14 +179,31 @@ function XUiStrongholdDetail:AutoAddListener()
     self.BtnClose.CallBack = function() self:OnClickBtnClose() end
     self.BtnEnter.CallBack = function() self:OnClickBtnEnter() end
     self.BtnAssitantBuff.CallBack = function() self:OnClickBtnAssitantBuff() end
+    self.BtnAutoFight.CallBack = function() self:OnClickBtnAutoFight() end
+end
+
+function XUiStrongholdDetail:OnClickBtnAutoFight()
+    XDataCenter.StrongholdManager.RequestSweepStrongholdStage(self.GroupId, handler(self, self.OnClickBtnClose))
 end
 
 function XUiStrongholdDetail:OnClickBtnClose()
     self:Close()
     if self.CloseCb then self.CloseCb() end
+
 end
 
 function XUiStrongholdDetail:OnClickBtnEnter()
+    local groupId = self.GroupId
+    if XDataCenter.StrongholdManager.IsAutoFightByGroupId(groupId) then
+        local title = CSXTextManagerGetText("TipTitle")
+        local content = CSXTextManagerGetText("StrongholdNotAutoFightTipsDesc")
+        XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, handler(self, self.EnterFight))
+        return
+    end
+    self:EnterFight()
+end
+
+function XUiStrongholdDetail:EnterFight()
     local groupId = self.GroupId
 
     local btnFunc = function()

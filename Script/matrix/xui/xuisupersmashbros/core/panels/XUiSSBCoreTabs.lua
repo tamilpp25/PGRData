@@ -12,6 +12,7 @@ function XUiSSBCoreTabs:InitCoreList(onSelectTabCb)
     self.Cores = {}
     self.CoreIndexDic = {}
     local coreList = XDataCenter.SuperSmashBrosManager.GetAllCores()
+    
     local script = require("XUi/XUiSuperSmashBros/Core/Grids/XUiSSBCoreTabGrid")
     local btns = {}
     for index, core in pairs(coreList) do
@@ -22,12 +23,17 @@ function XUiSSBCoreTabs:InitCoreList(onSelectTabCb)
         btns[index] = grid:GetButton()
         -- table.insert(btns, grid:GetButton())
     end
-    self.TabGroup:Init(btns, function(index) self:SelectIndex(index) end)
+    self.TabGroup:Init(btns, function(index)
+        self:SelectIndex(index)
+    end)
     self.TabCore.gameObject:SetActiveEx(false)
 end
 
 function XUiSSBCoreTabs:Refresh(coreId)
-    if not coreId then self:SelectIndex(1) return end
+    if not coreId then
+        self:SelectIndex(1)
+        return
+    end
     self.TabGroup:SelectIndex(self.CoreIndexDic[coreId])
 end
 

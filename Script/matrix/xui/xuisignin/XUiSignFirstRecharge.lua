@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiSignFirstRecharge = XClass(nil, "XUiSignFirstRecharge")
 
 function XUiSignFirstRecharge:Ctor(ui, rootUi)
@@ -10,6 +11,10 @@ function XUiSignFirstRecharge:Ctor(ui, rootUi)
 
     self.SmallGrids = {}
     self.BigGrids = {}
+end
+
+function XUiSignFirstRecharge:OnDestroy()
+    self:OnHide()
 end
 
 function XUiSignFirstRecharge:OnHide()
@@ -45,7 +50,7 @@ function XUiSignFirstRecharge:InitAddListen()
 end
 
 function XUiSignFirstRecharge:OnBtnSkipClick()
-    XLuaUiManager.Open("UiPurchase", 1, nil, nil) -- 海外修改（跳转到充值界面）
+    XLuaUiManager.Open("UiPurchase", nil, false)
     XDataCenter.AutoWindowManager.StopAutoWindow()
 end
 

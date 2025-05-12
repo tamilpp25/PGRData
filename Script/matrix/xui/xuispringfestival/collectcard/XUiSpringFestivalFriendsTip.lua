@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiSpringFestivalFriendTip = XLuaUiManager.Register(XLuaUi,"UiSpringFestivalFriendTip")
 local XUiGridSpringFestivalGiveFriend = require("XUi/XUiSpringFestival/CollectCard/XUiGridSpringFestivalGiveFriend")
 

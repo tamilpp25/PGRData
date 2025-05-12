@@ -1,3 +1,4 @@
+local XUiPanelOnLineLoadingDetail = require("XUi/XUiOnlineLoading/XUiPanelOnLineLoadingDetail")
 local XUiOnLineLoading = XLuaUiManager.Register(XLuaUi, "UiOnLineLoading")
 
 function XUiOnLineLoading:OnAwake()
@@ -41,7 +42,7 @@ function XUiOnLineLoading:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

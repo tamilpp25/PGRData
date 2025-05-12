@@ -48,11 +48,13 @@ function XUiRpgTowerCharaItem:RefreshData(rCharacter)
         self.RImgQuality:SetRawImage(self.RCharacter:GetCharaQualityIcon())
     end
     if self.TxtTalent then
-        self.TxtTalent.gameObject:SetActiveEx(self.RCharacter:GetCharaTalentType() == XDataCenter.RpgTowerManager.TALENT_TYPE.SINGLE)
+        self.TxtTalent.gameObject:SetActiveEx(true)
+        self.TxtTalent.text = self.RCharacter:GetCharaTalentTypeName()
     end
-    if self.TxtRotate then
-        self.TxtRotate.gameObject:SetActiveEx(self.RCharacter:GetCharaTalentType() == XDataCenter.RpgTowerManager.TALENT_TYPE.TEAM)
-    end
+    -- if self.TxtRotate then
+    --     self.TxtRotate.gameObject:SetActiveEx(self.RCharacter:GetCharaTalentType() == XDataCenter.RpgTowerManager.TALENT_TYPE.TEAM)
+    --     self.TxtRotate.text = self.RCharacter:GetCharaTalentTypeName()
+    -- end
 end
 --[[
 ================

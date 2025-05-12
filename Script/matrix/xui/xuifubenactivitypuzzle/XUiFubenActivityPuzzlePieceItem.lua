@@ -40,13 +40,13 @@ end
 function XUiFubenActivityPuzzlePieceItem:ShowMistakeEffect()
     self.MistakeEffect.gameObject:SetActiveEx(false)
     self.MistakeEffect.gameObject:SetActiveEx(true)
-    XSoundManager.PlaySoundByType(1115, XSoundManager.SoundType.Sound)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1115)
 end
 
 function XUiFubenActivityPuzzlePieceItem:ShowCorrectEffect()
     self.CorrectEffect.gameObject:SetActiveEx(false)
     self.CorrectEffect.gameObject:SetActiveEx(true)
-    XSoundManager.PlaySoundByType(1114, XSoundManager.SoundType.Sound)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1114)
 end
 
 function XUiFubenActivityPuzzlePieceItem:ShowAwardEffect(isShow)

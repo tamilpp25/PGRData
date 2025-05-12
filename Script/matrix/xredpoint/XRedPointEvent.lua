@@ -5,7 +5,15 @@ RedPointEvent.listener  类型 XRedPointListener
 RedPointEvent.node 持有的节点用于判断释放
 ]]
 --
+---@class XRedPointEvent 红点事件个体类
+---@field
 local XRedPointEvent = XClass(nil, "XRedPointEvent")
+---@type XObjectPool
+local RedPointConditionGroupPool
+---@type XObjectPool
+local RedPointListenerPool
+
+local IsWindowsEditor = XMain.IsWindowsEditor
 
 local EventHandler = function(method, eventId)
     return function(obj, ...)
@@ -13,25 +21,37 @@ local EventHandler = function(method, eventId)
     end
 end
 
-
-
 --构造
-function XRedPointEvent:Ctor(id, node, condition, listener, args)
+function XRedPointEvent:Ctor()
+end
+
+function XRedPointEvent:Init(id, node, conditionGroup, listener, func, args)
+    self.EventListener = {}
     self.id = id
-    self.condition = condition
-    self.listener = listener
+    self.condition = RedPointConditionGroupPool:Create(conditionGroup)
+    self.listener = RedPointListenerPool:Create(listener, func)
     self.node = node
     self.args = args
-    self:AddConditonsChangeEvent()
+    self:AddConditionsChangeEvent()
 
     self.checkExist = nil
 
     if node.Exist then
         self.checkExist = function() return node:Exist() end
+        self:GetNodeHierarchyPath(node)
     else
         local gameObject = node.GameObject or node.gameObject or node.Transform or node.transform
         if gameObject and gameObject.Exist then
             self.checkExist = function() return gameObject:Exist() end
+            self:GetNodeHierarchyPath(gameObject)
+        end
+    end
+end
+
+function XRedPointEvent:GetNodeHierarchyPath(go)
+    if IsWindowsEditor then
+        if go.transform then
+            self.nodePath = CS.XUnityEx.GetPath(go.transform)
         end
     end
 end
@@ -65,7 +85,7 @@ function XRedPointEvent:Check(args)
 end
 
 --添加事件監聽
-function XRedPointEvent:AddConditonsChangeEvent()
+function XRedPointEvent:AddConditionsChangeEvent()
     if not self.condition then
         return
     end
@@ -75,14 +95,16 @@ function XRedPointEvent:AddConditonsChangeEvent()
     if not events then
         return
     end
-
+    
     for _, var in pairs(events) do
-        XEventManager.AddEventListener(var.EventId, EventHandler(self.OnCondintionChange, var.EventId), self)
+        local func = EventHandler(self.OnConditionChange, var.EventId)
+        XEventManager.AddEventListener(var.EventId, func, self)
+        self.EventListener[var.EventId] = func
     end
 end
 
 --删除事件監聽
-function XRedPointEvent:RemoveConditonsChageEvent()
+function XRedPointEvent:RemoveConditionsChangeEvent()
     if not self.condition then
         return
     end
@@ -94,12 +116,16 @@ function XRedPointEvent:RemoveConditonsChageEvent()
     end
 
     for _, var in pairs(events) do
-        XEventManager.RemoveEventListener(var.EventId, EventHandler(self.OnCondintionChange, var.EventId), self)
+        local func = self.EventListener[var.EventId]
+        if func then
+            XEventManager.RemoveEventListener(var.EventId, func, self)
+        end
+        self.EventListener[var.EventId] = nil
     end
 end
 
 --条件改变事件回调
-function XRedPointEvent:OnCondintionChange(eventId, args)
+function XRedPointEvent:OnConditionChange(eventId, args)
 
     -- 分析参数
     if self.condition and self.condition.Events and self.condition.Events[eventId] then
@@ -124,6 +150,11 @@ function XRedPointEvent:CheckNode()
     end
 
     if not self.checkExist() then
+        if IsWindowsEditor then
+            if self.nodePath then
+                XLog.Error("红点检测节点已被销毁, 请检查是否有移除红点事件:" .. self.nodePath)
+            end
+        end
         return false
     end
 
@@ -132,12 +163,36 @@ end
 
 --释放
 function XRedPointEvent:Release()
-    self:RemoveConditonsChageEvent()
+    self:RemoveConditionsChangeEvent()
     self.checkExist = nil
-    self.listener:Release()
+    if self.listener then
+        self.listener:Release()
+        RedPointListenerPool:Recycle(self.listener)
+        self.listener = nil
+    end
     self.node = nil
-
+    self.nodePath = nil
+    if self.condition then
+        self.condition:Release()
+        RedPointConditionGroupPool:Recycle(self.condition)
+        self.condition = nil
+    end
     XRedPointManager.RemoveRedPointEventOnly(self.id)
+
+    for eventId, func in pairs(self.EventListener or {}) do
+        XEventManager.RemoveEventListener(eventId, func, self)
+    end
 end
+
+--导入时调用一次
+local function OnRequire()
+    if not RedPointConditionGroupPool then
+        RedPointConditionGroupPool = XObjectPool.New(XRedPointConditionGroup.New)
+    end
+    if not RedPointListenerPool then
+        RedPointListenerPool = XObjectPool.New(XRedPointListener.New)
+    end
+end
+OnRequire()
 
 return XRedPointEvent

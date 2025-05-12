@@ -1,4 +1,6 @@
-XUiPanelMsgBoardItem = XClass(nil, "XUiPanelMsgBoardItem")
+local XUiPanelLeaveMsg = require("XUi/XUiPersonalInfo/PanelBoard/LeaveMsg/XUiPanelLeaveMsg")
+local XUiPanelMsgBoard = require("XUi/XUiPersonalInfo/PanelBoard/MsgBoard/XUiPanelMsgBoard")
+local XUiPanelMsgBoardItem = XClass(nil, "XUiPanelMsgBoardItem")
 
 -- local BriefStatus = {
 --     Open = 1,
@@ -71,7 +73,7 @@ function XUiPanelMsgBoardItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

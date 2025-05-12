@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiBlackGrid = XClass(nil, "XUiBlackGrid")
 
 function XUiBlackGrid:Ctor(ui)
@@ -64,8 +65,8 @@ function XUiBlackGrid:Refresh(playerId, index)
         self.TxtTime.gameObject:SetActiveEx(true)
     end
 
-    XUiPLayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOnLine)
-    XUiPLayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOffLine)
+    XUiPlayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOnLine)
+    XUiPlayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOffLine)
 
     self.CanvasGroup.alpha = 1
     self.Transform.localScale = CS.UnityEngine.Vector3.one

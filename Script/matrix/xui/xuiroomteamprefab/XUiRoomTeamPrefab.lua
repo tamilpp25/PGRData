@@ -15,16 +15,29 @@ function XUiRoomTeamPrefab:OnStart(captainPos, firstFightPos, characterLimitType
     self.StageType = stageType
     self.TeamGridId = teamGridId
     self.CloseCb = closeCb
+    ---@type XUiGridTeam[]
     self.TeamPrefabs = {}
     self.StageId = stageId
-    self:RefreshTeamList()
     self.Team = team
+end
+
+function XUiRoomTeamPrefab:OnEnable()
+    self:RefreshTeamList()
+    self:OnAnimationSetChange()
+    XEventManager.AddEventListener(XEventId.EVENT_FIGHT_ANIM_ENABLE, self.OnAnimationSetChange, self)
 end
 
 function XUiRoomTeamPrefab:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_TEAM_PREFAB_CHANGE, self.OnTeamPrefabChange, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_FIGHT_ANIM_ENABLE, self.OnAnimationSetChange, self)
     if self.CloseCb then
         self.CloseCb()
+    end
+end
+
+function XUiRoomTeamPrefab:OnAnimationSetChange()
+    for _, grid in pairs(self.TeamPrefabs) do
+        grid:OnAnimationSetChange()
     end
 end
 

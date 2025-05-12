@@ -1,6 +1,7 @@
 --==============
 --战斗准备界面我方面板
 --==============
+---@class XUiSSBReadyPanelOwn
 local XUiSSBReadyPanelOwn = XClass(nil, "XUiSSBReadyPanelOwn")
 
 function XUiSSBReadyPanelOwn:Ctor(uiPrefab, mode)
@@ -16,10 +17,15 @@ function XUiSSBReadyPanelOwn:InitGrids()
     local GridScript = require("XUi/XUiSuperSmashBros/Ready/Grids/XUiSSBReadyOwnGrid")
     local maxPosition = self.Mode:GetTeamMaxPosition() --我方队伍位置数
     local pickNum = self.Mode:GetRoleMaxPosition() --我方可最多选的角色数目
+    local teamData = XDataCenter.SuperSmashBrosManager.GetTeamByModeId(self.Mode:GetId())
     for num = 1, maxPosition do
         local grid = CS.UnityEngine.Object.Instantiate(self.GridOwn, self.Transform)
         self.Grids[num] = GridScript.New(grid, self.Mode)
-        self.Grids[num]:SetOrder(num)
+        if teamData.Assistance[num] then
+            self.Grids[num]:SetAssistance()
+        else
+            self.Grids[num]:SetOrder(num)
+        end
         if num > pickNum then --若超出我方可选最多角色数目，禁用位置
             self.Grids[num]:SetBan()
             self.TeamData[num] = XSuperSmashBrosConfig.PosState.Ban
@@ -30,7 +36,7 @@ function XUiSSBReadyPanelOwn:InitGrids()
     self.GridOwn.gameObject:SetActiveEx(false)
 end
 
-function XUiSSBReadyPanelOwn:Refresh(playAnim)
+function XUiSSBReadyPanelOwn:Refresh(playAnim, record, recordIndex)
     local isStart = self.Mode:CheckIsStart()
     local ownTeam = self.Mode:GetBattleTeam()
     local battleIndex = self.Mode:GetBattleCharaIndex() -- 第一个存活的构造体在队伍中的顺序下标
@@ -43,7 +49,7 @@ function XUiSSBReadyPanelOwn:Refresh(playAnim)
         if chara then
             local isEggChara = chara:IsSmashEggRobot()
             local isOut = chara:GetHpLeft() == 0
-            local isReady = (not isOut) and ((battleIndex + ownBattleNum) > index)
+            local isReady = self.Mode:IsCanReady() and (not isOut) and ((battleIndex + ownBattleNum) > index)
             local isUnknown = forceRandomIndex and index >= forceRandomIndex and (battleIndex + ownBattleNum) <= index
 
             -- 彩蛋开启条件
@@ -52,7 +58,7 @@ function XUiSSBReadyPanelOwn:Refresh(playAnim)
                 self.Grids[index]:SetOpenEgg()
             end
 
-            self.Grids[index]:Refresh(chara)
+            self.Grids[index]:Refresh(chara, record, recordIndex)
             self.Grids[index]:SetReady(isReady)
 
             --强制随机未知模式设为问号，揭开才显示角色（死亡随机模式） cxldV2 

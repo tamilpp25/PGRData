@@ -43,6 +43,22 @@ function XPartnerTeachingConfigs.GetChapterActivityTimeId(chapterId)
 end
 
 ---
+--- 根据 'chapterId' 获取活动期间展示在副本入口的封面图
+function XPartnerTeachingConfigs.GetActivityChapterIconById(chapterId)
+    local cfg = GetPartnerTeachingChapterCfg(chapterId)
+    return cfg.ChapterIcon
+end
+
+--
+-- 根据 'chapterId' 获取活动期间展示在副本入口的新标签
+function XPartnerTeachingConfigs.GetActivityChapterNewTagById(chapterId)
+    local cfg = GetPartnerTeachingChapterCfg(chapterId)
+    if cfg then
+        return cfg.NewTag
+    end
+end
+
+---
 ---@return table
 --- 根据 'chapterId' 获取活动开启条件数组
 function XPartnerTeachingConfigs.GetChapterActivityCondition(chapterId)
@@ -123,4 +139,12 @@ end
 function XPartnerTeachingConfigs.GetChapterStoryStageDetailIcon(chapterId)
     local cfg = GetPartnerTeachingChapterCfg(chapterId)
     return cfg.StoryStageDetailIcon
+end
+
+---
+--- 根据 'chapterId' 获取剧情关卡排序
+---@return int
+function XPartnerTeachingConfigs.GetChapterOrder(chapterId)
+    local cfg = GetPartnerTeachingChapterCfg(chapterId)
+    return cfg.Order
 end

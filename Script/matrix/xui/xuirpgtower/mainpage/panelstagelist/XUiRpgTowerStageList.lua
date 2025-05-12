@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 -- 兵法蓝图主页面关卡动态列表控件
 local XUiRpgTowerStageList = XClass(nil, "XUiRpgTowerStageList")
 local XUiRpgTowerStageGrid = require("XUi/XUiRpgTower/MainPage/PanelStageList/XUiRpgTowerStageGrid")
@@ -22,9 +23,10 @@ function XUiRpgTowerStageList:OnDynamicTableEvent(event, index, grid)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         if self.StageList and self.StageList[index] then
             grid:RefreshData(self.StageList[index], index)
-            if self.SetCurrent and self.Chapter:GetCurrentIndex() == index then
-                grid:SetSelect(true)
-            elseif self.CurrentIndex == index then
+            -- if self.SetCurrent and self.Chapter:GetCurrentIndex() == index then
+            --     grid:SetSelect(true)
+            -- else
+            if self.CurrentIndex == index then
                 grid:SetSelect(true)
             end
         end
@@ -35,24 +37,25 @@ end
 --================
 function XUiRpgTowerStageList:UpdateData()
     self.Chapter = XDataCenter.RpgTowerManager.GetCurrentChapter()
-    self.StageList = self.Chapter:GetDynamicRStageList(self.AvailableViewCount, 2)
+    -- self.StageList = self.Chapter:GetDynamicRStageList(self.AvailableViewCount, 2, self.RootUi.CurTagData.Id)
+    self.StageList = XDataCenter.RpgTowerManager.GetCurrActivityStageListByTagId(self.RootUi.CurTagData.Id)
     self.DynamicTable:SetDataSource(self.StageList)
     local newStageIndex = self:GetNewStageIndex()
     self.SetCurrent = true
-    self.CurrentIndex = self.Chapter:GetCurrentIndex()
+    self.CurrentIndex = newStageIndex
     self.DynamicTable:ReloadDataASync(newStageIndex)
 end
 --================
 --根据最新的关卡序号，获取列表要显示的位置
 --================
 function XUiRpgTowerStageList:GetNewStageIndex()
-    local newStageIndex = self.Chapter:GetCurrentIndex()
-    if newStageIndex + 2 > #self.StageList then
-        newStageIndex =  #self.StageList - (self.AvailableViewCount - 1)
-    elseif newStageIndex - 2 < 1 then
-        newStageIndex = 1
-    else
-        newStageIndex = newStageIndex - 2
+    local newStageIndex = 1
+    for i, rStageCfg in ipairs(self.StageList) do
+        local rStage = XDataCenter.RpgTowerManager.GetRStageByStageId(rStageCfg.StageId)
+        if not rStage:GetIsUnlock() then
+            break
+        end
+        newStageIndex = i
     end
     return newStageIndex
 end

@@ -1,4 +1,9 @@
-XUiPlayerInfoBase = XClass(nil, "XUiPlayerInfoBase")
+local XUiPanelCollectionScrollPlayerInfo = require("XUi/XUiPlayerInfo/XUiPanelCollectionScrollPlayerInfo")
+local XUiPanelCharacterList = require("XUi/XUiPlayerInfo/XUiPanelCharacterList")
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
+local XUiPanelFashionPlayerInfo = require("XUi/XUiPlayerInfo/XUiPanelFashionPlayerInfo")
+local XUiPanelInfo = require("XUi/XUiPlayerInfo/XUiPanelInfo")
+local XUiPlayerInfoBase = XClass(nil, "XUiPlayerInfoBase")
 local XUiPanelNameplate = require("XUi/XUiNameplate/XUiPanelNameplate")
 local TextManager = CS.XTextManager
 local BtnGroupIndex = {
@@ -64,7 +69,7 @@ function XUiPlayerInfoBase:UpdateInfo()
     --更新展示厅的临时数据
     XDataCenter.ExhibitionManager.SetCharacterInfo(self.RootUi.Data.GatherIds)
     local data = self.RootUi.Data
-    XUiPLayerHead.InitPortrait(data.CurrHeadPortraitId, data.CurrHeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(data.CurrHeadPortraitId, data.CurrHeadFrameId, self.Head)
     --------------------------巴别塔徽章显示------------->>>
     local babelTowerIcon = XDataCenter.MedalManager.GetScoreTitleIconById(data.BabelTowerTitleInfo and data.BabelTowerTitleInfo.Id)
     local babelTowerLevel = data.BabelTowerTitleInfo and data.BabelTowerTitleInfo.Score or 0

@@ -7,7 +7,7 @@ function XMineSweepingGame:Ctor()
     self.ChapterEntityDic = {}
 end
 
-function XMineSweepingGame.GetDefaultId()
+function XMineSweepingGame:GetDefaultId()
     local defaultId = 0
     local spareId = 0
     local nowTime = XTime.GetServerNowTimestamp()
@@ -44,6 +44,10 @@ function XMineSweepingGame.GetDefaultId()
 end
 
 function XMineSweepingGame:UpdateData(data)
+    if not XTool.IsNumberValid(data.ActivityId) 
+            and not XTool.IsNumberValid(self:GetDefaultId()) then
+        return
+    end
     for key, value in pairs(data or {}) do
         self[key] = value
         if key == "MineSweepingList" then

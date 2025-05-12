@@ -1,161 +1,81 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiBattery = require("XUi/XUiBuyAsset/XUiBattery")
 local CSXTextManagerGetText = CS.XTextManager.GetText
-local MailMaxCount = CS.XGame.Config:GetInt("MailCountLimit")
-local MailWillFullCount = CS.XGame.ClientConfig:GetInt("MailWillFullCount") --邮箱将满
 local TipTimeLimitItemsLeftTime = CS.XGame.ClientConfig:GetInt("TipTimeLimitItemsLeftTime")    -- 限时道具提示时间
 local TipBatteryLeftTime = CS.XGame.ClientConfig:GetInt("TipBatteryLeftTime")    -- 限时血清道具提示时间
 local TipBatteryRefreshGap = 30     -- 限时血清道具刷新间隔
 local XQualityManager = CS.XQualityManager.Instance
 local LastMainUiChargeState = XUiMainChargeState.None
 local BatteryComponent = CS.XUiBattery
+local DateStartTime = CS.XGame.ClientConfig:GetString("BackgroundChangeTimeStr")
+local DateEndTime = CS.XGame.ClientConfig:GetString("BackgroundChangeTimeEnd")
 
-local XUiMainRightTop = XClass(nil, "XUiMainRightTop")
+local XUiMainPanelBase = require("XUi/XUiMain/XUiMainPanelBase")
+---@class XUiMainRightTop:XUiMainPanelBase
+local XUiMainRightTop = XClass(XUiMainPanelBase, "XUiMainRightTop")
 
-function XUiMainRightTop:Ctor(rootUi)
+function XUiMainRightTop:OnStart(rootUi)
+    ---@type XUiMain
     self.RootUi = rootUi
-    self.LastTipBatteryRefreshTime = 0
-    self.Transform = rootUi.PanelRightTop.gameObject.transform
-    XTool.InitUiObject(self)
+    self:ResetBatteryTime()
+    -- self.Transform = rootUi.PanelRightTop.gameObject.transform
+    -- XTool.InitUiObject(self)
     self:UpdateTimeLimitItemTipTimer()
     self.LowPowerValue = CS.XGame.ClientConfig:GetFloat("UiMainLowPowerValue")
 
     XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-    --ClickEvent
-    self.BtnSet.CallBack = function() self:OnBtnSet() end
-    self.BtnMail.CallBack = function() self:OnBtnMail() end
-    self.BtnPic.CallBack = function() self:OnBtnPic() end
-    self.BtnWindows.CallBack = function() self:OnBtnWindows() end
-    self.BtnWeek.CallBack = function() self:OnClickBtnWeek() end
-    if self.BtnPassport then
-        self.BtnPassport.CallBack = function() self:OnBtnPassportClick() end
-    end
-    self.BtnWeek.gameObject:SetActiveEx(XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.ActivityCalendar) and not XUiManager.IsHideFunc)
-    --RedPoint
-    XRedPointManager.AddRedPointEvent(self.BtnSet, self.OnCheckSetNews, self, { XRedPointConditions.Types.CONDITION_MAIN_SET })
-    XRedPointManager.AddRedPointEvent(self.BtnMail, self.OnCheckMailNews, self, { XRedPointConditions.Types.CONDITION_MAIN_MAIL })
-    XRedPointManager.AddRedPointEvent(self.BtnPic, self.OnCheckPicNews, self, { XRedPointConditions.Types.CONDITION_PIC_COMPOSITION_TASK_FINISHED })
-    XRedPointManager.AddRedPointEvent(self.BtnWindows, self.OnCheckWindowsNews, self, { XRedPointConditions.Types.CONDITION_WINDOWS_COMPOSITION_DAILY })
-    self.WeekPointId = XRedPointManager.AddRedPointEvent(self.BtnWeek, self.OnCheckWeekNews, self, { XRedPointConditions.Types.CONDITION_MAIN_WEEK })
-
-
-    XEventManager.AddEventListener(XEventId.EVENT_TIMELIMIT_ITEM_USE, function()
-        self.LastTipBatteryRefreshTime = 0
-    end)
-
-    --Filter
-    self:CheckFilterFunctions()
-    self:CheckActivityInTime()
-    self:InitPassportButton()
-end
-
-function XUiMainRightTop:InitPassportButton()
-    if self.BtnPassport then
-        self.BtnPassport.CallBack = function() self:OnBtnPassportClick() end
-        XRedPointManager.AddRedPointEvent(self.BtnPassport.ReddotObj, self.OnCheckPassportRedPoint, self, { XRedPointConditions.Types.CONDITION_PASSPORT_RED })
-    end
 end
 
 --事件监听
 function XUiMainRightTop:OnNotify(evt)
-    if evt == XEventId.EVENT_MAIL_COUNT_CHANGE then
-        self:OnCheckMailWillFull()
-    end
+    
 end
 
 function XUiMainRightTop:OnEnable()
-    self:OnPassportOpenStatusUpdate()
-    self:UpdateChargeState()
-    self:OnCheckMailWillFull()
+    if not self.IsPreview then
+        --延迟更新，解决可能存在的当帧问题（Mono状态未更新）
+        self._DelayRefreshTimeId = XScheduleManager.Schedule(function()
+            self:UpdateSceneState()
+            self._DelayRefreshTimeId = nil
+        end,0.1*XScheduleManager.SECOND,1,0)
+    end
+    
+    self:ResetBatteryTime()
 
     self.BatteryEffectSchedule = XScheduleManager.ScheduleForever(function()
-        self:UpdateChargeState()
+        self:UpdateSceneState()
     end, 5 * XScheduleManager.SECOND)
 
-    self:UpdateNowTimeTimer()
-    self.LastTipBatteryRefreshTime = 0
     self.BatteryTimeSchedule = XScheduleManager.ScheduleForever(function()
         self:UpdateNowTimeTimer()
         self:UpdateTimeLimitItemTipTimer()
     end, XScheduleManager.SECOND)
-
-    XEventManager.AddEventListener(XEventId.EVENT_PICCOMPOSITION_GET_MYDATA, self.OpenUiPicComposition, self)
-    XEventManager.AddEventListener(XEventId.EVENT_NOTIFY_PASSPORT_DATA, self.OnPassportOpenStatusUpdate, self)
+    
+    XEventManager.AddEventListener(XEventId.EVENT_SCENE_PREVIEW, self.OnBackGroupPreview, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SCENE_UIMAIN_STATE_CHANGE, self.PreviewUpdateChargeMark, self)
+    XEventManager.AddEventListener(XEventId.EVENT_TIMELIMIT_ITEM_USE, self.ResetBatteryTime, self)
 end
 
 function XUiMainRightTop:OnDisable()
-    self:StopPassportTimer()
+    if self._DelayRefreshTimeId then
+        XScheduleManager.UnSchedule(self._DelayRefreshTimeId)
+        self._DelayRefreshTimeId = nil
+    end
+    
     XScheduleManager.UnSchedule(self.BatteryEffectSchedule)
-    XScheduleManager.UnSchedule(self.BatteryTimeSchedule)
+    if self.BatteryTimeSchedule then
+        XScheduleManager.UnSchedule(self.BatteryTimeSchedule)
+        self.BatteryTimeSchedule = nil
+    end
     LastMainUiChargeState = XUiMainChargeState.None
     self.RootUi:ChangeLowPowerState(self.RootUi.LowPowerState.None)
-    XEventManager.RemoveEventListener(XEventId.EVENT_PICCOMPOSITION_GET_MYDATA, self.OpenUiPicComposition, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_NOTIFY_PASSPORT_DATA, self.OnPassportOpenStatusUpdate, self)
+    
+    XEventManager.RemoveEventListener(XEventId.EVENT_SCENE_PREVIEW, self.OnBackGroupPreview, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SCENE_UIMAIN_STATE_CHANGE, self.PreviewUpdateChargeMark, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_TIMELIMIT_ITEM_USE, self.ResetBatteryTime, self)
 end
 
 function XUiMainRightTop:OnDestroy()
-end
-
-function XUiMainRightTop:CheckFilterFunctions()
-    self.BtnSet.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Setting))
-    self.BtnMail.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Mail))
-    self.IsBtnPicCanOpen = not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.PicComposition)
-    self.IsBtnWindowsCanOpen = not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.WindowsInlay)
-end
-
-function XUiMainRightTop:CheckActivityInTime()
-    local windowsInlayActivityList = XDataCenter.MarketingActivityManager.GetWindowsInlayInTimeActivityList()
-    local IsPicCompositionInTime = XDataCenter.MarketingActivityManager.CheckIsIntime()
-    local picComposition = CS.XRemoteConfig.PicComposition
-
-    self.BtnWindows.gameObject:SetActiveEx(#windowsInlayActivityList > 0 and self.IsBtnWindowsCanOpen)
-    self.BtnPic.gameObject:SetActiveEx(#picComposition > 0 and IsPicCompositionInTime and self.IsBtnPicCanOpen)
-end
-
---设置入口
-function XUiMainRightTop:OnBtnSet()
-    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Setting) then
-        return
-    end
-    XLuaUiManager.Open("UiSet", false)
-end
-
---邮件入口
-function XUiMainRightTop:OnBtnMail()
-    XLuaUiManager.Open("UiMail")
-end
-
---内嵌浏览器入口
-function XUiMainRightTop:OnBtnWindows()
-    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.WindowsInlay) then
-        return
-    end
-    self.BtnWindows:ShowReddot(false)
-    XLuaUiManager.Open("UiWindowsInlay")
-    XDataCenter.MarketingActivityManager.MarkWindowsInlayRedPoint()
-end
-
---看图作文入口
-function XUiMainRightTop:OnBtnPic()
-    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.PicComposition) then
-        return
-    end
-    XDataCenter.MarketingActivityManager.DelectTimeOverMemoDialogue()
-    XDataCenter.MarketingActivityManager.InitMyCompositionDataList()
-end
-
-function XUiMainRightTop:OnClickBtnWeek()
-    XDataCenter.ActivityCalendarManager.SaveWeekClick(true)
-    if self.WeekPointId then
-        XRedPointManager.Check(self.WeekPointId)
-    end
-    XLuaUiManager.Open("UiWeekCalendar")
-end
-
-function XUiMainRightTop:OpenUiPicComposition(IsOpen)
-    if IsOpen then
-        XLuaUiManager.Open("UiPicComposition")
-    else
-        XUiManager.TipText("PicCompositionNetError")
-    end
 end
 
 --更新时间
@@ -177,9 +97,9 @@ function XUiMainRightTop:UpdateTimeLimitItemTipTimer()
         local leftTime = XDataCenter.ItemManager.GetBatteryMinLeftTime()
         if leftTime > 0 and leftTime <= TipBatteryLeftTime then
             self.TxtBatteryLeftTime.text = CSXTextManagerGetText("BatteryLeftTime", XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.MAINBATTERY))
-            self.TxtBatteryLeftTime.gameObject:SetActiveEx(true)
+            self.TxtBatteryLeftTime.transform.parent.gameObject:SetActiveEx(true)
         else
-            self.TxtBatteryLeftTime.gameObject:SetActiveEx(false)
+            self.TxtBatteryLeftTime.transform.parent.gameObject:SetActiveEx(false)
         end
     end
 
@@ -189,44 +109,15 @@ function XUiMainRightTop:UpdateTimeLimitItemTipTimer()
         if leftTime > 0 and leftTime <= TipTimeLimitItemsLeftTime then
             local timeStr = XUiHelper.GetBagTimeLimitTimeStrAndBg(leftTime)
             self.TxtItemLeftTime.text = CSXTextManagerGetText("TimeLimitItemLeftTime", timeStr)
-            self.TxtItemLeftTime.gameObject:SetActiveEx(true)
+            self.TxtItemLeftTime.transform.parent.gameObject:SetActiveEx(true)
         else
-            self.TxtItemLeftTime.gameObject:SetActiveEx(false)
+            self.TxtItemLeftTime.transform.parent.gameObject:SetActiveEx(false)
         end
     end
 end
 
-function XUiMainRightTop:OnCheckPicNews(count)--看图作文
-    self.BtnPic:ShowReddot(count >= 0 and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.PicComposition))
-end
-
-function XUiMainRightTop:OnCheckWindowsNews(count)--内嵌浏览器
-    self.BtnWindows:ShowReddot(count >= 0 and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.WindowsInlay))
-end
-
-function XUiMainRightTop:OnCheckWeekNews(count)--日历
-    self.BtnWeek:ShowReddot(count >= 0 and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.ActivityCalendar))
-end
-
---设置红点（自定义按键冲突）
-function XUiMainRightTop:OnCheckSetNews(count)
-    self.BtnSet:ShowReddot(count >= 0)
-end
-
---邮件红点
-function XUiMainRightTop:OnCheckMailNews(count)
-    self.BtnMail:ShowReddot(count >= 0)
-end
-
---邮件将满
-function XUiMainRightTop:OnCheckMailWillFull()
-    local count = XDataCenter.MailManager.GetMailCount()
-    self.TxtMailWillFull.gameObject:SetActiveEx(count >= MailWillFullCount)
-    if count >= MailMaxCount then
-        self.TxtMailWillFull.text = CSXTextManagerGetText("MailIsFull")
-    else
-        self.TxtMailWillFull.text = CSXTextManagerGetText("MailWillFull")
-    end
+function XUiMainRightTop:ResetBatteryTime()
+    self.LastTipBatteryRefreshTime = 0
 end
 
 function XUiMainRightTop:UpdateChargeMark()
@@ -245,10 +136,13 @@ end
 --更新主页面低电量状态效果
 --打开窗口电量状态判断
 function XUiMainRightTop:UpdateChargeState()
+    
+    --v2.5屏蔽掉Debug特殊赋值
+    --[[
     if XQualityManager.IsSimulator and not BatteryComponent.DebugMode then
-        return
+        return nil
     end
-
+    --]]
     local curMainUiChargeState = XUiMainChargeState.None
     if BatteryComponent.IsCharging then
         curMainUiChargeState = XUiMainChargeState.Charge
@@ -259,11 +153,44 @@ function XUiMainRightTop:UpdateChargeState()
             curMainUiChargeState = XUiMainChargeState.LowPower
         end
     end
+    return curMainUiChargeState
+end
 
-    if curMainUiChargeState == LastMainUiChargeState then
-        return
+-- v1.29 更新主页面昼夜状态效果
+function XUiMainRightTop:UpdateDateState()
+    -- 屏蔽模拟器和debug拦截
+    --if XQualityManager.IsSimulator and not BatteryComponent.DebugMode then
+    --    return nil
+    --end
+
+    local startTime = XTime.ParseToTimestamp(DateStartTime)
+    local endTime = XTime.ParseToTimestamp(DateEndTime)
+    local nowTime = XTime.ParseToTimestamp(CS.System.DateTime.Now:ToLocalTime():ToString())
+
+    local curMainUiChargeState = XUiMainChargeState.None
+    if startTime > nowTime and nowTime > endTime then
+        curMainUiChargeState = XUiMainChargeState.Enough
+    else
+        curMainUiChargeState = XUiMainChargeState.LowPower
+    end
+    return curMainUiChargeState
+end
+
+-- v1.29 新增主界面场景状态切换类型
+function XUiMainRightTop:UpdateSceneState()
+    local curMainUiChargeState
+    
+    local curSceneId = XDataCenter.PhotographManager.GetCurSceneId()
+    local type = XPhotographConfigs.GetBackgroundTypeById(curSceneId)
+    if type == XPhotographConfigs.BackGroundType.PowerSaved then
+        curMainUiChargeState = self:UpdateChargeState()
+    else
+        curMainUiChargeState = self:UpdateDateState()
     end
 
+    if not curMainUiChargeState or curMainUiChargeState == LastMainUiChargeState then
+        return
+    end
     if LastMainUiChargeState == XUiMainChargeState.None then --初始状态
         if curMainUiChargeState == XUiMainChargeState.Charge or curMainUiChargeState == XUiMainChargeState.Enough then -- 从无状态到指定状态
             self.RootUi:ChangeLowPowerState(self.RootUi.LowPowerState.Full)
@@ -285,57 +212,51 @@ function XUiMainRightTop:UpdateChargeState()
     end
 
     LastMainUiChargeState = curMainUiChargeState
-    self:UpdateChargeMark()
+    -- 省电模式需要显示省电标签
+    if type == XPhotographConfigs.BackGroundType.PowerSaved then
+        self:UpdateChargeMark()
+    elseif type == XPhotographConfigs.BackGroundType.Date then
+        self.LowPowerMarkFight.gameObject:SetActiveEx(false)
+        self.LowPowerMarkBuilding.gameObject:SetActiveEx(false)
+    elseif type==XPhotographConfigs.BackGroundType.Normal then
+        self.LowPowerMarkFight.gameObject:SetActiveEx(false)
+        self.LowPowerMarkBuilding.gameObject:SetActiveEx(false)
+    end
+end
+
+-- v1.29 场景预览，预览状态切换模式标签
+function XUiMainRightTop:PreviewUpdateChargeMark()
+    local curSceneId = XDataCenter.PhotographManager.GetCurSceneId()
+    local type = XPhotographConfigs.GetBackgroundTypeById(curSceneId)
+    -- 省电模式需要显示省电标签
+    if type == XPhotographConfigs.BackGroundType.PowerSaved then
+        if XDataCenter.PhotographManager.GetPreviewState() == XPhotographConfigs.BackGroundState.Full then --满电状态
+            self.LowPowerMarkFight.gameObject:SetActiveEx(false)
+            self.LowPowerMarkBuilding.gameObject:SetActiveEx(false)
+        else
+            self.LowPowerMarkFight.gameObject:SetActiveEx(true)
+            self.LowPowerMarkBuilding.gameObject:SetActiveEx(true)
+        end
+    elseif type == XPhotographConfigs.BackGroundType.Date then
+        self.LowPowerMarkFight.gameObject:SetActiveEx(false)
+        self.LowPowerMarkBuilding.gameObject:SetActiveEx(false)
+    elseif type==XPhotographConfigs.BackGroundType.Normal then
+        self.LowPowerMarkFight.gameObject:SetActiveEx(false)
+        self.LowPowerMarkBuilding.gameObject:SetActiveEx(false)
+    end
 end
 
 -----------------------战斗通行证 begin------------------------
-function XUiMainRightTop:OnBtnPassportClick()
-    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Passport) then
-        return
-    end
-    XLuaUiManager.Open("UiPassport")
+
+
+
+
+-- v1.29 关场景模式改变监听
+function XUiMainRightTop:OnBackGroupPreview() 
+    XScheduleManager.UnSchedule(self.BatteryEffectSchedule) 
+    XScheduleManager.UnSchedule(self.BatteryTimeSchedule)
+    self.IsPreview=true
 end
 
-function XUiMainRightTop:OnPassportOpenStatusUpdate()
-    if XDataCenter.PassportManager.IsActivityClose()
-    -- 功能未开启时，隐藏通行证按钮
-    or not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Passport, false, true)
-    or XUiManager.IsHideFunc
-    then
-        self.BtnPassport.gameObject:SetActiveEx(false)
-    else
-        self:StopPassportTimer()
-        self:UpdatePassportLeftTime()
-        self.PassportTimer = XScheduleManager.ScheduleForever(function()
-            if self.BtnPassport then
-                self:UpdatePassportLeftTime()
-            end
-        end, XScheduleManager.SECOND, 0)
-    end
-end
-
-function XUiMainRightTop:StopPassportTimer()
-    if self.PassportTimer then
-        XScheduleManager.UnSchedule(self.PassportTimer)
-        self.PassportTimer = nil
-    end
-end
-
-function XUiMainRightTop:UpdatePassportLeftTime()
-    local timeId = XPassportConfigs.GetPassportActivityTimeId()
-    if XFunctionManager.CheckInTimeByTimeId(timeId) then
-        self.BtnPassport.gameObject:SetActiveEx(true)
-    elseif XDataCenter.PassportManager.IsActivityClose() then
-        self:StopPassportTimer()
-        self:OnPassportOpenStatusUpdate()
-    else
-        self.BtnPassport.gameObject:SetActiveEx(false)
-    end
-end
-
---战斗通行证红点
-function XUiMainRightTop:OnCheckPassportRedPoint(count)
-    self.BtnPassport:ShowReddot(count >= 0)
-end
 -----------------------战斗通行证 end------------------------
 return XUiMainRightTop

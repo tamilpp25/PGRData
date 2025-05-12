@@ -1,6 +1,7 @@
 local XUiSettleLose = XLuaUiManager.Register(XLuaUi, "UiSettleLose")
 
 local GridLoseTip = require("XUi/XUiSettleLose/XUiGridLoseTip")
+local XUiStageSettleSound = require("XUi/XUiSettleWin/XUiStageSettleSound")
 
 function XUiSettleLose:OnAwake()
     self:InitAutoScript()
@@ -9,6 +10,14 @@ end
 
 function XUiSettleLose:OnStart()
     local beginData = XDataCenter.FubenManager.GetFightBeginData()
+    if not beginData then
+        self.TxtPeople.text = ""
+        self.TxtStageName.text = ""
+        self.BtnRestart.gameObject:SetActiveEx(false)
+        self.BtnTongRed.gameObject:SetActiveEx(false)
+        self:SetTips(0)
+        return
+    end
     local count = 0
     for _, v in pairs(beginData.CharList) do
         if v ~= 0 then
@@ -23,13 +32,13 @@ function XUiSettleLose:OnStart()
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
     self.TxtStageName.text = stageCfg.Name
 
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-    local type = stageInfo.Type
+    local type = XMVCA.XFuben:GetStageType(stageId)
     local showBtnRestart = type == XDataCenter.FubenManager.StageType.BabelTower or type == XDataCenter.FubenManager.StageType.PracticeBoss
     self.BtnRestart.gameObject:SetActiveEx(showBtnRestart)
-    self.BtnTongRed.gameObject:SetActiveEx(stageInfo.Type == XDataCenter.FubenManager.StageType.BabelTower)
+    self.BtnTongRed.gameObject:SetActiveEx(type == XDataCenter.FubenManager.StageType.BabelTower)
     self:SetTips(stageCfg.SettleLoseTipId)
-    CS.XInputManager.SetCurOperationType(CS.XOperationType.System)
+    ---@type XUiStageSettleSound
+    self.UiStageSettleSound = XUiStageSettleSound.New(self, self.StageId, false)
 end
 
 function XUiSettleLose:OnEnable()
@@ -42,11 +51,18 @@ function XUiSettleLose:OnEnable()
                 self:Close()
             end, 0)
     end
+    if self.UiStageSettleSound then
+        self.UiStageSettleSound:PlaySettleSound()
+    end
 end
 
 function XUiSettleLose:OnDestroy()
     XDataCenter.AntiAddictionManager.EndFightAction()
     XEventManager.DispatchEvent(XEventId.EVENT_FIGHT_FINISH_LOSEUI_CLOSE)
+    if self.UiStageSettleSound then
+        self.UiStageSettleSound:StopSettleSound()
+        self.UiStageSettleSound = nil
+    end
 end
 
 ---
@@ -109,7 +125,7 @@ function XUiSettleLose:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -127,29 +143,56 @@ end
 -- auto
 function XUiSettleLose:OnBtnLoseClick()
     --CS.XAudioManager.RemoveCueSheet(CS.XAudioManager.BATTLE_MUSIC_CUE_SHEET_ID)
-    --CS.XAudioManager.PlayMusic(CS.XAudioManager.MAIN_BGM)
-    if XDataCenter.ArenaManager.JudgeGotoMainWhenFightOver() then
+    --XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Music, CS.XAudioManager.MAIN_BGM)
+    if XMVCA.XArena:CheckRunMainWhenFightOver() then
         return
     end
 
     local beginData = XDataCenter.FubenManager.GetFightBeginData()
+    if not beginData then
+        self:Close()
+        return
+    end
     if XDataCenter.ArenaOnlineManager.JudgeGotoMainWhenFightOver(beginData.StageId) then
         return
     end
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
-    if stageInfo.Type == XDataCenter.FubenManager.StageType.Expedition and XDataCenter.ExpeditionManager.GetIfBackMain() then
+    --- 囚笼没有TimeId， 战斗内换期需要退出后踢回主界面
+    if XMVCA.XFubenBossSingle:CheckAcitvityEnd(self.StageId) then
+        local data = XMVCA.XFubenBossSingle:GetBossSingleData()
+
         XLuaUiManager.RunMain()
-        XUiManager.TipMsg(CS.XTextManager.GetText("ExpeditionOnClose"))
+        data:SetIsNeedReset(false)
         return
     end
+    
+    -- 据点挑战检查是否跳章节了，跳章节要打开对应章节的副本界面
+    if XDataCenter.BfrtManager.CheckIsBfrtStage(self.StageId) then
+        local bfrtChapterId = XDataCenter.BfrtManager.GetChapterIdByStageId(self.StageId)
+        if bfrtChapterId ~= 0 then
+            if XDataCenter.BfrtManager.CheckSkipChapterByStageId(self.StageId) then
+                XDataCenter.BfrtManager.SetHandEnterFightChapterId(0)
+                XLuaUiManager.Remove("UiFubenMainLineChapter")
+                XLuaUiManager.PopThenOpen("UiFubenMainLineChapter", XDataCenter.BfrtManager.GetChapterCfg(bfrtChapterId), nil, true)
+            else
+                self:Close()
+            end
+
+            return
+        end
+    end
+
+    if XMVCA.XArena:CheckIsArenaStage(self.StageId) then
+        XMVCA.XArena:SetIsRefreshMainPage(true)
+    end
+    
     self:Close()
 end
 
 function XUiSettleLose:OnClickBtnRestart()
     self:Close()
 
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
-    if stageInfo.Type == XDataCenter.FubenManager.StageType.BabelTower then
+    local type = XMVCA.XFuben:GetStageType(self.StageId)
+    if type == XDataCenter.FubenManager.StageType.BabelTower then
         if XLuaUiManager.IsUiLoad("UiBabelTowerSelectDiffcult") then
             XLuaUiManager.Remove("UiBabelTowerSelectDiffcult")
         end
@@ -158,7 +201,7 @@ function XUiSettleLose:OnClickBtnRestart()
         XDataCenter.FubenBabelTowerManager.SelectBabelTowerStage(curStageId, curStageGuideId, teamList, challengeBuffList, supportBuffList, function()
             XDataCenter.FubenManager.EnterBabelTowerFight(curStageId, teamList, captainPos, firstFightPos)
         end, curStageLevel, curTeamId)
-    elseif stageInfo.Type == XDataCenter.FubenManager.StageType.PracticeBoss then
+    elseif type == XDataCenter.FubenManager.StageType.PracticeBoss then
         local beginPreData = XDataCenter.FubenManager.GetFightBeginClientPreData()
         XDataCenter.FubenManager.EnterPracticeBoss(beginPreData[1],beginPreData[2],beginPreData[3])
     end
@@ -171,10 +214,13 @@ function XUiSettleLose:OnBtnTongRed()
     dict["stage_id"] = self.StageId
     CS.XRecord.Record(dict, "200005", "CombatFailure")
 
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
-    if stageInfo.Type == XDataCenter.FubenManager.StageType.BabelTower then
-        -- 点击降低难度后不需要打开选择难度页签
-        XDataCenter.FubenBabelTowerManager.SetNeedShowUiDifficult(false)
+    --- 囚笼没有TimeId， 战斗内换期需要退出后踢回主界面
+    if XMVCA.XFubenBossSingle:CheckAcitvityEnd(self.StageId) then
+        local data = XMVCA.XFubenBossSingle:GetBossSingleData()
+
+        XLuaUiManager.RunMain()
+        data:SetIsNeedReset(false)
+    else
+        self:Close()
     end
-    self:Close()
 end 

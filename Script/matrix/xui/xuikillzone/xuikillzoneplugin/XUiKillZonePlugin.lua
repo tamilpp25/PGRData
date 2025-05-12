@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridKillZonePluginGroup = require("XUi/XUiKillZone/XUiKillZonePlugin/XUiGridKillZonePluginGroup")
 local XUiGridKillZonePluginSlotOperate = require("XUi/XUiKillZone/XUiKillZonePlugin/XUiGridKillZonePluginSlotOperate")
 
@@ -9,13 +11,8 @@ function XUiKillZonePlugin:OnAwake()
     self:AutoAddListener()
     self:InitDynamicTable()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
-    XDataCenter.ItemManager.AddCountUpdateListener(
-    {
-        XDataCenter.ItemManager.ItemId.Coin,
-        XKillZoneConfigs.ItemIdCoinA,
-        XKillZoneConfigs.ItemIdCoinB,
-    }, handler(self, self.UpdateAssets), self.AssetActivityPanel)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
+    XDataCenter.ItemManager.AddCountUpdateListener({ XKillZoneConfigs.ItemIdCoinB }, handler(self, self.UpdateAssets), self.AssetActivityPanel)
 
     self.GridPluginGroup.gameObject:SetActiveEx(false)
     self.GridSlot.gameObject:SetActiveEx(false)
@@ -26,14 +23,17 @@ function XUiKillZonePlugin:OnStart()
     self.PluginSlotGrids = {}
 
     XDataCenter.KillZoneManager.ClearCookiePluginOperate()
+
+    self:SetAutoCloseInfo(XDataCenter.KillZoneManager.GetEndTime(), function(isClose)
+        if isClose then
+            self.IsEnd = true
+            XDataCenter.KillZoneManager.OnActivityEnd()
+        end
+    end)
 end
 
 function XUiKillZonePlugin:OnEnable()
-    if self.IsEnd then return end
-    if XDataCenter.KillZoneManager.OnActivityEnd() then
-        self.IsEnd = true
-        return
-    end
+    self.Super.OnEnable(self)
 
     self:UpdateAssets()
     self:UpdatePluginSlots()
@@ -44,7 +44,6 @@ function XUiKillZonePlugin:OnGetEvents()
     return {
         XEventId.EVENT_KILLZONE_PLUGIN_CHANGE,
         XEventId.EVENT_KILLZONE_PLUGIN_SLOT_CHANGE,
-        XEventId.EVENT_KILLZONE_ACTIVITY_END,
     }
 end
 
@@ -57,20 +56,11 @@ function XUiKillZonePlugin:OnNotify(evt, ...)
         self:UpdatePluginGroups()
     elseif evt == XEventId.EVENT_KILLZONE_PLUGIN_SLOT_CHANGE then
         self:UpdatePluginSlots()
-    elseif evt == XEventId.EVENT_KILLZONE_ACTIVITY_END then
-        if XDataCenter.KillZoneManager.OnActivityEnd() then
-            self.IsEnd = true
-            return
-        end
     end
 end
 
 function XUiKillZonePlugin:UpdateAssets()
-    self.AssetActivityPanel:Refresh({
-        XDataCenter.ItemManager.ItemId.Coin,
-        XKillZoneConfigs.ItemIdCoinA,
-        XKillZoneConfigs.ItemIdCoinB,
-    })
+    self.AssetActivityPanel:Refresh({ XKillZoneConfigs.ItemIdCoinB })
 end
 
 function XUiKillZonePlugin:InitDynamicTable()
@@ -97,6 +87,9 @@ function XUiKillZonePlugin:OnDynamicTableEvent(event, index, grid)
 end
 
 function XUiKillZonePlugin:OnClickPlugin(pluginId, gridTransform)
+    if self.IsEnd then
+        return
+    end
     self.SelectPluginId = pluginId
     self:UpdatePluginGroups()
     local closeCb = function()
@@ -130,6 +123,9 @@ function XUiKillZonePlugin:UpdatePluginSlots()
 end
 
 function XUiKillZonePlugin:OnClickPluginSlot(slot)
+    if self.IsEnd then
+        return
+    end
     local isLock = not XDataCenter.KillZoneManager.IsPluginSlotUnlock(slot)
     if isLock then
         local msg = XKillZoneConfigs.GetPluginSlotConditionDesc(slot)
@@ -166,6 +162,9 @@ function XUiKillZonePlugin:OnClickBtnMainUi()
 end
 
 function XUiKillZonePlugin:OnClickBtnReset()
+    if self.IsEnd then
+        return
+    end
     local pluginIds = XDataCenter.KillZoneManager.GetCanResetPluginIds()
     if XTool.IsTableEmpty(pluginIds) then
         XUiManager.TipText("KillZoneResetPlguinEmpty")

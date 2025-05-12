@@ -71,9 +71,11 @@ function XUiPanelPracticeMainline:InitComponent()
 
         self:SetLineActive(i, false)
     end
-    local icon = self.GridStageList[activeStageCount].Parent.transform:Find("Icon")
-    if icon then
-        icon.gameObject:SetActiveEx(true)
+    if activeStageCount > 0 then
+        local icon = self.GridStageList[activeStageCount].Parent.transform:Find("Icon")
+        if icon then
+            icon.gameObject:SetActiveEx(true)
+        end
     end
 end
 
@@ -200,6 +202,15 @@ end
 --- 结束关卡列表滑动
 function XUiPanelPracticeMainline:EndScrollViewMove()
     self.PanelStageList.movementType = CS.UnityEngine.UI.ScrollRect.MovementType.Elastic
+end
+
+function XUiPanelPracticeMainline:OnSelectStageByStageId(stageId)
+    for _, grid in ipairs(self.GridStageList) do
+        if grid.StageId == stageId then
+            grid:OnBtnStage()
+            break
+        end
+    end
 end
 
 return XUiPanelPracticeMainline

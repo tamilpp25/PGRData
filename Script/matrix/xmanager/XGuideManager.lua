@@ -1,6 +1,11 @@
 XGuideManagerCreator = function()
 
+    ---@class XGuideManager 引导管理类
+    ---@field
     local XGuideManager = {}
+    
+    ---@type table<number, XTableGuideGroup>
+    local AvailableGuideTemplate
 
     -- 引导组记录状态
     XGuideManager.RecordState = {
@@ -18,6 +23,22 @@ XGuideManagerCreator = function()
         ReqOpenGuide = "GuideOpenRequest",
         ReqCompleteGuide = "GuideCompleteRequest",
         ReqCompleteGuideGroup = "GuideGroupFinishRequest",
+    }
+    
+    local SKIP_CHECK_UI_NAME = {
+        UiAutoFightTip      = "UiAutoFightTip",
+        UiLeftPopupTip      = "UiLeftPopupTip",
+        UiTipLayer          = "UiTipLayer",
+        UiNoticeTips        = "UiNoticeTips",
+        UiAchievementTips   = "UiAchievementTips",
+        UiPortraitTip       = "UiPortraitTip",
+        UiFightNieRTips     = "UiFightNieRTips",
+        UiPartnerPopupTip   = "UiPartnerPopupTip",
+        UiRestaurantRadio   = "UiRestaurantRadio",
+        UiLeftPopupTips     = "UiLeftPopupTips",
+        UiRogueSimComponent = "UiRogueSimComponent",
+        UiDormComponent     = "UiDormComponent",
+        UiGuildDormCommon = "UiGuildDormCommon",
     }
     
     -- 该事件类型包括了引导的触发、完成类型
@@ -85,6 +106,16 @@ XGuideManagerCreator = function()
         CustomEvent    = 5, --自定义消息 ：参数
         GainReward    = 6, --领取奖励 ：奖励ID
     }
+    
+    -- 埋点类型
+    XGuideManager.BuryingPointType = {
+        Start   = 1, --引导开始
+        Skip    = 2, --引导跳过(确认脱离卡死)
+        End     = 3, --引导结束
+        FocusOn = 4, --聚焦Ui(交互开始)
+        Trigger = 5, --触发脱离卡死
+        Click   = 6, --点击脱离卡死
+    }
 
     local GuideAgent = nil           --引导Agent
 
@@ -92,9 +123,13 @@ XGuideManagerCreator = function()
     local ActiveGuide = nil          --当前引导
     local GuideData = {}             -- 玩家引导数据
     local DisableFunction = false    --功能屏蔽标记（调试模式时使用）
+    local DisableGuide = false       -- 游戏内禁用引导(避免像三周年签到自动弹窗界面场景预览双开UiMain导致大多数引导可能开在预览上)
     local IsGuiding = false
 
     local WaitingGuideList = {}
+
+    local NextGridCb = nil
+    local CbProxy = nil
 
     function XGuideManager.Init()
         XEventManager.AddEventListener(XEventId.EVENT_USER_LOGOUT, XGuideManager.HandleSignOut)
@@ -114,16 +149,19 @@ XGuideManagerCreator = function()
         ActiveGuide = nil -- 当前引导
         WaitingGuideList = {}
         DisableFunction = XMain.IsDebug and XGuideManager.CheckFuncDisable()
+        DisableGuide = false
         for _, v in pairs(datas) do
             GuideData[v] = v
         end
     end
 
-    function XGuideManager.OnGuideStart()
+    function XGuideManager.OnGuideStart(guideId)
         IsGuiding = true
+        XGuideManager.RecordBuryingPoint(XGuideManager.BuryingPointType.Start)
     end
 
-    function XGuideManager.OnGuideEnd()
+    function XGuideManager.OnGuideEnd(guideId)
+        XGuideManager.RecordBuryingPoint(XGuideManager.BuryingPointType.End)
         IsGuiding = false
         XGuideManager.ResetGuide()
 
@@ -133,6 +171,9 @@ XGuideManagerCreator = function()
     --检测引导开启
     function XGuideManager.CheckGuideOpen()
         if DisableFunction then
+            return false
+        end
+        if DisableGuide then
             return false
         end
 
@@ -165,7 +206,8 @@ XGuideManagerCreator = function()
     --创建引导主体
     function XGuideManager:CreateGuideAgent()
         local guideAgent = CS.UnityEngine.GameObject("GuideAgent")
-
+        --进入战斗后会销毁NormalScene, 所以放到DonDestroyOnLoad场景中,由引导统一控制
+        CS.UnityEngine.Object.DontDestroyOnLoad(guideAgent)
         GuideAgent = guideAgent:AddComponent(typeof(CS.BehaviorTree.XAgent))
         GuideAgent.ProxyType = "Guide"
         GuideAgent:InitProxy()
@@ -177,13 +219,13 @@ XGuideManagerCreator = function()
             XGuideManager:CreateGuideAgent()
         end
 
-        if id == 50000 then
-            --CheckPoint: APPEVENT_THIRD_BATTLE_END
-            XAppEventManager.AppLogEvent(XAppEventManager.CommonEventNameConfig.Third_Battle_End)
-        end
-
         GuideAgent.gameObject:SetActive(true)
         XLuaBehaviorManager.PlayId(id, GuideAgent)
+    end
+
+    -- 满足游戏内某些界面禁用引导所需接口
+    function XGuideManager.SetDisableGuide(isDisable)
+        DisableGuide = isDisable
     end
 
     --检测引导开关
@@ -205,16 +247,38 @@ XGuideManagerCreator = function()
                 GuideAgent.Proxy.LuaAgentProxy.UiGuide = nil
             end
         end
-
+        
+       
+        IsGuiding = false
         ActiveGuide = nil -- 当前引导
         XLuaUiManager.Close("UiGuide")
     end
 
+    --重载引导配置 即使重载资源 Agent还是会引用旧的内存 所以会不生效
+    function XGuideManager.ReloadAgent()
+        XGuideManager.ResetGuide()
+        if GuideAgent and GuideAgent:Exist() then
+            XUiHelper.Destroy(GuideAgent.gameObject)
+            GuideAgent = nil
+        end
+    end
+    
     function XGuideManager.HandleUiOpen(UiName)
-        if IsGuiding then
+        if ActiveGuide and IsGuiding then
             return
         end
 
+        if XDataCenter.FunctionEventManager.IsPlaying() then
+            return
+        end
+
+        if XUiManager.IsHideFunc or DisableGuide or DisableFunction
+                or not XLoginManager.IsStartGuide() then
+            return
+        end
+
+        XGuideManager.FindActiveGuide()
+        
         local bActive = false
 
         local removeIndex = -1
@@ -236,7 +300,6 @@ XGuideManagerCreator = function()
 
             bActive = false
         end
-
         if removeIndex > 0 then
             table.remove(WaitingGuideList, removeIndex)
         end
@@ -253,6 +316,10 @@ XGuideManagerCreator = function()
             return
         end
 
+        if DisableGuide then
+            return
+        end
+
         if not XLoginManager.IsStartGuide() then
             return
         end
@@ -264,10 +331,25 @@ XGuideManagerCreator = function()
         local bActive = false
 
         local activeUis = string.Split(guide.ActiveUi, '|')
-        for _, v in ipairs(activeUis) do
-            if CsXUiManager.Instance:IsUiShow(v) and CsXUiManager.Instance:FindTopUi(v) then
-                bActive = true
+        local topUiName = CsXUiManager.Instance:GetTopParentUiName()
+        local index = 1
+        while true do
+            if not SKIP_CHECK_UI_NAME[topUiName] then
                 break
+            end
+            topUiName = CsXUiManager.Instance:GetTopXUiName(index)
+            index = index + 1
+        end
+        for _, v in ipairs(activeUis) do
+            --if CsXUiManager.Instance:IsUiShow(v) and CsXUiManager.Instance:FindTopUi(v) then
+            --当前Ui正在展示 && 处于栈顶
+            if CsXUiManager.Instance:IsUiShow(v) and topUiName == v then
+                local ui = XUiManager.GetTopUi(v)
+                local checkNodes = string.Split(guide.CheckNodeActive, '|')
+                if XGuideManager.CheckTopUiNodeActive(ui, checkNodes) then
+                    bActive = true
+                    break
+                end
             end
         end
 
@@ -279,29 +361,52 @@ XGuideManagerCreator = function()
         XGuideManager:PlayGuide(ActiveGuide.Id)
         return true
     end
+    
+    ---@return table<number, XTableGuideGroup>
+    function XGuideManager.GetAvailableGuideTemplates()
+        -- 这里不用XTool.IsTableEmpty, 是因为玩家可能全部引导都已完成
+        if AvailableGuideTemplate then
+            return AvailableGuideTemplate
+        end
+        return XGuideConfig.GetGuideGroupTemplates()
+    end
 
     ---查找激活的引导
     function XGuideManager.FindActiveGuide()
-        local IsOpen = false
+        local isOpen = false
 
         WaitingGuideList = {}
-        local guideGroupTemplates = XGuideConfig.GetGuideGroupTemplates()
-        for _, temp in pairs(guideGroupTemplates) do
-            if not XGuideManager.CheckIsGuide(temp.Id) and temp.Ignore == 0 then
-                for _, v in pairs(temp.ConditionId) do
-                    if v and v ~= 0 then
-                        IsOpen = XConditionManager.CheckCondition(v)
-                        if not IsOpen then
-                            break
-                        end
+        local guideGroupTemplates = XGuideManager.GetAvailableGuideTemplates()
+        
+        --是否需要更新有效的引导配置，减少遍历量
+        --这里不用XTool.IsTableEmpty, 是因为玩家可能全部引导都已完成
+        local needUpdate = AvailableGuideTemplate == nil
+        if needUpdate then
+            AvailableGuideTemplate = {}
+        end
+        
+        for guideId, template in pairs(guideGroupTemplates) do
+            if template.Ignore ~= 0 or XGuideManager.CheckIsGuide(guideId) then
+                goto continue
+            end
+            if needUpdate then
+                AvailableGuideTemplate[guideId] = template
+            end
+            for _, conditionId in pairs(template.ConditionId) do
+                if conditionId and conditionId ~= 0 then
+                    isOpen = XConditionManager.CheckCondition(conditionId)
+                    if not isOpen then
+                        break
                     end
                 end
-
-                if IsOpen then
-                    XGuideManager.SetActiveGuide(temp)
-                    IsOpen = false
-                end
             end
+
+            if isOpen then
+                XGuideManager.SetActiveGuide(template)
+                isOpen = false
+            end
+            
+            ::continue::
         end
     end
 
@@ -370,6 +475,9 @@ XGuideManagerCreator = function()
         if DisableFunction then
             return false
         end
+        if DisableGuide then
+            return false
+        end
         if ActiveGuide and IsGuiding then
             return false
         end
@@ -415,14 +523,8 @@ XGuideManagerCreator = function()
     end
 
     --是否正在引导
+    --该接口在某些包强跳引导(ResetGuide)不会恢复IsGuiding
     function XGuideManager.CheckIsInGuide()
-        return IsGuiding
-    end
-
-    ---是否正在引导(升级版)该接口即使强跳也能判断
-    ---原强跳引导在外服环境IsGuiding是不会恢复的
-    ---对于某些业务可能出现卡流程现象
-    function XGuideManager.CheckIsInGuidePlus()
         return IsGuiding and ActiveGuide ~= nil
     end
 
@@ -511,6 +613,9 @@ XGuideManagerCreator = function()
         if DisableFunction then
             return
         end
+        if DisableGuide then
+            return
+        end
 
         GuideData[guideId] = guideId
         if ActiveGuide and (ActiveGuide.Id == guideId) then
@@ -523,6 +628,83 @@ XGuideManagerCreator = function()
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_GUIDE_COMPLETED_SUCCESS, guideId)
     end
     -- 消息相关end --
+
+    -- V1.30 新动态列表(大量动画)兼容相关
+    function XGuideManager.SetGridNextCb(cb, proxy)
+        -- 设置侧边栏点击回调（因为指引会截断侧边栏滚动结束的函数，所以提前存储结束后的函数，在指引点击的时候就调用）
+        NextGridCb = cb
+        CbProxy = proxy
+    end
+
+    function XGuideManager.GetGridNextCb(cb, proxy)
+        return NextGridCb
+    end
+
+    function XGuideManager.DoNextGridCb(...)
+        if NextGridCb and CbProxy then
+            NextGridCb(CbProxy, ...)
+        end
+    end
+    
+    -- 记录埋点
+    function XGuideManager.RecordBuryingPoint(buryingPointType, nodeIds)
+        if not ActiveGuide or not IsGuiding then
+            return
+        end
+        -- 无节点Id
+        if not nodeIds then
+            nodeIds = {}
+        end
+        -- 确认脱离卡死时 获取正在执行的节点Ids
+        if buryingPointType == XGuideManager.BuryingPointType.Skip and GuideAgent and GuideAgent:Exist() then
+            local tempNodeIds = GuideAgent:GetRunningNodeIds()
+            if tempNodeIds then
+                nodeIds = XTool.CsList2LuaTable(tempNodeIds)
+            end
+        end
+        local dict = {}
+        dict["role_id"] = XPlayer.Id
+        dict["role_level"] = XPlayer.GetLevel()
+        dict["guide_id"] = ActiveGuide.Id
+        dict["node_ids"] = table.concat(nodeIds, ",")
+        dict["ui_name"] = XLuaUiManager.GetTopUiName()
+        dict["type"] = buryingPointType
+        CS.XRecord.Record(dict, "200014", "Guide")
+    end
+    
+    --- 检查Ui的节点是否显示
+    ---@param luaUi XLuaUi UI类 
+    ---@param nodes string[]|string
+    ---@return boolean
+    --------------------------
+    function XGuideManager.CheckTopUiNodeActive(luaUi, nodes)
+        if not luaUi then
+            return
+        end
+        --没有需要检查的节点，默认通过
+        if XTool.IsTableEmpty(nodes) or string.IsNilOrEmpty(nodes) then
+            return true
+        end
+        for _, node in ipairs(nodes) do
+            --如果配置了路径格式
+            local findIndex = string.find(node, "/")
+            ---@type UnityEngine.Transform
+            local tmp
+            if findIndex then
+                --根据路径查找
+                tmp = luaUi.Transform:FindTransformWithSplit(node)
+            else
+                --根据名称查找
+                tmp = luaUi.Transform:FindTransform(node)
+            end
+
+            if not XTool.UObjIsNil(tmp) and tmp.gameObject.activeInHierarchy then
+                return true
+            end
+        end
+        return false
+    end
+
     XGuideManager.Init()
 
     return XGuideManager

@@ -5,8 +5,8 @@ function XUiSpecialTrainBattleRoomRoleDetail:Ctor(stageId, team, pos)
     self.StageId = stageId
 end
 
-function XUiSpecialTrainBattleRoomRoleDetail:GetEntities(characterType)
-    return XDataCenter.FubenSpecialTrainManager.GetCanFightRoles(self.StageId, characterType)
+function XUiSpecialTrainBattleRoomRoleDetail:GetEntities()
+    return XDataCenter.FubenSpecialTrainManager.GetCanFightRoles(self.StageId)
 end
 
 -- return : bool 是否开启自动关闭检查, number 自动关闭的时间戳(秒), function 每秒更新的回调 function(isClose) isClose标志是否到达结束时间
@@ -44,6 +44,33 @@ function XUiSpecialTrainBattleRoomRoleDetail:AOPCloseBefore(rootUi)
         end
         XUiManager.TipText("OnlineFightSuccess", XUiManager.UiTipType.Success)
     end)
+end
+
+function XUiSpecialTrainBattleRoomRoleDetail:AOPRefreshModelBefore(rootUi,characterViewModel,sourceEntityId,finishedCallback)
+    if XRobotManager.CheckIsRobotId(sourceEntityId) then
+        local robotConfig = XRobotManager.GetRobotTemplate(sourceEntityId)
+        
+        rootUi.UiPanelRoleModel:UpdateRobotModelWithWeapon(sourceEntityId
+            , robotConfig.CharacterId
+            , nil
+            , robotConfig.FashionId
+            , robotConfig.WeaponId
+            , finishedCallback
+            , nil
+            , rootUi.PanelRoleModelGo
+            , rootUi.Name)
+    else
+        rootUi.UiPanelRoleModel:UpdateCharacterModel(
+                sourceEntityId,
+                rootUi.PanelRoleModelGo,
+                rootUi.Name,
+                finishedCallback,
+                nil,
+                characterViewModel:GetFashionId()
+        )
+    end
+    
+    return true
 end
 
 return XUiSpecialTrainBattleRoomRoleDetail

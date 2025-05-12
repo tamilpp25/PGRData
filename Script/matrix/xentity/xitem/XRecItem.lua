@@ -1,3 +1,4 @@
+---@class XRecItem : XItem
 XRecItem = XClass(XItem, "XRecItem")
 
 local max = math.max

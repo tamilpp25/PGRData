@@ -1,4 +1,4 @@
-XUiGridItem = XClass(nil, "XUiGridItem")
+local XUiGridItem = XClass(nil, "XUiGridItem")
 
 function XUiGridItem:Ctor(rootUi, ui)
     self.RootUi = rootUi
@@ -41,7 +41,7 @@ function XUiGridItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -60,3 +60,5 @@ function XUiGridItem:UpdateItemGrid(itemInfo)
     self.RootUi:SetUiSprite(self.ImgItemIcon, itemTemplate.Icon)
     self.TxtItemCount.text = itemInfo.Count
 end
+
+return

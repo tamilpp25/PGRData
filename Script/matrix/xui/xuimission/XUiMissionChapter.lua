@@ -1,3 +1,5 @@
+local XUiPanelMissionChapterGird = require("XUi/XUiMission/XUiPanelMissionChapterGird")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMissionChapter = XLuaUiManager.Register(XLuaUi, "UiMissionChapter")
 
 function XUiMissionChapter:OnAwake()
@@ -77,7 +79,7 @@ function XUiMissionChapter:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

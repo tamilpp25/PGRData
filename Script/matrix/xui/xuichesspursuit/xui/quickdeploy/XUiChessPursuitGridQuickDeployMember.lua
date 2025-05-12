@@ -34,7 +34,7 @@ function XUiChessPursuitGridQuickDeployMember:Refresh(characterId, team, charact
         local isRobot = XRobotManager.CheckIsRobotId(characterId)
         local id = XRobotManager.CheckIdToCharacterId(characterId)
         self.RImgRole.gameObject:SetActiveEx(true)
-        self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(id))
+        self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(id))
         self.TryTag.gameObject:SetActiveEx(isRobot)
     else
         self.RImgRole.gameObject:SetActiveEx(false)

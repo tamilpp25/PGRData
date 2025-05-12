@@ -26,7 +26,7 @@ function XUiPanelLevelMax:UpdatePartnerInfo()
     
     self.Txtname.text = self.Data:GetName()
     self.TxtLevel.text = self.Data:GetLevel()
-    self.TxtLevelMax.text = string.format("/%d MAX",self.Data:GetBreakthroughLevelLimit())
+    self.TxtLevelMax.text = string.format("/%d", self.Data:GetBreakthroughLevelLimit())
     self.ImgBreak:SetSprite(btImg)
     
     local curAttrMap = self.Data:GetPartnerAttrMap()

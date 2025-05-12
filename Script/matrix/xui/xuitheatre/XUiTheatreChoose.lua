@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --######################## XUiBuffGrid ########################
 local XUiBuffGrid = XClass(nil, "XUiBuffGrid")
 
@@ -31,7 +33,7 @@ function XUiTheatreChoose:OnAwake()
     self.DynamicTable:SetDelegate(self)
     self.GridBuff.gameObject:SetActiveEx(false)
     -- 注册资源面板
-    XUiHelper.NewPanelActivityAsset(self.TheatreManager.GetAssetItemIds(), self.PanelAssetitems)
+    XUiHelper.NewPanelActivityAssetSafe(self.TheatreManager.GetAssetItemIds(), self.PanelAssetitems, self)
     self:RegisterUiEvents()
 
     local imgAdd = XUiHelper.TryGetComponent(self.BtnAddToken.transform, "ImgAdd")

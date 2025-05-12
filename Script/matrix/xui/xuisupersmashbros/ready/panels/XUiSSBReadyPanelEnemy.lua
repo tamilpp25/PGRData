@@ -1,6 +1,7 @@
 --==============
 --战斗准备界面敌方面板
 --==============
+---@class XUiSSBReadyPanelEnemy
 local XUiSSBReadyPanelEnemy = XClass(nil, "XUiSSBReadyPanelEnemy")
 
 function XUiSSBReadyPanelEnemy:Ctor(uiPrefab, mode)
@@ -36,14 +37,13 @@ function XUiSSBReadyPanelEnemy:Refresh(playAnim)
     for index = 1, teamMaxPosition do
         local monsterGroup = XDataCenter.SuperSmashBrosManager.GetMonsterGroupById(enemyTeam and enemyTeam[index])
         if monsterGroup then
-            self.Grids[index]:Refresh(monsterGroup)
-
             if isLine then
                 local isWin = (not isStart) and ((self.Mode:GetLastWin() ~= 0) and (not self.Mode:GetLastWin())) and ((battleIndex + battleNum) > index)
                 self.Grids[index]:HidePanelHp()
                 self.Grids[index]:SetReady(not isWin and ((battleIndex + battleNum) > index))
                 self.Grids[index]:SetOut((not isStart) and not isWin)
-                self.Grids[index]:SetWin((not isStart) and ((self.Mode:GetLastWin() ~= 0) and (not self.Mode:GetLastWin())) and ((battleIndex + battleNum) > index))
+                local teamWin = (not isStart) and ((self.Mode:GetLastWin() ~= 0) and (not self.Mode:GetLastWin())) and ((battleIndex + battleNum) > index)
+                self.Grids[index]:SetWin(teamWin)
                 self.Grids[index]:SetNextEnemy(self.Mode:GetNextEnemy())
             else
                 local isOut = monsterGroup:GetHpLeft() == 0
@@ -51,6 +51,8 @@ function XUiSSBReadyPanelEnemy:Refresh(playAnim)
                 self.Grids[index]:SetOut(isOut)
                 self.Grids[index]:SetWin((not isStart) and ((self.Mode:GetLastWin() ~= 0) and (not self.Mode:GetLastWin())) and ((battleIndex + battleNum) > index))
             end
+            
+            self.Grids[index]:Refresh(monsterGroup)
         else
             self.Grids[index]:SetBan()
         end

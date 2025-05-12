@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildGloryLevel = XLuaUiManager.Register(XLuaUi, "UiGuildGloryLevel")
 local XUiGridTalentListItem = require("XUi/XUiGuild/XUiChildItem/XUiGridTalentListItem")
 

@@ -2,6 +2,7 @@
 --超限乱斗活动管理器
 --模块负责：吕天元
 --===========================
+---@
 local XSmashBActivityManager = {}
 local Config
 --总已获取的能量
@@ -16,6 +17,8 @@ local TeamLevel
 local TeamItem = 0
 -- 队伍等级数据
 local TeamLevelConfig
+-- 每日奖励是否领取
+local IsReceiveDailyReward = false
 --===============
 --设置活动配置
 --===============
@@ -265,6 +268,7 @@ function XSmashBActivityManager.RefreshNotifyActivityData(data)
     -- cxldV2 超限乱斗2期屏蔽能量数据
     -- XSmashBActivityManager.RefreshNotifyEnergyData(data.EnergyDb)
     XSmashBActivityManager.RefreshNotifyTeamLevelData(data)
+    XSmashBActivityManager.RefreshNotifyDailyReward(data)
 end
 --================
 --刷新能量数据
@@ -281,6 +285,49 @@ end
 function XSmashBActivityManager.RefreshNotifyTeamLevelData(data)
     TeamLevel = data.TeamLevel
     TeamItem = data.TeamItem
+end
+--================
+--每日奖励
+--================
+function XSmashBActivityManager.RefreshNotifyDailyReward(data)
+    IsReceiveDailyReward = data.GotDailyReward
+end
+--================
+--每日奖励是否领取
+--================
+function XSmashBActivityManager.IsReceiveDailyReward()
+    return IsReceiveDailyReward
+end
+--================
+--每日奖励领取
+--================
+function XSmashBActivityManager.ReceiveDailyReward(cb)
+    XNetwork.Call("SuperSmashBrosGetDailyRewardRequest", {}, function(res)
+        if res.Code ~= XCode.Success then
+            XUiManager.TipCode(res.Code)
+            return
+        end
+        local teamLevel = res.TeamLevel
+        if teamLevel then
+            TeamLevel = teamLevel
+        end
+        
+        IsReceiveDailyReward = true
+        if cb then
+            cb()
+        end
+        local rewardGoodList = res.RewardList
+        if not rewardGoodList then
+            rewardGoodList = {
+                {
+                    TemplateId = XSuperSmashBrosConfig.GetDailyRewardItemId(),
+                    Type = XRewardManager.XRewardType.Item,
+                    Count = XSuperSmashBrosConfig.GetDailyRewardItemCount(),
+                }
+            }
+        end
+        XUiManager.OpenUiObtain(rewardGoodList)
+    end)
 end
 
 return XSmashBActivityManager

@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiSuperTowerShop = XLuaUiManager.Register(XLuaUi, "UiSuperTowerShop")
 local XUiGridSuperTowerShopItem = require("XUi/XUiSuperTower/Shop/XUiGridSuperTowerShopItem")
 local SortShopItem = function(itemA, itemB)
@@ -11,7 +13,7 @@ local SortShopItem = function(itemA, itemB)
 end
 
 function XUiSuperTowerShop:OnStart()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemIds = {}
     for i = 1, 3 do
         local itemId = XSuperTowerConfigs.GetClientBaseConfigByKey("CurrencyItemOther" .. i, true)

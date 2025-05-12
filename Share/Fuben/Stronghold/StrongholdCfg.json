@@ -26,17 +26,12 @@
     },
     {
         "Key": "InitElectricEnergy",
-        "Value": 20,
+        "Value": 50,
         "Comment": "Initial power"
     },
     {
-        "Key": "InitEndurance",
-        "Value": 18,
-        "Comment": "Initial stamina"
-    },
-    {
         "Key": "SetAssistCharacterCondition",
-        "Value": 94030,
+        "Value": 94051,
         "Comment": "Set support criteria"
     },
     {
@@ -86,7 +81,7 @@
     },
     {
         "Key": "MaxPreTeamCount",
-        "Value": 6,
+        "Value": 5,
         "Comment": "Default team max size"
     },
     {
@@ -143,5 +138,35 @@
         "Key": "MaintainChapterCondition",
         "Value": 95220,
         "Comment": "Maintenance Battle Unlock Condition"
+    },
+    {
+        "Key": "TeamPrefabStageId1",
+        "Value": 30202685,
+        "Comment": "Preset Team Reference Stage 1"
+    },
+    {
+        "Key": "TeamPrefabStageId2",
+        "Value": 30202687,
+        "Comment": "Preset Team Reference Stage 2"
+    },
+    {
+        "Key": "TeamPrefabStageId3",
+        "Value": 30202689,
+        "Comment": "Preset Team Reference Stage 3"
+    },
+    {
+        "Key": "TeamPrefabStageId4",
+        "Value": 30202691,
+        "Comment": "Preset Team Reference Stage 4"
+    },
+    {
+        "Key": "TeamPrefabStageId5",
+        "Value": 30202693,
+        "Comment": "Preset Team Reference Stage 5"
+    },
+    {
+        "Key": "InitEndurance",
+        "Value": 18,
+        "Comment": "Initial stamina"
     }
 ]

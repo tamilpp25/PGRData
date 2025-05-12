@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPlayerUp = XLuaUiManager.Register(XLuaUi, "UiPlayerUp")
 local WAIT_CLOSE_TIME = 2
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
@@ -23,7 +24,7 @@ function XUiPlayerUp:OnStart(oldLevel, newLevel, levelUpType)
 end
 
 function XUiPlayerUp:OnEnable()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Common_UiPlayerUp)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Common_UiPlayerUp)
 end
 
 function XUiPlayerUp:InitAutoScript()
@@ -54,7 +55,7 @@ function XUiPlayerUp:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -113,7 +114,7 @@ function XUiPlayerUp:UpdateInitText()
     self.TxtLv1.text = self.OldLevel
     self.TxtLv2.text = self.NewLevel
     self.TxtLevelName.text = self:GetTxtLevelName()
-    self.TxtLevelNameFirst.text = self:GetTxtLevelName() -- 国际服升级字母不插入空格
+    self.TxtLevelNameFirst.text = self:StringInsertBlank(self:GetTxtLevelName())
 end
 
 function XUiPlayerUp:SetReward()
@@ -180,11 +181,11 @@ function XUiPlayerUp:GetFreeActionPoint(level)
     end
 end
 
-function  XUiPlayerUp:GetTxtLevelName() -- 国际服升级单子中间加空格
+function XUiPlayerUp:GetTxtLevelName()
     if self:IsHonorLevelOpen() then
-        return CS.XTextManager.GetText("HonorLevel") .." ".. CS.XTextManager.GetText("Promote")
+        return CS.XTextManager.GetText("HonorLevel") .. CS.XTextManager.GetText("Promote")
     else
-        return CS.XTextManager.GetText("PlayerLevel") .." ".. CS.XTextManager.GetText("Promote")
+        return CS.XTextManager.GetText("PlayerLevel") .. CS.XTextManager.GetText("Promote")
     end
 end
 --@endregion

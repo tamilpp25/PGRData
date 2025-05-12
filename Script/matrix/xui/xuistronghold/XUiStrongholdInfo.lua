@@ -23,7 +23,7 @@ function XUiStrongholdInfo:OnStart(groupId, stageIndex)
     for index = 1, CHARACTER_NUM do
         local characterId = characterIds[index]
         if XTool.IsNumberValid(characterId) then
-            self["RImgCharIcon" .. index]:SetRawImage(XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(characterId))
+            self["RImgCharIcon" .. index]:SetRawImage(XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(characterId))
             self["PanelCharIcon" .. index].gameObject:SetActiveEx(true)
         else
             self["PanelCharIcon" .. index].gameObject:SetActiveEx(false)

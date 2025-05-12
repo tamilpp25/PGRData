@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiMainLine3DStoryDetail = XLuaUiManager.Register(XLuaUi, "UiMainLine3DStoryDetail")
 
 function XUiMainLine3DStoryDetail:OnAwake()
@@ -48,7 +49,7 @@ function XUiMainLine3DStoryDetail:Refresh()
     local stageId = stageCfg.StageId
     local chapterOrderId = XDataCenter.FubenMainLineManager.GetChapterOrderIdByStageId(stageId)
 
-    self.TxtTitle.text = chapterOrderId .. "-" .. stageCfg.OrderId .." ".. stageCfg.Name -- 由于关卡名前存在数字，用空格隔开避免歧义
+    self.TxtTitle.text = chapterOrderId .. "-" .. stageCfg.OrderId .. stageCfg.Name
     self.TxtStoryDes.text = stageCfg.Description
     if stageCfg.Icon then
         self.RImgNandu:SetRawImage(stageCfg.Icon)
@@ -75,12 +76,13 @@ function XUiMainLine3DStoryDetail:OnBtnEnterClick()
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageId)
     local stageId = stageCfg.StageId
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    local beginStoryId = XMVCA.XFuben:GetBeginStoryId(stageId)
     self:Hide()
     if stageInfo.Passed then
-        XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId)
+        XDataCenter.MovieManager.PlayMovie(beginStoryId)
     else
         XDataCenter.FubenManager.FinishStoryRequest(stageId, function()
-            XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId, function()
+            XDataCenter.MovieManager.PlayMovie(beginStoryId, function()
             end)
         end)
     end

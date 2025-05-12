@@ -1,4 +1,5 @@
-XUiGridPrequelCheckPointReward = XClass(nil, "XUiGridPrequelCheckPointReward")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiGridPrequelCheckPointReward = XClass(nil, "XUiGridPrequelCheckPointReward")
 
 function XUiGridPrequelCheckPointReward:Ctor(ui)
     self.GameObject = ui.gameObject

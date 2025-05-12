@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenChallengeBanner = XLuaUiManager.Register(XLuaUi, "UiFubenChallengeBanner")
 local XUiGridChallengeBanner = require("XUi/XUiFubenChallengeBanner/XUiGridChallengeBanner")
 
@@ -74,98 +75,112 @@ function XUiFubenChallengeBanner:OnClickChapterGrid(chapter)
         return
     end
     local chapterType = chapter.Type
-    local doneCb = function()
-        if chapterType == XDataCenter.FubenManager.ChapterType.BossSingle then
-            if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenChallengeBossSingle) then
-                if XDataCenter.FubenBossSingleManager.CheckNeedChooseLevelType() then
-                    XLuaUiManager.Open("UiFubenBossSingleChooseLevelType")
-                    return
-                end
-
-                self.ParentUi:PushUi(function()
-                    XDataCenter.FubenBossSingleManager.OpenBossSingleView()
-                end)
+    if chapterType == XDataCenter.FubenManager.ChapterType.BossSingle then
+        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenChallengeBossSingle) then
+            if XMVCA.XFubenBossSingle:IsInLevelTypeChooseAble() then
+                XMVCA.XFubenBossSingle:OpenChooseUi()
+                return
             end
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.Urgent then
+
             self.ParentUi:PushUi(function()
-                XLuaUiManager.Open("UiFubenChallengeMap", chapter)
+                XMVCA.XFubenBossSingle:OpenBossSingleView()
             end)
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.Explore then
-            if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenExplore) then
-                self.ParentUi:PushUi(function()
-                    XLuaUiManager.Open("UiFubenExploreChapter")
-                end)
-            end
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.ARENA then
-            if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenArena) then
-                XDataCenter.ArenaManager.RequestSignUpArena(function()
-                    self.ParentUi:PushUi(function()
-                        XLuaUiManager.Open("UiArena", chapter)
-                    end)
-                end)
-            end
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.Trial then
-            if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenChallengeTrial) then
-                if self.IsTrialOpening then
-                    return
-                end
-                self.IsTrialOpening = true
-                self.ParentUi:PushUi(function()
-                    XLuaUiManager.OpenWithCallback("UiTrial", function()
-                        self.IsTrialOpening = nil
-                    end)
-                end)
-            end
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.Practice then
-
-            if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Practice) then
-                self.ParentUi:PushUi(function()
-                    XLuaUiManager.Open(chapter.NameEn)
-                end)
-            end
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.Assign then
-
-            if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
-                self.ParentUi:PushUi(function()
-                    XLuaUiManager.Open(chapter.NameEn)
-                end)
-            end
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.InfestorExplore then
-            if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenInfesotorExplore) then
-                if XDataCenter.FubenInfestorExploreManager.IsInSectionOne()
-                or XDataCenter.FubenInfestorExploreManager.IsInSectionTwo() then
-                    local openCb = function()
-                        self.ParentUi:PushUi(function()
-                            XLuaUiManager.Open("UiInfestorExploreRank")
-                        end)
-                    end
-                    XDataCenter.FubenInfestorExploreManager.OpenEntranceUi(openCb)
-                elseif XDataCenter.FubenInfestorExploreManager.IsInSectionEnd() then
-                    XUiManager.TipText("InfestorExploreEnterSectionEnd")
-                elseif not XDataCenter.FubenInfestorExploreManager.IsOpen() then
-                    XUiManager.TipText("InfestorExploreEnterSectionEnd")
-                end
-            end
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.MaintainerAction then
-            self:OnClickMaintainerAction()
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.Stronghold then
-            local beforeOpenUiCb = handler(self.ParentUi, self.ParentUi.PushUi)--so sick!
-            XDataCenter.StrongholdManager.EnterUiMain(beforeOpenUiCb)
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.PartnerTeaching then
-            if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.PartnerTeaching) then
-                self.ParentUi:PushUi(function()
-                    XLuaUiManager.Open("UiPartnerTeachingBanner")
-                end)
-            end
-        elseif chapterType == XDataCenter.FubenManager.ChapterType.Theatre then
-            if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Theatre) then
-                self.ParentUi:PushUi(function()
-                    XDataCenter.TheatreManager.CheckAutoPlayStory()
-                end)
-            end
         end
-    end -- doneCb
-    XDataCenter.DlcManager.CheckDownloadForEntry(XDlcConfig.EntryType.Chanllenge, chapterType, doneCb)
+    elseif chapterType == XDataCenter.FubenManager.ChapterType.Urgent then
+        self.ParentUi:PushUi(function()
+            XLuaUiManager.Open("UiFubenChallengeMap", chapter)
+        end)
+    elseif chapterType == XDataCenter.FubenManager.ChapterType.Explore then
+        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenExplore) then
+            --分包资源检测
+            if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Explore) then
+                return
+            end
+            self.ParentUi:PushUi(function()
+                XLuaUiManager.Open("UiFubenExploreChapter")
+            end)
+        end
+    elseif chapterType == XDataCenter.FubenManager.ChapterType.ARENA then
+        -- if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenArena) then
+        --     XDataCenter.ArenaManager.RequestSignUpArena(function()
+        --         self.ParentUi:PushUi(function()
+        --             XLuaUiManager.Open("UiArena", chapter)
+        --         end)
+        --     end)
+        -- end
+        XMVCA.XArena:ExOpenMainUi()
+    elseif chapterType == XDataCenter.FubenManager.ChapterType.Trial then
+        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenChallengeTrial) then
+            if self.IsTrialOpening then
+                return
+            end
+            self.IsTrialOpening = true
+            self.ParentUi:PushUi(function()
+                XLuaUiManager.OpenWithCallback("UiTrial", function()
+                    self.IsTrialOpening = nil
+                end)
+            end)
+        end
+    elseif chapterType == XDataCenter.FubenManager.ChapterType.Practice then
+
+        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Practice) then
+            self.ParentUi:PushUi(function()
+                XLuaUiManager.Open(chapter.NameEn)
+            end)
+        end
+    elseif chapterType == XDataCenter.FubenManager.ChapterType.Assign then
+
+        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
+            self.ParentUi:PushUi(function()
+                XLuaUiManager.Open(chapter.NameEn)
+            end)
+        end
+    --elseif chapterType == XDataCenter.FubenManager.ChapterType.InfestorExplore then
+    --    if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenInfesotorExplore) then
+    --        if XDataCenter.FubenInfestorExploreManager.IsInSectionOne()
+    --                or XDataCenter.FubenInfestorExploreManager.IsInSectionTwo() then
+    --            local openCb = function()
+    --                self.ParentUi:PushUi(function()
+    --                    XLuaUiManager.Open("UiInfestorExploreRank")
+    --                end)
+    --            end
+    --            XDataCenter.FubenInfestorExploreManager.OpenEntranceUi(openCb)
+    --        elseif XDataCenter.FubenInfestorExploreManager.IsInSectionEnd() then
+    --            XUiManager.TipText("InfestorExploreEnterSectionEnd")
+    --        elseif not XDataCenter.FubenInfestorExploreManager.IsOpen() then
+    --            XUiManager.TipText("InfestorExploreEnterSectionEnd")
+    --        end
+    --    end
+    elseif chapterType == XDataCenter.FubenManager.ChapterType.MaintainerAction then
+        self:OnClickMaintainerAction()
+    elseif chapterType == XDataCenter.FubenManager.ChapterType.Stronghold then
+        local beforeOpenUiCb = handler(self.ParentUi, self.ParentUi.PushUi)--so sick!
+        XDataCenter.StrongholdManager.EnterUiMain(beforeOpenUiCb)
+    elseif chapterType == XDataCenter.FubenManager.ChapterType.PartnerTeaching then
+        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.PartnerTeaching) then
+            if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.PartnerTeaching) then
+                return
+            end
+            self.ParentUi:PushUi(function()
+                XLuaUiManager.Open("UiPartnerTeachingBanner")
+            end)
+        end
+    elseif chapterType == XDataCenter.FubenManager.ChapterType.Theatre then
+        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Theatre) then
+            self.ParentUi:PushUi(function()
+                XDataCenter.TheatreManager.CheckAutoPlayStory()
+            end)
+        end
+        -- v1.30-Todo-考级点击入口
+    elseif chapter.Type == XDataCenter.FubenManager.ChapterType.Course then
+        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Course) then
+            self.ParentUi:PushUi(function()
+                XDataCenter.CourseManager.OpenMain()
+            end)
+        end
+    elseif XTool.IsNumberValid(chapter.FunctionId) then
+        XFunctionManager.SkipInterface(chapter.FunctionId)
+    end
 end
 
 function XUiFubenChallengeBanner:OnClickMaintainerAction()

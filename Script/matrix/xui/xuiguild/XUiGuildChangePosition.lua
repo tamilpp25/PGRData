@@ -51,6 +51,11 @@ function XUiGuildChangePosition:OnBtnCancelClick()
     self:Close()
 end
 
+function XUiGuildChangePosition:Close()
+    self:EmitSignal("Close", self.TargetMember)
+    self.Super.Close(self)
+end
+
 function XUiGuildChangePosition:OnBtnConfirmClick()
     if not XDataCenter.GuildManager.IsGuildAdminister() then
         XUiManager.TipMsg(CSXTextManagerGetText("GuildNotAdministor"))
@@ -111,7 +116,7 @@ function XUiGuildChangePosition:HandleChangePosition()
         self.TabPositions[i].gameObject:SetActiveEx(true)
         local name = (self.MemberPosition[i].RankName ~= nil) and self.MemberPosition[i].RankName or self.MemberPosition[i].Name
         self.TabPositions[i]:SetNameByGroup(0,name)
-        if self.MemberPosition[i].Id <= XGuildConfig.GuildRankLevel.Member then
+        if self.MemberPosition[i].Id < XGuildConfig.GuildRankLevel.Member then
             local state = string.format("%d/%d", self.MemberPosition[i].CurAmount, self.MemberPosition[i].MaxAmount)
             self.TabPositions[i]:SetNameByGroup(1,state)end
         if targetRankLevel == self.MemberPosition[i].Id then
@@ -182,8 +187,7 @@ function XUiGuildChangePosition:ConfirmSetName()
         XUiManager.TipMsg(CSXTextManagerGetText("GuildChangeInformationIsSame", typeTitle))
         return
     end
-    if string.match(guildName,"%g") then -- 不能全为空格
-    else
+    if string.match(guildName,"%s") then
         XUiManager.TipText("GuildNameSpecialTips",XUiManager.UiTipType.Wrong)
         return
     end

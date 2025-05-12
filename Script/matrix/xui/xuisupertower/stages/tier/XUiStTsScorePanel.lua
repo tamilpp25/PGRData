@@ -42,7 +42,7 @@ function XUiStTsScorePanel:StartTween()
     for _, data in pairs(self.ScoreValue) do
         totalScore = totalScore + data.Score
     end
-    self.AudioInfo = CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiSettle_Win_Number)
+    self.AudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiSettle_Win_Number)
     XLuaUiManager.SetMask(true)
     self.Timer = XUiHelper.Tween(time, function(f)
             if XTool.UObjIsNil(self.RootUi.Transform) then

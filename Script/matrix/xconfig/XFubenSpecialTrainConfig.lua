@@ -10,9 +10,8 @@ local TABLE_SPECIALTRAIN_RANK_SCORE_GOODS = "Share/Fuben/SpecialTrain/RankScoreG
 local TABLE_SPECIALTRAIN_ALBUM_CONFIG = "Client/Fuben/SpecialTrain/SpecialTrainAlbumConfig.tab"
 local TABLE_SPECIALTRAIN_RANDOM_STAGE = "Client/Fuben/SpecialTrain/SpecialTrainRandomStage.tab" 
 local TABLE_SPECIALTRAIN_STAGEICONEFFECT = "Client/Fuben/SpecialTrain/SpecialTrainStageIconEffect.tab"
-local TABLE_SPECIAL_TRAIN_FASHION_CUTE = "Share/Fuben/SpecialTrain/SpecialTrainFashionCute.tab"
-local TABLE_SPECIAL_TRAIN_DISPLAY_ACTION = "Client/Fuben/SpecialTrain/SpecialTrainDisplayAction.tab"
-local CHARACTER_TAB = "Share/Fuben/StageCharacterNpcId.tab"
+local TABLE_YUANXIAO_SKILL = "Share/Fuben/SpecialTrain/SpecialTrainRhythmRankSkill.tab"
+local TABLE_SPECIALTRAIN_DAILY_SWITCH_TASK = "Share/Fuben/SpecialTrain/SpecialTrainDailySwitchTask.tab"
 
 local StarRewardConfig
 local ChapterConfig
@@ -24,9 +23,8 @@ local SpecialRankScoreGoodsConfig
 local SpecialTrainAlbumConfig
 local SpecialTrainRandomStage
 local SpecialTrainStageIconEffect
-local SpecialTrainFashionCuteConfig
-local SpecialTrainDisplayActionConfig
-local CharacterTab
+local YuanXiaoSkillConfig
+local SpecialTrainDailySwitchTaskConfig
 
 XFubenSpecialTrainConfig.StageType = {
     None = -1,
@@ -37,7 +35,8 @@ XFubenSpecialTrainConfig.StageType = {
     Photo = 4,
     Snow = 5,
     Rhythm = 6, --元宵
-    Breakthrough = 7, --超卡列特训关
+    --Breakthrough = 7, --超卡列特训关 1.0
+    Breakthrough = 8, --超卡列特训关 2.0
 }
 
 XFubenSpecialTrainConfig.Type = {
@@ -46,7 +45,8 @@ XFubenSpecialTrainConfig.Type = {
     Music = 3,
     Snow = 4,
     Rhythm = 5, --元宵
-    Breakthrough = 6, --超卡列特训关
+    --Breakthrough = 6, --超卡列特训关 1.0
+    Breakthrough = 7, --超卡列特训关 2.0
 }
 
 XFubenSpecialTrainConfig.SpecialTrainMusicTaskId = {
@@ -65,20 +65,9 @@ function XFubenSpecialTrainConfig.Init()
     SpecialTrainAlbumConfig = XTableManager.ReadByIntKey(TABLE_SPECIALTRAIN_ALBUM_CONFIG, XTable.XTableSpecialTrainAlbumConfig, "Id")
     SpecialTrainRandomStage = XTableManager.ReadByIntKey(TABLE_SPECIALTRAIN_RANDOM_STAGE, XTable.XTableSpecialTrainRandomStage, "Id")
     SpecialTrainStageIconEffect = XTableManager.ReadByIntKey(TABLE_SPECIALTRAIN_STAGEICONEFFECT, XTable.XTableSpecialTrainStageIconEffect, "StageId")
-    SpecialTrainFashionCuteConfig = XTableManager.ReadByIntKey(TABLE_SPECIAL_TRAIN_FASHION_CUTE, XTable.XTableSpecialTrainFashionCute, "CharacterId")
-    SpecialTrainDisplayActionConfig = XTableManager.ReadByStringKey(TABLE_SPECIAL_TRAIN_DISPLAY_ACTION, XTable.XTableSpecialTrainDisplayAction, "ModelName")
-    CharacterTab = {}
-    for stageType, cfg in pairs(XTableManager.ReadByIntKey(CHARACTER_TAB, XTable.XTableStageCharacterNpcId, "StageType"))do
-        for i = 1, #cfg.NpcId do
-            local npcId = cfg.NpcId[i]
-            local characterId = cfg.CharacterId[i]
-            if not CharacterTab[npcId] then
-                CharacterTab[npcId] = characterId
-            elseif CharacterTab[npcId] ~= characterId then
-                XLog.Error("[XFubenSpecialTrainConfig] 配置表StageCharacterNpcId里有相同npcId，但是characterId不同的配置:" .. (characterId or "nil"))
-            end
-        end    
-    end
+    
+    YuanXiaoSkillConfig = XTableManager.ReadByIntKey(TABLE_YUANXIAO_SKILL, XTable.XTableSpecialTrainRhythmRankSkill, "Id")
+    SpecialTrainDailySwitchTaskConfig = XTableManager.ReadByIntKey(TABLE_SPECIALTRAIN_DAILY_SWITCH_TASK, XTable.XTableSpecialTrainDailySwitchTask, "Id")
 end
 
 --获取活动数据
@@ -115,9 +104,11 @@ function XFubenSpecialTrainConfig.GetChapterConfigById(id)
 end
 
 --获取章节关卡数据
-function XFubenSpecialTrainConfig.GetSpecialTrainStageById(id)
+function XFubenSpecialTrainConfig.GetSpecialTrainStageById(id, notWarning)
     if not SpecialTrainStageConfig or not SpecialTrainStageConfig[id] then
-        XLog.Error("XFubenSpecialTrainConfig.GetSpecialTrainStageById 获取配置失败, id:",id)
+        if not notWarning then
+            XLog.Error("XFubenSpecialTrainConfig.GetSpecialTrainStageById 获取配置失败, id:",id)
+        end
         return
     end
 
@@ -172,6 +163,48 @@ function XFubenSpecialTrainConfig.CheckIsSpecialTrainBroadswordStage(stageId)
     return false
 end
 
+--检测是否是魔方2.0
+function XFubenSpecialTrainConfig.CheckIsSpecialTrainBreakthroughStage(stageId)
+    local config = XFubenSpecialTrainConfig.GetSpecialTrainStageById(stageId, true)
+    if not config then
+        return false
+    end
+
+    if config.Type == XFubenSpecialTrainConfig.StageType.Breakthrough then
+        return true
+    end
+
+    return false
+end
+
+--检测是否是元宵活动
+function XFubenSpecialTrainConfig.CheckIsYuanXiaoStage(stageId)
+    local config = XFubenSpecialTrainConfig.GetSpecialTrainStageById(stageId, true)
+    if not config then
+        return false
+    end
+
+    if config.Type == XFubenSpecialTrainConfig.StageType.Rhythm then
+        return true
+    end
+
+    return false
+end
+
+-- 检测是否是冰雪感谢祭活动
+function XFubenSpecialTrainConfig.CheckIsSnowGameStage(stageId)
+    local config = XFubenSpecialTrainConfig.GetSpecialTrainStageById(stageId, true)
+    if not config then
+        return false
+    end
+
+    if config.Type == XFubenSpecialTrainConfig.StageType.Snow then
+        return true
+    end
+
+    return false
+end
+
 function XFubenSpecialTrainConfig.GetSpecialPointRewardConfig(id)
     if not SpecialPointRewardConfig or not SpecialPointRewardConfig[id] then
         XLog.ErrorTableDataNotFound("XFubenSpecialTrainConfig.GetSpecialPointRewardConfig",
@@ -189,6 +222,15 @@ end
 function XFubenSpecialTrainConfig.GetHellStageId(stageId)
     local config = XFubenSpecialTrainConfig.GetSpecialTrainStageById(stageId)
     return config.HellStageId
+end
+
+function XFubenSpecialTrainConfig.GetHellStageTimeId(stageId)
+    local config = XFubenSpecialTrainConfig.GetSpecialTrainStageById(stageId)
+    local hellStageId = config.HellStageId
+    if hellStageId and hellStageId ~= 0 and hellStageId ~= stageId then
+        return XFubenSpecialTrainConfig.GetHellStageTimeId(hellStageId)
+    end
+    return config.TimeId
 end
 
 function XFubenSpecialTrainConfig.GetStageByStageType(stageType)
@@ -414,8 +456,9 @@ end
 local function GetSpecialTrainStageIconEffect(stageId)
     local config = SpecialTrainStageIconEffect[stageId]
     if not config then
-        XLog.Error("XFubenSpecialTrainConfig GetSpecialTrainStageIconEffect error:配置不存在, stageId:" ..
-                stageId .. ",path: " .. TABLE_SPECIALTRAIN_STAGEICONEFFECT)
+        -- 元宵2023不需要特效
+        --XLog.Error("XFubenSpecialTrainConfig GetSpecialTrainStageIconEffect error:配置不存在, stageId:" ..
+        --        stageId .. ",path: " .. TABLE_SPECIALTRAIN_STAGEICONEFFECT)
         return
     end
 
@@ -434,7 +477,7 @@ end
 
 --region Breakthrough 卡列特训关
 function XFubenSpecialTrainConfig.IsBreakthroughStage(stageId)
-    return XFubenSpecialTrainConfig.IsBreakthroughStageType(XFubenConfigs.GetStageType(stageId))
+    return XFubenSpecialTrainConfig.CheckIsSpecialTrainBreakthroughStage(stageId)
 end
 
 function XFubenSpecialTrainConfig.IsBreakthroughStageType(stageType)
@@ -444,28 +487,51 @@ end
 function XFubenSpecialTrainConfig.GetChapterSeasonName(id)
     return XFubenSpecialTrainConfig.GetChapterConfigById(id).SeasonName
 end
+
+XFubenSpecialTrainConfig.AnimationPhase = {
+    Phase1 = 1,
+    Phase2 = 2,
+    Phase3 = 3,
+    Phase4 = 4,
+    PhaseEnd = 5,
+}
 --endregion
 
---region Q版角色模型
-local function GetCuteModelConfig(characterId)
-    if not SpecialTrainFashionCuteConfig[characterId] then
-        XLog.Error("[XFubenSpecialTrainConfig] Q版模型配置没有角色" .. (characterId or "nil"))
+function XFubenSpecialTrainConfig.GetAllYuanXiaoSkill()
+    return YuanXiaoSkillConfig
+end
+
+function XFubenSpecialTrainConfig.GetYuanXiaoSkill(id)
+    return YuanXiaoSkillConfig[id]
+end
+
+function XFubenSpecialTrainConfig.GetDailyTaskGroupId(activityId, dayId)
+    if not XFubenSpecialTrainConfig._DailyTaskDic then
+        XFubenSpecialTrainConfig._DailyTaskDic = {}
+        for _, config in pairs(SpecialTrainDailySwitchTaskConfig) do
+            XFubenSpecialTrainConfig._DailyTaskDic[config.ActivityId] = XFubenSpecialTrainConfig._DailyTaskDic[config.ActivityId] or {}
+            XFubenSpecialTrainConfig._DailyTaskDic[config.ActivityId][config.DayId] = config
+        end
     end
-    return SpecialTrainFashionCuteConfig[characterId] or {}
+    local maxCount = #XFubenSpecialTrainConfig._DailyTaskDic[activityId]
+    if dayId > maxCount then
+        dayId = maxCount
+    end
+    local config = XFubenSpecialTrainConfig._DailyTaskDic[activityId][dayId]
+    if not config then
+        return 0
+    end
+    return config.DailyTaskGroupId or 0
 end
-function XFubenSpecialTrainConfig.GetCuteModelModelName(characterId)
-    return GetCuteModelConfig(characterId).ModelName or ""
-end
-function XFubenSpecialTrainConfig.GetCuteModelSmallHeadIcon(characterId)
-    return GetCuteModelConfig(characterId).SmallHeadIcon or ""
-end
-function XFubenSpecialTrainConfig.GetCuteModelHalfBodyImage(characterId)
-    return GetCuteModelConfig(characterId).HalfBodyImage or ""
-end
-function XFubenSpecialTrainConfig.GetModelRandomAction(modelName)
-    return SpecialTrainDisplayActionConfig[modelName].Action
-end
-function XFubenSpecialTrainConfig.GetCharacterIdByNpcId(npcId)
-    return CharacterTab[npcId]
-end
---endregion
+
+function XFubenSpecialTrainConfig.GetSpecialTrainStageTimeId(stageId)
+    if SpecialTrainStageConfig[stageId] then
+        return SpecialTrainStageConfig[stageId].TimeId
+    end
+    return -1
+end 
+
+--获取关卡本地键名：是否是新解锁且未选择过
+function XFubenSpecialTrainConfig.GetStageLocalKey(activityId,stageId)
+    return tostring(XPlayer.Id)..tostring(activityId)..tostring(stageId)..'SummerEpisode_Use_State'
+end 

@@ -1,6 +1,6 @@
 ---通用等级处理接口，人物等级达到满级后将会显示荣耀的icon
 
-XUiPlayerLevel = XUiPlayerLevel or {}
+local XUiPlayerLevel = {}
 
 local Update = function(level, uiObject, desc)
     local txtLevel = uiObject:GetObject("TxtLevel")
@@ -32,3 +32,6 @@ XUiPlayerLevel.UpdateLevel = function(level, Object, desc)
 
     Update(level, uiObject, desc)
 end
+
+
+return XUiPlayerLevel

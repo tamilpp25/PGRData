@@ -29,7 +29,7 @@ function XUiExpeditionMessageItem:Init(ui, rootUi, eCharId)
 end
 
 function XUiExpeditionMessageItem:RefreshData(commentData)
-    XUiPLayerHead.InitPortrait(commentData.Icon, commentData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(commentData.Icon, commentData.HeadFrameId, self.Head)
     self.TxtMsg.text = commentData.Content
     self.TxtName.text = commentData.PlayerName
     self.CommentId = commentData.CommentId

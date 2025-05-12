@@ -44,7 +44,8 @@ function XUiSuperSmashBrosCore:InitPanelDetails()
 end
 
 function XUiSuperSmashBrosCore:OnStart(core)
-    self.CurrentCore = core or XDataCenter.SuperSmashBrosManager.GetCoreByPriority(1)
+    XDataCenter.SuperSmashBrosManager.SortCores()
+    self.CurrentCore = core or XDataCenter.SuperSmashBrosManager.GetOneCore()
     self:InitPanels()
     self:SetActivityTimeLimit()
 end

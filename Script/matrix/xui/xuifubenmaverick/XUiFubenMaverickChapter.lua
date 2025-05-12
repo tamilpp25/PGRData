@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiFubenMaverickChapter = XLuaUiManager.Register(XLuaUi, "UiFubenMaverickChapter")
 local XUiFubenMaverickStagePanel = require("XUi/XUiFubenMaverick/XUiScrollView/XUiFubenMaverickStagePanel")
 

@@ -552,11 +552,19 @@ XBountyTaskManagerCreator = function()
     end
 
     --初始化关卡数据
-    function XBountyTaskManager.InitStageInfo()
+    --function XBountyTaskManager.InitStageInfo()
+    --    for id, v in pairs(BountyTaskConfig) do
+    --        local stageInfo = XDataCenter.FubenManager.GetStageInfo(v.StageId)
+    --        stageInfo.BountyId = id
+    --        stageInfo.Type = XDataCenter.FubenManager.StageType.BountyTask
+    --    end
+    --end
+    
+    function XBountyTaskManager.GetBountyId(stageId)
         for id, v in pairs(BountyTaskConfig) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(v.StageId)
-            stageInfo.BountyId = id
-            stageInfo.Type = XDataCenter.FubenManager.StageType.BountyTask
+            if v.StageId == stageId then
+                return id
+            end
         end
     end
 

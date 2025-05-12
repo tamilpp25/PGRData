@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiChessPursuitRankGrid = require("XUi/XUiChessPursuit/XUi/Rank/XUiChessPursuitRankGrid")
 local XUiChessPursuitMyRankGrid = require("XUi/XUiChessPursuit/XUi/Rank/XUiChessPursuitMyRankGrid")
 local XUiPanelRankReward = require("XUi/XUiChessPursuit/XUi/Rank/XUiChessPursuitPanelRankReward")

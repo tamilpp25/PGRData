@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelLevelUp = XClass(nil, "XUiPanelLevelUp")
 local XUiPanelExpBar = require("XUi/XUiSettleWinMainLine/XUiPanelExpBar")
 local XUiGridPartnerAttrib = require("XUi/XUiPartner/PartnerCommon/XUiGridPartnerAttrib")
@@ -211,7 +212,9 @@ function XUiPanelLevelUp:ShowHint(hintText)
     XLuaUiManager.SetMask(true)
     XLuaUiManager.Open("UiPartnerPopupTip", hintText, function ()
             XLuaUiManager.SetMask(false)
-            self.Base:UpdatePanel(self.Data)
+            if not XTool.UObjIsNil(self.Base.Transform) then
+                self.Base:UpdatePanel(self.Data)
+            end
     end)
 end
 

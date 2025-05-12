@@ -1,14 +1,10 @@
 local XRedPointConditionMainWeek = {}
 
 function XRedPointConditionMainWeek.Check()
-    local isShowRedPoint = XDataCenter.ActivityCalendarManager.CheckNewActivityUnlock() or
-            XDataCenter.ActivityCalendarManager.CheckActivityReadyEnd()
-
-    if isShowRedPoint and XDataCenter.ActivityCalendarManager.CheckWeekIsClick() then
-        return false
+    if XDataCenter.ActivityCalendarManager.CheckActivityRedPoint() then
+        return true
     end
-
-    return isShowRedPoint
+    return false
 end
 
 return XRedPointConditionMainWeek

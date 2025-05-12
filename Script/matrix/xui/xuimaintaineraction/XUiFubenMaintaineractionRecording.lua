@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenMaintaineractionRecording = XLuaUiManager.Register(XLuaUi, "UiFubenMaintaineractionRecording")
 local XUiGridRecord = require("XUi/XUiMaintainerAction/XUiGridRecord")
 local CSTextManagerGetText = CS.XTextManager.GetText

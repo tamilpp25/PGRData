@@ -1,3 +1,8 @@
+local XUiPanelCharAllOther = require("XUi/XUiPlayerInfo/XUiPanelCharAllOther")
+local XUiPanelCharSkillOther = require("XUi/XUiPlayerInfo/XUiPanelCharSkillOther")
+local XUiPanelCharGradeOther = require("XUi/XUiPlayerInfo/XUiPanelCharGradeOther")
+local XUiPanelCharQualityOther = require("XUi/XUiPlayerInfo/XUiPanelCharQualityOther")
+local XUiPanelCharLevelOther = require("XUi/XUiPlayerInfo/XUiPanelCharLevelOther")
 local XUiPanelCharPropertyOther = XLuaUiManager.Register(XLuaUi, "UiPanelCharPropertyOther")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 local XUiPanelCharEnhanceSkillSp = require("XUi/XUiCharacter/XUiPanelCharEnhanceSkillSp")
@@ -20,17 +25,18 @@ function XUiPanelCharPropertyOther:OnAwake()
 end
 
 -- partner : XPartner
-function XUiPanelCharPropertyOther:OnStart(character, equipList, weaponFashionId, assignChapterRecords, partner)
+function XUiPanelCharPropertyOther:OnStart(character, equipList, weaponFashionId, assignChapterRecords, partner, awarenessSetPositions)
     self.Character = character
     self.EquipList = equipList
     self.WeaponFashionId = weaponFashionId
     self.AssignChapterRecords = assignChapterRecords
     self.Partner = partner
+    self.AwarenessSetPositions = awarenessSetPositions
 
     --把服务器发来的装备数据分成武器与意识
     self.Awareness = {}
     for _, v in pairs(equipList) do
-        if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(v.TemplateId, XEquipConfig.Classify.Weapon) then
+        if XMVCA.XEquip:IsClassifyEqualByTemplateId(v.TemplateId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
             self.Weapon = v
         else
             table.insert(self.Awareness, v)
@@ -43,7 +49,7 @@ function XUiPanelCharPropertyOther:OnStart(character, equipList, weaponFashionId
 end
 
 function XUiPanelCharPropertyOther:OnEnable()
-    self.PanelPropertyButtons:SelectIndex(DEFAULT_INDEX)
+    self.PanelPropertyButtons:SelectIndex(self.SelectedIndex or DEFAULT_INDEX)
     self:UpdateSceneAndModel()
 end
 
@@ -72,7 +78,7 @@ end
 
 function XUiPanelCharPropertyOther:InitChildUiInfos()
     --总览面板不是不是预制体
-    local panelAll = XUiPanelCharAllOther.New(self.PanelOwnedInfoOther, self, self.Character, self.EquipList, self.AssignChapterRecords, self.Partner)
+    local panelAll = XUiPanelCharAllOther.New(self.PanelOwnedInfoOther, self, self.Character, self.EquipList, self.AssignChapterRecords, self.Partner, self.AwarenessSetPositions)
     self.PanelsMap = {
         [PANEL_INDEX.All] = panelAll
     }
@@ -102,11 +108,11 @@ function XUiPanelCharPropertyOther:InitChildUiInfos()
             UiParent = self.PanelCharSkillOther,
             AssetPath = XUiConfigs.GetComponentUrl("UiPanelCharProperty" .. PANEL_INDEX.Skill - 1),
         },
-        [PANEL_INDEX.EnhanceSkill] = {
-            ChildClass = XUiPanelCharEnhanceSkill,
-            UiParent = self.PanelCharEnhanceSkillOther,
-            AssetPath = XUiConfigs.GetComponentUrl("UiPanelCharProperty" .. PANEL_INDEX.EnhanceSkill - 1),
-        },
+        -- [PANEL_INDEX.EnhanceSkill] = {
+        --     ChildClass = XUiPanelCharEnhanceSkill,
+        --     UiParent = self.PanelCharEnhanceSkillOther,
+        --     AssetPath = XUiConfigs.GetComponentUrl("UiPanelCharProperty" .. PANEL_INDEX.EnhanceSkill - 1),
+        -- },
         [PANEL_INDEX.EnhanceSkillSp] = {
             ChildClass = XUiPanelCharEnhanceSkillSp,
             UiParent = self.PanelCharEnhanceSpSkillOther,
@@ -120,9 +126,9 @@ function XUiPanelCharPropertyOther:InitBtnTabGroup()
     self.BtnTabQuality.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.CharacterQuality))
     self.BtnTabSkill.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.CharacterSkill))
     self.BtnTabLevel.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.CharacterLevelUp))
-    if self.Character:GetCharacterType() == XCharacterConfigs.CharacterType.Normal then
+    if self.Character:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Normal then
         self.BtnTabEnhanceSkill:SetNameByGroup(0,CS.XTextManager.GetText("EnhanceSkillTab"))
-    elseif self.Character:GetCharacterType() == XCharacterConfigs.CharacterType.Sp then
+    elseif self.Character:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Sp then
         self.BtnTabEnhanceSkill:SetNameByGroup(0,CS.XTextManager.GetText("SpEnhanceSkillTab"))
     end
     local tabGroup = {
@@ -143,7 +149,7 @@ end
 
 function XUiPanelCharPropertyOther:UpdateShowPanel()
     local index = self.SelectedIndex
-    if self.Character:GetCharacterType() == XCharacterConfigs.CharacterType.Sp and index == PANEL_INDEX.EnhanceSkill then
+    if self.Character:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Sp and index == PANEL_INDEX.EnhanceSkill then
         index = PANEL_INDEX.EnhanceSkillSp
     end
     for k, panel in pairs(self.PanelsMap) do
@@ -166,7 +172,7 @@ function XUiPanelCharPropertyOther:UpdateShowPanel()
         self.PanelsMap[index] = panel
     end
     if self.SelectedIndex == PANEL_INDEX.All then
-        panel:ShowPanel(self.Character, self.Weapon, self.Awareness, self.Partner)
+        panel:ShowPanel(self.Character, self.Weapon, self.Awareness, self.Partner, self.AssignChapterRecords, self.AwarenessSetPositions)
     elseif self.SelectedIndex == PANEL_INDEX.Skill then
         panel:ShowPanel(self.Character, self.EquipList)
     else
@@ -190,19 +196,12 @@ end
 
 function XUiPanelCharPropertyOther:GetSceneUrl()
     local fashionId = self.Character.FashionId or
-    XCharacterConfigs.GetCharacterTemplate(self.Character.Id).DefaultNpcFashtionId
+    XMVCA.XCharacter:GetCharacterTemplate(self.Character.Id).DefaultNpcFashtionId
     local sceneUrl = XDataCenter.FashionManager.GetFashionSceneUrl(fashionId)
     return sceneUrl or self:GetDefaultSceneUrl()
 end
 
 function XUiPanelCharPropertyOther:RecoveryPanel()
-    local skillPanel = self.PanelsMap[PANEL_INDEX.Skill]
-    if skillPanel and skillPanel.SkillInfoPanel.IsShow then
-        skillPanel.SkillInfoPanel:HidePanel()
-        skillPanel:ShowPanel(self.Character, self.EquipList)
-        return true
-    end
-
     local enhanceSkillPanel = self.PanelsMap[PANEL_INDEX.EnhanceSkill]
     if enhanceSkillPanel and enhanceSkillPanel:IsSelectPos() then
         enhanceSkillPanel:CleatSelectPos()

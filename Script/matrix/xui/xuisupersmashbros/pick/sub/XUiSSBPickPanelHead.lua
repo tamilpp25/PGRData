@@ -5,6 +5,9 @@ local XUiSSBPickPanelHead = XClass(nil, "XUiSSBPickPanelHead")
 
 local FilterJudge = {
     [XSuperSmashBrosConfig.RoleType.Chara] = function(groupId, tagValue, xRole)
+        if xRole:IsNoCareer() then
+            return false
+        end
         local characterViewModel = xRole:GetCharacterViewModel()
         -- 职业筛选
         if groupId == XRoomCharFilterTipsConfigs.EnumFilterTagGroup.SSBRole then
@@ -37,9 +40,10 @@ local FilterJudge = {
     end
 }
 
-function XUiSSBPickPanelHead:Ctor(rootUi)
+function XUiSSBPickPanelHead:Ctor(rootUi, isChangeMonsterOnFighting)
     self.Mode = rootUi.Mode
     self.RootUi = rootUi
+    self.IsChangeMonsterOnFighting = isChangeMonsterOnFighting
     XTool.InitUiObjectByUi(self, self.RootUi.PanelHead)
     self:Init()
 end
@@ -80,7 +84,7 @@ function XUiSSBPickPanelHead:OnClickBtnFilter()
     XLuaUiManager.Open("UiRoomCharacterFilterTips", self,
         filterType,
         enumSortType,
-        nil, nil, nil) --XCharacterConfigs.CharacterType.Normal
+        nil, nil, nil) --XEnumConst.CHARACTER.CharacterType.Normal
 end
 --=================
 --初始化角色头像列表
@@ -94,7 +98,7 @@ end
 --=================
 function XUiSSBPickPanelHead:InitMonsterHeadList()
     local script = require("XUi/XUiSuperSmashBros/Pick/DTable/XUiSSBPickMonsterHeadList")
-    self.MonsterList = script.New(self.PanelMonsterList, self)
+    self.MonsterList = script.New(self.PanelMonsterList, self, self.IsChangeMonsterOnFighting, self.Mode)
 end
 --=================
 --显示面板

@@ -13,15 +13,15 @@ function XRedPointConditionChristmasTree.GetSubConditions()
 end
 
 function XRedPointConditionChristmasTree.Check()
-    if XRedPointConditionChristmasTreeOrnamentActive.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHRISTMAS_TREE_ORNAMENT_ACTIVE) then
         return true
     end
 
-    if XRedPointConditionChristmasTreeAward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHRISTMAS_TREE_AWARD) then
         return true
     end
     
-    if XRedPointConditionChristmasTreeOrnamentRead.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHRISTMAS_TREE_ORNAMENT_READ) then
         return true
     end
     

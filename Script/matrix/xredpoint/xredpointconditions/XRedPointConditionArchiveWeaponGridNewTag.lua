@@ -13,7 +13,7 @@ function XRedPointConditionArchiveWeaponGridNewTag.GetSubEvents()
 end
 
 function XRedPointConditionArchiveWeaponGridNewTag.Check(templateId)
-    return XDataCenter.ArchiveManager.IsNewWeapon(templateId)
+    return XMVCA.XArchive:IsNewWeapon(templateId)
 end
 
 return XRedPointConditionArchiveWeaponGridNewTag

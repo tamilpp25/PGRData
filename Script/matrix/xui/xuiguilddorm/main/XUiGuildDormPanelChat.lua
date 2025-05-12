@@ -49,7 +49,10 @@ function XUiGuildDormPanelChat:Refresh(chatData, onEnable)
         self.TxtMessageContent.text = string.Utf8Sub(self.TxtMessageContent.text, 1, CHAT_SUB_LENGTH) .. [[...]]
     end
     if not onEnable then
-        XEventManager.DispatchEvent(XEventId.EVENT_GUILD_DORM_ROLE_TALK, lastChat.SenderId, lastChat.Content, lastChat.MsgType == ChatMsgType.Emoji)
+        local role = XDataCenter.GuildDormManager.GetCurrentRoom():GetRoleByPlayerId(lastChat.SenderId)
+        if role then
+            XEventManager.DispatchEvent(XEventId.EVENT_GUILD_DORM_ENTITY_TALK, role, lastChat.Content, lastChat.MsgType == ChatMsgType.Emoji)
+        end
     end
 end
 

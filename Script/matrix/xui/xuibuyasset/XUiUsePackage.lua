@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiBattery = require("XUi/XUiBuyAsset/XUiBattery")
 local XUiUsePackage = XLuaUiManager.Register(XLuaUi, "UiUsePackage")
 
 local DefaultIndex = 1
@@ -20,11 +22,22 @@ function XUiUsePackage:OnStart(id, successCallback, challengeCountData, buyAmoun
     CsXGameEventManager.Instance:Notify(XEventId.EVENT_UIDIALOG_VIEW_ENABLE)
 end
 
+function XUiUsePackage:OnEnable()
+
+end
+
+function XUiUsePackage:OnDisable()
+
+end
 
 function XUiUsePackage:OnDestroy()
     if self.Timers then
         XScheduleManager.UnSchedule(self.Timers)
         self.Timers = nil
+    end
+
+    if self.DynamicTable then
+        self.DynamicTable:RecycleAllTableGrid()
     end
 end
 

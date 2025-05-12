@@ -32,14 +32,13 @@ function XUiGridMemberVistorItem:OnRefresh(itemdata)
 
     self.ItemData = itemdata
     self.PlayId = itemdata.PlayId
-    XUiPLayerHead.InitPortrait(itemdata.HeadPortraitId, itemdata.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(itemdata.HeadPortraitId, itemdata.HeadFrameId, self.Head)
     self.TxtName.text = XDataCenter.SocialManager.GetPlayerRemark(itemdata.PlayId, itemdata.Name) 
     self.TextLv.text = itemdata.Level
     self.TxtJob.text = XDataCenter.GuildManager.GetRankNameByLevel(itemdata.RankLevel)
     self.TxtContribution.text = itemdata.ContributeAct
     self.TxtHistoryContribution.text = itemdata.ContributeHistory
     self.TxtLastLogin.text = XUiHelper.CalcLatelyLoginTime(itemdata.LastLoginTime)
-    self.TxtPopulation.text = itemdata.Popularity
 end
 
 return XUiGridMemberVistorItem

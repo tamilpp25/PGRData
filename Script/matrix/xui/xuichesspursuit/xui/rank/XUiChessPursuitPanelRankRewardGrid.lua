@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiChessPursuitPanelRankRewardGrid = XClass(nil, "XUiChessPursuitPanelRankRewardGrid")
 
 function XUiChessPursuitPanelRankRewardGrid:Ctor(rootUi, ui)

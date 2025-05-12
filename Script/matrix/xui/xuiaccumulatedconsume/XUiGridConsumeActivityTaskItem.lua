@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridConsumeActivityTaskItem = XClass(nil, "XUiGridConsumeActivityTaskItem")
 
 function XUiGridConsumeActivityTaskItem:Ctor(ui)

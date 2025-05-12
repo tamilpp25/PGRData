@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiGridSkillGroup = require("XUi/XUiFubenCoupleCombat/ChildItem/XUiGridSkillGroup")
 
 local CsXTextManagerGetText = CsXTextManagerGetText

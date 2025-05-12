@@ -1,4 +1,5 @@
-XPageView = XClass(XLuaBehaviour, "XPageView")
+local XScrollConfig = require("XUi/XUiCommon/XScrollView/XScrollConfig")
+local XPageView = XClass(XLuaBehaviour, "XPageView")
 function XPageView:Ctor(rootUi, pageView, innerContainer, pageValue, dir)
     self.Dir = dir or XScrollConfig.HORIZONTAL
     self.InnerContainer = innerContainer
@@ -200,3 +201,5 @@ function XPageView:Dispose()
         CS.UnityEngine.GameObject.Destroy(self.UiWidget)
     end
 end
+
+return XPageView

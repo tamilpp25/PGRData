@@ -1,5 +1,6 @@
+---@class XUiDormSecondHead
 local XUiDormSecondHead = XClass(XLuaBehaviour, "XUiDormSecondHead")
-local MAXPERSON = 3
+local MAXPERSON = 3 --宿舍内最大角色数量
 
 function XUiDormSecondHead:Ctor(uiRoot, ui)
     self.GameObject = ui.gameObject
@@ -16,15 +17,16 @@ function XUiDormSecondHead:Init()
     XEventManager.AddEventListener(XEventId.EVENT_DORM_TOUCH_ENTER, self.OnTouchEnter, self)
     XEventManager.AddEventListener(XEventId.EVENT_DORM_TOUCH_HIDE, self.OnTouchHide, self)
     XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_CHANGE_ROOM_CHARACTER, self.OnChangeRoomCharacter, self)
-    CsXGameEventManager.Instance:RegisterEvent(XEventId.EVENT_HOME_CHARACTER_STATUS_CHANGE, handler(self, self.OnChangeState))
+    self.OnChangeStateCb = handler(self, self.OnChangeState)
+    CsXGameEventManager.Instance:RegisterEvent(XEventId.EVENT_HOME_CHARACTER_STATUS_CHANGE, self.OnChangeStateCb)
 
-    for i=1,MAXPERSON do
+    for i=1, MAXPERSON do
         self.UiRoot:RegisterClickEvent(self["Head" .. i], function() 
             self:OnBtnHeadClick(i) 
         end)
     end
 
-    for i=1,MAXPERSON do
+    for i=1, MAXPERSON do
         self.UiRoot:RegisterClickEvent(self["BtnTouch" .. i], function() 
             self:OnBtnTouchClick(i) 
         end)
@@ -36,7 +38,7 @@ function XUiDormSecondHead:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_DORM_TOUCH_ENTER, self.OnTouchEnter, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_DORM_TOUCH_HIDE, self.OnTouchHide, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_CHARACTER_CHANGE_ROOM_CHARACTER, self.OnChangeRoomCharacter, self)
-    CsXGameEventManager.Instance:RemoveEvent(XEventId.EVENT_HOME_CHARACTER_STATUS_CHANGE, handler(self, self.OnChangeState))
+    CsXGameEventManager.Instance:RemoveEvent(XEventId.EVENT_HOME_CHARACTER_STATUS_CHANGE, self.OnChangeStateCb)
 
     self:RemoveTimer()
 end
@@ -44,7 +46,7 @@ end
 --@region 事件处理相关
 
 function XUiDormSecondHead:OnBtnHeadClick(i)
-    local character = self.characterData[i] 
+    local character = self.characterData[i]
     if character then
         if not XDataCenter.DormManager.IsWorking(character.CharacterId) then
             local activeCharacter = XHomeCharManager.GetActiveCharacter(character.CharacterId)
@@ -56,6 +58,9 @@ function XUiDormSecondHead:OnBtnHeadClick(i)
                 self["Head" .. i]:ShowReddot(false)
             end
         end
+    else
+        local config = XDormConfig.GetDormitoryCfgById(self.dormId)
+        XLuaUiManager.Open("UiDormPerson", XDormConfig.PersonType.Staff, config.SceneId, self.dormId)
     end
 end
 
@@ -69,7 +74,7 @@ function XUiDormSecondHead:OnExpDetailShow(characterId, transform)
     local index = self:GetIndexByCharacterId(characterId)
     if index then
         --保证只出现一个抚摸按钮
-        for i=1,MAXPERSON do
+        for i=1, MAXPERSON do
             self["BtnTouch" .. i].gameObject:SetActiveEx(index == i)
         end
 
@@ -97,7 +102,12 @@ function XUiDormSecondHead:OnChangeState(_, args)
     local characterId = args[0]
     local index = self:GetIndexByCharacterId(characterId)
     if index then
-        self["Head" .. index]:ShowReddot(self:IsHaveCharacterEvent(characterId))
+        local head = self["Head" .. index]
+        if not XTool.UObjIsNil(head) then
+            head:ShowReddot(self:IsHaveCharacterEvent(characterId))
+        else
+            XLog.Error("DormHead is nill, characterId:" .. tostring(characterId) .. ", index:" .. tostring(index))
+        end
     end
 end
 
@@ -115,23 +125,43 @@ function XUiDormSecondHead:Refresh(dormId)
     self.dormId = dormId
     self.characterData = self:GetCharacterData(dormId)
     
-    for i=1,MAXPERSON do
+    local characterCount = #self.characterData
+    local showAdd = characterCount < MAXPERSON
+    local isShowAdd = false
+    
+    for i=1, MAXPERSON do
         local character = self.characterData[i] 
         local btn = self["Head" .. i]
+        if XTool.UObjIsNil(btn) then
+            goto continue
+        end
+        btn:ShowReddot(false)
         if character then
             btn.gameObject:SetActiveEx(true)
 
-            local iconpath = XDormConfig.GetCharacterStyleConfigQSIconById(character.CharacterId)
-            if iconpath then
-                self.UiRoot:SetUiSprite(self["ImgHead" .. i], iconpath)
+            local iconPath = XDormConfig.GetCharacterStyleConfigQSIconById(character.CharacterId)
+            if iconPath then
+                local imgHead = self["ImgHead" .. i]
+                imgHead.gameObject:SetActiveEx(true)
+                imgHead:SetSprite(iconPath)
             end
 
             btn:ShowReddot(self:IsHaveCharacterEvent(character.CharacterId))
 
             self["PanelWorking" .. i].gameObject:SetActiveEx(XDataCenter.DormManager.IsWorking(character.CharacterId))
+            self["ImgAdd"..i].gameObject:SetActiveEx(false)
         else
-            btn.gameObject:SetActiveEx(false)
+            if showAdd and not isShowAdd then
+                btn.gameObject:SetActiveEx(true)
+                self["PanelWorking" .. i].gameObject:SetActiveEx(false)
+                self["ImgHead" .. i].gameObject:SetActiveEx(false)
+                self["ImgAdd"..i].gameObject:SetActiveEx(true)
+                isShowAdd = true
+            else
+                btn.gameObject:SetActiveEx(false)
+            end
         end
+        ::continue::
     end
 end
 

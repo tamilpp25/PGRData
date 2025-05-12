@@ -1,8 +1,8 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
-local Application = CS.UnityEngine.Application
-local Platform = Application.platform
-local RuntimePlatform = CS.UnityEngine.RuntimePlatform
 local CameraIndex = {
     Normal = 1,
     Near = 2,
@@ -38,23 +38,54 @@ function XUiFashionDetail:OnAwake()
     self.OnUiSceneLoadedCB = function() self:OnUiSceneLoaded() end
 end
 
-function XUiFashionDetail:OnStart(fashionId, isWeaponFashion,buyData, isShowFashionIconWithoutGift, isNeedCD)
+function XUiFashionDetail:OnStart(fashionId, isWeaponFashion, buyData, isShowFashionIconWithoutGift, isNeedCD, customWeaponFashionId, customDesc)
     self:InitSceneRoot() --设置摄像机
     self.FashionId = fashionId
     self.IsWeaponFashion = isWeaponFashion
     self.BuyData = buyData
-    self.GoodIdList = buyData and buyData.GiftRewardId
     self.IsShowFashionIconWithoutGift = isShowFashionIconWithoutGift
-    --v1.28-采购优化-记录是否当前皮肤是否已拥有
-    self.IsHaveFashion = XRewardManager.CheckRewardGoodsListIsOwnWithAll({XGoodsCommonManager.GetGoodsShowParamsByTemplateId(self.FashionId)})
+    self.CustomDesc = customDesc
+    self.CustomWeaponFashionId = customWeaponFashionId
+
+    if XWeaponFashionConfigs.IsWeaponFashion(self.FashionId) then 
+        --v1.31武器时装
+        self.IsHaveFashion = XDataCenter.WeaponFashionManager.CheckHasFashion(self.FashionId) and
+            not XDataCenter.WeaponFashionManager.IsFashionTimeLimit(self.FashionId)
+    else
+        --v1.28-采购优化-记录是否当前皮肤是否已拥有
+        self.IsHaveFashion = XRewardManager.CheckRewardGoodsListIsOwnWithAll({XGoodsCommonManager.GetGoodsShowParamsByTemplateId(self.FashionId)})
+    end
+
     -- 配置是否需要购买冷却
     self.IsNeedCD = isNeedCD or false
     -- 记录初始时间
     self.LastBuyTime = CS.UnityEngine.Time.realtimeSinceStartup
     self:SetDetailData()
+    self:CheckWeaponFashionBtnShow()
+    
+    self._StartRun = true
 end
 
 function XUiFashionDetail:OnEnable()
+    if self._StartRun then
+        self._StartRun = false
+    else
+        -- 二次显示需要重新刷新已拥有状态    
+        if XWeaponFashionConfigs.IsWeaponFashion(self.FashionId) then
+            --武器时装
+            local newIsHaveFashion = XDataCenter.WeaponFashionManager.CheckHasFashion(self.FashionId) and
+                    not XDataCenter.WeaponFashionManager.IsFashionTimeLimit(self.FashionId)
+            self.IsHaveFashionStateChanged = newIsHaveFashion ~= self.IsHaveFashion
+            self.IsHaveFashion = newIsHaveFashion
+        else
+            --记录是否当前皮肤是否已拥有
+            local newIsHaveFashion = XRewardManager.CheckRewardGoodsListIsOwnWithAll({XGoodsCommonManager.GetGoodsShowParamsByTemplateId(self.FashionId)})
+            self.IsHaveFashionStateChanged = newIsHaveFashion ~= self.IsHaveFashion
+            self.IsHaveFashion = newIsHaveFashion
+        end
+    end
+    
+    XEventManager.AddEventListener(XEventId.EVENT_PURCHASE_QUICK_BUY_SKIP, self.Close, self)
     CS.XGraphicManager.UseUiLightDir = true
     if self.IsWeaponFashion then
         self:LoadModelScene(true)
@@ -66,17 +97,28 @@ function XUiFashionDetail:OnEnable()
     self:InitBuyData()
 end
 
+function XUiFashionDetail:Close()
+    self.Super.Close(self)
+    
+    -- PurchaseLBUpdateCb为外界自定义追加的界面刷新回调
+    if self.IsHaveFashionStateChanged and self.BuyData.PurchaseLBUpdateCb then
+        self.BuyData:PurchaseLBUpdateCb()
+    end
+end
+
 function XUiFashionDetail:OnDisable()
+    XEventManager.RemoveEventListener(XEventId.EVENT_PURCHASE_QUICK_BUY_SKIP, self.Close, self)
     CS.XGraphicManager.UseUiLightDir = false
 end
 
 function XUiFashionDetail:OnUiSceneLoaded()
-    self:SetGameObject()
+    --self:SetGameObject()
 end
 
 function XUiFashionDetail:InitBuyData()
     self.BtnBuy.gameObject:SetActiveEx(false)
-    if not self.BuyData then
+    -- HideBuyBtn为外界自定义追加字段
+    if not self.BuyData or self.BuyData.HideBuyBtn then
         return
     end
 
@@ -84,29 +126,13 @@ function XUiFashionDetail:InitBuyData()
     self.TxtHave.gameObject:SetActiveEx(self.BuyData.IsHave)
     -- 礼包中已拥有涂装文本
     self.TxtRepeatWith.gameObject:SetActiveEx(not self.BuyData.IsHave and self.IsHaveFashion)
-    self.BtnBuy:SetDisable(self.BuyData.IsHave, not self.BuyData.IsHave)
+    local isHave = self.BuyData.IsHave or (self.IsHaveFashion and not self.BuyData.IsConvert)
+    self.BtnBuy:SetDisable(isHave, not isHave)
     self.PanelInformation.gameObject:SetActiveEx(self.BuyData.LimitText ~= nil or self.BuyData.IsHave 
         or not string.IsNilOrEmpty(self.BuyData.FashionLabel) or self.IsHaveFashion)
 
-    if self.BuyData.PayKeySuffix then
-        self.RawImageConsume.gameObject:SetActiveEx(false)
-        self.ImageYuan.gameObject:SetActiveEx(true)
-        self.BtnBuy:SetName(self:GetPayAmount(self.BuyData.PayKeySuffix))
-        if self.BuyData.IsHave then
-            local path = CS.XGame.ClientConfig:GetString("LBBuyRiYuanIconPath1")
-            self.ImageYuan:SetRawImage(path)
-        else
-            local path = CS.XGame.ClientConfig:GetString("LBBuyRiYuanIconPath")
-            self.ImageYuan:SetRawImage(path)
-        end
-        self:ShowSpecialRegulationForJP()
-    else
-        self.BtnBuy:SetName(self.BuyData.ItemCount)
-        self.RawImageConsume.gameObject:SetActiveEx(true)
-        self.ImageYuan.gameObject:SetActiveEx(false)
-        self.RawImageConsume:SetRawImage(self.BuyData.ItemIcon)
-    end
-
+    self.BtnBuy:SetName(self.BuyData.ItemCount)
+    self.RawImageConsume:SetRawImage(self.BuyData.ItemIcon)
     self.TxtLimitBuy.text = self.BuyData.LimitText or ""
 
     self.BtnBuy.CallBack = function()
@@ -114,10 +140,10 @@ function XUiFashionDetail:InitBuyData()
         if self.IsNeedCD then
             if self.LastBuyTime and CS.UnityEngine.Time.realtimeSinceStartup - self.LastBuyTime > PurchaseBuyPayCD then
                 self.LastBuyTime = CS.UnityEngine.Time.realtimeSinceStartup
-                self:OnBtnBuyClick()
+                self:OnBeforeBtnBuyClick(handler(self, self.OnBtnBuyClick))
             end
         else
-            self:OnBtnBuyClick()
+            self:OnBeforeBtnBuyClick(handler(self, self.OnBtnBuyClick))
         end
     end
 
@@ -137,33 +163,6 @@ function XUiFashionDetail:InitBuyData()
     --    BuyCallBack-----------购买时调用的接口
     --    FashionTip-----------皮肤礼包自定义提示
     --    }
-end
-
-function XUiFashionDetail:ShowSpecialRegulationForJP() --海外修改
-    local isShow = CS.XGame.ClientConfig:GetInt("ShowRegulationEnable")
-    if isShow and isShow == 1 then
-        local url = CS.XGame.ClientConfig:GetString("RegulationPrefabUrl")
-        if url then
-            local obj = self.BtnBuy.transform:LoadPrefab(url)
-            local data = {type = 2,consumeId = 1}
-            data.content = CS.XTextManager.GetText("JPBusinessLawsBuyLimitedText02",1)
-            self.ShowSpecialRegBtn = obj.transform:GetComponent("XHtmlText")
-            self.ShowSpecialRegBtn.text = CS.XTextManager.GetText("JPBusinessLawsDetailsEnter")
-            self.ShowSpecialRegBtn.HrefUnderLineColor = CS.UnityEngine.Color(1, 45 / 255, 45 / 255, 1)
-            self.ShowSpecialRegBtn.transform.localPosition = CS.UnityEngine.Vector3(-107.8, 110, 0)
-            self.ShowSpecialRegBtn.fontSize = 32
-            self.ShowSpecialRegBtn.HrefListener = function(link)
-                XLuaUiManager.Open("UiSpecialRegulationShow",data)
-            end
-        end
-    end
-end
-
-function XUiFashionDetail:GetPayAmount(PayKeySuffix)
-    local key = XPayConfigs.GetProductKey(PayKeySuffix)
-
-    local payConfig = XPayConfigs.GetPayTemplate(key)
-    return payConfig and payConfig.Amount or 0
 end
 
 function XUiFashionDetail:OnSliderCharacterHightChanged()
@@ -205,34 +204,59 @@ end
 function XUiFashionDetail:AutoAddListener()
     self:RegisterClickEvent(self.BtnBack, self.OnBtnBackClick)
     self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick)
+    self:RegisterClickEvent(self.BtnGouxuan, self.OnBtnShowWeaponFashion)
     XUiHelper.RegisterSliderChangeEvent(self, self.SliderCharacterHight, self.OnSliderCharacterHightChanged)
     self.BtnLensOut.CallBack = function() self:OnBtnLensOut() end
     self.BtnLensIn.CallBack = function() self:OnBtnLensIn() end
 end
 
 function XUiFashionDetail:SetDetailData()
+
+    -- v1.28-采购优化-赠品队列展示
+    -- 传入Data为单一rewardId的情况
     local giftRewardId = self.BuyData and self.BuyData.GiftRewardId
-    -- giftRewardId=额外礼物，在商店皮肤界面，没有额外礼物，就显示时装物品
-    if giftRewardId and not (giftRewardId == 0 and self.IsShowFashionIconWithoutGift) then
-        if giftRewardId == 0 then
-            self.GridItem.gameObject:SetActiveEx(false)
-            self.RewordGoodList.gameObject:SetActiveEx(false)
-            self.Title.gameObject:SetActiveEx(false)
-        else
-            -- v1.28-采购优化-赠品队列展示
-            -- 传入Data为单一rewardId的情况
-            if type(giftRewardId) == "number" then self.GoodIdList = {XRewardManager.GetRewardList(giftRewardId)[1]} end
-            self.GridItem.gameObject:SetActiveEx(false)
-            self.RewordGoodList.gameObject:SetActiveEx(true)
-            self.GridGoodItem.gameObject:SetActiveEx(false)
-            self.DynamicTable = XDynamicTableNormal.New(self.RewordGoodList)
-            self.DynamicTable:SetProxy(XUiGridCommon)
-            self.DynamicTable:SetDelegate(self)
-            self.DynamicTable:SetDataSource(self.GoodIdList)
-            self.DynamicTable:ReloadDataASync(1)
-            self.Title.text = CS.XTextManager.GetText("SpecialFashionShopGiftTitle")
-            self.BtnClick.gameObject:SetActiveEx(true)
+    if type(giftRewardId) == "number" then
+        if giftRewardId ~= 0 then
+            self.GoodIdList = XRewardManager.GetRewardList(giftRewardId)
         end
+    elseif self.BuyData and self.BuyData.GiftRewardId then
+        self.GoodIdList = self.BuyData.GiftRewardId
+    end
+
+    -- v1.31-采购优化-涂装增加CG展示道具
+    if not self.IsWeaponFashion then
+        local subItems = XDataCenter.FashionManager.GetFashionSubItems(self.FashionId)
+        if subItems then
+            for _, itemTemplateId in ipairs(subItems) do
+                if self.GoodIdList == nil then self.GoodIdList = {} end
+                table.insert(self.GoodIdList, {TemplateId = itemTemplateId, Count = 1, IsSubItem = true})
+            end
+        end
+    end
+    
+    local giftId = not self.IsWeaponFashion and XFashionConfigs.GetFashionTemplate(self.FashionId).GiftId or 0
+    if XTool.IsNumberValid(giftId) then
+        local giftGoodShowData = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(giftId)
+        giftGoodShowData.IsGift = true
+        giftGoodShowData.Count = 1
+        if self.GoodIdList == nil then
+            self.GoodIdList = {}
+        end
+        table.insert(self.GoodIdList,giftGoodShowData)
+    end
+
+    -- giftRewardId=额外礼物，在商店皮肤界面，没有额外礼物，就显示时装物品
+    if self.GoodIdList and #self.GoodIdList > 0 and not self.IsShowFashionIconWithoutGift then
+        self.GridItem.gameObject:SetActiveEx(false)
+        self.RewordGoodList.gameObject:SetActiveEx(true)
+        self.GridGoodItem.gameObject:SetActiveEx(false)
+        self.DynamicTable = XDynamicTableNormal.New(self.RewordGoodList)
+        self.DynamicTable:SetProxy(XUiGridCommon)
+        self.DynamicTable:SetDelegate(self)
+        self.DynamicTable:SetDataSource(self.GoodIdList)
+        self.DynamicTable:ReloadDataASync(1)
+        self.Title.text = CS.XTextManager.GetText("SpecialFashionShopGiftTitle")
+        self.BtnClick.gameObject:SetActiveEx(true)
     else
         self.GridItem.gameObject:SetActiveEx(true)
         self.RewordGoodList.gameObject:SetActiveEx(false)
@@ -265,8 +289,13 @@ end
 -- v1.28-采购优化-时装礼包赠品动态列表更新
 function XUiFashionDetail:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        grid:Refresh(self.GoodIdList[index])
+        local gridData = self.GoodIdList[index]
+        grid:Refresh(gridData)
         -- 已拥有图标显示
+        -- 涂装子道具随绑定涂装的拥有而显示已拥有状态
+        if (gridData.IsSubItem and self.IsHaveFashion) or (self.BuyData and self.BuyData.ItemCount == 0) then
+            grid.TxtHave.gameObject:SetActiveEx(true)
+        end
         local isHave = grid.TxtHave.gameObject.activeSelf
         grid.ImgIsHave.gameObject:SetActiveEx(isHave)
     end
@@ -280,6 +309,15 @@ function XUiFashionDetail:UpdateCharacterModel()
         self.ImgEffectHuanren.gameObject:SetActiveEx(true)
     end
 
+    local weaponFashionId
+    if XTool.IsNumberValid(self.CustomWeaponFashionId) then
+        -- 勾选则显示自定义武器涂装，不勾选则显示当前穿戴武器涂装
+        if self.IsCustomWeaponFashion then
+            weaponFashionId = self.CustomWeaponFashionId
+        else
+            weaponFashionId = XDataCenter.WeaponFashionManager.GetCharacterWearingWeaponFashionId(template.CharacterId)
+        end
+    end
 
     self.TxtTitle.text = TitleName.Title[ViewType.Character]
     self.TxtTipTitle.text = TitleName.TipTitle[ViewType.Character]
@@ -287,7 +325,12 @@ function XUiFashionDetail:UpdateCharacterModel()
     self.PanelWeapon.gameObject:SetActiveEx(false)
     self.RoleModelPanel.GameObject:SetActiveEx(true)
     self.PanelBtnLens.gameObject:SetActiveEx(true)
-    self.RoleModelPanel:UpdateCharacterResModel(template.ResourcesId, template.CharacterId, XModelManager.MODEL_UINAME.XUiFashionDetail, func)
+    self.RoleModelPanel:UpdateCharacterResModel(template.ResourcesId, template.CharacterId, XModelManager.MODEL_UINAME.XUiFashionDetail, func, nil, weaponFashionId)
+
+    if XTool.DebugIsShowItemIdOnUi() then
+        self.TxtTitle.text = self.TxtTitle.text .. string.format("(Id:%s)", template.Id)
+        self.TxtTitle.transform:SetSizeWithCurrentAnchors(CS.UnityEngine.RectTransform.Axis.Horizontal, 800)
+    end
 end
 
 function XUiFashionDetail:UpdateWeaponModel()
@@ -303,7 +346,22 @@ function XUiFashionDetail:UpdateWeaponModel()
     self.PanelWeapon.gameObject:SetActiveEx(true)
     self.PanelBtnLens.gameObject:SetActiveEx(false)
     self.ImgEffectHuanren.gameObject:SetActiveEx(false)
-    XModelManager.LoadWeaponModel(modelConfig.ModelId, self.PanelWeapon, modelConfig.TransformConfig, uiName, nil, { gameObject = self.GameObject ,IsDragRotation = true}, self.PanelDrag)
+    XModelManager.LoadWeaponModel(modelConfig.ModelId, self.PanelWeapon, modelConfig.TransformConfig, uiName, nil, { gameObject = self.GameObject, IsDragRotation = true }, self.PanelDrag)
+
+
+    if XTool.DebugIsShowItemIdOnUi() then
+        local itemId
+        if self.BuyData and self.BuyData.CurRewardGoods then
+            itemId = self.BuyData.CurRewardGoods.TemplateId
+        end
+        if itemId then
+            self.TxtTitle.text = self.TxtTitle.text .. string.format("(Id:%s, Item:%s)", self.FashionId, itemId)
+            self.TxtTitle.transform:SetSizeWithCurrentAnchors(CS.UnityEngine.RectTransform.Axis.Horizontal, 1500)
+        else
+            self.TxtTitle.text = self.TxtTitle.text .. string.format("(Id:%s)", self.FashionId)
+            self.TxtTitle.transform:SetSizeWithCurrentAnchors(CS.UnityEngine.RectTransform.Axis.Horizontal, 800)
+        end
+    end
 end
 
 function XUiFashionDetail:OnBtnBackClick()
@@ -314,6 +372,29 @@ function XUiFashionDetail:OnBtnMainUiClick()
     XLuaUiManager.RunMain()
 end
 
+--- 执行正常购买流程前的处理，用于特殊逻辑
+function XUiFashionDetail:OnBeforeBtnBuyClick(cb)
+    --3.1莉莉丝可肝卡池特殊涂装
+    local lilithFashionId = XGachaConfigs.GetClientConfigNumber('SpeicalFashionFromPurchaseToGachaShop', 1)
+
+    if XTool.IsNumberValid(lilithFashionId) and lilithFashionId == self.FashionId and not self.BuyData.FromGachaShop then
+        local skipCondition = XGachaConfigs.GetClientConfigNumber('SpecialConditionFromPurchaseToGachaShop', 1)
+        -- 判断条件满足，因为具有特殊性，未配置视为不可跳转
+        if XTool.IsNumberValid(skipCondition) and XConditionManager.CheckCondition(skipCondition) then
+            local skipId = XGachaConfigs.GetClientConfigNumber('SpecialSkipToGachaShop', 1)
+            if XTool.IsNumberValid(skipId) then
+                XLuaUiManager.Open('UiGachaCanLiverDialog', cb, skipId)
+                return
+            end
+        end
+    end
+    
+    -- 未执行特殊逻辑，则直接执行回调
+    if cb then
+        cb()
+    end
+end
+
 function XUiFashionDetail:OnBtnBuyClick()
     local title = XUiHelper.GetText("PurchaseFashionRepeatTipsTitle")
     local content = XUiHelper.GetText("PurchaseFashionRepeatTipsContent")
@@ -321,8 +402,8 @@ function XUiFashionDetail:OnBtnBuyClick()
         self.BuyData.BuyCallBack()
         self:OnBtnBackClick()
     end
-    -- 已有涂装则二次确认
-    if self.IsHaveFashion then
+    -- 已有涂装则二次确认，V1.31折价礼包不弹二次确认提示
+    if self.IsHaveFashion and not self.BuyData.IsConvert then
         XUiManager.DialogTip(title, content, nil, nil, sureCb)
     else
         sureCb()
@@ -347,3 +428,24 @@ function XUiFashionDetail:GetSceneUrl(isDefault)
         return self:GetDefaultSceneUrl()
     end
 end
+
+--region 显示武器时装
+
+function XUiFashionDetail:CheckWeaponFashionBtnShow()
+    if XTool.IsNumberValid(self.CustomWeaponFashionId) then
+        self.PanelAdd.gameObject:SetActiveEx(true)
+        self.TxtToggleDesc.text = self.CustomDesc or ""
+        self.BtnGouxuan:SetButtonState(CS.UiButtonState.Select)
+        self.IsCustomWeaponFashion = true
+    else
+        self.PanelAdd.gameObject:SetActiveEx(false)
+    end
+end
+
+function XUiFashionDetail:OnBtnShowWeaponFashion()
+    self.IsCustomWeaponFashion = self.BtnGouxuan:GetToggleState()
+    self:LoadModelScene(false)
+    self:UpdateCharacterModel()
+end
+
+--endregion

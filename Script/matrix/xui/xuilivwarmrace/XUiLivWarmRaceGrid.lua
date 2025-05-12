@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
 --挑战目标弹窗的格子

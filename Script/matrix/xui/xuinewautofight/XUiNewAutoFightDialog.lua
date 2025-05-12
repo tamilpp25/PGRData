@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiNewAutoFightDialog = XLuaUiManager.Register(XLuaUi, "UiAutoFightEnter")
 
 local tableinsert = table.insert
@@ -51,7 +52,7 @@ function XUiNewAutoFightDialog:InitUI(stageId, stage)
         maxChallengeNum = autoFightCfg.Limit
     end
 
-    self.RequireAP = stageCfg.RequireActionPoint
+    self.RequireAP = XDataCenter.FubenManager.GetRequireActionPoint(stageId)
     self.LeftTimes = maxChallengeNum
     self.RecordTime = self.StageData.LastRecordTime
 
@@ -87,7 +88,7 @@ function XUiNewAutoFightDialog:InitCharacters(characterIds)
             end
 
             local img = transform:Find("ImgIcon"):GetComponent("RawImage")
-            local icon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(id)
+            local icon = XMVCA.XCharacter:GetCharRoundnessHeadIcon(id)
             img:SetRawImage(icon)
             transform.gameObject:SetActiveEx(true)
         end

@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 
 local XUiGridInfestorExploreRegionTitle = XClass(nil, "XUiGridInfestorExploreRegionTitle")

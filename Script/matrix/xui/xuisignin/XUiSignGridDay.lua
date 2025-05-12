@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiSignGridDay = XClass(nil, "XUiSignGridDay")
 
 function XUiSignGridDay:Ctor(ui, rootUi)
@@ -52,7 +53,7 @@ function XUiSignGridDay:Refresh(config, isShow, forceSetTomorrow)
     self.IsShow = isShow
     self.Config = config
     self.ForceSetTomorrow = forceSetTomorrow
-
+    self.PanelNext.gameObject:SetActiveEx(false)
     self.TxtDay.text = string.format("%02d", config.Pre)
     if not isShow or forceSetTomorrow then
         self:SetTomorrow()
@@ -74,7 +75,7 @@ function XUiSignGridDay:Refresh(config, isShow, forceSetTomorrow)
     end
 
     self:SetCardInfo(isAlreadyGet)
-    self.Grid:Refresh(rewardList[1])
+    self.Grid:Refresh(rewardList[1], nil, true)
     self.GameObject:SetActiveEx(true)
     self:AnimaStart()
 end
@@ -110,11 +111,9 @@ function XUiSignGridDay:AnimaStart()
     -- 还未领取奖励，将会在签到动画播放完后才派发事件
     -- 这时候奖励格子已经全部初始化完成，会进入XUiSignPrefab:SetTomorrowOpen()的v:SetTomorrow()
     self:SetEffectActive(true)
-    XDataCenter.SignInManager.SignInRequest(self.Config.SignId, function(rewardItems)
-        self:GetYK(rewardItems)
-    end,
-    function()
-        self:GetYK()
+    -- 2.10 先领月卡奖励再领签到奖励，领一半掉线重登仍有弹窗继续领取
+    self:GetYKReward(function(rewardItems)
+        self:GetSignReward(rewardItems)
     end)
 end
 
@@ -130,7 +129,7 @@ function XUiSignGridDay:SetCardInfo()
     local isAlreadyGet = XDataCenter.SignInManager.JudgeAlreadyGet(self.Config.SignId, self.Config.Round, self.Config.Day)
     local isGot = true
     local remainDay = -1
-    local ykData = XDataCenter.PurchaseManager.GetCurBoughtYKData() -- 海外修改
+    local ykData = XDataCenter.PurchaseManager.GetYKInfoData()
     if ykData then
         isGot = ykData.IsDailyRewardGet
         remainDay = ykData.DailyRewardRemainDay
@@ -139,67 +138,97 @@ function XUiSignGridDay:SetCardInfo()
     local isOverdue, canClickYk = XDataCenter.SignInManager.JudgeYKInSignOverdue(self.Config.SignId, self.Config.Round, self.Config.Day, remainDay)
     local isToday, _ = XDataCenter.SignInManager.JudgeTodayGet(self.Config.SignId, self.Config.Round, self.Config.Day)
     if isOverdue then
-        self.PanelEnable.gameObject:SetActiveEx(false)
-        self.PanelDisable.gameObject:SetActiveEx(true)
-        self.BtnCard.gameObject:SetActiveEx(canClickYk and not isToday)
-        self.PanelDisable.transform.parent.gameObject:SetActiveEx(not isAlreadyGet or isToday)
+        self:SetPanelEnableActive(true)
+        self:SetPanelEnableActive(false)
+        self:SetPanelDisableActive(true)
+        self:SetBtnCardActive(canClickYk and not isToday)
+        self:SetPanelDisableParentActive(not isAlreadyGet or isToday)
         return
     end
 
-    
-    self.PanelEnable.gameObject:SetActiveEx(true)
-    self.PanelDisable.gameObject:SetActiveEx(false)
-    self.BtnCard.gameObject:SetActiveEx(true)
-    self.PanelDisable.transform.parent.gameObject:SetActiveEx(not isAlreadyGet or isToday)
+    self:SetPanelEnableActive(true)
+    self:SetPanelDisableActive(false)
+    self:SetBtnCardActive(true)
+    self:SetPanelDisableParentActive(not isAlreadyGet or isToday)
 end
 
--- 领取月卡
-function XUiSignGridDay:GetYK(rewardItems)
-    -- local data = XDataCenter.PurchaseManager.GetCurBoughtYKData() -- 海外修改
-    -- XLog.Warning(data)
-    -- if not self.BtnCard then
-    --     XLog.Error("not self.BtnCard")
-    --     self:HandlerReward(rewardItems)
-    --     return
-    -- end
+function XUiSignGridDay:SetPanelEnableActive(isActive)
+    if self.PanelEnable then
+        self.PanelEnable.gameObject:SetActiveEx(isActive)
+    end
+end
 
-    -- if not data then -- 海外修改
-    --     XLog.Error("not data")
-    --     self:HandlerReward(rewardItems)
-    --     return
-    -- end
+function XUiSignGridDay:SetPanelDisableActive(isActive)
+    if self.PanelDisable then
+        self.PanelDisable.gameObject:SetActiveEx(isActive)
+    end
+end
 
-    XDataCenter.PurchaseManager.YKInfoDataReq(function()      
-        
-        local data = XDataCenter.PurchaseManager.GetCurBoughtYKData() -- 海外修改
-        XLog.Warning(data)
-        if not self.BtnCard then
-            self:HandlerReward(rewardItems)
-            return
-        end
+function XUiSignGridDay:SetBtnCardActive(isActive)
+    if self.BtnCard then
+        self.BtnCard.gameObject:SetActiveEx(isActive)
+    end
+end
 
-        if not data then -- 海外修改
-            self:HandlerReward(rewardItems)
-            return
-        end
-        
+function XUiSignGridDay:SetPanelDisableActive(isActive)
+    if self.PanelDisable then
+        self.PanelDisable.gameObject:SetActiveEx(isActive)
+    end
+end
+
+function XUiSignGridDay:SetPanelDisableParentActive(isActive)
+    local parent = self.PanelDisable and self.PanelDisable.transform.parent
+    if parent then
+        parent.gameObject:SetActiveEx(isActive)
+    end
+end
+
+-- 领取月卡奖励
+function XUiSignGridDay:GetYKReward(cb)
+    if not self.BtnCard then
+        if cb then cb() end
+        return
+    end
+
+    if not XDataCenter.PurchaseManager.IsYkBuyed() then
+        if cb then cb() end
+        return
+    end
+
+    XDataCenter.PurchaseManager.YKInfoDataReq(function()
+        local data = XDataCenter.PurchaseManager.GetYKInfoData()
         if not data or data.IsDailyRewardGet then
-            self:HandlerReward(rewardItems)
+            if cb then cb() end
             return
         end
 
         XDataCenter.PurchaseManager.PurchaseGetDailyRewardRequest(data.Id, function(rewards)
-            for _, v in ipairs(rewards) do
-                if not rewardItems then
-                    rewardItems = {}
-                end
-
-                table.insert(rewardItems, v)
+            local rewardItems = {}
+            for _, reward in ipairs(rewards) do
+                table.insert(rewardItems, reward)
             end
-            self:HandlerReward(rewardItems)
+            if cb then cb(rewardItems) end
+            -- 设置月卡信息本地缓存
+            XDataCenter.PurchaseManager.SetYKLocalCache()
+            XEventManager.DispatchEvent(XEventId.EVENT_CARD_REFRESH_WELFARE_BTN)
         end, function()
-            self:HandlerReward(rewardItems)
+            if cb then cb() end
         end)
+    end)
+end
+
+-- 获取签到奖励
+function XUiSignGridDay:GetSignReward(rewardItems)
+    XDataCenter.SignInManager.SignInRequest(self.Config.SignId, function(rewards)
+        if rewards and #rewards > 0 then
+            rewardItems = rewardItems or {}
+            for _, reward in ipairs(rewards) do
+                table.insert(rewardItems, reward)
+            end
+        end
+        self:HandlerReward(rewardItems)
+    end, function()
+        self:HandlerReward(rewardItems)
     end)
 end
 
@@ -225,9 +254,9 @@ end
 function XUiSignGridDay:SetNoReward()
     self:SetEffectActive(false)
     if self.BtnCard then
-        self.PanelEnable.gameObject:SetActiveEx(false)
-        self.PanelDisable.gameObject:SetActiveEx(true)
-        self.BtnCard.gameObject:SetActiveEx(true)
+        self:SetPanelEnableActive(false)
+        self:SetPanelDisableActive(true)
+        self:SetBtnCardActive(true)
     end
     XEventManager.DispatchEvent(XEventId.EVENT_SING_IN_OPEN_BTN, true)
 end

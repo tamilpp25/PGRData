@@ -8,8 +8,8 @@ function XUiBabelMemberSmallHead:Ctor(ui)
 end
 
 function XUiBabelMemberSmallHead:UpdateMember(characterId)
-    self.ImgIcon:SetRawImage(XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(characterId))
-    -- local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    self.ImgIcon:SetRawImage(XMVCA.XCharacter:GetCharRoundnessHeadIcon(characterId))
+    -- local character = XMVCA.XCharacter:GetCharacter(characterId)
 end
 
 return XUiBabelMemberSmallHead

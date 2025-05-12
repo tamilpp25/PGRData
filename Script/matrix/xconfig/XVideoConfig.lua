@@ -21,8 +21,8 @@ function XVideoConfig.GetMovieUrlById(id)
         return
     end
     if XDataCenter.UiPcManager.IsPc() and VideoTemplate[id].VideoUrlPc then
-       return VideoTemplate[id].VideoUrlPc 
-    end
+        return VideoTemplate[id].VideoUrlPc
+     end
     return VideoTemplate[id].VideoUrl
 end
 

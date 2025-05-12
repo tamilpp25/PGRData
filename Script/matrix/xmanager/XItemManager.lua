@@ -1,5 +1,5 @@
 XItemManagerCreator = function()
-
+    ---@class XItemManager
     local XItemManager = {}
 
     local tableInsert = table.insert
@@ -16,9 +16,10 @@ XItemManagerCreator = function()
     local ItemTemplates = {}
     local ItemFirstGetCheckTable = {}
     local RedEnvelopeInfos = {}                      -- 红包道具使用记录
+    local ItemCollectionIds = {}                     -- 已解锁收藏道具Id 
 
-    local BuyAssetCoinBase    = 0
-    local BuyAssetCoinMul    = 0
+    local BuyAssetCoinBase = 0
+    local BuyAssetCoinMul = 0
     -- local BuyAssetCoinCritProb = 0
     -- local BuyAssetCoinCritMul = 0
     -- item 参数下表
@@ -28,8 +29,8 @@ XItemManagerCreator = function()
 
     XItemManager.ItemId = {
         Coin = 1,
-        PaidGem = 2,
-        FreeGem = 3,
+        FreeGem = 2,
+        PaidGem = 3,
         ActionPoint = 4,
         HongKa = 5,
         TeamExp = 7,
@@ -52,6 +53,13 @@ XItemManagerCreator = function()
         PokemonStarUpItem = 57,
         PokemonLowStarUpItem = 58,
         PassportExp = 60,
+        OptionalCharacterCoin = 96, --累充商店角色货币
+        OptionalEquipCoin = 97, --累充商店武器货币
+        OptionalPartnerCoin = 98, --累充商店辅助机货币
+        TradeVoucher = 102, -- 贸易凭据
+        DormQuestCoin = 103, -- 宿舍委托道具Id
+        SEllaFragment = 559, -- 逆元碎片-万华
+        NormalCharacterTicket = 50000, -- 基准角色研发券
         TRPGTalen = 61000,
         TRPGMoney = 61001,
         TRPGEXP = 61002,
@@ -62,14 +70,47 @@ XItemManagerCreator = function()
         MoeWarPreparationItemId = 62505, --萌战筹备度
         MoeWarCommunicateItemId = 62506, --萌战礼物
         MoeWarCommemorativeItemId = 62510, --萌战2.0，纪念代币
-        PokerGuessingItemId = 62711, --翻牌比大小活动物品
+        PokerGuessingItemId = CS.XGame.Config:GetInt("PokerGuessingItemId"), --翻牌比大小活动物品
         SuperTowerBagItemId = 62801, --超级爬塔背包扩容道具Id
         AreaWarActionPoint = 62901, --全服决战-行动点
         AreaWarCoin = 62902, --全服决战-货币
-        AreaWarPurifyExp = 62903, --全服决战-净化之火
-        RpgMakerGameHintCoin = 63300,   --推箱子游戏-提示货币
-        DoubleTower = 60850,--动作塔防代币
-
+        AreaWarPersonalExp = 97021, --全服决战-个人经验
+        RpgMakerGameHintCoin = 63300, --推箱子游戏-提示货币
+        DoubleTower = 60850, --动作塔防代币
+        RiftCoin = 63400, --大秘境活动代币，用于活动商店兑换
+        RiftSeasonCoin = 97013, --大秘境活动代币，用于活动商店赛季物品兑换
+        RiftGold = 63401, --大秘境金币，用于队伍增幅和插件商店兑换
+        RiftLoadLimit = 63405, -- 大秘境提升负载上限道具
+        RiftAttributeLimit = 63406, -- 大秘境提升属性点上限道具
+        ColorTableCoin = 96124, -- 调色板战争代币
+        DlcHunt = 97002,
+        DlcHuntCoin1 = 96125,
+        DlcHuntCoin2 = 96128,
+        Maverick2Unit = 60841, -- 异构阵线2.0金币，用于心智天赋
+        Maverick2Coin = 60842, -- 异构阵线2.0代币，用于活动商店兑换
+        PlanetRunningStageCoin = 63411, -- 行星天赋关卡货币
+        PlanetRunningTalent = 63412, -- 行星天赋天赋货币
+        PlanetRunningShopActivity = 63413, -- 行星天赋商店兑换
+        CerberusGameCoin1 = 97007, -- 三头犬玩法货币1
+        CerberusGameCoin2 = 97008, -- 三头犬玩法货币2
+        TransfiniteScore = 105, -- 超限连战积分
+        --ConnectingLine = 1048,
+        ConnectingLine = 1063,
+        MusicGameArrangementItem = 1064,
+        RogueSimCoin = 96193, -- 渡边模拟器货币
+        QuickReasonanceCoin = 3005, -- 快速共鸣代币
+        MuralShareCoin = 63601, -- 壁画分享活动货币
+        EquipAwakeCoin1 = 70001, -- 意识超频代币1
+        EquipAwakeCoin2 = 70002, -- 意识超频代币2
+        Theatre4TechTreeCoin = 96200, -- 肉鸽4外循环货币
+        Theatre4BpExperience = 96201, -- 肉鸽4Bp经验
+        Temple2 = 97034, -- 庙会2代币
+        NonogramCoin = 1057, -- 数织小游戏代币
+        RepeatChallengeCoin = 62738, -- 复刷关代币
+        DlcMultiplayerCoin = 97020,  --DLC多人联机玩法货币
+        DlcMultiplayerBpExp = 97045, --DLC多人联机玩法Bp经验
+        PokerGuessing2ItemId = 97044, -- 情人节玩法
+        ScoreTowerCoin = 96203, -- 新矿区代币
     }
 
     --时效性道具初始时间计算方式
@@ -86,6 +127,8 @@ XItemManagerCreator = function()
         Drop = 2,
         OptionalReward = 3,
         RedEnvelope = 4,
+        AutoUse = 5, --自动使用
+        AutoUseDrop = 6,   -- 自动使用的2
     }
 
     --特殊补给道具
@@ -107,6 +150,12 @@ XItemManagerCreator = function()
         Use = "ItemUseRequest",
         BuyAsset = "ItemBuyAssetRequest",
         MultiplyUse = "ItemUseMultipleRequest",
+        -- GetAndroidOrIosMoneyCardRequest = "GetAndroidOrIosMoneyCardRequest",
+    }
+
+    ---需要显示回复提示的道具的列表
+    local NeedTipsItemList = {
+        [62901] = true --特制血清
     }
 
     local BAG_ITEM_SORT_FUNC = function(a, b)
@@ -258,12 +307,16 @@ XItemManagerCreator = function()
         return false
     end
 
+    local GetCookieKey = function(key)
+        return string.format("ItemManager_UID:%s_%s", XPlayer.Id, key)
+    end
+
     function XItemManager.Init()
         ItemTemplates = XItemConfigs.GetItemTemplates()
         BuyAssetDailyLimit = XItemConfigs.GetBuyAssetDailyLimit()
         BuyAssetTemplates = XItemConfigs.GetBuyAssetTemplates()
-        BuyAssetCoinBase    = CS.XGame.Config:GetInt("BuyAssetCoinBase")
-        BuyAssetCoinMul    = CS.XGame.Config:GetInt("BuyAssetCoinMul")
+        BuyAssetCoinBase = CS.XGame.Config:GetInt("BuyAssetCoinBase")
+        BuyAssetCoinMul = CS.XGame.Config:GetInt("BuyAssetCoinMul")
         -- BuyAssetCoinCritProb = CS.XGame.Config:GetInt("BuyAssetCoinCritProb")
         -- BuyAssetCoinCritMul = CS.XGame.Config:GetInt("BuyAssetCoinCritMul")
 
@@ -299,25 +352,41 @@ XItemManagerCreator = function()
                     tableInsert(SuppliesItems[XItemManager.SuppliesItemType.CoinPackage], item.Id)
                 end
             end
+
             Items[item.Id] = item
+        end
+    end
+
+    function XItemManager.CreateXItem(template)
+        if template.RecType == XResetManager.ResetType.NoNeed then
+            return XItem.New(nil, template)
+        else
+            return XRecItem.New(nil, template)
         end
     end
 
     function XItemManager.AddItemListener()
         RecTimer = XScheduleManager.ScheduleForever(function()
             for _, id in pairs(RecItemIds) do
-                Items[id]:CheckCount()
+                if Items[id] then
+                    Items[id]:CheckCount()
+                end
+                XMVCA.XBigWorldService:OnCheckRecoveryItemsCount()
             end
         end, XScheduleManager.SECOND, 0)
     end
 
     function XItemManager.InitItemData(items)
         for _, itemData in pairs(items) do
-            if Items[itemData.Id] then
-                Items[itemData.Id]:RefreshItem(itemData)
-                ItemFirstGetCheckTable[itemData.Id] = true
+            if XMVCA.XBigWorldService:IsDlcItem(itemData.Id) then
+                XMVCA.XBigWorldService:OnInitItemData(itemData)
             else
-                XLog.ErrorTableDataNotFound("XItemManager.InitItemData", "Item", " Share/Item/Item.tab", "Id", tostring(itemData.Id))
+                if Items[itemData.Id] then
+                    Items[itemData.Id]:RefreshItem(itemData)
+                    ItemFirstGetCheckTable[itemData.Id] = true
+                else
+                    XLog.ErrorTableDataNotFound("XItemManager.InitItemData", "Item", " Share/Item/Item.tab", "Id", tostring(itemData.Id))
+                end
             end
         end
 
@@ -326,15 +395,12 @@ XItemManagerCreator = function()
 
     function XItemManager.InitItemRecycle(list)
         -- 回收道具时限表
-        if not list then return end
+        if not list then
+            return
+        end
         for id, itemRecycleList in pairs(list) do
             Items[id].ItemRecycleList = itemRecycleList
         end
-    end
-
-    function XItemManager.InitBatchItemRecycle(data)
-        if not data or not next(data) then return end
-        XItemManager.NotifyBatchItemRecycle(data)
     end
 
     -- 获取数据
@@ -479,6 +545,10 @@ XItemManagerCreator = function()
             mergeGem.Count = mergeGem.Count + freeGem.Count + paidGem.Count
 
             return mergeGem
+        elseif id == XGuildConfig.GoodsCoinId then
+            local item = Items[id]
+            item.Count = XDataCenter.GuildManager.GetShopCoin()
+            return item
         else
             return Items[id]
         end
@@ -487,21 +557,15 @@ XItemManagerCreator = function()
     function XItemManager.GetCount(id)
         if (id == XItemManager.ItemId.FreeGem or id == XItemManager.ItemId.PaidGem) then
             return Items[XItemManager.ItemId.FreeGem]:GetCount() +
-            Items[XItemManager.ItemId.PaidGem]:GetCount()
+                    Items[XItemManager.ItemId.PaidGem]:GetCount()
         elseif id == XGuildConfig.GuildContributeCoin then
             return XDataCenter.GuildManager.GetGuildContributeLeft() or 0
         elseif id == XItemManager.ItemId.TRPGEXP then
             return XDataCenter.TRPGManager.GetExploreCurExp()
+        elseif id == XGuildConfig.GoodsCoinId then
+            return XDataCenter.GuildManager.GetShopCoin()
         end
         return Items[id] and Items[id]:GetCount() or 0
-    end
-
-    function XItemManager.GetFreeGemCount()
-        return Items[XItemManager.ItemId.FreeGem]:GetCount()
-    end
-
-    function XItemManager.GetPaidGemCount()
-        return Items[XItemManager.ItemId.PaidGem]:GetCount()
     end
 
     function XItemManager.GetMaxCount(id)
@@ -520,19 +584,30 @@ XItemManagerCreator = function()
         return list
     end
 
-    function XItemManager.GetItemsByTypeAndSuitId(itemType, suitId)
+    function XItemManager.GetItemsByTypeAndSuitId(itemType, suitId, isRemoveIgnoreRecycle)
         local list = {}
 
         for _, item in pairs(Items) do
-            local isSuit = suitId == nil
             local cfg = XItemManager.GetItemTemplate(item.Id)
-            if not isSuit then
-                isSuit = suitId == XItemConfigs.SuitAllType.All or suitId == XItemConfigs.SuitAllType.DefaultAll or suitId == cfg.SuitId
+            --类型不对 或者 数量小于0
+            if cfg.ItemType ~= itemType or item:GetCount() <= 0 then
+                goto continue
             end
 
-            if cfg.ItemType == itemType and item:GetCount() > 0 and isSuit then
-                tableInsert(list, item)
+            local isSuit = XFurnitureConfigs.IsAllSuit(suitId) or suitId == cfg.SuitId
+            --不是当前的套装
+            if not isSuit then
+                goto continue
             end
+
+            --移除掉配置屏蔽
+            if isRemoveIgnoreRecycle and cfg.SuitId and XFurnitureConfigs.IsIgnoreRecoverySuit(cfg.SuitId) then
+                goto continue
+            end
+
+            tableInsert(list, item)
+
+            :: continue ::
         end
 
         return list
@@ -551,9 +626,9 @@ XItemManagerCreator = function()
 
         for _, item in pairs(Items) do
             if (item.Template.ItemType == XItemConfigs.ItemType.EquipExp
-            or item.Template.ItemType == XItemConfigs.ItemType.EquipExpNotInBag)
-            and item.Template.Classify == equipClassify
-            and item:GetCount() > 0
+                    or item.Template.ItemType == XItemConfigs.ItemType.EquipExpNotInBag)
+                    and item.Template.Classify == equipClassify
+                    and item:GetCount() > 0
             then
                 tableInsert(result, item)
             end
@@ -614,7 +689,6 @@ XItemManagerCreator = function()
         else
             template = XItemManager.GetBuyAssetTemplate(targetId, times + 1)
         end
-
 
         local targetCount = template.GainCount
 
@@ -686,7 +760,9 @@ XItemManagerCreator = function()
     function XItemManager.GetSellReward(id, count)
         local reward = {}
 
-        if not id then return reward end
+        if not id then
+            return reward
+        end
         count = count or 1
 
         local tab = XItemManager.GetItemTemplate(id)
@@ -703,7 +779,9 @@ XItemManagerCreator = function()
     function XItemManager.GetSellRewards(idList)
         local rewards = {}
         local templateIds = {}
-        if not idList then return rewards end
+        if not idList then
+            return rewards
+        end
         for id, count in pairs(idList) do
             local tab = XItemManager.GetItemTemplate(id)
             local templateId = tab.SellForId
@@ -744,7 +822,8 @@ XItemManagerCreator = function()
 
     -- 战斗复活ui调用
     function XItemManager.CanRebootBuyItem(id)
-        return (id ~= XItemManager.ItemId.Coin and id ~= XItemManager.ItemId.FreeGem and id ~= XItemManager.ItemId.PaidGem)
+        return (id ~= XItemManager.ItemId.Coin and id ~= XItemManager.ItemId.FreeGem and id ~= XItemManager.ItemId.PaidGem and id ~= XBiancaTheatreConfigs.TheatreActionPoint and
+                id ~= XEnumConst.THEATRE3.Theatre3InnerCoin)
     end
 
     function XItemManager.GetItemSuit(id)
@@ -753,6 +832,91 @@ XItemManagerCreator = function()
             return nil
         end
         return template.Suit
+    end
+
+    --已解锁收藏道具
+    function XItemManager.GetUnlockItemCollectIds()
+        local tmp = {}
+        tmp = appendArray(tmp, XItemConfigs.GetDefaultCollectList())
+        tmp = appendArray(tmp, ItemCollectionIds)
+        return tmp
+    end
+
+    -- 检测有获得新的道具
+    function XItemManager.CheckHasNewColletId()
+        for k, id in pairs(XItemManager.GetUnlockItemCollectIds()) do
+            if XItemManager.CheckHasNewItemCollect(id) then
+                return true
+            end
+        end
+
+        return false
+    end
+
+    function XItemManager.CheckCollectItemUnlock(templateId)
+        local list = XItemManager.GetUnlockItemCollectIds()
+        for _, id in pairs(list or {}) do
+            if id == templateId then
+                return true
+            end
+        end
+        return false
+    end
+
+    --首次进入道具收藏界面
+    function XItemManager.IsFirstOpenItemCollectView()
+        local key = GetCookieKey("FirstOpenItemCollectView")
+        local data = XSaveTool.GetData(key) or false
+        return not data
+    end
+
+    --标记首次进入
+    function XItemManager.MarkFirstOpenItemCollectView()
+        local key = GetCookieKey("FirstOpenItemCollectView")
+        local data = XSaveTool.GetData(key) or false
+        if data then
+            return
+        end
+
+        XSaveTool.SaveData(key, true)
+        XEventManager.DispatchEvent(XEventId.EVENT_ITEM_COLLECT_STATE_CHANGE)
+    end
+
+    --检查是否有新解锁收藏道具, itemId可选参数，不填则检查全部
+    function XItemManager.CheckHasNewItemCollect(itemId)
+        local check = function(id)
+            local template = XItemConfigs.GetItemCollectTemplate(id)
+            if template.Type == XItemConfigs.ItemCollectionType.DefaultCollect then
+                return false
+            end
+            local key = GetCookieKey("NewItemCollect_" .. id)
+            local data = XSaveTool.GetData(key) or false
+            return not data
+        end
+
+        local result = false
+        if XTool.IsNumberValid(itemId) then
+            result = check(itemId)
+        else
+            for _, id in ipairs(ItemCollectionIds) do
+                result = check(id)
+                if result then
+                    break
+                end
+            end
+        end
+        return result
+    end
+
+    --标记已读
+    function XItemManager.MarkNewItemCollect(itemId)
+        local key = GetCookieKey("NewItemCollect_" .. itemId)
+        local data = XSaveTool.GetData(key) or false
+        if data then
+            return
+        end
+        XSaveTool.SaveData(key, true)
+        XEventManager.DispatchEvent(XEventId.EVENT_ITEM_COLLECT_STATE_CHANGE)
     end
 
     function XItemManager.GetDailyActiveness()
@@ -768,18 +932,27 @@ XItemManagerCreator = function()
     end
 
     function XItemManager.IsCanSell(id)
-        if XItemManager.IsTimeLimitBatch(id) then return false end  --时效批次性道具不可出售
+        if XItemManager.IsTimeLimitBatch(id) then
+            return false
+        end  --时效批次性道具不可出售
         local template = XItemManager.GetItemTemplate(id)
         return template.SellForId > 0 and template.SellForCount > 0
     end
 
     function XItemManager.IsUseable(id)
-        local template = XItemManager.GetItemTemplate(id)
+        local template = nil
+        if XMVCA.XBigWorldService:IsDlcItem(id) then
+            template = XMVCA.XBigWorldService:GetItemTemplate(id)
+        else
+            template = XItemManager.GetItemTemplate(id)
+        end
         return template.ItemType == XItemConfigs.ItemType.Gift
     end
 
     function XItemManager.IsWeaponFashion(id)
-        if not XItemManager.CheckItemTemplateExist(id) then return false end
+        if not XItemManager.CheckItemTemplateExist(id) then
+            return false
+        end
         local template = XItemManager.GetItemTemplate(id)
         return template.ItemType == XItemConfigs.ItemType.WeaponFashion
     end
@@ -803,13 +976,17 @@ XItemManagerCreator = function()
     end
 
     function XItemManager.GetWeaponFashionId(id)
-        if not XItemManager.IsWeaponFashion(id) then return end
+        if not XItemManager.IsWeaponFashion(id) then
+            return
+        end
         local template = XItemManager.GetItemTemplate(id)
         return template.SubTypeParams[1]
     end
 
     function XItemManager.GetWeaponFashionAddTime(id)
-        if not XItemManager.IsWeaponFashion(id) then return end
+        if not XItemManager.IsWeaponFashion(id) then
+            return
+        end
         local template = XItemManager.GetItemTemplate(id)
         return template.SubTypeParams[2]
     end
@@ -828,9 +1005,9 @@ XItemManagerCreator = function()
         end
 
         --角色已经满级
-        local characterId = XCharacterConfigs.GetCharcterIdByFragmentItemId(id)
-        local charcter = XDataCenter.CharacterManager.GetCharacter(characterId)
-        return charcter and XDataCenter.CharacterManager.IsMaxQuality(charcter)
+        local characterId = XMVCA.XCharacter:GetCharcterIdByFragmentItemId(id)
+        local charcter = XMVCA.XCharacter:GetCharacter(characterId)
+        return charcter and XMVCA.XCharacter:IsMaxQuality(charcter)
     end
 
     -- 背包材料
@@ -838,7 +1015,9 @@ XItemManagerCreator = function()
         local template = XItemManager.GetItemTemplate(id)
         local itemType = template.ItemType
         for _, materialType in pairs(XItemConfigs.Materials) do
-            if itemType == materialType then return true end
+            if itemType == materialType then
+                return true
+            end
         end
         return false
     end
@@ -857,14 +1036,39 @@ XItemManagerCreator = function()
 
     -- 可选礼包
     function XItemManager.IsSelectGift(id)
-        if not XItemManager.IsUseable(id) then return false end
+        if not XItemManager.IsUseable(id) then
+            return false
+        end
         local template = XItemManager.GetItemTemplate(id)
         return template.GiftType == XItemManager.GiftItemUseType.OptionalReward
     end
 
+    -- 自动使用礼包
+    function XItemManager.IsAutoGift(id)
+        if not XItemManager.IsUseable(id) then
+            return false
+        end
+        local template = nil
+
+        if XMVCA.XBigWorldService:IsDlcItem(id) then
+            template = XMVCA.XBigWorldService:GetItemTemplateObject(id)
+        else
+            template = XItemManager.GetItemTemplate(id)
+        end
+        
+        local giftType = template.GiftType
+        if giftType == XItemManager.GiftItemUseType.AutoUse 
+                or giftType == XItemManager.GiftItemUseType.AutoUseDrop then
+            return true
+        end
+        return false
+    end
+
     -- 红包
     function XItemManager.IsRedEnvelope(id)
-        if not XItemManager.IsUseable(id) then return false end
+        if not XItemManager.IsUseable(id) then
+            return false
+        end
         local template = XItemManager.GetItemTemplate(id)
         return template.GiftType == XItemManager.GiftItemUseType.RedEnvelope
     end
@@ -942,7 +1146,9 @@ XItemManagerCreator = function()
         local leftTime = 0
 
         local item = XItemManager.GetItem(id)
-        if not item then return leftTime end
+        if not item then
+            return leftTime
+        end
 
         local startTime
         if item.Template.TimelinessType == XItemManager.TimelinessType.FromConfig then
@@ -998,14 +1204,21 @@ XItemManagerCreator = function()
                 callback(res.RewardGoodsList)
             end
 
-            if XItemManager.IsTimeLimit(id) then
-                XEventManager.DispatchEvent(XEventId.EVENT_TIMELIMIT_ITEM_USE, id)
+            if not XMVCA.XBigWorldService:IsDlcItem(id) then
+                if XItemManager.IsTimeLimit(id) then
+                    XEventManager.DispatchEvent(XEventId.EVENT_TIMELIMIT_ITEM_USE, id)
+                end
+                CsXGameEventManager.Instance:Notify(XEventId.EVENT_ITEM_USE, id)
             end
-            CsXGameEventManager.Instance:Notify(XEventId.EVENT_ITEM_USE, id)
         end)
     end
 
     function XItemManager.Sell(datas, callback)
+        if XTool.IsTableEmpty(datas) then
+            XLog.Error("XItemManager.Sell, 传入 datas为空")
+            return
+        end
+
         XMessagePack.MarkAsTable(datas)
         local req = { SellItems = datas }
         XNetwork.Call(METHOD_NAME.Sell, req, function(res)
@@ -1287,17 +1500,19 @@ XItemManagerCreator = function()
         return false
     end
 
-    function XItemManager.DoNotEnoughBuyAsset(useItemId, useItemCount, buyCount, callBack, errorTxt)
+    function XItemManager.DoNotEnoughBuyAsset(useItemId, useItemCount, buyCount, callBack, errorTxt, isNotSkipBuyAsset)
         local ownItemCount = XDataCenter.ItemManager.GetCount(useItemId)
         local lackItemCount = useItemCount * buyCount - ownItemCount
         if lackItemCount > 0 then
             local template = XDataCenter.ItemManager.GetBuyAssetTemplate(useItemId, 0, true)
             if template ~= nil then
-                if BuyAssetTemplates[useItemId] and #BuyAssetTemplates[useItemId] > 1 then
-                    XItemManager.SelectBuyAssetType(useItemId, callBack, nil, 1, true)
-                else
-                    lackItemCount = mathCeil(lackItemCount / template.GainCount)
-                    XItemManager.SelectBuyAssetType(useItemId, callBack, nil, lackItemCount, true)
+                if not isNotSkipBuyAsset then
+                    if BuyAssetTemplates[useItemId] and #BuyAssetTemplates[useItemId] > 1 then
+                        XItemManager.SelectBuyAssetType(useItemId, callBack, nil, 1, true)
+                    else
+                        lackItemCount = mathCeil(lackItemCount / template.GainCount)
+                        XItemManager.SelectBuyAssetType(useItemId, callBack, nil, lackItemCount, true)
+                    end
                 end
             else
                 XUiManager.TipError(CS.XTextManager.GetText(errorTxt))
@@ -1308,10 +1523,10 @@ XItemManagerCreator = function()
     end
     function XItemManager.SelectBuyAssetType(useItemId, callBack, challengeCountData, buyAmount, isAutoClose)
         if useItemId == XDataCenter.ItemManager.ItemId.ActionPoint and
-        XDataCenter.ItemManager.CheckBatteryIsHave() then
+                XDataCenter.ItemManager.CheckBatteryIsHave() then
             XLuaUiManager.Open("UiUsePackage", useItemId, callBack, challengeCountData, buyAmount)
         elseif useItemId == XDataCenter.ItemManager.ItemId.Coin
-        and XDataCenter.ItemManager.CheckCoinPackageIsHave() then
+                and XDataCenter.ItemManager.CheckCoinPackageIsHave() then
             XLuaUiManager.Open("UiUseCoinPackage")
         else
             XLuaUiManager.Open("UiBuyAsset", useItemId, callBack, challengeCountData, buyAmount, isAutoClose)
@@ -1319,19 +1534,27 @@ XItemManagerCreator = function()
     end
     function XItemManager.NotifyItemDataList(data)
         local list = data.ItemDataList
+        local isHasBWGift = false
         if not list then
             return
         end
         for _, tmpData in pairs(list) do
             local id = tmpData.Id
 
-            if not Items[id] then
-                Items[id] = XItemManager.CreateItem(tmpData)
+            if XMVCA.XBigWorldService:IsDlcItem(id) then
+                if XItemManager.IsAutoGift(id) then
+                    isHasBWGift = true
+                end
+                XMVCA.XBigWorldService:OnNotifyItemData(tmpData)
             else
-                Items[id]:RefreshItem(tmpData)
+                if not Items[id] then
+                    Items[id] = XItemManager.CreateItem(tmpData)
+                else
+                    local currentAmount = Items[id]:GetCount() or 0
+                    tmpData.__Increment = (tmpData.Count or 0) - currentAmount
+                    Items[id]:RefreshItem(tmpData)
+                end
             end
-
-
 
             if not ItemFirstGetCheckTable[id] then
                 ItemFirstGetCheckTable[id] = true
@@ -1340,6 +1563,11 @@ XItemManagerCreator = function()
 
         -- 回收道具时限表
         XItemManager.InitItemRecycle(data.ItemRecycleDict)
+        if isHasBWGift then
+            XMVCA.XBigWorldService:CheckItemAutoUseGift(list)
+        else
+            XItemManager.CheckAutoUseGift(list)
+        end
     end
 
     function XItemManager.GetMaxCount(id)
@@ -1401,6 +1629,24 @@ XItemManagerCreator = function()
         end
         return bagDatas
     end
+
+    ---判断道具是否需要显示回复提示，以后若有其他判断途径则改该方法内部逻辑即可
+    function XItemManager.CheckItemNeedTips(id)
+        return NeedTipsItemList[id] and true or false
+    end
+    
+    -- 检查是否有其他兑换途径
+    function XItemManager.CheckOtherWayExchange(itemId, continueExchangeFunc, cancelFunc)
+        if itemId == XItemManager.ItemId.NormalCharacterTicket then
+            -- 检查新手入门还有没有没领的基准角色研发券
+            if XDataCenter.NewbieTaskManager.CheckHasTaskCanFinishByAssignItemId(itemId) then
+                XLuaUiManager.Open("UiNewbiePopup", continueExchangeFunc, cancelFunc)
+                return true
+            end
+        end
+        
+        return false
+    end
     -------------------------道具事件相关-------------------------
     --==============================--
     --desc: 道具数量变化监听
@@ -1418,7 +1664,6 @@ XItemManagerCreator = function()
             end
         end
 
-
         for _, id in pairs(ids) do
             if not Items[id] then
                 XLog.ErrorTableDataNotFound("XItemManager.AddCountUpdateListener", "Items", "Share/Item/Item.tab", "Id", tostring(id))
@@ -1434,6 +1679,10 @@ XItemManagerCreator = function()
         for _, id in pairs(ids) do
             XEventManager.BindEvent(ui, XEventId.EVENT_ITEM_COUNT_UPDATE_PREFIX .. id, func, obj)
         end
+    end
+
+    function XItemManager.RemoveCountUpdateListener(ui)
+        XEventManager.UnBindEvent(ui)
     end
 
     --==============================--
@@ -1494,17 +1743,22 @@ XItemManagerCreator = function()
     end
 
     function XItemManager.NotifyItemRecycle(data)
-        if not next(data.RecycleIds) then return end
+        if not next(data.RecycleIds) then
+            return
+        end
 
         for _, id in pairs(data.RecycleIds) do
             Items[id] = nil
+            XMVCA.XBigWorldService:OnNotifyItemRecycle(id)
         end
 
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_ITEM_RECYCLE)
     end
 
     function XItemManager.NotifyBatchItemRecycle(data)
-        if not next(data.ItemRecycleList) then return end
+        if not next(data.ItemRecycleList) then
+            return
+        end
 
         for _, recycleInfo in pairs(data.ItemRecycleList) do
             local id = recycleInfo.Id
@@ -1529,7 +1783,9 @@ XItemManagerCreator = function()
     end
 
     function XItemManager.NotifyAllRedEnvelope(data)
-        if not next(data.Envelopes) then return end
+        if not next(data.Envelopes) then
+            return
+        end
 
         RedEnvelopeInfos = {}
         for _, envelope in pairs(data.Envelopes) do
@@ -1551,10 +1807,14 @@ XItemManagerCreator = function()
 
     function XItemManager.NotifyRedEnvelopeUse(data)
         local envelopeId = data.EnvelopeId
-        if not envelopeId or not XItemManager.IsRedEnvelope(envelopeId) then return end
+        if not envelopeId or not XItemManager.IsRedEnvelope(envelopeId) then
+            return
+        end
 
         local envelopes = data.Envelopes
-        if not next(envelopes) then return end
+        if not next(envelopes) then
+            return
+        end
 
         for _, envelope in pairs(envelopes) do
             local activityId = envelope.ActivityId
@@ -1571,7 +1831,70 @@ XItemManagerCreator = function()
 
         XLuaUiManager.Open("UiRedEnvelope", envelopeId, envelopes)
     end
+
+    --- 道具收藏盒，登录下发
+    ---@param data Server.XItemCollectionDataDb
+    --------------------------
+    function XItemManager.NotifyLoginItemCollectionData(data)
+        if not data then
+            return
+        end
+        ItemCollectionIds = {}
+        local dataList = data.ItemCollectionData and data.ItemCollectionData.TemplateIds or {}
+        ItemCollectionIds = dataList
+
+        XEventManager.DispatchEvent(XEventId.EVENT_ITEM_COLLECT_STATE_CHANGE)
+    end
+
+    function XItemManager.NotifyAddItemCollectionData(data)
+        if not data then
+            return
+        end
+        local templateId = data.TemplateId
+        local exist = false
+        for _, id in ipairs(ItemCollectionIds) do
+            if id == templateId then
+                exist = true
+                XLog.Error("道具盒子重复添加道具，道具Id = " .. templateId)
+                break
+            end
+        end
+        if not exist then
+            tableInsert(ItemCollectionIds, templateId)
+        end
+        XEventManager.DispatchEvent(XEventId.EVENT_ITEM_COLLECT_STATE_CHANGE)
+    end
     -------------------------道具事件相关-------------------------
+
+    -- 自动使用礼包
+    function XItemManager.CheckAutoUseGift(list)
+        -- 收集所有礼包的结果，一次弹出来
+        local allReward = {}
+        local rewardAmount = 0
+        
+        list = list or Items
+        for _, tmpData in pairs(list) do
+            local id = tmpData.Id
+            if XItemManager.IsAutoGift(id) then
+                local leftTIme = XItemManager.GetRecycleLeftTime(id)
+                local count = tmpData.__Increment or 0
+                if count > 0 then
+                    rewardAmount = rewardAmount + 1
+                    XItemManager.Use(id, leftTIme, count, function(rewardGoodList)
+                        for i = 1, #rewardGoodList do
+                            allReward[#allReward+1] = rewardGoodList[i]
+                        end
+                        rewardAmount = rewardAmount - 1
+                        if rewardAmount == 0 then
+                            XUiManager.OpenUiObtain(allReward)
+                        end
+                    end)
+                end
+            end
+        end 
+    end
+
+
     XItemManager.Init()
     return XItemManager
 end
@@ -1594,4 +1917,12 @@ end
 
 XRpc.NotifyRedEnvelopeUse = function(data)
     XDataCenter.ItemManager.NotifyRedEnvelopeUse(data)
+end
+
+XRpc.NotifyLoginItemCollectionData = function(data)
+    XDataCenter.ItemManager.NotifyLoginItemCollectionData(data)
+end
+
+XRpc.NotifyAddItemCollectionData = function(data)
+    XDataCenter.ItemManager.NotifyAddItemCollectionData(data)
 end

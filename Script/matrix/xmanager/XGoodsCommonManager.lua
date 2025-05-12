@@ -13,19 +13,23 @@ XGoodsCommonManager.QualityType = {
 
 local GoodsName = {
     [XArrangeConfigs.Types.Item] = function(templateId)
+        if XMVCA.XBigWorldService:IsDlcItem(templateId) then
+            return XMVCA.XBigWorldService:GetItemName(templateId)
+        end
+        
         return XDataCenter.ItemManager.GetItemName(templateId)
     end,
 
     [XArrangeConfigs.Types.Character] = function(templateId)
-        return XCharacterConfigs.GetCharacterName(templateId)
+        return XMVCA.XCharacter:GetCharacterName(templateId)
     end,
 
     [XArrangeConfigs.Types.Weapon] = function(templateId)
-        return XDataCenter.EquipManager.GetEquipName(templateId)
+        return XMVCA.XEquip:GetEquipName(templateId)
     end,
 
     [XArrangeConfigs.Types.Wafer] = function(templateId)
-        return XDataCenter.EquipManager.GetEquipName(templateId)
+        return XMVCA.XEquip:GetEquipName(templateId)
     end,
 
     [XArrangeConfigs.Types.Fashion] = function(templateId)
@@ -71,10 +75,18 @@ local GoodsName = {
     [XArrangeConfigs.Types.RankScore] = function(templateId)
         return XFubenSpecialTrainConfig.GetRankScoreGoodName(templateId)
     end,
+
+    [XArrangeConfigs.Types.QuestItem] = function(templateId)
+        return XMVCA.XBigWorldQuest:GetQuestItemName(templateId)
+    end,
 }
 
 local GoodsQuality = {
     [XArrangeConfigs.Types.Item] = function(templateId)
+        if XMVCA.XBigWorldService:IsDlcItem(templateId) then
+            return XMVCA.XBigWorldService:GetItemQuality(templateId)
+        end
+        
         return XDataCenter.ItemManager.GetItemQuality(templateId)
     end,
 
@@ -83,11 +95,11 @@ local GoodsQuality = {
     end,
 
     [XArrangeConfigs.Types.Weapon] = function(templateId)
-        return XDataCenter.EquipManager.GetEquipQuality(templateId)
+        return XMVCA.XEquip:GetEquipQuality(templateId)
     end,
 
     [XArrangeConfigs.Types.Wafer] = function(templateId)
-        return XDataCenter.EquipManager.GetEquipQuality(templateId)
+        return XMVCA.XEquip:GetEquipQuality(templateId)
     end,
 
     [XArrangeConfigs.Types.Fashion] = function(templateId)
@@ -125,23 +137,31 @@ local GoodsQuality = {
     [XArrangeConfigs.Types.RankScore] = function(templateId)
         return XFubenSpecialTrainConfig.GetRankScoreGoodQuality(templateId)
     end,
+
+    [XArrangeConfigs.Types.QuestItem] = function(templateId)
+        return XMVCA.XBigWorldQuest:GetQuestItemQuality(templateId)
+    end,
 }
 
 local GoodsIcon = {
     [XArrangeConfigs.Types.Item] = function(templateId)
+        if XMVCA.XBigWorldService:IsDlcItem(templateId) then
+            return XMVCA.XBigWorldService:GetItemIcon(templateId)
+        end
+
         return XDataCenter.ItemManager.GetItemIcon(templateId)
     end,
 
     [XArrangeConfigs.Types.Character] = function(templateId)
-        return XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(templateId)
+        return XMVCA.XCharacter:GetCharRoundnessHeadIcon(templateId)
     end,
 
     [XArrangeConfigs.Types.Weapon] = function(templateId)
-        return XDataCenter.EquipManager.GetEquipIconPath(templateId)
+        return XMVCA.XEquip:GetEquipIconPath(templateId)
     end,
 
     [XArrangeConfigs.Types.Wafer] = function(templateId)
-        return XDataCenter.EquipManager.GetEquipIconPath(templateId)
+        return XMVCA.XEquip:GetEquipIconPath(templateId)
     end,
 
     [XArrangeConfigs.Types.Fashion] = function(templateId)
@@ -186,15 +206,23 @@ local GoodsIcon = {
     [XArrangeConfigs.Types.RankScore] = function(templateId)
         return XFubenSpecialTrainConfig.GetRankScoreGoodIcon(templateId)
     end,
+
+    [XArrangeConfigs.Types.QuestItem] = function(templateId)
+        return XMVCA.XBigWorldQuest:GetQuestItemIcon(templateId)
+    end,
 }
 
 local GoodsDescription = {
     [XArrangeConfigs.Types.Item] = function(templateId)
+        if XMVCA.XBigWorldService:IsDlcItem(templateId) then
+            return XMVCA.XBigWorldService:GetItemDescription(templateId)
+        end
+        
         return XDataCenter.ItemManager.GetItemDescription(templateId)
     end,
 
     [XArrangeConfigs.Types.Character] = function(templateId)
-        return XCharacterConfigs.GetCharacterIntro(templateId)
+        return XMVCA.XCharacter:GetCharacterIntro(templateId)
     end,
 
     [XArrangeConfigs.Types.Fashion] = function(templateId)
@@ -202,11 +230,11 @@ local GoodsDescription = {
     end,
 
     [XArrangeConfigs.Types.Weapon] = function(templateId)
-        return XDataCenter.EquipManager.GetEquipDescription(templateId)
+        return XMVCA.XEquip:GetEquipDescription(templateId)
     end,
 
     [XArrangeConfigs.Types.Wafer] = function(templateId)
-        return XDataCenter.EquipManager.GetEquipDescription(templateId)
+        return XMVCA.XEquip:GetEquipDescription(templateId)
     end,
 
     [XArrangeConfigs.Types.BaseEquip] = function(templateId)
@@ -252,10 +280,32 @@ local GoodsDescription = {
     [XArrangeConfigs.Types.RankScore] = function(templateId)
         return XFubenSpecialTrainConfig.GetRankScoreGoodDescription(templateId)
     end,
+    
+    [XArrangeConfigs.Types.DrawTicket] = function(templateId) 
+        return XDrawConfigs.GetDrawTicketDesc(templateId)
+    end,
+    
+    [XArrangeConfigs.Types.ItemCollection] = function(templateId)
+        local template = XItemConfigs.GetItemCollectTemplate(templateId)
+        return template.Description
+    end,
+    
+    [XArrangeConfigs.Types.ChatBoard] = function(templateId)
+        local template = XChatConfigs.GetChatBoardCfgById(templateId)
+        return template.Description
+    end,
+    
+    [XArrangeConfigs.Types.QuestItem] = function(templateId)
+        return XMVCA.XBigWorldQuest:GetQuestItemDescription(templateId)
+    end,
 }
 
 local GoodsWorldDesc = {
     [XArrangeConfigs.Types.Item] = function(templateId)
+        if XMVCA.XBigWorldService:IsDlcItem(templateId) then
+            return XMVCA.XBigWorldService:GetItemWorldDesc(templateId)
+        end
+        
         return XDataCenter.ItemManager.GetItemWorldDesc(templateId)
     end,
 
@@ -294,10 +344,31 @@ local GoodsWorldDesc = {
     -- [XArrangeConfigs.Types.Nameplate] = function(templateId)
     --     return XMedalConfigs.GetNameplateDescription(templateId)
     -- end,
+    [XArrangeConfigs.Types.DrawTicket] = function(templateId) 
+        return XDrawConfigs.GetDrawTicketWorldDesc(templateId)
+    end,
+    
+    [XArrangeConfigs.Types.ItemCollection] = function(templateId)
+        local template = XItemConfigs.GetItemCollectTemplate(templateId)
+        return template.WorldDesc
+    end,
+    
+    [XArrangeConfigs.Types.ChatBoard] = function(templateId) 
+        local template = XChatConfigs.GetChatBoardCfgById(templateId)
+        return template.WorldDesc
+    end,
+    
+    [XArrangeConfigs.Types.QuestItem] = function(templateId) 
+        return XMVCA.XBigWorldQuest:GetQuestItemWorldDescription(templateId)
+    end,
 }
 
 local GoodsSkipIdParams = {
     [XArrangeConfigs.Types.Item] = function(templateId)
+        if XMVCA.XBigWorldService:IsDlcItem(templateId) then
+            return XMVCA.XBigWorldService:GetItemSkipIdParams(templateId)
+        end
+        
         return XDataCenter.ItemManager.GetItemSkipIdParams(templateId)
     end,
 
@@ -312,19 +383,23 @@ local GoodsSkipIdParams = {
 
 local GoodsCurrentCount = {
     [XArrangeConfigs.Types.Item] = function(templateId)
+        if XMVCA.XBigWorldService:IsDlcItem(templateId) then
+            return XMVCA.XBigWorldService:GetItemCount(templateId)
+        end
+        
         return XDataCenter.ItemManager.GetCount(templateId)
     end,
 
     [XArrangeConfigs.Types.Character] = function(templateId)
-        return XDataCenter.CharacterManager.IsOwnCharacter(templateId) and 1 or 0
+        return XMVCA.XCharacter:IsOwnCharacter(templateId) and 1 or 0
     end,
 
     [XArrangeConfigs.Types.Weapon] = function(templateId)
-        return XDataCenter.EquipManager.GetEquipCount(templateId)
+        return XMVCA.XEquip:GetEquipCount(templateId)
     end,
 
     [XArrangeConfigs.Types.Wafer] = function(templateId)
-        return XDataCenter.EquipManager.GetEquipCount(templateId)
+        return XMVCA.XEquip:GetEquipCount(templateId)
     end,
 
     [XArrangeConfigs.Types.Fashion] = function(templateId)
@@ -369,6 +444,26 @@ local GoodsCurrentCount = {
 
     [XArrangeConfigs.Types.RankScore] = function(templateId)
         return XDataCenter.FubenSpecialTrainManager.GetCurScore()
+    end,
+
+    [XArrangeConfigs.Types.DlcHuntChip] = function(templateId)
+        return XDataCenter.DlcHuntChipManager.GetChipAmountByItemId(templateId)
+    end,
+
+    [XArrangeConfigs.Types.ItemCollection] = function(templateId)
+        return XDataCenter.ItemManager.CheckCollectItemUnlock(templateId) and 1 or 0
+    end,
+    
+    [XArrangeConfigs.Types.ChatBoard] = function(templateId)
+        return XDataCenter.ChatManager.CheckChatBoardIsLockById(templateId) and 0 or 1
+    end,
+    
+    [XArrangeConfigs.Types.DrawTicket] = function(templateId) 
+        return XDataCenter.DrawManager.GetDrawTicketCountByTemplateId(templateId)
+    end,
+    
+    [XArrangeConfigs.Types.QuestItem] = function(templateId) 
+        return XMVCA.XBigWorldService:GetQuestItemCount(templateId)
     end,
 }
 
@@ -485,14 +580,14 @@ end
 --==============================--
 function XGoodsCommonManager.GetGoodsCurrentCount(templateId)
     --战区贡献道具不在背包，需要特殊处理
-    if templateId == XArenaConfigs.CONTRIBUTESCORE_ID then
-        return XDataCenter.ArenaManager.GetContributeScore()
-    elseif templateId == XChessPursuitConfig.SHOP_COIN_ITEM_ID then
-        return XDataCenter.ChessPursuitManager.GetSumCoinCount()
+    if templateId == XMVCA.XArena:GetContributeScoreItemId() then
+        return XMVCA.XArena:GetContributeScore()
+    --elseif templateId == XChessPursuitConfig.SHOP_COIN_ITEM_ID then
+    --    return XDataCenter.ChessPursuitManager.GetSumCoinCount()
     elseif templateId == XDataCenter.StrongholdManager.GetBatteryItemId() then
         return XDataCenter.StrongholdManager.GetTotalElectricEnergy()
-    elseif templateId == XDataCenter.ReformActivityManager.GetScoreItemId() then
-        return XDataCenter.ReformActivityManager.GetAllStageAccumulativeScore()
+    --elseif templateId == XDataCenter.ReformActivityManager.GetScoreItemId() then
+    --    return XDataCenter.ReformActivityManager.GetAllStageAccumulativeScore()
     else
         local arrangeType = XArrangeConfigs.GetType(templateId)
         return GoodsCurrentCount[arrangeType] and GoodsCurrentCount[arrangeType](templateId) or 0
@@ -502,6 +597,10 @@ end
 local GoodsShowParams = {}
 
 GoodsShowParams[XArrangeConfigs.Types.Item] = function(templateId)
+    if XMVCA.XBigWorldService:IsDlcItem(templateId) then
+        return XMVCA.XBigWorldService:GetItemGoodsShowParams(templateId)
+    end
+    
     return {
         RewardType = XRewardManager.XRewardType.Item,
         TemplateId = templateId,
@@ -513,35 +612,35 @@ GoodsShowParams[XArrangeConfigs.Types.Item] = function(templateId)
 end
 
 GoodsShowParams[XArrangeConfigs.Types.Character] = function(templateId)
-    local quality = XCharacterConfigs.GetCharMinQuality(templateId)
+    local quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
 
     return {
         RewardType = XRewardManager.XRewardType.Character,
         TemplateId = templateId,
-        Name = XCharacterConfigs.GetCharacterName(templateId),
-        TradeName = XCharacterConfigs.GetCharacterTradeName(templateId),
+        Name = XMVCA.XCharacter:GetCharacterName(templateId),
+        TradeName = XMVCA.XCharacter:GetCharacterTradeName(templateId),
         Quality = quality,
-        QualityIcon = XCharacterConfigs.GetCharQualityIconGoods(quality),
-        Icon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(templateId),
-        BigIcon = XDataCenter.CharacterManager.GetCharBigRoundnessHeadIcon(templateId),
+        QualityIcon = XMVCA.XCharacter:GetCharQualityIconGoods(quality),
+        Icon = XMVCA.XCharacter:GetCharRoundnessHeadIcon(templateId),
+        BigIcon = XMVCA.XCharacter:GetCharBigRoundnessHeadIcon(templateId),
 
     }
 end
 
 GoodsShowParams[XArrangeConfigs.Types.Weapon] = function(templateId)
-    local quality = XDataCenter.EquipManager.GetEquipQuality(templateId)
+    local quality = XMVCA.XEquip:GetEquipQuality(templateId)
 
     return {
         RewardType = XRewardManager.XRewardType.Equip,
         TemplateId = templateId,
-        Name = XDataCenter.EquipManager.GetEquipName(templateId),
+        Name = XMVCA.XEquip:GetEquipName(templateId),
         Quality = quality,
         QualityTag = quality > XGoodsCommonManager.QualityType.Gold,
-        Star = XDataCenter.EquipManager.GetEquipStar(templateId),
-        Site = XDataCenter.EquipManager.GetEquipSiteByTemplateId(templateId),
-        Icon = XDataCenter.EquipManager.GetEquipIconPath(templateId),
-        BigIcon = XDataCenter.EquipManager.GetEquipBigIconPath(templateId),
-        QualityIcon = XDataCenter.EquipManager.GetEquipQualityPath(templateId)
+        Star = XMVCA.XEquip:GetEquipStar(templateId),
+        Site = XMVCA.XEquip:GetEquipSite(templateId),
+        Icon = XMVCA.XEquip:GetEquipIconPath(templateId),
+        BigIcon = XMVCA.XEquip:GetEquipBigIconPath(templateId),
+        QualityIcon = XMVCA.XEquip:GetEquipQualityPath(templateId)
     }
 end
 
@@ -670,7 +769,7 @@ GoodsShowParams[XArrangeConfigs.Types.Partner] = function(templateId)
         Name = XPartnerConfigs.GetPartnerTemplateName(templateId),
         Icon = XPartnerConfigs.GetPartnerTemplateIcon(templateId),
         Quality = quality,
-        QualityIcon = XCharacterConfigs.GetCharQualityIconGoods(quality),
+        QualityIcon = XMVCA.XCharacter:GetCharQualityIconGoods(quality),
     }
 end
 
@@ -693,6 +792,67 @@ GoodsShowParams[XArrangeConfigs.Types.RankScore] = function(templateId)
         Quality = XFubenSpecialTrainConfig.GetRankScoreGoodQuality(templateId),
     }
 end
+
+GoodsShowParams[XArrangeConfigs.Types.DrawTicket] = function(templateId)
+    local cfg = XDrawConfigs.GetDrawTicketCfg(templateId)
+    return {
+        RewardType = XRewardManager.XRewardType.DrawTicket,
+        TemplateId = templateId,
+        Name = cfg.Name,
+        Icon = cfg.Icon,
+        BigIcon = cfg.BigIcon,
+        Quality = cfg.Quality
+    }
+end
+
+GoodsShowParams[XArrangeConfigs.Types.GuildGoods] = function(templateId) 
+    return {
+        RewardType = XRewardManager.XRewardType.GuildGoods,
+        TemplateId = templateId,
+        Name = XGuildConfig.GetGoodsName(templateId),
+        Icon = XGuildConfig.GetGoodsIcon(templateId),
+        GoodsType = XGuildConfig.GetGoodsType(templateId),
+        BigIcon = XGuildConfig.GetGoodsBigIcon(templateId)
+    }
+end
+
+GoodsShowParams[XArrangeConfigs.Types.DlcHuntChip] = function(templateId)
+    return {
+        RewardType = XRewardManager.XRewardType.DlcHuntChip,
+        TemplateId = templateId,
+        Name = XDlcHuntChipConfigs.GetChipName(templateId),
+        Icon = XDlcHuntChipConfigs.GetChipIcon(templateId),
+        Quality = XDlcHuntChipConfigs.GetChipQuality(templateId),
+    }
+end
+
+GoodsShowParams[XArrangeConfigs.Types.ItemCollection] = function(templateId)
+    local template = XItemConfigs.GetItemCollectTemplate(templateId)
+    return {
+        RewardType = XRewardManager.XRewardType.ItemCollection,
+        TemplateId = templateId,
+        Name = template.Name,
+        Icon = template.Icon,
+        BigIcon = template.BigIcon,
+        Quality = template.Quality
+    }
+end
+
+GoodsShowParams[XArrangeConfigs.Types.ChatBoard] = function(templateId)
+    local template = XChatConfigs.GetChatBoardCfgById(templateId)
+    return {
+        RewardType = XRewardManager.XRewardType.ChatBoard,
+        TemplateId = templateId,
+        Name = template.Name,
+        Icon = template.Icon,
+    }
+end
+
+GoodsShowParams[XArrangeConfigs.Types.QuestItem] = function(templateId)
+    return XMVCA.XBigWorldService:GetQuestItemParams(templateId)
+end
+
+
 --==============================--
 --desc: 通用物品展示参数
 --@templateId: 配置表id

@@ -1,10 +1,5 @@
+---@class XUiGridFubenSnowGameMedal
 local XUiGridFubenSnowGameMedal = XClass(nil,"XUiGridFubenSnowGameMedal")
-
-function XUiGridFubenSnowGameMedal:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-end
 
 function XUiGridFubenSnowGameMedal:Refresh(id, curRankId)
     --段位图标

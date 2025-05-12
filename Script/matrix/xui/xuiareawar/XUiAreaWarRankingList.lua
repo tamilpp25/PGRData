@@ -1,9 +1,11 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridAreaWarRank = require("XUi/XUiAreaWar/XUiGridAreaWarRank")
 
 local XUiAreaWarRankingList = XLuaUiManager.Register(XLuaUi, "UiAreaWarRankingList")
 
 function XUiAreaWarRankingList:OnAwake()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.AreaWarCoin,

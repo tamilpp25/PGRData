@@ -6,7 +6,6 @@ local XRedPointConditionKillZoneActivity = {}
 function XRedPointConditionKillZoneActivity.GetSubConditions()
     SubCondition = SubCondition or {
         XRedPointConditions.Types.XRedPointConditionKillZoneStarReward,
-        XRedPointConditions.Types.XRedPointConditionKillZoneDailyStarReward,
     }
     return SubCondition
 end
@@ -24,7 +23,8 @@ function XRedPointConditionKillZoneActivity.Check(chapterId)
         return true
     end
 
-    if XRedPointConditionKillZoneDailyStarReward.Check() then
+    -- 入口只需要判断每日关卡是否点击过
+    if not XDataCenter.KillZoneManager.GetCookieDailyStageClicked() then
         return true
     end
 

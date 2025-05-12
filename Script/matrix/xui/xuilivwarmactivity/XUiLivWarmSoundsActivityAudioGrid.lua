@@ -27,20 +27,20 @@ end
 
 
 --isSingleTouch单点不连续播放，否则会连续播放
---[[function XUiLivWarmSoundsActivityAudioGrid:PlaySound(isSingleTouch) --海外修改不播放声音，改为文字显示
+function XUiLivWarmSoundsActivityAudioGrid:PlaySound(isSingleTouch)
     local soundCueId = XLivWarmSoundsActivityConfig.GetSoundCueId(self.SoundIndex)
     if self.GameObject and  not self.GameObject.activeSelf then
         return
     end
-    XSoundManager.PauseMusic()
+    XLuaAudioManager.PauseMusic()
     if isSingleTouch then
         self.Parent:PlayAnimation("PanelPopupEnable", function()
-            self.PlayAudioInfo = CS.XAudioManager.PlaySound(soundCueId, CS.XAudioManager.EAudioBelong.E1p, function()
+            self.PlayAudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, soundCueId, nil, function()
                 if self.CallBack then
                     self.CallBack(isSingleTouch)
                 end
                 self.Parent:PlayAnimation("PanelPopupDisable")
-                XSoundManager.ResumeMusic()
+                XLuaAudioManager.ResumeMusic()
             end)
         end, function()
             self.SinglePanelPop.TextOrder1.text = self.SoundIndex
@@ -48,26 +48,18 @@ end
             self.SinglePanelPop.RImgPoupCd:SetRawImage(XLivWarmSoundsActivityConfig.GetSoundAttachedImgUrl(self.SoundIndex))
         end)
     else
-        self.PlayAudioInfo = CS.XAudioManager.PlaySound(soundCueId, CS.XAudioManager.EAudioBelong.E1p, function()
+        self.PlayAudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, soundCueId, nil, function()
             if self.CallBack then
                 self.CallBack(isSingleTouch)
             end
         end)
     end
-end--]]
+end
 
 function XUiLivWarmSoundsActivityAudioGrid:StopPlaySound()
     if XTool.IsNumberValid(self.PlayAudioInfo) then
         self.PlayAudioInfo:Stop()
     end
-end
-
-function XUiLivWarmSoundsActivityAudioGrid:PlaySound() --海外修改不播放声音，改为文字显示
-    local words = XLivWarmSoundsActivityConfig.GetSoundWords(self.SoundIndex)
-    if self.GameObject and  not self.GameObject.activeSelf then
-        return
-    end
-    self.Parent:PlayTypeWriter(words)
 end
 
 return XUiLivWarmSoundsActivityAudioGrid

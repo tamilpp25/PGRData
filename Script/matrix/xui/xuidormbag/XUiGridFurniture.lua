@@ -37,7 +37,14 @@ end
 
 function XUiGridFurniture:OnBtnClickClick()
     local furnitureConfigId = XDataCenter.FurnitureManager.GetFurnitureConfigId(self.FurnitureId)
-    XEventManager.DispatchEvent(XEventId.EVENT_CLICKFURNITURE_GRID, self.FurnitureId, furnitureConfigId, self)
+    if not XTool.IsNumberValid(furnitureConfigId) then
+        return
+    end
+    if self.RootUi and self.RootUi.OnFurnitureGridClick then
+        self.RootUi:OnFurnitureGridClick(self.FurnitureId, furnitureConfigId, self)
+        return
+    end
+    XEventManager.DispatchEvent(XEventId.EVENT_CLICK_FURNITURE_GRID, self.FurnitureId, furnitureConfigId, self)
 end
 
 function XUiGridFurniture:SetSelected(status)
@@ -117,17 +124,19 @@ function XUiGridFurniture:Refresh(furnitureId)
 
         -- 记入已经查看过 new 标签
         if showNew then
-            local ids = {}
-            table.insert(ids, self.FurnitureId)
-            XDataCenter.FurnitureManager.AddNewHint(ids)
+            XDataCenter.FurnitureManager.AddNewHint({self.FurnitureId})
         end
     end
+
+    self:RefreshDisable()
 
     if self.TxtCount then
         self.TxtCount.gameObject:SetActiveEx(false)
     end
 
     self:UpdateUsing(furnitureId)
+    
+    self:RefreshLabel(furnitureConfig.Id)
 end
 
 function XUiGridFurniture:UpdateUsing(furnitureId)
@@ -138,6 +147,39 @@ function XUiGridFurniture:UpdateUsing(furnitureId)
     if self.PanelUsing then
         self.PanelUsing.gameObject:SetActiveEx(XDataCenter.FurnitureManager.CheckFurnitureUsing(self.FurnitureId))
     end
+end
+
+function XUiGridFurniture:RefreshDisable()
+    if XTool.UObjIsNil(self.ImgDisable) then
+        return
+    end
+    
+    if not XTool.IsNumberValid(self.FurnitureId) then
+        self.ImgDisable.gameObject:SetActiveEx(false)
+        return
+    end
+
+    if self:IsSelected() then
+        self.ImgDisable.gameObject:SetActiveEx(false)
+        return
+    end
+    self.ImgDisable.gameObject:SetActiveEx(not self.RootUi:CheckCanSelect(self.FurnitureId))
+end
+
+function XUiGridFurniture:RefreshLabel(templateId)
+    if self.GoodsLabel then
+        self.GoodsLabel:Close()
+    end
+    if not XTool.IsNumberValid(templateId) then
+        return
+    end
+    if not XUiConfigs.CheckHasLabel(templateId) then
+        return
+    end
+    if not self.GoodsLabel then
+        self.GoodsLabel = XUiHelper.CreateGoodsLabel(templateId, self.Transform, self.PanelPet)
+    end
+    self.GoodsLabel:Refresh(templateId, self.PanelPet ~= nil)
 end
 
 return XUiGridFurniture

@@ -1,3 +1,4 @@
+local XUiPanelActive = require("XUi/XUiTask/XUiPanelActive")
 local XUiPanelActiveBuff = XClass(nil, "XUiPanelActiveBuff")
 
 function XUiPanelActiveBuff:Ctor(ui)

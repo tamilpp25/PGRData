@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridDailyBanner = require("XUi/XUiFubenDailyBanner/XUiGridDailyBanner")
 local XUiFubenDailyBanner = XLuaUiManager.Register(XLuaUi, "UiFubenDailyBanner")
 
 function XUiFubenDailyBanner:OnAwake()

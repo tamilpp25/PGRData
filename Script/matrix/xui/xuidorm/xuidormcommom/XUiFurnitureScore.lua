@@ -1,5 +1,6 @@
+local XUiGridAttribute = require("XUi/XUiDorm/XUiDormCommom/XUiGridAttribute")
 -- 家具分数控件
-XUiFurnitureScore = XClass(nil, "XUiFurnitureScore")
+local XUiFurnitureScore = XClass(nil, "XUiFurnitureScore")
 
 function XUiFurnitureScore:Ctor(rootUi, ui)
     self.RootUi = rootUi

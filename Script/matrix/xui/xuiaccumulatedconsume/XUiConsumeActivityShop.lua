@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiConsumeActivityShop = XLuaUiManager.Register(XLuaUi,"UiConsumeActivityShop")
 local XUiGridConsumeActivityShop = require("XUi/XUiAccumulatedConsume/XUiGridConsumeActivityShop")
 
@@ -10,7 +11,7 @@ end
 function XUiConsumeActivityShop:OnStart()
     ---@type ConsumeDrawActivityEntity
     self.ConsumeDrawActivity = XDataCenter.AccumulatedConsumeManager.GetConsumeDrawActivity()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ self.ConsumeDrawActivity:GetShopCoinItemId() }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ self.ConsumeDrawActivity:GetShopCoinItemId() }, self.PanelSpecialTool, self)
     
     self:InitDynamicTable()
     self.ShopId = self.ConsumeDrawActivity:GetShopId()

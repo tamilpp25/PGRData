@@ -77,6 +77,7 @@ function XUiMeadalDetail:SetDetailData()
     self.TxtCondition.text = self.Data.UnlockDesc
     if self.Data.MedalImg ~= nil then
         self.RawImage:SetRawImage(self.Data.MedalImg)
+        XDataCenter.MedalManager.LoadMedalEffect(self, self.RawImage, self.Data.Id)
     end
     if self.InType == XDataCenter.MedalManager.InType.Preview then
         self.TxtUnlockTime.text = ""

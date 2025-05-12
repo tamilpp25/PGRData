@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --######################## XUiReformTeamUp ########################
 local UiReformTeamMemberGrid = XClass(nil, "UiReformTeamMemberGrid")
 
@@ -25,7 +27,7 @@ function UiReformTeamMemberGrid:SetData(source, inTeam, isSelected)
         rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActiveEx(true)
-            rImg:SetRawImage(XCharacterConfigs.GetCharElement(elementList[i]).Icon)
+            rImg:SetRawImage(XMVCA.XCharacter:GetCharElement(elementList[i]).Icon)
         else
             rImg.gameObject:SetActiveEx(false)
         end

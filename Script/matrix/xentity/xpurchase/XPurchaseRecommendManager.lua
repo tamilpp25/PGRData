@@ -1,6 +1,7 @@
 local XPurchaseRecommend = require("XEntity/XPurchase/XPurchaseRecommend")
 local XPurchaseRecommendManager = XClass(nil, "XPurchaseRecommendManager")
 
+---@class XPurchaseRecommendManager
 function XPurchaseRecommendManager:Ctor() 
     self.RecommendConfigDic = {}
 end
@@ -10,22 +11,34 @@ function XPurchaseRecommendManager:GetRecommends()
     local result = {}
     local configs = self:GetPurchaseRecommendConfigs()
     for _, config in ipairs(configs) do
+        ---@type XPurchaseRecommend
         local purchaseRecommend = XPurchaseRecommend.New(config.Id)
+        --[[
         local package = purchaseRecommend:GetPurchasePackage()
         local skipSteps = purchaseRecommend:GetSkipSteps()
         -- 拿不到礼包数据同时跳转步骤为0，直接跳过
         if XTool.IsTableEmpty(package) and #skipSteps <= 0 then
             goto continue 
         end
+        ]]
         -- 时间已经过去，直接跳过
         if not purchaseRecommend:GetIsInTime() then
             goto continue
+        end
+        -- v1.31增加配置显示条件
+        if config.ConditionId and config.ConditionId ~= 0 and not XConditionManager.CheckCondition(config.ConditionId) then
+            goto continue 
         end
         if config.IsLockShow or not purchaseRecommend:GetIsSellOut() then
             table.insert(result, purchaseRecommend)
         end
         :: continue ::
     end
+
+    table.sort(result, function(itemA, itemB)
+        return itemA:GetPriority() < itemB:GetPriority()
+    end)
+
     return result
 end
 

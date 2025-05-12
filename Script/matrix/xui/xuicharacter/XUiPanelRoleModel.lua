@@ -4,8 +4,14 @@ local AnimeLayer = {
     Body = 0,
     Face = 1
 }
+
+local KeepGraphicLayer = {
+    Distortion = "Distortion",
+}
+
+local DefaultRoleAnimaName = "StandAct0101"
 --==============================--
--- RoleModelPool = {["model"] = model, ["weaponList"] = list, ["characterId"] = characterId}
+--- RoleModelPool = {["model"] = model, ["weaponList"] = list, ["characterId"] = characterId}
 --==============================--
 function XUiPanelRoleModel:Ctor(
 ui,
@@ -26,6 +32,7 @@ useMultiModel)
         XTool.DestroyChildren(ui.gameObject)
     end
     self.RoleModelPool = {}
+    self.NodeEffectMappingPrefabPool = {}
     self.HideWeapon = hideWeapon and true or false
     self.ShowShadow = showShadow
     self.SetFocus = setFocus
@@ -37,9 +44,24 @@ useMultiModel)
         self.InitLoadClip = loadClip and true
     end
     self.LoadClip = self.InitLoadClip
+    self.IsStandAnimaShowWeapon = false
+    self.StandAnimaShowWeaponList = {}
+    self.StandAnimaShowWeaponAnimatorList = {}
+    self.CueId = nil
+    self.UiStandCallBack = {}
+    self.NowFashionId = nil
+    self.PlayUiStandCallBackList = {}
+    self.AnimaPlayedCallBackList = {}
+    self.IsStandAnimaHideNode = false
     if useMultiModel == nil then
         self.UseMultiModel = true
     end
+    self.CurCharacterId = nil
+
+    -- 最大缓存模型数量
+    self.MaxCacheModelCount = XUiHelper.GetClientConfig("MainMaxCacheModelNumber", XUiHelper.ClientConfigType.Int)
+    
+    self._AnimationEvent = nil
 end
 
 --设置默认动画
@@ -124,7 +146,13 @@ needFightController)
     local curRoleName = self.CurRoleName
     local curModelInfo = modelPool[curRoleName]
     if curModelInfo then
+        if XTool.UObjIsNil(curModelInfo.Model.gameObject) then
+            XLog.Error("[UpdateRoleModel] NullReferenceException: Object reference not set to an instance of an object")
+            modelPool[curRoleName] = nil
+            return
+        end
         curModelInfo.Model.gameObject:SetActiveEx(false)
+        self:SetCurrentUiEffectActive(curModelInfo.UiEffect, false)
         curModelInfo.time = XTime.GetServerNowTimestamp()
     end
     if curRoleName ~= roleName then
@@ -154,6 +182,8 @@ needFightController)
     
     local needRemove = nil
     local nowTime = XTime.GetServerNowTimestamp()
+    local oldestKey
+    local oldestTime = nowTime
     
     for k, v in pairs(modelPool) do
         --不等于当前要显示的模型且时间超出5秒的都要删掉
@@ -164,8 +194,20 @@ needFightController)
                     needRemove = {}
                 end
                 table.insert(needRemove, k)
+            elseif v.time <= oldestTime then
+                oldestTime = v.time
+                oldestKey = k
             end
         end
+    end
+
+    local modelCount = table.nums(modelPool)
+    local needRemoveCount = needRemove and #needRemove or 0
+    if modelCount - needRemoveCount >= self.MaxCacheModelCount and oldestKey then
+        if not needRemove then
+            needRemove = {}
+        end 
+        table.insert(needRemove, oldestKey)
     end
 
     --删除超时的模型
@@ -189,13 +231,32 @@ needFightController)
     end
 
     local modelInfo = modelPool[roleName]
+    local cueId = self.CueId
+    --UiStand播放背景音乐
+    local uiStandVoiceCb = function(model)
+        if cueId then
+            if CS.XAudioManager.IsOpenFashionVoice == 1 then
+                local cueInfo = { CueId = cueId, Info = nil }
+                self:SetUiStandAnimaFinishCallback(model, function()
+                    XLuaAudioManager.StopAudioByCueId(cueInfo.CueId)
+                    cueInfo.Info = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, cueInfo.CueId)
+                end, function()
+                    XLuaAudioManager.DoStopAudioInfo(cueInfo.Info)
+                end,false, true)
+            end
+        end
+        
+        if cb then
+            cb(model)
+        end
+    end
     if IsReLoadAnime then
         self:LoadModelAndReLoadAnime(
         modelInfo,
         targetUiName,
         roleName,
         defaultAnimation,
-        cb,
+        --[[cb]]uiStandVoiceCb,
         runtimeControllerName,
         IsReLoadController
         )
@@ -205,7 +266,7 @@ needFightController)
         targetUiName,
         roleName,
         defaultAnimation,
-        cb,
+        --[[cb]]uiStandVoiceCb,
         runtimeControllerName,
         IsReLoadController
         )
@@ -237,7 +298,6 @@ IsReLoadController) --更新加载同一个模型时不重新加载动画
             tmpModelInfo.RenderingProxy = CS.XNPCRendingUIProxy.GetNPCRendingUIProxy(model)
 
             self.RoleModelPool[roleName] = tmpModelInfo
-
             if self.LoadClip then
                 self:LoadAnimationClips(
                 model.gameObject,
@@ -256,7 +316,9 @@ IsReLoadController) --更新加载同一个模型时不重新加载动画
                 local info = self.NewPanel.RoleModelPool[newModelName]
                 if info then
                     info.Model.transform:SetParent(model.transform, false)
-                    info.Model.gameObject:SetLayerRecursively(model.gameObject.layer)
+                    self:SetEffectLayerRecursively(info.Model.gameObject,model.gameObject.layer,CS.UnityEngine.LayerMask.NameToLayer(KeepGraphicLayer.Distortion))
+                    -- info.Model.gameObject:SetLayerRecursively(model.gameObject.layer,CS.UnityEngine.LayerMask.NameToLayer(KeepGraphicLayer.Distortion))
+
                 end
             end
         end)
@@ -304,8 +366,61 @@ IsReLoadController) --更新加载同一个模型时重新加载动画
                 local info = self.NewPanel.RoleModelPool[newModelName]
                 if info then
                     info.Model.transform:SetParent(model.transform, false)
-                    info.Model.gameObject:SetLayerRecursively(model.gameObject.layer)
+                    self:SetEffectLayerRecursively(info.Model.gameObject,model.gameObject.layer,CS.UnityEngine.LayerMask.NameToLayer(KeepGraphicLayer.Distortion))                    
+                    -- info.Model.gameObject:SetLayerRecursively(model.gameObject.layer,CS.UnityEngine.LayerMask.NameToLayer(KeepGraphicLayer.Distortion))
                 end
+            end
+        end)
+    end
+end
+
+local function GetDefaultAnimaName(loadAnimationClip)
+    if not XTool.UObjIsNil(loadAnimationClip) and loadAnimationClip.Clips.Length > 0 then
+        return loadAnimationClip.Clips[0].name
+    end
+    
+    return ""
+end
+
+function XUiPanelRoleModel:SetPlayRoleAnimationCallback(model)
+    local playRoleAnimation = model.gameObject:GetComponent(typeof(CS.XPlayRoleAnimation))
+
+    if XTool.UObjIsNil(playRoleAnimation) then
+        return
+    end
+    playRoleAnimation:SetPlayCallback(function(animaName, leftTime)
+        for i = 1, #self.PlayUiStandCallBackList do
+            self.PlayUiStandCallBackList[i](animaName, leftTime)
+        end
+    end)
+end
+
+local function RestoreModelNode(model, modelName, actionName)
+    XModelManager.HandleUiModelNodeActive(actionName, modelName, model, true)
+end
+
+---设置播放UiStand时根据动画名隐藏或显示躯干的回调
+function XUiPanelRoleModel:InitPlayUiStandCallBackList(model, defaultAnimaName)
+    local curRoleName = self.CurRoleName
+    local preAnimaName = ""
+    
+    self.PlayUiStandCallBackList = {}
+    if curRoleName then
+        if defaultAnimaName then
+            XModelManager.HandleUiModelNodeActive(defaultAnimaName, curRoleName, model, false)
+            preAnimaName = defaultAnimaName
+        end
+        
+        self:AddUiStandPlayCallback(function(animaName, leftTime)
+            if not string.IsNilOrEmpty(animaName) then
+                if preAnimaName == animaName then
+                    return
+                end
+                
+                self:UnBindWeaponBone(animaName)
+                RestoreModelNode(model, curRoleName, preAnimaName)
+                XModelManager.HandleUiModelNodeActive(animaName, curRoleName, model, false)
+                preAnimaName = animaName
             end
         end)
     end
@@ -316,7 +431,8 @@ function XUiPanelRoleModel:LoadAnimationClips(model, defaultAnimation, cb)
         XLog.Error("XUiPanelRoleModel.LoadAnimation 函数错误，参数model不能为空")
         return
     end
-
+    
+    
     local loadAnimationClip = model.gameObject:GetComponent(typeof(CS.XLoadAnimationClip))
     if loadAnimationClip == nil or not loadAnimationClip:Exist() then
         loadAnimationClip = model.gameObject:AddComponent(typeof(CS.XLoadAnimationClip))
@@ -392,7 +508,7 @@ function XUiPanelRoleModel:RoleModelLoaded(name, uiName, cb, runtimeControllerNa
     local model = modelInfo.Model
 
     XModelManager.SetRoleTransform(name, model, uiName)
-    XModelManager.SetRoleCamera(name, model.transform.parent.parent.parent, uiName)
+    XModelManager.SetRoleCamera(name, model.transform.parent.parent.parent, uiName, self.CurCharacterId)
 
     if runtimeControllerName then
         local animator = model:GetComponent("Animator")
@@ -404,29 +520,67 @@ function XUiPanelRoleModel:RoleModelLoaded(name, uiName, cb, runtimeControllerNa
         CS.XGraphicManager.Focus = model.transform
     end
 
+    -- UiStand通过动作控制节点显隐回调注册
+    if self.LoadClip then
+        local loadAnimationClip = model.gameObject:GetComponent(typeof(CS.XLoadAnimationClip))
+
+        -- 在Callback前初始化回调列表
+        if not XTool.UObjIsNil(loadAnimationClip) then
+            self:SetPlayRoleAnimationCallback(model)
+            self:InitPlayUiStandCallBackList(model, GetDefaultAnimaName(loadAnimationClip))
+        end
+    end
+
     if cb then
         cb(model)
+    end
+    uiName = uiName or self.RefName
+
+    -- 在武器加载完成后进行第一次UiStand的判断
+    if self.LoadClip then
+        local loadAnimationClip = model.gameObject:GetComponent(typeof(CS.XLoadAnimationClip))
+
+        if not XTool.UObjIsNil(loadAnimationClip) then
+            self:UnBindWeaponBone(GetDefaultAnimaName(loadAnimationClip))
+        end
+    end
+    if not self.InitLoadClip then
+        self.IsStandAnimaHideNode = XModelManager.HandleUiModelNodeActive(DefaultRoleAnimaName, name, model, false)
     end
 
     -- 阴影要放在武器模型加载完之后
     if self.ShowShadow then
-        CS.XShadowHelper.AddShadow(self.GameObject)
+        CS.XShadowHelper.AddShadow(self.GameObject, true)
     end
 
     -- 只有不是三个模型同时出现的界面调用此接口
     if not self.FixLight then
         CS.XShadowHelper.SetCharRealtimeShadow(self.GameObject, true)
     end
+
+    -- 在最后设置材质球，避免加载模式过程中将模型隐藏后还原材质球设置
+    XModelManager.LoadModelScriptPart(name, model)
+end
+
+function XUiPanelRoleModel:SetRoleTransform(uiName)
+    local modelInfo = self.RoleModelPool[self.CurRoleName]
+    if not modelInfo then
+        return
+    end
+    local model = modelInfo.Model
+    local name = self.CurRoleName
+    XModelManager.SetRoleTransform(name, model, uiName)
+    XModelManager.SetRoleCamera(name, model.transform.parent.parent.parent, uiName, self.CurCharacterId)
 end
 
 function XUiPanelRoleModel:GetModelName(characterId)
     local quality
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
     if character then
         quality = character.Quality
     end
 
-    return XDataCenter.CharacterManager.GetCharModel(characterId, quality)
+    return XMVCA.XCharacter:GetCharModel(characterId, quality)
 end
 --region---------------------------------加载Ui角色动作特效start---------------------------
 --==============================--
@@ -434,17 +588,27 @@ end
 --@characterId: 角色id
 --@actionId: 动作Id
 --==============================--
-function XUiPanelRoleModel:LoadCharacterUiEffect(characterId, actionId, isNotSelf)
+function XUiPanelRoleModel:LoadCharacterUiEffect(characterId, actionId, isNotSelf, weaponFashionId, isShowDefaultWeapon)
     if not characterId then
         return
     end
-    local fashionId = XDataCenter.CharacterManager.GetShowFashionId(characterId, isNotSelf)
-    local id, rootName, effectPath = XCharacterUiEffectConfig.GetEffectInfo(characterId, fashionId, actionId)
+    
+    local fashionId = nil
+
+    if not self.NowFashionId then
+        fashionId = XMVCA.XCharacter:GetShowFashionId(characterId, isNotSelf)
+    else
+        fashionId = self.NowFashionId    
+    end
+    local equipModelIdList = XMVCA.XEquip:GetWeaponEquipModelIdListByTemplateId(0, weaponFashionId)
+    local id, rootName, effectPath = XCharacterUiEffectConfig.GetEffectInfo(characterId, fashionId, actionId, equipModelIdList)
     local model = self.RoleModelPool[self.CurRoleName]
+    if not model then return end
     if not model.CharacterId then
         model.CharacterId = characterId
     end
-    self:SetCurrentUiEffectActive(model, false)
+    self:SetCurrentUiEffectActive(model.UiEffect, false)
+    self:SetCurrentUiEffectActive(model.UiEquipEffect, false)
     if not model.NotUiStand1 then
         local playRoleAnimation = model.Model.gameObject:GetComponent("XPlayRoleAnimation")
         if playRoleAnimation then
@@ -458,12 +622,10 @@ function XUiPanelRoleModel:LoadCharacterUiEffect(characterId, actionId, isNotSel
     if not actionId and model.NotUiStand1 then
         return
     end
-    if not id or not effectPath then
-        return
-    end
     if not actionId then
         model.UiDefaultId = id
     end
+    self:LoadCharacterUiEquipEffect(model, characterId, fashionId, actionId, isShowDefaultWeapon, weaponFashionId)
     self:PlayCharacterUiEffect(model, id, rootName, effectPath)
 end
 --==============================--
@@ -471,11 +633,12 @@ end
 --@characterId: 角色id
 --@fashionId: 时装Id
 --==============================--
-function XUiPanelRoleModel:LoadResCharacterUiEffect(characterId, fashionId)
+function XUiPanelRoleModel:LoadResCharacterUiEffect(characterId, fashionId, weaponFashionId, isShowDefaultWeapon, equipTemplateId)
     if not characterId then
         return
     end
-    local id, rootName, effectPath = XCharacterUiEffectConfig.GetEffectInfo(characterId, fashionId)
+    local equipModelIdList = XMVCA.XEquip:GetWeaponEquipModelIdListByTemplateId(equipTemplateId, weaponFashionId)
+    local id, rootName, effectPath = XCharacterUiEffectConfig.GetEffectInfo(characterId, fashionId, nil, equipModelIdList)
     if not id or not effectPath then
         return
     end
@@ -483,7 +646,8 @@ function XUiPanelRoleModel:LoadResCharacterUiEffect(characterId, fashionId)
     if not model.CharacterId then
         model.CharacterId = characterId
     end
-    self:SetCurrentUiEffectActive(model, false)
+    self:SetCurrentUiEffectActive(model.UiEffect, false)
+    self:SetCurrentUiEffectActive(model.UiEquipEffect, false)
     local playRoleAnimation = model.Model.gameObject:GetComponent("XPlayRoleAnimation")
     if playRoleAnimation then
         local defaultAnimeName = playRoleAnimation.DefaultClip
@@ -495,6 +659,35 @@ function XUiPanelRoleModel:LoadResCharacterUiEffect(characterId, fashionId)
         model.NotUiStand1 = true
         return
     end
+    self:LoadCharacterUiEquipEffect(model, characterId, fashionId, nil, isShowDefaultWeapon, weaponFashionId, equipTemplateId)
+    self:PlayCharacterUiEffect(model, id, rootName, effectPath)
+end
+--==============================--
+--desc: 加载当前Q版角色动作特效
+--@characterId: 角色id
+--==============================--
+function XUiPanelRoleModel:LoadCharacterCuteUiEffect(characterId)
+    if not XTool.IsNumberValid(characterId) then
+        return
+    end
+    local model = self.RoleModelPool[self.CurRoleName]
+    if not model then
+        return
+    end
+    if not model.CharacterId then
+        model.CharacterId = characterId
+    end
+    if XTool.UObjIsNil(model.Model.gameObject) then
+        return
+    end
+    local playRoleAnimation = model.Model.gameObject:GetComponent("XPlayRoleAnimation")
+    if not playRoleAnimation then
+        return
+    end
+    -- Q版角色特殊处理 直接取默认动作id
+    local actionId = playRoleAnimation.DefaultClip
+    local id, rootName, effectPath = XCharacterCuteConfig.GetEffectInfo(characterId, actionId)
+    self:SetCurrentUiEffectActive(model.UiEffect, false)
     self:PlayCharacterUiEffect(model, id, rootName, effectPath)
 end
 --==============================--
@@ -505,43 +698,214 @@ function XUiPanelRoleModel:LoadCurrentCharacterDefaultUiEffect()
     if model.NotUiStand1 or not model.UiDefaultId then
         return
     end
-    self:SetCurrentUiEffectActive(model, false)
-    local fashionId = XDataCenter.CharacterManager.GetShowFashionId(model.CharacterId)
+    self:SetCurrentUiEffectActive(model.UiEffect, false)
+    self:SetCurrentUiEffectActive(model.UiEquipEffect, false)
+    local fashionId = XMVCA.XCharacter:GetShowFashionId(model.CharacterId)
     local _, rootName, effectPath = XCharacterUiEffectConfig.GetEffectInfo(model.CharacterId, fashionId)
+    self:LoadCharacterUiEquipEffect(model, model.CharacterId, fashionId)
     self:PlayCharacterUiEffect(model, model.UiDefaultId, rootName, effectPath)
 end
 --==============================--
 --desc: 播放Ui角色动作特效
 --==============================--
 function XUiPanelRoleModel:PlayCharacterUiEffect(model, id, rootName, effectPath)
-    self:GetModelUiEffect(model, id, rootName, effectPath)
-    self:SetCurrentUiEffectActive(model, true)
+    if not id or not effectPath then
+        return
+    end
+    if self._EffectTimer then
+        XScheduleManager.UnSchedule(self._EffectTimer)
+        self._EffectTimer = nil
+    end
+    --- 临时处理21号森息涂装模型动画和特效动画对齐问题
+    if self.CurRoleName == XEnumConst.SpecialHandling.CoatingModelId then
+        self._EffectTimer = XScheduleManager.ScheduleNextFrame(function()
+            self:GetModelUiEffect(model, id, rootName, effectPath)
+            self:SetCurrentUiEffectActive(model.UiEffect, true)
+            self:BindEffectByModel(model)
+            self:RePlayUiStand(model)
+            self:SetReActiveUiEffect(model)
+        end)
+    else
+        self:GetModelUiEffect(model, id, rootName, effectPath)
+        self:SetCurrentUiEffectActive(model.UiEffect, true)
+        self:BindEffectByModel(model)
+        self:SetReActiveUiEffect(model)
+    end
+end
+
+function XUiPanelRoleModel:RePlayUiStand(model)
+    local playAnima = model.Model.gameObject:GetComponent(typeof(CS.XPlayRoleAnimation))
+
+    if not playAnima then
+        return
+    end
+
+    local clips = playAnima.Clips
+    local defaultClip = playAnima.DefaultClip
+
+    playAnima:Stop()
+    playAnima:SetAnimationClips(clips);
+    playAnima:SetDefaultAnimation(defaultClip);
+    playAnima:PlayDefault()
+
+    self:SetPlayRoleAnimationCallback(model.Model)
+end
+
+function XUiPanelRoleModel:LoadCharacterUiEquipEffect(model, characterId, fashionId, actionId, isShowDefaultWeapon, weaponFashionId, equipTemplateId)
+    local equipModelIdList
+    if equipTemplateId then
+        local equip = { TemplateId = equipTemplateId }
+        equipModelIdList = XMVCA.XEquip:GetWeaponEquipModelIdListByEquip(equip, weaponFashionId)
+    else
+        equipModelIdList = XMVCA.XEquip:GetEquipModelIdListByCharacterId(characterId, isShowDefaultWeapon, weaponFashionId)
+    end
+    local idList, rootName2EffectPath = {}, {}
+    for _, equipModelId in ipairs(equipModelIdList or {}) do
+        if equipModelId and equipModelId ~= 0 then
+            local effectId, name2EffectMap = XCharacterUiEffectConfig.GetEquipEffectInfo(equipModelId, fashionId, actionId)
+            if effectId then
+                table.insert(idList, effectId)
+                for rootName, effectList in pairs(name2EffectMap or {}) do
+                    rootName2EffectPath[rootName] = effectList
+                end
+            end
+        end
+    end
+    if not XTool.IsTableEmpty(idList) then
+        self:GetModelUiEquipEffect(model, table.concat(idList, "-"), rootName2EffectPath)
+    end
+end
+
+function XUiPanelRoleModel:LoadCharacterUiEquipEffectOther(model, equip, fashionId, actionId, weaponFashionId)
+    local idList, rootName2EffectPath = {}, {}
+    local equipModelIdList = XMVCA.XEquip:GetWeaponEquipModelIdListByEquip(equip, weaponFashionId)
+    for _, equipModelId in ipairs(equipModelIdList or {}) do
+        if equipModelId ~= 0 then
+            local effectId, name2EffectMap = XCharacterUiEffectConfig.GetEquipEffectInfo(equipModelId, fashionId, actionId)
+            if effectId then
+                table.insert(idList, effectId)
+                for rootName, effectList in pairs(name2EffectMap or {}) do
+                    rootName2EffectPath[rootName] = effectList
+                end
+            end
+        end
+    end
+    if not XTool.IsTableEmpty(idList) then
+        self:GetModelUiEquipEffect(model, table.concat(idList, "-"), rootName2EffectPath)
+    end
 end
 --==============================--
 --desc: 获取Ui角色动作特效
 --==============================--
 function XUiPanelRoleModel:GetModelUiEffect(model, id, rootNameArray, effectPathArray)
-    if model.UiEffect and model.CurrentUiEffectId == id then
-        return model.UiEffect
+    -- 判断是否需要更新特效显示
+    local isUpdateShow = false
+    if XTool.IsTableEmpty(model.UiEffectRecord) then
+        isUpdateShow = true
+    else
+        for index, effectPathList in pairs(effectPathArray) do
+            if not model.UiEffectRecord[index] then
+                isUpdateShow = true
+                break
+            end
+            for i, effectPath in pairs(effectPathList) do
+                if not model.UiEffectRecord[index][i] or effectPath ~= model.UiEffectRecord[index][i] then
+                    isUpdateShow = true
+                    break
+                end
+            end
+        end
+    end
+    
+    if model.UiEffect and model.CurrentUiEffectId == id and not isUpdateShow then
+        local isHaveValue = true
+        for _, v in ipairs(model.UiEffect) do
+            if XTool.UObjIsNil(v) then
+                isHaveValue = false
+            end
+        end
+        if isHaveValue then
+            self:PlayDelayEffects(model)
+            return model.UiEffect
+        end
     end
     model.CurrentUiEffectId = id
+    model.UiEffectRecord = effectPathArray
     -- 不管上次的特效，因为XUiLoadPrefab已经处理了重复加载问题（XUiLoadPrefab组件同一个挂点只会生成一个Prefab，旧的会自动销毁）
-    model.UiEffect = {}
+    model.UiEffect = self:ClearUiEffectList(model.UiEffect)
+    model.EffectDelayTimes = {}
     local uiEffectArray = model.UiEffect
-    for i = 1, #effectPathArray do
-        local rootName = rootNameArray[i]
-        local effectPath = effectPathArray[i]
-        local uiEffect = self:CreateUiEffect(model, id, rootName, effectPath)
-        uiEffectArray[#uiEffectArray + 1] = uiEffect
+    local isRotates = XCharacterUiEffectConfig.IsRotateWithCharacter(model)
+    local displayDelayTimes = XCharacterUiEffectConfig.GetDisplayDelayTime(model)
+    for idx, rootName in pairs(rootNameArray) do
+        local displayDelayTime = displayDelayTimes and displayDelayTimes[idx] or nil
+        for i, effectPath in ipairs(effectPathArray[idx] or {}) do
+            local isRotate = true
+            if isRotates then
+                isRotate = isRotates[idx]
+            end
+            local time = 0
+            if not XTool.IsTableEmpty(displayDelayTime) then
+                time = displayDelayTime[i] or 0
+            end
+            local uiEffect = self:CreateUiEffect(model, id, rootName, effectPath, XEnumConst.Fashion.EffectType.UiEffect, isRotate, time)
+            uiEffectArray[#uiEffectArray + 1] = uiEffect
+            model.EffectDelayTimes[uiEffect.transform.parent.gameObject.name] = time
+        end
     end
     return uiEffectArray
+end
+
+function XUiPanelRoleModel:SetEffectLayerRecursively(gameObject,targetLayer, keepLayer , force)
+    gameObject.transform:SetLayerRecursively(targetLayer,keepLayer)    
+end 
+
+--- 获取Ui角色武器特效
+--------------------------
+function XUiPanelRoleModel:GetModelUiEquipEffect(model, id, rootName2EffectPath)
+    self:SetCurrentUiEffectActive(model.UiEquipEffect, true)
+    if model.UiEquipEffect and model.CurrentUiEquipEffectId == id then
+        return model.UiEquipEffect
+    end
+    model.CurrentUiEquipEffectId = id
+    model.UiEquipEffect = self:ClearUiEffectList(model.UiEquipEffect)
+    local list = {}
+    for rootName, effectPathList in pairs(rootName2EffectPath or {}) do
+        for _, effectPath in ipairs(effectPathList or {}) do
+            table.insert(list, self:CreateUiEffect(model, id, rootName, effectPath, XEnumConst.Fashion.EffectType.WeaponEffect))
+        end
+    end
+    model.UiEquipEffect = list
+    
+    return list
 end
 --==============================--
 --desc: 生成Ui角色动作特效
 --==============================--
-function XUiPanelRoleModel:CreateUiEffect(model, id, rootName, effectPath)
+function XUiPanelRoleModel:CreateUiEffect(model, id, rootName, effectPath, effectType, isRotate, displayDelayTime)
+    local parent = self:GetUiEffectRoot(model, rootName, effectPath, effectType, isRotate, displayDelayTime)
+    local obj = CS.LoadHelper.InstantiateGameObject(effectPath)
+    obj.transform:SetParent(parent.transform, false)
+    self:SetEffectLayerRecursively(obj,parent.gameObject.layer,CS.UnityEngine.LayerMask.NameToLayer(KeepGraphicLayer.Distortion))
+    -- obj:SetLayerRecursively(parent.gameObject.layer,CS.UnityEngine.LayerMask.NameToLayer(KeepGraphicLayer.Distortion))
+    --local fx = parent:LoadPrefab(effectPath, false)
+    -- 由于预制是在模型加载之后，需要再次添加阴影
+    if self.ShowShadow then
+        CS.XShadowHelper.AddShadow(obj.gameObject, true)
+    end
+    -- 只有不是三个模型同时出现的界面调用此接口 由于预制是在模型加载之后，需要再次添加阴影
+    if not self.FixLight then
+        CS.XShadowHelper.SetCharRealtimeShadow(self.GameObject, true)
+    end
+    -- v3.1 延迟播放特效
+    self:PlayDelayEffect(parent, displayDelayTime)
+    return obj
+end
+
+function XUiPanelRoleModel:GetUiEffectRoot(model, rootName, effectPath, effectType, isRotate, displayDelayTime)
+    ---@type UnityEngine.GameObject
     local parent  -- 搜挂点
-    if not rootName then
+    if not rootName or rootName == XCharacterUiEffectConfig.GetDefaultRootName() then
         parent = model.Model.gameObject
     else
         parent = model.Model.gameObject:FindGameObject(rootName)
@@ -549,16 +913,87 @@ function XUiPanelRoleModel:CreateUiEffect(model, id, rootName, effectPath)
             parent = model.Model.gameObject
         end
     end
-    local fx = parent:LoadPrefab(effectPath, false)
-    return fx
+    if effectType == XEnumConst.Fashion.EffectType.WeaponEffect or (isRotate and not XTool.IsNumberValid(displayDelayTime)) then
+        return parent
+    else
+        local filename = effectPath:match("^.+/(.+)%..+$")
+        local modelParent = model.Model.transform.parent
+        ---@type UnityEngine.GameObject
+        local root = CS.UnityEngine.GameObject(filename)
+        root.transform:SetParent(modelParent, false)
+        self:SetEffectLayerRecursively(root,modelParent.gameObject.layer,CS.UnityEngine.LayerMask.NameToLayer(KeepGraphicLayer.Distortion))
+        -- root:SetLayerRecursively(modelParent.gameObject.layer,CS.UnityEngine.LayerMask.NameToLayer(KeepGraphicLayer.Distortion))
+        root.transform.position = parent.transform.position
+        root.transform.localScale.x = parent.transform.lossyScale.x / modelParent.lossyScale.x
+        root.transform.localScale.y = parent.transform.lossyScale.y / modelParent.lossyScale.y
+        root.transform.localScale.z = parent.transform.lossyScale.z / modelParent.lossyScale.z
+        root.transform.rotation = parent.transform.rotation
+        return root
+    end
 end
 
-function XUiPanelRoleModel:SetCurrentUiEffectActive(model, isActive)
-    if model.UiEffect then
-        for i = 1, #model.UiEffect do
-            model.UiEffect[i].gameObject:SetActiveEx(isActive)
+--动作播放完重新播放特效
+function XUiPanelRoleModel:SetReActiveUiEffect(model)
+    --local playRoleAnimation = model.Model.gameObject:GetComponent("XPlayRoleAnimation")
+    if XTool.IsTableEmpty(model.UiEffect)
+            and XTool.IsTableEmpty(model.UiEquipEffect) --[[or not playRoleAnimation]] then
+        return
+    end
+
+    self:SetUiStandAnimaFinishCallback(model.Model, function()
+        for _, effect in ipairs(model.UiEffect or {}) do
+            if not XTool.UObjIsNil(effect) and effect.gameObject.activeSelf then
+                effect.gameObject:SetActiveEx(false)
+                effect.gameObject:SetActiveEx(true)
+            end
+        end
+
+        for _, effect in ipairs(model.UiEquipEffect or {}) do
+            if not XTool.UObjIsNil(effect) and effect.gameObject.activeSelf then
+                effect.gameObject:SetActiveEx(false)
+                effect.gameObject:SetActiveEx(true)
+            end
+        end
+    end, nil, false, false)
+    --playRoleAnimation:SetIsNotRemoveFinishCallback(true)
+    --playRoleAnimation:SetFinishedCallback(function()
+    --    for _, effect in ipairs(effectList or {}) do
+    --        if not XTool.UObjIsNil(effect) and effect.gameObject.activeSelf then
+    --            effect.gameObject:SetActiveEx(false)
+    --            effect.gameObject:SetActiveEx(true)
+    --        end
+    --    end
+    --end)
+end
+
+function XUiPanelRoleModel:SetCurrentUiEffectActive(effectList, isActive)
+    if XTool.IsTableEmpty(effectList) then
+        return
+    end
+    for _, effect in ipairs(effectList or {}) do
+        if not XTool.UObjIsNil(effect) then
+            effect.gameObject:SetActiveEx(isActive)
         end
     end
+end
+
+function XUiPanelRoleModel:ClearUiEffectList(effectList)
+    for _, effect in ipairs(effectList or {}) do
+        if not XTool.UObjIsNil(effect) then
+            XUiHelper.Destroy(effect)
+        end
+    end
+    return {}
+end
+
+function XUiPanelRoleModel:GetValidEffect(effectList)
+    local list = {}
+    for _, effect in ipairs(effectList or {}) do
+        if not XTool.UObjIsNil(effect) then
+            table.insert(list, effect)
+        end
+    end
+    return list
 end
 
 --endregion------------------------------------加载Ui角色动作特效end---------------------------
@@ -579,6 +1014,9 @@ growUpLevel,
 hideEffect,
 isShowDefaultWeapon,
 isNotSelf)
+    self.StandAnimaShowWeaponList = {}
+    self.StandAnimaShowWeaponAnimatorList = {}
+    
     local weaponFashionId
 
     if XRobotManager.CheckIsRobotId(characterId) then
@@ -590,13 +1028,15 @@ isNotSelf)
     local resourcesId
     if XTool.IsNumberValid(fashionId) then
         resourcesId = XDataCenter.FashionManager.GetResourcesId(fashionId)
+        self.NowFashionId = fashionId
     else
         resourcesId = XDataCenter.FashionManager.GetFashionResourceIdByCharId(characterId)
+        self.NowFashionId = XDataCenter.FashionManager.GetFashionIdByResId(resourcesId)
     end
 
     local modelName
     if resourcesId then
-        modelName = XDataCenter.CharacterManager.GetCharResModel(resourcesId)
+        modelName = XMVCA.XCharacter:GetCharResModel(resourcesId)
     else
         modelName = self:GetModelName(characterId)
     end
@@ -604,34 +1044,107 @@ isNotSelf)
         return
     end
     
-    self:UpdateRoleModel(
-    modelName,
-    targetPanelRole,
-    targetUiName,
-    function(model)
-        if not self.HideWeapon then
-            self:UpdateCharacterWeaponModels(characterId, modelName, weaponCb, hideEffect, nil, weaponFashionId, isShowDefaultWeapon) --- todo  cur equip
-        end
+    self.IsStandAnimaShowWeapon = XMVCA.XEquip:CheckHasLoadEquipBySignboard(characterId, self.NowFashionId)
+    self:SetCueId(self.NowFashionId)
+    -- 设置当前加载的角色Id（设置相机参数时使用）
+    self.CurCharacterId = characterId
+    
+    self:UpdateRoleModel(modelName, targetPanelRole, targetUiName, 
+            function(model)
+                if not self.HideWeapon then
+                    self:UpdateCharacterWeaponModels(characterId, modelName, weaponCb, hideEffect, nil, weaponFashionId, isShowDefaultWeapon) --- todo  cur equip
+                end
 
-        if not hideEffect then
-            self:UpdateCharacterLiberationLevelEffect(modelName, characterId, growUpLevel, fashionId)
-        end
+                if self.IsStandAnimaShowWeapon and self.HideWeapon then
+                    local equipUsage = XMVCA.XEquip:GetEquipAnimControllerBySignboard(characterId, self.NowFashionId)
+                    local newCb = function(model)
+                        self.StandAnimaShowWeaponList[#self.StandAnimaShowWeaponList + 1] = model
+                        local weaponAnimator = model:GetComponent("Animator")
+                        if weaponAnimator then
+                            self.StandAnimaShowWeaponAnimatorList[#self.StandAnimaShowWeaponAnimatorList + 1] = weaponAnimator
+                        end
+                        
+                        if weaponCb then
+                            weaponCb(model)
+                        end
+                    end
+                    
+                    self:UpdateCharacterWeaponModels(characterId, modelName, newCb, hideEffect, nil, weaponFashionId, isShowDefaultWeapon, equipUsage)
+                end
+                
+                if not hideEffect then
+                    self:UpdateCharacterLiberationLevelEffect(modelName, characterId, growUpLevel, fashionId)
+                end
 
-        if cb then
-            cb(model)
-        end
+                if cb then
+                    cb(model)
+                end
+                
+                if self.FixLight then
+                    CS.XGraphicManager.FixUICharacterLightDir(model.gameObject)
+                end
+    end)
+    local actionId = self:GetPlayingStateName(AnimeLayer.Body)
+    self:LoadCharacterUiEffect(tonumber(characterId), actionId, isNotSelf, weaponFashionId, isShowDefaultWeapon)
+end
 
-        if self.FixLight then
-            CS.XGraphicManager.FixUICharacterLightDir(model.gameObject)
-        end
+---将callback保存在列表中，在执行回调时遍历callback列表
+---@param model UnityEngine.GameObject 角色模型
+---@param callback function 回调函数
+---@param disableCallback function 模型销毁的回调
+---@param isOnce boolean 是否只执行一次
+---@param isInstantExecute boolean 是否立即执行
+function XUiPanelRoleModel:SetUiStandAnimaFinishCallback(model, callback, disableCallback, isOnce, isInstantExecute)
+    isOnce = isOnce or false
+    isInstantExecute = isInstantExecute or false
+    self.UiStandCallBack[#self.UiStandCallBack + 1] = { Callback = callback, IsOnce = isOnce }
+
+    local playAnima = model.gameObject:GetComponent(typeof(CS.XPlayRoleAnimation))
+
+    if not playAnima then
+        return
     end
-    )
-    self:LoadCharacterUiEffect(tonumber(characterId), nil, isNotSelf)
+
+    if isInstantExecute then
+        callback()
+    end
+    
+    playAnima:SetIsNotRemoveFinishCallback(true)
+    playAnima:SetFinishedCallback(function()
+        for i = #self.UiStandCallBack, 1, -1  do
+            local funcData = self.UiStandCallBack[i]
+            local callbackFunc = funcData.Callback
+            local isOnlyOnce = funcData.IsOnce
+
+            callbackFunc()
+
+            if isOnlyOnce then
+                table.remove(self.UiStandCallBack, i)
+            end
+        end 
+    end)
+    if disableCallback ~= nil then
+        playAnima:SetDisableCallback(disableCallback)
+    end
+end
+
+function XUiPanelRoleModel:SetCueId(fashionId)
+    if not fashionId then
+        return
+    end
+    self.UiStandCallBack = {}    
+    self.CueId = XDataCenter.FashionManager.GetCueIdByFashionId(fashionId)
+end
+
+-- 设置当前角色Id（设置相机参数时使用）
+function XUiPanelRoleModel:SetCurCharacterId(id)
+    self.CurCharacterId = id
 end
 
 --==============================--
 --desc: 在查看其他玩家信息时，更新角色模型
 --==============================--
+---@param weapon XEquip
 function XUiPanelRoleModel:UpdateCharacterModelOther(
 character,
 weapon,
@@ -651,14 +1164,14 @@ cb)
 
     local modelName
     if resourcesId then
-        modelName = XDataCenter.CharacterManager.GetCharResModel(resourcesId)
+        modelName = XMVCA.XCharacter:GetCharResModel(resourcesId)
     else
         local quality
         if character then
             quality = character.Quality
         end
 
-        modelName = XDataCenter.CharacterManager.GetCharModel(characterId, quality)
+        modelName = XMVCA.XCharacter:GetCharModel(characterId, quality)
     end
     if not modelName then
         return
@@ -672,7 +1185,7 @@ cb)
             self:UpdateCharacterWeaponModelsOther(character, weapon, weaponFashionId, modelName)
         end
 
-        local fashionId = character.FashionId or XCharacterConfigs.GetCharacterTemplate(character.Id).DefaultNpcFashtionId
+        local fashionId = character.FashionId or XMVCA.XCharacter:GetCharacterTemplate(character.Id).DefaultNpcFashtionId
         self:UpdateCharacterLiberationLevelEffect(modelName, characterId, character.LiberateLv, fashionId)
 
         if cb then
@@ -684,21 +1197,24 @@ cb)
         end
     end
     )
-    self:LoadCharacterUiEffectOther(character)
+    self:LoadCharacterUiEffectOther(character, nil, weapon, weaponFashionId)
 end
 
-function XUiPanelRoleModel:LoadCharacterUiEffectOther(character, actionId)
+---@param weapon XEquip
+function XUiPanelRoleModel:LoadCharacterUiEffectOther(character, actionId, weapon, weaponFashionId)
     if not character then
         return
     end
-    local fashionId = character.FashionId or XCharacterConfigs.GetCharacterTemplate(character.Id).DefaultNpcFashtionId
-    local id, rootName, effectPath = XCharacterUiEffectConfig.GetEffectInfo(character.Id, fashionId, actionId)
+    local fashionId = character.FashionId or XMVCA.XCharacter:GetCharacterTemplate(character.Id).DefaultNpcFashtionId
+    local equipModelIdList = XMVCA.XEquip:GetWeaponEquipModelIdListByTemplateId(weapon.TemplateId, weaponFashionId)
+    local id, rootName, effectPath = XCharacterUiEffectConfig.GetEffectInfo(character.Id, fashionId, actionId, equipModelIdList)
     local model = self.RoleModelPool[self.CurRoleName]
 
     if not model.CharacterId then
         model.CharacterId = character.Id
     end
-    self:SetCurrentUiEffectActive(model, false)
+    self:SetCurrentUiEffectActive(model.UiEffect, false)
+    self:SetCurrentUiEffectActive(model.UiEquipEffect, false)
     if not model.NotUiStand1 then
         local playRoleAnimation = model.Model.gameObject:GetComponent("XPlayRoleAnimation")
         if playRoleAnimation then
@@ -712,12 +1228,10 @@ function XUiPanelRoleModel:LoadCharacterUiEffectOther(character, actionId)
     if not actionId and model.NotUiStand1 then
         return
     end
-    if not id or not effectPath then
-        return
-    end
     if not actionId then
         model.UiDefaultId = id
     end
+    self:LoadCharacterUiEquipEffectOther(model, weapon, fashionId, actionId, weaponFashionId)
     self:PlayCharacterUiEffect(model, id, rootName, effectPath)
 end
 
@@ -727,83 +1241,28 @@ end
 function XUiPanelRoleModel:UpdateRobotModel(robotId, characterId, weaponCb, fashionId, equipTemplateId, modelCb, needDisplayController
     , targetPanelRole, targetUiName)
     local resourcesId
+    local nowFashionId
     if fashionId then
         resourcesId = XDataCenter.FashionManager.GetResourcesId(fashionId)
+        nowFashionId = fashionId
     else
         resourcesId = XDataCenter.FashionManager.GetFashionResourceIdByCharId(characterId)
+        nowFashionId = XDataCenter.FashionManager.GetFashionIdByResId(resourcesId)
     end
 
     local modelName
     if resourcesId then
-        modelName = XDataCenter.CharacterManager.GetCharResModel(resourcesId)
+        modelName = XMVCA.XCharacter:GetCharResModel(resourcesId)
     else
         modelName = self:GetModelName(characterId)
     end
     if not modelName then
         return
     end
-
-    self:UpdateRoleModel(
-    modelName,
-    targetPanelRole,
-    targetUiName,
-    function(model)
-        if not self.HideWeapon then
-            local weaponFashionId = XRobotManager.GetRobotWeaponFashionId(robotId)
-            self:UpdateCharacterWeaponModels(
-            characterId,
-            modelName,
-            weaponCb,
-            true,
-            equipTemplateId,
-            weaponFashionId
-            )
-        end
-        if modelCb then
-            modelCb(model)
-        end
-        if self.FixLight then
-            CS.XGraphicManager.FixUICharacterLightDir(model.gameObject)
-        end
-    end,
-    nil,
-    needDisplayController
-    )
-    self:LoadResCharacterUiEffect(characterId, fashionId)
-end
-
---==============================--
---desc: 更新机器人角色模型 可以根据UseFashion使用角色涂装和角色武器涂装
---==============================--
-function XUiPanelRoleModel:UpdateRobotModelNew(robotId, characterId, weaponCb, fashionId, equipTemplateId, modelCb, needDisplayController, targetPanelRole, targetUiName)
-    local weaponFashionId
-    local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
-    if XRobotManager.CheckUseFashion(robotId) and isOwn then
-        local character = XDataCenter.CharacterManager.GetCharacter(characterId)
-        local robot2CharViewModel = character:GetCharacterViewModel()
-        fashionId = robot2CharViewModel:GetFashionId()
-        weaponFashionId = XDataCenter.WeaponFashionManager.GetCharacterWearingWeaponFashionId(characterId)
-    else
-        weaponFashionId = XRobotManager.GetRobotWeaponFashionId(robotId)
-    end
-
-    local resourcesId
-    if fashionId then
-        resourcesId = XDataCenter.FashionManager.GetResourcesId(fashionId)
-    else
-        resourcesId = XDataCenter.FashionManager.GetFashionResourceIdByCharId(characterId)
-    end
-
-    local modelName
-    if resourcesId then
-        modelName = XDataCenter.CharacterManager.GetCharResModel(resourcesId)
-    else
-        modelName = self:GetModelName(characterId)
-    end
-    if not modelName then
-        return
-    end
-
+    targetUiName = targetUiName or self.RefName
+    local weaponFashionId = XRobotManager.GetRobotWeaponFashionId(robotId)
+    
+    self:SetCueId(nowFashionId)
     self:UpdateRoleModel(modelName, targetPanelRole, targetUiName, function(model)
         if not self.HideWeapon then
             self:UpdateCharacterWeaponModels(characterId, modelName, weaponCb, true, equipTemplateId, weaponFashionId)
@@ -815,23 +1274,96 @@ function XUiPanelRoleModel:UpdateRobotModelNew(robotId, characterId, weaponCb, f
             CS.XGraphicManager.FixUICharacterLightDir(model.gameObject)
         end
     end, nil, needDisplayController)
-    self:LoadResCharacterUiEffect(characterId, fashionId)
+    
+    self:LoadResCharacterUiEffect(characterId, fashionId, weaponFashionId, nil, equipTemplateId)
+end
+
+--==============================--
+--desc: 更新机器人角色模型 可以根据UseFashion使用角色涂装和角色武器涂装
+--==============================--
+function XUiPanelRoleModel:UpdateRobotModelNew(robotId, characterId, weaponCb, fashionId, equipTemplateId, modelCb, needDisplayController, targetPanelRole, targetUiName)
+    local weaponFashionId
+    local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
+    if XRobotManager.CheckUseFashion(robotId) and isOwn then
+        local character = XMVCA.XCharacter:GetCharacter(characterId)
+        local robot2CharViewModel = character:GetCharacterViewModel()
+        fashionId = robot2CharViewModel:GetFashionId()
+        weaponFashionId = XDataCenter.WeaponFashionManager.GetCharacterWearingWeaponFashionId(characterId)
+    else
+        weaponFashionId = XRobotManager.GetRobotWeaponFashionId(robotId)
+    end
+
+    self:UpdateRobotModelPublicNew(weaponFashionId,characterId, weaponCb, fashionId, equipTemplateId, modelCb, needDisplayController, targetPanelRole, targetUiName)
+end
+
+--==============================--
+--desc: 更新机器人角色模型 可以手动设置角色武器。武器涂装以机器人优先
+--==============================--
+function XUiPanelRoleModel:UpdateRobotModelWithWeapon(robotId, characterId, weaponCb, fashionId, equipTemplateId, modelCb, needDisplayController, targetPanelRole, targetUiName)
+    local weaponFashionId
+    local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
+    if XRobotManager.CheckUseFashion(robotId) and isOwn then
+        local character = XMVCA.XCharacter:GetCharacter(characterId)
+        local robot2CharViewModel = character:GetCharacterViewModel()
+        fashionId = robot2CharViewModel:GetFashionId()
+        weaponFashionId = XDataCenter.WeaponFashionManager.GetCharacterWearingWeaponFashionId(characterId)
+    else
+        weaponFashionId = XRobotManager.GetRobotWeaponFashionId(robotId)
+    end
+
+    if not XTool.IsNumberValid(weaponFashionId) then
+        weaponFashionId = XRobotManager.GetRobotWeaponFashionId(robotId)
+    end
+    
+    self:UpdateRobotModelPublicNew(weaponFashionId,characterId, weaponCb, fashionId, equipTemplateId, modelCb, needDisplayController, targetPanelRole, targetUiName)
+end
+
+--==============================--
+--desc: 更新机器人角色模型 模型新显示逻辑的公共部分
+--==============================--
+function XUiPanelRoleModel:UpdateRobotModelPublicNew(weaponFashionId,characterId, weaponCb, fashionId, equipTemplateId, modelCb, needDisplayController, targetPanelRole, targetUiName)
+    local resourcesId
+    if fashionId then
+        resourcesId = XDataCenter.FashionManager.GetResourcesId(fashionId)
+    else
+        resourcesId = XDataCenter.FashionManager.GetFashionResourceIdByCharId(characterId)
+    end
+
+    local modelName
+    if resourcesId then
+        modelName = XMVCA.XCharacter:GetCharResModel(resourcesId)
+    else
+        modelName = self:GetModelName(characterId)
+    end
+    if not modelName then
+        return
+    end
+    self:UpdateRoleModel(modelName, targetPanelRole, targetUiName, function(model)
+        if not self.HideWeapon then
+            self:UpdateCharacterWeaponModels(characterId, modelName, weaponCb, true, equipTemplateId, weaponFashionId)
+        end
+        if modelCb then
+            modelCb(model)
+        end
+        if self.FixLight then
+            CS.XGraphicManager.FixUICharacterLightDir(model.gameObject)
+        end
+    end, nil, needDisplayController)
+
+    self:LoadResCharacterUiEffect(characterId, fashionId, weaponFashionId, nil, equipTemplateId)
 end
 
 function XUiPanelRoleModel:UpdateCharacterResModel(resId, characterId, targetUiName, cb, growUpLevel, weaponFashionId)
-    local modelName = XDataCenter.CharacterManager.GetCharResModel(resId)
+    local modelName = XMVCA.XCharacter:GetCharResModel(resId)
     local fashionId = XDataCenter.FashionManager.GetFashionIdByResId(resId)
-
+    
     if modelName then
-        self:UpdateRoleModel(
-        modelName,
-        nil,
-        targetUiName,
-        function(model)
+        self:SetCueId(fashionId)
+        self:UpdateRoleModel(modelName, nil, targetUiName, function(model)
             if not self.HideWeapon then
                 self:UpdateCharacterWeaponModels(characterId, modelName, nil, nil, nil, weaponFashionId)
             end
-
+            
             self:UpdateCharacterLiberationLevelEffect(modelName, characterId, growUpLevel, fashionId)
 
             if cb then
@@ -841,7 +1373,7 @@ function XUiPanelRoleModel:UpdateCharacterResModel(resId, characterId, targetUiN
         )
     end
     if fashionId then
-        self:LoadResCharacterUiEffect(characterId, fashionId)
+        self:LoadResCharacterUiEffect(characterId, fashionId, weaponFashionId)
     end
 end
 
@@ -856,30 +1388,29 @@ showDefaultFx)
     if not modelId then
         return
     end
-
-    self:UpdateRoleModel(
-    modelId,
-    targetPanelRole,
-    targetUiName,
-    function(model)
+    
+    self:UpdateRoleModel(modelId, targetPanelRole, targetUiName, function(model)
         if not self.HideWeapon then
             self:UpdateCharacterWeaponModels(characterId, modelId)
         end
-
+        
         self:UpdateCharacterLiberationLevelEffect(modelId, characterId, growUpLevel, nil, showDefaultFx)
 
         if cb then
             cb(model)
         end
-    end
-    )
-    local defaultFashionId = XCharacterConfigs.GetCharacterTemplate(characterId).DefaultNpcFashtionId
+    end)
+    
+    local defaultFashionId = XMVCA.XCharacter:GetCharacterTemplate(characterId).DefaultNpcFashtionId
     local fashionId
     if growUpLevel == 2 then --growUpLevel 2为第一套解放衣服 3，4为第二套解放衣服，解放的时装Id跟默认时装Id紧挨且按顺序+1
         fashionId = defaultFashionId + 1
     elseif growUpLevel >= 3 then
         fashionId = defaultFashionId + 2
-    else
+    end
+
+    local allFashionConfig = XFashionConfigs.GetFashionTemplates()
+    if not fashionId or not allFashionConfig[fashionId] then
         fashionId = defaultFashionId
     end
     if fashionId then
@@ -963,7 +1494,9 @@ IsReLoadController)
             if cb then
                 cb(model)
             end
-            DoPartnerModelControl(modelName, model)
+            self:LoadPartnerUiEffect(modelName, XPartnerConfigs.EffectParentName.ModelLoopEffect, false, false)
+            self:LoadPartnerUiEffect(modelName, XPartnerConfigs.EffectParentName.ControlByAnimationEvent, false, false)
+            --DoPartnerModelControl(modelName, model)
         end,
         isReLoad,
         needController,
@@ -982,56 +1515,42 @@ isReLoad,
 needController,
 IsReLoadController)
     if modelName then
-        self:UpdateRoleModel(
-        modelName,
-        targetPanelRole,
-        targetUiName,
-        function(model)
+        self:UpdateRoleModel(modelName, targetPanelRole, targetUiName, function(model) 
             if cb then
                 cb(model)
             end
-            XModelManager.LoadRoleWeaponModel(
-            model,
-            weaponIdList,
-            self.RefName,
-            nil,
-            false,
-            self.GameObject,
-            modelName
-            )
-        end,
-        isReLoad,
-        false,
-        IsReLoadController,
-        needController
-        )
+            XModelManager.LoadRoleWeaponModel(model, weaponIdList, 
+                    self.RefName, nil, false, self.GameObject, modelName)
+        end, isReLoad, false, IsReLoadController, needController)
     end
 end
 
-function XUiPanelRoleModel:UpdateCharacterModelByFightNpcData(fightNpcData, cb, isCute)
+function XUiPanelRoleModel:UpdateCharacterModelByFightNpcData(fightNpcData, cb, isCute, needDisplayController, customizeWeaponData, isSelfPlayer)
     local char = fightNpcData.Character
     if char then
+        if isSelfPlayer then
+            local charId = char.Id
+            local tempChar = XMVCA.XCharacter:GetCharacter(charId)
+            if tempChar then
+                char = tempChar
+            end
+        end
+
         local modelName
         local fashionId = char.FashionId
-        local needDisplayController
         if isCute then
-            modelName = XFubenSpecialTrainConfig.GetCuteModelModelName(char.Id)
-            needDisplayController = true
-            
+            modelName = XCharacterCuteConfig.GetCuteModelModelName(char.Id)
         elseif fashionId then
             local fashion = XDataCenter.FashionManager.GetFashionTemplate(fashionId)
-            modelName = XDataCenter.CharacterManager.GetCharResModel(fashion.ResourcesId)
+            modelName = XMVCA.XCharacter:GetCharResModel(fashion.ResourcesId)
         else
-            -- modelName = XDataCenter.CharacterManager.GetCharModel(char.Id, char.Quality)
+            -- modelName = XMVCA.XCharacter:GetCharModel(char.Id, char.Quality)
             modelName = self:GetModelName(char.Id)
         end
 
         if modelName then
-            self:UpdateRoleModel(
-            modelName,
-            nil,
-            nil,
-            function(model)
+            self:SetCueId(fashionId)
+            self:UpdateRoleModel(modelName, nil, nil, function(model)
                 self:UpdateEquipsModelsByFightNpcData(model, fightNpcData, modelName)
                 self:UpdateCharacterLiberationLevelEffect(modelName, char.Id, char.LiberateLv, fashionId)
                 if cb then
@@ -1040,17 +1559,26 @@ function XUiPanelRoleModel:UpdateCharacterModelByFightNpcData(fightNpcData, cb, 
                 if isCute then
                     self:CloseRootMotion(model)
                 end
-            end,
-            nil,
-            needDisplayController
-            )
+            end,nil, needDisplayController)
         end
-        self:LoadResCharacterUiEffect(char.Id, fashionId)
+        
+        if isCute then
+            self:LoadCharacterCuteUiEffect(char.Id)
+        elseif customizeWeaponData then
+            self:LoadResCharacterUiEffect(char.Id, fashionId, fightNpcData.WeaponFashionId, nil, fightNpcData.Equips[1].TemplateId)
+        else
+            self:LoadResCharacterUiEffect(char.Id, fashionId, fightNpcData.WeaponFashionId, nil, fightNpcData.Equips[1].TemplateId)
+        end
     end
 end
 
 function XUiPanelRoleModel:UpdateEquipsModelsByFightNpcData(charModel, fightNpcData, modelName)
-    XModelManager.LoadRoleWeaponModelByFight(charModel, fightNpcData, self.RefName, self.GameObject, modelName)
+    local weaponModelList = {}
+    local tempWeaponCb = function(weaponModel)
+        weaponModelList[#weaponModelList + 1] = weaponModel
+    end
+    XModelManager.LoadRoleWeaponModelByFight(charModel, fightNpcData, self.RefName, self.GameObject, modelName, tempWeaponCb)
+    self:WeaponAnimationSync(weaponModelList, modelName)
 end
 
 --==============================--
@@ -1064,14 +1592,15 @@ weaponCb,
 hideEffect,
 equipTemplateId,
 weaponFashionId,
-isShowDefaultWeapon)
+isShowDefaultWeapon,
+equipUsage)
     local equipModelIdList = {}
-
+    
     if equipTemplateId then
         local equip = { TemplateId = equipTemplateId }
-        equipModelIdList = XDataCenter.EquipManager.GetEquipModelIdListByEquipData(equip, weaponFashionId)
+        equipModelIdList = XMVCA.XEquip:GetWeaponEquipModelIdListByEquip(equip, weaponFashionId)
     else
-        equipModelIdList =        XDataCenter.EquipManager.GetEquipModelIdListByCharacterId(characterId, isShowDefaultWeapon, weaponFashionId)
+        equipModelIdList = XMVCA.XEquip:GetEquipModelIdListByCharacterId(characterId, isShowDefaultWeapon, weaponFashionId)
     end
 
     if not equipModelIdList or not next(equipModelIdList) then
@@ -1087,15 +1616,26 @@ isShowDefaultWeapon)
         return
     end
 
+    local weaponModelList = {}
+    local tempWeaponCb = function(weaponModel)
+        weaponModelList[#weaponModelList + 1] = weaponModel
+        if weaponCb then
+            weaponCb(weaponModel)
+        end
+    end
+
     XModelManager.LoadRoleWeaponModel(
     roleModel.Model,
     equipModelIdList,
     self.RefName,
-    weaponCb,
+    tempWeaponCb,
     hideEffect,
     self.GameObject,
-    modelName
+    modelName,
+    equipUsage        
     )
+
+    self:WeaponAnimationSync(weaponModelList, modelName)
 end
 
 --==============================--
@@ -1110,9 +1650,9 @@ weaponCb,
 hideEffect)
     local equipModelIdList = {}
     if weaponFashionId and weaponFashionId ~= 0 then
-        equipModelIdList = XDataCenter.EquipManager.GetEquipModelIdListByEquipData(equip, weaponFashionId)
+        equipModelIdList = XMVCA.XEquip:GetWeaponEquipModelIdListByEquip(equip, weaponFashionId)
     else
-        equipModelIdList = XDataCenter.EquipManager.GetEquipModelIdListByEquipData(equip)
+        equipModelIdList = XMVCA.XEquip:GetWeaponEquipModelIdListByEquip(equip)
     end
 
     if not equipModelIdList or not next(equipModelIdList) then
@@ -1133,7 +1673,8 @@ hideEffect)
     self.RefName,
     weaponCb,
     hideEffect,
-    self.GameObject
+    self.GameObject,
+    modelName
     )
 end
 
@@ -1144,6 +1685,9 @@ end
 ---@param callBack function
 ---=================================================
 local CheckAnimeFinish = function(animator, behaviour, animaName, callBack, layer)
+    if XTool.UObjIsNil(animator) then
+        return
+    end
     local animatorInfo = animator:GetCurrentAnimatorStateInfo(layer)
     if (animatorInfo:IsName(animaName) and animatorInfo.normalizedTime >= 1) or not animatorInfo:IsName(animaName) then --normalizedTime的值为0~1，0为开始，1为结束。
         if callBack then
@@ -1154,6 +1698,9 @@ local CheckAnimeFinish = function(animator, behaviour, animaName, callBack, laye
 end
 
 local AddPlayingAnimCallBack = function(obj, animator, animaName, callBack, layer)
+    if XTool.UObjIsNil(animator) then   -- 防止定时器GameObject丢失
+        return
+    end
     local animatorInfo = animator:GetCurrentAnimatorStateInfo(layer)
 
     if not animatorInfo:IsName(animaName) or animatorInfo.normalizedTime >= 1 then --normalizedTime的值，0为开始，大于1为结束。
@@ -1171,6 +1718,22 @@ local AddPlayingAnimCallBack = function(obj, animator, animaName, callBack, laye
         CheckAnimeFinish(animator, behaviour, animaName, callBack, layer)
     end
 end
+
+---根据模型名和动作名解除武器绑定角色同名骨骼
+function XUiPanelRoleModel:UnBindWeaponBone(actionId)
+    if string.IsNilOrEmpty(actionId) then
+        return
+    end
+
+    if self.CurRoleName then
+        local model = self:GetModelInfoByName(self.CurRoleName)
+
+        if model and model.Model then
+            XModelManager.WaeponUnBindModelBone(self.CurRoleName, model.Model, actionId)
+        end
+    end
+end
+
 ---=================================================
 --- 播放'AnimaName'动画，‘fromBegin’决定动画是否需要调整到从0开始播放，默认值为false
 ---@overload fun(AnimaName:string)
@@ -1178,24 +1741,68 @@ end
 ---@param fromBegin boolean
 ---@param callBack function 成功之后的回调
 ---@param errorCb function 失败之后的回调
----@param layer int 状态机层级
+---@param layer number 状态机层级
 ---=================================================
 function XUiPanelRoleModel:PlayAnima(AnimaName, fromBegin, callBack, errorCb, layer)
     local animatorlaye = layer or 0
     local IsCanPlay, animator = self:CheckAnimaCanPlay(AnimaName)
+    local delay = 1
+    
+    -- 3.1特调, 这个模型切换变身之后，重置特效
+    --if self.CurRoleName == "Pet3ChiprobotonMd010011" and AnimaName == "EfChange01" then
+    --    local originalCallback = callBack
+    --    callBack = function()
+    --        local effectList = self.EffectDic["Customize_ModelLoopEffect"]
+    --        if effectList then
+    --            for _, effect in pairs(effectList) do
+    --                -- 强制刷新
+    --                effect.gameObject:SetActiveEx(false)
+    --                effect.gameObject:SetActiveEx(true)
+    --            end
+    --        end
+    --        if originalCallback then
+    --            originalCallback()
+    --        end
+    --    end
+    --end
+
     if IsCanPlay and animator then
         if fromBegin then
             animator:Play(AnimaName, animatorlaye, 0)
         else
             animator:Play(AnimaName, animatorlaye)
         end
+
+        self.AnimaPlayedCallBackList = {}
+        --根据当前角色动画判断躯干显隐
+        local hideNodeFunc = self:HideOrShowModelWithAction(AnimaName)
+        local loadWeaponFunc = self:PlayWeaponAnima(AnimaName)
         if callBack then
-            XScheduleManager.ScheduleOnce(
-            function()
-                AddPlayingAnimCallBack(self, animator, AnimaName, callBack, animatorlaye)
-            end,
-            1
-            )
+            self:AddPlayedAnimCallBack(callBack)
+        end
+
+        local callBackList = self.AnimaPlayedCallBackList
+        self:UnBindWeaponBone(AnimaName)
+        XScheduleManager.ScheduleOnce(function()
+            if loadWeaponFunc then
+                loadWeaponFunc()
+            end
+            if hideNodeFunc then
+                hideNodeFunc()
+            end
+            if callBackList and #callBackList ~= 0 then
+                AddPlayingAnimCallBack(self, animator, AnimaName, function()
+                    for i = 1, #callBackList do
+                        if callBackList[i] then
+                            callBackList[i]()
+                        end
+                    end
+                end, animatorlaye)
+            end
+        end, delay)
+        
+        if self._AnimationEvent then
+            self._AnimationEvent:StopEffectThisAction(self)
         end
     else
         if errorCb then
@@ -1203,6 +1810,239 @@ function XUiPanelRoleModel:PlayAnima(AnimaName, fromBegin, callBack, errorCb, la
         end
     end
     return IsCanPlay
+end
+
+---=================================================
+--- 播放'AnimaName'动画，‘fromBegin’决定动画是否需要调整到从0开始播放，默认值为false
+---@overload fun(AnimaName:string)
+---@param AnimaName string
+---@param fromBegin boolean
+---@param callBack function 成功之后的回调
+---@param errorCb function 失败之后的回调
+---@param layer number 状态机层级
+---=================================================
+function XUiPanelRoleModel:PlayAnimaCross(AnimaName, fromBegin, callBack, errorCb, layer)
+    local animatorlaye = layer or 0
+    local IsCanPlay, animator = self:CheckAnimaCanPlay(AnimaName)
+    
+    if IsCanPlay and animator then
+        local delay = 0.25
+        
+        if fromBegin then
+            --animator:Play(AnimaName, animatorlaye, 0)
+            animator:CrossFadeInFixedTime(AnimaName, delay, animatorlaye, 0)
+        else
+            animator:CrossFadeInFixedTime(AnimaName, delay, animatorlaye)
+            --animator:Play(AnimaName, animatorlaye)
+        end
+
+        if not XTool.IsTableEmpty(self.StandAnimaShowWeaponAnimatorList) then
+            local signBoradConfigId = XMVCA.XUiMain:GetLastPlaySignBoardCfgId()
+            if XTool.IsNumberValid(signBoradConfigId) then
+                for k, weaponAnimator in pairs(self.StandAnimaShowWeaponAnimatorList) do
+                    if not XTool.UObjIsNil(weaponAnimator.runtimeAnimatorController) then
+                        weaponAnimator:SetInteger("UiSignBoardConfigId", signBoradConfigId)
+                    end
+                end
+            end
+        end
+        
+        self.AnimaPlayedCallBackList = {}
+        --根据当前角色动画判断躯干显隐
+        local hideNodeFunc = self:HideOrShowModelWithAction(AnimaName)
+        local loadWeaponFunc = self:PlayWeaponAnima(AnimaName)
+        if callBack then
+            self:AddPlayedAnimCallBack(callBack)
+        end
+        
+        local callBackList = self.AnimaPlayedCallBackList
+        self:UnBindWeaponBone(AnimaName)
+        XScheduleManager.ScheduleOnce(function()
+            if loadWeaponFunc then
+                loadWeaponFunc()
+            end
+            if hideNodeFunc then
+                hideNodeFunc()
+            end
+            if callBackList and #callBackList ~= 0 then
+                AddPlayingAnimCallBack(self, animator, AnimaName, function()
+                    for i = 1, #callBackList do
+                        if callBackList[i] then
+                            callBackList[i]()
+                        end
+                    end
+                end, animatorlaye)
+            end
+        end, delay * XScheduleManager.SECOND + 1)
+    else
+        if errorCb then
+            errorCb()
+        end
+    end
+    return IsCanPlay
+end
+
+function XUiPanelRoleModel:HideOrShowModelWithAction(animaName)
+    if not self.CurRoleName then
+        return
+    end
+    
+    local modelInfo = self.RoleModelPool[self.CurRoleName]
+    if not modelInfo then
+        return
+    end
+    
+    local model = modelInfo.Model
+    local modelName = self.CurRoleName
+    if not model or not modelName then
+        return 
+    end
+
+    local isStandAnimaHide = self.IsStandAnimaHideNode
+    local isHide = XModelManager.CheckUiModelNodeActive(animaName, modelName, model)
+    local playCallback = nil
+    local hideNodeFunc = function()
+        if isStandAnimaHide then
+            XModelManager.HandleUiModelNodeActive(DefaultRoleAnimaName, modelName, model, true)
+        end
+        XModelManager.HandleUiModelNodeActive(animaName, modelName, model, false)
+    end
+    
+    if isHide then
+        if isStandAnimaHide then
+            playCallback = function()
+                RestoreModelNode(model, modelName, animaName)
+                XModelManager.HandleUiModelNodeActive(DefaultRoleAnimaName, modelName, model, false)
+            end
+        else
+            playCallback = function()
+                RestoreModelNode(model, modelName, animaName)
+            end
+        end
+    else
+        if isStandAnimaHide then
+            playCallback = function()
+                XModelManager.HandleUiModelNodeActive(DefaultRoleAnimaName, modelName, model, false)
+            end
+        end
+    end
+
+    if playCallback then
+        self:AddPlayedAnimCallBack(playCallback)
+    end
+    
+    return hideNodeFunc
+end
+
+function XUiPanelRoleModel:AddPlayedAnimCallBack(callback)
+    if callback then
+        self.AnimaPlayedCallBackList[#self.AnimaPlayedCallBackList + 1] = callback
+    end
+end
+
+function XUiPanelRoleModel:PlayWeaponAnima(actionId)
+    local weaponModelList = self.StandAnimaShowWeaponList
+    local isStandAnimaShowWeapon = self.IsStandAnimaShowWeapon
+    local animaCallback = function()
+        if weaponModelList then
+            for i = 1, #weaponModelList do
+                weaponModelList[i].gameObject:SetActiveEx(isStandAnimaShowWeapon)
+            end
+        end
+    end
+
+    if not isStandAnimaShowWeapon then
+        local weaponAnimatorList = nil
+        weaponModelList, weaponAnimatorList = self:LoadWeaponModelWhenPlayAnima(actionId)
+
+        if weaponModelList then
+            local callback = function()
+                for i = 1, #weaponModelList do
+                    weaponModelList[i].gameObject:SetActiveEx(true)
+                end
+            end
+
+            self:AddPlayedAnimCallBack(animaCallback)
+            return callback
+        end
+
+        if weaponAnimatorList then
+            self.StandAnimaShowWeaponAnimatorList = weaponAnimatorList
+        end
+    end
+    
+    if not self:CheckHasLoadEquipWhenPlayAnima(actionId) and isStandAnimaShowWeapon then
+        local callback = function()
+            for i = 1, #self.StandAnimaShowWeaponList do
+                self.StandAnimaShowWeaponList[i].gameObject:SetActiveEx(false)
+            end
+        end
+
+        self:AddPlayedAnimCallBack(animaCallback)
+        return callback
+    end
+end
+
+function XUiPanelRoleModel:CheckHasLoadEquipWhenPlayAnima(actionId)
+    local modelName = self.CurRoleName
+
+    if not modelName then
+        return false
+    end
+    
+    local characterId = self.RoleModelPool[modelName].CharacterId
+
+    if not characterId then
+        return false
+    end
+
+    local fashionId = self.NowFashionId or XMVCA.XCharacter:GetShowFashionId(characterId)
+
+    if not fashionId then
+        return false
+    end
+    
+    return XMVCA.XEquip:CheckHasLoadEquipBySignboard(characterId, fashionId, actionId)
+end
+
+function XUiPanelRoleModel:LoadWeaponModelWhenPlayAnima(actionId)
+    local modelName = self.CurRoleName
+
+    if not modelName then
+        return
+    end
+    
+    local characterId = self.RoleModelPool[modelName].CharacterId
+    
+    if not characterId then
+        return 
+    end
+    
+    local weaponFashionId = XDataCenter.WeaponFashionManager.GetCharacterWearingWeaponFashionId(characterId)
+    local roleModel = self.RoleModelPool[modelName].Model
+    local equipModelIdList = {}
+    local equipUsage = nil
+    local weaponModelList = {}
+    local weaponAnimatorList = {}
+    local weaponCb = function(model)
+        weaponModelList[#weaponModelList + 1] = model
+        local weaponAnimator = model:GetComponent("Animator")
+        if weaponAnimator then
+            weaponAnimatorList[#weaponAnimatorList + 1] = weaponAnimator
+        end
+    end
+
+    equipModelIdList = XMVCA.XEquip:GetEquipModelIdListByCharacterId(characterId, false, weaponFashionId)
+    equipUsage = XMVCA.XEquip:GetEquipAnimControllerBySignboard(characterId, self.NowFashionId, actionId)
+    --equipUsage = 1
+
+    if not equipModelIdList or not next(equipModelIdList) or not roleModel or not equipUsage then
+        return
+    end
+    
+    XModelManager.LoadRoleWeaponModel(roleModel, equipModelIdList, self.RefName, weaponCb, false, self.GameObject, modelName, equipUsage)
+    
+    return weaponModelList, weaponAnimatorList
 end
 
 ---=================================================
@@ -1245,6 +2085,7 @@ function XUiPanelRoleModel:CheckAnimaCanPlay(AnimaName)
     return IsCanPlay, animator
 end
 
+local time
 ---=================================================
 --- 无参数时，结束播放当前动画，恢复成站立动画
 ---
@@ -1252,32 +2093,81 @@ end
 ---@overload fun()
 ---@param oriAnima string
 ---=================================================
-function XUiPanelRoleModel:StopAnima(oriAnima)
+function XUiPanelRoleModel:StopAnima(oriAnima, force)
+    if XTool.UObjIsNil(self.RoleModelPool[self.CurRoleName].Model) then
+        local topUiName = XLuaUiManager.GetTopUiName() or ""
+        XLog.Error("模型丢失：" .. self.CurRoleName .. ",栈顶UI是：" .. topUiName)
+    end
+    ---@type UnityEngine.Animator
     local animator = self.RoleModelPool[self.CurRoleName].Model:GetComponent("Animator")
     local clips = animator:GetCurrentAnimatorClipInfo(0)
     local clip
     if clips and clips.Length > 0 then
         clip = clips[0].clip
     end
-    
+
 
     -- 是否需要播放动作打断特效
     if self.PlayEffectFunc then
         self.PlayEffectFunc()
     end
 
-    if oriAnima == nil or (clip and clip.name == oriAnima) then
+    if force and clip or oriAnima == nil or (clip and clip.name == oriAnima) then
         -- 停止UI特效
+        self.CurrentAnimationName = nil
         local model = self.RoleModelPool[self.CurRoleName]
-        self:SetCurrentUiEffectActive(model, false)
-
+        self:SetCurrentUiEffectActive(model.UiEffect, false)
+        self:SetCurrentUiEffectActive(model.UiEquipEffect, false)
         animator:Play(clip.name, 0, 0.999)
+    end
+
+    if not XTool.IsTableEmpty(self.StandAnimaShowWeaponAnimatorList) then
+        for k, weaponAnimator in pairs(self.StandAnimaShowWeaponAnimatorList) do
+            if not XTool.UObjIsNil(weaponAnimator.runtimeAnimatorController) then
+                weaponAnimator:SetInteger("UiSignBoardConfigId", 0)
+                weaponAnimator:SetTrigger("Interput")
+            end
+        end
     end
 end
 
+---@return UnityEngine.Animator
 function XUiPanelRoleModel:GetAnimator()
+    local model = self.RoleModelPool[self.CurRoleName]
+    if not model then
+        return nil
+    end
+    if not XTool.UObjIsNil(model.Model) then
+        return model.Model:GetComponent("Animator")
+    else
+        return nil
+    end
+end
+
+---@return UnityEngine.Animator[]
+function XUiPanelRoleModel:GetUiEffectAnimators()
+    local model = self.RoleModelPool[self.CurRoleName]
+    if not model then
+        return nil
+    end
+    if XTool.IsTableEmpty(model.UiEffect) then
+        return nil
+    end
+    local animators = {}
+    for _, effect in pairs(model.UiEffect) do
+        if not XTool.UObjIsNil(effect) then
+            local list = effect.transform:GetComponentsInChildren(typeof(CS.UnityEngine.Animator))
+            for i = 0, list.Length - 1 do
+                table.insert(animators, list[i])
+            end
+        end
+    end
+    return animators
+end
+
+function XUiPanelRoleModel:GetComponent(componentType)
     if self.RoleModelPool[self.CurRoleName] then
-        return self.RoleModelPool[self.CurRoleName].Model:GetComponent("Animator")
+        return self.RoleModelPool[self.CurRoleName].Model:GetComponent(componentType)
     else
         return nil
     end
@@ -1300,6 +2190,33 @@ function XUiPanelRoleModel:SetModelZeroPos()
     if not model then return end
     
     model.transform.localPosition = CS.UnityEngine.Vector3.zero
+end
+
+--- 获取正在播放动画名
+---@param layerIndex number 状态机层级
+---@return string
+--------------------------
+function XUiPanelRoleModel:GetPlayingStateName(layerIndex)
+    local animator = self:GetAnimator()
+    if XTool.UObjIsNil(animator) then
+        return
+    end
+
+    if XTool.UObjIsNil(animator.runtimeAnimatorController) then
+        return
+    end
+    
+    local actionId
+    local clips = animator.runtimeAnimatorController.animationClips
+    local info = animator:GetCurrentAnimatorStateInfo(layerIndex)
+    for i = 0, clips.Length - 1 do
+        local clip = clips[i]
+        if info:IsName(clip.name) then
+            actionId = clip.name
+            break
+        end
+    end
+    return actionId
 end
 
 --==============================--
@@ -1332,15 +2249,24 @@ showDefaultFx)
 
     local liberationFx = modelInfo.LiberationFx
 
-    local rootName, fxPath
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
+    local rootName, fxPath, aureoleId
     if showDefaultFx then
         --通过解放等级获取默认解放特效配置
-        rootName, fxPath =        XDataCenter.CharacterManager.GetCharLiberationLevelEffectRootAndPath(characterId, growUpLevel)
+        rootName, fxPath =        XMVCA.XCharacter:GetCharLiberationLevelEffectRootAndPath(characterId, growUpLevel)
     else
+        -- 1.如果没有通过超解自定义手环
         --通过角色Id获取时装对应解放特效配置
-        rootName, fxPath =        XDataCenter.CharacterManager.GetCharFashionLiberationEffectRootAndPath(characterId, growUpLevel, fashionId)
+        rootName, fxPath =        XMVCA.XCharacter:GetCharFashionLiberationEffectRootAndPath(characterId, growUpLevel, fashionId)
+        aureoleId = character and XFashionConfigs.GetFashionCfgById(fashionId or character.FashionId).AureoleId
+        fxPath = XFashionConfigs.GetAureoleEffectPathById(aureoleId)
+        -- 2.如果有自定义手环
+        local currLiberateAureoleId = character and character.LiberateAureoleId
+        if XTool.IsNumberValid(currLiberateAureoleId) then
+            fxPath = XFashionConfigs.GetAureoleEffectPathById(currLiberateAureoleId)
+            liberationFx = nil -- 销毁替换之前的 刷新终解环
+        end 
     end
-
     if not rootName or not fxPath then
         if liberationFx then
             liberationFx:SetActiveEx(false)
@@ -1358,20 +2284,151 @@ showDefaultFx)
             return
         end
         modelInfo.LiberationFx = rootTransform.gameObject:LoadPrefab(fxPath, false)
+        modelInfo.AureoleId = aureoleId
+        -- self:FixAurolePos(modelInfo.LiberationFx, characterId, modelInfo)
     else
         liberationFx:SetActiveEx(true)
     end
 end
 
+-- 给外部切换终解特效的接口
+function XUiPanelRoleModel:SetLiberationEffect(modelName, rootName, aureoleId, characterId)
+    if not aureoleId then
+        return
+    end
+
+    local modelInfo
+    local isSpecialModel, _ = XModelManager.CheckModelIsSpecial(modelName)
+    if isSpecialModel then
+        if self.NewPanel then
+            modelName = XModelManager.GetMinorModelId(modelName)
+            modelInfo = modelName and self.NewPanel.RoleModelPool[modelName]
+        else
+            modelName = XModelManager.GetSpecialModelId(modelName)
+            modelInfo = self.RoleModelPool[modelName]
+        end
+    else
+        modelInfo = self.RoleModelPool[modelName]
+    end
+    local model = modelInfo and modelInfo.Model
+    local rootTransform = model.transform:FindTransform(rootName)
+
+    local effectPath = XFashionConfigs.GetAureoleEffectPathById(aureoleId)
+    modelInfo.LiberationFx = rootTransform.gameObject:LoadPrefab(effectPath, false)
+    if modelInfo.LiberationFx then
+        modelInfo.LiberationFx:SetActiveEx(true)
+        modelInfo.AureoleId = aureoleId
+        -- self:FixAurolePos(modelInfo.LiberationFx, characterId, modelInfo)
+    end
+end
+
+-- 由于2.0版本 新增同一角色可佩戴不同角色的手环，需要进行位置修正
+function XUiPanelRoleModel:FixAurolePos(auroeTrans, characterId, modelInfo)
+    local defaultFashionId = XMVCA.XCharacter:GetCharacterTemplate(characterId).DefaultNpcFashtionId
+    local aureoleId = XFashionConfigs.GetAllConfigs(XFashionConfigs.TableKey.Fashion)[defaultFashionId].AureoleId
+    local aureoleConfig = aureoleId and XFashionConfigs.GetAllConfigs(XFashionConfigs.TableKey.FashionAureole)[aureoleId]
+
+    local tempEffectGo = nil
+    local resource = nil
+    if modelInfo.TempEffectGo then
+        tempEffectGo = modelInfo.TempEffectGo
+    else
+        local loader = CS.XLoaderUtil.GetModuleLoader(ModuleId.XCharacter)
+        resource = loader:Load(aureoleConfig.EffectPath)
+        self.aureoleConfigEffectPath = aureoleConfig.EffectPath
+        tempEffectGo = CS.UnityEngine.Object.Instantiate(resource, auroeTrans.transform.parent)
+    end
+    local tempTrans = tempEffectGo.transform:GetChild(0)
+    
+    -- 第一子物体同步
+    local targetFixTrans = auroeTrans.transform:GetChild(0)
+    local tempGoPostition = tempTrans.localPosition
+    local tempGoRotation = tempTrans.localEulerAngles
+    local targetPos = CS.UnityEngine.Vector3(tempGoPostition.x, tempGoPostition.y, 0)
+    local targetRotation = CS.UnityEngine.Vector3(tempGoRotation.x, tempGoRotation.y, tempGoRotation.z)
+    targetFixTrans.localPosition = targetPos
+    targetFixTrans.localEulerAngles = targetRotation
+
+    tempEffectGo:SetActiveEx(false)
+    tempEffectGo.name = "TempAuroe"
+    modelInfo.TempEffectGo = tempEffectGo
+
+    if resource and aureoleConfig.EffectPath then
+        local loader = CS.XLoaderUtil.GetModuleLoader(ModuleId.XCharacter)
+        loader:Unload(aureoleConfig.EffectPath)
+    end
+end
+
+
+--- func 给外部生成基于 CharacterModelNodeEffectMapping.tab 检测的特效prefab
+---@param config XTableCharacterModelNodeEffectMapping
+function XUiPanelRoleModel:SetCharacterModelNodeEffectMappingPrefab(config)
+    local characterModel = self.RoleModelPool[self.CurRoleName]
+    if not characterModel then
+        return
+    end
+    local characerModelTransform = characterModel.Model.transform
+    local targerParentNode = characerModelTransform:FindTransform(config.PrefabRootName)
+    for i = 1, #config.PrefabName do
+        local prefabName = config.PrefabName[i]
+        local effectParentName = string.format("EffectParent{0}", i)
+        if not self.NodeEffectMappingPrefabPool[effectParentName] then
+            local effectParent = CS.UnityEngine.GameObject(effectParentName)
+            self.NodeEffectMappingPrefabPool[effectParentName] = effectParent
+            effectParent.transform:SetParent(targerParentNode)
+            local effectGo = effectParent:LoadPrefab(prefabName)
+            if config.IsDontRotate then
+                effectGo.transform:SetParent(characerModelTransform)
+            end
+    
+            local animator = effectGo:GetComponent(typeof(CS.UnityEngine.Animator))
+            if animator and config.AnimController[i] then
+                local runtimeController = CS.LoadHelper.LoadUiController(config.AnimController[i], self.RefName)
+                animator.runtimeAnimatorController = runtimeController
+            end
+        end
+    end
+end
+
+function XUiPanelRoleModel:DisposeCharacterModelNodeEffectMappingPrefab()
+    if not self.NodeEffectMappingPrefabPool then
+        return
+    end
+
+    for k, go in pairs(self.NodeEffectMappingPrefabPool) do
+        XUiHelper.Destroy(go)
+        self.NodeEffectMappingPrefabPool[k] = nil
+    end
+end
+
 ---=================================================
 --- 材质控制器相关特效需要跟模型绑定
----@param effect GameObject
+---@param effect UnityEngine.GameObject
 ---=================================================
 function XUiPanelRoleModel:BindEffect(effect)
-    XLog.Debug("bind effect " .. self.CurRoleName)
+    if XTool.UObjIsNil(effect) then
+        return
+    end
     if self.CurRoleName and self.RoleModelPool[self.CurRoleName] and self.RoleModelPool[self.CurRoleName].RenderingProxy then
         self.RoleModelPool[self.CurRoleName].RenderingProxy:BindEffect(effect)
+        effect.gameObject:SetActiveEx(false)
+        effect.gameObject:SetActiveEx(true)
     end
+end
+
+function XUiPanelRoleModel:BindEffectByModel(model)
+    if model.UiEffect then
+        for i = 1, #model.UiEffect do
+            self:BindEffect(model.UiEffect[i])
+        end
+    end
+    
+    if model.UiEquipEffect then
+        for i = 1, #model.UiEquipEffect do
+            self:BindEffect(model.UiEquipEffect[i])
+        end
+    end
+    
 end
 
 ---=================================================
@@ -1383,8 +2440,8 @@ end
 
 ---=================================================
 --- 加载特效，可支持多次加载特效，需要提前设置EffectMaxCount
----@param effectPath 特效路径
----@param isBindEffect 材质控制器相关特效和模型绑定
+---@param effectPath string 特效路径
+---@param isBindEffect boolean 材质控制器相关特效和模型绑定
 ---=================================================
 function XUiPanelRoleModel:LoopLoadEffect(effectPath, isBindEffect)
     if not effectPath then
@@ -1405,18 +2462,153 @@ function XUiPanelRoleModel:LoopLoadEffect(effectPath, isBindEffect)
     self.EffectingIndex = self.EffectingIndex + 1
 end
 
----=================================================
----生成指定名称的父节点并在其下加载特效
----@param effectPath 特效路径
----@param effectParentName 生成一个前缀Customize_+ effectParentName的节点，特效将挂载在其下。不指定时默认生成一个Default_EffectParent节点供挂载
----@param isBindEffect 材质控制器相关特效和模型绑定
----@param isDisableOldEffect 为true时UnActive指定节点名下挂载的特效
----@param isUseModelParent 为true时该特效节点挂载在模型下
----=================================================
 local CreateEffectParentName = function(name)
     return name and string.format("Customize_%s", name) or "Default_EffectParent"
 end
 
+---=================================================
+---根据PartnerUiEffect加载辅助机特效
+---@param modelName string 辅助机模型名字(来自【PartnerModel.tab】StandbyModel/CombatModel字段)
+---@param effectParentName string 生成一个前缀Customize_+ effectParentName的节点,特效将挂载在其下。(XPartnerConfigs.EffectParentName枚举)
+---@param isBindEffect boolean|nil 材质控制器相关特效和模型绑定
+---@param isDisableOldEffect boolean|nil 为true时UnActive指定节点名下挂载的特效
+---@param isUseModelParent boolean|nil 为true时该特效节点挂载在模型下
+---=================================================
+function XUiPanelRoleModel:LoadPartnerUiEffect(modelName, effectParentName, isBindEffect, isDisableOldEffect, isUseModelParent)
+    if isDisableOldEffect then
+        self:HideEffectByParentName(effectParentName)
+    end
+
+    if not modelName then
+        return
+    end
+
+    if isBindEffect == nil then
+        isBindEffect = false
+    end
+    
+    -- 隐藏之前加载的特效
+    if self.EffectDic then
+        local parentName = CreateEffectParentName(effectParentName)
+        local effectDict = self.EffectDic[parentName]
+        if effectDict then
+            for _, effect in pairs(effectDict) do
+                if not XTool.UObjIsNil(effect) then
+                    effect.gameObject:SetActiveEx(false)
+                end
+            end
+        end
+    end
+    
+
+    self.EffectParentDic = self.EffectParentDic or {}
+    self.EffectDic = self.EffectDic or {}
+    
+    local effectInfos = XDataCenter.PartnerManager.GetPartnerUiEffect(modelName, effectParentName)
+    local curModelInfo = self:GetModelInfoByName(self.CurRoleName)
+
+    if not effectInfos then
+        return 
+    end
+    if not curModelInfo or XTool.UObjIsNil(curModelInfo.Model) then
+        XLog.Error("获取模型失败!请检查模型是否加载成功!")
+        return
+    end
+
+    local parentNamePrefix = CreateEffectParentName(effectParentName)
+    local index = 1
+
+    if isUseModelParent then
+        parentNamePrefix = modelName .. parentNamePrefix
+    end
+    for _, effectInfo in pairs(effectInfos) do
+        ---@type UnityEngine.GameObject
+        local effectParent = nil
+        local parentName = parentNamePrefix
+
+        effectParent = self.EffectParentDic[parentName]
+        if not effectParent or XTool.UObjIsNil(effectParent) then
+            local parentTransform = nil
+            
+            if isUseModelParent or effectParentName == XPartnerConfigs.EffectParentName.ModelLoopEffect then
+                parentTransform = curModelInfo.Model.transform
+            else
+                parentTransform = self.Transform
+            end
+    
+            effectParent = CS.UnityEngine.GameObject(tostring(parentName))
+            effectParent.transform:SetParent(parentTransform, false)
+            effectParent.layer = parentTransform.gameObject.layer
+        end
+        
+        self.EffectParentDic[parentName] = effectParent
+        for i, effectPath in pairs(effectInfo.EffectPath) do
+            local effectNode = effectParent.transform:FindTransform(effectParentName .. index)
+            local effect = nil
+    
+            if not effectNode or XTool.UObjIsNil(effectNode) then
+                effectNode = CS.UnityEngine.GameObject(effectParentName .. index)
+                effectNode.transform:SetParent(effectParent.transform, false)
+                effectNode.layer = effectParent.layer
+            end
+            
+            if not string.IsNilOrEmpty(effectInfo.BoneRootName) then
+                local bindComponent = effectNode:GetComponent(typeof(CS.XEffectBindBone))
+                local node = curModelInfo.Model.transform:FindTransform(effectInfo.BoneRootName)
+
+                if not bindComponent then
+                    bindComponent = effectNode.gameObject:AddComponent(typeof(CS.XEffectBindBone))
+                end
+
+                bindComponent:UnBind()
+                bindComponent:BindBone(node, effectNode.transform)
+            else
+                local bindComponent = effectNode:GetComponent(typeof(CS.XEffectBindBone))
+
+                if bindComponent then
+                    bindComponent:UnBind()
+                end
+            end
+
+            index = index + 1
+            -- 为了修复薇拉辅助机FxPet3RedwolfoffChange02，它的拖尾特效layer错误为Default，导致不可见，于是这里强制设置所有特效的层级都为其父节点的layer
+            effect = effectNode:LoadPrefab(effectPath, false)
+            self.EffectDic[parentName] = self.EffectDic[parentName] or {}
+            self.EffectDic[parentName][effectPath] = effect
+    
+            if effect == nil or XTool.UObjIsNil(effect) then
+                XLog.Error("加载的特效为空! 路径：" .. effectPath)
+                return
+            end
+    
+            if isBindEffect then
+                self:BindEffect(effect)
+            end
+    
+            -- 使用动画事件控制的特效, 默认隐藏
+            if effectParentName == XPartnerConfigs.EffectParentName.ControlByAnimationEvent then
+                self:AddAnimationEventListener()
+                self:SetEffectForAnimationEvent(effectInfo.Id, effectParentName, effectPath)
+                effect.gameObject:SetActiveEx(false)
+                -- 因为modelTransform表, 会根据所在ui设置不同的坐标等, 所以需要同步修正一下
+                effect.transform.localPosition = curModelInfo.Model.transform.localPosition
+                effect.transform.localEulerAngles = curModelInfo.Model.transform.localEulerAngles
+            else
+                effectNode.gameObject:SetActiveEx(false)
+                effectNode.gameObject:SetActiveEx(true)
+            end
+        end
+    end
+end
+
+---=================================================
+---生成指定名称的父节点并在其下加载特效
+---@param effectPath string 特效路径
+---@param effectParentName any 生成一个前缀Customize_+ effectParentName的节点,特效将挂载在其下。不指定时默认生成一个Default_EffectParent节点供挂载
+---@param isBindEffect boolean|nil 材质控制器相关特效和模型绑定
+---@param isDisableOldEffect boolean|nil 为true时UnActive指定节点名下挂载的特效
+---@param isUseModelParent boolean|nil 为true时该特效节点挂载在模型下
+---=================================================
 function XUiPanelRoleModel:LoadEffect(effectPath, effectParentName, isBindEffect, isDisableOldEffect, isUseModelParent)
     if isDisableOldEffect then
         self:HideEffectByParentName(effectParentName)
@@ -1464,6 +2656,13 @@ function XUiPanelRoleModel:LoadEffect(effectPath, effectParentName, isBindEffect
     effect.gameObject:SetActiveEx(true)
 end
 
+---读取特效节点
+function XUiPanelRoleModel:GetEffectObj(effectParentName, effectPath)
+    local parentName = CreateEffectParentName(effectParentName)
+    if XTool.IsTableEmpty(self.EffectDic) or XTool.IsTableEmpty(self.EffectDic[parentName]) then return end
+    return self.EffectDic[parentName][effectPath]
+end
+
 function XUiPanelRoleModel:HideEffectByParentName(effectParentName)
     if self.EffectDic == nil then
         return
@@ -1497,34 +2696,69 @@ function XUiPanelRoleModel:RemoveRoleModelPool()
             CS.UnityEngine.Object.Destroy(modelInfo.Model.gameObject)
         end
     end
+    self.RoleModelPool = {}
 end
 
---==============================--
---desc: 更新Q版角色模型 参数都是复制自UpdateRobotModel
---==============================--
+function XUiPanelRoleModel:UpdateCuteModelWithoutUiEffect(robotId, isNotCuteUiEffect)
+    self:UpdateCuteModel(robotId, nil, nil, nil, nil, nil,
+            nil, nil, nil, isNotCuteUiEffect)
+end
+
+---=================================================
+---更新Q版角色模型 参数都是复制自UpdateRobotModel
+---希望以后统一通用接口,所以进行了二次封装并加上一定注解
+---期待一个有缘人统一模型加载参数对象 by ljb
+---@param robotId number|nil Robot.tab的robotId
+---@param characterId number|nil Character.tab的characterId
+---@param equipTemplateId number|nil Equip.tab的equipId
+---@param weaponCb function|nil 武器模型加载后回调
+---@param fashionId number|nil 模型皮肤id
+---@param modelCb function|nil 武器模型加载后回调
+---@param needDisplayController boolean
+---@param targetPanelRole
+---@param targetUiName
+---=================================================
 function XUiPanelRoleModel:UpdateCuteModel(robotId, characterId, weaponCb, fashionId, equipTemplateId, modelCb, needDisplayController
-    , targetPanelRole, targetUiName)
-    local modelName = XFubenSpecialTrainConfig.GetCuteModelModelName(characterId)
-    if not modelName then
+    , targetPanelRole, targetUiName, isNotCuteUiEffect)
+    if not characterId then
+        characterId = XRobotManager.GetCharacterId(robotId)
+    end
+    local modelName = XCharacterCuteConfig.GetCuteModelModelName(characterId)
+    local weaponFashionId = XRobotManager.GetRobotWeaponFashionId(robotId)
+    self:UpdateCuteModelByModelName(characterId, fashionId, equipTemplateId, weaponFashionId, weaponCb, modelName,
+            modelCb, needDisplayController, targetPanelRole, targetUiName, isNotCuteUiEffect)
+end
+
+---=================================================
+---更新Q版角色模型 UpdateCuteModel()的二次封装
+---@param characterId number|nil
+---@param fashionId number|nil
+---@param equipTemplateId number|nil
+---@param weaponFashionId number|nil
+---@param weaponCb function|nil
+---@param modelName string
+---@param modelCb function|nil
+---@param needDisplayController boolean
+---@param targetPanelRole
+---@param targetUiName
+---=================================================
+function XUiPanelRoleModel:UpdateCuteModelByModelName(characterId, fashionId, equipTemplateId, weaponFashionId, weaponCb, modelName
+, modelCb, needDisplayController, targetPanelRole, targetUiName, isNotCuteUiEffect)
+    if not modelName or modelName == "" then
         return
     end
-
-    self:UpdateRoleModel(
-    modelName,
-    targetPanelRole,
-    targetUiName,
-    function(model)
-        if not self.HideWeapon then
-            local weaponFashionId = XRobotManager.GetRobotWeaponFashionId(robotId)
+    self:UpdateRoleModel(modelName, targetPanelRole, targetUiName, function(model)
+        if not self.HideWeapon and XTool.IsNumberValid(equipTemplateId) then
             self:UpdateCharacterWeaponModels(
-            characterId,
-            modelName,
-            weaponCb,
-            true,
-            equipTemplateId,
-            weaponFashionId
+                    characterId,
+                    modelName,
+                    weaponCb,
+                    true,
+                    equipTemplateId,
+                    weaponFashionId
             )
         end
+
         if modelCb then
             modelCb(model)
         end
@@ -1533,11 +2767,12 @@ function XUiPanelRoleModel:UpdateCuteModel(robotId, characterId, weaponCb, fashi
         end
         -- Q版模型禁止动画移动
         self:CloseRootMotion(model)
-    end,
-    nil,
-    needDisplayController
-    )
-    self:LoadResCharacterUiEffect(characterId, fashionId)
+    end, nil, needDisplayController)
+
+    if isNotCuteUiEffect then
+        return
+    end
+    self:LoadCharacterCuteUiEffect(characterId)
 end
 
 -- 禁止动画根节点移动
@@ -1564,5 +2799,225 @@ end
 function XUiPanelRoleModel:GetCurRoleName()
     return self.CurRoleName
 end
+
+function XUiPanelRoleModel:GetCurRoleModel()
+    if self.CurRoleName then
+        return self.RoleModelPool[self.CurRoleName].Model
+    end
+end
+
+---@param dataModel XDlcHuntModel
+function XUiPanelRoleModel:UpdateDlcModel(dataModel, targetUiName, callback)
+    local characterId = nil
+    local weaponFashionId = nil
+    local weaponId = dataModel:GetWeaponId()
+    local modelName = dataModel:GetModelId()
+    local fashionId = nil
+    local targetPanelRole = nil
+    self:UpdateRoleModel(modelName, targetPanelRole, targetUiName, function(model)
+                if not weaponId then
+                    if callback then callback() end
+                    return
+                end
+                self:UpdateCharacterWeaponModels(characterId, modelName, callback, true, weaponId, weaponFashionId)
+            end, nil, nil)
+    self:LoadResCharacterUiEffect(characterId, fashionId, weaponFashionId)
+end
+
+-- 开启/关闭头部跟随
+function XUiPanelRoleModel:SetXPostFaicalControllerActive(flag)
+    if not self.CurRoleName then
+        return
+    end
+    
+    local curModelInfo = self:GetModelInfoByName(self.CurRoleName)
+    local model
+    if curModelInfo then
+        if XTool.UObjIsNil(curModelInfo.Model) then
+            local topUiName = XLuaUiManager.GetTopUiName() or ""
+            XLog.Error("模型丢失：" .. self.CurRoleName .. ",栈顶UI是：" .. topUiName)
+        end
+        model = curModelInfo.Model.transform
+    end
+    
+    if not model then
+        return
+    end
+    
+    local targetComponent = model:GetComponent(typeof(CS.XPostFaicalController))
+    if not targetComponent then
+        return
+    end
+
+    targetComponent.enabled = true
+    targetComponent:ActiveInput(flag)
+end
+
+function XUiPanelRoleModel:SetLocalPosition(v3)
+    if not self.CurRoleName then
+        return
+    end
+    
+    local curModelInfo = self.RoleModelPool[self.CurRoleName]
+    curModelInfo.Model.transform.localPosition = v3
+end
+
+function XUiPanelRoleModel:SetLocalRotation(v3)
+    if not self.CurRoleName then
+        return
+    end
+
+    local curModelInfo = self.RoleModelPool[self.CurRoleName]
+    curModelInfo.Model.transform.localEulerAngles = v3
+end
+
+function XUiPanelRoleModel:SetWorldPosition(v3)
+    if not self.CurRoleName then
+        return
+    end
+
+    local curModelInfo = self.RoleModelPool[self.CurRoleName]
+    curModelInfo.Model.transform.position = v3
+end
+
+function XUiPanelRoleModel:GetTransform()
+    if not self.CurRoleName then
+        return
+    end
+
+    local curModelInfo = self.RoleModelPool[self.CurRoleName]
+    return curModelInfo.Model.transform
+end
+
+-- 同步武器动画
+function XUiPanelRoleModel:WeaponAnimationSync(weaponModelList, modelName)
+    if XTool.IsTableEmpty(weaponModelList) then
+        return
+    end
+    local isAnimReset = XMVCA.XEquip:GetEquipAnimIsReset(modelName)
+    if not isAnimReset then
+        return
+    end
+    local roleModel = self.RoleModelPool[modelName]
+    if not roleModel or XTool.UObjIsNil(roleModel.Model.gameObject) then
+        return
+    end
+    local playRoleAnimation = roleModel.Model.gameObject:GetComponent("XPlayRoleAnimation")
+    if not playRoleAnimation then
+        return
+    end
+    local defaultAnimeName = playRoleAnimation.DefaultClip
+    if defaultAnimeName ~= "UiStand1" then
+        return
+    end
+    local defaultAnimeLength = 0
+    for i = 0, playRoleAnimation.Clips.Length - 1 do
+        local clip = playRoleAnimation.Clips[i]
+        if clip and clip.name == defaultAnimeName then
+            defaultAnimeLength = clip.length
+            break
+        end
+    end
+    self:AddUiStandPlayCallback(function(animaName, leftTime)
+        local layerIndex = 0
+        for _, weaponModel in pairs(weaponModelList or {}) do
+            if XTool.UObjIsNil(weaponModel) then
+                goto CONTINUE
+            end
+            ---@type UnityEngine.Animator
+            local weaponAnim = weaponModel:GetComponent("Animator")
+            if XTool.UObjIsNil(weaponAnim) or XTool.UObjIsNil(weaponAnim.runtimeAnimatorController) then
+                goto CONTINUE
+            end
+
+            local stateInfo = weaponAnim:GetCurrentAnimatorStateInfo(layerIndex)
+            local length = stateInfo.length
+            -- 角色动作时长和武器动作时长不一致时跳过武器动作重置
+            if length <= 0 or math.abs(defaultAnimeLength - length) > 0.05 then
+                goto CONTINUE
+            end
+            local time = leftTime / length
+            weaponAnim:Play(stateInfo.shortNameHash, layerIndex, time)
+            :: CONTINUE ::
+        end
+    end)
+end
+
+---将添加UiStand完成时的回调队列
+function XUiPanelRoleModel:AddUiStandPlayCallback(callback)
+    self.PlayUiStandCallBackList[#self.PlayUiStandCallBackList + 1] = callback
+end
+
+--region 特效延迟播放
+
+function XUiPanelRoleModel:PlayDelayEffects(model)
+    if XTool.IsTableEmpty(model.UiEffect) then
+        return
+    end
+    for _, obj in pairs(model.UiEffect) do
+        local root = obj.transform.parent.gameObject
+        local time = model.EffectDelayTimes[root.name]
+        self:PlayDelayEffect(root, time)
+    end
+end
+
+function XUiPanelRoleModel:PlayDelayEffect(root, displayDelayTime)
+    self:RemoveEffectTimer(root.name)
+    if XTool.IsNumberValid(displayDelayTime) then
+        if string.IsNilOrEmpty(self.RefName) or self.RefName == "DefaultName" then
+            XLog.Error("没有传入UiName 无法延迟播放特效 和程序说说.\n" .. root.name)
+        else
+            root:SetActiveEx(false)
+            local timer = XScheduleManager.ScheduleOnce(function()
+                root:SetActiveEx(true)
+            end, displayDelayTime)
+            self:AddEffectTimer(timer, root.name)
+        end
+    end
+end
+
+function XUiPanelRoleModel:AddEffectTimer(timer, effectName)
+    XModelManager.AddEffectTimer(timer, self.RefName, effectName, XEnumConst.ModelDisplayDelay.Character)
+end
+
+function XUiPanelRoleModel:RemoveEffectTimer(effectName)
+    XModelManager.RemoveEffectTimer(self.RefName, effectName, XEnumConst.ModelDisplayDelay.Character)
+end
+
+--endregion
+
+--region 添加动画事件监听
+function XUiPanelRoleModel:AddAnimationEventListener()
+    if not self._AnimationEvent then
+        local XUiPanelRoleModelAnimationEvent = require("XUi/XUiCharacter/XUiPanelRoleModelAnimationEvent")
+        ---@type XUiPanelRoleModelAnimationEvent
+        self._AnimationEvent = XUiPanelRoleModelAnimationEvent.New(self)
+    end
+    self._AnimationEvent:AddAnimationEventListener(self)
+end
+
+function XUiPanelRoleModel:SetEffectForAnimationEvent(key, effectParent, EffectPath)
+    if not self._EffectKey2ParentAndPath then
+        self._EffectKey2ParentAndPath = {}
+    end
+    self._EffectKey2ParentAndPath[key] = {
+        Parent = effectParent,
+        Path = EffectPath
+    }
+end
+
+function XUiPanelRoleModel:GetEffectByKey(key)
+    local effectInfo = self._EffectKey2ParentAndPath[key]
+    if effectInfo then
+        local parent = effectInfo.Parent
+        local path = effectInfo.Path
+        local effect = self:GetEffectObj(parent, path)
+        if effect then
+            return effect
+        end
+    end
+    XLog.Warning("[XUiPanelRoleModel] 根据key找不到要获取的特效", tostring(key))
+end
+--endregion
 
 return XUiPanelRoleModel

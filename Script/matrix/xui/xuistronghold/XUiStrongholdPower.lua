@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridTeamCharacter = require("XUi/XUiStronghold/XUiGridTeamCharacter")
 
 local tableRemove = table.remove
@@ -26,7 +28,7 @@ function XUiStrongholdPower:OnAwake()
     self:AutoAddListener()
     self:InitDynamicTable()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemId = XDataCenter.StrongholdManager.GetMineralItemId()
     XDataCenter.ItemManager.AddCountUpdateListener(itemId, function()
         self.AssetActivityPanel:Refresh({ itemId })
@@ -71,6 +73,8 @@ end
 
 function XUiStrongholdPower:UpdateElectric()
     local useElectric = XDataCenter.StrongholdManager.GetTotalUseElectricEnergy()
+    local maxElectricEnergy = XDataCenter.StrongholdManager.GetMaxElectricEnergy()
+    local extraElectricEnergy = XDataCenter.StrongholdManager.GetExtraElectricEnergy()
     local totalElectric = XDataCenter.StrongholdManager.GetTotalElectricEnergy()
 
     local isUp = useElectric <= totalElectric
@@ -85,7 +89,7 @@ function XUiStrongholdPower:UpdateElectric()
     self.TxtNumberZheng.text = useElectric .. "/" .. totalElectric
     self.TxtNumberFu.text = useElectric .. "/" .. totalElectric
     self.TxtYiyong.text = CsXTextManagerGetText("StrongholdUseElectricDes", useElectric)
-    self.TxtZong.text = CsXTextManagerGetText("StrongholdTotalElectricDes", totalElectric)
+    self.TxtZong.text = CsXTextManagerGetText("StrongholdTotalElectricDes", maxElectricEnergy, extraElectricEnergy)
 
     self.ImgJinduZheng.fillAmount = totalElectric ~= 0 and (totalElectric - useElectric) / totalElectric or 0
 

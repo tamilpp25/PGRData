@@ -1,3 +1,5 @@
+local XUiGridLimit = require("XUi/XUiMission/XUiGridLimit")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMissionTeamLimit = XLuaUiManager.Register(XLuaUi, "UiMissionTeamLimit")
 
 function XUiMissionTeamLimit:OnAwake()
@@ -79,7 +81,7 @@ function XUiMissionTeamLimit:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

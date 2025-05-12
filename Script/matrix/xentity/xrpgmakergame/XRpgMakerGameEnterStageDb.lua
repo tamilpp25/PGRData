@@ -8,7 +8,8 @@ local Default = {
     _SelectRoleId = 0   --选用角色
 }
 
---当前进入的关卡数据
+---当前进入的关卡数据
+---@class XRpgMakerGameEnterStageDb
 local XRpgMakerGameEnterStageDb = XClass(nil, "XRpgMakerGameEnterStageDb")
 
 function XRpgMakerGameEnterStageDb:Ctor(day)

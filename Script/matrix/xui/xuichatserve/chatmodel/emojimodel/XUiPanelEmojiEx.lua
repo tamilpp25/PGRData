@@ -90,6 +90,7 @@ function XUiPanelEmojiEx:OnClickTab(tab)
     end
     self:RefreshContent(tab.EmojiPack)
     self.SelectIndex = selectIndex
+    self:SetRedPointClose()
 end
 
 function XUiPanelEmojiEx:SetClickCallBack(cb)
@@ -112,17 +113,40 @@ function XUiPanelEmojiEx:Hide()
     end
 end
 
+-- 离开当前页签时 清除该页签下所有表情包红点
+function XUiPanelEmojiEx:SetRedPointClose()
+    if self.SelectIndex then
+        local currTab = self.Tabs[self.SelectIndex]
+        for k, v in pairs(currTab.EmojiPack:GetEmojiList()) do
+            v:SetNotNew()
+        end
+    
+        -- 顺便刷新下表情包自己的红点
+        self:RefreshContent(self.Tabs[self.SelectIndex].EmojiPack)
+    end
+    CsXGameEventManager.Instance:Notify(XEventId.EVENT_CHAT_EMOJI_REFRESH_RED)
+    XEventManager.DispatchEvent(XEventId.EVENT_CHAT_EMOJI_REFRESH_RED)
+end
+
 function XUiPanelEmojiEx:OnDisable()
     self:DisableAllEmoji()
 end
 
 function XUiPanelEmojiEx:OnDestroy()
     self:DisableAllEmoji()
+    self:DestroyAllTabs()
+    self:SetRedPointClose()
 end
 
 function XUiPanelEmojiEx:DisableAllEmoji()
     for _, emojiGrid in pairs(self.Emojis) do
         emojiGrid:OnDisable()
+    end
+end
+
+function XUiPanelEmojiEx:DestroyAllTabs()
+    for k, tab in pairs(self.Tabs) do
+        tab:OnDestroy()
     end
 end
 

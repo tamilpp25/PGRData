@@ -5,17 +5,10 @@ function XUiAreaWarJingHuaUp:OnAwake()
     self.BtnClose.CallBack = function()
         self:Close()
     end
-    self.BtnTakeOff.CallBack = function()
-        self:OnClickBtnTakeOff()
-    end
-    self.BtnEquip.CallBack = function()
-        self:OnClickBtnEquip()
-    end
 end
 
-function XUiAreaWarJingHuaUp:OnStart(pluginId, slot, viewType)
+function XUiAreaWarJingHuaUp:OnStart(pluginId, viewType)
     self.PluginId = pluginId
-    self.Slot = slot
     self.ViewType = viewType or 1
     self:InitView()
     self:Refresh()
@@ -34,48 +27,21 @@ function XUiAreaWarJingHuaUp:Refresh()
     self.RImgBuffIcon:SetRawImage(XAreaWarConfigs.GetBuffIcon(buffId))
     self.TxtName.text = XAreaWarConfigs.GetBuffName(buffId)
     self.TxtDesc.text = XAreaWarConfigs.GetBuffDesc(buffId)
-
+    
+    
+    
     --已解锁
     local isUnlock = XDataCenter.AreaWarManager.IsPluginUnlock(pluginId)
-    if isUnlock then
+    if not isUnlock then
+        --已解锁则显示”已生效“
         local unlockLevel = XAreaWarConfigs.GetPfLevelByPluginId(pluginId)
         self.TxtLocked.text = CsXTextManagerGetText("AreaWarAreaUnlockPluginPurificationLevel", unlockLevel)
     end
     self.TxtLocked.gameObject:SetActiveEx(not isUnlock)
+    
+    self.TxtEquipped.gameObject:SetActiveEx(isUnlock)
 
-    --使用中
-    local isUsing = XDataCenter.AreaWarManager.IsPluginUsing(pluginId)
-    self.TxtEquipped.gameObject:SetActiveEx(isUsing)
-    self.TxtUnlocked.gameObject:SetActiveEx(isUnlock and not isUsing)
-
-    self.BtnTakeOff.gameObject:SetActiveEx(isUnlock and isUsing)
-    self.BtnEquip.gameObject:SetActiveEx(isUnlock and not isUsing)
+    self.BtnTakeOff.gameObject:SetActiveEx(false)
+    self.BtnEquip.gameObject:SetActiveEx(false)
 end
 
-function XUiAreaWarJingHuaUp:OnClickBtnEquip()
-    if XDataCenter.AreaWarManager.IsPluginSlotFull() then
-        XUiManager.TipText("AreaWarAreaSlotFull")
-        return 
-    end
-
-    local pluginId = self.PluginId
-    local slot = self.Slot
-    XDataCenter.AreaWarManager.RequestUsePluginInSlot(
-        pluginId,
-        slot,
-        function()
-            self:Close()
-        end
-    )
-end
-
-function XUiAreaWarJingHuaUp:OnClickBtnTakeOff()
-    local pluginId = self.PluginId
-    local slot = XDataCenter.AreaWarManager.GetPluginUsingSlot(pluginId)
-    XDataCenter.AreaWarManager.RequestClearPluginSlot(
-        slot,
-        function()
-            self:Close()
-        end
-    )
-end

@@ -1,3 +1,4 @@
+local XActivityBrieIsOpen = require("XUi/XUiActivityBrief/XActivityBrieIsOpen")
 ----------------------------------------------------------------
 --RPG玩法：有可挑战关卡
 

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --故事集
 local XUiGridChapterDP = require("XUi/XUiFubenMainLineBanner/XUiGridChapterDP")
 local XUiPanelChapterDP = XClass(nil,"XUiPanelChapterDP")

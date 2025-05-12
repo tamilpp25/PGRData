@@ -1,25 +1,25 @@
+local XUiFubenMainLineQuickJumpBtn = require("XUi/XUiFubenMainLineChapter/XUiFubenMainLineQuickJumpBtn")
+local XUiGridTreasureGrade = require("XUi/XUiFubenMainLineChapter/XUiGridTreasureGrade")
+local XUiPanelStory = require("XUi/XUiActivityBrief/XUiPanelStory")
 local XUiGridChapter = require("XUi/XUiFubenMainLineChapter/XUiGridChapter")
 local XUiGridExploreChapter = require("XUi/XUiFubenMainLineChapter/XUiGridExploreChapter")
+local XUiPanelStoryJump = require("XUi/XUiFubenMainLineChapter/XUiPanelStoryJump")
 local XUiFubenExtraChapter = XLuaUiManager.Register(XLuaUi, "UiFubenMainLineChapterFw")
+
+local FirstInTrigger = nil --首次进入的trigger
 
 function XUiFubenExtraChapter:OnAwake()
     self:AddListener()
 end
 
 function XUiFubenExtraChapter:OnStart(chapter, stageId, hideDiffTog)
+    FirstInTrigger = true
     self.UnderBg = self.Transform:Find("SafeAreaContentPane/ImageUnder")
     self.SafeAreaContentPane = self.Transform:Find("SafeAreaContentPane")
     self.Camera = self.Transform:GetComponent("Canvas").worldCamera
-    if self.LastData then
-        self.Chapter = self.LastData.Chapter or chapter
-        self.StageId = self.LastData.StageId or stageId
-        self.HideDiffTog = self.LastData.HideDiffTog or hideDiffTog
-        self.LastData = nil
-    else
-        self.Chapter = chapter
-        self.StageId = stageId
-        self.HideDiffTog = hideDiffTog
-    end
+    self.Chapter = chapter
+    self.StageId = stageId
+    self.HideDiffTog = hideDiffTog
     self.Opened = false
     self.IsOnZhouMu = false
     self.GridTreasureList = {}
@@ -56,10 +56,10 @@ function XUiFubenExtraChapter:OnStart(chapter, stageId, hideDiffTog)
     }
 
     -- 注册红点事件
-    self.RedPointId = XRedPointManager.AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_EXTRA_TREASURE }, self.Chapter.ChapterId, false)
-    self.RedPointZhouMuId = XRedPointManager.AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_ZHOUMU_TASK }, self.ZhouMuId, false)
+    self.RedPointId = self:AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_EXTRA_TREASURE }, self.Chapter.ChapterId, false)
+    self.RedPointZhouMuId = self:AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_ZHOUMU_TASK }, self.ZhouMuId, false)
 
-    XRedPointManager.AddRedPointEvent(self.BtnExItem, self.OnCheckExploreItemNews, self, { XRedPointConditions.Types.CONDITION_EXTRA_EXPLORE_ITEM_GET }, self.ExtraChapterId)
+    self:AddRedPointEvent(self.BtnExItem, self.OnCheckExploreItemNews, self, { XRedPointConditions.Types.CONDITION_EXTRA_EXPLORE_ITEM_GET }, self.ExtraChapterId)
 
     -- 注册stage事件
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_STAGE_SYNC, self.OnSyncStage, self)
@@ -73,6 +73,7 @@ function XUiFubenExtraChapter:OnStart(chapter, stageId, hideDiffTog)
         self.PanelTopDifficult.gameObject:SetActiveEx(false)
     end
     self:InitPanelBottom()
+    self:InitPanelStoryJump()
 end
 
 function XUiFubenExtraChapter:OnEnable()
@@ -85,6 +86,9 @@ function XUiFubenExtraChapter:OnEnable()
             v:OnEnable()
         end
     end
+
+    -- 策划说这个章节特殊处理，以后不会更新外篇。这个章节不显示难度toggle，（极低暗流不显示隐藏）
+    self.PanelTopDifficult.gameObject:SetActiveEx(self.Chapter.ChapterId ~= XDataCenter.ExtraChapterManager.ExGetSpecialHideChapterId())
 
     self:UpdateDifficultToggles()
     self:UpdateCurChapter(self.Chapter)
@@ -119,6 +123,11 @@ function XUiFubenExtraChapter:InitPanelBottom()
 
     self.PanelExploreBottom.BtnNormalJump.gameObject:SetActiveEx(false)
     self.PanelExploreBottom.BtnHardlJump.gameObject:SetActiveEx(false)
+end
+
+function XUiFubenExtraChapter:InitPanelStoryJump()
+    ---@type XUiPanelStoryJump
+    self.PanelStoryJump = XUiPanelStoryJump.New(self.PanelStoryJumpBottom, self)
 end
 
 function XUiFubenExtraChapter:GoToLastPassStage()
@@ -171,11 +180,7 @@ function XUiFubenExtraChapter:EnterFight(stage)
     if not XDataCenter.FubenManager.CheckPreFight(stage) then
         return
     end
-    if XTool.USENEWBATTLEROOM then
-        XLuaUiManager.Open("UiBattleRoleRoom", stage.StageId)
-    else
-        XLuaUiManager.Open("UiNewRoomSingle", stage.StageId)
-    end
+    XLuaUiManager.Open("UiBattleRoleRoom", stage.StageId)
 end
 
 -- 是否显示红点
@@ -273,11 +278,11 @@ function XUiFubenExtraChapter:OnBtnHardClick(IsAutoMove)
             if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenDifficulty) then
                 return false
             end
-
+            
             -- 检查主线副本活动
             local chapterInfo = XDataCenter.ExtraChapterManager.GetChapterInfoForOrderId(XDataCenter.FubenManager.DifficultHard, self.Chapter.OrderId)
+            local chapterId = XDataCenter.ExtraChapterManager.GetChapterIdByChapterExtraId(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard)
             if chapterInfo.IsActivity then
-                local chapterId = XDataCenter.ExtraChapterManager.GetChapterIdByChapterExtraId(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard)
                 local ret, desc = XDataCenter.ExtraChapterManager.CheckActivityCondition(chapterId)
                 if not ret then
                     XUiManager.TipMsg(desc, XUiManager.UiTipType.Wrong)
@@ -286,7 +291,6 @@ function XUiFubenExtraChapter:OnBtnHardClick(IsAutoMove)
             end
             -- 检查困难这个章节解锁
             if not chapterInfo or not chapterInfo.IsOpen then
-                local chapterId = XDataCenter.ExtraChapterManager.GetChapterIdByChapterExtraId(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard)
                 local ret, desc = XDataCenter.ExtraChapterManager.CheckOpenCondition(chapterId)
                 if not ret then
                     XUiManager.TipError(desc)
@@ -295,6 +299,11 @@ function XUiFubenExtraChapter:OnBtnHardClick(IsAutoMove)
                 local tipMsg = XDataCenter.FubenManager.GetFubenOpenTips(chapterInfo.FirstStage)
                 XUiManager.TipMsg(tipMsg)
                 return false
+            end
+            if XTool.IsNumberValid(chapterId) then
+                if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.ExtralChapter, chapterId) then
+                    return false
+                end
             end
             self.CurDiff = XDataCenter.FubenManager.DifficultHard
             XDataCenter.ExtraChapterManager.SetCurDifficult(self.CurDiff)
@@ -358,6 +367,42 @@ function XUiFubenExtraChapter:SetBtnTogleActive(isNormal, isHard)
         self.PanelHardOn.gameObject:SetActiveEx(hardOpen)
         self.PanelHardOff.gameObject:SetActiveEx(not hardOpen)
     end
+
+    -- 刷新蓝点 redpoint
+    -- 普通剧情下
+    -- progress
+    local pageDatas = XDataCenter.ExtraChapterManager.GetChapterExtraCfgs(self.CurDiff)
+    local chapterIds = {}
+    for _, v in pairs(pageDatas) do
+        if v.OrderId == self.Chapter.OrderId then
+            chapterIds = v.ChapterId
+            break
+        end
+    end
+    local normalChapterId = chapterIds[1]
+    local hideChapterId = chapterIds[2]
+    if self.CurDiff == XDataCenter.FubenManager.DifficultNormal then
+        if hideChapterId then
+            local viewModel = XDataCenter.ExtraChapterManager:ExGetChapterViewModelById(self.Chapter.ChapterId, XDataCenter.FubenManager.DifficultHard)
+            local isUnFinAndUnEnter = XDataCenter.FubenManagerEx.CheckHideChapterRedPoint(viewModel) --v1.30 新入口红点规则，未完成隐藏且没点击过
+            local hardRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_EXTRA_CHAPTER_REWARD, hideChapterId) or isUnFinAndUnEnter
+            self.BtnNormal:ShowReddot(not isHard and hardRed)
+            self.BtnHard:ShowReddot(hardRed) 
+        else
+            self.BtnHard:ShowReddot(false)
+            self.BtnNormal:ShowReddot(false)
+        end
+    -- 隐藏模式下
+    elseif self.CurDiff == XDataCenter.FubenManager.DifficultHard then
+        if normalChapterId then
+            local normalRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_EXTRA_CHAPTER_REWARD, normalChapterId)
+            self.BtnHard:ShowReddot(not isNormal and normalRed)
+            self.BtnNormal:ShowReddot(normalRed)
+        else
+            self.BtnNormal:ShowReddot(false)
+            self.BtnHard:ShowReddot(false)
+        end
+    end
 end
 
 function XUiFubenExtraChapter:RefreshForChangeDiff(IsAutoMove)
@@ -393,6 +438,9 @@ function XUiFubenExtraChapter:UpdateCurChapter(chapter)
     if not chapter then
         return
     end
+
+    XDataCenter.FubenManagerEx.SaveHideChapterIsOpen(chapter.ChapterId)
+
     self.Chapter = chapter
     self.IsExploreMod = XDataCenter.ExtraChapterManager.CheckChapterTypeIsExplore(self.Chapter)
     self.ExtraChapterId = self.Chapter.ChapterId
@@ -430,15 +478,7 @@ function XUiFubenExtraChapter:UpdateCurChapter(chapter)
 
                 autoChangeBgArgs = {
                     AutoChangeBgCb = function(seletBgIndex, isPlayAnim)
-                        -- if autoChangeBgFlag then
-                        --     self.AnimBeijingEnable:PlayTimelineAnimation()
-                        -- else
-                        --     if self.FirstSetBg then
-                        --         self.FirstSetBg = nil
-                        --         return
-                        --     end
-                        --     self.AnimBeijingDisable:PlayTimelineAnimation()
-                        -- end
+                        
                         local selectOrder = math.abs(seletBgIndex)
                         for i = 1, #autoChangeBgArgs.StageIndexList + 1 do
                             local tempCanvasGroup = gameObject:FindTransform("RImgChapterBg"..i):GetComponent("CanvasGroup")
@@ -451,7 +491,7 @@ function XUiFubenExtraChapter:UpdateCurChapter(chapter)
                         if isPlayAnim then
                             gameObject:FindTransform("BgQieHuan"..seletBgIndex):PlayTimelineAnimation()
                         end
-                        CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiActivityBranch_SwitchBg)
+                        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiActivityBranch_SwitchBg)
                     end,
                     DatumLinePrecent = XDataCenter.ExtraChapterManager.GetAutoChangeBgDatumLinePrecent(chapterId),
                     StageIndexList = XDataCenter.ExtraChapterManager.GetAutoChangeBgStageIndex(chapterId),
@@ -494,7 +534,8 @@ function XUiFubenExtraChapter:UpdateCurChapter(chapter)
     end
     
     --进入首先显示第一个bg
-    if self.RImgBg1 then
+    if self.RImgBg1 and FirstInTrigger then
+        FirstInTrigger = nil
         self.RImgBg1.gameObject:SetActiveEx(true)
         self.RImgBg1.alpha = 1
     end
@@ -510,6 +551,7 @@ function XUiFubenExtraChapter:UpdateCurChapter(chapter)
     self:UpdateExploreBottom()
     self:SetPanelBottomActive(true)
     self:UpdateFubenExploreItem()
+    self.PanelStoryJump:Refresh(self.Chapter.ChapterId, XFubenConfigs.ChapterType.ExtralChapter)
 end
 
 function XUiFubenExtraChapter:UpdateColor()
@@ -733,10 +775,15 @@ function XUiFubenExtraChapter:OnBtnTreasureClick()
         return
     end
     self:InitTreasureGrade()
-    self.PanelTreasure.gameObject:SetActiveEx(true)
+    self:OpenTreasurePanel()
     self.PanelTop.gameObject:SetActiveEx(true)
     self:SetPanelBottomActive(true)
     self:PlayAnimation("TreasureEnable")
+end
+
+function XUiFubenExtraChapter:OpenTreasurePanel()
+    self.PanelTreasure.gameObject:SetActiveEx(true)
+    XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnTreasureBgClick")
 end
 
 function XUiFubenExtraChapter:CloseStageDetail()
@@ -752,11 +799,16 @@ end
 
 function XUiFubenExtraChapter:OnBtnTreasureBgClick()
     self:PlayAnimation("TreasureDisable", handler(self, function()
-        self.PanelTreasure.gameObject:SetActiveEx(false)
+        self:CloseTreasurePanel()
         self.PanelTop.gameObject:SetActiveEx(true)
         self:SetPanelBottomActive(true)
         self:UpdateChapterStars()
     end))
+end
+
+function XUiFubenExtraChapter:CloseTreasurePanel()
+    self.PanelTreasure.gameObject:SetActiveEx(false)
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
 end
 
 -- 点击切换到周目模式
@@ -875,6 +927,10 @@ function XUiFubenExtraChapter:InitTreasureGrade()
 end
 
 function XUiFubenExtraChapter:OnSyncStage(stageId)
+    -- 跳转前的章节处于隐藏，不刷新
+    if not self.GameObject.activeSelf then
+        return
+    end
     if not stageId then
         return
     end
@@ -1013,12 +1069,4 @@ function XUiFubenExtraChapter:OnAutoFightStart(stageId)
         self:OnCloseStageDetail()
         XLuaUiManager.Remove("UiFubenExploreDetail")
     end
-end
-
-function XUiFubenExtraChapter:OnReleaseInst()
-    return { Chapter = self.Chapter, StageId = self.StageId, HideDiffTog = self.HideDiffTog }
-end
-
-function XUiFubenExtraChapter:OnResume(data)
-    self.LastData = data
 end

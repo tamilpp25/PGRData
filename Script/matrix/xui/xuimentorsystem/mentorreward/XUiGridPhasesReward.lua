@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridPhasesReward = XClass(nil, "XUiGridPhasesReward")
 local CSTextManagerGetText = CS.XTextManager.GetText
 local DefaultIndex = 1

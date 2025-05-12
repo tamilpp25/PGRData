@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiSummerEpisode = XLuaUiManager.Register(XLuaUi, "UiSummerEpisode")
 local XUiSummerEpisodeChapter = require("XUi/XUiSummerEpisode/XUiSummerEpisodeChapter")
 local XUiGridNewSpecialReward = require("XUi/XUiSummerEpisode/XUiGridNewSpecialReward")

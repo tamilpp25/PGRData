@@ -1,3 +1,4 @@
+local XUiGridCharacter = require("XUi/XUiCharacter/XUiGridCharacter")
 local XUiGridCharacterIcon = XClass(nil, "XUiGridCharacterIcon")
 
 function XUiGridCharacterIcon:Ctor(RootUI, index, uiIcon, exhibitionCfg)
@@ -18,13 +19,13 @@ function XUiGridCharacterIcon:Refresh(exhibitionCfg)
         self.ImgMask.gameObject:SetActive(false)
         self.LevelPanel.gameObject:SetActive(false)
         self.ImgRedPoint.gameObject:SetActive(false)
-        --local levelConfig = XExhibitionConfigs.GetExhibitionGrowUpLevelConfig(XCharacterConfigs.GrowUpLevel.New)
+        --local levelConfig = XExhibitionConfigs.GetExhibitionGrowUpLevelConfig(XEnumConst.CHARACTER.GrowUpLevel.New)
         --self.RootUI:SetUiSprite(self.ImgIconFrame, levelConfig.IconFrame)
     elseif self:IsOwnCharacter(self.CharacterId) then
         self.ImgMask.gameObject:SetActive(false)
         local growUpLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(self.CharacterId, true)
         local levelConfig = XExhibitionConfigs.GetExhibitionGrowUpLevelConfig(growUpLevel)
-        if growUpLevel == XCharacterConfigs.GrowUpLevel.New then
+        if growUpLevel == XEnumConst.CHARACTER.GrowUpLevel.New then
             self.LevelPanel.gameObject:SetActive(false)
             self.RootUI:SetUiSprite(self.ImgIconFrame, levelConfig.IconFrame)
         else
@@ -81,7 +82,7 @@ function XUiGridCharacterIcon:BtnSelectClick()
     if self.RootUI.IsSelf then
         if self.CharacterId == nil or self.CharacterId == 0 then
             XUiManager.TipText("ExhibitionUnknownCharacter")
-        elseif XDataCenter.CharacterManager.IsOwnCharacter(self.CharacterId) then
+        elseif XMVCA.XCharacter:IsOwnCharacter(self.CharacterId) then
             self.RootUI:StartFocus(self.Index, self.CharacterId)
         else
             XUiManager.TipText("ExhibitionNotObtainCharacter")

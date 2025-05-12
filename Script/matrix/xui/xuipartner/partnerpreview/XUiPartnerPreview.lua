@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiPartnerPreview = XLuaUiManager.Register(XLuaUi, "UiPartnerPreview")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
@@ -11,9 +12,15 @@ function XUiPartnerPreview:OnDisable()
 end
 
 function XUiPartnerPreview:OnStart(data)
+    ---@type XPartner
     self.Data = data
     if not self.Data then
         return
+    end
+    if data.GetTemplateId then
+        self._PartnerId = data:GetTemplateId()
+    else
+        XLog.Error("[XUiPartnerPreview] 麻烦联系曾立斌, 这个数据不是伙伴")  
     end
 
     self.ModelEffect = {}
@@ -78,7 +85,7 @@ function XUiPartnerPreview:DoPartnerStateChange(state)
 
         local voiceId = partner:GetSToCVoice()
         if voiceId and voiceId > 0 then
-            XSoundManager.PlaySoundByType(voiceId, XSoundManager.SoundType.Sound)
+            XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, voiceId)
         end
 
         self.CurPartnerState = state
@@ -94,7 +101,7 @@ function XUiPartnerPreview:DoPartnerStateChange(state)
 
         local voiceId = partner:GetCToSVoice()
         if voiceId and voiceId > 0 then
-            XSoundManager.PlaySoundByType(voiceId, XSoundManager.SoundType.Sound)
+            XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, voiceId)
         end
         self.RoleModelPanel:LoadEffect(partner:GetCToSEffect(), "ModelOnEffect", true, true)
 
@@ -131,13 +138,14 @@ function XUiPartnerPreview:UpdateRoleModel(modelId, partner, IsShowEffect)
 end
 
 function XUiPartnerPreview:SetCameraType(type)
-    for k, _ in pairs(self.CameraFar) do
-        self.CameraFar[k].gameObject:SetActiveEx(k == type)
-    end
-
-    for k, _ in pairs(self.CameraNear) do
-        self.CameraNear[k].gameObject:SetActiveEx(k == type)
-    end
+    --for k, _ in pairs(self.CameraFar) do
+    --    self.CameraFar[k].gameObject:SetActiveEx(k == type)
+    --end
+    --
+    --for k, _ in pairs(self.CameraNear) do
+    --    self.CameraNear[k].gameObject:SetActiveEx(k == type)
+    --end
+    XUiHelper.SetPartnerCameraType(self, type, self._PartnerId)
 end
 
 function XUiPartnerPreview:UpdateCamera()
@@ -149,7 +157,7 @@ function XUiPartnerPreview:UpdateCamera()
 end
 
 function XUiPartnerPreview:UpdatePartnerInfo()
-    local qualityIcon = XCharacterConfigs.GetCharacterQualityIcon(self.Data:GetInitQuality())
+    local qualityIcon = XMVCA.XCharacter:GetCharacterQualityIcon(self.Data:GetInitQuality())
 
     self.TxtPartnerMainName.text = self.Data:GetOriginalName()
     self.RawQuality:SetRawImage(qualityIcon)
@@ -159,13 +167,25 @@ function XUiPartnerPreview:UpdatePartnerInfo()
     local strElement = ""
     for index, element in pairs(self.Data:GetRecommendElement() or {}) do
         if element > 0 then
-            local elementConfig = XCharacterConfigs.GetCharElement(element)
+            local elementConfig = XMVCA.XCharacter:GetCharElement(element)
             local strFormat = index > 1 and "%s, %s" or "%s%s"
             strElement = string.format(strFormat, strElement, elementConfig.ElementName)
         end
     end
     self.TxtElement.text = strElement
     self.TxtElement.gameObject:SetActiveEx(not string.IsNilOrEmpty(strElement))
+
+    if self.Data:GetPartnerType() == XPartnerConfigs.PartnerType.Link then
+        if self.TxtName and self.TxtNameLink then
+            self.TxtName.gameObject:SetActiveEx(false)
+            self.TxtNameLink.gameObject:SetActiveEx(true)
+        end
+    else
+        if self.TxtName and self.TxtNameLink then
+            self.TxtName.gameObject:SetActiveEx(true)
+            self.TxtNameLink.gameObject:SetActiveEx(false)
+        end
+    end
 end
 
 function XUiPartnerPreview:IsPartnerStandby()

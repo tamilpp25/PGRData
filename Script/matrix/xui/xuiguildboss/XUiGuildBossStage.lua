@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --工会boss选关页面
 local XUiGuildBossStageLevel = require("XUi/XUiGuildBoss/Component/XUiGuildBossStageLevel")
 local XUiGuildBossRewardItem = require("XUi/XUiGuildBoss/Component/XUiGuildBossRewardItem")
@@ -17,6 +18,7 @@ function XUiGuildBossStage:OnAwake()
     self.BtnDetail.CallBack = function() self:OnBtnDetailClick() end
     self.BtnLayout.CallBack = function() self:OnBtnLayoutClick() end
     self.BtnConfirm.CallBack = function() self:OnBtnConfirmClick() end
+    self.BtnSelectStyle.CallBack = function() self:OnBtnSelectStyle() end
     self.BtnBossHpRewardGet.CallBack = function() self:OnBtnBossHpRewardGetClick() end
     self.BtnExitDetail.CallBack = function() self:OnBtnExitDetailClick() end
     self.HpAnimationCB = function() end
@@ -59,8 +61,9 @@ end
 function XUiGuildBossStage:OnEnable()
     if self.IsFirstOpen then
         self.IsFirstOpen = false
-       self:UpdatePage(0)
+        self:UpdatePage(0)
     end
+    self.Effect.gameObject:SetActiveEx(self.IsShowEffect) -- 刷新特效
     XEventManager.AddEventListener(XEventId.EVENT_GUILDBOSS_UPDATEORDER, self.UpdateAllOrderMark, self)
 end
 
@@ -100,60 +103,69 @@ function XUiGuildBossStage:UpdateBossHp(damage)
     local bossMaxHp = XDataCenter.GuildBossManager.GetMaxBossHp()
     local bossCurHp = XDataCenter.GuildBossManager.GetCurBossHp() + damage
     local leftHpNum = math.floor(bossCurHp / (bossMaxHp / 100)) --剩余血量管数
-    self.ImgBossHp.fillAmount = (bossCurHp - (leftHpNum * (bossMaxHp / 100))) / (bossMaxHp / 100)
+    self.ImgBossHp.fillAmount = bossCurHp / bossMaxHp
     self.TxtBossCurHp.text = XUiHelper.GetLargeIntNumText(bossCurHp)
     self.PanelHpInfo.gameObject:SetActiveEx(bossCurHp > 0)
     self.PanelFinish.gameObject:SetActiveEx(bossCurHp == 0)
+    self.Effect.gameObject:SetActiveEx(bossCurHp > 0)
+    self.IsShowEffect = bossCurHp > 0
     self.TxtBossHpNum.text = leftHpNum
-    self.TxtBossLv.text = "Lv." .. XDataCenter.GuildBossManager.GetCurBossLevel()
+    self.TxtBossLv.text = " Lv." .. XDataCenter.GuildBossManager.GetCurBossLevel()
     self.TxtBossHp.text = XUiHelper.GetLargeIntNumText(bossMaxHp)
+    -- boss头像 nzwjV3
+    local bossInfo = XDataCenter.GuildBossManager.GetBossLevelInfo()
+    local bossHeadIcon = XGuildBossConfig.GetBossStageInfo(bossInfo.StageId).BossHead
+    self.ImgBossHead:SetRawImage(bossHeadIcon)
 end
 
 --如果damage>0则需要播放boss扣血动画
 function XUiGuildBossStage:UpdatePage(damage)
+    -- 刷新数据前再请求一次服务器
+    XDataCenter.GuildBossManager.GuildBossInfoRequest(function() 
+        self:UpdateBossHp(damage)
     
-    self:UpdateBossHp(damage)
-
-    --更新显示关卡
-    self.LevelData = XDataCenter.GuildBossManager.GetLevelData()
-    local lowLevelInfo = XDataCenter.GuildBossManager.GetLowLevelInfo()
-    local highLevelInfo = XDataCenter.GuildBossManager.GetHighLevelInfo()
-    for i = 1, #self.LevelData do
-        if self.LevelData[i].Type ~= GuildBossLevelType.Boss then
-            if self.Levels[i] == nil then
-                self.Levels[i] = XUiGuildBossStageLevel.New(self.Instantiate(self.StageLevelObj))
-            end
-            self.Levels[i].Transform:SetParent(self.Pos[i].transform)
-            self.Levels[i]:Init(self.LevelData[i], self)
-            self.Levels[i].Transform.localPosition = self.VectorZero
-            self.Levels[i].Transform.localEulerAngles = self.VectorZero
-            self.Levels[i].OrderNum.transform.eulerAngles = self.VectorZero
-            self.Levels[i].GameObject:SetActiveEx(true)
-            
-            local curLevelInfo
-            if self.LevelData[i].Type == GuildBossLevelType.Low then
-                curLevelInfo = lowLevelInfo
-            else
-                curLevelInfo = highLevelInfo
-            end
-            if curLevelInfo ~= nil then
-                if curLevelInfo.StageId == self.LevelData[i].StageId then
+        --更新显示关卡
+        self.LevelData = XDataCenter.GuildBossManager.GetLevelData()
+        local lowLevelInfo = XDataCenter.GuildBossManager.GetLowLevelInfo()
+        local highLevelInfo = XDataCenter.GuildBossManager.GetHighLevelInfo()
+        for i = 1, #self.LevelData do
+            if self.LevelData[i].Type ~= GuildBossLevelType.Boss then
+                if self.Levels[i] == nil then
+                    self.Levels[i] = XUiGuildBossStageLevel.New(self.Instantiate(self.StageLevelObj))
+                end
+                self.Levels[i].Transform:SetParent(self.Pos[i].transform)
+                self.Levels[i]:Init(self.LevelData[i], self)
+                self.Levels[i].Transform.localPosition = self.VectorZero
+                self.Levels[i].Transform.localEulerAngles = self.VectorZero
+                self.Levels[i].OrderNum.transform.eulerAngles = self.VectorZero
+                self.Levels[i].TxtOrderGreen.transform.eulerAngles = self.VectorZero
+                self.Levels[i].GameObject:SetActiveEx(true)
+                
+                local curLevelInfo
+                if self.LevelData[i].Type == GuildBossLevelType.Low then
+                    curLevelInfo = lowLevelInfo
+                else
+                    curLevelInfo = highLevelInfo
+                end
+                if curLevelInfo ~= nil then
+                    if curLevelInfo.StageId == self.LevelData[i].StageId then
+                        self.Levels[i].Transform.localScale = self.VectorOne
+                        self.Levels[i].ImgBlack.gameObject:SetActiveEx(false)
+                    else
+                        self.Levels[i].Transform.localScale = self.VectorSmall
+                        self.Levels[i].ImgBlack.gameObject:SetActiveEx(true)
+                    end
+                else
                     self.Levels[i].Transform.localScale = self.VectorOne
                     self.Levels[i].ImgBlack.gameObject:SetActiveEx(false)
-                else
-                    self.Levels[i].Transform.localScale = self.VectorSmall
-                    self.Levels[i].ImgBlack.gameObject:SetActiveEx(true)
                 end
-            else
-                self.Levels[i].Transform.localScale = self.VectorOne
-                self.Levels[i].ImgBlack.gameObject:SetActiveEx(false)
             end
         end
-    end
-
-    self:UpdatePanelReward()
-    self:XUiGuildBossHpReward()
-    self:UpdateAllOrderMark()
+    
+        self:UpdatePanelReward()
+        self:UiGuildBossHpReward()
+        self:UpdateAllOrderMark()
+    end)
 end
 
 --更新左边累计分数奖励及总分
@@ -161,46 +173,54 @@ function XUiGuildBossStage:UpdatePanelReward()
     local rewardData = XGuildBossConfig.ScoreRewards()
     local lastScore = 0 -- 用于控制每段的进度条长度
     for i = 1, #rewardData do
+        local data = rewardData[i]
+        --if XFunctionManager.CheckInTimeByTimeId(data.TimeId) then -- nzwjV3 适配版本更新周一切换奖励。逻辑为展示在 timeId 时间内的奖励物品
         if self.Rewards[i] == nil then
             self.Rewards[i] = XUiGuildBossRewardItem.New(self.Instantiate(self.BtnReward.gameObject), self)
         end
         self.Rewards[i].Transform:SetParent(self.PanelRewardBtn.transform)
-        self.Rewards[i]:Init(rewardData[i], lastScore)
-        lastScore = rewardData[i].Score
+        self.Rewards[i]:Init(data, lastScore) 
+        lastScore = data.Score
         self.Rewards[i].Transform.localScale = self.VectorOne
         self.Rewards[i].Transform.position = self.BtnReward.transform.position
         --self.Rewards[i].RectTransform.anchoredPosition = self.Vector2(self.Rewards[i].RectTransform.anchoredPosition.x, 100 * i)
         self.Rewards[i].Transform.localEulerAngles = self.VectorZero
         self.Rewards[i].GameObject:SetActiveEx(true)
+        --end
     end
     self.PanelRewardLayout:SetDirty()
     self.BtnDetail:SetName(XUiHelper.GetLargeIntNumText(XDataCenter.GuildBossManager.GetMyTotalScore()))
 end
 
 function XUiGuildBossStage:OnBtnRewardClick(rewardData)
-    XDataCenter.GuildBossManager.GuildBossScoreBoxRequest(rewardData.Id, function() self:UpdatePanelReward() end)
+    XDataCenter.GuildBossManager.GuildBossScoreBoxRequest(rewardData.Id, function() 
+        self:UpdatePanelReward() 
+    end)
 end
 
 --更新右上boss血量阶段奖励
-function XUiGuildBossStage:XUiGuildBossHpReward()
-    --当前领到第几阶段
-    self.CurBossHpReward = XDataCenter.GuildBossManager.GetHpBoxGot()
+function XUiGuildBossStage:UiGuildBossHpReward()
+    
     --奖励数据
     local hpRewardData = XGuildBossConfig.HpRewards()
+    local receiveAll = XDataCenter.GuildBossManager.IsHpRewardAllReceived()
     --全部领完
-    if self.CurBossHpReward >= #hpRewardData then
+    if receiveAll then
+        --当前领到第几阶段
+        local curBossHpReward = XDataCenter.GuildBossManager.GetMaxBossHpGot()
         self.RewardGrids.gameObject:SetActiveEx(false)
         self.TxtBossRewardDone.gameObject:SetActiveEx(true)
         -- self.BtnBossHpRewardGet.gameObject:SetActiveEx(false)
         self.hasHpReward = false
-        self.TxtTargetBlood.text = hpRewardData[self.CurBossHpReward].HpPercent
+        self.TxtTargetBlood.text = hpRewardData[curBossHpReward].HpPercent
     else
+        self.HpRewardId = XDataCenter.GuildBossManager.GetMinReceivedId()
         self.RewardGrids.gameObject:SetActiveEx(true)
         self.TxtBossRewardDone.gameObject:SetActiveEx(false)
         local curHpPrecent = XDataCenter.GuildBossManager.GetCurBossHp() / XDataCenter.GuildBossManager.GetMaxBossHp() * 100
-        self.TxtTargetBlood.text = hpRewardData[self.CurBossHpReward + 1].HpPercent
+        self.TxtTargetBlood.text = hpRewardData[self.HpRewardId].HpPercent
         --可以领下一档
-        if curHpPrecent <= hpRewardData[self.CurBossHpReward + 1].HpPercent then
+        if curHpPrecent <= hpRewardData[self.HpRewardId].HpPercent then
             -- self.BtnBossHpRewardGet.gameObject:SetActiveEx(true)
             self.hasHpReward = true
         --不能领
@@ -209,7 +229,7 @@ function XUiGuildBossStage:XUiGuildBossHpReward()
             self.hasHpReward = false
         end
         --下一档的奖励Grid
-        local rewardList = XRewardManager.GetRewardList(XDataCenter.GuildBossManager.GetHpRewardId(self.CurBossHpReward + 1))
+        local rewardList = XRewardManager.GetRewardList(XDataCenter.GuildBossManager.GetHpRewardId(self.HpRewardId))
         self.GuildBossHpRewardGrid1 = XUiGridCommon.New(self, self.BossHpRewardGrid1Obj)
         self.GuildBossHpRewardGrid1:Refresh(rewardList[1])
         self.GuildBossHpRewardGrid2 = XUiGridCommon.New(self, self.BossHpRewardGrid2Obj)
@@ -220,23 +240,31 @@ end
 
 function XUiGuildBossStage:OnBtnBossHpRewardGetClick()
     if self.hasHpReward then
-        XDataCenter.GuildBossManager.GuildBossHpBoxRequest(self.CurBossHpReward + 1, function() self:XUiGuildBossHpReward() end)
+        XDataCenter.GuildBossManager.GuildBossHpBoxRequest(self.HpRewardId, function() self:UiGuildBossHpReward() end)
     else
         self:PlayAnimation("PanelHpRewardEnable", self.HpAnimationCB)
         self.PanelHpReward:Show()
+        self.Effect.gameObject:SetActiveEx(false)
     end
 end
 
-function XUiGuildBossStage:ResetToNormal(cb)
-    self:ChangeMode(self.WindowMode.Normal, cb)
+function XUiGuildBossStage:ResetToNormal(cb, ...)
+    self:ChangeMode(self.WindowMode.Normal, cb, ...)
     if self.ChildName then
+        self.Effect.gameObject:SetActiveEx(self.IsShowEffect)
         self:CloseChildUi(self.ChildName)
     end
-    --清除所有选中效果
+    self:ClearStageSelect()
+    self.ImgBossSelect.gameObject:SetActiveEx(false)
+    self.BossMask.gameObject:SetActiveEx(false)
+end
+
+--清除关卡boss外所有选中效果
+function XUiGuildBossStage:ClearStageSelect()
     for i = 1, #self.Levels do
         self.Levels[i].ImgSelect.gameObject:SetActiveEx(false)
+        self.Levels[i].MaskPos.gameObject:SetActiveEx(false)
     end
-    self.ImgBossSelect.gameObject:SetActiveEx(false)
 end
 
 function XUiGuildBossStage:OnBtnBackClick()
@@ -268,6 +296,7 @@ end
 --点击关卡回调
 function XUiGuildBossStage:OnStageLevelClick(data, btnStage)
     self.CurStageData = data
+    self.BossMask.gameObject:SetActiveEx(false)
     XDataCenter.GuildBossManager.SetCurSelectStageType(self.CurStageData.Type)
     if self.CurWindowMode == self.WindowMode.Normal or self.CurWindowMode == self.WindowMode.LevelDetail then
         XDataCenter.GuildBossManager.GuildBossStageRequest(data.StageId, function() self:OpenStageDetail(data) end)
@@ -279,6 +308,7 @@ function XUiGuildBossStage:OnStageLevelClick(data, btnStage)
             if self.OrderData[curOrderPos] == 0 then
                 self.OrderData[curOrderPos] = self.ToSetLowNum
                 btnStage:SetOrder(self.ToSetLowNum)
+                btnStage.MaskPos.gameObject:SetActiveEx(true)
                 self.ToSetLowNum = self.ToSetLowNum + 1
             else
                 self.ToSetLowNum = self.OrderData[curOrderPos]
@@ -287,7 +317,11 @@ function XUiGuildBossStage:OnStageLevelClick(data, btnStage)
                         if self.OrderData[i] >= self.ToSetLowNum then
                             self.OrderData[i] = 0
                         end
-                        self:GetLevelByStageId(allLevelData[i].StageId):SetOrder(self.OrderData[i])
+                        local stageObj = self:GetLevelByStageId(allLevelData[i])
+                        if stageObj then
+                            stageObj:SetOrder(self.OrderData[i])
+                            stageObj.MaskPos.gameObject:SetActiveEx(self.OrderData[i] > 0)
+                        end
                     end
                 end
             end
@@ -295,6 +329,7 @@ function XUiGuildBossStage:OnStageLevelClick(data, btnStage)
             if self.OrderData[curOrderPos] == 0 then
                 self.OrderData[curOrderPos] = self.ToSetHighNum
                 btnStage:SetOrder(self.ToSetHighNum)
+                btnStage.MaskPos.gameObject:SetActiveEx(true)
                 self.ToSetHighNum = self.ToSetHighNum + 1
             else
                 self.ToSetHighNum = self.OrderData[curOrderPos]
@@ -303,7 +338,11 @@ function XUiGuildBossStage:OnStageLevelClick(data, btnStage)
                         if self.OrderData[i] >= self.ToSetHighNum then
                             self.OrderData[i] = 0
                         end
-                        self:GetLevelByStageId(allLevelData[i].StageId):SetOrder(self.OrderData[i])
+                        local stageObj = self:GetLevelByStageId(allLevelData[i])
+                        if stageObj then
+                            stageObj:SetOrder(self.OrderData[i])
+                            stageObj.MaskPos.gameObject:SetActiveEx(self.OrderData[i] > 0)
+                        end
                     end
                 end
             end
@@ -315,15 +354,35 @@ function XUiGuildBossStage:OpenStageDetail(data)
     --选中效果
     self.ImgBossSelect.gameObject:SetActiveEx(false)
     if self.CurSelectLevelData ~= nil then
-        local curLevel = self:GetLevelByStageId(self.CurSelectLevelData.StageId)
+        local curLevel = self:GetLevelByStageId(self.CurSelectLevelData)
         if curLevel then
             curLevel.ImgSelect.gameObject:SetActiveEx(false)
+            curLevel.MaskPos.gameObject:SetActiveEx(false)
         end
     end
-    self:GetLevelByStageId(data.StageId).ImgSelect.gameObject:SetActiveEx(true)
+    local stageObj = self:GetLevelByStageId(data)
+    if stageObj then
+        stageObj.ImgSelect.gameObject:SetActiveEx(true)
+        stageObj.MaskPos.gameObject:SetActiveEx(true)
+    end
 
     self.CurSelectLevelData = data
-    self:ChangeMode(self.WindowMode.LevelDetail)
+    local isPlayAnim = true -- 判断是否播放打开detail的动画，锁定的stage不播
+    if data.Type ~= GuildBossLevelType.Boss then
+        if data.Type == GuildBossLevelType.Low then
+            local lowLevelInfo = XDataCenter.GuildBossManager.GetLowLevelInfo()
+            if (lowLevelInfo ~= nil and lowLevelInfo.StageId ~= data.StageId) then
+                isPlayAnim = false
+            end
+        elseif data.Type == GuildBossLevelType.High then
+            local highLevelInfo = XDataCenter.GuildBossManager.GetHighLevelInfo()
+            if  (highLevelInfo ~= nil and highLevelInfo.StageId ~= data.StageId) then
+                isPlayAnim = false
+            end
+        end
+    end
+
+    self:ChangeMode(self.WindowMode.LevelDetail, nil, isPlayAnim)
     --如果是boss关卡
     if data.Type == GuildBossLevelType.Boss then
         XLuaUiManager.Open("UiGuildBossMainLevelInfo", self)
@@ -340,6 +399,7 @@ function XUiGuildBossStage:OpenStageDetail(data)
                 else
                     self:OpenOneChildUi("UiGuildBossOtherSubLevelInfo", self)
                     self.ChildName = "UiGuildBossOtherSubLevelInfo"
+                    self.Effect.gameObject:SetActiveEx(false)
                 end
             else
                 self:OpenOneChildUi("UiGuildBossCurSubLevelInfo", self)
@@ -355,6 +415,7 @@ function XUiGuildBossStage:OpenStageDetail(data)
                 else
                     self:OpenOneChildUi("UiGuildBossOtherSubLevelInfo", self)
                     self.ChildName = "UiGuildBossOtherSubLevelInfo"
+                    self.Effect.gameObject:SetActiveEx(false)
                 end
             else
                 self:OpenOneChildUi("UiGuildBossCurSubLevelInfo", self)
@@ -364,9 +425,9 @@ function XUiGuildBossStage:OpenStageDetail(data)
     end
 end
 
-function XUiGuildBossStage:GetLevelByStageId(stageId)
+function XUiGuildBossStage:GetLevelByStageId(data)
     for i = 1, #self.Levels do
-        if self.Levels[i].Data.StageId == stageId then
+        if self.Levels[i].Data.StageId == data.StageId and self.Levels[i].Data.Type == data.Type and self.Levels[i].Data.NameOrder == data.NameOrder then
             return self.Levels[i]
         end
     end
@@ -381,8 +442,10 @@ function XUiGuildBossStage:OnBtnBossClick()
     --选中效果
     
     self.ImgBossSelect.gameObject:SetActiveEx(true)
+    self.BossMask.gameObject:SetActiveEx(true)
+    self:ClearStageSelect() -- 选中boss要清除所有其他关卡的选中效果
     if self.CurSelectLevelData ~= nil then
-        local curLevel = self:GetLevelByStageId(self.CurSelectLevelData.StageId)
+        local curLevel = self:GetLevelByStageId(self.CurSelectLevelData)
         if curLevel then
             curLevel.ImgSelect.gameObject:SetActiveEx(false)
         end
@@ -394,15 +457,23 @@ function XUiGuildBossStage:OnBtnBossClick()
     XDataCenter.GuildBossManager.GuildBossStageRequest(self.CurSelectLevelData.StageId, function()
         self:OpenOneChildUi("UiGuildBossMainLevelInfo", self)
         self.ChildName = "UiGuildBossMainLevelInfo"
-        self:ChangeMode(self.WindowMode.LevelDetail) 
+        self:ChangeMode(self.WindowMode.LevelDetail, nil, true) 
     end)
 end
 
 --详情模式下点击空白出退出
 function XUiGuildBossStage:OnBtnExitDetailClick()
     if self.CurWindowMode == self.WindowMode.LevelDetail then
-        self:ResetToNormal()
+        self:ResetToNormal(nil, self.HasPlayDetailAnim)
     end
+end
+
+--风格选择
+function XUiGuildBossStage:OnBtnSelectStyle()
+    -- 向服务器请求风格信息 再打开
+    XDataCenter.GuildBossManager.GuildBossStyleInfoRequest(function ()
+        XLuaUiManager.Open("UiGuildBossSelectStyle")
+    end)
 end
 
 --确认发布战术布局
@@ -416,11 +487,7 @@ function XUiGuildBossStage:OnBtnConfirmClick()
             end
         end
         --保存设置并退出布局模式
-        local orderStr = ""
-        for i = 1, #self.OrderData do
-            orderStr = orderStr .. tostring(self.OrderData[i])
-        end
-        XDataCenter.GuildBossManager.GuildBossSetOrderRequest(orderStr, self:ChangeMode(self.WindowMode.Normal))
+        XDataCenter.GuildBossManager.GuildBossSetOrderRequest(self.OrderData, self:ChangeMode(self.WindowMode.Normal))
     end
 end
 
@@ -442,15 +509,17 @@ function XUiGuildBossStage:OnBtnLayoutClick()
 end
 
 --切换模式：普通模式/战术布局
-function XUiGuildBossStage:ChangeMode(mode, cb)
+function XUiGuildBossStage:ChangeMode(mode, cb, ...)
+    local args = {...}
     --退出布局的时候
     if self.CurWindowMode == self.WindowMode.Order and mode == self.WindowMode.Normal then
         self:PlayAnimation("AniConfirmLayoutDisable", cb)
         --清除布局标签
         for i = 1, #self.Levels do
             self.Levels[i]:HideOrder()
+            self.Levels[i].MaskPos.gameObject:SetActiveEx(false)
         end
-        self.BtnExitDetail.gameObject:SetActiveEx(false)
+        self.MainView:GetComponent("CanvasGroup").blocksRaycasts = true
         self:UpdateAllOrderMark()
     --进入布局的时候
     elseif self.CurWindowMode == self.WindowMode.Normal and mode == self.WindowMode.Order then
@@ -459,48 +528,79 @@ function XUiGuildBossStage:ChangeMode(mode, cb)
         for i = 1, XDataCenter.GuildBossManager.GetStageCount() do
             table.insert(self.OrderData, i, 0)
         end
+        -- 进入布局时先清除所有标签
+        self.LevelData = XDataCenter.GuildBossManager.GetLevelData() -- nzwjV3，不使用优先级标签，改为顺序标签
+        for _, v in pairs(self.LevelData) do
+            local levelComponent = self:GetLevelByStageId(v)
+            if levelComponent then
+                levelComponent:SetOrderOutSide(false)
+            end
+        end
+        self.MainView:GetComponent("CanvasGroup").blocksRaycasts = false
         self.ToSetLowNum = 1
         self.ToSetHighNum = 1
-        self.BtnExitDetail.gameObject:SetActiveEx(false)
     --从普通状态进入关卡详情
     elseif self.CurWindowMode == self.WindowMode.Normal and mode == self.WindowMode.LevelDetail then
-        self:PlayAnimation("AniMainStageEnable", cb)
-        self.BtnExitDetail.gameObject:SetActiveEx(true)
+        if args[1] then
+            self:PlayAnimation("AniMainStageEnable", cb)
+            self.HasPlayDetailAnim = true
+        end
     --退出关卡详情到普通状态
     elseif self.CurWindowMode == self.WindowMode.LevelDetail and mode == self.WindowMode.Normal then
-        self:PlayAnimation("AniMainStageDisable", cb)
-        self.BtnExitDetail.gameObject:SetActiveEx(false)
+        if args[1] then    -- 锁定的stage不播放动画
+            self:PlayAnimation("AniMainStageDisable", cb)
+            self.HasPlayDetailAnim = false
+        end
     end
+    self.BtnExitDetail.gameObject:SetActiveEx(mode == self.WindowMode.LevelDetail)
     self.CurWindowMode = mode
 end
 
---设置优先标签
+--获得序号标签
+function XUiGuildBossStage:GetStageOrderShow(data)
+    local type = data.Type
+    if self[type] and self[type].OrderShowList then
+        for order, value in pairs(self[type].OrderShowList) do
+            if value.LevelData.StageId == data.StageId and value.LevelData.NameOrder == data.NameOrder then
+                return order
+            end
+        end
+    end
+end
+
+--设置序号标签
 function XUiGuildBossStage:UpdateAllOrderMark()
     self:UpdateOrderMark(GuildBossLevelType.Low)
     self:UpdateOrderMark(GuildBossLevelType.High)
 end
 
-function XUiGuildBossStage:UpdateOrderMark(type)
-    self.LevelData = XDataCenter.GuildBossManager.GetLevelData()
-    local minLevel = nil
-    for i = 1, #self.LevelData do
-        if self.LevelData[i].Type == type then
-            local levelComponent = self:GetLevelByStageId(self.LevelData[i].StageId)
-            levelComponent:SetOrderMark(false)
-            if self.LevelData[i].BuffNeed < 100 and self.LevelData[i].Order ~= 0 then
-                if minLevel == nil then
-                    minLevel = levelComponent
-                else
-                    if minLevel.Data.Order > self.LevelData[i].Order then
-                        minLevel = levelComponent
-                    end
-                end
+function XUiGuildBossStage:UpdateOrderMark(type) 
+    self.LevelData = XDataCenter.GuildBossManager.GetLevelData() -- nzwjV3，不使用优先级标签，改为顺序标签
+    local orderList = {}
+    for _, v in pairs(self.LevelData) do
+        if v.Type == type then
+            local order = v.Order
+            local isBreakStage = v.CurEffectCount >= v.TotalEffectCount -- 触发次数
+            if not isBreakStage and order and order > 0 then
+                table.insert(orderList, {Order = order, LevelData = v})
             end
         end
     end
-    if minLevel ~= nil then
-        minLevel:SetOrderMark(true)
+    table.sort(orderList, function (a,b)
+        return a.Order < b.Order
+    end)
+
+    for i = 1, #orderList do
+        local levelComponent = self:GetLevelByStageId(orderList[i].LevelData)
+        if levelComponent and not XTool.UObjIsNil(levelComponent.GameObject) then
+            levelComponent:SetOrderOutSide(i)
+        end
     end
+
+    if not self[type] then
+        self[type] = {}
+    end
+    self[type].OrderShowList = orderList
 end
 
 function XUiGuildBossStage:PlayBossAnimation()
@@ -511,7 +611,10 @@ function XUiGuildBossStage:PlayBossAnimation()
     if XDataCenter.GuildBossManager.IsNeedUpdateStageInfo() then
         XDataCenter.GuildBossManager.SetNeedUpdateStageInfo(false)
         XDataCenter.GuildBossManager.GuildBossActivityRequest(function() self:UpdatePage(damage) end, true)
-        self:ResetToNormal(function() 
+        self:ResetToNormal(function()
+            if XTool.UObjIsNil(self.GameObject) then
+                return
+            end
             if damage > 0 then
                 self.TxtBossDamage.text = damage
                 self.TxtContribute.text = CS.XTextManager.GetText("GuildBossContribute", contribute)
@@ -519,7 +622,10 @@ function XUiGuildBossStage:PlayBossAnimation()
                 local bossHpAnimTime = CS.XGame.ClientConfig:GetFloat("GuildBossHpAnimTime")
                 local bossHpEffectTime = CS.XGame.ClientConfig:GetFloat("GuildBossHpEffectTime")
 
-                self.CurStageObj = self:GetLevelByStageId(self.CurStageData.StageId)
+                self.CurStageObj = self:GetLevelByStageId(self.CurStageData)
+                if self.CurStageObj then
+                    return
+                end
                 if self.CurStageData.Type == GuildBossLevelType.Boss then
                     self.PanelBossHpEffect.gameObject:SetActiveEx(false)
                     self.PanelBossHpEffect.gameObject:SetActiveEx(true)
@@ -533,10 +639,10 @@ function XUiGuildBossStage:PlayBossAnimation()
                 end
                 self.AnimTimer = XScheduleManager.ScheduleOnce(function() 
                     --刷新数据
-                    self.CurStageData = XDataCenter.GuildBossManager.GetLevelDataByStageId(self.CurStageData.StageId)
-                    if self.CurStageData.BuffNeed >= 100 then
+                    self.CurStageData = XDataCenter.GuildBossManager.GetLevelDataByStageId(self.CurStageData)
+                    if self.CurStageData.CurEffectCount >= self.CurStageData.TotalEffectCount then
                         local activityId = XSaveTool.GetData("GuildBossStageSkill" .. self.CurStageData.StageId .. XPlayer.Id)
-                        if not activityId or activityId ~= XDataCenter.GuildBossManager.GetActivityId() then
+                        if self.CurStageObj and (not activityId or activityId ~= XDataCenter.GuildBossManager.GetActivityId()) then
                             XSaveTool.SaveData("GuildBossStageSkill" .. self.CurStageData.StageId .. XPlayer.Id, XDataCenter.GuildBossManager.GetActivityId())
                             self.CurStageObj.PaneStagelSkillEffect.gameObject:SetActiveEx(false)
                             self.CurStageObj.PaneStagelSkillEffect.gameObject:SetActiveEx(true)
@@ -555,14 +661,14 @@ function XUiGuildBossStage:PlayBossAnimation()
                 end, math.floor(bossHpEffectTime * 1000))
                 XDataCenter.GuildBossManager.SetCurFightBossHp(0)
             end
-        end)
+        end, true)
     end
 end
 
 function XUiGuildBossStage:UpdateCurSelectLevelData()
     self.LevelData = XDataCenter.GuildBossManager.GetLevelData()
-    for i = 1, #LevelData do
-        if self.CurSelectLevelData.StageId == self.LevelData[i].StageId then
+    for i = 1, #self.LevelData do
+        if self.CurSelectLevelData.StageId == self.LevelData[i].StageId and self.CurSelectLevelData.Type == self.LevelData[i].Type and self.CurSelectLevelData.NameOrder == self.LevelData[i].NameOrder then
             self.CurSelectLevelData = self.LevelData[i]
         end
     end

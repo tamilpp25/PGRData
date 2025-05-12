@@ -22,6 +22,7 @@ function XMovieActionActorAppear:Ctor(actionData)
     self.FixPos = vector(XDataCenter.MovieManager.Fit(posX), posY, posZ)
 
     self.SkipRoleAnim = paramToNumber(params[7]) ~= 0
+    self.IsReverse = paramToNumber(params[8]) ~= 0
 end
 
 function XMovieActionActorAppear:OnInit()
@@ -40,6 +41,7 @@ end
 function XMovieActionActorAppear:OnRunning()
     local actor = self.IsInTip and self.UiRoot:GetTipActor(self.ActorIndex) or self.UiRoot:GetActor(self.ActorIndex)
     actor:PlayAnimEnable(self.SkipRoleAnim)
+    actor:Reverse(self.IsReverse)
 end
 
 function XMovieActionActorAppear:OnUndo()

@@ -1,3 +1,4 @@
+local XDynamicTableCurve = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableCurve")
 --
 -- Author: wujie
 -- Note: 播放器的专辑界面
@@ -23,12 +24,12 @@ function XUiMusicPlayer:OnStart(closeCallback)
     self.CloseCallback = closeCallback
     self.IsFirstHandleSelect = true
 
-    CSXAudioManager.StopAll()
+    -- CSXAudioManager.StopAll()
 
     self.CurMusicVolume = CSXAudioManager.GetMusicVolume()
-    self.DynamicTableDataList = XMusicPlayerConfigs.GetAlbumIdList()
+    self.DynamicTableDataList = XMVCA.XAudio:GetAlbumIdList()
 
-    local uiMainNeedPlayedAlbumId = XDataCenter.MusicPlayerManager.GetUiMainNeedPlayedAlbumId()
+    local uiMainNeedPlayedAlbumId = XMVCA.XAudio:GetUiMainNeedPlayedAlbumId()
     for index, id in ipairs(self.DynamicTableDataList) do
         if id == uiMainNeedPlayedAlbumId then
             self.SelectedIndex = index
@@ -43,8 +44,10 @@ end
 function XUiMusicPlayer:OnEnable()
     self:UpdateDynamicTable()
     self:UpdateSelect(self.SelectedIndex)
-    self.PlayableDirectorFrontEffectEnable.transform:PlayTimelineAnimation(function(isFinish) self:OnPlayFrontEffectEnableFinish(isFinish) end)
-    self.PanelFrontEffect.gameObject:SetActiveEx(true)
+
+    local selectedId = self.DynamicTableDataList[self.SelectedIndex]
+    local isOpen = self:GetIsOpen(selectedId)
+    self:PlayFrontEffect(isOpen)
 end
 
 function XUiMusicPlayer:OnDisable()
@@ -52,8 +55,8 @@ function XUiMusicPlayer:OnDisable()
         XScheduleManager.UnSchedule(self.ScheduleId)
         self.ScheduleId = nil
     end
-    CSXAudioManager.StopMusicWithAnalyzer()
-    CSXAudioManager.PlayMusic(CSXAudioManager.UiMainNeedPlayedBgmCueId)
+    -- CSXAudioManager.StopMusicWithAnalyzer()
+    -- CSXAudioManager.PlayMusic(CSXAudioManager.UiMainNeedPlayedBgmCueId)
 end
 
 function XUiMusicPlayer:AutoAddListener()
@@ -75,7 +78,8 @@ function XUiMusicPlayer:UpdateDynamicTable()
 end
 
 function XUiMusicPlayer:UpdateAlbumContent(id)
-    local template = XMusicPlayerConfigs.GetAlbumTemplateById(id)
+    local template = XMVCA.XAudio:GetAlbumTemplateById(id)
+    local isLock = not self:GetIsOpen(id)
     if self.IsFirstHandleSelect then
         self.RImgBg:SetRawImage(template.Bg)
         self.IsFirstHandleSelect = nil
@@ -89,18 +93,27 @@ function XUiMusicPlayer:UpdateAlbumContent(id)
 
     self.TxtMusicName.text = template.Name
     self.TxtComposer.text = XUiHelper.ConvertLineBreakSymbol(template.Composer)
-    if XDataCenter.MusicPlayerManager.GetUiMainNeedPlayedAlbumId() == id then
+    if isLock then
+        self.BtnChange.gameObject:SetActiveEx(false)
+        self.ImgChangeDisable.gameObject:SetActiveEx(false)
+        self.ImgLock.gameObject:SetActiveEx(true)
+        self.PanelSpectrum.gameObject:SetActiveEx(false)
+    elseif XMVCA.XAudio:GetUiMainNeedPlayedAlbumId() == id then
         self.BtnChange.gameObject:SetActiveEx(false)
         self.ImgChangeDisable.gameObject:SetActiveEx(true)
+        self.ImgLock.gameObject:SetActiveEx(false)
+        self.PanelSpectrum.gameObject:SetActiveEx(true)
     else
         self.BtnChange.gameObject:SetActiveEx(true)
         self.ImgChangeDisable.gameObject:SetActiveEx(false)
+        self.ImgLock.gameObject:SetActiveEx(false)
+        self.PanelSpectrum.gameObject:SetActiveEx(true)
     end
 end
 
 function XUiMusicPlayer:UpdateSpectrum(id)
-    local template = XMusicPlayerConfigs.GetAlbumTemplateById(id)
-    CSXAudioManager.PlayMusicWithAnalyzer(template.CueId)
+    local template = XMVCA.XAudio:GetAlbumTemplateById(id)
+    CSXAudioManager.PlayMusicCDWithAnalyzer(template.CueId, 2, 4)
     if self.ScheduleId then
         XScheduleManager.UnSchedule(self.ScheduleId)
         self.ScheduleId = nil
@@ -116,8 +129,11 @@ end
 function XUiMusicPlayer:UpdateSelect(index)
     local id = self.DynamicTableDataList[index]
     self:UpdateAlbumContent(id)
-    if self.CurMusicVolume ~= 0 then
+    local isOpen = self:GetIsOpen(id)
+    if self.CurMusicVolume ~= 0 and isOpen then
         self:UpdateSpectrum(id)
+    else
+        CSXAudioManager.StopMusicWithAnalyzer()
     end
     local startIndex = self.DynamicTable.Imp.StartIndex
     for idx, grid in pairs(self.DynamicTable:GetGrids()) do
@@ -126,9 +142,34 @@ function XUiMusicPlayer:UpdateSelect(index)
 
     self.PlayableDirectorBgEffectEnable.gameObject:SetActiveEx(false)
     self.PlayableDirectorBgEffectLoop:Stop()
+    self.RoundEffect.gameObject:SetActiveEx(false)
 
-    self.PlayableDirectorBgEffectEnable.gameObject:SetActiveEx(true)
-    self.PlayableDirectorBgEffectEnable.transform:PlayTimelineAnimation(function(isFinish) self:OnPlayBgEffectEnableFinish(isFinish) end)
+    if isOpen then
+        self.RoundEffect.gameObject:SetActiveEx(true)
+        self.PlayableDirectorBgEffectEnable.gameObject:SetActiveEx(true)
+        self.PlayableDirectorBgEffectEnable.transform:PlayTimelineAnimation(function(isFinish) self:OnPlayBgEffectEnableFinish(isFinish) end)
+    end
+end
+
+function XUiMusicPlayer:GetIsOpen(id)
+    local template = XMVCA.XAudio:GetAlbumTemplateById(id)
+    local isOpen = true
+    if template.ConditionId and template.ConditionId ~= 0 then 
+        isOpen = XConditionManager.CheckCondition(template.ConditionId)
+    end
+    return isOpen
+end
+
+function XUiMusicPlayer:PlayFrontEffect(isPlay)
+    self.PlayableDirectorFrontEffectEnable.gameObject:SetActiveEx(false)
+    self.PlayableDirectorFrontEffectLoop:Stop()
+    self.PanelFrontEffect.gameObject:SetActiveEx(false)
+
+    if isPlay then 
+        self.PanelFrontEffect.gameObject:SetActiveEx(true)
+        self.PlayableDirectorFrontEffectEnable.gameObject:SetActiveEx(true)
+        self.PlayableDirectorFrontEffectEnable.transform:PlayTimelineAnimation(function(isFinish) self:OnPlayFrontEffectEnableFinish(isFinish) end)
+    end
 end
 
 --事件相关------------------------------------>>>
@@ -150,8 +191,8 @@ end
 
 function XUiMusicPlayer:OnBtnChangeClick()
     local selelctedId = self.DynamicTableDataList[self.SelectedIndex]
-    if selelctedId == XDataCenter.MusicPlayerManager.GetUiMainNeedPlayedAlbumId() then return end
-    XDataCenter.MusicPlayerManager.ChangeUiMainAlbumId(selelctedId)
+    if selelctedId == XMVCA.XAudio:GetUiMainNeedPlayedAlbumId() then return end
+    XMVCA.XAudio:ChangeUiMainAlbumId(selelctedId)
     self.BtnChange.gameObject:SetActiveEx(false)
     self.ImgChangeDisable.gameObject:SetActiveEx(true)
     XUiManager.TipError(CS.XTextManager.GetText("MusicPlayerAlbumSetSuccess"))
@@ -185,23 +226,17 @@ function XUiMusicPlayer:OnDynamicTableEvent(event, index, grid)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_TWEEN_OVER then
         local startIndex = self.DynamicTable.Imp.StartIndex
         local selectIndex = startIndex % self.DynamicTable.Imp.TotalCount + 1
-        if self.SelectedIndex ~= selectIndex then
-            self.SelectedIndex = selectIndex
-            self:UpdateSelect(selectIndex)
-        end
+        -- if self.SelectedIndex ~= selectIndex then
+        self.SelectedIndex = selectIndex
+        self:UpdateSelect(selectIndex)
 
-        self.PlayableDirectorFrontEffectEnable.gameObject:SetActiveEx(false)
-        self.PlayableDirectorFrontEffectLoop:Stop()
-
-        self.PanelFrontEffect.gameObject:SetActiveEx(true)
-        self.PlayableDirectorFrontEffectEnable.gameObject:SetActiveEx(true)
-        self.PlayableDirectorFrontEffectEnable.transform:PlayTimelineAnimation(function(isFinish) self:OnPlayFrontEffectEnableFinish(isFinish) end)
+        local selectedId = self.DynamicTableDataList[self.SelectedIndex]
+        local isOpen = self:GetIsOpen(selectedId)
+        self:PlayFrontEffect(isOpen)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         self.DynamicTable.Imp:TweenToIndex(index)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_BEGIN_DRAG then
-        self.PlayableDirectorFrontEffectEnable.gameObject:SetActiveEx(false)
-        self.PlayableDirectorFrontEffectLoop:Stop()
-        self.PanelFrontEffect.gameObject:SetActiveEx(false)
+        self:PlayFrontEffect(false)
     end
 end
 --事件相关------------------------------------<<<

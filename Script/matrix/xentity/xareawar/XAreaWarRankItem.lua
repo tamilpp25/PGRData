@@ -33,9 +33,11 @@ local Default = {
     HeadPortraitId = 0, --头像
     HeadFrameId = 0, --头像框
     Score = 0, --积分
-    MemberCount = 0 --排行榜总人数
+    MemberCount = 0, --排行榜总人数
+    LikeCount = 0, --点赞数
 }
 
+---@class XAreaWarRankItem 单个排行榜数据
 local XAreaWarRankItem = XClass(nil, "XAreaWarRankItem")
 
 function XAreaWarRankItem:Ctor(rank)
@@ -56,6 +58,11 @@ function XAreaWarRankItem:UpdateData(data)
     self.HeadFrameId = data.HeadFrameId or self.HeadFrameId
     self.Score = data.Score or self.Score
     self.MemberCount = data.MemberCount or self.MemberCount
+    self.LikeCount = data.LikeCount or self.LikeCount
+end
+
+function XAreaWarRankItem:GetPlayerId()
+    return self.PlayerId
 end
 
 return XAreaWarRankItem

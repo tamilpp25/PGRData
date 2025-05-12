@@ -844,21 +844,6 @@ XPokemonManagerCreator = function()
         return XPokemonManager.GetStartTime(), XPokemonManager.GetEndTime()
     end
 
-    local function InitStageType(stageId)
-        stageId = tonumber(stageId)
-        local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-        if stageInfo then
-            stageInfo.Type = XDataCenter.FubenManager.StageType.Pokemon
-        end
-    end
-
-    function XPokemonManager.InitStageInfo()
-        local stageIds = XPokemonConfigs.GetFightStageIds()
-        for _, stageId in pairs(stageIds) do
-            InitStageType(stageId)
-        end
-    end
-
     local function GetTimeSupplyLastGetTime()
         return _TimeSupplyLastGetTime or 0
     end

@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 local tableInsert = table.insert
 local CSXTextManagerGetText = CS.XTextManager.GetText
@@ -87,7 +89,7 @@ function XUiMoeWarPreparation:InitAssetPanel()
     end
     local actInfo = XDataCenter.MoeWarManager.GetActivityInfo()
     local currencyIdList = actInfo and actInfo.CurrencyId or {}
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
 
     XDataCenter.ItemManager.AddCountUpdateListener(currencyIdList, function()
         self.AssetActivityPanel:Refresh(currencyIdList)

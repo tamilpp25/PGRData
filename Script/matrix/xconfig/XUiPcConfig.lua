@@ -4,14 +4,6 @@ XUiPcConfig = XUiPcConfig or {}
 function XUiPcConfig.Init()
 end
 
-local _TabUiPcReplace
-local function GetTabUiPcReplace()
-    if not _TabUiPcReplace then
-        _TabUiPcReplace = XTableManager.ReadByStringKey("Client/Ui/UiPcReplace.tab", XTable.XTableUiPcReplace, "Key")
-    end
-    return _TabUiPcReplace
-end
-
 local _TabUiPcScreenResolution
 local function GetTabUiPcResolution()
     if not _TabUiPcScreenResolution then
@@ -31,17 +23,6 @@ local function GetTabUiPcResolution()
         end)
     end
     return _TabUiPcScreenResolution
-end
-
-function XUiPcConfig.GetTabUiPcReplace(sceneName)
-    local replaceData = {}
-    local scenePath = string.format("Assets/Product/Ui/Prefab/%s.prefab", sceneName)
-    for key, config in pairs(GetTabUiPcReplace()) do
-        if config.ScenePath == scenePath then
-            replaceData[#replaceData + 1] = config
-        end
-    end
-    return replaceData
 end
 
 function XUiPcConfig.GetTabUiPcResolution()

@@ -1,10 +1,14 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --================
 --怪物头像动态列表
 --================
 local XUiSSBPickMonsterHeadList = XClass(nil, "XUiSSBPickMonsterHeadList")
 
-function XUiSSBPickMonsterHeadList:Ctor(ui, panel)
+function XUiSSBPickMonsterHeadList:Ctor(ui, panel, isChangeMonsterOnFighting, mode)
     self.Panel = panel
+    self.IsChangeMonsterOnFighting = isChangeMonsterOnFighting
+    ---@type XSmashBMode
+    self.Mode = mode
     XTool.InitUiObjectByUi(self, ui)
     self.GridMonsterHead.gameObject:SetActiveEx(false)
     self:InitDynamicTable()
@@ -23,7 +27,7 @@ end
 --================
 function XUiSSBPickMonsterHeadList:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        grid:Init(grid.DynamicGrid.gameObject, self)
+        grid:Init(grid.DynamicGrid.gameObject, self, self.Mode)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         if self.DataList and self.DataList[index] then
             grid:Refresh(self.DataList[index], self.TeamData)
@@ -46,7 +50,11 @@ end
 --建立数据列表
 --================
 function XUiSSBPickMonsterHeadList:CreateDataList(dataList)
-    self.DataList = { [1] = {RandomGrid = true}}
+    if self.Mode:GetId() == XSuperSmashBrosConfig.ModeType.DeathRandom then
+        self.DataList = {}
+    else
+        self.DataList = { [1] = {RandomGrid = true}}
+    end
     for _, monster in pairs(dataList) do
         table.insert(self.DataList, monster)
     end
@@ -55,6 +63,25 @@ end
 --选中项
 --================
 function XUiSSBPickMonsterHeadList:OnGridSelect(grid)
+    local monsterGroup = grid.MonsterGroup
+    if  monsterGroup and not monsterGroup:IsWinAmountEnoughToChallenge(self.Mode) then
+        return
+    end
+    if self.IsChangeMonsterOnFighting then
+        local monsterGroupId = grid:GetMonsterId()
+        ---@type XSmashBMode
+        local mode = self.Mode or XDataCenter.SuperSmashBrosManager.GetPlayingMode()
+        local stageId = mode:GetStageId(monsterGroupId)
+        local currentStageId = mode:GetNextStageId()
+        if currentStageId == stageId then
+            XLuaUiManager.Close("UiSuperSmashBrosPick")
+            return
+        end
+        XDataCenter.SuperSmashBrosManager.ChangeStage(stageId, function()
+            XLuaUiManager.Close("UiSuperSmashBrosPick")
+        end)
+        return
+    end
     local roleId = grid:GetMonsterId() -- 若是-1则表示随机
     if roleId == XSuperSmashBrosConfig.PosState.Random then
         --若选的是随机，则直接赋值

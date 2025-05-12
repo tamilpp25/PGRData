@@ -3,6 +3,7 @@ local XBaseRole = require("XEntity/XRole/XBaseRole")
 --超限乱斗角色对象
 --模块负责：吕天元
 --===========================
+---@class XSmashBCharacter:XBaseRole
 local XSmashBRole = XClass(XBaseRole, "XSmashBCharacter")
 
 --==================
@@ -168,4 +169,43 @@ function XSmashBRole:GetAbility()
     local teamLevelAbility = XDataCenter.SuperSmashBrosManager.GetNowTeamLevelConfig().AbilityUp
     return coreAbility + self:GetCharacterViewModel():GetAbility() + teamLevelAbility
 end
+--==================
+--NpcId
+--==================
+--function XSmashBRole:GetNpcId()
+--    --XCharacter或XRobot
+--    if self.RawData.__cname == "XCharacter" then
+--        return self.RawData.NpcId
+--    end
+--    if self.RawData.__cname == "XRobot" then
+--        return self.RawData.Id
+--    end
+--    XLog.Error("[XSmashBRole] unhandled rawData")
+--    return 0
+--end
+--==================
+--援助技能
+--==================
+function XSmashBRole:GetAssistantSkillDesc()
+    return XSuperSmashBrosConfig.GetAssistantSkillDesc(self)
+end
+--==================
+--援助技能名称
+--==================
+function XSmashBRole:GetAssistantSkillName()
+    return XSuperSmashBrosConfig.GetAssistantSkillName(self)
+end
+
+function XSmashBRole:IsNoCareer()
+    return false
+end
+
+function XSmashBRole:GetAssistanceCharacterImg()
+    local id = self:GetId()
+    local config = XSuperSmashBrosConfig.GetCfgByIdKey(XSuperSmashBrosConfig.TableKey.Assistance, id, true)
+    if config then
+        return config.RoleCharacterBig
+    end
+end
+
 return XSmashBRole

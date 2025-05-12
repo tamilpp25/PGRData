@@ -13,7 +13,7 @@ end
 local function PayAndroid(self, productKey, cpOrderId, goodsId, cb)
     -- -- 测试充值
     -- XLog.Error("安卓进行充值")
-    XHgSdkManager.Pay(productKey, cpOrderId, goodsId, function(err, info)
+    XHeroSdkManager.Pay(productKey, cpOrderId, goodsId, function(err)
         -- XLog.Error("productKey"..tostring(productKey))
         -- XLog.Error("cpOrderId"..tostring(cpOrderId))
         -- XLog.Error("goodsId"..tostring(goodsId))
@@ -22,6 +22,7 @@ local function PayAndroid(self, productKey, cpOrderId, goodsId, cb)
         -- XLog.Error("信息info")
         -- XLog.Error(info)
         if err then
+            XLog.Error("Android Pay err:" .. tostring(err))
             TipPayFail()
             return
         end
@@ -45,29 +46,20 @@ local function PayIOS(self, productKey, cpOrderId, goodsId)
     -- XLog.Error("productKey"..tostring(productKey))
     -- XLog.Error("cpOrderId"..tostring(cpOrderId))
     -- XLog.Error("goodsId"..tostring(goodsId))
-    XHgSdkManager.Pay(productKey, cpOrderId, goodsId)
-end
-
-local function PayPC(Self, productKey, cpOrderId, goodsId)
-    XLog.Debug("PayPC进行充值")
-    XHgSdkManager.Pay(productKey, cpOrderId, goodsId)
+    XHeroSdkManager.Pay(productKey, cpOrderId, goodsId)
 end
 
 function XPayHeroAgent:Ctor()
     if Platform == RuntimePlatform.Android then
         self.Pay = PayAndroid
     elseif Platform == RuntimePlatform.IPhonePlayer then
-        XHgSdkManager.RegisterIOSCallback(function(err, orderId)
+        XHeroSdkManager.RegisterIOSCallback(function(err, orderId)
             self:OnIOSPayCallback(err, orderId)
         end)
 
         self.Pay = PayIOS
-    elseif Platform == RuntimePlatform.WindowsPlayer 
-        or Platform == RuntimePlatform.WindowsEditor 
-    then
-        self.Pay = PayPC
     else
-        XLog.error("XPayHeroAgent Ctor: unsupport platform, platform is ", Platform)
+        XLog.Error("XPayHeroAgent Ctor: unsupport platform, platform is ", Platform)
     end
 end
 
@@ -80,6 +72,7 @@ end
 -- end
 function XPayHeroAgent:OnIOSPayCallback(err, orderId)
     if err then
+        XLog.Error("IOS Pay err:" .. tostring(err))
         TipPayFail()
         return
     end

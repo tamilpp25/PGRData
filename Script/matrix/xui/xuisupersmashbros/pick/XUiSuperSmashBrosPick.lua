@@ -7,9 +7,14 @@ local Panels = {
 --==============
 local XUiSuperSmashBrosPick = XLuaUiManager.Register(XLuaUi, "UiSuperSmashBrosPick")
 
-function XUiSuperSmashBrosPick:OnStart(mode, selectEnvironment, selectScene)
+function XUiSuperSmashBrosPick:OnStart(mode, selectEnvironment, selectScene, isChangeMonsterOnFighting)
+    ---@type XSmashBMode
     self.Mode = mode
     self.Page = XSuperSmashBrosConfig.PickPage.Pick
+    if isChangeMonsterOnFighting then
+        self.Page = XSuperSmashBrosConfig.PickPage.Select
+    end
+    self.IsChangeMonsterOnFighting = isChangeMonsterOnFighting
     self.Scene = selectScene
     self.Environment = selectEnvironment
     self.FirstIn = true
@@ -35,6 +40,10 @@ end
 --返回按钮
 --==============
 function XUiSuperSmashBrosPick:OnClickBtnBack()
+    if self.IsChangeMonsterOnFighting then
+        self:Close()
+        return
+    end
     if self.Page == XSuperSmashBrosConfig.PickPage.Select then
         self.Page = XSuperSmashBrosConfig.PickPage.Pick
         self.HeadPanel:HidePanel()
@@ -48,7 +57,7 @@ end
 --==============
 function XUiSuperSmashBrosPick:InitPanels()
     self.PickPanel = Panels.PanelPick.New(self)
-    self.HeadPanel = Panels.PanelHead.New(self)
+    self.HeadPanel = Panels.PanelHead.New(self, self.IsChangeMonsterOnFighting)
 end
 --==============
 --界面显示时
@@ -69,7 +78,11 @@ function XUiSuperSmashBrosPick:OnEnable()
         self.PickPanel:ShowPanel()
     elseif self.Page == XSuperSmashBrosConfig.PickPage.Select then
         self.PickPanel:HidePanel()
-        self.HeadPanel:ShowPanel()
+        if self.IsChangeMonsterOnFighting then
+            self.HeadPanel:ShowPanel(XSuperSmashBrosConfig.RoleType.Monster, {})
+        else
+            self.HeadPanel:ShowPanel()
+        end
     end
 end
 --==============

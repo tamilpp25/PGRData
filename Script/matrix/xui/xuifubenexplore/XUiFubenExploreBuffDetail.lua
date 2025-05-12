@@ -1,4 +1,5 @@
-XUiFubenExploreBuffDetail = XClass(nil, "XUiFubenExploreBuffDetail")
+local XUiFubenExploreBuff = require("XUi/XUiFubenExplore/XUiFubenExploreBuff")
+local XUiFubenExploreBuffDetail = XClass(nil, "XUiFubenExploreBuffDetail")
 function XUiFubenExploreBuffDetail:Ctor(ui, buffInfo)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
@@ -45,3 +46,5 @@ function XUiFubenExploreBuffDetail:Update(buffInfo)
     self.TxtLock.text = buffInfo.GainDesc[1]
     self.TxtLock2.text = buffInfo.GainDesc[2]
 end
+
+return XUiFubenExploreBuffDetail

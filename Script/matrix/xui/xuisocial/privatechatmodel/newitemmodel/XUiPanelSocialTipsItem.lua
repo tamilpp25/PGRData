@@ -1,4 +1,4 @@
-XUiPanelSocialTipsItem = XClass(nil, "XUiPanelSocialTipsItem")
+local XUiPanelSocialTipsItem = XClass(nil, "XUiPanelSocialTipsItem")
 
 function XUiPanelSocialTipsItem:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -16,3 +16,5 @@ end
 function XUiPanelSocialTipsItem:SetShow(code)
     self.GameObject:SetActiveEx(code)
 end
+
+return XUiPanelSocialTipsItem

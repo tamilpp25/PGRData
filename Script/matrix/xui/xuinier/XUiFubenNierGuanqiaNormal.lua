@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenNierGuanqiaNormal = XLuaUiManager.Register(XLuaUi, "UiFubenNierGuanqiaNormal")
 local XUiGridFubenNierPODSkill = require("XUi/XUiNieR/XUiGridFubenNierPODSkill")
 function XUiFubenNierGuanqiaNormal:OnAwake()
@@ -147,22 +148,24 @@ function XUiFubenNierGuanqiaNormal:UpdateCommon()
             self.UsePowerIcon1:SetRawImage(XDataCenter.ItemManager.GetItemIcon(consumeId))
             self.UsePowerNum1.text = counsumCount
         end
-        if self.Stage.RequireActionPoint == 0 then
+        local actionPoint = XDataCenter.FubenManager.GetRequireActionPoint(self.StageId)
+        if actionPoint == 0 then
             self.UsePowerItemGrid2.gameObject:SetActiveEx(false)
         else
             self.UsePowerItemGrid2.gameObject:SetActiveEx(true)
-            self.UsePowerNum2.text = self.Stage.RequireActionPoint
+            self.UsePowerNum2.text = actionPoint
         end
         self:InitAssetPanel()
         XDataCenter.NieRManager.SaveNieRRepeatRedCheckCount()
         XEventManager.DispatchEvent(XEventId.EVENT_NIER_REPEAT_CLICK)
     else
         self.UsePowerItemGrid1.gameObject:SetActiveEx(false)
-        if self.Stage.RequireActionPoint == 0 then
+        local actionPoint = XDataCenter.FubenManager.GetRequireActionPoint(self.StageId)
+        if actionPoint == 0 then
             self.UsePowerItemGrid2.gameObject:SetActiveEx(false)
         else
             self.UsePowerItemGrid2.gameObject:SetActiveEx(true)
-            self.UsePowerNum2.text = self.Stage.RequireActionPoint
+            self.UsePowerNum2.text = actionPoint
         end
         
     end
@@ -335,6 +338,6 @@ function XUiFubenNierGuanqiaNormal:OnBtnEnterClick()
         if self.SelectNieRPODSkillId ~= XDataCenter.NieRManager.GetNieRPODData():GetNieRPODSelectSkillId() then
             XDataCenter.NieRManager.NieRSelectSupportSkill(self.SelectNieRPODSkillId)
         end
-        XLuaUiManager.PopThenOpen("UiNewRoomSingle", self.Stage.StageId, nil, self.RepeatStageId, self.ChapterId)
+        XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.Stage.StageId) --, nil, self.RepeatStageId, self.ChapterId)
     end
 end

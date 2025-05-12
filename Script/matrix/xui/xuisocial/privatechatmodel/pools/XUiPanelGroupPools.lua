@@ -1,4 +1,4 @@
-XUiPanelGroupPools = XClass(nil, "XUiPanelGroupPools")
+local XUiPanelGroupPools = XClass(nil, "XUiPanelGroupPools")
 
 function XUiPanelGroupPools:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -37,7 +37,7 @@ function XUiPanelGroupPools:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -55,3 +55,5 @@ function XUiPanelGroupPools:InitData(dynamicList)
     self.GameObject:SetActive(false)
     dynamicList:AddObjectPools("groupItem", self.TogFriendBox.gameObject)
 end
+
+return XUiPanelGroupPools

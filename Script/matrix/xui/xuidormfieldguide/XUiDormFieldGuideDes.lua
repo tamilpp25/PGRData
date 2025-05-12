@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiDormFieldGuideDesListItem = require("XUi/XUiDormFieldGuide/XUiDormFieldGuideDesListItem")
 local XUiDormFieldGuideDes = XLuaUiManager.Register(XLuaUi, "UiDormFieldGuideDes")
 
@@ -41,7 +42,7 @@ function XUiDormFieldGuideDes:OnStart(furnitureCfg)
             local suitBgmInfo = XDormConfig.GetDormSuitBgmInfo(furnitureCfg.SuitId)
             if suitBgmInfo then
                 table.insert(listdata, CS.XGame.ClientConfig:GetString("DormSuitBgmTitleDesc"))
-                local suitDesc = string.format(CS.XGame.ClientConfig:GetString("DormSuitBgmDesc"), suitBgmInfo.SuitNum, "", suitBgmInfo.Name)
+                local suitDesc = string.format(CS.XGame.ClientConfig:GetString("DormSuitBgmDesc"), suitBgmInfo.SuitNum, ",", suitBgmInfo.Name)
                 table.insert(listdata, suitDesc)
             end
         end
@@ -57,6 +58,8 @@ function XUiDormFieldGuideDes:OnStart(furnitureCfg)
         self.DynamicTable:SetDataSource(listdata)
         self.DynamicTable:ReloadDataASync(1)
     end
+    
+    self:RefreshLabel(furnitureCfg.Id)
 end
 
 function XUiDormFieldGuideDes:InitList()
@@ -73,4 +76,30 @@ function XUiDormFieldGuideDes:OnDynamicTableEvent(event, index, grid)
         local data = self.ListData[index]
         grid:OnRefresh(data)
     end
+end
+
+function XUiDormFieldGuideDes:RefreshLabel(templateId)
+    if self.PanelPet then
+        self.PanelPet.gameObject:SetActiveEx(false)
+    end
+    if self.TxtFuncDesc then
+        self.TxtFuncDesc.gameObject:SetActiveEx(false)
+    end
+    if self.GoodsLabel then
+        self.GoodsLabel:Close()
+    end
+    if not XTool.IsNumberValid(templateId) then
+        return
+    end
+    if not XUiConfigs.CheckHasLabel(templateId) then
+        return
+    end
+    if not self.GoodsLabel then
+        self.GoodsLabel = XUiHelper.CreateGoodsLabel(templateId, self.ImgIcon.transform, self.PanelPet)
+    end
+    if self.TxtFuncDesc then
+        self.TxtFuncDesc.gameObject:SetActiveEx(true)
+        self.TxtFuncDesc.text = XUiConfigs.GetLabelDescription(templateId)
+    end
+    self.GoodsLabel:Refresh(templateId, self.PanelPet ~= nil)
 end

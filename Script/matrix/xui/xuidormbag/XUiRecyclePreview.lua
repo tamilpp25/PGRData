@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiRecyclePreview = XClass(nil, "XUiRecyclePreview")
 local MAX_GRADE = 5
 function XUiRecyclePreview:Ctor(ui, rootUi)
@@ -221,6 +223,7 @@ function XUiRecyclePreview:OnDynamicTableEvent(event, index, grid)
 end
 
 function XUiRecyclePreview:Hide()
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
     self.GameObject:SetActive(false)
     self:ResetToggle()
 end
@@ -249,6 +252,7 @@ function XUiRecyclePreview:Show(pageRecord)
     self:UpdateDynamicTable()
 
     self.GameObject:SetActive(true)
+    XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnRecycleCancelClick")
 end
 
 function XUiRecyclePreview:IsShow()

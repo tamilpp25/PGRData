@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGuildGridShop = XClass(nil, "XUiGuildGridShop")
 function XUiGuildGridShop:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -49,7 +50,7 @@ function XUiGuildGridShop:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

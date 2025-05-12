@@ -1,3 +1,6 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPartnerTeachingFightDetail = XLuaUiManager.Register(XLuaUi, "UiPartnerTeachingFightDetail")
 
 local MAX_STAR = 3
@@ -42,11 +45,7 @@ function XUiPartnerTeachingFightDetail:OnBtnEnterClick()
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageId)
     if XDataCenter.FubenManager.CheckPreFight(stageCfg) then
         XEventManager.DispatchEvent(XEventId.EVENT_PARTNER_TEACHING_CLOSE_STAGE_DETAIL)
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
     end
 end
 
@@ -66,7 +65,7 @@ function XUiPartnerTeachingFightDetail:Refresh(stageId, chapterId)
 
     -- 需要的消耗体力
     self.ImgCostIcon:SetRawImage(XDataCenter.ItemManager.GetItemIcon(XDataCenter.ItemManager.ItemId.ActionPoint))
-    self.TxtATNums.text = XFubenConfigs.GetRequireActionPoint(stageId)
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(stageId)
 
     self:UpdateRewards()
 end
@@ -113,6 +112,14 @@ function XUiPartnerTeachingFightDetail:UpdateRewards()
     for j = rewardCount + 1, #self.GridList do
         self.GridList[j].GameObject:SetActiveEx(false)
     end
+end
+
+function XUiPartnerTeachingFightDetail:OnEnable()
+
+end
+
+function XUiPartnerTeachingFightDetail:OnDisable()
+
 end
 
 function XUiPartnerTeachingFightDetail:CloseDetailWithAnimation()

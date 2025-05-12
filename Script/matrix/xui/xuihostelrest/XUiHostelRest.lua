@@ -1,3 +1,8 @@
+local XUiGridRestCharItem = require("XUi/XUiHostelRest/XUiGridRestCharItem")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiPanelRestModel = require("XUi/XUiHostelRest/XUiPanelRestModel")
+local XUiGridIdleCharacter = require("XUi/XUiHostelRest/XUiGridIdleCharacter")
+local XUiGridFloorItem = require("XUi/XUiHostelRest/XUiGridFloorItem")
 local XUiHostelRest = XLuaUiManager.Register(XLuaUi, "UiHostelRest")
 local table_insert = table.insert
 
@@ -84,7 +89,7 @@ function XUiHostelRest:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -283,7 +288,7 @@ function XUiHostelRest:OnRestItemEndDrag(eventData, slot)
 end
 
 function XUiHostelRest:UpdateIdleList()
-    local charList = XDataCenter.CharacterManager.GetOwnCharacterList() or {}
+    local charList = XMVCA.XCharacter:GetOwnCharacterList() or {}
     table.sort(charList, function(a, b)
         local aIsRest = XDataCenter.HostelManager.IsCharacterInRest(a.Id)
         local bIsRest = XDataCenter.HostelManager.IsCharacterInRest(b.Id)

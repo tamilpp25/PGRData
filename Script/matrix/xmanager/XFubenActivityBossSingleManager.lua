@@ -1,3 +1,7 @@
+local XActivityBrieIsOpen = require("XUi/XUiActivityBrief/XActivityBrieIsOpen")
+local XExFubenActivityManager = require("XEntity/XFuben/XExFubenActivityManager")
+local XTeam = require("XEntity/XTeam/XTeam")
+
 XFubenActivityBossSingleManagerCreator = function()
     local pairs = pairs
     local tableInsert = table.insert
@@ -5,15 +9,28 @@ XFubenActivityBossSingleManagerCreator = function()
 
     local CurActivityId = 0    --当前活动Id
     local SectionId = 0 --根据等极段开放的活动章节
-    local Schedule = 0 --通关进度
+    local Schedule = -1 --通关进度
+    local NeedPlayUnlockAnimeStage = -1 --是否需要播放解锁动画标志位 V1.32新需求，第一次解锁关卡时要播放对应的动画。
     local StarRewardIds = {} --已经领取的列表，游戏刚进来的时候初始化
     local StageInfos = {}
-
-    local XFubenActivityBossSingleManager = {}
+    local CurrentTeam
+    local FirstPlay = "FIRST_PLAY"
+    ---已经播放过的剧情的Id列表
+    local PassStoryIds={}
+    
+    ---@class XFubenActivityBossSingleManager
+    local XFubenActivityBossSingleManager = XExFubenActivityManager.New(XFubenConfigs.ChapterType.ActivityBossSingle, "FubenActivityBossSingleManager")
 
     local METHOD_NAME = {
         ReceiveTreasureReward = "BossActivityStarRewardRequest",
     }
+    
+    local function GetCookieKey(key)
+        if not XFubenActivityBossSingleManager.IsOpen() then
+            return "ACTIVITY_BOSS_SINGLE_NOT_OPEN"
+        end
+        return string.format("ACTIVITY_BOSS_SINGLE_%d_%d_%s", XPlayer.Id, CurActivityId, key)
+    end
 
     function XFubenActivityBossSingleManager.GetActivitySections()
         local sections = {}
@@ -28,22 +45,28 @@ XFubenActivityBossSingleManagerCreator = function()
 
         return sections
     end
-
-    function XFubenActivityBossSingleManager.InitStageInfo()
-        local sectionCfgs = XFubenActivityBossSingleConfigs.GetSectionCfgs()
-        for _, sectionCfg in pairs(sectionCfgs) do
-            for _, challengeId in pairs(sectionCfg.ChallengeId) do
-                local stageId = XFubenActivityBossSingleConfigs.GetStageId(challengeId)
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                stageInfo.Type = XDataCenter.FubenManager.StageType.ActivityBossSingle
+    
+    function XFubenActivityBossSingleManager.PreFight(stage, teamId, isAssist, challengeCount, challengeId)
+        local preFight = {}
+        preFight.CardIds = {0, 0, 0}
+        preFight.RobotIds = {0, 0, 0}
+        preFight.StageId = stage.StageId
+        preFight.IsHasAssist = isAssist and true or false
+        preFight.ChallengeCount = challengeCount or 1
+        ---@type XTeam
+        local team = XFubenActivityBossSingleManager.LoadTeamLocal()
+        local teamData = team:GetEntityIds()
+        for teamIndex, characterId in pairs(teamData) do
+            if XRobotManager.CheckIsRobotId(characterId) then
+                preFight.RobotIds[teamIndex] = characterId
+            else
+                preFight.CardIds[teamIndex] = characterId
             end
         end
-        XFubenActivityBossSingleManager.RegisterEditBattleProxy()
-    end
-
-    function XFubenActivityBossSingleManager.RegisterEditBattleProxy()
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.ActivityBossSingle,
-                require("XUi/XUiActivityBossSingle/XUiActivityBossSingleNewRoomSingle"))
+        preFight.CaptainPos = team:GetCaptainPos()
+        preFight.FirstFightPos = team:GetFirstFightPos()
+        preFight.GeneralSkill = team:GetCurGeneralSkill()
+        return preFight
     end
 
     function XFubenActivityBossSingleManager.GetSectionStageIdList(sectionId)
@@ -93,6 +116,15 @@ XFubenActivityBossSingleManagerCreator = function()
         return Schedule
     end
 
+    --获取需要播放解锁动画的关卡
+    function XFubenActivityBossSingleManager.GetNeedPlayUnlockAnimeStage()
+        return NeedPlayUnlockAnimeStage
+    end
+    --播放完解锁动画调用
+    function XFubenActivityBossSingleManager.OnStageUnlockAnimePlayed()
+        NeedPlayUnlockAnimeStage = -1
+    end
+    
     function XFubenActivityBossSingleManager.GetActivityBeginTime()
         return XFubenActivityBossSingleConfigs.GetActivityBeginTime(CurActivityId)
     end
@@ -134,7 +166,15 @@ XFubenActivityBossSingleManagerCreator = function()
 
     --根据关卡个数获得总星数
     function XFubenActivityBossSingleManager.GetAllStarsCount()
-        return 3 * XFubenActivityBossSingleConfigs.GetChallengeCount(SectionId)
+        local rewardConfigList=XFubenActivityBossSingleConfigs.GetStarRewardTemplates()
+        local max=0
+        for index, value in ipairs(rewardConfigList) do
+            if value.RequireStar>max then
+                max=value.RequireStar
+            end
+        end
+        return max
+        --return 3 * XFubenActivityBossSingleConfigs.GetChallengeCount(SectionId)
     end
 
     --获取当前星数
@@ -145,17 +185,52 @@ XFubenActivityBossSingleManagerCreator = function()
         for i = 1, #stageIds do
             curStatsCount = curStatsCount + StageInfos[stageIds[i]].Stars
         end
+        
+        local max=XFubenActivityBossSingleManager.GetAllStarsCount()
 
-        return curStatsCount
+        return curStatsCount>max and max or curStatsCount
     end
 
     --获取每个副本的星星信息
     function XFubenActivityBossSingleManager.GetStageStarMap(stageId)
         return StageInfos[stageId].StarsMap
     end
+    
+    --活动入口红点
+    function XFubenActivityBossSingleManager.CheckActivityRedPoint()
+        local isOpen = XActivityBrieIsOpen.Get(XActivityBriefConfigs.ActivityGroupId.BossSingle) 
+        if not isOpen then
+            return false
+        end
+
+        --奖励
+        if XFubenActivityBossSingleManager.CheckRedPoint() then
+            return true
+        end
+        
+        --首次进入
+        local key = GetCookieKey(FirstPlay)
+        if not XSaveTool.GetData(key) then
+            return true
+        end
+        
+        return false
+    end
+    
+    function XFubenActivityBossSingleManager.MarkFirstPlay()
+        local key = GetCookieKey(FirstPlay)
+        if XSaveTool.GetData(key) then
+            return
+        end
+        XSaveTool.SaveData(key, true)
+    end
 
     --判断当前红点
     function XFubenActivityBossSingleManager.CheckRedPoint()
+        if SectionId == 0 then 
+            return false
+        end
+
         local curStarCount = XFubenActivityBossSingleManager.GetCurStarsCount()
         local starRewardTemplates = XFubenActivityBossSingleConfigs.GetStarRewardTemplates()
         local bossSectionRewardIds = XFubenActivityBossSingleConfigs.GetBossSectionRewardIds(SectionId)
@@ -234,14 +309,21 @@ XFubenActivityBossSingleManagerCreator = function()
     function XFubenActivityBossSingleManager.NotifyBossActivityData(data)
         CurActivityId = data.ActivityId
         SectionId = data.SectionId
+        PassStoryIds=data.PassStoryIds
+        local stageIds = XDataCenter.FubenActivityBossSingleManager.GetSectionStageIdList(SectionId)
+        
+        --当关卡进度更新时(非初始化)并且解锁新的关卡时,设置播放解锁动画。
+        if (not (Schedule == -1)) and (not (Schedule == data.Schedule)) and (data.Schedule < #stageIds) then
+            NeedPlayUnlockAnimeStage = data.Schedule + 1
+        end
         Schedule = data.Schedule
+        
         for _, v in pairs(data.StarRewardIds) do
             if StarRewardIds[v] == nil then
                 StarRewardIds[v] = v
             end
         end
-
-        local stageIds = XDataCenter.FubenActivityBossSingleManager.GetSectionStageIdList(SectionId)
+        
         for i = 1, #stageIds do
             local starsMark
             if data.StageStarInfos[i] and data.StageStarInfos[i].StarsMark then
@@ -295,8 +377,151 @@ XFubenActivityBossSingleManagerCreator = function()
 
     -- 读取本地编队信息
     function XFubenActivityBossSingleManager.LoadTeamLocal()
-        local team = XSaveTool.GetData(GetCookieKeyTeam()) or XDataCenter.TeamManager.EmptyTeam
-        return XTool.Clone(team)
+        local teamId = GetCookieKeyTeam()
+        if not CurrentTeam then
+            CurrentTeam = XTeam.New(teamId)
+        end
+        local ids = CurrentTeam:GetEntityIds()
+        local tmpIds = XTool.Clone(ids)
+        for pos, id in ipairs(ids) do
+            if not XMVCA.XCharacter:IsOwnCharacter(id)
+                    and not XRobotManager.CheckIsRobotId(id) then
+                tmpIds[pos] = 0
+            end
+        end
+        CurrentTeam:UpdateEntityIds(tmpIds)
+        return CurrentTeam
+    end
+
+    function XFubenActivityBossSingleManager.GetProgressTips()
+        local sectionCfg = XFubenActivityBossSingleConfigs.GetSectionCfg(SectionId)
+        local finishCount = XDataCenter.FubenActivityBossSingleManager.GetFinishCount()
+        local totalCount = #sectionCfg.ChallengeId
+        return XUiHelper.GetText("ActivityBossSingleProcess", finishCount, totalCount)
+    end
+
+    function XFubenActivityBossSingleManager.ExOpenMainUi(manager, sectionId)
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenActivitySingleBoss) then
+            return false
+        end
+        if not XFubenActivityBossSingleManager.IsOpen() then
+            XUiManager.TipText("ActivityBossSingleNotOpen")
+            return false
+        end
+        sectionId = sectionId or SectionId
+        local firstStoryId=XFubenActivityBossSingleConfigs.GetFirstStoryId(sectionId)
+        --在打开界面前要判断是进入主界面还是先播放剧情
+        if firstStoryId and XFubenActivityBossSingleManager.IsNeedDisplayMovie() then
+            --获取剧情Id
+            local movieId=XFubenActivityBossSingleConfigs.GetBossActivityStoryTemplate(firstStoryId).MovieId
+            if movieId then
+                --播放剧情
+                XDataCenter.MovieManager.PlayMovie(movieId,function()
+                    XLuaUiManager.Open("UiActivityBossSingleRoot", sectionId)
+                end,nil,nil,false)
+
+                XFubenActivityBossSingleManager.AddPassedStoryWithId(firstStoryId)
+                return true
+            end
+            
+        else
+            XLuaUiManager.Open("UiActivityBossSingleRoot", sectionId)
+            return true
+        end
+        
+        return false
+    end
+    
+    function XFubenActivityBossSingleManager.AddPassedStoryWithId(storyId)
+        local req={StoryId=storyId}
+        XNetwork.Call("BossActivityPassStoryRequest",req,function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            PassStoryIds=res.PassStoryIds
+        end)
+    end
+    
+    function XFubenActivityBossSingleManager.JumpToRoleRoom(stageId)
+        local team = XFubenActivityBossSingleManager.LoadTeamLocal()
+        local robotIds = XFubenActivityBossSingleManager.GetCanUseRobotIds(nil, team:GetEntityIds())
+        XLuaUiManager.Open("UiBattleRoleRoom", stageId, team, {
+            OnNotify = function(proxy, evt)
+                if evt == XEventId.EVENT_ACTIVITY_ON_RESET then
+                    XDataCenter.FubenActivityBossSingleManager.OnActivityEnd()
+                end
+            end,
+            GetRoleDetailProxy = function(proxy)
+                return {
+                    GetEntities = function()
+                        local entities = {}
+                        local ids = XMVCA.XCharacter:GetRobotAndCharacterIdList(robotIds)
+                        for i, id in ipairs(ids or {}) do
+                            if XRobotManager.CheckIsRobotId(id) then
+                                entities[i] = XRobotManager.GetRobotById(id)
+                            else
+                                entities[i] = XMVCA.XCharacter:GetCharacter(id)
+                            end
+
+                        end
+                        return entities
+                    end
+                }
+            end,
+            CheckShowAnimationSet = function(proxy) 
+                return false
+            end
+        })
+    end
+    
+    --玩家首次进入活动时需要播放第一段剧情
+    function XFubenActivityBossSingleManager.IsNeedDisplayMovie()
+        return #PassStoryIds==0
+    end
+    
+    function XFubenActivityBossSingleManager.CheckStoryPassed(storyId)
+        for _, id in ipairs(PassStoryIds) do
+            if id == storyId then
+                return true
+            end
+        end
+        return false
+    end
+    
+    function XFubenActivityBossSingleManager.CheckPreStoryPass(sectionId, storyId)
+        local curSection = sectionId or XFubenActivityBossSingleManager.GetCurSectionId()
+        local preStoryId = XFubenActivityBossSingleConfigs.GetPreStoryId(curSection, storyId)
+        if not preStoryId then
+            return true
+        end
+        return XFubenActivityBossSingleManager.CheckStoryPassed(preStoryId)
+    end
+    
+    function XFubenActivityBossSingleManager.CheckChallengePassedByStoryId(storyId)
+        local template=XFubenActivityBossSingleConfigs.GetBossActivityStoryTemplate(storyId)
+        if template.Type == 1 then
+            return true
+        end
+        
+        return XFubenActivityBossSingleManager.IsChallengePassedByStageId(template.PreStageId)
+    end
+    
+    function XFubenActivityBossSingleManager.IsStoryOpen(storyId,sectionId)
+        local curSection=sectionId and sectionId or XFubenActivityBossSingleManager.GetCurSectionId()
+        local template=XFubenActivityBossSingleConfigs.GetBossActivityStoryTemplate(storyId)
+        --检查Type类型
+        if template.Type==1 then
+            return true
+        end
+        
+        --前置剧情关通关
+        if XFubenActivityBossSingleManager.CheckPreStoryPass(curSection, storyId)
+                and XFubenActivityBossSingleManager.CheckChallengePassedByStoryId(storyId) then --前置挑战通关
+            return true
+        end
+        
+        return false
     end
 
     return XFubenActivityBossSingleManager

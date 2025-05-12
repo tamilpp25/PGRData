@@ -81,12 +81,7 @@ end
 function XUiPanelEnter:UpdatePanelPhasesReward()
     local bossArea = XDataCenter.WorldBossManager.GetBossAreaById(self.AreaId)
     self.ScheduleImg.fillAmount = bossArea:GetHpPercent()
-    local hpProcess = bossArea:GetHpPercent() * 100 -- 海外修改如果小于百分之一，向上取整
-    if hpProcess > 1 then
-        self.TxtDailyActive.text = string.format("%d%s",math.floor(hpProcess),"%")
-    else
-        self.TxtDailyActive.text = string.format("%d%s",math.ceil(hpProcess),"%")
-    end
+    self.TxtDailyActive.text = string.format("%d%s",math.floor(bossArea:GetHpPercent() * 100),"%")
     self.ScheduleText.text = CSTextManagerGetText("WorldBossBossAreaSchedule")
     local phasesIds = bossArea:GetPhasesRewardIds()
     local rewardCount = #phasesIds

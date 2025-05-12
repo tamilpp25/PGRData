@@ -1,6 +1,8 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XUiChessPursuitSkillEffectGrid = XClass(nil, "XUiChessPursuitSkillEffectGrid")
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
-local CSXResourceManagerLoad = CS.XResourceManager.Load
+local CSXResourceManagerLoad
+local CSXResourceManagerUnLoad = CS.XResourceManager.Unload
 local CSUnityEngineGameObjectDestroy = CS.UnityEngine.GameObject.Destroy
 local ChessPursuitBuffStartEffectTime = CS.XGame.ClientConfig:GetFloat("ChessPursuitBuffStartEffectTime")
 local ChessPursuitBuffStartEffect = CS.XGame.ClientConfig:GetString("ChessPursuitBuffStartEffect")
@@ -38,6 +40,22 @@ end
 function XUiChessPursuitSkillEffectGrid:Dispose()
     for cardId, go in pairs(self.TmEffectGo) do
         CSUnityEngineGameObjectDestroy(go)
+    end
+
+    if self.UseCardEffectRes then
+        CSXResourceManagerUnLoad(self.UseCardEffectRes)
+    end
+
+    if self.BuffStartEffectRes then
+        CSXResourceManagerUnLoad(self.BuffStartEffectRes)
+    end
+
+    if self.ArrowEffectRes then
+        CSXResourceManagerUnLoad(self.ArrowEffectRes)
+    end
+
+    for _, res in pairs(self.UseCardEffectResDic) do
+        CSXResourceManagerUnLoad(res)
     end
 
     self.TmEffectGo = nil
@@ -93,7 +111,12 @@ function XUiChessPursuitSkillEffectGrid:RefreshEffect(xChessPursuitCardDbList)
             local parent = self:GetTargetGo()
             local effect = XChessPursuitConfig.GetCardEffect(card.CardCfgId)
             if parent and effect then
-                local resource = CSXResourceManagerLoad(effect)
+                local resource = self.UseCardEffectResDic[effect]
+                if not resource then
+                    resource = CSXResourceManagerLoad(effect)
+                    XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
+                    self.UseCardEffectResDic[effect] = resource
+                end
                 self.TmEffectGo[card.Id] = CSUnityEngineObjectInstantiate(resource.Asset, parent)
                 self.TmEffectGo[card.Id].gameObject:SetActiveEx(false)
                 self.TmEffectGo[card.Id].gameObject.transform.localPosition = CSUnityEngineVector3(0, CARD_EFFECT_Y[self.TargetType], 0)
@@ -135,8 +158,9 @@ function XUiChessPursuitSkillEffectGrid:RePlayEffectAnima()
     local effectNum = 1
     local delayTime = effectTotalNum > 1 and EffectMaxCount / effectTotalNum * 1000 or 1000
     for k, go in pairs(self.TmEffectGo) do
-        local onStartResource = CSXResourceManagerLoad(ChessPursuitBuffStartEffect)
-        local onStartEffect = CSUnityEngineObjectInstantiate(onStartResource.Asset, parent)
+        self.BuffStartEffectRes = self.BuffStartEffectRes or CSXResourceManagerLoad(ChessPursuitBuffStartEffect)
+        XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
+        local onStartEffect = CSUnityEngineObjectInstantiate(self.BuffStartEffectRes.Asset, parent)
         CS.XScheduleManager.ScheduleOnce(function()
             if not XTool.UObjIsNil(onStartEffect) then
                 CSUnityEngineGameObjectDestroy(onStartEffect)
@@ -169,13 +193,14 @@ end
 function XUiChessPursuitSkillEffectGrid:LoadJianTou()
     if self.TargetType == XChessPursuitCtrl.SCENE_SELECT_TARGET.CUBE then
         local parent = self:GetTargetGo()
-        local resource = CSXResourceManagerLoad(ChessPursuitArrowEffect)
+        self.ArrowEffectRes = self.ArrowEffectRes or CSXResourceManagerLoad(ChessPursuitArrowEffect)
+        XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
         local cubes = XChessPursuitCtrl.GetCSXChessPursuitCtrlCom().Cubes
         local localPos = parent.transform.position
         local nextPos = self:GetNextIndexPos()
         local q = CS.UnityEngine.Quaternion.LookRotation(CS.UnityEngine.Vector3(nextPos.x - localPos.x, 0, nextPos.z - localPos.z))
 
-        self.jianTouGo = CSUnityEngineObjectInstantiate(resource.Asset, parent)
+        self.jianTouGo = CSUnityEngineObjectInstantiate(self.ArrowEffectRes.Asset, parent)
         self.jianTouGo.transform.localPosition = CSUnityEngineVector3(0, CARD_EFFECT_Y[XChessPursuitCtrl.SCENE_SELECT_TARGET.CUBE], 0)
         self.jianTouGo.transform.localScale = CS.UnityEngine.Vector3(0.6, 0.6, 0.6)
         self.jianTouGo.transform.rotation = q
@@ -201,8 +226,9 @@ end
 --使用卡时候播放的特效
 function XUiChessPursuitSkillEffectGrid:LoadUseCardEffect()
     local parent = self:GetTargetGo()
-    local resource = CSXResourceManagerLoad(ChessPursuitUseCardEffect)
-    local effectGo = CSUnityEngineObjectInstantiate(resource.Asset, parent)
+    self.UseCardEffectRes = self.UseCardEffectRes or CSXResourceManagerLoad(ChessPursuitUseCardEffect)
+    XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
+    local effectGo = CSUnityEngineObjectInstantiate(self.UseCardEffectRes.Asset, parent)
     effectGo.transform.localPosition = CSUnityEngineVector3(0, USE_CARD_EFFECT_Y[self.TargetType], 0)
     effectGo.transform.localScale = CS.UnityEngine.Vector3(0.4, 0.4, 0.4)
 

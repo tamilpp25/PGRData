@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiGridFubenInfestorExploreMember = require("XUi/XUiFubenInfestorExplore/XUiGridFubenInfestorExploreMember")
 local XUiPanelFubenInfestorExploreStages = require("XUi/XUiFubenInfestorExplore/XUiPanelFubenInfestorExploreStages")
 

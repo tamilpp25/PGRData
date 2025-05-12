@@ -63,7 +63,7 @@ function XUiChongzhiTanchuang:OnRefresh(data)
     if not data then
         return
     end
-    CS.XAudioManager.PlaySound(1100)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1100)
     self.RetimeSec = 0
     self.UpdateTimerType = nil
     local curtime = XTime.GetServerNowTimestamp()
@@ -383,8 +383,10 @@ function XUiChongzhiTanchuang:OnBtnBuy()
         consumeCount = math.floor(disCountValue * consumeCount)
     end
     if consumeCount and self.Data.ConsumeId and consumeCount > 0 and consumeCount > XDataCenter.ItemManager.GetCount(self.Data.ConsumeId) then --钱不够
-        local name = XDataCenter.ItemManager.GetItemName(self.Data.ConsumeId) or ""
-        local tips = CS.XTextManager.GetText("PurchaseBuyKaCountTips", name)
+        -- local name = XDataCenter.ItemManager.GetItemName(self.Data.ConsumeId) or ""
+        -- local tips = CS.XTextManager.GetText("PurchaseBuyKaCountTips", name)
+
+        local tips = XUiHelper.GetCountNotEnoughTips(self.Data.ConsumeId)
         XUiManager.TipMsg(tips,XUiManager.UiTipType.Wrong)
         if self.Data.ConsumeId == XDataCenter.ItemManager.ItemId.PaidGem then
             XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.HK, false)

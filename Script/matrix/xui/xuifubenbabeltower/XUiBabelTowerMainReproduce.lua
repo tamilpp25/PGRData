@@ -1,4 +1,6 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridBabelStageItem = require("XUi/XUiFubenBabelTower/XUiGridBabelStageItem")
+---@class XUiBabelTowerMainReproduce : XSignalData
 local XUiBabelTowerMainReproduce = XClass(XSignalData, "XUiBabelTowerMainReproduce")
 
 function XUiBabelTowerMainReproduce:Ctor(ui)
@@ -6,6 +8,7 @@ function XUiBabelTowerMainReproduce:Ctor(ui)
     -- XBabelTowerReproduceManager
     self.ReproduceManager = nil
     -- 章节格子数据
+    ---@type XUiGridBabelStageItem[]
     self.ChapterStageGrids = nil
     self.FubenBabelTowerManager = XDataCenter.FubenBabelTowerManager
     self.ReproduceManager = self.FubenBabelTowerManager.GetReproduceManager()
@@ -31,6 +34,15 @@ function XUiBabelTowerMainReproduce:Hide()
     self:EmitSignal("Hide")
 end
 
+function XUiBabelTowerMainReproduce:OnDestroy()
+    -- 停止所有倒计时
+    if not XTool.IsTableEmpty(self.ChapterStageGrids) then
+        for _, stageItem in pairs(self.ChapterStageGrids) do
+            stageItem:StopTimer()
+        end
+    end
+end
+
 --######################## 私有方法 ########################
 
 function XUiBabelTowerMainReproduce:RegisterUiEvents()
@@ -45,13 +57,11 @@ function XUiBabelTowerMainReproduce:OnBtnNormalClicked()
 end
 
 function XUiBabelTowerMainReproduce:OnBtnAchievementClick()
-    XLuaUiManager.Open("UiBabelTowerTask",  XFubenBabelTowerConfigs.ActivityType.Extra)
+    XLuaUiManager.Open("UiBabelTowerTask", XFubenBabelTowerConfigs.ActivityType.Extra)
 end
 
 function XUiBabelTowerMainReproduce:OnBtnRankClick()
-    self.FubenBabelTowerManager.GetRank(self.ReproduceManager:GetId(), function()
-        XLuaUiManager.Open("UiFubenBabelTowerRank", XFubenBabelTowerConfigs.ActivityType.Extra)
-    end)
+    XLuaUiManager.Open("UiFubenBabelTowerRank", XFubenBabelTowerConfigs.ActivityType.Extra)
 end
 
 function XUiBabelTowerMainReproduce:RefreshStageInfo()
@@ -100,6 +110,12 @@ function XUiBabelTowerMainReproduce:OnStageClick(stageId, grid)
         else
             XUiManager.TipMsg(CS.XTextManager.GetText("BabelTowerPassLastGuide"))
         end
+        return
+    end
+    if XDataCenter.FubenBabelTowerManager.CheckStageIsNotPassAndNotCollection(stageId) then
+        local teamIdList = XDataCenter.FubenBabelTowerManager.GetStageTeamIdList(stageId)
+        -- 默认选择第一个编队
+        XLuaUiManager.Open("UiBabelTowerBase", stageId, teamIdList[1])
         return
     end
     XLuaUiManager.Open("UiBabelTowerSelectTeam", stageId)

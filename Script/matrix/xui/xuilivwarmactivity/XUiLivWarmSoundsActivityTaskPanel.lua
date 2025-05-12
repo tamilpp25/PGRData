@@ -1,3 +1,5 @@
+local XUiGridTask = require("XUi/XUiTask/XUiGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiLivWarmSoundsActivityTaskPanel = XClass(nil, "UiLivWarmSoundsActivityTaskPanel")
 local XUiGridTaskLivWarmSounds = require("XUi/XUiLivWarmActivity/XUiLivWarmSoundsActivityTaskGrid")
 

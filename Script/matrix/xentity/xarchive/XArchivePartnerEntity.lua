@@ -1,4 +1,7 @@
 local XPartnerBase = require("XEntity/XPartner/XPartnerBase")
+---@class XArchivePartnerEntity
+---@field StoryEntityDic table<number, XArchivePartnerSettingEntity>
+---@field StorySettingDic table<number, XArchivePartnerSettingEntity>
 local XArchivePartnerEntity = XClass(XPartnerBase, "XArchivePartnerEntity")
 
 function XArchivePartnerEntity:Ctor(id, storyEntityList, settingEntityList)
@@ -11,6 +14,10 @@ function XArchivePartnerEntity:Ctor(id, storyEntityList, settingEntityList)
 
     self:CreateStoryEntityDic(storyEntityList)
     self:CreateSettingEntityDic(settingEntityList)
+end
+
+function XArchivePartnerEntity:SetIsLock(isLock)
+    self.IsArchiveLock = isLock
 end
 
 function XArchivePartnerEntity:UpdateData(data)
@@ -34,7 +41,7 @@ end
 
 ----------------------------宠物图鉴基础属性--------------------------------
 function XArchivePartnerEntity:GetArchivePartnerCfg()
-    return XArchiveConfigs.GetPartnerConfigById(self.TemplateId)
+    return XMVCA.XArchive:GetPartnerConfigById(self.TemplateId)
 end
 
 function XArchivePartnerEntity:GetGroupId()
@@ -76,10 +83,10 @@ end
 function XArchivePartnerEntity:UpdateStoryAndSettingEntity(unLockStoryList)
     for _,id in pairs(unLockStoryList or {}) do
         if self.StoryEntityDic[id] then
-            self.StoryEntityDic[id]:UpdateData({IsLock = false})
+            self.StoryEntityDic[id]:SetIsLock(false)
         end
         if self.StorySettingDic[id] then
-            self.StorySettingDic[id]:UpdateData({IsLock = false})
+            self.StorySettingDic[id]:SetIsLock(false)
         end
     end
 end

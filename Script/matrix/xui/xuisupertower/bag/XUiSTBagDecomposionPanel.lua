@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local ChildPanel = require("XUi/XUiSuperTower/Common/XUiSTChildPanel")
 --===========================
 --超级爬塔容量条形图面板

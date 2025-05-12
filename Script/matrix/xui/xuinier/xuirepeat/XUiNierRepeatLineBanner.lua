@@ -1,3 +1,4 @@
+local XDynamicTableCurve = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableCurve")
 local XUiNierRepeatLineBanner = XClass(nil, "XUiNierRepeatLineBanner")
 local XUiPanelNieRRepeatBanner = require("XUi/XUiNieR/XUiRepeat/XUiPanelNieRRepeatBanner")
 local XUiNieRRepeatTag = require("XUi/XUiNieR/XUiRepeat/XUiNieRRepeatTag")

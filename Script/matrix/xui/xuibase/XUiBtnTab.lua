@@ -1,4 +1,4 @@
-XUiBtnTab = XClass(nil, "XUiBtnTab")
+local XUiBtnTab = XClass(nil, "XUiBtnTab")
 
 function XUiBtnTab:Ctor(ui, index, callback, isLockClick)
     self.IsLockClick = false
@@ -213,3 +213,5 @@ function XUiBtnTab:Dispose()
         self.TxtTag = nil
     end
 end
+
+return XUiBtnTab

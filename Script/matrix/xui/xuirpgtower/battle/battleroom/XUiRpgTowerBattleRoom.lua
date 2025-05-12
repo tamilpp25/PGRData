@@ -1,3 +1,4 @@
+local XUiNewRoomFightControl = require("XUi/XUiCommon/XUiNewRoomFightControl")
 local XUiBattleRoleRoomDefaultProxy = require("XUi/XUiNewRoomSingle/XUiBattleRoleRoomDefaultProxy")
 local XUiRpgTowerBattleRoomExpand = require("XUi/XUiRpgTower/Battle/BattleRoom/XUiRpgTowerBattleRoomExpand")
 local XUiRpgTowerBattleRoom = XClass(XUiBattleRoleRoomDefaultProxy, "XUiRpgTowerBattleRoom")
@@ -93,11 +94,11 @@ function XUiRpgTowerBattleRoom:AOPOnCharacterClickBefore(rootUi, index)
             if oldEntityId == newEntityId then return end
             if rootUi.Team:GetEntityIdByTeamPos(index) <= 0 then return end
             -- 播放音效
-            local soundType = XFavorabilityConfigs.SoundEventType.MemberJoinTeam
+            local soundType = XEnumConst.Favorability.SoundEventType.MemberJoinTeam
             if rootUi.Team:GetCaptainPos() == index then
-                soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
+                soundType = XEnumConst.Favorability.SoundEventType.CaptainJoinTeam
             end
-            rootUi.FavorabilityManager.PlayCvByType(self:GetCharacterIdByEntityId(newEntityId)
+        XMVCA.XFavorability:PlayCvByType(self:GetCharacterIdByEntityId(newEntityId)
                 , soundType)
         end)
     return true

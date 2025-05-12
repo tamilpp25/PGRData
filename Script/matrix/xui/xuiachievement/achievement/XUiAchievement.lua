@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --================
 --成就界面
 --================
@@ -71,15 +72,21 @@ function XUiAchievement:OnSelectType(typeId)
     end
 end
 
+function XUiAchievement:OnChangeSelect(index)
+    Panels.PanelTabs.SelectIndex(index)
+end
+
 function XUiAchievement:AddEventListeners()
     if self.AddEventListenerFlag then return end
     self.AddEventListenerFlag = true
     XEventManager.AddEventListener(XEventId.EVENT_ACHIEVEMENT_SYNC_SUCCESS, self.OnAchievementStateChange, self)
+    XEventManager.AddEventListener(XEventId.EVENT_ACHIEVEMENT_CHANGE_INDEX, self.OnChangeSelect, self)
 end
 
 function XUiAchievement:RemoveEventListeners()
     if not self.AddEventListenerFlag then return end
     XEventManager.RemoveEventListener(XEventId.EVENT_ACHIEVEMENT_SYNC_SUCCESS, self.OnAchievementStateChange, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_ACHIEVEMENT_CHANGE_INDEX, self.OnChangeSelect, self)
     self.AddEventListenerFlag = false
 end
 

@@ -1,6 +1,10 @@
 local XUiUnlockShow = XLuaUiManager.Register(XLuaUi, "UiUnlockShow")
 
 function XUiUnlockShow:OnAwake()
+    ---@type XCharacterAgency
+    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+    self.CharacterAgency = ag
+
     self.ImgUnlockShowIcon.fillAmount = 0
 end
 
@@ -17,15 +21,13 @@ end
 function XUiUnlockShow:UpdateUnLockPanelInfo()
     local characterId = self.CharacterId
 
-    local bigIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId)
+    local bigIcon = self.CharacterAgency:GetCharSmallHeadIcon(characterId)
     self.RImgFashionIcon:SetRawImage(bigIcon)
 
-    local fullName = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
     self.TxtUnlockFashionName.text = CS.XTextManager.GetText("CharUnlockTips", fullName)
 
     self:PlayAnimation("AniUnlockShowBegin", function()
-        XDataCenter.CharacterManager.ExchangeCharacter(characterId, function()
-            self:Close()
-        end)
+        self:Close()
     end)
 end

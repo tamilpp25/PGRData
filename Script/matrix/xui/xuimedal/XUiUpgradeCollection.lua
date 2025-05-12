@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiUpgradeCollection = XLuaUiManager.Register(XLuaUi, "UiUpgradeCollection")
 
 function XUiUpgradeCollection:OnStart(collectionId,qualityData,cb)

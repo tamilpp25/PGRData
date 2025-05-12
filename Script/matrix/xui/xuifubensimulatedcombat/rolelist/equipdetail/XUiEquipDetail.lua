@@ -3,7 +3,6 @@ local XUiSimulatedCombatEquipDetail = XLuaUiManager.Register(XLuaUi, "UiSimulate
 local CSTextManager = CS.XTextManager
 function XUiSimulatedCombatEquipDetail:OnAwake()
     self:InitAutoScript()
-    XUiSimulatedCombatEquipDetail.BtnTabIndex = XEquipConfig.EquipDetailBtnTabIndex
     self.PanelAsset.gameObject:SetActiveEx(false)
 end
 
@@ -43,16 +42,16 @@ end
 
 function XUiSimulatedCombatEquipDetail:InitClassifyPanel()
     self.FxUiLihuiChuxian01.gameObject:SetActiveEx(false)
-    if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(self.TemplateId, XEquipConfig.Classify.Weapon) then
+    if XMVCA.XEquip:IsClassifyEqualByTemplateId(self.TemplateId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
         local resonanceCount =  0
-        local modelConfig = XDataCenter.EquipManager.GetWeaponModelCfg(self.TemplateId, "UiEquipDetail", self.BreakThroughTime, resonanceCount)
+        local modelConfig = XMVCA.XEquip:GetWeaponModelCfg(self.TemplateId, "UiEquipDetail", self.BreakThroughTime, resonanceCount)
         if modelConfig then
             XModelManager.LoadWeaponModel(modelConfig.ModelId, self.PanelWeapon, modelConfig.TransformConfig, "UiEquipDetail", nil, { gameObject = self.GameObject ,IsDragRotation = true}, self.PanelDrag)
         end
         self.PanelWeapon.gameObject:SetActiveEx(true)
         self.ImgLihuiMask.gameObject:SetActiveEx(false)
-    elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(self.TemplateId, XEquipConfig.Classify.Awareness) then
-        local resource = CS.XResourceManager.Load(XDataCenter.EquipManager.GetEquipLiHuiPath(self.TemplateId, self.BreakThroughTime))
+    elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(self.TemplateId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
+        XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
         local texture = resource.Asset
         self.MeshLihui.sharedMaterial:SetTexture("_MainTex", texture)
         if self.Resource then
@@ -88,14 +87,14 @@ function XUiSimulatedCombatEquipDetail:OnBtnMainClick()
 end
 
 function XUiSimulatedCombatEquipDetail:RegisterHelpBtn()
-    --local isClassifyEqual = XDataCenter.EquipManager.IsClassifyEqualByTemplateId(self.TemplateId, XEquipConfig.Classify.Weapon)
+    --local isClassifyEqual = XMVCA.XEquip:IsClassifyEqualByTemplateId(self.TemplateId, XEnumConst.EQUIP.CLASSIFY.WEAPON)
     --local keyStr = isClassifyEqual and "EquipWeapon" or "EquipAwareness"
     self:BindHelpBtn(self.BtnHelp, "SimulatedCombat")
 end
 
 function XUiSimulatedCombatEquipDetail:SetPanelRole()
     if XArrangeConfigs.GetType(self.TemplateId) == XArrangeConfigs.Types.Weapon then
-        local weaponUsers = XDataCenter.EquipManager.GetWeaponUserTemplateIds(self.TemplateId)
+        local weaponUsers = XMVCA.XEquip:GetWeaponUserTemplateIds(self.TemplateId)
         for _, v in pairs(weaponUsers) do
             local go = CS.UnityEngine.Object.Instantiate(self.PanelText, self.PaneContent)
             local tmpObj = {}

@@ -1,4 +1,5 @@
-XUiPanelTeamSelect = XClass(nil, "XUiPanelTeamSelect")
+local XUiGridCharacter = require("XUi/XUiCharacter/XUiGridCharacter")
+local XUiPanelTeamSelect = XClass(nil, "XUiPanelTeamSelect")
 
 function XUiPanelTeamSelect:Ctor(rootUi, ui)
     self.RootUi = rootUi
@@ -64,7 +65,7 @@ end
 function XUiPanelTeamSelect:SetCharacterList()
     local baseItem = self.GridTeamCharacter
     baseItem.gameObject:SetActive(false)
-    local charList = XDataCenter.CharacterManager.GetSpecilOwnCharacterList()
+    local charList = XMVCA.XCharacter:GetSpecilOwnCharacterList()
 
     local count = #charList
 
@@ -178,3 +179,5 @@ function XUiPanelTeamSelect:OnService(isDelete, exchagePos)
         end
     end)
 end
+
+return XUiPanelTeamSelect

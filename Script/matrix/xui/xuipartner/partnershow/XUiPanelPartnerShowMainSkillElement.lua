@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --########################## XUiGridPartnerShowMainSkillElement ##############################
 local XUiGridPartnerShowMainSkillElement = XClass(nil, "XUiGridPartnerShowMainSkillElement")
 
@@ -9,7 +10,7 @@ end
 
 -- skill : XPartnerMainSkillGroup
 function XUiGridPartnerShowMainSkillElement:DynamicSetData(skill, isSelected)
-    local elementConfig = XCharacterConfigs.GetCharElement(skill:GetActiveElement())
+    local elementConfig = XMVCA.XCharacter:GetCharElement(skill:GetActiveElement())
     self.Activate.gameObject:SetActiveEx(isSelected)
     self.Normal.gameObject:SetActiveEx(not isSelected)
     local rootPanel = isSelected and self.Activate or self.Normal
@@ -42,7 +43,7 @@ end
 function XUiPanelPartnerShowMainSkillElement:SetData(partner, skill)
     self.Skill = skill
     if partner:GetIsCarry() then
-        self.CharacterElement = XCharacterConfigs.GetCharacterElement(partner:GetCharacterId())
+        self.CharacterElement = XMVCA.XCharacter:GetCharacterElement(partner:GetCharacterId())
     end
     -- 刷新列表
     self:RefreshDynamicTable()

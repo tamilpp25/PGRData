@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 
 local XUiSuperSmashBrosClearTime = XLuaUiManager.Register(XLuaUi, "UiSuperSmashBrosClearTime")
 

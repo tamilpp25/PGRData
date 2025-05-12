@@ -6,7 +6,7 @@ function XUiGridUnionCharacterItem:Ctor(rootUi, ui, character, clickCallback)
     self.Transform = ui.transform
     self.ItemData = character
     -- 区分自己的和共享的角色
-    self.Character = XDataCenter.CharacterManager.GetCharacter(self.ItemData.Id)
+    self.Character = XMVCA.XCharacter:GetCharacter(self.ItemData.Id)
     self.ClickCallback = clickCallback
     self.RectTransform = ui:GetComponent("RectTransform")
 
@@ -21,7 +21,7 @@ end
 
 function XUiGridUnionCharacterItem:OnBtnCharacterClick()
     if self.ClickCallback then
-        if XCharacterConfigs.IsCharacterForeShow(self.ItemData.Id) then
+        if XMVCA.XCharacter:IsCharacterForeShow(self.ItemData.Id) then
             self.ClickCallback(self.ItemData)
         else
             XUiManager.TipMsg(CS.XTextManager.GetText("ComingSoon"), XUiManager.UiTipType.Tip)
@@ -35,22 +35,22 @@ function XUiGridUnionCharacterItem:UpdateOwnInfo(character)
     end
 
     if self.RImgQuality then
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     end
 
     if self.RImgHeadIcon then
-        self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(character.Id))
+        self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(character.Id))
     end
 
     if self.TxtTradeName then
-        self.TxtTradeName.text = XCharacterConfigs.GetCharacterTradeName(character.Id)
+        self.TxtTradeName.text = XMVCA.XCharacter:GetCharacterTradeName(character.Id)
     end
 end
 
 -- 废弃
 function XUiGridUnionCharacterItem:UpdateUnOwnInfo()
     if self.RImgHeadIcon then
-        self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.ItemData.Id))
+        self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.ItemData.Id))
     end
 end
 
@@ -58,7 +58,7 @@ function XUiGridUnionCharacterItem:UpdateGrid(itemData)
     if itemData then
         self.ItemData = itemData
         -- 区分自己的和共享的角色
-        self.Character = XDataCenter.CharacterManager.GetCharacter(self.ItemData.Id)
+        self.Character = XMVCA.XCharacter:GetCharacter(self.ItemData.Id)
     end
 
     self.PanelLevel.gameObject:SetActive(true)
@@ -75,7 +75,7 @@ function XUiGridUnionCharacterItem:UpdateGrid(itemData)
 
         local playerInfo = self.ItemData.OwnerInfo
         if playerInfo then
-            XUiPLayerHead.InitPortrait(playerInfo.HeadPortraitId, playerInfo.HeadFrameId, self.Head)
+            XUiPlayerHead.InitPortrait(playerInfo.HeadPortraitId, playerInfo.HeadFrameId, self.Head)
         end
     else
         if self.PanelFight then
@@ -87,13 +87,12 @@ function XUiGridUnionCharacterItem:UpdateGrid(itemData)
 
 
     if self.PanelCharElement then
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
-        local elementList = detailConfig.ObtainElementList
+        local elementList = XMVCA.XCharacter:GetCharacterAllElement(characterId, true)
         for i = 1, 3 do
             local rImg = self["RImgCharElement" .. i]
             if elementList[i] then
                 rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+                local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
                 rImg:SetRawImage(elementConfig.Icon)
             else
                 rImg.gameObject:SetActiveEx(false)

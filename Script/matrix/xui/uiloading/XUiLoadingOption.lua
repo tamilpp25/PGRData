@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiLoadingOption = XLuaUiManager.Register(XLuaUi, "UiLoadingOption")
 local XUiLoadingSelection = require("XUi/UiLoading/ChildView/XUiLoadingSelection")
 local XUiGridCG = require("XUi/UiLoading/ChildItem/XUiGridCG")
@@ -39,7 +40,7 @@ function XUiLoadingOption:InitUi()
 end
 
 function XUiLoadingOption:SetupDynamicTable(type)
-    self.EntityList = XDataCenter.ArchiveManager.GetArchiveCGDetailList(type)
+    self.EntityList = XMVCA.XArchive:GetArchiveCGDetailList(type)
     self.DynamicTable:SetDataSource(self.EntityList)
     self.DynamicTable:ReloadDataASync(1)
 end
@@ -87,7 +88,7 @@ function XUiLoadingOption:OnGridClick(id, grid)
 end
 
 function XUiLoadingOption:InitTypeButton()
-    self.GroupList = XDataCenter.ArchiveManager.GetArchiveCGGroupList(true)
+    self.GroupList = XMVCA.XArchive:GetArchiveCGGroupList(true)
     self.CurType = 1
     self.CGGroupBtn = {}
     for _, v in pairs(self.GroupList) do
@@ -144,6 +145,8 @@ function XUiLoadingOption:OnBtnConfirmClick()
         self.ChangedFlag = false
     end
 
+    -- 打开自定义加载开关
+    XDataCenter.LoadingManager.SetCustomLoadingState(XSetConfigs.LoadingType.Custom)
     XUiManager.TipText("SetAppearanceSuccess")
 end
 

@@ -67,8 +67,7 @@ function XUiPanelSettleWinPokemon:UpdatePlayerInfo()
     local curExp = XPlayer.Exp
     local curMaxExp = XPlayerManager.GetMaxExp(curLevel, XPlayer.IsHonorLevelOpen())
     local txtLevelName = XPlayer.IsHonorLevelOpen() and CS.XTextManager.GetText("HonorLevel") or nil
-    local stageCfg = XDataCenter.FubenManager.GetStageCfg(data.StageId)
-    local addExp = stageCfg.TeamExp
+    local addExp = XDataCenter.FubenManager.GetTeamExp(data.StageId)
     self.PlayerExpBar = self.PlayerExpBar or XUiPanelExpBar.New(self.PanelPlayerExpBar)
     self.PlayerExpBar:LetsRoll(lastLevel, lastExp, lastMaxExp, curLevel, curExp, curMaxExp, addExp, txtLevelName)
 end

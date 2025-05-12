@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelChapterDz = XClass(nil, "XUiPanelChapterDz")
 local XUiGridChapterDz = require("XUi/XUiFubenMainLineBanner/XUiGridChapterDz")
 function XUiPanelChapterDz:Ctor(ui, rootUi)

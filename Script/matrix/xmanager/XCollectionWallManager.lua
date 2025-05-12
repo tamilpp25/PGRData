@@ -450,7 +450,8 @@ XCollectionWallManagerCreator = function()
     ---@param backgroundId number
     ---@param setInfo table
     ---@param cb function
-    function XCollectionWallManager.RequestEditCollectionWall(wallId, pedestalId, backgroundId, setInfo, cb)
+    ---@param errorCb function
+    function XCollectionWallManager.RequestEditCollectionWall(wallId, pedestalId, backgroundId, setInfo, cb, errorCb)
         local req = { Id = wallId, PedestalId = pedestalId, BackgroundId = backgroundId, CollectionSetInfos = setInfo }
 
         local state
@@ -463,6 +464,9 @@ XCollectionWallManagerCreator = function()
         XNetwork.Call(METHOD_NAME.RequestEditCollectionWall, req, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
+                if errorCb then
+                    errorCb()
+                end
                 return
             end
             XCollectionWallManager.UpdateWallEntityList(wallId,

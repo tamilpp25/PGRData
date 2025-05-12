@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelUnionKillRankReward = XClass(nil, "XUiPanelUnionKillRankReward")
 local XUiGridUnionRewardItem = require("XUi/XUiFubenUnionKill/XUiGridUnionRewardItem")
 

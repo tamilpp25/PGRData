@@ -115,7 +115,7 @@ end
 
 function XUiPanelSendInvitation:OnBtnCopyClick()
     XUiManager.TipError(CS.XTextManager.GetText("RegressionAcceptInvitationCodeCopy"))
-    CS.XAppPlatBridge.CopyStringToClipboard(tostring(self.TxtInvitationCode.text))
+    CS.UnityEngine.GUIUtility.systemCopyBuffer = self.TxtInvitationCode.text
 end
 
 function XUiPanelSendInvitation:OnBtnShareClick(targetPlatformType, platformShareTemplate)

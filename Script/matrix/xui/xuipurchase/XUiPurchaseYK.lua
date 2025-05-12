@@ -133,9 +133,10 @@ function XUiPurchaseYK:CheckBuy()
     end
 
     if self.Data.ConsumeCount > 0 and self.Data.ConsumeCount > XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.HongKa) then --钱不够
-        XUiManager.TipText("PurchaseBuyHongKaCountTips")
+        XUiHelper.OpenPurchaseBuyHongKaCountTips()
         if self.NotEnoughCb then
-            self.NotEnoughCb(XPurchaseConfigs.TabsConfig.Pay)
+            local payCount = self.Data.ConsumeCount - XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.HongKa)
+            self.NotEnoughCb(XPurchaseConfigs.TabsConfig.Pay, nil, payCount)
         end
         return false
     end

@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiSpringFestivalCollectCard = XLuaUiManager.Register(XLuaUi, "UiSpringFestivalCollectCard")
 local XUiGridSpringFestivalCollectCard = require("XUi/XUiSpringFestival/CollectCard/XUiGridSpringFestivalCollectCard")
 

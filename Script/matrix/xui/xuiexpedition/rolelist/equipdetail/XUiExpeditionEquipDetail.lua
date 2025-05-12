@@ -1,9 +1,9 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --虚像地平线成员列表装备详情
 local XUiExpeditionEquipDetail = XLuaUiManager.Register(XLuaUi, "UiExpeditionEquipDetail")
 local CSTextManager = CS.XTextManager
 function XUiExpeditionEquipDetail:OnAwake()
     self:InitAutoScript()
-    XUiExpeditionEquipDetail.BtnTabIndex = XEquipConfig.EquipDetailBtnTabIndex
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
 end
 
@@ -35,30 +35,23 @@ end
 
 function XUiExpeditionEquipDetail:OnDestroy()
     self.PanelWeaponPlane.gameObject:SetActiveEx(true)
-    if self.Resource then
-        CS.XResourceManager.Unload(self.Resource)
-        self.Resource = nil
-    end
 end
 
 function XUiExpeditionEquipDetail:InitClassifyPanel()
     self.FxUiLihuiChuxian01.gameObject:SetActiveEx(false)
-    if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(self.TemplateId, XEquipConfig.Classify.Weapon) then
+    if XMVCA.XEquip:IsClassifyEqualByTemplateId(self.TemplateId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
         local resonanceCount =  0
-        local modelConfig = XDataCenter.EquipManager.GetWeaponModelCfg(self.TemplateId, "UiEquipDetail", self.BreakThroughTime, resonanceCount)
+        local modelConfig = XMVCA.XEquip:GetWeaponModelCfg(self.TemplateId, "UiEquipDetail", self.BreakThroughTime, resonanceCount)
         if modelConfig then
             XModelManager.LoadWeaponModel(modelConfig.ModelId, self.PanelWeapon, modelConfig.TransformConfig, "UiEquipDetail", nil, { gameObject = self.GameObject })
         end
         self.PanelWeapon.gameObject:SetActiveEx(true)
         self.ImgLihuiMask.gameObject:SetActiveEx(false)
-    elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(self.TemplateId, XEquipConfig.Classify.Awareness) then
-        local resource = CS.XResourceManager.Load(XDataCenter.EquipManager.GetEquipLiHuiPath(self.TemplateId, self.BreakThroughTime))
-        local texture = resource.Asset
+    elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(self.TemplateId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
+        local resPath = XMVCA.XEquip:GetEquipLiHuiPath(self.TemplateId, self.BreakThroughTime)
+        self.Loader = self.Loader or self.Transform:GetLoader()
+        local texture = self.Loader:Load(resPath)
         self.MeshLihui.sharedMaterial:SetTexture("_MainTex", texture)
-        if self.Resource then
-            CS.XResourceManager.Unload(self.Resource)
-        end
-        self.Resource = resource
         XScheduleManager.ScheduleOnce(function()
                 self.FxUiLihuiChuxian01.gameObject:SetActiveEx(true)
             end, 500)
@@ -89,14 +82,14 @@ function XUiExpeditionEquipDetail:OnBtnMainClick()
 end
 
 function XUiExpeditionEquipDetail:RegisterHelpBtn()
-    local isClassifyEqual = XDataCenter.EquipManager.IsClassifyEqualByTemplateId(self.TemplateId, XEquipConfig.Classify.Weapon)
+    local isClassifyEqual = XMVCA.XEquip:IsClassifyEqualByTemplateId(self.TemplateId, XEnumConst.EQUIP.CLASSIFY.WEAPON)
     local keyStr = isClassifyEqual and "EquipWeapon" or "EquipAwareness"
     self:BindHelpBtn(self.BtnHelp, keyStr)
 end
 
 function XUiExpeditionEquipDetail:SetPanelRole()
     if XArrangeConfigs.GetType(self.TemplateId) == XArrangeConfigs.Types.Weapon then
-        local weaponUsers = XDataCenter.EquipManager.GetWeaponUserTemplateIds(self.TemplateId)
+        local weaponUsers = XMVCA.XEquip:GetWeaponUserTemplateIds(self.TemplateId)
         for _, v in pairs(weaponUsers) do
             local go = CS.UnityEngine.Object.Instantiate(self.PanelText, self.PaneContent)
             local tmpObj = {}

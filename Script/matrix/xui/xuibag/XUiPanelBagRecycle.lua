@@ -1,3 +1,4 @@
+local XUiBagItem = require("XUi/XUiBag/XUiBagItem")
 local XUiPanelBagRecycle = XClass(nil, "XUiPanelBagRecycle")
 
 function XUiPanelBagRecycle:Ctor(rootUi, ui)

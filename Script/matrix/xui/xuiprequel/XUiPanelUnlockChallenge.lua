@@ -1,4 +1,5 @@
-XUiPanelUnlockChallenge = XClass(nil, "XUiPanelUnlockChallenge")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiPanelUnlockChallenge = XClass(nil, "XUiPanelUnlockChallenge")
 
 function XUiPanelUnlockChallenge:Ctor(ui, rootUi)
     self.GameObject = ui.gameObject

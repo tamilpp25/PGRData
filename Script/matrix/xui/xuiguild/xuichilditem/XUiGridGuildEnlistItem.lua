@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridGuildEnlistItem = XClass(nil, "XUiGridGuildEnlistItem")
 
 function XUiGridGuildEnlistItem:Ctor(ui)
@@ -47,7 +48,7 @@ function XUiGridGuildEnlistItem:SetItemData(itemData)
 
     self.TxtNum.text = itemData.GuildCoin
     self.RImgContribute:SetRawImage(XDataCenter.ItemManager.GetItemIcon(XGuildConfig.GuildCoin))
-    XUiPLayerHead.InitPortrait(itemData.HeadPortraitId, itemData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(itemData.HeadPortraitId, itemData.HeadFrameId, self.Head)
 end
 
 function XUiGridGuildEnlistItem:OnBtnRecruitClick()

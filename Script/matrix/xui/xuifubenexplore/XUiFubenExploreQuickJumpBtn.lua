@@ -1,4 +1,4 @@
-XUiFubenExploreQuickJumpBtn = XClass(nil, "XUiFubenExploreQuickJumpBtn")
+local XUiFubenExploreQuickJumpBtn = XClass(nil, "XUiFubenExploreQuickJumpBtn")
 function XUiFubenExploreQuickJumpBtn:Ctor(ui, data, cb)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
@@ -17,3 +17,5 @@ function XUiFubenExploreQuickJumpBtn:UpdateNode(data)
     self.NodeInfo = data
     self.TxtName.text = data.tableData.Name
 end
+
+return XUiFubenExploreQuickJumpBtn

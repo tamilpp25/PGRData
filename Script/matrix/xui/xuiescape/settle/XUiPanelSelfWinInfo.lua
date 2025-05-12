@@ -106,9 +106,9 @@ function XUiPanelSelfWinInfo:UpdateRemainTime()
         self.PanelSelfWinInfoEnable.gameObject:SetActiveEx(false)
     end
 
-    local awardTime = XEscapeConfigs.GetStageAwardTime(self.WinData.StageId)
     local remainTime = self.EscapeData:GetRemainTime()
-    local preRemainTime = remainTime - awardTime
+    local preRemainTime = self.EscapeData:GetOldRemainTime()
+    local awardTime = remainTime - preRemainTime
     local time = CS.XGame.ClientConfig:GetFloat("BossSingleAnimaTime")
     self.TxtTime.text = XUiHelper.GetTime(preRemainTime, XUiHelper.TimeFormatType.ESCAPE_REMAIN_TIME)
     self:SetImgTimeEffectActive(true)

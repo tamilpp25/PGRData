@@ -3,7 +3,8 @@ local XRedPointConditionRpgTowerTeamRed = {}
 local Events = nil
 function XRedPointConditionRpgTowerTeamRed.GetSubEvents()
     Events = Events or {
-        XRedPointEventElement.New(XEventId.EVENT_RPGTOWER_MEMBERCHANGE)
+        XRedPointEventElement.New(XEventId.EVENT_RPGTOWER_MEMBERCHANGE),
+        XRedPointEventElement.New(XEventId.EVENT_RPGTOWER_REFRESH_DAILYREWARD),
     }
     return Events
 end

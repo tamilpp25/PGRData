@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiRogueLikeStoryResult = XLuaUiManager.Register(XLuaUi, "UiRogueLikeStoryResult")
 local XUiGridBuffInfoItem = require("XUi/XUiFubenRogueLike/XUiGridBuffInfoItem")
 
@@ -68,7 +69,7 @@ function XUiRogueLikeStoryResult:HandleMultipleSpecialEvents()
         if result == "" then
             result = perResult
         else
-            result = string.format("%s%s", result, perResult)
+            result = string.format("%s,%s", result, perResult)
         end
 
         -- 收集道具、buff奖励

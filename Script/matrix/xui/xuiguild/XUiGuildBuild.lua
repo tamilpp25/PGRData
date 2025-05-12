@@ -5,6 +5,7 @@ local NameLenMaxLimit
 local GuildDeclarMaxLen
 local greyColor = CS.XTextManager.GetText("GuildBuildEnoughColor")
 local redColor = CS.XTextManager.GetText("GuildBuildNotEnoughColor")
+local CSUnityColorWhite = CS.UnityEngine.Color.white
 
 function XUiGuildBuild:OnAwake()
     NameLenMinLimit = CS.XGame.Config:GetInt("GuildNameMinLen")
@@ -15,7 +16,8 @@ function XUiGuildBuild:OnAwake()
     self.AllCoins = XGuildConfig.GetCreateCostItemType()
     self.AllCosts = XGuildConfig.GetCreateCostItemCount()
 
-    self.GuildViewSetHeadPortrait = XUiGuildViewSetHeadPortrait.New(self.PanelSetHeadPotrait,self)
+    self.GuildViewSetHeadPortrait = XUiGuildViewSetHeadPortrait.New(self.PanelSetHeadPotrait, self, true)
+    self.DefaultGuildIconColor = self.GuildFaceIcon.color
     self:InitFun()
 end
 
@@ -76,13 +78,8 @@ function XUiGuildBuild:OnBtnConfirmClick()
 
     local guildName = self.GuidNameInputField.text
 
-    --if string.match(guildName,"%s") then
-    --    XUiManager.TipText("GuildNameSpecialTips",XUiManager.UiTipType.Wrong)
-    --    return
-    --end
-
-    if not string.match(guildName,"%S") then --防止出现纯空白字符串
-        XUiManager.TipText("GuildNameEmptyText",XUiManager.UiTipType.Wrong)
+    if string.match(guildName,"%s") then
+        XUiManager.TipText("GuildNameSpecialTips",XUiManager.UiTipType.Wrong)
         return
     end
 
@@ -111,14 +108,11 @@ function XUiGuildBuild:OnBtnConfirmClick()
         return
     end
 
-    --if string.match(declaration,"%s") then
-    --    XUiManager.TipText("GuildDeclarationSpecialTips",XUiManager.UiTipType.Wrong)
-    --    return
-    --end
-    if not string.match(declaration,"%S") then --防止出现纯空白字符串
-        XUiManager.TipText("GuildDeclarationEmptyText",XUiManager.UiTipType.Wrong)
+    if string.match(declaration,"%s") then
+        XUiManager.TipText("GuildDeclarationSpecialTips",XUiManager.UiTipType.Wrong)
         return
     end
+
     if declaration == "" then
         declaration = CS.XTextManager.GetText("GuildDeclarationDefaultText")
     end
@@ -130,12 +124,7 @@ function XUiGuildBuild:OnBtnConfirmClick()
         local needNum = tonumber(self.AllCosts[i])
         local ownNum = XDataCenter.ItemManager.GetCount(coin)
         local coinName = XDataCenter.ItemManager.GetItemName(coin)
-        if i == #self.AllCoins then
-            costStr = string.format("%s%d %s", costStr, needNum, coinName)
-        else
-            costStr = string.format("%s%d %s, ", costStr, needNum, coinName)
-        end
-        --costStr = string.format("%s%d%s,", costStr, needNum, coinName) -- 海外文本间要加空格，见上 ↑
+        costStr = string.format("%s%d%s,", costStr, needNum, coinName)
         if needNum > ownNum then
             XUiManager.TipText("GuildBuildNotEnoughCosts",XUiManager.UiTipType.Wrong)
             return
@@ -173,6 +162,14 @@ function XUiGuildBuild:OnRefresh()
         local cfg = XGuildConfig.GetGuildHeadPortraitById(self.CurGuildIconId)
         if cfg then
             self.GuildFaceIcon:SetRawImage(cfg.Icon)
+            if cfg.IsSpecial then
+                self.GuildFaceIcon.color = CSUnityColorWhite
+                self.RImgSpecialHeadBg.gameObject:SetActiveEx(true)
+                self.RImgSpecialHeadBg:SetRawImage(cfg.CreateGuildBg)
+            else
+                self.GuildFaceIcon.color = self.DefaultGuildIconColor
+                self.RImgSpecialHeadBg.gameObject:SetActiveEx(false)
+            end
             self.PreGuildIconId = self.CurGuildIconId
         end
     end

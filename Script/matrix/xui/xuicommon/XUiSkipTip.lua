@@ -1,3 +1,4 @@
+local XUiGridSkip = require("XUi/XUiTip/XUiGridSkip")
 local XUiSkipTip = XLuaUiManager.Register(XLuaUi, "UiSkipTip")
 
 function XUiSkipTip:OnAwake()

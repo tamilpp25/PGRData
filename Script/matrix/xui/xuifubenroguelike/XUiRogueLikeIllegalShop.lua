@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiRogueLikeIllegalShop = XLuaUiManager.Register(XLuaUi, "UiRogueLikeIllegalShop")
 local XUiGridBlackShopItem = require("XUi/XUiFubenRogueLike/XUiGridBlackShopItem")
 local XUiBlackShopBuyDetails = require("XUi/XUiFubenRogueLike/XUiBlackShopBuyDetails")

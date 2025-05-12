@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridIdleCharacter = require("XUi/XUiHostelRest/XUiGridIdleCharacter")
 local XUiHostelCharacterWork = XUiManager.Register("UiHostelCharacterWork")
 local table_insert = table.insert
 -- auto
@@ -52,7 +54,7 @@ function XUiHostelCharacterWork:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -193,7 +195,7 @@ end
 
 
 function XUiHostelCharacterWork:UpdateIdleList()
-    local charList = XDataCenter.CharacterManager.GetOwnCharacterList() or {}
+    local charList = XMVCA.XCharacter:GetOwnCharacterList() or {}
     local idleCharList = {}
     for _,v in ipairs(charList) do
         if XDataCenter.HostelManager.IsCharacterInRest(v.Id) and not XDataCenter.HostelManager.IsCharacterInWork(v.Id) then

@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenMaintaineractionFighting = XLuaUiManager.Register(XLuaUi, "UiFubenMaintaineractionFighting")
 local CSTextManagerGetText = CS.XTextManager.GetText
 function XUiFubenMaintaineractionFighting:OnStart(stageId)
@@ -29,12 +30,7 @@ function XUiFubenMaintaineractionFighting:OnBtnEnterClick()
         XUiManager.TipText("MaintainerActionFightCompleteText")
         return
     end
-    if XTool.USENEWBATTLEROOM then
-        XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.StageId)
-    else
-        XLuaUiManager.PopThenOpen("UiNewRoomSingle", self.StageId)
-    end
-
+    XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.StageId)
 end
 
 function XUiFubenMaintaineractionFighting:OnBtnRunClick()

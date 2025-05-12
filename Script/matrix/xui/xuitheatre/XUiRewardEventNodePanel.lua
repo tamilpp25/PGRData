@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiRewardEventNodePanel = XClass(nil, "XUiRewardEventNodePanel")
 
 function XUiRewardEventNodePanel:Ctor(ui, rootUi)

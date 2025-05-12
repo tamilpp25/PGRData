@@ -1,3 +1,6 @@
+local XDynamicActivityTask = require("XUi/XUiTask/XDynamicActivityTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiActivityBriefTask = XLuaUiManager.Register(XLuaUi, "UiActivityBriefTask")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText

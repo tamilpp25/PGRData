@@ -59,6 +59,18 @@ end
 function XActivityInfo:GetEndTime()
     return XFunctionManager.GetEndTimeByTimeId(self.ActivityCfg.TimeId)
 end
+-- 是否在兑换奖励时间内
+function XActivityInfo:IsInExchangeTime()
+    return XFunctionManager.CheckInTimeByTimeId(self.ActivityCfg.ExchangeTimeId)
+end
+-- 是否在领取奖励时间内
+function XActivityInfo:IsInTaskTimeId()
+    return XFunctionManager.CheckInTimeByTimeId(self.ActivityCfg.TaskTimeId)
+end
+-- 是否在战斗阶段时间内
+function XActivityInfo:IsInFightTimeId()
+    return XFunctionManager.CheckInTimeByTimeId(self.ActivityCfg.FightTimeId)
+end
 
 
 return XActivityInfo

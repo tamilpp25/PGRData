@@ -1,3 +1,4 @@
+---@class XUiGridLogisticSkill
 local XUiGridLogisticSkill = XClass(nil, "XUiGridLogisticSkill")
 
 function XUiGridLogisticSkill:Ctor(ui, viewData)
@@ -39,7 +40,7 @@ function XUiGridLogisticSkill:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

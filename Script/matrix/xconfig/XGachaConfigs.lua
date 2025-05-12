@@ -1,15 +1,36 @@
-XGachaConfigs = XGachaConfigs or {}
+XGachaConfigs = XConfigCenter.CreateTableConfig(XGachaConfigs, "XGachaConfigs", "Gacha")
+--=============
+--配置表枚举
+--TableName : 表名，对应需要读取的表的文件名字，不写即为枚举的Key字符串
+--TableDefindName : 表定于名，默认同表名
+--ReadFuncName : 读取表格的方法，默认为ReadByIntKey
+--ReadKeyName : 读取表格的主键名，默认为Id
+--DirType : 读取的文件夹类型XConfigCenter.DirectoryType，默认是Share
+--LogKey : GetCfgByIdKey方法idKey找不到时所输出的日志信息，默认是唯一Id
+--=============
+XGachaConfigs.TableKey = enum({
+    GachaShow = { DirType = XConfigCenter.DirectoryType.Client },
+    GachaFashionSelfChoiceActivity = {},
+    GachaFashionSelfChoiceResources = { DirType = XConfigCenter.DirectoryType.Client, ReadKeyName = "GachaId" },
+})
 
 local TABLE_GACHA = "Share/Gacha/Gacha.tab"
 local TABLE_GACHA_REWARD = "Share/Gacha/GachaReward.tab"
 local TABLE_GACHA_PROBSHOW = "Client/Gacha/GachaProbShow.tab"
 local TABLE_GACHA_RULE = "Client/Gacha/GachaRule.tab"
+local TABLE_GACHA_SHOW_REWARD_CONFIG = "Client/Gacha/GachaShowRewardConfig.tab"
+local TABLE_GACHA_CLIENT_CONFIG = "Client/Gacha/GachaClientConfig.tab"
+local TABLE_GACHA_ITEM_EXCHANGE = "Share/Gacha/GachaItemExchange.tab"
+local TABLE_GACHA_COURSE_REWARD = "Share/Gacha/GachaCourseReward.tab"
 
 local Gachas = {}
 local GachaRewards = {}
 local GachaProbShow = {}
 local GachaRule = {}
-local AllRareGachaCount = {}
+local GachaItemExchange = {}
+local GachaCourseReward = {}
+local GachaShowRewardConfig = {}
+local GachaClientConfig = {}
 
 -- Gacha卡池组字典
 -- Key:OrganizeId
@@ -43,6 +64,10 @@ function XGachaConfigs.Init()
     GachaRewards = XTableManager.ReadByIntKey(TABLE_GACHA_REWARD, XTable.XTableGachaReward, "Id")
     GachaProbShow = XTableManager.ReadByIntKey(TABLE_GACHA_PROBSHOW, XTable.XTableGachaProbShow, "Id")
     GachaRule = XTableManager.ReadByIntKey(TABLE_GACHA_RULE, XTable.XTableGachaRule, "Id")
+    GachaItemExchange = XTableManager.ReadByIntKey(TABLE_GACHA_ITEM_EXCHANGE, XTable.XTableGachaItemExchange, "Id")
+    GachaCourseReward = XTableManager.ReadByIntKey(TABLE_GACHA_COURSE_REWARD, XTable.XTableGachaCourseReward, "Id")
+    GachaShowRewardConfig = XTableManager.ReadByIntKey(TABLE_GACHA_SHOW_REWARD_CONFIG, XTable.XTableGachaShowRewardConfig, "Id")
+    GachaClientConfig = XTableManager.ReadByStringKey(TABLE_GACHA_CLIENT_CONFIG, XTable.XTableGachaClientConfig, "Key")
 
     for _, gacha in pairs(Gachas) do
         if gacha.OrganizeId and gacha.OrganizeId ~= 0 then
@@ -58,24 +83,48 @@ function XGachaConfigs.Init()
             return a.OrganizeSort < b.OrganizeSort
         end)
     end
+end
 
-    for _, v in pairs(GachaRewards) do
-        if v.Rare then
-            AllRareGachaCount[v.TemplateId] = true
+function XGachaConfigs.GetGachaShowByGroupId(id)
+    if not id then
+        id = 1
+    end
+    local config = XGachaConfigs.GetAllConfigs(XGachaConfigs.TableKey.GachaShow)
+    local res = {}
+    for k, v in pairs(config) do
+        if v.GroupId == id then
+            res[v.Type] = v
         end
     end
+    return res
+end
+
+function XGachaConfigs.GetGachaShowRewardConfig()
+    return GachaShowRewardConfig
+end
+
+function XGachaConfigs.GetGachaShowRewardConfigById(id)
+    return GachaShowRewardConfig[id]
 end
 
 function XGachaConfigs.GetGachaReward()
     return GachaRewards
 end
 
-function XGachaConfigs.GetAllRareGacha()
-    return AllRareGachaCount
+function XGachaConfigs.GetGachaCourseReward()
+    return GachaCourseReward
+end
+
+function XGachaConfigs.GetGachaCourseRewardById(id)
+    return GachaCourseReward[id]
 end
 
 function XGachaConfigs.GetGachas()
     return Gachas
+end
+
+function XGachaConfigs.GetGachaItemExchangeCfgById(id)
+    return GachaItemExchange[id]
 end
 
 function XGachaConfigs.GetGachaCfgById(id)
@@ -98,6 +147,60 @@ function XGachaConfigs.GetGachaRuleCfgById(id)
     return GachaRule[id]
 end
 
+function XGachaConfigs.GetClientConfig(key, index)
+    index = index or 1
+    if not GachaClientConfig[key] then
+        XLog.ErrorTableDataNotFound("XGachaConfigs.GetClientConfig", "GachaClientConfig", TABLE_GACHA_CLIENT_CONFIG, "key", tostring(key))
+        return nil
+    end
+    return GachaClientConfig[key].Value[index]
+end
+
+function XGachaConfigs.GetClientConfigList(key)
+    if not GachaClientConfig[key] then
+        XLog.ErrorTableDataNotFound("XGachaConfigs.GetClientConfig", "GachaClientConfig", TABLE_GACHA_CLIENT_CONFIG, "key", tostring(key))
+        return nil
+    end
+    return GachaClientConfig[key].Value
+end
+
+function XGachaConfigs.GetClientConfigNumber(key, index)
+    index = index or 1
+
+    if not GachaClientConfig[key] then
+        XLog.ErrorTableDataNotFound("XGachaConfigs.GetClientConfig", "GachaClientConfig", TABLE_GACHA_CLIENT_CONFIG, "key", tostring(key))
+        return 0
+    end
+    
+    local value = GachaClientConfig[key].Value[index]
+
+    if string.IsFloatNumber(value) then
+        return tonumber(value)
+    else
+        XLog.Error('GachaClientConfig.tab中，key：'..tostring(key)..'index:'..tostring(index)..'的配置不是个数值：'..tostring(value))
+        return 0
+    end
+end
+
+function XGachaConfigs.GetClientConfigNumberList(key)
+    if not GachaClientConfig[key] then
+        XLog.ErrorTableDataNotFound("XGachaConfigs.GetClientConfig", "GachaClientConfig", TABLE_GACHA_CLIENT_CONFIG, "key", tostring(key))
+        return 0
+    end
+
+    local numberList = {}
+    
+    for i, v in ipairs(GachaClientConfig[key].Value) do
+        if string.IsFloatNumber(v) then
+            table.insert(numberList, tonumber(v))
+        else
+            XLog.Error('GachaClientConfig.tab中，key：'..tostring(key)..'index:'..tostring(i)..'的配置不是个数值：'..tostring(v))
+            table.insert(numberList, 0)
+        end
+    end
+    
+    return numberList
+end
 
 -------------------------------------------Organize卡池组数据读取----------------------------------------------------------
 

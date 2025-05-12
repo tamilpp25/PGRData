@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiRogueLikeMain = XLuaUiManager.Register(XLuaUi, "UiRogueLikeMain")
 local XUiRogueLikeCharItem = require("XUi/XUiFubenRogueLike/XUiRogueLikeCharItem")
 local XUiRogueLikeNode = require("XUi/XUiFubenRogueLike/XUiRogueLikeNode")
@@ -218,10 +219,10 @@ function XUiRogueLikeMain:InitNodes()
     self:GenerateChildNodeMap()
 
     if not self.TempNodeResource then
-        self.TempNodeResource = CS.XResourceManager.Load(XFubenRogueLikeConfig.NORMAL_NODE)
+        XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
     end
     if not self.TempNodeBossResource then
-        self.TempNodeBossResource = CS.XResourceManager.Load(XFubenRogueLikeConfig.BOSS_NODE)
+        XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
     end
 
     self.Curlen = 1
@@ -595,7 +596,7 @@ function XUiRogueLikeMain:StartCounter()
 
     if not self.ActivityTemplate then return end
     local now = XTime.GetServerNowTimestamp()
-    local endTime = XDataCenter.FubenRogueLikeManager.GetActivityEndTime()
+    local endTime = XTime.ParseToTimestamp(self.ActivityTemplate.EndTimeStr)
     local weekEndTime = XDataCenter.FubenRogueLikeManager.GetWeekRefreshTime()
     if not endTime then return end
 

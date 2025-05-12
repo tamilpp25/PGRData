@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiDormWorkMemberListItem = require("XUi/XUiDormWork/XUiDormWorkMemberListItem")
 local XUiDormWorkMember = XClass(nil, "XUiDormWorkMember")
 local Next = next
@@ -26,9 +27,11 @@ function XUiDormWorkMember:InitMaxCount()
 end
 
 function XUiDormWorkMember:InitList()
+    self.MemberList.gameObject:SetActiveEx(true)
     self.DynamicTable = XDynamicTableNormal.New(self.MemberList)
     self.DynamicTable:SetProxy(XUiDormWorkMemberListItem)
     self.DynamicTable:SetDelegate(self)
+    self.GridItem.gameObject:SetActiveEx(false)
 end
 
 -- [监听动态列表事件]
@@ -97,6 +100,7 @@ function XUiDormWorkMember:GetEmptyWorkPosList()
 end
 
 function XUiDormWorkMember:OnBtnBgClick()
+    self:OnDisable()
     self:ClearListData()
     self.UiRoot:PlayAnimation("MemberDisable")
     self.GameObject:SetActive(false)
@@ -122,6 +126,8 @@ function XUiDormWorkMember:Init()
     self.XUiBtnCancel:SetName(TextManager.GetText("CancelText"))
     self.XUiBtnStartWork:SetName(TextManager.GetText("DormWorkStart"))
     self.TxtNonePerson.text = TextManager.GetText("DormWorkNoPerson1")
+
+    self.BtnGo.CallBack = function() self:OnBtnGoClick() end
 end
 
 -- 更新数据
@@ -157,6 +163,18 @@ end
 
 function XUiDormWorkMember:IsFullMaxWorkCount()
     return self.CurWorkCount >= DormWorkMaxCount
+end
+
+function XUiDormWorkMember:OnBtnGoClick()
+    XLuaUiManager.Open("UiDormPerson", XDormConfig.PersonType.Staff)
+end
+
+function XUiDormWorkMember:OnEnable()
+    XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnBgClick")
+end
+
+function XUiDormWorkMember:OnDisable()
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
 end
 
 return XUiDormWorkMember

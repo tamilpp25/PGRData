@@ -115,7 +115,9 @@ function XCoupleCombatBaseData:UpdateUsedSkillIds(usedSkillIds)
     local skillType
     for _, skillId in ipairs(usedSkillIds) do
         skillType = XFubenCoupleCombatConfig.GetCharacterCareerSkillType(skillId)
-        self.UsedSkillTypeToSkillIdDic[skillType] = skillId
+        for _, type in ipairs(skillType) do
+            self.UsedSkillTypeToSkillIdDic[type] = skillId
+        end
     end
 end
 

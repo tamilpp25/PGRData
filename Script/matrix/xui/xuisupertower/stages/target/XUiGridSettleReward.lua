@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridSettleReward = XClass(nil, "XUiGridSettleReward")
 local CSTextManagerGetText = CS.XTextManager.GetText
 

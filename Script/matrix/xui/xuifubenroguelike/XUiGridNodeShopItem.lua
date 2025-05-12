@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridNodeShopItem = XClass(nil, "XUiGridNodeShopItem")
 local XUiGridBuffInfoItem = require("XUi/XUiFubenRogueLike/XUiGridBuffInfoItem")
 local XUiGridRoleInfoItem = require("XUi/XUiFubenRogueLike/XUiGridRoleInfoItem")
@@ -73,14 +74,14 @@ function XUiGridNodeShopItem:SetSaleRate(saleRate)
 
     local discount
     if saleRate % 10 == 0 then
-        discount = 100 - saleRate
+        discount = math.floor(saleRate / 10)
     else
-        discount = 100 - saleRate
+        discount = saleRate / 10
     end
     self.Tab.gameObject:SetActiveEx(isShowSaleRate)
     if isShowSaleRate then
-        local snap = CS.XTextManager.GetText("Snap", discount)
-        self.TxtSaleRate.text = snap
+        local snap = CS.XTextManager.GetText("Snap")
+        self.TxtSaleRate.text = string.format("%s%s", tostring(discount), snap)
     end
 end
 

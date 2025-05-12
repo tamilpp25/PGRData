@@ -3,7 +3,8 @@
 local XRedPointConditionArenaTask = {}
 
 function XRedPointConditionArenaTask.Check()
-    local dailyTasks = XDataCenter.TaskManager.GetArenaChallengeTaskList()
+    local dailyTasks = XMVCA.XArena:GetCurrentChallengeTasks()
+    
     for _, dailyTask in ipairs(dailyTasks) do
         if dailyTask.State == XDataCenter.TaskManager.TaskState.Achieved then
             return true

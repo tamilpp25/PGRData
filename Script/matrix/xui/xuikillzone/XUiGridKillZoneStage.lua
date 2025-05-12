@@ -26,8 +26,17 @@ function XUiGridKillZoneStage:Refresh(stageId)
     local order = XKillZoneConfigs.GetStageOrder(stageId)
     self.TxtOrder.text = order
 
-    local maxKillNum = XDataCenter.KillZoneManager.GetStageMaxKillNum(stageId)
-    self.TxtMaxDefeatNum.text = CsXTextManagerGetText("KillZoneStageMaxKillNum", maxKillNum)
+    local isLock = not XDataCenter.KillZoneManager.IsStageUnlock(stageId)
+    self.PanelStageLock.gameObject:SetActiveEx(isLock)
+
+    local isDailyStage = XDataCenter.KillZoneManager.IsDailyStageId(stageId)
+    self.TxtMaxDefeatNum.gameObject:SetActiveEx(not isDailyStage)
+    self.PanelStars.gameObject:SetActiveEx(not isDailyStage)
+    if isDailyStage then
+        return
+    end
+    local maxScore = XDataCenter.KillZoneManager.GetStageMaxScore(stageId)
+    self.TxtMaxDefeatNum.text = CsXTextManagerGetText("KillZoneStageMaxScore", maxScore)
 
     local star, maxStar = XDataCenter.KillZoneManager.GetStageStar(stageId)
     for index = 1, maxStar do
@@ -44,9 +53,6 @@ function XUiGridKillZoneStage:Refresh(stageId)
     for index = maxStar + 1, #self.StarGrids do
         self.StarGrids[index].GameObject:SetActiveEx(false)
     end
-
-    local isLock = not XDataCenter.KillZoneManager.IsStageUnlock(stageId)
-    self.PanelStageLock.gameObject:SetActiveEx(isLock)
 end
 
 function XUiGridKillZoneStage:SetSelect(value)

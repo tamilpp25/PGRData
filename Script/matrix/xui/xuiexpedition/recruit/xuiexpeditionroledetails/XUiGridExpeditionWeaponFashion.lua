@@ -25,7 +25,7 @@ function XUiGridExpeditionWeaponFashion:Refresh(fashionId, characterId, robotId)
     if XWeaponFashionConfigs.IsDefaultId(fashionId) then
         local robotConfig = XRobotManager.GetRobotTemplate(robotId)
         local templateId = robotConfig.WeaponId
-        icon = XDataCenter.EquipManager.GetEquipIconPath(templateId)
+        icon = XMVCA.XEquip:GetEquipIconPath(templateId)
     else
         icon = XWeaponFashionConfigs.GetFashionIcon(fashionId)
     end

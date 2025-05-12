@@ -1,4 +1,5 @@
-XUiGridTreasureTask = XClass(nil, "XUiGridTreasureTask")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiGridTreasureTask = XClass(nil, "XUiGridTreasureTask")
 
 function XUiGridTreasureTask:Ctor(rootUi, ui, treasureType)
     self.RootUi = rootUi
@@ -58,7 +59,7 @@ function XUiGridTreasureTask:OnBtnReceiveClick()
     XDataCenter.TaskManager.FinishTask(TaskData.Id, function(rewardGoodsList)
         XUiManager.OpenUiObtain(rewardGoodsList)
         self:Refresh()
-        XEventManager.DispatchEvent(XEventId.EVENT_CHRISTMAS_TREE_GOT_REWARD)
+        XEventManager.DispatchEvent(EVENT_CHRISTMAS_TREE_GOT_REWARD)
     end)
 end
 
@@ -148,3 +149,5 @@ function XUiGridTreasureTask:InitTreasureList()
         end
     end
 end
+
+return XUiGridTreasureTask

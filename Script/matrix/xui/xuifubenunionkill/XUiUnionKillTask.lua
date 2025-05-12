@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiUnionKillTask = XLuaUiManager.Register(XLuaUi, "UiUnionKillTask")
 
 function XUiUnionKillTask:OnAwake()

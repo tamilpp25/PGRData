@@ -11,7 +11,7 @@ function XRedPointConditionMainSet.GetSubEvents()
 end
 
 function XRedPointConditionMainSet.Check()
-    return CS.XRLFightSettings.UiConflict
+    return CS.XRLFightSettings.UiConflict or not CS.XCustomUi.Instance.IsOpenUiFightCustomRed
 end
 
 return XRedPointConditionMainSet

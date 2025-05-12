@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildEnlistRecruit = XClass(nil, "XUiGuildEnlistRecruit")
 local XUiGridGuildEnlistItem = require("XUi/XUiGuild/XUiChildItem/XUiGridGuildEnlistItem")
 local LastRefreshTime = 0

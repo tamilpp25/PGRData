@@ -1,6 +1,12 @@
 --
 local XUiGuildWarRank = XLuaUiManager.Register(XLuaUi, "UiGuildWarRank")
 local Tab = require("XUi/XUiGuildWar/Ranking/XUiGuildWarRankTab")
+--排行榜脚本
+local RankListScript = require("XUi/XUiGuildWar/Ranking/XUiGuildWarRankingList")
+--普通节点排行Grid
+local NormalListGrid = require("XUi/XUiGuildWar/Ranking/XUiGuildWarRankGrid")
+--隐藏节点排行Grid
+local ConcealListGrid = require("XUi/XUiGuildWar/Ranking/XUiGuildWarConcealRankGrid")
 local TabType = {
     First = "BtnFirstHasSnd",
     SecondTop = "BtnSecondTop",
@@ -51,8 +57,12 @@ function XUiGuildWarRank:InitPanelSpecailTools()
 end
 
 function XUiGuildWarRank:InitRankList()
-    local rankList = require("XUi/XUiGuildWar/Ranking/XUiGuildWarRankingList")
-    self.RankList = rankList.New(self.PanelRankList)
+    self.RankListLut = {}
+    local normalRank = RankListScript.New(self.PanelRankInfo, NormalListGrid)
+    local concealRank = RankListScript.New(self.PanelConcealRankInfo, ConcealListGrid)
+    self.RankListLut[XGuildWarConfig.RankingTarget.Guild] = normalRank
+    self.RankListLut[XGuildWarConfig.RankingTarget.Player] = normalRank
+    self.RankListLut[XGuildWarConfig.RankingTarget.Secret] = concealRank
 end
 
 function XUiGuildWarRank:OnStart(rankingType)
@@ -61,7 +71,7 @@ function XUiGuildWarRank:OnStart(rankingType)
     local manager = XDataCenter.GuildWarManager
     local currentRound = manager.GetCurrentRoundId()
     if currentRound > 1 then
-        XSaveTool.SaveData("GuildWar" .. manager.GetActivityId() .. manager.GetActvityTimeId() .. XPlayer.Id .. (currentRound - 1), true)
+        manager.LocalStroageSaveReadCurrentRanking(currentRound)
     end
 end
 
@@ -109,14 +119,22 @@ function XUiGuildWarRank:CreateComboTab()
     self.TabBtnContent:Init(self.BtnList, function(index) self.TabList[index]:OnClick() end)
 end
 
-function XUiGuildWarRank:RefreshRanking(rankingType, id, rankTarget)
-    self.RankList:RefreshList(rankingType, id, rankTarget)
+---param rankingType XGuildWarConfig.RankingType
+---param rankingTarget XGuildWarConfig.RankingTarget
+function XUiGuildWarRank:RefreshRanking(rankingType, id, rankingTarget)
+    for type,list in pairs(self.RankListLut) do
+        list.GameObject:SetActiveEx(false)
+    end
+    local list = self.RankListLut[rankingTarget]
+    list.GameObject:SetActiveEx(true)
+    list:RefreshList(rankingType, id, rankingTarget)
 end
 --============
 --刷新排行榜名
 --============
-function XUiGuildWarRank:RefreshRankingName(name)
-    self.RankList:RefreshName(name)
+---param rankingTarget XGuildWarConfig.RankingTarget
+function XUiGuildWarRank:RefreshRankingName(rankingTarget, name)
+    self.RankListLut[rankingTarget]:RefreshName(name)
 end
 
 return XUiGuildWarRank

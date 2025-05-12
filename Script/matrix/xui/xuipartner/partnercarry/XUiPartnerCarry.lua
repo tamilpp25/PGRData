@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XPartnerSort = require("XUi/XUiPartner/PartnerCommon/XPartnerSort")
 local XUiPartnerCarry = XLuaUiManager.Register(XLuaUi, "UiPartnerCarry")
 local XUiGridSkill = require("XUi/XUiPartner/PartnerCommon/XUiGridSkill")
 local XUiGridPartnerCarry = require("XUi/XUiPartner/PartnerCarry/XUiGridPartnerCarry")
@@ -18,7 +21,7 @@ local TakeState = {
     Change = 3,
 }
 
-function XUiPartnerCarry:OnStart(characterId,IsCanSkipProperty)
+function XUiPartnerCarry:OnStart(characterId,IsCanSkipProperty, closeCallback)
     self.CurCarrierId = characterId
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     self:SetButtonCallBack()
@@ -27,6 +30,7 @@ function XUiPartnerCarry:OnStart(characterId,IsCanSkipProperty)
     self.MainSkillGrid = {}
     self.PassiveSkillGrid = {}
     self.IsCanSkipProperty = IsCanSkipProperty
+    self.CloseCallback = closeCallback
 end
 
 function XUiPartnerCarry:OnDestroy()
@@ -42,6 +46,10 @@ end
 function XUiPartnerCarry:OnDisable()
     XEventManager.RemoveEventListener(XEventId.EVENT_PARTNER_CARRY, self.ShowHint, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_PARTNER_SKILLCHANGE, self.UpdatePanel, self)
+    if self.CloseCallback then
+        self.CloseCallback()
+        self.CloseCallback = nil
+    end
 end
 
 function XUiPartnerCarry:SetButtonCallBack()
@@ -79,7 +87,7 @@ function XUiPartnerCarry:InitDynamicTable()
 end
 
 function XUiPartnerCarry:SetupDynamicTable()
-    local curPartnerType = XCharacterConfigs.GetCharacterType(self.CurCarrierId)
+    local curPartnerType = XMVCA.XCharacter:GetCharacterType(self.CurCarrierId)
 
     self.PageDatas = XDataCenter.PartnerManager.GetPartnerOverviewDataList(nil, curPartnerType, false)
     XPartnerSort.CarrySortFunction(self.PageDatas, self.CurCarrierId)
@@ -99,9 +107,9 @@ function XUiPartnerCarry:UpdatePanel()
     self:SetupDynamicTable()
     self:PlayAnimation("LeftQieHuan")
     
-    local charName = XCharacterConfigs.GetCharacterLogName(self.CurCarrierId)
-    local charElement = XCharacterConfigs.GetCharacterElement(self.CurCarrierId)
-    local elementConfig = XCharacterConfigs.GetCharElement(charElement)
+    local charName = XMVCA.XCharacter:GetCharacterLogName(self.CurCarrierId)
+    local charElement = XMVCA.XCharacter:GetCharacterElement(self.CurCarrierId)
+    local elementConfig = XMVCA.XCharacter:GetCharElement(charElement)
 
     self.CountText.text = #self.PageDatas
     self.TxtCarrierName.text = charName
@@ -113,6 +121,7 @@ function XUiPartnerCarry:SelectPartner(partner)
     self:PlayAnimation("RightQieHuan")
 end
 
+---@param data XPartner
 function XUiPartnerCarry:UpdatePanelPartnerCarryInfo(data)
     self.Data = data
     if data then
@@ -152,12 +161,27 @@ function XUiPartnerCarry:UpdatePanelPartnerCarryInfo(data)
         self.BtnTakeChange.gameObject:SetActiveEx(IsTakeOn and carryPartnerId)
         self.BtnStrengthen.gameObject:SetActiveEx(self.IsCanSkipProperty)
 
-        local qualityIcon = XCharacterConfigs.GetCharacterQualityIcon(data:GetQuality())
+        local qualityIcon = XMVCA.XCharacter:GetCharacterQualityIcon(data:GetQuality())
         self.RImgPartnerIcon:SetRawImage(data:GetIcon())
         self.RawImageQuality:SetRawImage(qualityIcon)
 
         self:ShowLock()
         self:ShowPanelSkill()
+
+        --region 辅助机 -> 异界装备
+        local partnerId = data:GetTemplateId()
+        if partnerId and partnerId > 0 and XPartnerConfigs.GetPartnerType(partnerId) == XPartnerConfigs.PartnerType.Link then
+            if self.TxtName and self.TxtNameLink then
+                self.TxtNameLink.gameObject:SetActiveEx(true)
+                self.TxtName.gameObject:SetActiveEx(false)
+            end
+        else
+            if self.TxtName and self.TxtNameLink then
+                self.TxtNameLink.gameObject:SetActiveEx(false)
+                self.TxtName.gameObject:SetActiveEx(true)
+            end
+        end
+        --endregion 辅助机 -> 异界装备
     end
 end
 
@@ -212,13 +236,13 @@ function XUiPartnerCarry:OnBtnMainUiClick()
 end
 
 function XUiPartnerCarry:OnBtnStrengthenClick()
-    XLuaUiManager.Open("UiPartnerMain", XPartnerConfigs.MainUiState.Property, self.CurPartner, true, true)
+    XDataCenter.PartnerManager.OpenUiPartnerMain(false, XPartnerConfigs.MainUiState.Property, self.CurPartner, true, true)
 end
 
 function XUiPartnerCarry:OnBtnTakeOnClick()
     local IsCarring = self.Data:GetIsCarry() and self.Data:GetCharacterId() ~= self.CurCarrierId
     if IsCarring then
-        local CarrierName = XCharacterConfigs.GetCharacterLogName(self.Data:GetCharacterId())
+        local CarrierName = XMVCA.XCharacter:GetCharacterLogName(self.Data:GetCharacterId())
         XDataCenter.PartnerManager.TipDialog(nil,function ()
                 self:DoTakeOn()
             end, "PartnerIsCarringHint", CarrierName)

@@ -12,6 +12,10 @@ function XUiCommodity:Ctor(ui, parent)
     self:AddListener()
 end
 
+function XUiCommodity:Init(parent)
+    self.Parent = parent
+end
+
 function XUiCommodity:Refresh(data)
     if not data then
         self.GameObject:SetActiveEx(false)
@@ -49,7 +53,6 @@ end
 function XUiCommodity:RefreshCondition()
     if not self.BtnCondition then return end
     self.BtnCondition.gameObject:SetActiveEx(false)
-    self.ConditionDesc = nil
     local conditionIds = self.Data.ConditionIds
     if not conditionIds or #conditionIds <= 0 then return end
 
@@ -58,7 +61,6 @@ function XUiCommodity:RefreshCondition()
         if not ret then
             self.BtnCondition.gameObject:SetActiveEx(true)
             self.ImgSellOut.gameObject:SetActiveEx(false)
-            self.ConditionDesc = desc
             self.ConditionText.text = desc
             return
         end
@@ -140,8 +142,7 @@ function XUiCommodity:RefreshPanelSale()
     if self.TxtSaleRate then
         if self.Data.Tags == XShopManager.ShopTags.DisCount then
             if self.Sales < 100 then
-                -- self.TxtSaleRate.text = self.Sales / 10 .. CS.XTextManager.GetText("Snap")
-                self.TxtSaleRate.text = CS.XTextManager.GetText("Snap", 100 - self.Sales)
+                self.TxtSaleRate.text = self.Sales / 10 .. CS.XTextManager.GetText("Snap")
             else
                 hideSales = true
             end
@@ -237,11 +238,16 @@ function XUiCommodity:RefreshBuyCount()
 end
 
 function XUiCommodity:RefreshGift()
-    if self.Data.GiftRewardId and self.Data.GiftRewardId ~= 0 then
-        self.ImgTabLb.gameObject:SetActiveEx(true)
-        self.GiftRewardId = self.Data.GiftRewardId
+    --2.10 涂装赠品
+    if self.Data.RewardGoods.RewardType == XRewardManager.XRewardType.Fashion then
+        local fashionId = self.Data.RewardGoods.TemplateId
+        local fashionCfg = XFashionConfigs.GetFashionTemplate(fashionId)
+        if fashionCfg and XTool.IsNumberValid(fashionCfg.GiftId) then
+            self.ImgTabLb.gameObject:SetActiveEx(true)
+        else
+            self.ImgTabLb.gameObject:SetActiveEx(false)
+        end
     else
-        self.GiftRewardId = 0
         self.ImgTabLb.gameObject:SetActiveEx(false)
     end
 end
@@ -305,24 +311,14 @@ end
 
 function XUiCommodity:AddListener()
     self.BtnCondition.CallBack = function()
-        self:OnBtnConditionClick()
+        self:OnBtnBuyClick()
     end
     self.BtnBuy.CallBack = function()
         self:OnBtnBuyClick()
     end
 end
 
-function XUiCommodity:OnBtnConditionClick()
-    if self.ConditionDesc then
-        XUiManager.TipError(self.ConditionDesc)
-    end
-end
-
 function XUiCommodity:OnBtnBuyClick()
-    if self.IsSellOut then
-        XUiManager.TipText("ShopItemSellOut")
-        return
-    end
     if self.IsShopOnSaleLock then
         XUiManager.TipError(self.ShopOnSaleLockDecs)
         return
@@ -361,11 +357,11 @@ function XUiCommodity:OnBtnBuyClick()
                 end
             end)
 
-            self.Parent:RefreshBuy()
+            self.Parent:OnBuySuccessCb()
         end)
     end
 
-    XLuaUiManager.Open("UiFashionDetail", self.Id, self.IsWeaponFashion, buyData, true)
+    XLuaUiManager.Open("UiFashionDetail", self.Id, self.IsWeaponFashion, buyData)
 end
 
 return XUiCommodity

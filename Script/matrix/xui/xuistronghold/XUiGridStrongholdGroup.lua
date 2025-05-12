@@ -32,15 +32,15 @@ function XUiGridStrongholdGroup:Refresh(groupId)
     end
 
     if self.RImgBossIcon then
-        local icon = XStrongholdConfigs.GetGroupIconBoss(groupId)
+        local stageId = XDataCenter.StrongholdManager.GetGroupStageId(groupId, 1)
+        local icon = XStrongholdConfigs.GetGroupBossIcon(groupId, stageId)
         if icon then
             self.RImgBossIcon:SetRawImage(icon)
         end
     end
 
     if self.TxtName then
-        local name = XStrongholdConfigs.GetGroupName(groupId)
-        self.TxtName.text = name
+        self.TxtName.text = XStrongholdConfigs.GetGroupName(groupId)
     end
 
     if self.TxtOrder then
@@ -65,6 +65,11 @@ function XUiGridStrongholdGroup:Refresh(groupId)
     if self.PanelYzz then
         local isFinished = XDataCenter.StrongholdManager.CheckGroupHasFinishedStage(groupId)
         self.PanelYzz.gameObject:SetActiveEx(isFinished)
+    end
+
+    if self.ImgMoppingup then
+        local isAutoFight = XDataCenter.StrongholdManager.IsAutoFightByGroupId(groupId)
+        self.ImgMoppingup.gameObject:SetActiveEx(isAutoFight)
     end
 end
 

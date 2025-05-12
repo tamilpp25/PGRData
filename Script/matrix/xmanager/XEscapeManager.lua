@@ -1,14 +1,23 @@
 local XEscapeData = require("XEntity/XEscape/XEscapeData")
+local XEscapeTactics = require("XEntity/XEscape/Tactics/XEscapeTactics")
 local XTeam = require("XEntity/XTeam/XTeam")
 
 XEscapeManagerCreator = function()
+    ---@type XEscapeData
     local EscapeData = XEscapeData.New()
     local CurActivityId
     local EscapeDataCopy
     local IsOpenChapterSettle
 
+    ---@class XEscapeManager
     local XEscapeManager = {}
     local Team
+    local _TacticsDir = {}
+    
+    local GetCacheKey = function(key)
+        local activityId = XEscapeManager.IsOpen() and CurActivityId or 0
+        return string.format("Escape_%s_PlayId_%s_%s", activityId, XPlayer.Id, key)
+    end
 
     function XEscapeManager.UpdateActivityId()
         local configs = XEscapeConfigs.GetEscapeActivity()
@@ -23,6 +32,7 @@ XEscapeManagerCreator = function()
         end
     end
 
+    --region Ui
     function XEscapeManager.OnOpenMain()
         if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Escape) then
             return
@@ -32,6 +42,9 @@ XEscapeManagerCreator = function()
             return
         end
 
+        if XEscapeManager._IsSetActivityChallenge() then
+            XEscapeManager._SetIsNeedActivityChallenge()
+        end
         local openMainCb = function()
             XLuaUiManager.Open("UiEscapeMain")
         end
@@ -42,6 +55,43 @@ XEscapeManagerCreator = function()
         openMainCb()
     end
 
+    ---进入战斗选人界面
+    function XEscapeManager.OpenBattleRoleRoom(chapterId, stageId)
+        --2期开放选角
+        --local team = XEscapeManager.GetTeam()
+        --if not team:GetIsEmpty() and XTool.IsNumberValid(EscapeData:GetChapterId()) then
+        --    XUiManager.TipErrorWithKey("EscapeFightingNotUpdateTeam")
+        --    return
+        --end
+        XEscapeManager.SetCurSelectChapterId(chapterId)
+        XLuaUiManager.Open("UiBattleRoleRoom"
+        , stageId
+        , XEscapeManager.GetTeam()
+        , require("XUi/XUiEscape/BattleRoom/XUiEscapeBattleRoleRoom")
+        )
+    end
+
+    ---结算
+    function XEscapeManager.OpenUiEscapeSettle(isWin)
+        -- 关闭其他无用界面
+        local UiNameList = {
+            "UiEscapeFuben",
+            "UiEscape2Fuben"
+        }
+        for _, name in ipairs(UiNameList) do
+            if XLuaUiManager.IsUiLoad(name) then
+                XLuaUiManager.Remove(name)
+            end
+        end
+        if isWin then   -- 清除数据残留
+            EscapeData:SetChapterId(false)
+        end
+        XLuaUiManager.Open("UiEscapeSettle", XEscapeConfigs.ShowSettlePanel.AllWinInfo, isWin)
+    end
+    --endregion
+    
+
+    ---@return XEscapeData
     function XEscapeManager.GetEscapeData()
         return EscapeData
     end
@@ -54,7 +104,7 @@ XEscapeManagerCreator = function()
                 --清除队伍中不存在的角色
                 isRobot = XRobotManager.CheckIsRobotId(entityId)
                 if (isRobot and not XEscapeConfigs.IsStageTypeRobot(entityId)) or 
-                    (not isRobot and not XDataCenter.CharacterManager.IsOwnCharacter(entityId)) then
+                    (not isRobot and not XMVCA.XCharacter:IsOwnCharacter(entityId)) then
                     Team:UpdateEntityTeamPos(0, teamPos, true)
                 end
             end
@@ -148,9 +198,9 @@ XEscapeManagerCreator = function()
         end
 
         --当前层已通关
-        local layerClearStageCount = EscapeData:GetLayerClearStageCount(layerId, true)
-        local layerClearStageCountConfig = XEscapeConfigs.GetLayerClearStageCount(layerId)
-        if layerClearStageCount >= layerClearStageCountConfig then
+        local layerClearCount = EscapeData:GetLayerClearNodeCount(layerId, true)
+        local layerClearStageCountConfig = XEscapeConfigs.GetLayerNodeCount(layerId)
+        if layerClearCount >= layerClearStageCountConfig then
             return XEscapeConfigs.LayerState.Pass, ""
         end
 
@@ -159,15 +209,24 @@ XEscapeManagerCreator = function()
             return XEscapeConfigs.LayerState.Now, ""
         end
 
+        --战斗节点
         local stageIdList = XEscapeConfigs.GetLayerStageIds(preLayerId)
-        local clearStageCount = XEscapeConfigs.GetLayerClearStageCount(preLayerId)
+        local clearNodeCount = XEscapeConfigs.GetLayerNodeCount(preLayerId)
         for _, stageId in ipairs(stageIdList) do
             if EscapeData:IsCurChapterStageClear(stageId) then
-                clearStageCount = clearStageCount - 1
+                clearNodeCount = clearNodeCount - 1
+            end
+        end
+        
+        --策略节点
+        local nodeIdList = XEscapeConfigs.GetLayerTacticsNodeIds(preLayerId)
+        for _, nodeId in ipairs(nodeIdList) do
+            if EscapeData:IsCurChapterTacticsNodeClear(nodeId) then
+                clearNodeCount = clearNodeCount - 1
             end
         end
 
-        local preStageClear = clearStageCount <= 0
+        local preStageClear = clearNodeCount <= 0
         local challengeConditionDesc = not preStageClear and XUiHelper.GetText("EscapeNotClearLayerDesc", preLayerIndex) or ""
         return preStageClear and XEscapeConfigs.LayerState.Now or XEscapeConfigs.LayerState.Lock, challengeConditionDesc
     end
@@ -221,6 +280,74 @@ XEscapeManagerCreator = function()
         return true
     end
 
+    --region Tactics
+    ---@return XEscapeTactics[]
+    function XEscapeManager.GetAllTactics()
+        local result = {}
+        local configs = XEscapeConfigs.GetAllTactics()
+        for _, config in pairs(configs) do
+            local tactics = XEscapeManager.GetTactics(config.Id)
+            result[#result + 1] = tactics
+        end
+        ---@param a XEscapeTactics
+        ---@param b XEscapeTactics
+        table.sort(result, function(a, b)
+            if a:IsUnlock() ~= b:IsUnlock() then
+                return a:IsUnlock()
+            end
+
+            return a:GetId() < b:GetId()
+        end)
+        return result
+    end
+
+    ---@return XEscapeTactics[]
+    function XEscapeManager.GetTacticsByList(list)
+        local result = {}
+        if XTool.IsTableEmpty(list) then
+            return result
+        end
+        for _, id in ipairs(list) do
+            result[#result + 1] = XEscapeManager.GetTactics(id)
+        end
+        return result
+    end
+
+    ---@return XEscapeTactics
+    function XEscapeManager.GetTactics(id)
+        if not _TacticsDir[id] then
+            local tactics = XEscapeTactics.New(id)
+            _TacticsDir[id] = tactics
+        end
+        return _TacticsDir[id]
+    end
+    --endregion
+    
+    --region Difficulty
+    function XEscapeManager.GetDifficulty()
+        if EscapeData and XTool.IsNumberValid(EscapeData:GetChapterId()) then
+            return XEscapeConfigs.GetChapterDifficulty(EscapeData:GetChapterId())
+        end
+        local key = GetCacheKey("Difficulty")
+        return XSaveTool.GetData(key) or XEscapeConfigs.Difficulty.Normal
+    end
+
+    function XEscapeManager.SwitchDifficulty(difficulty)
+        if EscapeData and XTool.IsNumberValid(EscapeData:GetChapterId()) then
+            local curChapterDifficulty = XEscapeConfigs.GetChapterDifficulty(EscapeData:GetChapterId())
+            if difficulty == curChapterDifficulty then
+                return false
+            else
+                XUiManager.TipErrorWithKey("EscapeInChallengeMode", XEscapeConfigs.GetDifficultyName(curChapterDifficulty))
+                return false
+            end
+        end
+        local key = GetCacheKey("Difficulty")
+        XSaveTool.SaveData(key, difficulty)
+        return true
+    end
+    --endregion
+
     ---------------------缓存数据 begin---------------------
     local CurSelectChapterId
     function XEscapeManager.SetCurSelectChapterId(chapterId)
@@ -258,16 +385,6 @@ XEscapeManagerCreator = function()
     ---------------------缓存数据 end-----------------------
 
     ---------------------副本相关 begin-------------------------
-    function XEscapeManager.InitStageInfo()
-        local stageIdList = XEscapeConfigs.GetEscapeStageIdList()
-        local stageInfo
-        for _, stageId in ipairs(stageIdList) do
-            stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-            if stageInfo then
-                stageInfo.Type = XDataCenter.FubenManager.StageType.Escape
-            end
-        end
-    end
 
     function XEscapeManager.PreFight(stage, teamId, isAssist, challengeCount, challengeId)
         local team = XEscapeManager.GetTeam()
@@ -299,7 +416,7 @@ XEscapeManagerCreator = function()
     end
     ---------------------副本相关 end-------------------------
 
-    ------------------红点相关 begin-----------------------
+    --region RedPoint
     --检查是否有任务奖励可领取
     function XEscapeManager.CheckTaskCanReward()
         local configs = XEscapeConfigs.GetEscapeTask()
@@ -320,7 +437,39 @@ XEscapeManagerCreator = function()
         end
         return false
     end
-    ------------------红点相关 end------------------------
+
+    --活动前四天刷tag
+    local timeOffset = 3600 * 24 * 4
+    function XEscapeManager.CheckIsNeedActivityChallenge()
+        local startTime = XEscapeManager.GetActivityStartTime()
+        local endTime = startTime + timeOffset
+        local nowTime = XTime.GetServerNowTimestamp()
+        if startTime <= nowTime and nowTime < endTime then
+            return true
+        elseif nowTime >= endTime then
+            return not XEscapeManager._GetIsNeedActivityChallenge()
+        end
+        return false
+    end
+    
+    ---活动看板tag标记判断
+    function XEscapeManager._IsSetActivityChallenge()
+        local startTime = XEscapeManager.GetActivityStartTime()
+        local endTime = startTime + timeOffset
+        local nowTime = XTime.GetServerNowTimestamp()
+        return nowTime >= endTime
+    end
+
+    function XEscapeManager._GetIsNeedActivityChallenge()
+        local key = GetCacheKey("IsNeedActivityChallenge")
+        return XSaveTool.GetData(key) or false
+    end
+
+    function XEscapeManager._SetIsNeedActivityChallenge()
+        local key = GetCacheKey("IsNeedActivityChallenge")
+        return XSaveTool.SaveData(key, true)
+    end
+    --endregion
 
     ---------------------protocol begin------------------
     --推送数据
@@ -335,7 +484,57 @@ XEscapeManagerCreator = function()
     function XEscapeManager.NotifyEscapeStageResult(data)
         EscapeData:UpdateStageResult(data)
     end
-
+    
+    ---检查/生成策略节点数据
+    function XEscapeManager.RequestEscapeCheckTacticsNode(chapterId, layerId, tacticsNodeId, successCallback, failCallback)
+        local requestBody = {
+            LayerId = layerId,
+            TacticsNodeId = tacticsNodeId,
+        }
+        XNetwork.CallWithAutoHandleErrorCode("EscapeCheckTacticsNodeRequest", requestBody, function(res)
+            if res.Code ~= XCode.Success then
+                if failCallback then
+                    failCallback()
+                end
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            EscapeData:AddTacticsNodes(res.TacticsNode)
+            -- 如果第一层就是策略则初始化章节选择及初始时间
+            local layerIdList = XEscapeConfigs.GetChapterLayerIds(chapterId)
+            if not XTool.IsTableEmpty(layerIdList) and layerId == layerIdList[1] then
+                EscapeData:SetChapterId(chapterId)
+                EscapeData:SetRemainTime(XEscapeConfigs.GetChapterInitialTime(chapterId))
+            end
+            if successCallback then
+                successCallback()
+            end
+        end)
+    end
+    
+    ---选择策略节点策略/跳过选择则tacticsId = -1
+    function XEscapeManager.RequestEscapeSelectTactics(layerId, tacticsNodeId, tacticsId, successCallback, failCallback)
+        local requestBody = {
+            LayerId = layerId,
+            TacticsNodeId = tacticsNodeId,
+            TacticsId = tacticsId,
+        }
+        XNetwork.Call("EscapeSelectTacticsRequest", requestBody, function(res)
+            if res.Code ~= XCode.Success then
+                if failCallback then
+                    failCallback()
+                end
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            EscapeData:TacticsNodeSelectTactics(tacticsNodeId, tacticsId)
+            XEventManager.DispatchEvent(XEventId.EVENT_ESCAPE_DATA_NOTIFY)
+            if successCallback then
+                successCallback()
+            end
+        end)
+    end
+    
     --重置关卡
     function XEscapeManager.RequestEscapeResetStage(stageId)
         local requestBody = {

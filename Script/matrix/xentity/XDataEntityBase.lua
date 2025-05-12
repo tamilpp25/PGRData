@@ -5,7 +5,7 @@ local tableUnpack = table.unpack
 local tableInsert = table.insert
 local IsTableEmpty = XTool.IsTableEmpty
 
---数据实体基类（存储通用方法）/ViewModle（当绑定UI对象后转化为VM层）
+---@class XDataEntityBase 数据实体基类（存储通用方法）/ViewModle（当绑定UI对象后转化为VM层）
 XDataEntityBase = XClass(nil, "XDataEntityBase")
 
 function XDataEntityBase:Init(default, id)
@@ -18,8 +18,22 @@ function XDataEntityBase:Init(default, id)
         self,
         {
             __index = function(t, k)
-                return self._Properties[k] or self.__class[k] or XDataEntityBase[k] or
-                    GetClassVituralTable(self.__class)[k]
+                local value = self._Properties[k]
+                if nil ~= value then
+                    return value
+                end
+                value = self.__class[k]
+                if nil ~= value then 
+                    return value 
+                end
+                value = XDataEntityBase[k]
+                if nil ~= value then
+                    return value
+                end
+                value = GetClassVirtualTable(self.__class)[k]
+                if nil ~= value then
+                    return value
+                end
             end,
             __newindex = function(_, k, v)
                 self._Properties[k] = v
@@ -42,10 +56,18 @@ function XDataEntityBase:Reset()
     self:InitData(id)
 end
 
---持久化初始数据
+--- 持久化初始数据
+---@param id any 持久化数据Key
+---@return void
+--------------------------
 function XDataEntityBase:InitData(id)
 end
 
+--- 设置属性的值
+---@param name string 属性名
+---@param value any 属性值
+---@return void
+--------------------------
 function XDataEntityBase:SetProperty(name, value)
     if nil == value then
         return
@@ -53,13 +75,16 @@ function XDataEntityBase:SetProperty(name, value)
 
     local oldValue = self._Properties[name]
     self._Properties[name] = value
-
-    if oldValue ~= value then --table类型不做比对，默认全量更新
+    
+    if type(value) == "table" or oldValue ~= value then --table类型不做比对，默认全量更新
         self:UpdateBindings(name)
     end
 end
 
---如子类字段有修改，重写此方法加上自己的字段名比对特殊处理
+--- 获取属性的值（如子类字段有修改，重写此方法加上自己的字段名比对特殊处理）
+---@param name string 属性名
+---@return any 属性值
+--------------------------
 function XDataEntityBase:GetProperty(name)
     return self[name] or self._Default[name]
 end

@@ -1,6 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 -- 边界公约区域界面
 local XUiPanelAssignMain = XLuaUiManager.Register(XLuaUi, "UiPanelAssignMain")
-
 local XUiGridAssignChapter = require("XUi/XUiAssign/XUiGridAssignChapter")
 
 function XUiPanelAssignMain:OnAwake()
@@ -13,10 +13,18 @@ end
 
 function XUiPanelAssignMain:InitComponent()
     self.PanelAsset = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-    self.BtnBack.CallBack = function() self:OnBtnBackClick() end
-    self.BtnMainUi.CallBack = function() self:OnBtnMainUiClick() end
+
     self:BindHelpBtn(self.BtnHelp, "Assign")
-    self.BtnBuff.CallBack = function() self:OnBtnBuffClick() end
+
+    self:RegisterClickEvent(self.BtnBack, self.OnBtnBackClick)
+    self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick)
+    self:RegisterClickEvent(self.BtnBuff, self.OnBtnBuffClick)
+    self:RegisterClickEvent(self.BtnTreasure, self.OnBtnTreasureClick)
+
+end
+
+function XUiPanelAssignMain:OnBtnTreasureClick()
+    XLuaUiManager.Open("UiAssignTreasureDetail", self)
 end
 
 function XUiPanelAssignMain:InitChapterGridList()
@@ -47,6 +55,13 @@ function XUiPanelAssignMain:OnEnable()
             self:InitRefresh()
         end)
     end
+
+    -- 检测提示trigger
+    local chapterId = XDataCenter.FubenAssignManager.GetChapterFirstPassTrigger() 
+    if chapterId then
+        local chapterData = XDataCenter.FubenAssignManager.GetChapterDataById(chapterId)
+        XUiManager.TipError(CS.XTextManager.GetText("AssignChapterCanOccupy", chapterData:GetDesc()))
+    end
 end
 
 function XUiPanelAssignMain:OnGetEvents()
@@ -72,7 +87,8 @@ function XUiPanelAssignMain:OnBtnMainUiClick()
 end
 
 function XUiPanelAssignMain:OnBtnBuffClick()
-    XLuaUiManager.Open("UiAssignBuff")
+    -- XLuaUiManager.Open("UiAssignBuff")
+    XLuaUiManager.Open("UiAssignOccupyProgress")
 end
 
 function XUiPanelAssignMain:InitRefresh()
@@ -82,6 +98,19 @@ function XUiPanelAssignMain:InitRefresh()
 end
 
 function XUiPanelAssignMain:Refresh()
+    --标题驻守进度
+    local chapterIdList = XDataCenter.FubenAssignManager.GetChapterIdList()
+    local total = #chapterIdList
+    local curr = 0
+    for i, chapterId in ipairs(chapterIdList) do
+        local chapterData = XDataCenter.FubenAssignManager.GetChapterDataById(chapterId)
+        if chapterData:IsOccupy() then
+            curr = curr + 1
+        end
+    end
+    self.ImgTitleProgress.text = CS.XTextManager.GetText("AssignOccypyProgress", curr, total)
+
+    -- 格子
     for i, grid in ipairs(self.ChapterGridList) do
         local chapterId = self.ListData[i]
         if not chapterId then
@@ -100,6 +129,13 @@ function XUiPanelAssignMain:Refresh()
 
     -- 适配所有子RectTransform的大小
     self.BoundSizeFitter:SetLayoutHorizontal()
+
+    -- 奖励进度
+    local curr = XDataCenter.FubenAssignManager.GetAllChapterRewardedNum()
+    local total = #XDataCenter.FubenAssignManager.GetChapterIdList()
+    self.TxtStarNum.text = CS.XTextManager.GetText("Fract", curr, total)
+    self.ImgTreasureProgress.fillAmount = curr/total
+    self.RewardRed.gameObject:SetActive(XDataCenter.FubenAssignManager.IsRewardRedPoint())
 end
 
 -- 显示当前章节
@@ -121,6 +157,10 @@ function XUiPanelAssignMain:ShowCurrentChapter()
 end
 
 function XUiPanelAssignMain:FirstShowHelpTip()
+    if XDataCenter.GuideManager.CheckIsInGuide() then
+        return
+    end
+
     local key = XDataCenter.FubenAssignManager.GetAccountEnterKey()
     local data = XSaveTool.GetData(key)
     if not data then

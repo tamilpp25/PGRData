@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridRes =  require("XUi/XUiFubenSimulatedCombat/ChildItem/XUiGridRes")
 local XUiPanelCombatMembers = require("XUi/XUiFubenSimulatedCombat/XUiResAllo/XUiPanelCombatMembers")
 local XUiPanelCombatAdditions = require("XUi/XUiFubenSimulatedCombat/XUiResAllo/XUiPanelCombatAdditions")
@@ -42,7 +44,7 @@ function XUiSimulatedCombatResAllo:OnStart(stageInterId)
     self.ConsumeId2 = XDataCenter.FubenSimulatedCombatManager.GetCurrencyIdByNo(CurrencyType.Extra)
 
     self:InitUiView()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true, nil, nil, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true, nil, nil, true)
     self.AssetActivityPanel:SetQueryFunc(XDataCenter.FubenSimulatedCombatManager.GetCurrencyByItem)
     self.BtnGrpTab:Init({self.BtnMember,self.BtnBuff},function(index) self:SwitchTab(index) end)
     self.BtnGrpTab:SelectIndex(PageIndex.Member, false)
@@ -203,7 +205,7 @@ function XUiSimulatedCombatResAllo:OnBtnEnterRoomClick()
     end
     XDataCenter.FubenSimulatedCombatManager.SaveShopMap()
     XDataCenter.FubenSimulatedCombatManager.SendPreFightRequest(function()
-        XLuaUiManager.Open("UiNewRoomSingle", self.StageInterCfg.StageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageInterCfg.StageId)
     end)
 end
 

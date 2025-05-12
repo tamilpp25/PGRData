@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiFubenChallengeMap = XLuaUiManager.Register(XLuaUi, "UiFubenChallengeMap")
 
 local MAX_PLAYER_GRID_COUNT = 4
@@ -74,7 +75,7 @@ function XUiFubenChallengeMap:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -351,7 +352,7 @@ function XUiFubenChallengeMap:EnterFight(stage)
         conditions = XTool.CsList2LuaTable(self.ChallengeEventCfg.ConditionId)
     end
     local data = {ForceConditionIds = conditions}
-    if XDataCenter.FubenManager.OpenRoomSingle(stage, data) then
+    if XDataCenter.FubenManager.OpenBattleRoom(stage, data) then
         if self.ContentViewInst and self.ContentViewInst.OnEnterFight then
             self.ContentViewInst:OnEnterFight()
         end

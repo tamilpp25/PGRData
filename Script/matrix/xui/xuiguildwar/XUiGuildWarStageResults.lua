@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --######################## XUiGridStage ########################
 local XUiGridNode = XClass(nil, "XUiGridNode")
 
@@ -7,7 +9,7 @@ end
 
 function XUiGridNode:SetData(node, count)
     self.ImgIcon:SetSprite(node:GetIcon())
-    if node:GetIsInfectNode() then
+    if node:GetIsLastNode()then
         self.TxtNodeName.text = node:GetName(false)
     else
         self.TxtNodeName.text = node:GetName()
@@ -93,8 +95,8 @@ function XUiGuildWarStageResults:OnDynamicTableEvent(event, index, grid)
 end
 
 function XUiGuildWarStageResults:OnCloseClisk()
-    if self.CallBack then self.CallBack() end
     self:Close()
+    if self.CallBack then self.CallBack() end
 end
 
 return XUiGuildWarStageResults

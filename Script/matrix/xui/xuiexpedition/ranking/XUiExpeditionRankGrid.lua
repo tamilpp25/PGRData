@@ -28,7 +28,7 @@ List<XExpeditionCharacter> OtherCharacters
 function XUiExpeditionRankGrid:RefreshData(rankingData, index)
     self.RankingData = rankingData
     self.Ranking = index
-    XUiPLayerHead.InitPortrait(self.RankingData.HeadPortraitId, self.RankingData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(self.RankingData.HeadPortraitId, self.RankingData.HeadFrameId, self.Head)
     self.TxtPlayerName.text = self.RankingData.Name
     self:RefreshRankingText()
     self:RefreshRankScore()

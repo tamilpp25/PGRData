@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiMoeWarGroupList = XLuaUiManager.Register(XLuaUi, "UiMoeWarGroupList")
 local XUiGridGroupList = require("XUi/XUiMoeWar/ChildItem/XUiGridGroupList")
 local tableInsert = table.insert
@@ -54,7 +55,7 @@ end
 function XUiMoeWarGroupList:InitUi()
 	if self.PanelSpecialTool then
 		self.ActInfo = XDataCenter.MoeWarManager.GetActivityInfo()
-		self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+		self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
 		self.AssetActivityPanel:Refresh(self.ActInfo.CurrencyId)
 		for i = 1,#self.ActInfo.CurrencyId do
 			XDataCenter.ItemManager.AddCountUpdateListener(self.ActInfo.CurrencyId[i], function()

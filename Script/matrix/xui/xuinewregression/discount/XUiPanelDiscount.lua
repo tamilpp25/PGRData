@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiBigListGrid = require("XUi/XUiNewRegression/Discount/XUiBigListGrid")
 
 local tableInsert = table.insert
@@ -47,13 +48,6 @@ function XUiPanelDiscount:SetData(manager)
 
     manager:SaveClickCookie()
     self:EmitSignal("RefreshRedPoint")
-    self:AddEventListen()
-end
-
-function XUiPanelDiscount:AddEventListen()
-    if self.AddEventListenerFlag then return end
-    self.AddEventListenerFlag = true
-    XEventManager.AddEventListener(XEventId.EVENT_PURCAHSE_BUYUSERIYUAN, self.RefreshPanelItemList, self) -- 海外修改
 end
 
 function XUiPanelDiscount:UpdateWithSecond()
@@ -68,22 +62,6 @@ end
 function XUiPanelDiscount:RefreshPanelItemList()
     local uiType = self.UiType
     if not uiType then
-        return
-    end
-    --由于这个界面没有明确的关闭接口调用以注销事件监听，增加硬容错代码
-    if self == nil
-        or self.RootUi == nil
-        or XTool.UObjIsNil(self.RootUi.GameObject)
-        or XTool.UObjIsNil(self.GameObject)
-        or XTool.UObjIsNil(self.DynamicTable.Imp) then
-        return
-    end
-    --由于这个界面没有明确的关闭接口调用以注销事件监听，增加硬容错代码
-    if self == nil
-        or self.RootUi == nil
-        or XTool.UObjIsNil(self.RootUi.GameObject)
-        or XTool.UObjIsNil(self.GameObject)
-        or XTool.UObjIsNil(self.DynamicTable.Imp) then
         return
     end
 

@@ -10,19 +10,20 @@ end
 
 ---
 --- 加载关卡预制体
-function XUiGridFashionStoryStage:LoadStagePrefab(activityId, stageId)
-    if activityId and stageId then
+function XUiGridFashionStoryStage:LoadStagePrefab(activityId, stageId,singleLineId)
+    if activityId and stageId and singleLineId then
         self.ActivityId = activityId
         self.StageId = stageId
+        self.SingleLineId=singleLineId
         local prefabName
-        local stageType = XFubenConfigs.GetStageType(stageId)
+        local stageType = XFubenConfigs.GetStageMainlineType(stageId)
 
         -- 选择对应StageType的关卡预制体
         if stageType == XFubenConfigs.STAGETYPE_FIGHT or stageType == XFubenConfigs.STAGETYPE_FIGHTEGG
                 or stageType == XFubenConfigs.STAGETYPE_COMMON then
-            prefabName = XFashionStoryConfigs.GetChapterFightStagePrefab(activityId)
+            prefabName = XFashionStoryConfigs.GetChapterFightStagePrefab(singleLineId)
         elseif stageType == XFubenConfigs.STAGETYPE_STORY or stageType == XFubenConfigs.STAGETYPE_STORYEGG then
-            prefabName = XFashionStoryConfigs.GetChapterStoryStagePrefab(activityId)
+            prefabName = XFashionStoryConfigs.GetChapterStoryStagePrefab(singleLineId)
         else
             XLog.Error(string.format("XUiGridFashionStoryStage.LoadStagePrefab函数错误，没有对应StageType的处理逻辑，关卡：%s，StageType：%s", stageId, stageType))
             return

@@ -29,7 +29,10 @@ function XUiGuildDormMainTopName:RemoveEventListeners()
 end
 
 function XUiGuildDormMainTopName:OnClickBtnClick()
-    
+    if not self:HasAuthority() then
+        return
+    end
+    XLuaUiManager.Open("UiGuildDormSceneChoice")
 end
 
 function XUiGuildDormMainTopName:OnClickBtnLeft()
@@ -47,8 +50,10 @@ end
 --房间名字变更
 --============
 function XUiGuildDormMainTopName:RefreshName()
-    local roomData = XDataCenter.GuildDormManager.GetCurrentRoom():GetRoomData()
-    self.TxtRoomName.text = roomData:GetName()
+    self.Transform:Find("ImgSwitch").gameObject:SetActiveEx(self:HasAuthority())
+    local themeId = XDataCenter.GuildDormManager.GetThemeId()
+    local themeCfg = XGuildDormConfig.GetThemeCfgById(themeId)
+    self.TxtRoomName.text = themeCfg.Name
 end
 
 function XUiGuildDormMainTopName:SetShow()
@@ -61,6 +66,10 @@ end
 
 function XUiGuildDormMainTopName:Dispose()
     self:RemoveEventListeners()
+end
+
+function XUiGuildDormMainTopName:HasAuthority()
+    return XDataCenter.GuildManager.IsGuildLeader() or XDataCenter.GuildManager.IsGuildCoLeader()
 end
 
 return XUiGuildDormMainTopName

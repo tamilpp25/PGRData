@@ -6,13 +6,6 @@ local XUiPartnerProperty = XLuaUiManager.Register(XLuaUi, "UiPartnerProperty")
 local CSTextManagerGetText = CS.XTextManager.GetText
 local DefaultIndex = 1
 
-local PANEL_INDEX = {
-    Level = 1,
-    Quality = 2,
-    Skill = 3,
-    Story = 4,
-}
-
 function XUiPartnerProperty:OnStart(base, data, index)
     self.Base = base
     self.Data = data
@@ -31,27 +24,27 @@ function XUiPartnerProperty:OnEnable()
 end
 
 function XUiPartnerProperty:OnDisable()
-    self.SelectedIndex = DefaultIndex
+
 end
 
 function XUiPartnerProperty:InitChildUiInfos()
     self.ChildUiInitInfos = {
-        [PANEL_INDEX.Level] = {
+        [XPartnerConfigs.PriorityTabType.Level] = {
             ChildClass = XUiPanelPartnerLevel,
             UiParent = self.PanelPartnerLevel,
             AssetPath = XUiConfigs.GetComponentUrl("UiPanelPartnerLevel"),
         },
-        [PANEL_INDEX.Quality] = {
+        [XPartnerConfigs.PriorityTabType.Quality] = {
             ChildClass = XUiPanelPartnerQuality,
             UiParent = self.PanelPartnerQuality,
             AssetPath = XUiConfigs.GetComponentUrl("UiPanelPartnerQuality"),
         },
-        [PANEL_INDEX.Skill] = {
+        [XPartnerConfigs.PriorityTabType.Skill] = {
             ChildClass = XUiPanelPartnerSkill,
             UiParent = self.PanelPartneSkill,
             AssetPath = XUiConfigs.GetComponentUrl("UiPanelPartnerSkill"),
         },
-        [PANEL_INDEX.Story] = {
+        [XPartnerConfigs.PriorityTabType.Story] = {
             ChildClass = XUiPanelPartnerStory,
             UiParent = self.PanelPartnerStory,
             AssetPath = XUiConfigs.GetComponentUrl("UiPanelPartnerStory"),
@@ -61,17 +54,17 @@ end
 
 function XUiPartnerProperty:InitBtnTabGroup()
     local tabGroup = {
-        [PANEL_INDEX.Level] = self.BtnTabLevel,
-        [PANEL_INDEX.Quality] = self.BtnTabQuality,
-        [PANEL_INDEX.Skill] = self.BtnTabSkill,
-        [PANEL_INDEX.Story] = self.BtnTabStory,
+        [XPartnerConfigs.PriorityTabType.Level] = self.BtnTabLevel,
+        [XPartnerConfigs.PriorityTabType.Quality] = self.BtnTabQuality,
+        [XPartnerConfigs.PriorityTabType.Skill] = self.BtnTabSkill,
+        [XPartnerConfigs.PriorityTabType.Story] = self.BtnTabStory,
     }
     self.PanelPropertyButtons:Init(tabGroup, function(tabIndex) self:OnClickTabCallBack(tabIndex) end)
 end
 
 function XUiPartnerProperty:UpdatePanel(data)
     self.Data = data
-    self.BtnTabLevel:ShowTag(self.Data:GetIsMaxBreakthrough())
+    self.BtnTabLevel:ShowTag(self.Data:GetIsMaxBreakthrough() and self.Data:GetIsLevelMax(self.Data.BreakthroughLimit))
     self.BtnTabQuality:ShowTag(self.Data:GetIsMaxQuality())
     self.BtnTabSkill:ShowTag(self.Data:GetIsTotalSkillLevelMax())
     self.BtnTabStory:ShowTag(false)
@@ -79,24 +72,18 @@ function XUiPartnerProperty:UpdatePanel(data)
 end
 
 function XUiPartnerProperty:OnClickTabCallBack(tabIndex)
-    if tabIndex == PANEL_INDEX.Level then
+    if tabIndex == XPartnerConfigs.PriorityTabType.Level then
         --self.PlayAnimation("LevelBegan")
         self.Base:SetCameraType(XPartnerConfigs.CameraType.Level)
-    elseif tabIndex == PANEL_INDEX.Quality then
+    elseif tabIndex == XPartnerConfigs.PriorityTabType.Quality then
         --self.PlayAnimation("AniPanelGradesBegin")
         self.Base:SetCameraType(XPartnerConfigs.CameraType.Quality)
-    elseif tabIndex == PANEL_INDEX.Skill then
+    elseif tabIndex == XPartnerConfigs.PriorityTabType.Skill then
         --self.PlayAnimation("AniPanelQualityBegin")
         self.Base:SetCameraType(XPartnerConfigs.CameraType.Skill)
-    elseif tabIndex == PANEL_INDEX.Story then
+    elseif tabIndex == XPartnerConfigs.PriorityTabType.Story then
         --self.PlayAnimation("SkillBegan")
         self.Base:SetCameraType(XPartnerConfigs.CameraType.Story)
-    end
-    
-    if tabIndex == PANEL_INDEX.Skill then
-        self:HideRoleModel()
-    else
-        self:ShowRoleModel()
     end
     
     self.SelectedIndex = tabIndex
@@ -126,4 +113,20 @@ end
 
 function XUiPartnerProperty:HideRoleModel()
     self.Base:HideRoleModel()
+end
+
+function XUiPartnerProperty:ShowTabs()
+    self.PanelPropertyButtons.gameObject:SetActiveEx(true)
+end
+
+function XUiPartnerProperty:HideTabs()
+    self.PanelPropertyButtons.gameObject:SetActiveEx(false)
+end
+
+function XUiPartnerProperty:GetPartnerQualityPanel()
+    return self.PanelsMap[XPartnerConfigs.PriorityTabType.Quality]
+end
+
+function XUiPartnerProperty:GetPartnerSkillPanel()
+    return self.PanelsMap[XPartnerConfigs.PriorityTabType.Skill]
 end

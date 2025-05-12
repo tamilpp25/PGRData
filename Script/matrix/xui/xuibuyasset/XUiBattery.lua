@@ -1,4 +1,5 @@
-XUiBattery = XClass(nil, "XUiBattery")
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
+local XUiBattery = XClass(nil, "XUiBattery")
 local GoodsId = 1
 local RewardIndex = 2
 local FoEver = 0
@@ -123,7 +124,7 @@ function XUiBattery:UpdateGrid(bagItem, parent, index)
     end
 
     if self.BagItem.Data.Template.TimelinessType and
-    self.BagItem.Data.Template.TimelinessType ~= FoEver then
+    self.BagItem.Data.Template.TimelinessType ~= FoEver and not self.Timers then
         self.Timers = XScheduleManager.ScheduleForever(function() self:SetTime() end, XScheduleManager.SECOND)
     end
 
@@ -132,10 +133,10 @@ function XUiBattery:UpdateGrid(bagItem, parent, index)
 end
 
 function XUiBattery:SetTime()
-    local sprite
-    if self.TxtTime then --海外修改，爆框问题
-        self.TxtTime.rectTransform.sizeDelta = CS.UnityEngine.Vector2(108,30)
+    if XTool.UObjIsNil(self.GameObject) then
+        return
     end
+    local sprite
     if not self.BagItem.Data.Template.TimelinessType or
     self.BagItem.Data.Template.TimelinessType == FoEver then
         self.TxtTime.text = FoEverText
@@ -163,7 +164,9 @@ function XUiBattery:SetTime()
             self:OnBtnMinusSelectCallBack()
         end
     end
-    self.Base:SetUiSprite(self.TimeTag, sprite)
+    if self.Base then
+        self.Base:SetUiSprite(self.TimeTag, sprite)
+    end
 end
 
 function XUiBattery:FlushSelectShow()

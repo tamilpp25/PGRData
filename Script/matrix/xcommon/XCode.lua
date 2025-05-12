@@ -9,7 +9,7 @@ local mt = {
             t[k] = code
             XCodeKeyMap[k] = nil
         else
-            XLog.Error("XCode Key:" .. tostring(k) .. "²»´æÔÚ, Çë²éÔÄXCodeText.tab£¬»òÓë·şÎñ¶ËÈ·ÈÏ¸ÃKeyÊÇ·ñÆúÓÃ£¨XCode.csÖĞ¶¨Òå£©")
+            XLog.Error("XCode Key:" .. tostring(k) .. "ä¸å­˜åœ¨, è¯·æŸ¥é˜…XCodeText.tabï¼Œæˆ–ä¸æœåŠ¡ç«¯ç¡®è®¤è¯¥Keyæ˜¯å¦å¼ƒç”¨ï¼ˆXCode.csä¸­å®šä¹‰ï¼‰")
         end
         return code
     end
@@ -23,8 +23,8 @@ function XCode.Init()
     XCodeKeyMap = {}
 
     local TABLE_CODE_TEXT = "Share/Text/CodeText.tab"
-    local codeTextTemplates = XTableManager.ReadByStringKey(TABLE_CODE_TEXT, XTable.XTableCodeText, "Key")
+    local codeTextTemplates = XTableManager.ReadByStringKey(TABLE_CODE_TEXT, XTable.XTableCodeText, "Id")
     for k, v in pairs(codeTextTemplates) do
-        XCodeKeyMap[k] = v.Id
+        XCodeKeyMap[v.Key] = v.Id
     end
 end

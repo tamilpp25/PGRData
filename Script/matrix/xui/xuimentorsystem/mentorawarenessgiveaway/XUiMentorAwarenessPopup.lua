@@ -33,20 +33,20 @@ function XUiMentorAwarenessPopup:OnDisable()
 end
 
 function XUiMentorAwarenessPopup:Refresh()
-    self.UsingAttrMap = XDataCenter.EquipManager.GetEquipAttrMap(self.EquipId)
+    self.UsingAttrMap = XMVCA.XEquip:GetEquipAttrMap(self.EquipId)
     self:UpdateUsingPanel()
 end
 
 
 function XUiMentorAwarenessPopup:UpdateUsingPanel()
     if not self.UsingEquipGrid then
-        self.UsingEquipGrid = XUiGridEquip.New(self.GridEquipUsing)
+        self.UsingEquipGrid = XUiGridEquip.New(self.GridEquipUsing, self, nil, true)
         self.UsingEquipGrid:InitRootUi(self)
     end
     self.UsingEquipGrid:Refresh(self.EquipId)
 
-    local equip = XDataCenter.EquipManager.GetEquip(self.EquipId)
-    self.TxtName.text = XDataCenter.EquipManager.GetEquipName(equip.TemplateId)
+    local equip = XMVCA.XEquip:GetEquip(self.EquipId)
+    self.TxtName.text = XMVCA.XEquip:GetEquipName(equip.TemplateId)
 
     local attrCount = 1
     local attrMap = self.UsingAttrMap
@@ -64,10 +64,10 @@ function XUiMentorAwarenessPopup:UpdateUsingPanel()
     end
     
     --是否激活颜色不同
-    local suitId = XDataCenter.EquipManager.GetSuitId(equip.Id)
-    local skillDesList = XDataCenter.EquipManager.GetSuitActiveSkillDesList(suitId, 0)
+    local suitId = equip:GetSuitId()
+    local skillDesList = XMVCA.XEquip:GetSuitActiveSkillDesList(suitId, 0)
 
-    for i = 1, XEquipConfig.MAX_SUIT_SKILL_COUNT do
+    for i = 1, XEnumConst.EQUIP.OLD_MAX_SUIT_SKILL_COUNT do
         local componentText = self["TxtSkillDes" .. i]
         if not skillDesList[i] then
             componentText.gameObject:SetActiveEx(false)
@@ -108,5 +108,5 @@ function XUiMentorAwarenessPopup:OnBtnGiftClick()
     end
     
     self.RootUi:UpdateCurEquipGrids()
-    self.RootUi:OnSelectSortType(XEquipConfig.PriorSortType.Star, true, true)
+    self.RootUi:OnSelectSortType(XEnumConst.EQUIP.PRIOR_SORT_TYPE.STAR, true, true)
 end

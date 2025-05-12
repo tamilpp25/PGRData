@@ -29,7 +29,7 @@ function XUiGridMonster:UpdateGrid(monsterEntity, IsPathEdit, IsActionPlaying)
         self.TxtTime.gameObject:SetActiveEx(not IsActionPlaying)
 
         local nextNodeId = monsterEntity:GetNextNodeId()
-        if nextNodeId then
+        if XTool.IsNumberValid(nextNodeId) then
             local nextNode = self.BattleManager:GetNode(nextNodeId)
             local IsRetrograde = currentNode:GetStageIndex() > nextNode:GetStageIndex()
             self.RootPosList = self.Base:GetRootPosList(currentNode:GetStageIndexName(), nextNode:GetStageIndexName(), IsRetrograde)
@@ -63,11 +63,11 @@ function XUiGridMonster:OnBtnStageClick()
 end
 
 function XUiGridMonster:ShowAction(actType, cb)
-    if actType == XGuildWarConfig.MosterActType.Dead then
+    if actType == XGuildWarConfig.GWActionType.MonsterDead then
         self:DoDead(cb)
-    elseif actType == XGuildWarConfig.MosterActType.Born then
+    elseif actType == XGuildWarConfig.GWActionType.MonsterBorn then
         self:DoBorn(cb)
-    elseif actType == XGuildWarConfig.MosterActType.Move then
+    elseif actType == XGuildWarConfig.GWActionType.MonsterMove then
         self:DoMove(cb)
     end
 end
@@ -77,10 +77,10 @@ function XUiGridMonster:DoMove(cb)
         local tagPos = self.RootPosList[1]
         if not self.MoveTimer then
             self.MoveTimer = XUiHelper.DoWorldMove(self.Transform, tagPos, TweenSpeed, XUiHelper.EaseType.Linear, function ()
-                    table.remove(self.RootPosList,1)
-                    self.MoveTimer = nil
-                    self:DoMove(cb)
-                end)
+                table.remove(self.RootPosList,1)
+                self.MoveTimer = nil
+                self:DoMove(cb)
+            end)
         end
     else
         if cb then cb() end
@@ -130,7 +130,7 @@ function XUiGridMonster:DoDead(cb)
                 self.DeadTimer = nil
             end
 
-            if self.MonsterDisable then
+            if self.MonsterDisable and self.GameObject.activeInHierarchy then
                 self.MonsterDisable:PlayTimelineAnimation(callBack)
                 coroutine.yield()
             end

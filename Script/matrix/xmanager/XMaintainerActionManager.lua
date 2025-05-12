@@ -308,21 +308,24 @@ XMaintainerActionManagerCreator = function()
     end
 
     ---------------------------------------stage相关-------------------------------------->>>
-    function XMaintainerActionManager.InitStageInfo()
-        local maintainerActionCfg = XMaintainerActionConfigs.GetMaintainerActionTemplates()
-        local maintainerActionLevelCfg = XMaintainerActionConfigs.GetMaintainerActionLevelTemplates()
-        for _, level in pairs(maintainerActionLevelCfg) do
-            local stageIdList = level.StageIds
-            for _, stageId in pairs(stageIdList) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                stageInfo.Type = XDataCenter.FubenManager.StageType.MaintainerAction
-                stageInfo.ChapterName = maintainerActionCfg.Name
-            end
-        end
-    end
+    --function XMaintainerActionManager.InitStageInfo()
+    --    local maintainerActionCfg = XMaintainerActionConfigs.GetMaintainerActionTemplates()
+    --    local maintainerActionLevelCfg = XMaintainerActionConfigs.GetMaintainerActionLevelTemplates()
+    --    for _, level in pairs(maintainerActionLevelCfg) do
+    --        local stageIdList = level.StageIds
+    --        for _, stageId in pairs(stageIdList) do
+    --            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    --            stageInfo.Type = XDataCenter.FubenManager.StageType.MaintainerAction
+    --            stageInfo.ChapterName = maintainerActionCfg.Name
+    --        end
+    --    end
+    --end
     
     function XMaintainerActionManager.OpenMaintainerActionWind()
         XDataCenter.MaintainerActionManager.ClearMessageTypeList()
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.MaintainerAction) then
+            return
+        end
         XLuaUiManager.Open("UiFubenMaintaineraction")
     end
 

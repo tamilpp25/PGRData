@@ -1,3 +1,4 @@
+local XDynamicTableIrregular = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableIrregular")
 local XUiPanelPartnerStory = XClass(nil, "XUiPanelPartnerStory")
 local XUiGridStoryInfo = require("XUi/XUiPartner/PartnerProperty/PanelPartnerStory/XUiGridStoryInfo")
 

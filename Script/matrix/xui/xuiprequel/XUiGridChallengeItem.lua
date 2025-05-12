@@ -1,4 +1,4 @@
-XUiGridChallengeItem = XClass(nil, "XUiGridChallengeItem")
+local XUiGridChallengeItem = XClass(nil, "XUiGridChallengeItem")
 
 function XUiGridChallengeItem:Ctor(ui, rootUi, index, clickCb)
     self.GameObject = ui.gameObject

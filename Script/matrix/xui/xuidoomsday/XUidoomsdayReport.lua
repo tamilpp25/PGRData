@@ -17,29 +17,40 @@ function XUidoomsdayReport:InitView()
     local stageData = self.StageData
 
     local cur = stageData:GetProperty("_Day")
-    self.TxtRound.text =
-        CsXTextManagerGetText("DoomsdayReportDay", stageData:GetProperty("_Day") - 1, stageData:GetProperty("_MaxDay"))
+    self.TxtRound.text = CsXTextManagerGetText("NewbieDayTab2", cur - 1)
+        --CsXTextManagerGetText("DoomsdayReportDay", stageData:GetProperty("_Day") - 1, stageData:GetProperty("_MaxDay"))
 
-    local resourceIds = XDoomsdayConfigs.GetResourceIds()
-
+    
+    local time = XDoomsdayConfigs.DOOMSDAY_REPORT_ANIMA_TIME * 0.25
+    local resourceChangeInfo = XDataCenter.DoomsdayManager.GetResourceChangeCountList(stageId)
     --资源变化
     self:RefreshTemplateGrids(
         self.PanelTool1,
-        resourceIds,
+        resourceChangeInfo,
         self.PanelAsset,
         nil,
         "ResourceGrids",
-        function(grid, resourceId)
+        function(grid, info)
+            local resourceId = info.Id
             grid.RImgTool:SetRawImage(XDoomsdayConfigs.ResourceConfig:GetProperty(resourceId, "Icon"))
-            local addCount = stageData:GetTotalHistoryAddResourceCount(resourceId)
-            grid.TxtTool.text =
-                stageData:GetResource(resourceId):GetProperty("_Count") .. XDoomsdayConfigs.GetNumerText(addCount)
+            local addCount = info.ChangeCount --stageData:GetTotalHistoryAddResourceCount(resourceId)
+            local curCount = info.CurCount --stageData:GetResource(resourceId):GetProperty("_Count")
+            local lastCount = info.LastCount --math.max(0, curCount - addCount)
+            grid.TxtTool.text = lastCount .. XDoomsdayConfigs.GetNumberText(addCount, false, false, true)
+            self:RefreshBtnState(false)
+            XUiHelper.Tween(time, function(delta) 
+                local count = math.ceil(addCount * delta)
+                grid.TxtTool.text = lastCount + count .. XDoomsdayConfigs.GetNumberText(addCount,false, false, true)
+            end, function()
+                self:RefreshBtnState(true)
+            end)
+            
         end
     )
 
     --居民人数变化
     self.TxtInhabitant.text =
-        stageData:GetProperty("_InhabitantCount") .. XDataCenter.DoomsdayManager.GetInhabitantDeadCountText(stageId)
+        stageData:GetProperty("_InhabitantCount") .. XDataCenter.DoomsdayManager.GetInhabitantCountChangeText(stageId)
 
     --各种异常状态下居民数量变化
     self:RefreshTemplateGrids(
@@ -50,7 +61,7 @@ function XUidoomsdayReport:InitView()
         "BadAttrGrids",
         function(grid, info)
             grid.RImgTool:SetRawImage(XDoomsdayConfigs.AttributeTypeConfig:GetProperty(info.AttrType, "BadIcon"))
-            grid.TxtTool.text = info.Count .. XDoomsdayConfigs.GetNumerText(info.ChangeCount)
+            grid.TxtTool.text = info.Count .. XDoomsdayConfigs.GetNumberText(info.ChangeCount, true, false, true)
         end
     )
 
@@ -65,8 +76,25 @@ function XUidoomsdayReport:InitView()
             local attrType = info.AttrType
             grid.TxtState1.text = XDoomsdayConfigs.AttributeTypeConfig:GetProperty(attrType, "Name")
             local cur, max = info.Count, XDoomsdayConfigs.AttributeTypeConfig:GetProperty(attrType, "MaxValue")
-            grid.TxtState1Num.text = string.format("%d/%d", cur, max) .. XDoomsdayConfigs.GetNumerText(info.ChangeCount)
-            grid.ImgProgress.fillAmount = XUiHelper.GetFillAmountValue(cur, max)
+            local changeCount = info.ChangeCount
+            local last = math.min(max, cur - changeCount)
+            local first, second
+            if changeCount > 0 then
+                first, second = grid.ImgProgressAdd, grid.ImgProgress
+            else
+                first, second = grid.ImgProgress, grid.ImgProgressAdd
+            end
+            first.fillAmount =  XUiHelper.GetFillAmountValue(cur, max)
+            grid.TxtState1Num.text = string.format("%d/%d", last, max) .. XDoomsdayConfigs.GetNumberText(changeCount, false, false, true)
+            self:RefreshBtnState(false)
+            XUiHelper.Tween(time, function(delta)
+                local num = delta * changeCount
+                grid.TxtState1Num.text = string.format("%d/%d", last + math.ceil(num), max) .. XDoomsdayConfigs.GetNumberText(changeCount, false, false, true)
+                second.fillAmount = XUiHelper.GetFillAmountValue(last + num, max)
+            end, function()
+                self:RefreshBtnState(true)
+            end)
+            
         end
     )
 
@@ -99,6 +127,15 @@ function XUidoomsdayReport:AutoAddListener()
     local closeFunc = handler(self, self.OnClickBtnClose)
     self.BtnClose.CallBack = closeFunc
     self.BtnEnter.CallBack = closeFunc
+end
+
+function XUidoomsdayReport:RefreshBtnState(state)
+    if self.BtnState == state then
+        return
+    end
+    self.BtnState = state
+    self.BtnClose.gameObject:SetActiveEx(state)
+    self.BtnEnter.gameObject:SetActiveEx(state)
 end
 
 function XUidoomsdayReport:OnClickBtnClose()

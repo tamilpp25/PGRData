@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XUiCPActionBase = require("XUi/XUiChessPursuit/XUi/XUiCPMain/XCPFSM/XUiCPActionBase")
 local XUiCPActionMove = XClass(XUiCPActionBase, "XUiCPActionMove")
 local CSXChessPursuitState = CS.XChessPursuitState
@@ -37,7 +38,7 @@ function XUiCPActionMove:OnEnter()
 end
 
 function XUiCPActionMove:Move()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.ChessPursuit_BossJump)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.ChessPursuit_BossJump)
     --一步一步走
     self.CSXChessPursuitBoss:SwitchState(CSXChessPursuitState.Move, function ()
         self:OnExit()

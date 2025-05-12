@@ -1,3 +1,4 @@
+local XUiGridSkip = require("XUi/XUiTip/XUiGridSkip")
 local XUiSkip = XLuaUiManager.Register(XLuaUi, "UiSkip")
 
 function XUiSkip:OnAwake()
@@ -13,7 +14,7 @@ function XUiSkip:OnStart(templateId, skipCb, hideSkipBtn, showSkipList)
     self.ShowSkipList = showSkipList
     self.GridPool = {}
     local musicKey = self:GetAutoKey(self.BtnBack, "onClick")
-    self.SpecialSoundMap[musicKey] = XSoundManager.UiBasicsMusic.Return
+    self.SpecialSoundMap[musicKey] = XLuaAudioManager.UiBasicsMusic.Return
     self:PlayAnimation("AniSkip")
 end
 
@@ -84,8 +85,8 @@ function XUiSkip:Refresh(templateId)
     self.TxtIconNum.text = XGoodsCommonManager.GetGoodsCurrentCount(templateId)
 
     if goodsShowParams.RewardType == XRewardManager.XRewardType.Equip then
-        local equipSite = XDataCenter.EquipManager.GetEquipSiteByTemplateId(templateId)
-        if equipSite and equipSite ~= XEquipConfig.EquipSite.Weapon then
+        local equipSite = XMVCA.XEquip:GetEquipSite(templateId)
+        if equipSite and equipSite ~= XEnumConst.EQUIP.EQUIP_SITE.WEAPON then
             self.TxtSite.text = equipSite
             self.PanelSite.gameObject:SetActive(true)
         else
@@ -98,7 +99,7 @@ function XUiSkip:Refresh(templateId)
     self.PanelGridSkip.gameObject:SetActive(false)
     local onCreate = function(grid, data)
         grid:Refresh(data, hideSkipBtn[data], function()
-            --self:Close()
+            self:Close()
             -- 暂停自动弹窗
             XDataCenter.AutoWindowManager.StopAutoWindow()
             if self.SkipCb then

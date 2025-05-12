@@ -1,16 +1,18 @@
-XUiPanelWorldChatMyMsgItem = XClass(nil, "XUiPanelWorldChatMyMsgItem")
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
+local XUiPanelWorldChatMyMsgItem = XClass(XUiNode, "XUiPanelWorldChatMyMsgItem")
 local XUiPanelNameplate = require("XUi/XUiNameplate/XUiPanelNameplate")
-function XUiPanelWorldChatMyMsgItem:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+
+function XUiPanelWorldChatMyMsgItem:OnStart()
     self:InitAutoScript()
 
     local prefab = self.PanelMsg:Find("PanelName"):LoadPrefab(XMedalConfigs.XNameplatePanelPath)
     self.UiPanelNameplate = XUiPanelNameplate.New(prefab, self)
     -- self.UiPanelNameplate = XUiPanelNameplate.New(self.PanelNameplate, self)
-end
 
+    if self.PanelBg then
+        self._PanelChatBoard = require('XUi/XUiChatServe/XUiChatBoard').New(self.PanelBg, self)
+    end
+end
 -- auto
 -- Automatic generation of code, forbid to edit
 function XUiPanelWorldChatMyMsgItem:InitAutoScript()
@@ -41,7 +43,7 @@ function XUiPanelWorldChatMyMsgItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -138,11 +140,13 @@ function XUiPanelWorldChatMyMsgItem:Refresh(chatData, longClickCb)
         medalIcon = medalConfig.MedalIcon
     end
     
-    XUiPLayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
 
     if medalIcon ~= nil then
         self.ImgMedalIcon:SetRawImage(medalIcon)
         self.ImgMedalIcon.gameObject:SetActiveEx(true)
+
+        XDataCenter.MedalManager.LoadMedalEffect(self, self.ImgMedalIcon, chatData.CurrMedalId)
     else
         self.ImgMedalIcon.gameObject:SetActiveEx(false)
     end
@@ -153,6 +157,9 @@ function XUiPanelWorldChatMyMsgItem:Refresh(chatData, longClickCb)
     else
         self.UiPanelNameplate.GameObject:SetActiveEx(false)
     end
+    
+    -- 设置聊天框
+    self._PanelChatBoard:Refresh(chatData.ChatBoardId, chatData.SenderId == XPlayer.Id)
 end
 
 function XUiPanelWorldChatMyMsgItem:GetPlayerId()
@@ -166,3 +173,5 @@ end
 function XUiPanelWorldChatMyMsgItem:GetChatContent()
     return self.ChatContent
 end
+
+return XUiPanelWorldChatMyMsgItem

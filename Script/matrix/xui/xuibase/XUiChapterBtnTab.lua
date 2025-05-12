@@ -1,4 +1,5 @@
-XUiChapterBtnTab = XClass(nil, "XUiChapterBtnTab")
+local XUiBtnTab = require("XUi/XUiBase/XUiBtnTab")
+local XUiChapterBtnTab = XClass(nil, "XUiChapterBtnTab")
 
 function XUiChapterBtnTab:Ctor(ui, index, callback, isLockClick)
     self.IsLockClick = false
@@ -82,3 +83,5 @@ end
 function XUiChapterBtnTab:Dispose()
 
 end
+
+return XUiChapterBtnTab

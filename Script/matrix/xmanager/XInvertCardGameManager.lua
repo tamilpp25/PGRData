@@ -74,7 +74,7 @@ XInvertCardGameManagerCreator = function()
                         XInvertCardGameManager.CheckNextStageOpen()
                     end
                     
-                    XEventManager.DispatchEvent(XEventId.EVENT_INVERT_CARD_GAME_CARD_CHANGED)
+                    --XEventManager.DispatchEvent(XEventId.EVENT_INVERT_CARD_GAME_CARD_CHANGED)
                     CsXGameEventManager.Instance:Notify(XEventId.EVENT_INVERT_CARD_GAME_CARD_CHANGED, stageData, cardIdx, res.PunishCardsIdxList, res.FinCardsIdxList)
                 end
             end)
@@ -325,10 +325,6 @@ XInvertCardGameManagerCreator = function()
         local consumeCount = stageEntity:GetCostCoinNum()
         if not consumeCount then
             return false
-        end
-
-        if stageEntity:GetTotalCounts() >= stageEntity:GetMaxCostNum() then -- 超过最大翻牌次数不消耗代币
-            return true
         end
 
         return XDataCenter.ItemManager.CheckItemCountById(consumeItemId, consumeCount)

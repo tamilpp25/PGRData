@@ -19,20 +19,20 @@ local function Setmetatable(M, config)
 end
 
 local function GetResonanceSkillInfoByType(equipResonanceType, templateId)
-    if equipResonanceType == XEquipConfig.EquipResonanceType.Attrib then
+    if equipResonanceType == XEnumConst.EQUIP.RESONANCE_TYPE.ATTRIB then
         return XAttribManager.TryGetAttribGroupTemplate(templateId)
-    elseif equipResonanceType == XEquipConfig.EquipResonanceType.CharacterSkill then
-        return XCharacterConfigs.GetCharacterSkillPoolSkillInfo(templateId)
-    elseif equipResonanceType == XEquipConfig.EquipResonanceType.WeaponSkill then
-        return XEquipConfig.GetWeaponSkillInfo(templateId)
+    elseif equipResonanceType == XEnumConst.EQUIP.RESONANCE_TYPE.CHARACTER_SKILL then
+        return XMVCA.XCharacter:GetCharacterSkillPoolSkillInfo(templateId)
+    elseif equipResonanceType == XEnumConst.EQUIP.RESONANCE_TYPE.WEAPON_SKILL then
+        return XMVCA.XEquip:GetConfigWeaponSkill(templateId)
     end
 end
 
 local function GetDescription(equipResonanceType, config)
-    if equipResonanceType == XEquipConfig.EquipResonanceType.WeaponSkill then
+    if equipResonanceType == XEnumConst.EQUIP.RESONANCE_TYPE.WEAPON_SKILL then
         local linkCharacterSkillId = config.DesLinkCharacterSkillId
         if linkCharacterSkillId and linkCharacterSkillId ~= 0 then
-            return XDataCenter.CharacterManager.GetSpecialWeaponSkillDes(linkCharacterSkillId)
+            return XMVCA.XCharacter:GetSpecialWeaponSkillDes(linkCharacterSkillId)
         else
             return config.Description
         end
@@ -43,7 +43,7 @@ end
 
 --[[
     @desc: 意识、武器、属性的工厂类
-	--@equipResonanceType: 枚举XEquipConfig.EquipResonanceType
+	--@equipResonanceType: 枚举XEnumConst.EQUIP.RESONANCE_TYPE
     --@id: 对应config内的id字段
 ]]
 function XSkillInfoObj.New(equipResonanceType, id)
@@ -72,7 +72,7 @@ function XSkillInfoObj.New(equipResonanceType, id)
 
     --用于服务端的Id
     function M:GetSkillIdToServer()
-        if XEquipConfig.EquipResonanceType.CharacterSkill == self.EquipResonanceType then
+        if XEnumConst.EQUIP.RESONANCE_TYPE.CHARACTER_SKILL == self.EquipResonanceType then
             return self.SkillId
         else
             return self.Id

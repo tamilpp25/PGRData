@@ -18,7 +18,7 @@ function XUiPanelAcceptInvitation:Ctor(ui, rootUi)
     }
     self.InputField.placeholder.text = CS.XTextManager.GetText("RegressionAcceptInvitationDefaultText")
     self.BtnHelp.CallBack = function() self:OnBtnHelpClick() end
-    self.RootUi:BindHelpBtnOnly(self.BtnHelp)
+    self.rootUi:BindHelpBtnOnly(self.BtnHelp)
     self.BtnCanGet.CallBack = function() self:OnBtnCanGetClick() end
     self.InputField.onValueChanged:AddListener(function() self:OnInputFieldTextChanged() end)
 end

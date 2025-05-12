@@ -1,9 +1,18 @@
+---@class XArchiveNpcEntity
 local XArchiveNpcEntity = XClass(nil, "XArchiveNpcEntity")
 
 function XArchiveNpcEntity:Ctor(id)
     self.Id = id
     self.IsLock = true
     self.LockDesc = ""
+end
+
+function XArchiveNpcEntity:SetIsLock(isLock)
+    self.IsLock = isLock
+end
+
+function XArchiveNpcEntity:SetLockDesc(lockDesc)
+    self.LockDesc = lockDesc
 end
 
 function XArchiveNpcEntity:UpdateData(playerData)
@@ -13,7 +22,7 @@ function XArchiveNpcEntity:UpdateData(playerData)
 end
 
 function XArchiveNpcEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveStoryNpcConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveStoryNpcConfigById(self.Id)
 end
 
 function XArchiveNpcEntity:GetId()

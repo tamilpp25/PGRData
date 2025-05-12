@@ -1,4 +1,4 @@
-XUiFubenDailyStage = XClass(nil, "XUiFubenDailyStage")
+local XUiFubenDailyStage = XClass(nil, "XUiFubenDailyStage")
 
 local START_NUM = 1
 local LockType = {
@@ -113,3 +113,5 @@ function XUiFubenDailyStage:UpdateStage(Info)
         self.PanelSelect.gameObject:SetActive(false)
     end
 end
+
+return XUiFubenDailyStage

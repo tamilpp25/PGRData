@@ -3,6 +3,7 @@
 --模块负责：吕天元
 --===========================
 local XSmashBCoreManager = {}
+---@type XSmashBCore[]
 local Cores
 local CoresById
 local TransEnergy = 0 --玩家已经转换的能量
@@ -12,12 +13,17 @@ local TransEnergy = 0 --玩家已经转换的能量
 function XSmashBCoreManager.Init(activityId)
     Cores = {}
     CoresById = {}
-    local coreCfgs = XSuperSmashBrosConfig.GetCfgByIdKey(XSuperSmashBrosConfig.TableKey.Activity2CoreDic, activityId)
+    local coreCfgs = XSuperSmashBrosConfig.GetAllConfigs(XSuperSmashBrosConfig.TableKey.CoreConfig)
     local coreScript = require("XEntity/XSuperSmashBros/XSmashBCore")
-    for modePriority, coreCfg in pairs(coreCfgs or {}) do
-        local core = coreScript.New(coreCfg)
-        Cores[modePriority] = core
-        CoresById[coreCfg.Id] = core
+    for _, coreCfg in pairs(coreCfgs or {}) do
+        local modeId = coreCfg.ModeId
+        local modeConfig = XSuperSmashBrosConfig.GetCfgByIdKey(XSuperSmashBrosConfig.TableKey.ModeConfig, modeId)
+        local modeActivityId = modeConfig.ActivityId
+        if activityId == modeActivityId then
+            local core = coreScript.New(coreCfg)
+            Cores[#Cores + 1] = core
+            CoresById[coreCfg.Id] = core
+        end
     end
 end
 --=============
@@ -61,8 +67,18 @@ end
 --@param
 --priority : 模式优先度 - 配置表SuperSmashBrosMode Priority
 --=============
-function XSmashBCoreManager.GetCoreByPriority(priority)
-    return Cores[priority]
+function XSmashBCoreManager.GetCoreByMode(modeId)
+    local t = {}
+    for i = 1, #Cores do
+        local core = Cores[i]
+        if core:GetModeId() == modeId then
+            t[#t + 1] = core
+        end
+    end
+    return t
+end
+function XSmashBCoreManager.GetOneCore()
+    return Cores[1]
 end
 --=============
 --检查是否有新的核心
@@ -74,6 +90,17 @@ function XSmashBCoreManager.CheckNewCoreFlag()
         end
     end
     return false
+end
+
+function XSmashBCoreManager.SortCores()
+    table.sort(Cores, function(coreA, coreB)
+        local unlockA = coreA:CheckIsLock() and 0 or 1
+        local unlockB = coreB:CheckIsLock() and 0 or 1
+        if unlockA ~= unlockB then
+            return unlockA > unlockB
+        end
+        return coreA:GetId() > coreB:GetId()
+    end)
 end
 
 return XSmashBCoreManager

@@ -38,7 +38,7 @@ function XUiGridQuickDeployMember:Refresh(teamList, teamId, memberIndex)
     if not member:IsEmpty() then
         local characterId = member:GetShowCharacterId()
         self.RImgRole.gameObject:SetActiveEx(true)
-        self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
+        self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(characterId))
     else
         self.RImgRole.gameObject:SetActiveEx(false)
     end

@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiStageFightControl = require("XUi/XUiCommon/XUiStageFightControl")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiAssignStageDetail = XLuaUiManager.Register(XLuaUi, "UiAssignStageDetail")
 
 local MAX_STAR = 3
@@ -146,7 +149,7 @@ function XUiAssignStageDetail:UpdateDetailText()
     self.TxtTitle.text = self.Stage.Name
     self.TxtLevelVal.text = self.Stage.RecommandLevel
     self.TxtDesc.text = self.Stage.Description
-    self.TxtATNums.text = self.Stage.RequireActionPoint
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(self.Stage.StageId)
 
     -- local groupData = XDataCenter.FubenAssignManager.GetGroupDataById(self.GroupId)
     -- local chanllengeNum = groupData:GetFightCount()

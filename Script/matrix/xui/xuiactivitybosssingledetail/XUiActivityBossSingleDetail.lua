@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiActivityBossSingleDetail = XLuaUiManager.Register(XLuaUi, "UiActivityBossSingleDetail")
 
 function XUiActivityBossSingleDetail:OnAwake()
@@ -35,7 +37,7 @@ function XUiActivityBossSingleDetail:InitCommon()
     self.RImgNandu:SetRawImage(nanDuIcon)
     self.TxtTitle.text = stageCfg.Name
     self.TxtLevelVal.text = stageCfg.RecommandLevel
-    self.TxtATNums.text = stageCfg.RequireActionPoint
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(stageId)
     self.PanelNums.gameObject:SetActive(maxChallengeNum > 0)
     self.PanelNoLimitCount.gameObject:SetActive(maxChallengeNum <= 0)
     self.BtnAddNum.gameObject:SetActive(buyChallengeCount > 0)
@@ -148,7 +150,7 @@ end
 
 function XUiActivityBossSingleDetail:OnBtnEnterClick()
     local stageId = XFubenActivityBossSingleConfigs.GetStageId(self.ChallengeId)
-    XLuaUiManager.Open("UiNewRoomSingle", stageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", stageId)
     self:Close()
 end
 

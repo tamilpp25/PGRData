@@ -1,3 +1,4 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local XUiCoinPackage = XClass(nil, "XUiCoinPackage")
 local COINPACKAGE_OVER_NUM_TIP = CS.XTextManager.GetText("ChoiseNutPackageOver")
 local REWARD_CONFIG_INDEX = 2

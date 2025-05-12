@@ -17,8 +17,8 @@ function XUiGridDoomsdayInhaibitantAttrNormal:Refresh(attr)
             self.ImgProgress.fillAmount = cur / max
 
             self.TxtState1Num.text =
-                string.format("%d/%d", cur, max) ..
-                XDataCenter.DoomsdayManager.GetAverageInhabitantAttrValueText(stageId, attrType)
+                string.format("%d/%d", cur, max)
+            -- .. XDataCenter.DoomsdayManager.GetAverageInhabitantAttrValueText(stageId, attrType)
         end,
         "_Value"
     )

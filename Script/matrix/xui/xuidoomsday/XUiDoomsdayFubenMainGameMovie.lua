@@ -1,15 +1,14 @@
 local XUiDoomsdayFubenMainGameMovie = XLuaUiManager.Register(XLuaUi, "UiDoomsdayFubenMainGameMovie")
 
-function XUiDoomsdayFubenMainGameMovie:OnStart(stageId, battleLose)
+function XUiDoomsdayFubenMainGameMovie:OnStart(stageId, isFinishEnd)
     local stageData = XDataCenter.DoomsdayManager.GetStageData(stageId)
 
-    if battleLose then
-        self.TxtTitle.text = CsXTextManagerGetText("DoomsdayLoseTitle")
-        self.TxtContent.text = XDoomsdayConfigs.LOSE_REASON_TEXT[stageData:GetLoseReason()]
+    if isFinishEnd then
+        self.TxtTitle.text = CsXTextManagerGetText("DoomsdayFinishEndTitle")
+        self.TxtContent.text = stageData:GetEndingDesc()
     else
-        local cur = stageData:GetProperty("_Day")
         self.TxtTitle.text = CsXTextManagerGetText("DoomsdayThemeTitle", stageData:GetProperty("_Day"))
-        self.TxtContent.text = CsXTextManagerGetText("DoomsdayThemeContent", stageData:GetProperty("_LeftDay"))
+        self.TxtContent.text = CsXTextManagerGetText("DoomsDayTodayWeatherTips", XDoomsdayConfigs.WeatherConfig:GetProperty(stageData:GetProperty("_CurWeatherId"), "Name"))
     end
 end
 

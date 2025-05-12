@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XUiChessPursuitBuffTips = XLuaUiManager.Register(XLuaUi, "UiChessPursuitBuffTips")
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 local XUiChessPursuitBuffTipsGrid = require("XUi/XUiChessPursuit/XUi/XUiChessPursuitBuffTipsGrid")

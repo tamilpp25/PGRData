@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiObtain = XLuaUiManager.Register(XLuaUi, "UiObtain")
 
 -- auto
@@ -34,9 +35,9 @@ end
 -- auto
 --初始化音效
 function XUiObtain:InitBtnSound()
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnBack, "onClick")] = XSoundManager.UiBasicsMusic.Return
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnCancel, "onClick")] = XSoundManager.UiBasicsMusic.Return
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnSure, "onClick")] = XSoundManager.UiBasicsMusic.Confirm
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnBack, "onClick")] = XLuaAudioManager.UiBasicsMusic.Return
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnCancel, "onClick")] = XLuaAudioManager.UiBasicsMusic.Return
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnSure, "onClick")] = XLuaAudioManager.UiBasicsMusic.Confirm
 end
 
 function XUiObtain:OnBtnCancelClick()
@@ -72,8 +73,10 @@ function XUiObtain:OnAwake()
     self:InitBtnSound()
 end
 
+-- customParams = { IsShowGridCommonPanelTag:显示特殊页签 }
 --horizontalNormalizedPosition：水平滚动位置，以 0 到 1 之间的值表示，0 表示位于左侧
-function XUiObtain:OnStart(rewardGoodsList, title, closeCb, sureCb, horizontalNormalizedPosition)
+function XUiObtain:OnStart(rewardGoodsList, title, closeCb, sureCb, horizontalNormalizedPosition, customParams)
+    self.CustomParams = customParams or {}
     self.Items = {}
     self.GridCommon.gameObject:SetActive(false)
     self.CancelBtnPosX = self.BtnCancel.transform.localPosition.x
@@ -87,11 +90,19 @@ function XUiObtain:OnStart(rewardGoodsList, title, closeCb, sureCb, horizontalNo
     self:Layout()
 
     self:CheckIsTimelimitGood(rewardGoodsList)
-    self:PlayAnimation("AniObtain")
+    self:PlayAnimationAniObtain()
 end
 
 function XUiObtain:OnEnable()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Common_UiObtain)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Common_UiObtain)
+    -- 避免弹窗弹得过快，显示ui的动画被打断
+    local animTrans = self.Transform:Find("Animation/AniObtain")
+    if animTrans then
+        local dctor = animTrans:GetComponent("PlayableDirector")
+        if dctor.time <= 0 then
+            dctor:Play()
+        end
+    end
 end
 
 function XUiObtain:Layout()
@@ -118,10 +129,12 @@ function XUiObtain:Refresh(rewardGoodsList, horizontalNormalizedPosition)
     rewardGoodsList = XRewardManager.MergeAndSortRewardGoodsList(rewardGoodsList)
     XUiHelper.CreateTemplates(self, self.Items, rewardGoodsList, XUiGridCommon.New, self.GridCommon, self.PanelContent, function(grid, data)
         grid:Refresh(data, nil, nil, false)
-        if data.RewardType == XRewardManager.XRewardType.Nameplate then 
-            if grid.PanelNamePlate then -- 特殊处理尺寸
-                grid.PanelNamePlate.Transform.localScale = CS.UnityEngine.Vector3(1.6, 1.6, 1.6);
-            end
+        if self.CustomParams.IsShowGridCommonPanelTag then
+            grid:SetPanelTag(true)
+        end
+
+        if self.CustomParams.IsShowRandomDrawPanelTag then
+            grid:SetPanelDrawTag(true)
         end
     end)
 
@@ -146,5 +159,11 @@ end
 
 function XUiObtain:Close()
     self:EmitSignal("Close")
-    self.Super.Close(self)
+    XUiObtain.Super.Close(self)
 end
+
+function XUiObtain:PlayAnimationAniObtain()
+    self:PlayAnimation("AniObtain")
+end
+
+return XUiObtain

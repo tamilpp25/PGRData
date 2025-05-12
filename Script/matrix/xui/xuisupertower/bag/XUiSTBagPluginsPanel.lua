@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local ChildPanel = require("XUi/XUiSuperTower/Common/XUiSTChildPanel")
 local LIST_TYPE = {
     Bag = 1, --背包列表

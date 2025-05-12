@@ -1,4 +1,4 @@
-XUiPlayerInfoClothGrid = XClass(nil, "XUiPlayerInfoClothGrid")
+local XUiPlayerInfoClothGrid = XClass(nil, "XUiPlayerInfoClothGrid")
 
 function XUiPlayerInfoClothGrid:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -31,3 +31,5 @@ function XUiPlayerInfoClothGrid:UpdateGrid(fashion, fashionType)
     self.PanelLock.gameObject:SetActiveEx(isLocked)
     self.BtnFashion.gameObject:SetActiveEx(not isLocked)
 end
+
+return XUiPlayerInfoClothGrid

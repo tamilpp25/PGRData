@@ -3,6 +3,7 @@ local XUiDrawShow = XLuaUiManager.Register(XLuaUi, "UiDrawShow")
 local drawShowEffect = require("XUi/XUiDraw/XUiDrawTools/XUiDrawShowEffect")
 local drawScene = require("XUi/XUiDraw/XUiDrawTools/XUiDrawScene")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
+local XUiModelUtility = require("XUi/XUiCharacter/XUiModelUtility")
 
 function XUiDrawShow:OnAwake()
     self:InitAutoScript()
@@ -162,10 +163,10 @@ function XUiDrawShow:ShowResult()
     local templateIdData = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(id)
     if Type == XArrangeConfigs.Types.Wafer then
         quality = templateIdData.Star
-    elseif Type == XArrangeConfigs.Types.Weapon and (not XDataCenter.ItemManager.IsWeaponFashion(id))  then
+    elseif Type == XArrangeConfigs.Types.Weapon and (not XDataCenter.ItemManager.IsWeaponFashion(id)) then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     else
         quality = XTypeManager.GetQualityById(id)
     end
@@ -231,24 +232,23 @@ function XUiDrawShow:NextPack()
     elseif Type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     elseif Type == XArrangeConfigs.Types.Partner then
         quality = templateIdData.Quality
     else
         quality = XTypeManager.GetQualityById(id)
     end
-
     if XDataCenter.ItemManager.IsWeaponFashion(id) then
         quality = XTypeManager.GetQualityById(id)
     end
 
-    local soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.Normal
-
+    local soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.Normal
+ 
     if quality then
         if quality == 5 then
-            soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
+            soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
         elseif quality == 6 then
-            soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.SixStar
+            soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.SixStar
         end
     end
 
@@ -263,14 +263,14 @@ function XUiDrawShow:NextPack()
         end
     else
         if Type == XArrangeConfigs.Types.Character then
-            icon = XDataCenter.CharacterManager.GetCharHalfBodyImage(id)
+            icon = XMVCA.XCharacter:GetCharHalfBodyImage(id)
             if quality < 3 then
-                soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
+                soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
             elseif quality > 2 then
-                soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.SixStar
+                soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.SixStar
             end
         elseif Type == XArrangeConfigs.Types.Wafer then
-            icon = XDataCenter.EquipManager.GetEquipLiHuiPath(id)
+            icon = XMVCA.XEquip:GetEquipLiHuiPath(id)
         elseif Type == XArrangeConfigs.Types.Item then
             icon = XDataCenter.ItemManager.GetItemBigIcon(id)
         elseif Type == XArrangeConfigs.Types.Fashion then
@@ -280,13 +280,14 @@ function XUiDrawShow:NextPack()
         elseif Type == XArrangeConfigs.Types.Partner then
             icon = templateIdData.Icon
             if quality < 3 then
-                soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
+                soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
             elseif quality > 2 then
-                soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.SixStar
+                soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.SixStar
             end
         end
 
-        if Type ~= XArrangeConfigs.Types.Character and Type ~= XArrangeConfigs.Types.Partner and (not XDataCenter.ItemManager.IsWeaponFashion(id)) then
+        if Type ~= XArrangeConfigs.Types.Character and Type ~= XArrangeConfigs.Types.Partner and Type ~= XArrangeConfigs.Types.Fashion
+                and (not XDataCenter.ItemManager.IsWeaponFashion(id)) then
             self.ImgRewards[Type]:SetRawImage(icon)
             self.ImgRewards[Type].gameObject:SetActiveEx(true)
             self.BtnClick.gameObject:SetActiveEx(true)
@@ -294,8 +295,9 @@ function XUiDrawShow:NextPack()
     end
     local curShowNum = self.ShowIndex
     local showTable = XDataCenter.DrawManager.GetDrawShow(Type)
-    self.IsOpening = true
+    self.IsOpening = true    
     self.IsPartner = false
+
     XUiHelper.StopAnimation(false)
     if self.AnimEnable then
         self.AnimEnable:Play()
@@ -334,10 +336,10 @@ function XUiDrawShow:NextPack()
             end)
         end
 
-        CS.XAudioManager.PlaySound(soundType.Show)
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, soundType.Show)
     end)
 
-    CS.XAudioManager.PlaySound(soundType.Start)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, soundType.Start)
 
     local templeid = id
     if XArrangeConfigs.Types.Furniture == reward.RewardType then
@@ -372,7 +374,7 @@ function XUiDrawShow:NextPack()
 end
 
 function XUiDrawShow:ShowWeaponModel(templateId)
-    local modelConfig = XDataCenter.EquipManager.GetWeaponModelCfg(templateId, self.Name, 0)
+    local modelConfig = XMVCA.XEquip:GetWeaponModelCfg(templateId, self.Name, 0)
     if modelConfig then
         XModelManager.LoadWeaponModel(modelConfig.ModelId, self.WeaponRoot, modelConfig.TransformConfig, self.Name, function(model)
             model.gameObject:SetActiveEx(true)
@@ -382,7 +384,7 @@ function XUiDrawShow:ShowWeaponModel(templateId)
     end
 end
 
-function XUiDrawShow:ShowCharacterModel(templateId, fashionId)
+function XUiDrawShow:ShowCharacterModel(templateId,fashionId)
     if not templateId and not fashionId then
         return
     end
@@ -392,11 +394,11 @@ function XUiDrawShow:ShowCharacterModel(templateId, fashionId)
     end
     local curCharacterId = templateId or XDataCenter.FashionManager.GetCharacterId(fashionId)
 
-    local curFashtionId = fashionId or XCharacterConfigs.GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
+    local curFashtionId = fashionId or XMVCA.XCharacter:GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
     XDataCenter.DisplayManager.UpdateRoleModel(self.RoleModelPanel, curCharacterId, nil, curFashtionId)
 
     self.RoleModelPanel:UpdateCharacterModel(curCharacterId, self.CharacterRoot, XModelManager.MODEL_UINAME.XUiDrawShow, function(model)
-        CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiDrawCard_Chouka_Name)
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiDrawCard_Chouka_Name)
         model.gameObject:SetActiveEx(true)
 
         local animeID = XDataCenter.DrawManager.GetDrawShowCharacter(curCharacterId).AnimeID
@@ -407,7 +409,7 @@ function XUiDrawShow:ShowCharacterModel(templateId, fashionId)
         end
 
         if voiceId then
-            self.CvInfo = CS.XAudioManager.PlayCv(voiceId)
+            self.CvInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Voice, voiceId)
         end
 
         self.LastCharacterModel = model
@@ -436,42 +438,25 @@ function XUiDrawShow:ShowPartnerModel(templateId)
         self.PartnerModelPanel = XUiPanelRoleModel.New(self.PartnerRoot, self.Name, nil, true, nil, true)
     end
 
-    -- 待机模型
-    local standByModel = XPartnerConfigs.GetPartnerModelStandbyModel(templateId)
-    self.PartnerModelPanel:UpdatePartnerModel(standByModel, XModelManager.MODEL_UINAME.XUiDrawShow, nil, function(SModel)
+    local partnerCurShowNum = self.PartnerIndex
+    
+    self.CvInfo = XUiModelUtility.LoadPartnerModelSToC(templateId, self.PartnerModelPanel, XModelManager.MODEL_UINAME.XUiDrawShow, function(SModel)
         SModel.gameObject:SetActiveEx(true)
         self.LastPartnerModel = SModel
         self.BtnClick.gameObject:SetActiveEx(true)
-    end, false, true)
-
-    -- 变形
-    local sToCAnime = XPartnerConfigs.GetPartnerModelSToCAnime(templateId)
-    local sToCBornEffect = XPartnerConfigs.GetPartnerModelSToCEffect(templateId)
-    local combatBornEffect = XPartnerConfigs.GetPartnerModelCombatBornEffect(templateId)
-    local combatModel = XPartnerConfigs.GetPartnerModelCombatModel(templateId)
-    local CombatBornAnime = XPartnerConfigs.GetPartnerModelCombatBornAnime(templateId)
-    local voiceId = XPartnerConfigs.GetPartnerModelSToCVoice(templateId)
-    -- 音效
-    if voiceId and voiceId > 0 then
-        self.CvInfo = XSoundManager.PlaySoundByType(voiceId, XSoundManager.SoundType.Sound)
-    end
-
-    local partnerCurShowNum = self.PartnerIndex
-
-    -- 变形特效
-    self.PartnerModelPanel:LoadEffect(sToCBornEffect, "ModelOffEffect", true, true)
-    -- 动画
-    self.PartnerModelPanel:PlayAnima(sToCAnime, true, function()
+    end, function()
+        local modelConfig = XDataCenter.PartnerManager.GetPartnerModelConfigById(templateId)
+        
         if partnerCurShowNum == self.PartnerIndex then
-            -- 出生特效
-            self.PartnerModelPanel:LoadEffect(combatBornEffect, "ModelOnEffect", true, true)
             -- 战斗模型
-            self.PartnerModelPanel:UpdatePartnerModel(combatModel, XModelManager.MODEL_UINAME.XUiDrawShow, nil, function(CModel)
+            self.PartnerModelPanel:UpdatePartnerModel(modelConfig.CombatModel, XModelManager.MODEL_UINAME.XUiDrawShow, nil, function(CModel)
                 CModel.gameObject:SetActiveEx(true)
                 self.LastPartnerModel = CModel
             end, false, true)
+            -- 出生特效
+            self.PartnerModelPanel:LoadPartnerUiEffect(modelConfig.CombatModel, XPartnerConfigs.EffectParentName.ModelOnEffect, true, true)
             -- 动画
-            self.PartnerModelPanel:PlayAnima(CombatBornAnime, true, function()
+            self.PartnerModelPanel:PlayAnima(modelConfig.CombatBornAnime, true, function()
                 if partnerCurShowNum == self.PartnerIndex then
                     self.PartnerIndex = self.PartnerIndex + 1
                 end
@@ -595,7 +580,7 @@ function XUiDrawShow:GetQuality(showIndex)
     elseif Type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     else
         quality = XTypeManager.GetQualityById(id)
     end

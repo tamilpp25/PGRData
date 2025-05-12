@@ -1,93 +1,196 @@
-local XUiMainRightBottom = XClass(nil, "XUiMainRightBottom")
+ local XUiMainPanelBase = require("XUi/XUiMain/XUiMainPanelBase")
+local XUiMainRightBottom = XClass(XUiMainPanelBase, "XUiMainRightBottom")
 
-function XUiMainRightBottom:Ctor(rootUi)
-    self.Transform = rootUi.PanelRightBottom.gameObject.transform
-    XTool.InitUiObject(self)
-    --ClickEvent
-    self.BtnMember.CallBack = function() self:OnBtnMember() end
-    self.BtnBag.CallBack = function() self:OnBtnBag() end
-    self.BtnStore.CallBack = function() self:OnBtnStore() end
-    self.BtnRecharge.CallBack = function() self:OnBtnRecharge() end
-    --RedPoint
-    XRedPointManager.AddRedPointEvent(self.BtnMember.ReddotObj, self.OnCheckMemberNews, self, { XRedPointConditions.Types.CONDITION_MAIN_MEMBER })
-    --XRedPointManager.AddRedPointEvent(self.BtnRecharge.ReddotObj, self.OnCheckRechargeNews, self, { XRedPointConditions.Types.CONDITION_PURCHASE_RED })
+local TipsMainViewTextMovePauseInterval = CS.XGame.ClientConfig:GetFloat("TipsMainViewTextMovePauseInterval")
+local TipsMainViewTextMoveSpeed = CS.XGame.ClientConfig:GetFloat("TipsMainViewTextMoveSpeed")
+
+local TipsType = {
+    Normal = 1,
+    Music  = 2,
+}
+
+--主界面会频繁打开，采用常量缓存
+local RedPointConditionGroup = {
+    --终端
+    Terminal = {
+        XRedPointConditions.Types.CONDITION_MAIN_TERMINAL
+    }
+}
+
+function XUiMainRightBottom:OnStart(rootUi)
+    -- self.Transform = rootUi.PanelRightBottom.gameObject.transform
+    self.RootUi = rootUi
+    -- XTool.InitUiObject(self)
+    self.GridTips = {}
     --Filter
     self:CheckFilterFunctions()
+    
+    
+    self.BtnTerminal.CallBack = function() self:OnBtnTerminalClick() end
+    
+    --RedPoint
+    self.TerminalRedPoint = self:AddRedPointEvent(self.BtnTerminal, self.OnCheckBtnTerminalRedPoint, self, RedPointConditionGroup.Terminal)
+    
+    self.TxtTips.gameObject:SetActiveEx(false)
+    self.TxtMusic.gameObject:SetActiveEx(false)
+    
+    self.LayoutGroup = self.TipsContent:GetComponent("XAutoLayoutGroup")
 end
 
 function XUiMainRightBottom:OnEnable()
-    -- 充值红点
-    -- XDataCenter.PurchaseManager.LBInfoDataReq()
-    self:OnCheckRechargeNews()
-    XRedPointManager.CheckByNode(self.BtnMember.ReddotObj)
-    --商店
-    local isOpen = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.ShopCommon)
-    or XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.ShopActive)
-    self.BtnStore:SetDisable(not isOpen)
+    self:RefreshTips()
+    self:CheckRedPoint()
+    self:StartTimer()
+    --界面状态事件，也会触发红点检查
+    XEventManager.AddEventListener(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE, self.RefreshTips, self)
+    XEventManager.AddEventListener(XEventId.EVENT_MAINUI_EXPENSIVE_ITEM_CHANGE, self.RefreshTips, self)
+    XEventManager.AddEventListener(XEventId.EVENT_DORM_NOTIFY_DORMITORY_DATA, self.RefreshTips, self)
 
-    XEventManager.AddEventListener(XEventId.EVENT_DAYLY_REFESH_RECHARGE_BTN, self.OnCheckRechargeNews, self)
+    XMVCA.XPreload:AddAgencyEvent(XAgencyEventId.EVENT_PRELOAD_DOWNLOAD_STATE, self.RefreshTips, self)
 end
 
 function XUiMainRightBottom:OnDisable()
-    XEventManager.RemoveEventListener(XEventId.EVENT_DAYLY_REFESH_RECHARGE_BTN, self.OnCheckRechargeNews, self)
+    if self.ScrollSequence then
+        self.ScrollSequence:Kill()
+        self.ScrollSequence = nil
+    end
+    self:StopTimer()
+    XEventManager.RemoveEventListener(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE, self.RefreshTips, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_MAINUI_EXPENSIVE_ITEM_CHANGE, self.RefreshTips, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_DORM_NOTIFY_DORMITORY_DATA, self.RefreshTips, self)
+
+    XMVCA.XPreload:RemoveAgencyEvent(XAgencyEventId.EVENT_PRELOAD_DOWNLOAD_STATE, self.RefreshTips, self)
+    self:ClearGrids()
+
+    self.ChangeColorFin = false
+end
+
+function XUiMainRightBottom:OnDestroy()
+
 end
 
 function XUiMainRightBottom:CheckFilterFunctions()
-    self.BtnMember.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Character))
-    self.BtnBag.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Bag))
-    self.BtnStore.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.ShopCommon)
-    and not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.ShopActive))
-    self.BtnRecharge.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Deposit))
+
 end
 
---成员入口
-function XUiMainRightBottom:OnBtnMember()
-    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Character) then
+function XUiMainRightBottom:StartTimer()
+ 
+end
+
+function XUiMainRightBottom:StopTimer()
+  
+end
+
+function XUiMainRightBottom:GetScrollTips()
+    local tipList = XMVCA.XUiMain:GetScrollTipList(false)
+    
+    if XTool.IsTableEmpty(tipList) then
+        local albumId = XMVCA.XAudio:GetUiMainNeedPlayedAlbumId()
+        local template = XMVCA.XAudio:GetAlbumTemplateById(albumId)
+        if template then
+            local name = string.format("%s - %s",
+                    string.gsub(XUiHelper.ReplaceTextNewLine(template.Name), "\n", ""),
+                    string.gsub(XUiHelper.ReplaceTextNewLine(template.Composer), "\n", ""))
+            table.insert(tipList, {
+                Tips = name,
+                Type = TipsType.Music
+            })
+        end
+    end
+    
+    return tipList
+end
+
+function XUiMainRightBottom:RefreshTips()
+    if not self.ChangeColorFin or not XDataCenter.DormManager.IsDormDataNotify then -- ChangeColorFin字段保证刷新在切换主题之后
         return
     end
-    XLuaUiManager.Open("UiCharacter")
+    
+    if self.ScrollSequence then
+        self.ScrollSequence:Kill()
+        self.ScrollSequence = nil
+    end
+   
+    local tipList = self:GetScrollTips()
+    
+    self.NeedScroll = not XTool.IsTableEmpty(tipList)
+
+    for _, map in pairs(self.GridTips) do
+        for _, grid in pairs(map or {}) do
+            if grid and not XTool.UObjIsNil(grid.GameObject) then
+                grid.GameObject:SetActiveEx(false)
+            end
+        end
+    end
+
+    for i, tip in ipairs(tipList) do
+        self.GridTips[tip.Type] = self.GridTips[tip.Type] or {}
+        local grid = self.GridTips[tip.Type][i]
+        if not grid then
+            local tmpGrid = tip.Type == TipsType.Normal and self.TxtTips.gameObject or self.TxtMusic.gameObject
+            local ui = XUiHelper.Instantiate(tmpGrid, self.TipsContent)
+            grid = {}
+            XTool.InitUiObjectByUi(grid, ui)
+            self.GridTips[tip.Type][i] = grid
+        end
+        grid.TxtTips.text = tip.Tips
+        grid.GameObject:SetActiveEx(true)
+        if tip.Type == TipsType.Normal then
+            grid.Image2.gameObject:SetActiveEx(true)
+            grid.Image1.gameObject:SetActiveEx(true)
+        elseif tip.Type == TipsType.Music then
+            grid.IconMusic.gameObject:SetActiveEx(true)
+        end
+    end
+    self:ScrollTips()
 end
 
---仓库入口
-function XUiMainRightBottom:OnBtnBag()
-    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Bag) then
+function XUiMainRightBottom:AfterChangeColorCb()
+    self:RefreshTips()
+end
+
+function XUiMainRightBottom:ClearGrids()
+    for _, map in pairs(self.GridTips) do
+        for _, grid in pairs(map or {}) do
+            if grid and not XTool.UObjIsNil(grid.GameObject) then
+                XUiHelper.Destroy(grid.GameObject)
+            end
+        end
+    end
+    self.GridTips = {}
+end
+
+function XUiMainRightBottom:ScrollTips()
+    if not self.NeedScroll then
         return
     end
-    XLuaUiManager.Open("UiBag")
+
+    CS.UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(self.TipsContent)
+    local width = self.TipsContent.rect.width + self.LayoutGroup.Padding.horizontal
+    local maskWidth = self.PanelTipText.sizeDelta.x
+    local distance = width + maskWidth
+    local sequence = CS.DG.Tweening.DOTween.Sequence()
+    local pos = self.TipsContent.localPosition
+    pos.x = pos.x + maskWidth
+    self.TipsContent.localPosition = pos
+    sequence:Append(self.TipsContent:DOLocalMoveX(-width, distance / TipsMainViewTextMoveSpeed))
+    sequence:AppendInterval(TipsMainViewTextMovePauseInterval)
+    sequence:SetLoops(-1)
+    self.ScrollSequence = sequence
 end
 
---商店入口
-function XUiMainRightBottom:OnBtnStore()
-    if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon)
-    or XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopActive) then
-        local dict = {}
-        dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnStore
-        dict["role_level"] = XPlayer.GetLevel()
-        CS.XRecord.Record(dict, "200004", "UiOpen")
-        XLuaUiManager.Open("UiShop", XShopManager.ShopType.Common)
+function XUiMainRightBottom:OnBtnTerminalClick()
+    self.RootUi:OnShowTerminal(true)
+end
+
+function XUiMainRightBottom:CheckRedPoint()
+    XRedPointManager.Check(self.TerminalRedPoint)
+end
+
+function XUiMainRightBottom:OnCheckBtnTerminalRedPoint(count)
+    if self.BtnTerminal then
+        self.BtnTerminal:ShowReddot(count >= 0)
     end
 end
-
---充值入口
-function XUiMainRightBottom:OnBtnRecharge()
-    local dict = {}
-    dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnRecharge
-    dict["role_level"] = XPlayer.GetLevel()
-    CS.XRecord.Record(dict, "200004", "UiOpen")
-    XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.Recommend)
-end
-
---成员红点
-function XUiMainRightBottom:OnCheckMemberNews(count)
-    self.BtnMember:ShowReddot(count >= 0)
-end
-
---充值红点
-function XUiMainRightBottom:OnCheckRechargeNews()
-    local isShowRedPoint = XDataCenter.PurchaseManager.FreeLBRed() or XDataCenter.PurchaseManager.AccumulatePayRedPoint() or XDataCenter.PurchaseManager.CheckYKContinueBuy()
-        or XDataCenter.PurchaseManager.GetRecommendManager():GetIsShowRedPoint()
-    self.BtnRecharge:ShowReddot(isShowRedPoint)
-end
-
 
 return XUiMainRightBottom

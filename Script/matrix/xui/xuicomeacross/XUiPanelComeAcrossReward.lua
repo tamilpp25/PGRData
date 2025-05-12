@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelComeAcrossReward = XClass(nil, "XUiPanelComeAcrossReward")
 
 function XUiPanelComeAcrossReward:Ctor(ui, parent)
@@ -11,7 +12,7 @@ end
 
 function XUiPanelComeAcrossReward:SetupReward(gameData, result)
     self.TxtFavorAdd.text = "+" .. result.TrustExp
-    self.Parent:SetUiSprite(self.ImgRoleA, XDataCenter.CharacterManager.GetCharHalfBodyBigImage(gameData.Character.Id))
+    self.Parent:SetUiSprite(self.ImgRoleA, XMVCA.XCharacter:GetCharHalfBodyBigImage(gameData.Character.Id))
     local rewards = result.RewardGoodsList
 
     self.RewardPool:DespawnAll()
@@ -21,8 +22,8 @@ function XUiPanelComeAcrossReward:SetupReward(gameData, result)
         grid:Refresh(rewards[i])
     end
 
-    local favor = XDataCenter.FavorabilityManager.GetCharacterTrustExpById(gameData.Character.Id)
-    local curFavorabilityTableData = XDataCenter.FavorabilityManager.GetFavorabilityTableData(gameData.Character.Id)
+    local favor = XMVCA.XFavorability:GetCharacterTrustExpById(gameData.Character.Id)
+    local curFavorabilityTableData = XMVCA.XFavorability:GetFavorabilityTableData(gameData.Character.Id)
     self.SliderFavor.value = favor/curFavorabilityTableData.Exp
 end
 

@@ -1,9 +1,10 @@
 -- 兵法蓝图主页面关卡详细面板：Buff展示面板
 local XUiRpgTowerStageBuffPanel = XClass(nil, "XUiRpgTowerStageBuffPanel")
 local XUiRpgTowerStageBuffIcon = require("XUi/XUiRpgTower/MainPage/PanelStageDetails/XUiRpgTowerStageBuffIcon")
-function XUiRpgTowerStageBuffPanel:Ctor(ui, rootUi)
+function XUiRpgTowerStageBuffPanel:Ctor(ui, rootUi, popUpUi)
     XTool.InitUiObjectByUi(self, ui)
     self.RootUi = rootUi
+    self.PopUpUi = popUpUi
     self.RImgBuffIcon.gameObject:SetActiveEx(false)
     self.BuffIcons = {}
 end
@@ -27,6 +28,8 @@ end
 --显示Buff图标
 --================
 function XUiRpgTowerStageBuffPanel:ShowBuffIcons()
+    self.PopUpUi.TextNone.gameObject:SetActiveEx(XTool.IsTableEmpty(self.BuffList))
+
     for i = 1, #self.BuffList do
         local icon
         if not self.BuffIcons[i] then

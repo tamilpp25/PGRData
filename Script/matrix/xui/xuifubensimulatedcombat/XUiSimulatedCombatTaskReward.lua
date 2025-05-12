@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiSimulatedCombatTaskReward = XLuaUiManager.Register(XLuaUi, "UiSimulatedCombatTaskReward")
 
 local XUiGridTask = require("XUi/XUiFubenSimulatedCombat/ChildItem/XUiGridTask")

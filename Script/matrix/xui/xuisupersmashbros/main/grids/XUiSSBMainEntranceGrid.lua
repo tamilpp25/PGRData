@@ -26,11 +26,13 @@ function XUiSSBMainEntranceGrid:InitEntranceNor()
     self.BtnEntranceNor.gameObject.name = "BtnEntranceNor" .. self.Mode:GetPriority()
     self.BtnEntranceNor:SetRawImage(self.Mode:GetBgPath())
     self.BtnEntranceNor:SetName(self.Mode:GetName())
+    self:SetColor4EachMode()
     XTool.InitUiObjectByUi(self.EntranceNormal, self.BtnEntranceNor)
     local counter = 1
     while(true) do
         local flag1 = self:SetSprite(self.EntranceNormal["BgIcon" .. counter], self.Mode:GetIcon())
-        local flag2 = self:SetSprite(self.EntranceNormal["RImgOrder" .. counter], self.Mode:GetOrderIcon())
+        --local flag2 = self:SetSprite(self.EntranceNormal["RImgOrder" .. counter], self.Mode:GetOrderIcon())
+        local flag2 = true
         local flag3 = self:SetColor(self.EntranceNormal["RImgNameBg" .. counter], self.Mode:GetNamePlateColor())
         if (not flag1) or (not flag2) or (not flag3) then break end
         counter = counter + 1
@@ -243,4 +245,19 @@ end
 function XUiSSBMainEntranceGrid:OnDestroy()
     
 end
+
+function XUiSSBMainEntranceGrid:SetColor4EachMode()
+    local modeId = self.Mode:GetId() 
+    local textModeNameSelected = XUiHelper.TryGetComponent(self.BtnEntranceNor.transform,"Press/TxtModeName", "Text")
+    if modeId == XSuperSmashBrosConfig.ModeType.Normal then
+        textModeNameSelected.color = XUiHelper.Hexcolor2Color("C3AB9F")
+        
+    elseif modeId == XSuperSmashBrosConfig.ModeType.Survive then
+        textModeNameSelected.color = XUiHelper.Hexcolor2Color("c39f9f")
+        
+    elseif modeId == XSuperSmashBrosConfig.ModeType.DeathRandom then
+        textModeNameSelected.color = XUiHelper.Hexcolor2Color("ad9fc3")
+    end
+end
+
 return XUiSSBMainEntranceGrid

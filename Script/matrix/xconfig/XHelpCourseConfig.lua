@@ -42,3 +42,11 @@ function XHelpCourseConfig.GetHelpCourseTemplateByFunction(key)
 
     return HelpCourseTemplateIndex[key]
 end
+
+function XHelpCourseConfig.GetImageAssetCount(id)
+    local template = XHelpCourseConfig.GetHelpCourseTemplateByFunction(id)
+    if not template then
+        return 0
+    end
+    return #template.ImageAsset
+end 

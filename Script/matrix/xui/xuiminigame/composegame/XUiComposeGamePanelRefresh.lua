@@ -13,7 +13,7 @@ end
 --设置刷新时间文本
 --================
 function XUiComposeGamePanelRefresh:SetRefreshTime(time)
-    self.TxtTime.text = string.format("%s %s", time, CS.XTextManager.GetText("ComposeShopRefreshCountDown"))
+    self.TxtTime.text = string.format("%s%s", time, CS.XTextManager.GetText("ComposeShopRefreshCountDown"))
 end
 --================
 --设置招募次数文本

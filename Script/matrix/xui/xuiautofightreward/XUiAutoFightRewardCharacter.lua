@@ -9,17 +9,17 @@ end
 function XUiAutoFightRewardCharacter:SetData(id, addExp)
     self.Id = id
 
-    local character = XDataCenter.CharacterManager.GetCharacter(id)
+    local character = XMVCA.XCharacter:GetCharacter(id)
     local level = character and character.Level or 1
     self.TxtLv.text = level
 
     self.TxtExp.text = "+" .. addExp
 
-    local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(id)
+    local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(id)
     self.RImgIcon:SetRawImage(icon)
 
     local exp = character and character.Exp or 0
-    local maxExp = XCharacterConfigs.GetCharMaxLevel(id)
+    local maxExp = XMVCA.XCharacter:GetCharMaxLevel(id)
     local expBefore = exp - addExp
     self.ImgExpBar.fillAmount = expBefore > 0 and expBefore / maxExp or 0
     self.ImgExpBarReward.fillAmount = exp / maxExp

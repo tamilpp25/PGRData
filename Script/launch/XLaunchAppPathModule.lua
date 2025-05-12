@@ -64,8 +64,7 @@ local function Init()
             ConfigUrl = "client/config/" .. CsInfo.Identifier .. "/" .. CsInfo.Version .. "/editor"
             ProductPath = UnityApplication.dataPath .. "/../../../Product"
             DebugFilePath = ProductPath .. "/File/win/debug"
-            ApplicationFilePath = CsApplication.Debug and ProductPath .. "/File/" .. PLATFORM .. "/release"
-            or ProductPath .. "/Bin/Client/Win/Release/harukuroPC_Data/StreamingAssets/resource"
+            ApplicationFilePath = ProductPath .. "/File/" .. PLATFORM .. "/release"
 
             --DocumentUrl = "client/patch/" .. CsInfo.Identifier .. "/" .. CsInfo.Version .. "/android" --editor上 test androd
         elseif UnityApplication.platform == UnityRuntimePlatform.WindowsPlayer or

@@ -1,3 +1,4 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
 local XUiGuildSkillDetail = XLuaUiManager.Register(XLuaUi, "UiGuildSkillDetail")
 local blueColor = CS.UnityEngine.Color(59 / 255, 170 / 255, 1, 1)
 local redColor = CS.UnityEngine.Color(1, 0, 0, 1)
@@ -44,13 +45,17 @@ function XUiGuildSkillDetail:RefreshTalent()
     self.TxtSkillNum.text = string.format("<color=#3BAAFF>%d</color>/%d", curTalentLevel, #self.TalentTemplate.CostPoint)
     
     self.TxtCurLevel.text = curTalentLevel
-    self.TxtCurDescription.text = self.TalentConfig.Descriptions[curTalentLevel+1]
+    local desc = XGuildConfig.GetGuildTalentText(self.TalentConfig.Descriptions[curTalentLevel + 1])
+    local params = self.TalentConfig.DescriptionParams[curTalentLevel + 1]
+    self.TxtCurDescription.text = XUiHelper.FormatTextWithSplit(desc, params)
 
     self.PanelNextLevel.gameObject:SetActiveEx(not isCurMax)
     if not isCurMax then
         local nextLevel = curTalentLevel + 1
         self.TxtNextLevel.text = nextLevel
-        self.TxtNextDescription.text = self.TalentConfig.Descriptions[nextLevel + 1]
+        desc = XGuildConfig.GetGuildTalentText(self.TalentConfig.Descriptions[nextLevel + 1])
+        params = self.TalentConfig.DescriptionParams[nextLevel + 1]
+        self.TxtNextDescription.text = XUiHelper.FormatTextWithSplit(desc, params)
     end
 
     self.PanelLevelBtnMax.gameObject:SetActiveEx(isCurMax)

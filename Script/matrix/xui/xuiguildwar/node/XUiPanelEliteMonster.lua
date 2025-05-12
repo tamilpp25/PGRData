@@ -7,7 +7,13 @@ function XUiPanelEliteMonster:Ctor(ui)
 end
 
 function XUiPanelEliteMonster:SetData(monster)
-    if monster == nil then return end
+    if monster == nil or
+        not XDataCenter.GuildWarManager.CheckRoundIsInTime()
+    then
+        self.GameObject:SetActiveEx(false)
+        return 
+    end
+    self.GameObject:SetActiveEx(true)
     self.RImgIcon:SetRawImage(monster:GetIcon())
     self.TxtName.text = monster:GetName()
     self.TxtHP.text = monster:GetPercentageHP() .. "%"

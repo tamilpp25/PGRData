@@ -1,6 +1,7 @@
 local type = type
 
 --大逃杀章节结果
+---@class XEscapeChapterResult
 local XEscapeChapterResult = XClass(nil, "XEscapeChapterResult")
 
 local Default = {

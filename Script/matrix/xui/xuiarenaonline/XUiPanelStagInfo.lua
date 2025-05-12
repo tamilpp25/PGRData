@@ -1,3 +1,5 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelStagInfo = XClass(nil, "XUiPanelStagInfo")
 local MAX_START = 3
 

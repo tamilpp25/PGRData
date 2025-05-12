@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XUiCPActionBase = require("XUi/XUiChessPursuit/XUi/XUiCPMain/XCPFSM/XUiCPActionBase")
 local XUiCPActionBeginBattle = XClass(XUiCPActionBase, "XUiCPActionBeginBattle")
 local CSXChessPursuitDirection = CS.XChessPursuitDirection
@@ -29,7 +30,7 @@ function XUiCPActionBeginBattle:OnEnter()
         end, self.Params.ParentUiRoot, chessPursuitDrawCamera)
     end)
 
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.ChessPursuit_FightWarning)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.ChessPursuit_FightWarning)
 end
 
 function XUiCPActionBeginBattle:OnStay()

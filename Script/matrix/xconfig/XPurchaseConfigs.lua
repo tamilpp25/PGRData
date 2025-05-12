@@ -8,6 +8,7 @@ local TABLE_PURCHASE_UITYPE = "Client/Purchase/PurchaseUiType.tab"
 local TABLE_PURCHASE_TAGTYPE = "Client/Purchase/PurchaseTagType.tab"
 local TABLE_ACCUMULATED_PAY = "Share/Pay/AccumulatedPay.tab"
 local TABLE_ACCUMULATED_PAY_REWARD = "Share/Pay/AccumulatedPayReward.tab"
+local TABLE_ACCUMULATED_PAY_EXTRA_REWARD = "Share/Pay/AccumulatedExtraPayReward.tab"
 local TABLE_LB_BY_PASS = "Client/Purchase/PurchaseLBByPass.tab"
 local TABLE_PACKAGE_YK_CLIENT_CONFIG = "Client/Purchase/PurchasePackageYKUiConfig.tab" -- 礼包月卡配置
 local TABLE_EXCHANGE_UI_CONFIG = "Client/Purchase/PurchaseExchangeUiConfig.tab" -- 兑换
@@ -22,6 +23,7 @@ local PurchaseTagTypeConfig = {}
 
 local AccumulatedPayConfig = {}
 local AccumulatedPayRewardConfig = {}
+local AccumulatedPayExtraRewardConfig = {}
 local PurchaseLBByPassConfig = {}
 
 local PurchaseUiTypeGroupConfig = nil
@@ -129,7 +131,30 @@ XPurchaseConfigs.LjczLookState = {
 XPurchaseConfigs.UiType = {
     Pay = 1, --充值
     CoatingLB = 8, -- 皮肤补给包
+    Scene = 10, -- 场景补给包
 }
+
+XPurchaseConfigs.RecommendSkipType = {
+    Lb = 1, -- 礼包页签跳转
+    SkipId = 2, -- 配置SkilId跳转
+}
+
+XPurchaseConfigs.UiPurchaseCustomOperation = {
+    OpenCanRenewWeekCardBuyTip = 1, -- 打开一个快到期可续费的周卡（n天卡）礼包购买弹窗界面
+}
+
+XPurchaseConfigs.UiRandomRewardTipsTabIndex = {
+    BaseDesc = 1,
+    GotDetail = 2,
+}
+
+--- 采购礼包道具类型，与服务端定义保持一致
+XPurchaseConfigs.XPurchaseRewardGoodsType = {
+    Normal = 0,
+    Select = 1,
+    Random = 2
+}
+
 
 XPurchaseConfigs.LjczLookStateKey = "LJCZ_LOOK_STATE_KEY"
 XPurchaseConfigs.PurchaseLJCZDefaultLookStateKey = "PurchaseLJCZDefaultLookState"
@@ -147,6 +172,7 @@ function XPurchaseConfigs.Init()
     PurchaseTagTypeConfig = XTableManager.ReadByIntKey(TABLE_PURCHASE_TAGTYPE, XTable.XTablePurchaseTagType, "Tag")
     AccumulatedPayConfig = XTableManager.ReadByIntKey(TABLE_ACCUMULATED_PAY, XTable.XTableAccumulatedPay, "Id")
     AccumulatedPayRewardConfig = XTableManager.ReadByIntKey(TABLE_ACCUMULATED_PAY_REWARD, XTable.XTableAccumulatedPayReward, "Id")
+    AccumulatedPayExtraRewardConfig = XTableManager.ReadByIntKey(TABLE_ACCUMULATED_PAY_EXTRA_REWARD, XTable.XTableAccumulatedExtraPayReward, "Id")
     -- PurchaseLBByPassConfig = XTableManager.ReadByIntKey(TABLE_LB_BY_PASS, XTable.XTablePurchaseLBByPass, "Id")
 
     XConfigCenter.CreateGetPropertyByFunc(XPurchaseConfigs, "PurchasePackageYKUiConfig", function()
@@ -377,12 +403,22 @@ function XPurchaseConfigs.GetAccumulatePayConfigById(id)
     return AccumulatedPayConfig[id]
 end
 
+---@return XTableAccumulatedPayReward
 function XPurchaseConfigs.GetAccumulateRewardConfigById(id)
     if not id or not AccumulatedPayRewardConfig[id] then
         return
     end
 
     return AccumulatedPayRewardConfig[id]
+end
+
+---@return XTableAccumulatedExtraPayReward
+function XPurchaseConfigs.GetAccumulateExtraRewardConfigById(id)
+    if not id or not AccumulatedPayExtraRewardConfig[id] then
+        return
+    end
+
+    return AccumulatedPayExtraRewardConfig[id]
 end
 
 function XPurchaseConfigs.GetUiTypesByUiPurchaseTopType(topType)
@@ -403,9 +439,5 @@ end
 
 function XPurchaseConfigs.GetPayNormalAndSelectIcon(payKey)
     local config = XPurchaseConfigs.GetPurchasePayUiConfig(payKey)
-    if not config then
-        XLog.Error("payKey to get is nil", payKey)
-        return
-    end
     return config.NormalIcon, config.SelectIcon
 end

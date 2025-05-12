@@ -16,7 +16,7 @@ function XRedPointConditionFavorabilityAudio.Check(checkArgs)
     if characterId == nil then return false end
     local isOpen = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FavorabilityFile)
     if not isOpen then return false end
-    return XDataCenter.FavorabilityManager.HasAudioToBeUnlock(characterId)
+    return XMVCA.XFavorability:HasAudioToBeUnlock(characterId)
 end
 
 return XRedPointConditionFavorabilityAudio

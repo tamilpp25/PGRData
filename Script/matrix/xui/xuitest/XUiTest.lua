@@ -1,3 +1,6 @@
+local XScrollFlowGrid = require("XUi/XUiCommon/XScrollView/XScrollFlowGrid")
+local XScrollFlow = require("XUi/XUiCommon/XScrollView/XScrollFlow")
+local XScrollConfig = require("XUi/XUiCommon/XScrollView/XScrollConfig")
 local XUiTest = XUiManager.Register("UiTest")
 
 function XUiTest:OnOpen()
@@ -52,7 +55,7 @@ function XUiTest:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 

@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGuildDonationItem = XClass(nil, "XUiGuildDonationItem")
 
 function XUiGuildDonationItem:Ctor(ui)

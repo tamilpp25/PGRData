@@ -16,7 +16,7 @@ local SHARE_BABEL_STAGELEVELGLOBALUNLOCK = "Share/Fuben/BabelTower/BabelTowerSta
 local CLIENT_BABEL_STAGEGUIDEDETAIL = "Client/Fuben/BabelTower/BabelTowerStageGuideDetails.tab"
 local CLIENT_BABEL_BUFFDETAIL = "Client/Fuben/BabelTower/BabelTowerBuffDetails.tab"
 local CLIENT_BABEL_BUFFGROUPDETAIL = "Client/Fuben/BabelTower/BabelTowerBuffGroupDetails.tab"
-local CLIENT_BABEL_ACTIVITYDIFFICULTY = "Client/Fuben/BabelTower/BabelTowerActivityDifficulty.tab"
+local CLIENT_BABEL_BUFFGROUPDETAILTEXT = "Client/Fuben/BabelTower/BabelTowerBuffGroupDetailsText.tab"
 local CLIENT_BABEL_STAGEDETAIL = "Client/Fuben/BabelTower/BabelTowerStageDetails.tab"
 local CLIENT_BABEL_ACTIVITYDETAIL = "Client/Fuben/BabelTower/BabelTowerActivityDetails.tab"
 local CLIENT_BABEL_CONDITIONDETAIL = "Client/Fuben/BabelTower/BabelTowerConditionDetails.tab"
@@ -36,8 +36,10 @@ local BabeGlobalUnlockTemplate = {}
 
 local BabelStageGuideDetailsConfigs = {}
 local BabelBuffDetailsConfigs = {}
+---@type XTableBabelTowerBuffGroupDetails[]
 local BabelBuffGroupDetailsConfigs = {}
-local BabelActivityDifficultyConfigs = {}
+---@type XTableBabelTowerBuffGroupDetailsText[]
+local BabelBuffGroupDetailsTextConfigs = {}
 local BabelStageConfigs = {}
 local BabelActivityDetailsConfigs = {}
 local BabelConditionDetailsConfigs = {}
@@ -175,7 +177,7 @@ function XFubenBabelTowerConfigs.Init()
     BabelStageGuideDetailsConfigs = XTableManager.ReadByIntKey(CLIENT_BABEL_STAGEGUIDEDETAIL, XTable.XTableBabelTowerStageGuideDetails, "Id")
     BabelBuffDetailsConfigs = XTableManager.ReadByIntKey(CLIENT_BABEL_BUFFDETAIL, XTable.XTableBabelTowerBuffDetails, "Id")
     BabelBuffGroupDetailsConfigs = XTableManager.ReadByIntKey(CLIENT_BABEL_BUFFGROUPDETAIL, XTable.XTableBabelTowerBuffGroupDetails, "Id")
-    BabelActivityDifficultyConfigs = XTableManager.ReadByIntKey(CLIENT_BABEL_ACTIVITYDIFFICULTY, XTable.XTableBabelTowerActivityDifficulty, "Id")
+    BabelBuffGroupDetailsTextConfigs = XTableManager.ReadByIntKey(CLIENT_BABEL_BUFFGROUPDETAILTEXT, XTable.XTableBabelTowerBuffGroupDetailsText, "Id")
     BabelStageConfigs = XTableManager.ReadByIntKey(CLIENT_BABEL_STAGEDETAIL, XTable.XTableBabelTowerStageDetails, "Id")
     BabelActivityDetailsConfigs = XTableManager.ReadByIntKey(CLIENT_BABEL_ACTIVITYDETAIL, XTable.XTableBabelTowerActivityDetails, "Id")
     BabelConditionDetailsConfigs = XTableManager.ReadByIntKey(CLIENT_BABEL_CONDITIONDETAIL, XTable.XTableBabelTowerConditionDetails, "Id")
@@ -282,6 +284,17 @@ function XFubenBabelTowerConfigs.GetBabelBuffGroupConfigs(buffGroupId)
     return BabelBuffGroupDetailsConfigs[buffGroupId]
 end
 
+function XFubenBabelTowerConfigs.GetBabelBuffGroupText(id)
+    if not XTool.IsNumberValid(id) then
+        return ""
+    end
+    if not BabelBuffGroupDetailsTextConfigs[id] then
+        XLog.ErrorTableDataNotFound("XFubenBabelTowerConfigs.GetBabelBuffGroupText", "BabelTowerBuffGroupDetailsText", CLIENT_BABEL_BUFFGROUPDETAILTEXT, "Id", tostring(id))
+        return ""
+    end
+    return BabelBuffGroupDetailsTextConfigs[id].Text or ""
+end
+
 function XFubenBabelTowerConfigs.IsBuffGroupHard(buffGroupId)
     local config = XFubenBabelTowerConfigs.GetBabelBuffGroupConfigs(buffGroupId)
     return config and config.IsStress and config.IsStress ~= 0
@@ -348,29 +361,13 @@ function XFubenBabelTowerConfigs.GetBabelTowerBuffGroupTemplate(groupId)
 end
 
 -- buff
+---@return XTableBabelTowerBuff
 function XFubenBabelTowerConfigs.GetBabelTowerBuffTemplate(buffId)
     if not BabelBuffTemplate[buffId] then
         XLog.ErrorTableDataNotFound("XFubenBabelTowerConfigs.GetBabelTowerBuffTemplate", "BabelBuff", SHARE_BABEL_BUFF, "buffId", tostring(buffId))
         return nil
     end
     return BabelBuffTemplate[buffId]
-end
-
-function XFubenBabelTowerConfigs.GetBabelTowerDifficulty(stageId, challengePoints)
-    local difficultyConfigs = BabelActivityDifficultyConfigs[stageId]
-    if not difficultyConfigs then
-        return XFubenBabelTowerConfigs.DIFFICULTY_NONE, "", ""
-    end
-
-    if challengePoints >= difficultyConfigs.Critical then
-        return XFubenBabelTowerConfigs.DIFFICULTY_CRITICAL, difficultyConfigs.CriticalTitle, difficultyConfigs.CriticalStatus
-    end
-
-    if challengePoints >= difficultyConfigs.Urgency then
-        return XFubenBabelTowerConfigs.DIFFICULTY_URGENCY, difficultyConfigs.UrgencyTitle, difficultyConfigs.UrgencyStatus
-    end
-
-    return XFubenBabelTowerConfigs.DIFFICULTY_NORMAL, difficultyConfigs.NormalTitle, difficultyConfigs.NormalStatus
 end
 
 function XFubenBabelTowerConfigs.GetBabelTowerRankReward(rankLevel)
@@ -419,7 +416,54 @@ function XFubenBabelTowerConfigs.GetStageDifficultLockBuffIdOpenLevel(stageId, b
     return config[buffId] or 0
 end
 
-function XFubenBabelTowerConfigs.GetStageDifficultRecommendAblity(stageId, difficult)
+--- 检查buffGroupId是否难度buff组
+function XFubenBabelTowerConfigs.CheckBuffGroupIdIsDifficultBuffGroup(stageId, buffGroupId)
+    local difficultConfigs = XFubenBabelTowerConfigs.GetStageDifficultConfigs(stageId)
+    local buffGroupConfig = XFubenBabelTowerConfigs.GetBabelTowerBuffGroupTemplate(buffGroupId)
+    if not buffGroupConfig or not difficultConfigs then
+        return false
+    end
+    local buffIds = buffGroupConfig and buffGroupConfig.BuffId or {}
+    for _, config in pairs(difficultConfigs) do
+        for _, buffId in pairs(buffIds) do
+            -- 只要有一个满足就是难度buff组
+            if config.BuffId == buffId then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+--- 检查buffId是否是难度buff
+function XFubenBabelTowerConfigs.CheckBuffIdIsDifficultBuff(stageId, buffId)
+    local difficultConfigs = XFubenBabelTowerConfigs.GetStageDifficultConfigs(stageId)
+    if not difficultConfigs then
+        return false
+    end
+    for _, config in pairs(difficultConfigs) do
+        if config.BuffId == buffId then
+            return true
+        end
+    end
+    return false
+end
+
+--- 获取关卡难度等级通过buffId
+function XFubenBabelTowerConfigs.GetStageDifficultLevelByBuffId(stageId, buffId)
+    if not XTool.IsNumberValid(buffId) then
+        return 1
+    end
+    local difficultConfigs = XFubenBabelTowerConfigs.GetStageDifficultConfigs(stageId)
+    for level, config in pairs(difficultConfigs) do
+        if config.BuffId == buffId then
+            return level
+        end
+    end
+    return 1
+end
+
+function XFubenBabelTowerConfigs.GetStageDifficultRecommendAbility(stageId, difficult)
     local config = XFubenBabelTowerConfigs.GetStageDifficultConfig(stageId, difficult)
     return config.RecommendAblity
 end
@@ -461,8 +505,23 @@ end
 
 --region BabelTowerStageLevelGlobalUnlock.tab
 
+---@return XTableBabelTowerStageLevelGlobalUnlock[]
 function XFubenBabelTowerConfigs.GetStageLevelGlobalUnlock()
     return BabeGlobalUnlockTemplate
+end
+
+--- 检查是否存在buffId根据解锁等级
+function XFubenBabelTowerConfigs.CheckIsHaveBuffIdByLevel(level, buffId)
+    if not XTool.IsNumberValid(level) then
+        return false
+    end
+    local configs = XFubenBabelTowerConfigs.GetStageLevelGlobalUnlock()
+    for _, config in pairs(configs) do
+        if config.Level <= level and table.contains(config.BuffIdList or {}, buffId) then
+            return true
+        end
+    end
+    return false
 end
 
 --endregion

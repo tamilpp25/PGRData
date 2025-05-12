@@ -7,6 +7,7 @@ local Roles
 local RoleDicById
 local EggRobotList = {} --记录所有的彩蛋机器人 key = robotId , value = role
 local RoleScript = require("XEntity/XSuperSmashBros/XSmashBRole") --超限乱斗角色数据
+local XSmashBAssistanceMonster = require("XEntity/XSuperSmashBros/XSmashBAssistanceMonster")
 local XRobot = require("XEntity/XRobot/XRobot")
 local IsAscendOrder = true
 local SortFunctionDic = {
@@ -80,7 +81,7 @@ end
 --收集角色信息并添加
 --=============
 function XSmashBRoleManager.GenerateRoleData()
-    local characters = XDataCenter.CharacterManager.GetOwnCharacterList()
+    local characters = XMVCA.XCharacter:GetOwnCharacterList()
     -- 拥有角色
     for _, character in ipairs(characters) do  
         XSmashBRoleManager.AddNewRole(character)
@@ -96,6 +97,18 @@ function XSmashBRoleManager.GenerateRoleData()
         eggRole:SetSuperSmashEggRobot(v)
         EggRobotList[robot_id] = eggRole
     end
+    -- 怪物 3.0加入支援设定，以及可选支援怪物
+    local allAssistantConfig = XSuperSmashBrosConfig.GetAllConfigs(XSuperSmashBrosConfig.TableKey.Assistance)
+    for i, assistantConfig in pairs(allAssistantConfig) do
+        if assistantConfig.AssistType == XSuperSmashBrosConfig.AssistType.Monster then
+            local role = XSmashBAssistanceMonster.New(assistantConfig)
+            XSmashBRoleManager.AddNewAssistanceMonster(role)
+        end
+        --支援表的机器人，不加入，防止与普通角色选择列表不一致
+        --if assistantConfig.AssistType == XSuperSmashBrosConfig.AssistType.Robot then
+        --    XSmashBRoleManager.AddNewRole(XRobot.New(assistantConfig.AssistId))
+        --end
+    end
 end
 --=============
 --增加新角色
@@ -106,6 +119,18 @@ function XSmashBRoleManager.AddNewRole(roleData)
     -- 如果已经存在，直接不处理
     if RoleDicById[roleData.Id] then return end
     local role = RoleScript.New(roleData)
+    table.insert(Roles, role)
+    RoleDicById[role:GetId()] = role
+end
+--=============
+--增加新支援怪物
+--@params :
+-- roleData : XCharacter | XRobot
+--=============
+---@param role XSmashBAssistanceMonster
+function XSmashBRoleManager.AddNewAssistanceMonster(role)
+    -- 如果已经存在，直接不处理
+    if RoleDicById[role:GetId()] then return end
     table.insert(Roles, role)
     RoleDicById[role:GetId()] = role
 end
@@ -165,6 +190,7 @@ end
 --sortTagType:排序标签类型
 --isAscendOrder:true为升序 false为降序
 --==============
+---@param roles XSmashBCharacter[]
 function XSmashBRoleManager.SortRoles(roles, sortTagType, isAscendOrder)
     if isAscendOrder == nil then isAscendOrder = true end
     IsAscendOrder = isAscendOrder
@@ -175,11 +201,13 @@ function XSmashBRoleManager.SortRoles(roles, sortTagType, isAscendOrder)
     local characterIdDic = {}
     local robotRoles = {}
     for _, role in ipairs(roles) do
-        if role:GetIsRobot() then
-            table.insert(robotRoles, role)
-        else
-            table.insert(characterRoles, role)
-            characterIdDic[role:GetId()] = role
+        if not role:IsNoCareer() then
+            if role:GetIsRobot() then
+                table.insert(robotRoles, role)
+            else
+                table.insert(characterRoles, role)
+                characterIdDic[role:GetId()] = role
+            end
         end
     end
     table.sort(characterRoles, SortFunctionDic[sortTagType])
@@ -227,11 +255,21 @@ function XSmashBRoleManager.GetSetTeamRoleTeam(modeId, charaIdList)
     local resultCaptainPos = 1
     for index, finalCharaId in pairs(finalCharaIdList) do
         if finalCharaId > 0 then
+            local roleId = teamData.RoleIds[index]
+            local isMonster = false
+            if roleId and roleId > 0 then
+                local role = XDataCenter.SuperSmashBrosManager.GetRoleById(roleId)
+                if role:IsNoCareer() then
+                    isMonster = true
+                end
+            end
+            local isAssistance = teamData.Assistance[index]
             table.insert(resultTeam, {
                     Id = finalCharaId,
-                    IsRobot = XEntityHelper.GetIsRobot(finalCharaId),
+                    IsRobot = not isMonster and XEntityHelper.GetIsRobot(finalCharaId),
                     IsRandom = teamData.RoleIds[index] == XSuperSmashBrosConfig.PosState.Random or teamData.RoleIds[index] == XSuperSmashBrosConfig.PosState.OnlyRandom,
-                    GridIndex = index
+                    GridIndex = index,
+                    IsAssist = isAssistance,
                 })
             table.insert(resultColor, (colorList[index] == 0 and 1) or colorList[index])
             if captainColor == colorList[index] then resultCaptainPos = (captainColor == 0 and 1) or captainColor end
@@ -269,6 +307,9 @@ function XSmashBRoleManager.SelectRandomRole(charaIdList, modeId)
             goto nextRole
         end
         if role:GetIsRobot() then --试玩角色排除
+            goto nextRole
+        end
+        if role:IsNoCareer() then
             goto nextRole
         end
         -- cxldV2 授格者已经可以混队
@@ -332,4 +373,64 @@ function XSmashBRoleManager.SetBattleRoleLeftHp(battleTeam, characterProgress, c
         end
     end
 end
+
+function XSmashBRoleManager.GetAssistantRoleList()
+    local result = {}
+
+    -- 怪物 3.0加入支援设定，以及可选怪物
+    local allAssistantConfig = XSuperSmashBrosConfig.GetAllConfigs(XSuperSmashBrosConfig.TableKey.Assistance)
+    for i, assistantConfig in pairs(allAssistantConfig) do
+        if assistantConfig.AssistType == XSuperSmashBrosConfig.AssistType.Monster then
+            result[#result + 1] = XSmashBRoleManager.GetRoleById(assistantConfig.AssistId)
+        end
+    end
+
+    -- 自己的角色
+    for i, assistantConfig in pairs(allAssistantConfig) do
+        if assistantConfig.AssistType == XSuperSmashBrosConfig.AssistType.Character then
+            result[#result + 1] = XSmashBRoleManager.GetRoleById(assistantConfig.AssistId)
+        end
+    end
+
+    -- 机器人
+    for i, assistantConfig in pairs(allAssistantConfig) do
+        if assistantConfig.AssistType == XSuperSmashBrosConfig.AssistType.Robot then
+            result[#result + 1] = XSmashBRoleManager.GetRoleById(assistantConfig.AssistId)
+        end
+    end
+
+    -- 为了迎合指引，将特定id放到第一位
+    for i = 1, #result do
+        local role = result[i]
+        if role:GetId() == 81900 then
+            table.remove(result, i)
+            table.insert(result, 1, role)
+            break
+        end
+    end
+
+    -- 角色
+    --local characters = XMVCA.XCharacter:GetOwnCharacterList()
+    --for i, character in pairs(characters) do
+    --    local characterId = character:GetId()
+    --    local assistantConfig = XSuperSmashBrosConfig.GetCfgByIdKey(XSuperSmashBrosConfig.TableKey.Assistance, characterId, true)
+    --    if assistantConfig then
+    --        local robot = XDataCenter.SuperSmashBrosManager.GetRoleById(characterId)
+    --        result[#result + 1] = robot
+    --    end
+    --end
+
+    -- 机器人
+    --for _, robotCfg in ipairs(XSuperSmashBrosConfig.GetAllConfigs(XSuperSmashBrosConfig.TableKey.SystemCharaConfig)) do
+    --    local robotId = robotCfg.RobotId
+    --    local characterId = XRobotManager.GetCharacterId(robotId)
+    --    local assistantConfig = XSuperSmashBrosConfig.GetCfgByIdKey(XSuperSmashBrosConfig.TableKey.Assistance, characterId, true)
+    --    if assistantConfig then
+    --        local robot = XDataCenter.SuperSmashBrosManager.GetRoleById(robotId)
+    --        result[#result + 1] = robot
+    --    end
+    --end
+    return result
+end
+
 return XSmashBRoleManager

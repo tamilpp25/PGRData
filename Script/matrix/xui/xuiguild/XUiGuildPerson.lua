@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildPerson = XLuaUiManager.Register(XLuaUi, "UiGuildPerson")
 local XUiGridGuildGiftItem = require("XUi/XUiGuild/XUiChildItem/XUiGridGuildGiftItem")
 local XUiGuildViewCharacterFilter = require("XUi/XUiGuild/XUiChildView/XUiGuildViewCharacterFilter")
@@ -57,7 +58,7 @@ end
 function XUiGuildPerson:SetCurGiftName()
     if next(self.CurRecordIds) and self.CurIdCount == 1 then
         self.ShowScreen.gameObject:SetActiveEx(true)
-        local name = XCharacterConfigs.GetCharacterName(self.CurSeleId)
+        local name = XMVCA.XCharacter:GetCharacterName(self.CurSeleId)
         self.TxtName.text = TextManager.GetText("GuildGiftNameDes",name)
     else
         self.ShowScreen.gameObject:SetActiveEx(false)

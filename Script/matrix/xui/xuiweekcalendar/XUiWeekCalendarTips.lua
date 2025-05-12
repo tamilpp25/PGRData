@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiWeekCalendarTip = XLuaUiManager.Register(XLuaUi,"UiWeekCalendarTip")
 
 function XUiWeekCalendarTip:OnStart(activityId)
@@ -28,6 +29,9 @@ function XUiWeekCalendarTip:RegisterButtonEvent()
     self.BtnTanchuangClose.CallBack = function() self:Close() end
     self.BtnGo.CallBack = function()
         local activityInfo = XDataCenter.ActivityCalendarManager.GetActivityInfo(self.ActivityId)
+        if not self:CheckInTime(activityInfo) then
+            return
+        end
         local skipId = activityInfo:GetSkipId()
         if skipId and skipId ~= 0 then
             XFunctionManager.SkipInterface(skipId)
@@ -40,4 +44,27 @@ function XUiWeekCalendarTip:Refresh()
     self.TxtActivityName.text = activityInfo:GetName()
     local desc = activityInfo:GetDesc()
     self.TxtWorldDesc.text = string.gsub(desc, "\\n", "\n")
+end
+
+function XUiWeekCalendarTip:CheckInTime(activityInfo)
+    if not activityInfo then
+        return false
+    end
+    local functionId = activityInfo:GetFunctionId()
+    local now = XTime.GetServerNowTimestamp()
+    if not activityInfo:IsJudgeOpen() then
+        XUiManager.TipMsg(XFunctionManager.GetFunctionOpenCondition(functionId))
+        return false
+    end
+    if now < activityInfo:GetStartTime() then
+        XUiManager.TipText("CommonActivityNotStart")
+        return false
+    end
+
+    if now > activityInfo:GetEndTime() then
+        XUiManager.TipText("CommonActivityEnd")
+        return false
+    end
+    
+    return true
 end

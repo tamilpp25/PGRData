@@ -11,25 +11,36 @@ function XUiPlayerEx:OnStart()
 end
 
 function XUiPlayerEx:InitTopButtons()
-    self.BtnBack.CallBack = function() self:OnClickBtnBack() end
-    self.BtnMainUi.CallBack = function() self:OnClickBtnMainUi() end
-    self.BtnAchievement.CallBack = function() self:OnClickBtnAchievement() end
-    self.BtnArchive.CallBack = function() self:OnClickBtnArchive() end
-    self.BtnExhibition.CallBack = function() self:OnClickBtnExhibition() end
+    self.BtnBack.CallBack = function()
+        self:Close()
+    end
+    self.BtnMainUi.CallBack = function()
+        self:OnClickBtnMainUi()
+    end
+    self.BtnAchievement.CallBack = function()
+        self:OnClickBtnAchievement()
+    end
+    self.BtnArchive.CallBack = function()
+        self:OnClickBtnArchive()
+    end
+    self.BtnExhibition.CallBack = function()
+        self:OnClickBtnExhibition()
+    end
 end
 
-function XUiPlayerEx:OnClickBtnBack()
+function XUiPlayerEx:Close()
     if self.IsOpenSetting then
         if self.NeedSave then
-            self:CheckSave(function() self:OnClickBtnBack() end)
+            self:CheckSave(function()
+                self:Close()
+            end)
             return
         end
         self:CloseChildUi("UiPanelSetting")
         self.IsOpenSetting = false
-        self.PanelPlayerInfoEx:OnEnable()
-        self.PanelPlayerInfoEx.GameObject:SetActiveEx(true)
+        self.PanelPlayerInfoEx:Open()
     else
-        self:Close()
+        self.Super.Close(self)
     end
 end
 
@@ -43,13 +54,12 @@ function XUiPlayerEx:InitPanelPlayerInfo()
 end
 
 function XUiPlayerEx:OnEnable()
-    self.PanelPlayerInfoEx:OnEnable()
     self.BtnAchievement:ShowReddot(XDataCenter.MedalManager.CheckHaveNewMedal() or XDataCenter.AchievementManager.CheckHasReward())
     self.BtnExhibition:ShowReddot(XDataCenter.ExhibitionManager.CheckNewCharacterReward())
 end
 
 function XUiPlayerEx:OnDisable()
-    self.PanelPlayerInfoEx:OnDisable()
+    
 end
 
 function XUiPlayerEx:OnDestroy()
@@ -66,7 +76,7 @@ end
 function XUiPlayerEx:OnClickBtnArchive()
     if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Archive) then
         self.PanelPlayerInfoEx:RecordAnimation()
-        XLuaUiManager.Open("UiArchiveMain")
+        XMVCA.XArchive:OpenUiArchiveMain()
     end
 end
 
@@ -78,8 +88,7 @@ function XUiPlayerEx:OnClickBtnExhibition()
 end
 
 function XUiPlayerEx:ShowSetting()
-    self.PanelPlayerInfoEx:OnDisable()
-    self.PanelPlayerInfoEx.GameObject:SetActiveEx(false)
+    self.PanelPlayerInfoEx:Close()
     self:OpenOneChildUi("UiPanelSetting", self)
     self.UiPanelSetting:InitCollectionWallShow()
     self.UiPanelSetting:UpdateCharacterHead()
@@ -89,20 +98,20 @@ end
 function XUiPlayerEx:CheckSave(cb)
     self.NeedSave = false
     XUiManager.DialogTip(
-        CS.XTextManager.GetText("TipTitle"),
-        CS.XTextManager.GetText("SaveShowSetting"),
-        XUiManager.DialogType.Normal,
-        function()
-            self.UiPanelSetting.CharacterList = XPlayer.ShowCharacters
-            self.UiPanelSetting:InitAppearanceSetting()
-            if cb then
-                cb()
-            end
-        end,
-        function()
-            self.UiPanelSetting:OnBtnSave()
-            if cb then
-                cb()
-            end
-        end)
+            CS.XTextManager.GetText("TipTitle"),
+            CS.XTextManager.GetText("SaveShowSetting"),
+            XUiManager.DialogType.Normal,
+            function()
+                self.UiPanelSetting.CharacterList = XPlayer.ShowCharacters
+                self.UiPanelSetting:InitAppearanceSetting()
+                if cb then
+                    cb()
+                end
+            end,
+            function()
+                self.UiPanelSetting:OnBtnSave()
+                if cb then
+                    cb()
+                end
+            end)
 end

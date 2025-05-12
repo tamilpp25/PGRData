@@ -53,7 +53,7 @@ function XUiGrid:OnBtnClick()
     local timeId = XRpgMakerGameConfigs.GetChapterGroupOpenTimeId(chapterGroupId)
     if not XFunctionManager.CheckInTimeByTimeId(timeId, true) then
         local sTime = XFunctionManager.GetStartTimeByTimeId(timeId)
-        XUiManager.TipErrorWithKey("MemorySaveStageNotOpen", XTime.TimestampToUtcDateTimeString(sTime, "yyyy-MM-dd HH:mm"))
+        XUiManager.TipErrorWithKey("MemorySaveStageNotOpen", XTime.TimestampToLocalDateTimeString(sTime, "yyyy-MM-dd HH:mm"))
         return
     end
     self.ClickCb(chapterGroupId)

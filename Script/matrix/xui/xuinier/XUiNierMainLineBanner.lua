@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiNierMainLineBanner = XClass(nil, "UiNierMainLineBanner")
 local XUiGridNierChapter = require("XUi/XUiNieR/XUiGridNierChapter")
 function XUiNierMainLineBanner:Ctor(ui, rootUi)

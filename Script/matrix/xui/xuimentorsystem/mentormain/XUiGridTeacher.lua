@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridTeacher = XClass(nil, "XUiGridTeacher")
 local DefaultIndex = 1
 
@@ -72,7 +73,7 @@ function XUiGridTeacher:SetMentorInfo(data)
         headObj = self.PanelPlayer:GetObject("HeadOffLine")
     end
 
-    XUiPLayerHead.InitPortrait(tmpData.HeadPortraitId, tmpData.HeadFrameId, headObj)
+    XUiPlayerHead.InitPortrait(tmpData.HeadPortraitId, tmpData.HeadFrameId, headObj)
     self.PanelPlayer:GetObject("HeadOnLine").gameObject:SetActiveEx(tmpData.IsOnline)
     self.PanelPlayer:GetObject("HeadOffLine").gameObject:SetActiveEx(not tmpData.IsOnline)
     

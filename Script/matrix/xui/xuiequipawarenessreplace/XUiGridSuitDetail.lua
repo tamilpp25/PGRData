@@ -12,8 +12,6 @@ function XUiGridSuitDetail:Ctor(ui, rootUi, clickCb)
     XTool.InitUiObject(self)
 end
 
-local singleCharWidth = nil
-
 function XUiGridSuitDetail:InitRootUi(rootUi)
     self.RootUi = rootUi
 end
@@ -22,14 +20,14 @@ function XUiGridSuitDetail:Refresh(suitId, defaultSuitIds, isBigIcon, desPrefix,
     self.SuitId = suitId
 
     if self.RImgIcon then
-        if XEquipConfig.IsDefaultSuitId(suitId) then
+        if XMVCA.XEquip:IsDefaultSuitId(suitId) then
             self.RImgIcon.gameObject:SetActive(false)
         else
             local icon
             if isBigIcon then
-                icon = XDataCenter.EquipManager.GetSuitBigIconBagPath(suitId)
+                icon = XMVCA.XEquip:GetEquipSuitBigIconPath(suitId)
             else
-                icon = XDataCenter.EquipManager.GetSuitIconBagPath(suitId)
+                icon = XMVCA.XEquip:GetEquipSuitIconPath(suitId)
             end
 
             self.RImgIcon:SetRawImage(icon)
@@ -38,50 +36,50 @@ function XUiGridSuitDetail:Refresh(suitId, defaultSuitIds, isBigIcon, desPrefix,
     end
     --意识套装没有质量等级，默认用套装第一个部位的品级
     if self.ImgQuality then
-        if XEquipConfig.IsDefaultSuitId(suitId) then
+        if XMVCA.XEquip:IsDefaultSuitId(suitId) then
             self.ImgQuality.gameObject:SetActive(false)
         else
-            local ids = XDataCenter.EquipManager.GetEquipTemplateIdsBySuitId(self.SuitId)
-            self.RootUi:SetUiSprite(self.ImgQuality, XDataCenter.EquipManager.GetEquipBgPath(ids[1]))
+            local ids = XMVCA.XEquip:GetSuitEquipIds(self.SuitId)
+            self.RootUi:SetUiSprite(self.ImgQuality, XMVCA.XEquip:GetEquipBgPath(ids[1]))
             self.ImgQuality.gameObject:SetActive(true)
         end
     end
 
     if self.ImgDefaultIcon then
-        self.ImgDefaultIcon.gameObject:SetActive(XEquipConfig.IsDefaultSuitId(suitId))
+        self.ImgDefaultIcon.gameObject:SetActive(XMVCA.XEquip:IsDefaultSuitId(suitId))
     end
 
     if self.ImgDefaultIconIsomer then
-        self.ImgDefaultIconIsomer.gameObject:SetActive(suitId == XEquipConfig.DEFAULT_SUIT_ID.Isomer)
+        self.ImgDefaultIconIsomer.gameObject:SetActive(suitId == XEnumConst.EQUIP.DEFAULT_SUIT_ID.ISOMER)
     end
 
     if self.ImgDefaultIconNormal then
-        self.ImgDefaultIconNormal.gameObject:SetActive(suitId == XEquipConfig.DEFAULT_SUIT_ID.Normal)
+        self.ImgDefaultIconNormal.gameObject:SetActive(suitId == XEnumConst.EQUIP.DEFAULT_SUIT_ID.NORMAL)
     end
 
     if self.TxtName then
-        if XEquipConfig.IsDefaultSuitId(suitId) then
+        if XMVCA.XEquip:IsDefaultSuitId(suitId) then
             self.PanelName.gameObject:SetActive(false)
         else
-            self.TxtName.text = XDataCenter.EquipManager.GetSuitName(suitId)
+            self.TxtName.text = XMVCA.XEquip:GetSuitName(suitId)
             self.PanelName.gameObject:SetActive(true)
         end
     end
 
     if self.TxtDes then
-        local des = XDataCenter.EquipManager.GetSuitDescription(suitId)
+        local des = XMVCA.XEquip:GetSuitDescription(suitId)
         self.TxtDes.text = desPrefix and string.format("(%s)", des) or des
     end
 
     if self.TxtNum then
         local suitNum
 
-        if suitId == XEquipConfig.DEFAULT_SUIT_ID.Normal then
-            suitNum = XDataCenter.EquipManager.GetAwarenessCount(XCharacterConfigs.CharacterType.Normal)
-        elseif suitId == XEquipConfig.DEFAULT_SUIT_ID.Normal then
-            suitNum = XDataCenter.EquipManager.GetAwarenessCount(XCharacterConfigs.CharacterType.Isomer)
+        if suitId == XEnumConst.EQUIP.DEFAULT_SUIT_ID.NORMAL then
+            suitNum = XMVCA.XEquip:GetAwarenessCount(XEnumConst.CHARACTER.CharacterType.Normal)
+        elseif suitId == XEnumConst.EQUIP.DEFAULT_SUIT_ID.NORMAL then
+            suitNum = XMVCA.XEquip:GetAwarenessCount(XEnumConst.CHARACTER.CharacterType.Isomer)
         else
-            suitNum = XDataCenter.EquipManager.GetEquipCountInSuit(suitId, site)
+            suitNum = XMVCA.XEquip:GetEquipCountInSuit(suitId, site)
         end
 
         self.TxtNum.text = suitNum
@@ -91,9 +89,9 @@ function XUiGridSuitDetail:Refresh(suitId, defaultSuitIds, isBigIcon, desPrefix,
         self.ImgUp.gameObject:SetActive(false)
     end
 
-    for i = 1, XEquipConfig.MAX_STAR_COUNT do
+    for i = 1, XEnumConst.EQUIP.MAX_STAR_COUNT do
         if self["ImgGirdStar" .. i] then
-            if i <= XDataCenter.EquipManager.GetSuitStar(suitId) then
+            if i <= XMVCA.XEquip:GetSuitStar(suitId) then
                 self["ImgGirdStar" .. i].gameObject:SetActive(true)
             else
                 self["ImgGirdStar" .. i].gameObject:SetActive(false)
@@ -101,8 +99,8 @@ function XUiGridSuitDetail:Refresh(suitId, defaultSuitIds, isBigIcon, desPrefix,
         end
     end
 
-    local skillDesList = XDataCenter.EquipManager.GetSuitActiveSkillDesList(suitId)
-    for i = 1, XEquipConfig.MAX_SUIT_SKILL_COUNT do
+    local skillDesList = XMVCA.XEquip:GetSuitActiveSkillDesList(suitId)
+    for i = 1, XEnumConst.EQUIP.OLD_MAX_SUIT_SKILL_COUNT do
         local textObj = self["TxtSkillDesDetail" .. i]
         if textObj then
             if skillDesList[i] then
@@ -116,15 +114,13 @@ function XUiGridSuitDetail:Refresh(suitId, defaultSuitIds, isBigIcon, desPrefix,
 
                         local maxLine = i == 1 and MAX_SKILL_DES_LINE_TWO or MAX_SKILL_DES_LINE_FOUR
                         local maxDesWidth = maxLine * txtWidth
-                        --英文服特殊逻辑，非等宽字体，计算字符要选个差不多的字符
-                        --local singleChar = string.Utf8Sub(skillDes, 1, 1)
-                        if singleCharWidth == nil then
-                            textObj.text = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                            singleCharWidth = XUiHelper.CalcTextWidth(textObj) / 52
-                        end
 
-                        local spaceFix = 5 --你省略号长度也得算啊老弟
-                        local maxCharNum = singleCharWidth ~= 0 and (math.ceil(maxDesWidth / singleCharWidth) - spaceFix - 6) or spaceFix
+                        local singleChar = string.Utf8Sub(skillDes, 1, 1)
+                        textObj.text = singleChar
+                        local singleCharWidth = XUiHelper.CalcTextWidth(textObj)
+
+                        local spaceFix = 5
+                        local maxCharNum = singleCharWidth ~= 0 and (math.ceil(maxDesWidth / singleCharWidth) - spaceFix) or spaceFix
                         textObj.text = desWidth > maxDesWidth and string.Utf8Sub(skillDes, 1, maxCharNum) .. [[......]] or skillDes
                     end, 0)
                 end
@@ -137,7 +133,7 @@ function XUiGridSuitDetail:Refresh(suitId, defaultSuitIds, isBigIcon, desPrefix,
 
     --装备专用的竖条品质色
     if self.ImgEquipQuality then
-        self.RootUi:SetUiSprite(self.ImgEquipQuality, XDataCenter.EquipManager.GetSuitQualityIcon(suitId))
+        self.RootUi:SetUiSprite(self.ImgEquipQuality, XMVCA.XEquip:GetSuitQualityIcon(suitId))
     end
 end
 

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --===========================================================================
  ---@desc 供能详情界面
 --===========================================================================

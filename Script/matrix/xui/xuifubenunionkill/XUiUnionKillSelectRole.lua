@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiUnionKillSelectRole = XLuaUiManager.Register(XLuaUi, "UiUnionKillXuanRen")
 local XUiGridUnionCharacterItem = require("XUi/XUiFubenUnionKill/XUiGridUnionCharacterItem")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
@@ -68,7 +69,7 @@ function XUiUnionKillSelectRole:OnEnable()
                     fashionId = shareNpcData.Character.FashionId
                 end
             else
-                local characterInfo = XDataCenter.CharacterManager.GetCharacter(self.CurCharacter.Id)
+                local characterInfo = XMVCA.XCharacter:GetCharacter(self.CurCharacter.Id)
                 fashionId = characterInfo.FashionId
             end
             self:UpdateRoleModel(self.CurCharacter, fashionId)
@@ -131,7 +132,7 @@ function XUiUnionKillSelectRole:OnCharacterClick(character, index)
             fashionId = shareNpcData.Character.FashionId
         end
     else
-        local characterInfo = XDataCenter.CharacterManager.GetCharacter(self.CurCharacter.Id)
+        local characterInfo = XMVCA.XCharacter:GetCharacter(self.CurCharacter.Id)
         fashionId = characterInfo.FashionId
     end
     self.CurCharacterItem = self.CharacterItemList[index]
@@ -211,13 +212,13 @@ end
 function XUiUnionKillSelectRole:OnBtnConsciousnessClick()
     -- 共享角色返回
     if not self.CurCharacter then return end
-    XLuaUiManager.Open("UiEquipAwarenessReplace", self.CurCharacter.Id, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipAwareness(self.CurCharacter.Id)
 end
 
 function XUiUnionKillSelectRole:OnBtnWeaponClick()
     -- 共享角色返回
     if not self.CurCharacter then return end
-    XLuaUiManager.Open("UiEquipReplaceNew", self.CurCharacter.Id, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipReplace(self.CurCharacter.Id, nil, true)
 end
 
 function XUiUnionKillSelectRole:OnBtnJoinTeamClick()

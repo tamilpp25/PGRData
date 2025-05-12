@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 local XUiDoubleTowersGridInfo = require("XUi/XUiDoubleTowers/XUiDoubleTowersGridInfo")
 

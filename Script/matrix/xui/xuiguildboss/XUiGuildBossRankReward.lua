@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildBossRankReward = XLuaUiManager.Register(XLuaUi, "UiGuildBossRankReward")
 local XUiGuildBossRankRewardItem = require("XUi/XUiGuildBoss/Component/XUiGuildBossRankRewardItem")
 

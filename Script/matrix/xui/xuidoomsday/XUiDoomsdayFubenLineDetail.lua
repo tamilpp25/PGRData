@@ -120,20 +120,25 @@ function XUiDoomsdayFubenLineDetail:UpdateBuildingState(state)
     local stageData = self.StageData
     if state == XDoomsdayConfigs.BUILDING_STATE.EMPTY then
         self:UpdateBuildingStateEmpty() --待建造
+    elseif state == XDoomsdayConfigs.BUILDING_STATE.BUILDING then
+        self:UpdateBuildingStateBuilding() --建造中
     elseif state == XDoomsdayConfigs.BUILDING_STATE.WORKING then
-        if stageData:IsBuildingBuilding(buildingIndex) then
-            self:UpdateBuildingStateBuilding() --建造中
-        else
-            self:UpdateBuildingStateWorking() --工作中
-        end
-    elseif state == XDoomsdayConfigs.BUILDING_STATE.PENDING then
-        if stageData:IsBuildingBuildPending(buildingIndex) then
+        self:UpdateBuildingStateWorking() --工作中
+    elseif state == XDoomsdayConfigs.BUILDING_STATE.PENDING 
+            or state == XDoomsdayConfigs.BUILDING_STATE.UNDERSTAFFED then
+        if stageData:IsBuildingBuildUnderstaffed(buildingIndex) then
             self:UpdateBuildingStateBuilding() --建造中断
         else
             self:UpdateBuildingStateWorking() --工作中断
         end
     else
-        self:UpdateBuildingStateWorking() --待分配工作
+        local isDone = self.ExistedBuilding:GetProperty("_IsDone")
+        if isDone then --建造完成
+            self:UpdateBuildingStateWorking() --待分配工作
+        else --未建造完成，重新建造
+            self:UpdateBuildingStateBuilding() --建造中断
+        end
+        
     end
 end
 
@@ -160,16 +165,18 @@ function XUiDoomsdayFubenLineDetail:UpdateBuildingStateEmpty()
         self.TxtBuildName.text = XDoomsdayConfigs.BuildingConfig:GetProperty(buildingCfgId, "Name")
 
         --建造消耗资源
+        local constructResourceInfos = XDoomsdayConfigs.GetBuildingConstructResourceInfos(buildingCfgId)
         self:RefreshTemplateGrids(
             {
                 self.PanelUseTool1,
                 self.PanelUseTool2
             },
-            XDoomsdayConfigs.GetBuildingConstructResourceInfos(buildingCfgId),
+            constructResourceInfos,
             nil,
             XUiGridDoomsdayResourceShow,
             "ConstructResourceGrids"
         )
+        self:UpdateCanOperateResources(constructResourceInfos)
 
         self.PanelBuild.gameObject:SetActiveEx(true)
     end
@@ -192,16 +199,18 @@ function XUiDoomsdayFubenLineDetail:UpdateBuildingStateBuilding()
     self.TxtBuildName.text = XDoomsdayConfigs.BuildingConfig:GetProperty(buildingCfgId, "Name")
 
     --建造消耗资源
+    local constructResourceInfos = XDoomsdayConfigs.GetBuildingConstructResourceInfos(buildingCfgId)
     self:RefreshTemplateGrids(
         {
             self.PanelUseTool1,
             self.PanelUseTool2
         },
-        XDoomsdayConfigs.GetBuildingConstructResourceInfos(buildingCfgId),
+        constructResourceInfos,
         nil,
         XUiGridDoomsdayResourceShow,
         "ConstructResourceGrids"
     )
+    --self:UpdateCanOperateResources(constructResourceInfos)
 
     --除废墟类型外显示移除按钮
     if not XDoomsdayConfigs.IsBuildingRuins(buildingCfgId) then
@@ -355,6 +364,17 @@ function XUiDoomsdayFubenLineDetail:UpdateCanOperateInhabitant()
         string.format("%d/%d", self.IdleCount, self.StageData:GetProperty("_InhabitantCount"))
 end
 
+function XUiDoomsdayFubenLineDetail:UpdateCanOperateResources(constructResourceInfos)
+    if not constructResourceInfos then
+         return
+    end
+    for i, info in ipairs(constructResourceInfos) do
+        local grid = self:GetGrid(i, "ResourceGrids")
+        local resource = XDataCenter.DoomsdayManager.GetStageData(self.StageId):GetResource(info.Id)
+        grid.TxtTool1.text = math.max(resource:GetProperty("_Count") - info.Count, 0)
+    end
+end
+
 --工作每日转换资源
 function XUiDoomsdayFubenLineDetail:UpdateBuildingWorkingResourcePanel()
     self.PanelWork1.gameObject:SetActiveEx(false)
@@ -374,15 +394,13 @@ function XUiDoomsdayFubenLineDetail:UpdateBuildingWorkingResourcePanel()
             info.Count = 0
         end
     end
-
+    
     local consumeCount = #consumeResourceInfos --消耗物品种类
     if consumeCount == 0 then
         self:RefreshTemplateGrids(
-            {
-                self.GridGain1
-            },
+            self.GridGain1,
             gainResourceInfos,
-            nil,
+            self.GridGain1.parent,
             XUiGridDoomsdayResourceShow,
             "WorkingGainResourceGrids1"
         )
@@ -439,17 +457,20 @@ function XUiDoomsdayFubenLineDetail:UpdateBuildingWorkingResourcePanel()
         self.GridGain3.gameObject:SetActiveEx(false)
     end
 
+    local constructResourceInfos = XDoomsdayConfigs.GetBuildingConstructResourceInfos(buildingCfgId)
     self:RefreshTemplateGrids(
         {
             self.PanelUseTool1,
             self.PanelUseTool2
         },
-        XDoomsdayConfigs.GetBuildingConstructResourceInfos(buildingCfgId),
+        constructResourceInfos
+        ,
         nil,
         XUiGridDoomsdayResourceShow,
         "WorkingConsumeResourceGrids"
     )
 
+    --self:UpdateCanOperateResources(constructResourceInfos)
     self.PanelWorking.gameObject:SetActiveEx(true)
 end
 
@@ -472,6 +493,9 @@ function XUiDoomsdayFubenLineDetail:OnClickBtnClose()
 end
 
 function XUiDoomsdayFubenLineDetail:OnClickBtnEnter()
+    if self.StageData:IsFinishEndAndTips() then
+        return
+    end
     local isReplace = self.IsReplace
     if self.WorkState == WORK_STATE.EMPTY.SELECT_BUILDING then
         XDataCenter.DoomsdayManager.DoomsdayAddBuildingRequest(
@@ -517,6 +541,10 @@ function XUiDoomsdayFubenLineDetail:OnClickBtnEnter()
 end
 
 function XUiDoomsdayFubenLineDetail:OnClickBtnRemove()
+    if self.StageData:IsFinishEndAndTips() then
+        return
+    end
+    
     local callFunc = function()
         XDataCenter.DoomsdayManager.DoomsdayRemoveBuildingRequest(
             self.StageData:GetProperty("_Id"),
@@ -533,6 +561,10 @@ function XUiDoomsdayFubenLineDetail:OnClickBtnRemove()
 end
 
 function XUiDoomsdayFubenLineDetail:OnClickBtnOut()
+    if self.StageData:IsFinishEndAndTips() then
+        return
+    end
+    
     self.IdleCount = self.IdleCount + self.SelectInhabitantCount
     self.SelectInhabitantCount = 0
     self.IsReplace = true
@@ -545,6 +577,10 @@ function XUiDoomsdayFubenLineDetail:OnClickBtnOut()
 end
 
 function XUiDoomsdayFubenLineDetail:OnClickBtnIn()
+    if self.StageData:IsFinishEndAndTips() then
+        return
+    end
+    
     if self.WorkState == WORK_STATE.EMPTY.NOT_SELECT_BUILDING then
         XUiManager.TipText("DoomsdayFubenDetailTipsSelectBuilding")
         return
@@ -571,16 +607,20 @@ function XUiDoomsdayFubenLineDetail:OnClickBtnIn()
 end
 
 function XUiDoomsdayFubenLineDetail:OnClickBtnSelectBuilding()
-    if self.WorkState ~= WORK_STATE.EMPTY.NOT_SELECT_BUILDING then
+    if self.StageData:IsFinishEndAndTips() then
         return
     end
+    if self.WorkState == WORK_STATE.EMPTY.SELECT_BUILDING
+            or self.WorkState == WORK_STATE.EMPTY.NOT_SELECT_BUILDING then
+        local closeCb = function(buildingCfgId)
+            self.SelectBuildingCfgId = buildingCfgId
+            self:OnClickBtnOut()
+            self:UpdateBuildingState(XDoomsdayConfigs.BUILDING_STATE.EMPTY)
+        end
 
-    local closeCb = function(buildingCfgId)
-        self.SelectBuildingCfgId = buildingCfgId
-        self:UpdateBuildingState(XDoomsdayConfigs.BUILDING_STATE.EMPTY)
+        XLuaUiManager.Open("UiDoomsdayBuild", self.StageId, self.SelectBuildingCfgId, closeCb)
+        
     end
-
-    XLuaUiManager.Open("UiDoomsdayBuild", self.StageId, closeCb)
 end
 
 --是否选择了建筑

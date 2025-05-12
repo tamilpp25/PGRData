@@ -1,4 +1,4 @@
-XUiGridFunctionContenItem = XClass(nil, "XUiGridFunctionContenItem")
+local XUiGridFunctionContenItem = XClass(nil, "XUiGridFunctionContenItem")
 
 function XUiGridFunctionContenItem:Ctor(rootUi, ui)
     self.GameObject = ui.gameObject
@@ -39,7 +39,7 @@ function XUiGridFunctionContenItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -58,3 +58,5 @@ function XUiGridFunctionContenItem:SetData(name, value)
     self.TxtName.text = name
     self.TxtValue.text = value
 end
+
+return XUiGridFunctionContenItem

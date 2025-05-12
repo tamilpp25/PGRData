@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiFubenSpringFestivalChapter = XLuaUiManager.Register(XLuaUi, "UiFubenSpringFestivalChapter")
 local XUiPanelFubenSpringFestivalStage = require("XUi/XUiSpringFestival/XUiPanelFubenSpringFestivalStage")
 function XUiFubenSpringFestivalChapter:OnStart()

@@ -1,4 +1,4 @@
-XUiFubenMainLineQuickJumpBtn = XClass(nil, "XUiFubenMainLineQuickJumpBtn")
+local XUiFubenMainLineQuickJumpBtn = XClass(nil, "XUiFubenMainLineQuickJumpBtn")
 function XUiFubenMainLineQuickJumpBtn:Ctor(ui, index, chapter, cb, stageType)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
@@ -29,3 +29,5 @@ function XUiFubenMainLineQuickJumpBtn:UpdateNode(index, chapter)
     title = title or ""
     self.TxtName.text = string.format("%s-%d", tostring(title), stageCfg.OrderId)
 end
+
+return XUiFubenMainLineQuickJumpBtn

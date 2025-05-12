@@ -176,7 +176,8 @@ function XUiUnionKillStage:SetEventStagesView()
     if self.TempItemResource then
         self.TempItemResource:Release()
     end
-    self.TempItemResource = CS.XResourceManager.Load(itemPrefabPath)
+    --self.TempItemResource
+    XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
     -- 事件关
     local event_length = #self.CurSectionTemplate.EventStageId
     for i = 1, event_length do
@@ -381,13 +382,13 @@ function XUiUnionKillStage:ProcessTipMessage(allTipMsg)
     local playerName = ""
     if allTipMsg.TipsType == XFubenUnionKillConfigs.TipsMessageType.Praise then
         -- 点赞
-        local characterName = XCharacterConfigs.GetCharacterFullNameStr(allTipMsg.CharacterId)
+        local characterName = XMVCA.XCharacter:GetCharacterFullNameStr(allTipMsg.CharacterId)
         fullMsg = CS.XTextManager.GetText(XFubenUnionKillConfigs.PraiseWords, characterName)
     elseif allTipMsg.TipsType == XFubenUnionKillConfigs.TipsMessageType.ResultBorrow then
         -- 刷新纪录
         fullMsg = CS.XTextManager.GetText(XFubenUnionKillConfigs.RefreshHighestPoint)
     end
-    fullMsg = XUiHelper.ConvertLineBreakSymbol(fullMsg)
+
     local fightInfo = XDataCenter.FubenUnionKillManager.GetCurRoomData()
     if fightInfo then
         local playerInfo = fightInfo.UnionKillPlayerInfos[allTipMsg.PlayerId]
@@ -556,7 +557,7 @@ function XUiUnionKillStage:CheckStageOver(isCheckPanel)
         if isCheckPanel and XLuaUiManager.IsUiShow("UiUnionKillStage") then
             XDataCenter.FubenUnionKillManager.TipsPlayerleaveReson(leaveReson)
             if XLuaUiManager.IsUiShow("UiChatServeMain") then
-                XUiHelper.CloseUiChatServeMain()
+                XLuaUiManager.Close("UiChatServeMain")
             end
             XLuaUiManager.Close("UiUnionKillStage")
             return

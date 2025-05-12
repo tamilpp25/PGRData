@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --工会boss关卡排行榜页面
 local XUiGuildBossRankItem = require("XUi/XUiGuildBoss/Component/XUiGuildBossRankItem")
 local XUiGuildBossRank = XLuaUiManager.Register(XLuaUi, "UiGuildBossRank")
@@ -36,7 +37,7 @@ function XUiGuildBossRank:UpdateInfo()
         self.TxtScore.text = self.MyData.Score
         self.TxtName.text = self.MyData.Name
         self.TxtRankName.text = XDataCenter.GuildManager.GetRankNameByLevel(self.MyData.RankLevel)
-        XUiPLayerHead.InitPortrait(self.MyData.HeadPortraitId, self.MyData.HeadFrameId, self.UObjHead)
+        XUiPlayerHead.InitPortrait(self.MyData.HeadPortraitId, self.MyData.HeadFrameId, self.UObjHead)
     end
     self.PanelMyBossRank.gameObject:SetActiveEx(self.MyData ~= nil)
 end

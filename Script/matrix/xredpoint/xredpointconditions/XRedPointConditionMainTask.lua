@@ -13,23 +13,23 @@ end
 
 function XRedPointConditionMainTask.Check()
 
-    if XRedPointConditionTaskCourse.Check() and (not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.TaskStory)) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TASK_COURSE) and (not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.TaskStory)) then
         return true
     end
 
-    if XRedPointConditionTaskType.Check(XDataCenter.TaskManager.TaskType.Story) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TASK_TYPE, XDataCenter.TaskManager.TaskType.Story) then
         return true
     end
 
-    if XRedPointConditionTaskType.Check(XDataCenter.TaskManager.TaskType.Daily) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TASK_TYPE, XDataCenter.TaskManager.TaskType.Daily) then
         return true
     end
 
-    if XRedPointConditionTaskType.Check(XDataCenter.TaskManager.TaskType.Weekly) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TASK_TYPE, XDataCenter.TaskManager.TaskType.Weekly) then
         return true
     end
 
-    if XRedPointConditionTaskType.Check(XDataCenter.TaskManager.TaskType.Activity) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TASK_TYPE, XDataCenter.TaskManager.TaskType.Activity) then
         return true
     end
 

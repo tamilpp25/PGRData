@@ -58,7 +58,7 @@ function asynTask(func, caller, callbackPos)
         local isSync  --同步方法，回调直接执行
         local args = { ... }
         local running = coroutineRunning()
-        callbackPos = callbackPos or select("#", ...) + 1
+        callbackPos = callbackPos or select("#", ...) + 1 -- 往当前参数列表，加入控制继续执行的回调
         args[callbackPos] = function()
             isSync = true
             coroutineResume(running, tableUnpack(results))
@@ -95,6 +95,12 @@ function getRoundingValue(value, digit)
     return math.floor(value * math.pow(10, digit)) / math.pow(10, digit)
 end
 
+function math.roundDecimals(value, digit)
+    local powValue = math.pow(10, digit)
+
+    return math.round(value * powValue) / powValue
+end
+
 function math.pow(a, b)
     return a ^ b
 end
@@ -112,6 +118,9 @@ function table.indexof(array, value, begin)
     return false
 end
 
+--- 判断是否包含元素
+---@param tbl table
+---@param ele string
 function table.contains(tbl, ele)
     for i, v in pairs(tbl) do
         if v == ele then
@@ -121,6 +130,23 @@ function table.contains(tbl, ele)
     return false
 end
 
+--- 字典转数组
+---@param tbl table
+---@param valueKey string
+---@param ele string
+function table.containsKey(tbl, valueKey, ele)
+    for i, v in pairs(tbl) do
+        if (v[valueKey] or v[valueKey]()) == ele then
+            return true, i
+        end
+    end
+    return false
+end
+
+--- 数组转字典
+---@param dic table
+---@param keyName string
+---@param valueName string
 function table.dicToArray(dic, keyName, valueName)
     keyName = keyName or "key"
     valueName = valueName or "value"
@@ -134,6 +160,8 @@ function table.dicToArray(dic, keyName, valueName)
     return array
 end
 
+--- 数组转字典
+---@param array table
 function table.arrayToDic(array)
     local dic = {}
     for i, v in ipairs(array) do
@@ -142,6 +170,10 @@ function table.arrayToDic(array)
     return dic
 end
 
+--- 数组截取
+---@param t table
+---@param start number
+---@param count number
 function table.range(t, start, count)
     local ret = {}
     for i = start, start + count - 1 do
@@ -150,6 +182,8 @@ function table.range(t, start, count)
     return ret
 end
 
+
+--- 数组数量
 function table.nums(t)
     return XTool.GetTableCount(t)
 end
@@ -179,9 +213,26 @@ function table.unique(t, bArray)
     return n
 end
 
+-- 反转数组不产生新数组
+function table.reverse(t)
+    local len = #t
+    local mid = math.floor(len / 2)
+    for i = 1, mid do
+        t[i], t[len - i + 1] = t[len - i + 1], t[i]
+    end
+    return t
+end
+
 --程序暂停
 function ApplicationPause(pause)
     if XEventManager then
         XEventManager.DispatchEvent(XEventId.EVENT_APPLICATION_PAUSE, pause)
     end
+end
+
+function ApplicationQuit()
+    if XEventManager then
+        XEventManager.DispatchEvent(XEventId.EVENT_APPLICATION_QUIT)
+    end
+    XTableManager.ReleaseIo()
 end

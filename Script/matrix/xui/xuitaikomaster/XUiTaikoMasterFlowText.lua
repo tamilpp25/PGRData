@@ -70,9 +70,9 @@ function XUiTaikoMasterFlowText:CreateTextSequence(txtName, mask, initX)
 
     local DOTween = CS.DG.Tweening.DOTween
     local sequence = DOTween.Sequence()
-    local pauseInterval = XTaikoMasterConfigs.MusicPlayerTextMovePauseInterval
+    local pauseInterval = XEnumConst.TAIKO_MASTER.MUSIC_PLAYER_TEXT_MOVE_PAUSE_INTERVAL
     sequence:AppendInterval(pauseInterval)
-    local moveSpeed = XTaikoMasterConfigs.MusicPlayerTextMoveSpeed
+    local moveSpeed = XEnumConst.TAIKO_MASTER.MUSIC_PLAYER_TEXT_MOVE_SPEED
     local time = distance / moveSpeed
     sequence:Append(txtTransform:DOLocalMoveX(endX, time))
     sequence:Append(txtTransform:DOLocalMoveX(startX, 0))

@@ -31,7 +31,7 @@ function XUiGridResonanceSkillOther:AutoInitUi()
     self.PanelBindCharacter = XUiHelper.TryGetComponent(self.Transform, "PanelBindCharacter", nil)
     self.RImgHead = XUiHelper.TryGetComponent(self.Transform, "PanelBindCharacter/RImgHead", "RawImage")
     self.RImgResonanceSkill = XUiHelper.TryGetComponent(self.Transform, "RImgResonanceSkill", "RawImage")
-
+    self.ImgNotResonance = XUiHelper.TryGetComponent(self.Transform, "ImgNotResonance", "Image")
     self.BtnClick = XUiHelper.TryGetComponent(self.Transform, "BtnClick", "Button")
 end
 
@@ -39,13 +39,13 @@ function XUiGridResonanceSkillOther:Refresh()
     local pos = self.Pos
     local isAwakeDes = self.FromTip
 
-    local skillInfo = XDataCenter.EquipManager.GetResonanceSkillInfoByEquipData(self.Equip, pos)
-    local bindCharacterId = XDataCenter.EquipManager.GetResonanceBindCharacterIdByEquipData(self.Equip, pos)
+    local skillInfo = XMVCA.XEquip:GetResonanceSkillInfoByEquipData(self.Equip, pos)
+    local bindCharacterId = XMVCA.XEquip:GetResonanceBindCharacterIdByEquipData(self.Equip, pos)
 
     if self.PanelBindCharacter and self.RImgHead then
         if not isAwakeDes then
             if bindCharacterId > 0 then
-                self.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(bindCharacterId))
+                self.RImgHead:SetRawImage(XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(bindCharacterId))
                 self.PanelBindCharacter.gameObject:SetActiveEx(true)
             else
                 self.PanelBindCharacter.gameObject:SetActiveEx(false)
@@ -80,8 +80,8 @@ function XUiGridResonanceSkillOther:Refresh()
     local notBindResonance = bindCharacterId ~= 0 and self.Character.Id ~= bindCharacterId
 
     if self.PanelAwakeSkills then
-        local awakeSkillDes = XDataCenter.EquipManager.GetAwakeSkillDesListByEquipData(self.Equip, pos)
-        for i = 1, XEquipConfig.AWAKE_SKILL_COUNT do
+        local awakeSkillDes = XMVCA.XEquip:GetAwakeSkillDesListByEquipData(self.Equip, pos)
+        for i = 1, XEnumConst.EQUIP.MAX_AWAKE_COUNT do
             self["TxtAwakeSkill" .. i].text = awakeSkillDes[i]
         end
         self.PanelAwakeSkills.gameObject:SetActiveEx(true)
@@ -97,7 +97,7 @@ function XUiGridResonanceSkillOther:Refresh()
     if self.TxtAwake then
         if isAwakeDes then
             if bindCharacterId ~= 0 then
-                local characterName = XCharacterConfigs.GetCharacterTradeName(bindCharacterId)
+                local characterName = XMVCA.XCharacter:GetCharacterTradeName(bindCharacterId)
                 self.TxtAwake.text = CsXTextManagerGetText("AwakeCharacterName", characterName)
                 self.TxtAwake.color = CONDITION_COLOR[not notBindResonance]
                 self.TxtAwake.gameObject:SetActiveEx(true)

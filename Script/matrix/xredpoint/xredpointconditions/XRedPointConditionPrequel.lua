@@ -1,3 +1,4 @@
+local XActivityBrieIsOpen = require("XUi/XUiActivityBrief/XActivityBrieIsOpen")
 ----------------------------------------------------------------
 --间章剧情：有可挑战关卡
 

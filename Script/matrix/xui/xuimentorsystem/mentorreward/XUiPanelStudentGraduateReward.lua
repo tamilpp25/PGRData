@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelStudentGraduateReward = XClass(nil, "XUiPanelStudentGraduateReward")
 local CSTextManagerGetText = CS.XTextManager.GetText
 

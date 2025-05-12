@@ -16,7 +16,7 @@ function XUiRogueLikeCharItem:UpdateCharacterInfos(charInfo)
     end
     self.RImgRoleHead.gameObject:SetActiveEx(true)
     self.Locked.gameObject:SetActiveEx(true)
-    self.RImgRoleHead:SetRawImage(XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(self.CharacterInfo.Id))
+    self.RImgRoleHead:SetRawImage(XMVCA.XCharacter:GetCharRoundnessHeadIcon(self.CharacterInfo.Id))
     self.Slider.value = self.CharacterInfo.HpLeft * 1.0 / 100
 
     self:SetTxtBlood(string.format("%s%%", tostring(self.CharacterInfo.HpLeft)))

@@ -1,3 +1,5 @@
+local XUiGridWinRole = require("XUi/XUiSettleWin/XUiGridWinRole")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelExpBar = require("XUi/XUiSettleWinMainLine/XUiPanelExpBar")
 local XUiGridRewardLine = require("XUi/XUiStronghold/XUiGridRewardLine")
 
@@ -18,6 +20,9 @@ function XUiKillZoneSettleWin:OnAwake()
     self.BtnLeft.gameObject:SetActiveEx(false)
     self.PanelRewardInfo.gameObject:SetActiveEx(false)
     self.TxtRewardEmpty.gameObject:SetActiveEx(false)
+    self.TxtHighScore.gameObject:SetActiveEx(false)
+    self.PanelNewRecord.gameObject:SetActiveEx(false)
+    self.TxtPoint.text = 0
 end
 
 function XUiKillZoneSettleWin:OnStart(data, closeCb)
@@ -28,13 +33,26 @@ function XUiKillZoneSettleWin:OnStart(data, closeCb)
     self.RewardGrids = {}
     self.StarDescGrids = {}
     self.RewardTeamGrids = {}
+
+    self:SetAutoCloseInfo(XDataCenter.KillZoneManager.GetEndTime(), function(isColse)
+        if isColse then
+            self.IsEnd = true
+            XDataCenter.KillZoneManager.OnActivityEnd()
+        end
+    end)
 end
 
 function XUiKillZoneSettleWin:OnEnable()
+    self.Super.OnEnable(self)
     self:UpdateView()
     XScheduleManager.ScheduleOnce(function()
         self:PlayAnimationWithMask("AnimEnable2")
     end, 0)
+end
+
+function XUiKillZoneSettleWin:OnDisable()
+    self.Super.OnDisable(self)
+    self:StopAudio()
 end
 
 function XUiKillZoneSettleWin:OnDestroy()
@@ -67,6 +85,7 @@ function XUiKillZoneSettleWin:UpdateView()
     self:UpdateStarDescs()
     self:UpdatePlayerInfo()
     self:UpdateTeamInfo()
+    self:UpdateScore()
 end
 
 -- 玩家经验
@@ -81,7 +100,7 @@ function XUiKillZoneSettleWin:UpdatePlayerInfo()
     local curExp = XPlayer.Exp
     local curMaxExp = XPlayerManager.GetMaxExp(curLevel, XPlayer.IsHonorLevelOpen())
     local txtLevelName = XPlayer.IsHonorLevelOpen() and CS.XTextManager.GetText("HonorLevel") or nil
-    local addExp = XDataCenter.FubenManager.GetStageCfg(data.StageId).TeamExp
+    local addExp = XDataCenter.FubenManager.GetTeamExp(data.StageId)
 
     self.PlayerExpBar = self.PlayerExpBar or XUiPanelExpBar.New(self.PanelPlayerExpBar)
     self.PlayerExpBar:LetsRoll(lastLevel, lastExp, lastMaxExp, curLevel, curExp, curMaxExp, addExp, txtLevelName)
@@ -95,7 +114,7 @@ function XUiKillZoneSettleWin:UpdateTeamInfo()
         return
     end
 
-    local cardExp = XDataCenter.FubenManager.GetStageCfg(data.StageId).CardExp
+    local cardExp = XDataCenter.FubenManager.GetCardExp(data.StageId)
     for index = 1, count do
         local grid = self.RewardTeamGrids[index]
         if not grid then
@@ -123,7 +142,7 @@ function XUiKillZoneSettleWin:UpdateRewards()
     self.PanelFirst.gameObject:SetActiveEx(not isPassed)
     self.BtnBlock.gameObject:SetActiveEx(true)
 
-    if not isPassed then
+    --[[if not isPassed then
         local rewardId = XFubenConfigs.GetFirstRewardShow(stageId)
         local rewards = XRewardManager.GetRewardList(rewardId)
         if rewards then
@@ -152,7 +171,7 @@ function XUiKillZoneSettleWin:UpdateRewards()
 
         self.TxtRewardBeat.gameObject:SetActiveEx(true)
         self.PanelRewardContent.gameObject:SetActiveEx(false)
-    end
+    end]]
 
     -- local leftCount = XDataCenter.KillZoneManager.GetLeftFarmRewardObtainCount()
     -- self.TxtRewardTime.text = leftCount .. "/" .. XKillZoneConfigs.MaxFarmRewardCount
@@ -184,6 +203,37 @@ function XUiKillZoneSettleWin:UpdateStarDescs()
     end
 end
 
+function XUiKillZoneSettleWin:UpdateScore()
+    if not self.WinData then
+        return
+    end
+    -- 历史最高分
+    local historyScore = XDataCenter.KillZoneManager.GetStageMaxScore(self.StageId)
+    if XTool.IsNumberValid(historyScore) then
+        self.TxtHighScore.gameObject:SetActiveEx(true)
+        self.TxtHighScore.text = XUiHelper.GetText("KillZoneSettleWinMaxHistoryScore", historyScore)
+    end
+    -- 最新分数
+    local score = self.WinData.SettleData.KillZoneStageResult.Score or 0
+    local isNewRecord = self.WinData.SettleData.KillZoneStageResult.IsNewRecord or false
+    -- 播放音效
+    self.AudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiSettle_Win_Number)
+    local time = XUiHelper.GetClientConfig("BossSingleAnimaTime", XUiHelper.ClientConfigType.Float)
+    XUiHelper.Tween(time, function(f)
+        if XTool.UObjIsNil(self.GameObject) then
+            return
+        end
+        -- 分数
+        self.TxtPoint.text = XUiHelper.GetText("KillZoneSettleWinMaxScore", XMath.ToInt(f * score))
+    end, function()
+        if XTool.UObjIsNil(self.GameObject) then
+            return
+        end
+        self:StopAudio()
+        self.PanelNewRecord.gameObject:SetActiveEx(isNewRecord)
+    end)
+end
+
 function XUiKillZoneSettleWin:AutoAddListener()
     self.BtnLeft.CallBack = handler(self, self.Close)
     self.BtnBlock.CallBack = handler(self, self.Close)
@@ -200,3 +250,11 @@ function XUiKillZoneSettleWin:OnClickBtnRight()
     XDataCenter.KillZoneManager.KillZoneTakeFarmRewardRequest(stageId, cb)
     self:Close()
 end
+
+function XUiKillZoneSettleWin:StopAudio()
+    if self.AudioInfo then
+        self.AudioInfo:Stop()
+    end
+end
+
+return XUiKillZoneSettleWin

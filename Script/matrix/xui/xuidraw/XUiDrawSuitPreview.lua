@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiDrawSuitPreview = XLuaUiManager.Register(XLuaUi, "UiDrawSuitPreview")
 
 function XUiDrawSuitPreview:OnAwake()
@@ -14,8 +15,8 @@ end
 function XUiDrawSuitPreview:UpdatePanel()
     self.SuitId = self.ParentUi.CurSuitId
     self.GridCommon.gameObject:SetActive(false)
-    local skillDesList = XDataCenter.EquipManager.GetSuitSkillDesList(self.SuitId)
-    for i = 1, XEquipConfig.MAX_SUIT_SKILL_COUNT do
+    local skillDesList = XMVCA.XEquip:GetEquipSuitSkillDescription(self.SuitId)
+    for i = 1, XEnumConst.EQUIP.OLD_MAX_SUIT_SKILL_COUNT do
         if skillDesList[i * 2] then
             self["TxtSkillDes" .. i].text = skillDesList[i * 2]
             self["TxtSkillDes" .. i].gameObject:SetActive(true)
@@ -24,9 +25,9 @@ function XUiDrawSuitPreview:UpdatePanel()
         end
     end
     CS.UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(self.PanelContent)
-    self.TxtName.text = XDataCenter.EquipManager.GetSuitName(self.SuitId)
-    self.RImgIco:SetRawImage(XDataCenter.EquipManager.GetSuitBigIconBagPath(self.SuitId))
-    local ids = XDataCenter.EquipManager.GetEquipTemplateIdsBySuitId(self.SuitId)
+    self.TxtName.text = XMVCA.XEquip:GetSuitName(self.SuitId)
+    self.RImgIco:SetRawImage(XMVCA.XEquip:GetEquipSuitBigIconPath(self.SuitId))
+    local ids = XMVCA.XEquip:GetSuitEquipIds(self.SuitId)
 
     table.sort(ids, function(a, b)
         local aid = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(a)

@@ -6,6 +6,11 @@ local SHARE_FESTIVAL = "Share/Fuben/Festival/FestivalActivity.tab"
 local ShareFestival = {}
 local ClientFestivalStages = {}
 
+XFestivalActivityConfig.UiType = {
+    ExtralLine = 1,
+    Activity = 2,
+}
+
 --活动名称Id
 XFestivalActivityConfig.ActivityId = {
     Christmas = 1,
@@ -14,6 +19,8 @@ XFestivalActivityConfig.ActivityId = {
     FoolsDay = 4,
     NewYearFuben = 23,--琥虎符福
     WhiteValentine = 24,--白色情人节
+    DragonBoatFestival = 25,--端午节活动
+    DMC = 45, -- 3.5鬼泣联动剧情关
 }
 
 function XFestivalActivityConfig.Init()
@@ -25,6 +32,7 @@ function XFestivalActivityConfig.GetFestivalsTemplates()
     return ShareFestival
 end
 
+---@return XTableFestivalActivity
 function XFestivalActivityConfig.GetFestivalById(id)
     if not id then return end
     local festivalDatas = ShareFestival[id]

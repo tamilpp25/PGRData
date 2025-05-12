@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiFuBenNierWork = XLuaUiManager.Register(XLuaUi, "UiFuBenNierWork")
 local XUiGridNierPODSkill = require("XUi/XUiNieR/XUiCharacter/XUiGridNierPODSkill")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")

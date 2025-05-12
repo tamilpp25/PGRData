@@ -7,6 +7,11 @@ local Default = {
     _LivingBuildingId = 0 --居住建筑Id（自动分配，仅用于判断无家可归）
 }
 
+local AttrType2BadKeyName = { 
+    [XDoomsdayConfigs.ATTRUBUTE_TYPE.HUNGER] = "DailyChangeValueWhenHungery", 
+    [XDoomsdayConfigs.ATTRUBUTE_TYPE.HEALTH] = "DailyChangeValueWhenSick"
+}
+
 --末日生存玩法-居民
 local XDoomsdayInhabitant = XClass(XDataEntityBase, "XDoomsdayInhabitant")
 
@@ -42,6 +47,23 @@ end
 --根据属性类型获取属性
 function XDoomsdayInhabitant:GetAttr(attrType)
     return self._AttributeDic[attrType]
+end
+
+function XDoomsdayInhabitant:GetTodayValue(attrId, attrType)
+    local attr = self:GetAttr(attrType)
+    local value = attr:GetProperty("_Value")
+    if attr:IsBad() then
+        local key = AttrType2BadKeyName[attrType]
+        local downValue = XDoomsdayConfigs.AttributeConfig:GetProperty(attrId, key) or 0
+        --取的值为负数
+        value = value + downValue
+    end
+    if self:IsHomeless() then
+        local downValue = XDoomsdayConfigs.AttributeConfig:GetProperty(attrId, "DailyChangeValueWhenNoHome") or 0
+        --取的值为负数
+        value = value + downValue
+    end
+    return value
 end
 
 return XDoomsdayInhabitant

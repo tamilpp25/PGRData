@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+---@class XUiBabelTowerRankReward
 local XUiBabelTowerRankReward = XClass(nil, "XUiBabelTowerRankReward")
 local XUiGridRankRewardItem = require("XUi/XUiFubenBabelTower/XUiGridRankRewardItem")
 

@@ -1,4 +1,4 @@
-XUiGridLimit = XClass(nil, "XUiGridLimit")
+local XUiGridLimit = XClass(nil, "XUiGridLimit")
 
 function XUiGridLimit:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -57,7 +57,7 @@ function XUiGridLimit:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 

@@ -1,3 +1,4 @@
+local XUiPanelMatch = require("XUi/XUiOnlineBoss/XUiPanelMatch")
 local XUiPanelMatchSmall = XClass(nil, "XUiPanelMatchSmall")
 
 local XUiScheduleGridPair = require("XUi/XUiMoeWar/ChildItem/XUiScheduleGridPair")

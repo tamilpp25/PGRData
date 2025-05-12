@@ -1,8 +1,7 @@
-XUiPanelGradeUpgrade = XClass(nil, "XUiPanelGradeUpgrade")
+local XUiPanelGradeUpgrade = XClass(XUiNode, "XUiPanelGradeUpgrade")
 
-function XUiPanelGradeUpgrade:Ctor(ui, rootUi, parent)
+function XUiPanelGradeUpgrade:Ctor(ui, parent, rootUi)
     self.RootUi = rootUi
-    self.Parent = parent
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     self:InitAutoScript()
@@ -36,6 +35,8 @@ function XUiPanelGradeUpgrade:AutoInitUi()
     self.TxtName = self.Transform:Find("BgImage/RImgCharacterIcon/TxtName"):GetComponent("Text")
     self.BtnDarkBg = self.Transform:Find("BtnDarkBg"):GetComponent("Button")
     self.PanelCharAttack = self.Transform:Find("BgImage/Properties/PanelCharAttack")
+    self.TxtOldBattlePower = self.Transform:FindTransform("TxtOldBattlePower"):GetComponent("Text")
+    self.TxtCurBattlePower = self.Transform:FindTransform("TxtCurBattlePower"):GetComponent("Text")
     self.TxtOldAttack = self.Transform:Find("BgImage/Properties/PanelCharAttack/TxtOldAttack"):GetComponent("Text")
     self.TxtCurAttack = self.Transform:Find("BgImage/Properties/PanelCharAttack/TxtCurAttack"):GetComponent("Text")
     self.PanelCharLife = self.Transform:Find("BgImage/Properties/PanelCharLife")
@@ -98,11 +99,11 @@ function XUiPanelGradeUpgrade:OnBtnDarkBgClick()
 end
 
 function XUiPanelGradeUpgrade:ShowLevelInfo(characterId)
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
     self.IsShow = true
     self.GameObject:SetActive(true)
     self:CurCharUpgradeInfo(character)
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Success) -- 成功
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Success) -- 成功
 end
 
 function XUiPanelGradeUpgrade:HideLevelInfo()
@@ -113,6 +114,7 @@ function XUiPanelGradeUpgrade:HideLevelInfo()
 end
 
 function XUiPanelGradeUpgrade:OldCharUpgradeInfo(character)
+    self.TxtOldBattlePower.text = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(character.Id)
     self.TxtOldAttack.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.AttackNormal]) or 0)
     self.TxtOldLife.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.Life]) or 0)
     self.TxtOldDefense.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.DefenseNormal]) or 0)
@@ -121,12 +123,13 @@ function XUiPanelGradeUpgrade:OldCharUpgradeInfo(character)
 end
 
 function XUiPanelGradeUpgrade:CurCharUpgradeInfo(character)
+    self.TxtCurBattlePower.text = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(character.Id)
     self.TxtCurAttack.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.AttackNormal]) or 0)
     self.TxtCurLife.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.Life]) or 0)
     self.TxtCurDefense.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.DefenseNormal]) or 0)
     self.TxtCurCrit.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.Crit]) or 0)
     self.TxtName.text = character.Name
-    self.RImgCharacterIcon:SetRawImage(XDataCenter.CharacterManager.GetCharBigHeadIcon(character.Id))
+    self.RImgCharacterIcon:SetRawImage(XMVCA.XCharacter:GetCharBigHeadIcon(character.Id))
     self:UpdateGradeIcon(character, self.CurStar, self.CurOnStar, self.RImgCurIconTitleA, false)
 end
 -- 刷新星星界面
@@ -160,7 +163,7 @@ end
 
 -- 判断当前显示界面信息
 function XUiPanelGradeUpgrade:UpdateGradeIcon(character, starGoup, starOnGoup, rImgIcon, isOld)
-    local charGradeTemplates = XCharacterConfigs.GetGradeTemplates(character.Id, character.Grade)
+    local charGradeTemplates = XMVCA.XCharacter:GetGradeTemplates(character.Id, character.Grade)
     rImgIcon:SetRawImage(charGradeTemplates.GradeBigIcon)
     self:UpdateStarSprite(charGradeTemplates.NoStar, charGradeTemplates.Star, isOld)
     if character.Grade == self.Grading.TheChosenStar then
@@ -202,3 +205,5 @@ function XUiPanelGradeUpgrade:UpdateStarSprite(starSprite, onStarSprite, isOld)
         end
     end
 end
+
+return XUiPanelGradeUpgrade

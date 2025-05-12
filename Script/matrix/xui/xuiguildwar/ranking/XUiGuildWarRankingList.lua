@@ -1,21 +1,23 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --
 local XUiGuildWarRankingList = XClass(nil, "XUiGuildWarRankingList")
-local Grid = require("XUi/XUiGuildWar/Ranking/XUiGuildWarRankGrid")
-function XUiGuildWarRankingList:Ctor(uiPrefab)
+
+function XUiGuildWarRankingList:Ctor(uiPrefab,gridScript)
     XTool.InitUiObjectByUi(self, uiPrefab)
+    self.GridScript = gridScript
     self:InitDynamicTable()
     self:InitMyRank()
 end
 
 function XUiGuildWarRankingList:InitDynamicTable()
-    self.DynamicTable = XDynamicTableNormal.New(self.GameObject)
-    local gridProxy = Grid
+    self.DynamicTable = XDynamicTableNormal.New(self.PanelRankList.gameObject)
+    local gridProxy = self.GridScript
     self.DynamicTable:SetProxy(gridProxy)
     self.DynamicTable:SetDelegate(self)
 end
 
 function XUiGuildWarRankingList:InitMyRank()
-    self.MyRank = Grid.New(self.PanelMy)
+    self.MyRank = self.GridScript.New(self.PanelMy)
 end
 --================
 --动态列表事件
@@ -30,8 +32,8 @@ end
 
 function XUiGuildWarRankingList:RefreshList(rankType, id, rankTarget)
     XDataCenter.GuildWarManager.RequestRanking(rankType, id, function(rankList, myRank)
-                self:OnRankingDataResponse(rankList, myRank, rankTarget)
-            end)
+        self:OnRankingDataResponse(rankList, myRank, rankTarget)
+    end)
 end
 
 function XUiGuildWarRankingList:OnRankingDataResponse(rankList, myRank, rankTarget)

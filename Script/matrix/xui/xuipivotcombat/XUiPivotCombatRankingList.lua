@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --===========================================================================
  ---@desc 枢纽作战--排行榜
 --===========================================================================
@@ -25,7 +26,7 @@ function XUiPivotCombatRankingList:OnAwake()
 end 
 
 function XUiPivotCombatRankingList:OnStart()
-    self.TxtTitle.text = CSGetText("PicCompositionRankTop", XDataCenter.PivotCombatManager.GetMaxRankMember())
+    self.TxtTitle.text = CSGetText("PivotCombatRankTop", XDataCenter.PivotCombatManager.GetMaxRankMember())
     self.Difficulty    = XDataCenter.PivotCombatManager.GetDifficulty()
     
     --我的排行信息
@@ -155,7 +156,7 @@ function XUiPivotCombatRankingList:UpdateRankOfMineInfo()
     --昵称
     self.PanelRankOfMine.TxtPlayerName.text = self.RankOfMine:GetName()
     --头像
-    XUiPLayerHead.InitPortrait(self.RankOfMine:GetHeadPortraitId(), self.RankOfMine:GetHeadFrameId(), self.PanelRankOfMine.Head)
+    XUiPlayerHead.InitPortrait(self.RankOfMine:GetHeadPortraitId(), self.RankOfMine:GetHeadFrameId(), self.PanelRankOfMine.Head)
     --通关头像
     self.RankOfMine:RefreshHeadList(self.UiHeadListOfMine)
 end

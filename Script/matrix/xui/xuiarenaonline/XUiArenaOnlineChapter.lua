@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiArenaOnlineChapter = XLuaUiManager.Register(XLuaUi, "UiArenaOnlineChapter")
 local XUiChapterPrefab = require("XUi/XUiArenaOnline/XUiChapterPrefab")
 
@@ -11,7 +12,7 @@ function XUiArenaOnlineChapter:OnStart()
     if not chapterCfg then return end
 
     self:CheckFirstOpen()
-    self.Resource = CS.XResourceManager.Load(chapterCfg.PrefabPath)
+    XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
     local prefab = CS.UnityEngine.Object.Instantiate(self.Resource.Asset)
     prefab.transform:SetParent(self.PanelChapter, false)
     prefab.gameObject:SetLayerRecursively(self.PanelChapter.gameObject.layer)
@@ -47,7 +48,7 @@ function XUiArenaOnlineChapter:CheckFirstOpen()
         local chapterCfg = XDataCenter.ArenaOnlineManager.GetCurChapterCfg()
         XDataCenter.MovieManager.PlayMovie(chapterCfg.StoryId, function()
                 XDataCenter.ArenaOnlineManager.SetFirstOpen()
-                XSoundManager.PauseMusic()
+                XLuaAudioManager.PauseMusic()
             end)
     end
 end

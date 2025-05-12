@@ -66,7 +66,7 @@ function XUiUnionKillMember:InitPlayerView(playerInfo)
     self.TxtName.text = XDataCenter.SocialManager.GetPlayerRemark(self.PlayerDataList.Id, self.PlayerDataList.Name)
     self.TxtLvShuZi.text = self.PlayerDataList.Level
 
-    XUiPLayerHead.InitPortrait(self.PlayerDataList.HeadPortraitId, self.PlayerDataList.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(self.PlayerDataList.HeadPortraitId, self.PlayerDataList.HeadFrameId, self.Head)
     
     self.UiUnionKillOffline.gameObject:SetActiveEx(false)
     self.UiUnionKillFighting.gameObject:SetActiveEx(false)
@@ -86,8 +86,8 @@ function XUiUnionKillMember:UpdateShareCharacter(npcData)
     self.BgAdd.gameObject:SetActiveEx(not isCharacter)
     if isCharacter then
         local character = npcData.Character
-        self.RImgShareChar:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(character.Id))
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+        self.RImgShareChar:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyImage(character.Id))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
         self.TxtLvCardShuZi.text = character.Level
     end
 end
@@ -231,7 +231,6 @@ function XUiUnionKillMember:EndProcessTipEmoji()
     if self.EmojiTimer then
         XScheduleManager.UnSchedule(self.EmojiTimer)
         self.EmojiTimer = nil
-        self:EndTipEmoji()
     end
 end
 
@@ -251,7 +250,6 @@ function XUiUnionKillMember:EndProcessTipTalk()
     if self.TalkTimer then
         XScheduleManager.UnSchedule(self.TalkTimer)
         self.TalkTimer = nil
-        self:EndTipTalk()
     end
 end
 

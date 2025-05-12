@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridNewYearLuckReward = XClass(nil,"XUiGridNewYearLuckReward")
 
 ---@param obj UnityEngine.RectTransform

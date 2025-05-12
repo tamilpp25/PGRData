@@ -1,3 +1,5 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiChessPursuitStageGrid = XClass(nil, "XUiChessPursuitStageGrid")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate

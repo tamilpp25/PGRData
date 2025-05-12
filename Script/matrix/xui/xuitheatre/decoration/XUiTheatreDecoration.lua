@@ -11,7 +11,7 @@ function XUiTheatreDecoration:OnAwake()
     self.MarkX = viewPortWidth * 0.1
     self.InitPos = self.Content.localPosition
     TWEE_DURATION = XDataCenter.FubenMainLineManager.UiGridChapterMoveDuration
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self)
     self:InitGroup()
     self:InitButtonCallBack()
 end

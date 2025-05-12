@@ -1,7 +1,8 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenExperimentDetail = XLuaUiManager.Register(XLuaUi, "UiFubenExperimentDetail")
 
-local UiState = 
-{
+local UiState = {
     Normal = 1,
     SkillExplain = 2,
 }
@@ -15,31 +16,31 @@ end
 
 function XUiFubenExperimentDetail:OnStart(trialLevelInfo, curType)
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset,
-    XDataCenter.ItemManager.ItemId.FreeGem,
-    XDataCenter.ItemManager.ItemId.ActionPoint,
-    XDataCenter.ItemManager.ItemId.Coin)
+            XDataCenter.ItemManager.ItemId.FreeGem,
+            XDataCenter.ItemManager.ItemId.ActionPoint,
+            XDataCenter.ItemManager.ItemId.Coin)
     self.TrialLevelInfo = trialLevelInfo
     XDataCenter.FubenExperimentManager.SetCurExperimentLevelId(self.TrialLevelInfo.Id)
     self.CurType = curType
-    if self.TrialLevelInfo.Type ~= XDataCenter.FubenExperimentManager.TrialLevelType.Switch then
-        self.BtnSingle.gameObject:SetActive(false)
-        self.BtnMult.gameObject:SetActive(false)
-        if curType == XDataCenter.FubenExperimentManager.TrialLevelType.Mult then
-            self.MultStageCfg = XDataCenter.FubenManager.GetStageCfg(self.TrialLevelInfo.MultStageId)
-        end
-    else
-        self.CurType = XDataCenter.FubenExperimentManager.GetRecordMode(self.TrialLevelInfo.MultStageId)
-        self.MultStageCfg = XDataCenter.FubenManager.GetStageCfg(self.TrialLevelInfo.MultStageId)
-    end
+    --if self.TrialLevelInfo.Type ~= XDataCenter.FubenExperimentManager.TrialLevelType.Switch then
+    self.BtnSingle.gameObject:SetActive(false)
+    self.BtnMult.gameObject:SetActive(false)
+    --if curType == XDataCenter.FubenExperimentManager.TrialLevelType.Mult then
+    --    self.MultStageCfg = XDataCenter.FubenManager.GetStageCfg(self.TrialLevelInfo.MultStageId)
+    --end
+    --else
+    --    self.CurType = XDataCenter.FubenExperimentManager.GetRecordMode(self.TrialLevelInfo.MultStageId)
+    --    self.MultStageCfg = XDataCenter.FubenManager.GetStageCfg(self.TrialLevelInfo.MultStageId)
+    --end
     self.CurUiState = UiState.Normal
     self.BtnHelp.gameObject:SetActiveEx(self.TrialLevelInfo.HelpCourseId ~= 0)
     self.PanelSkillInformation.gameObject:SetActiveEx(false)
-	
-	if self.TrialLevelInfo.HeadIcon then
-		self.RImgNandu:SetRawImage(self.TrialLevelInfo.HeadIcon)
-	end
 
-    XEventManager.AddEventListener(XEventId.EVENT_ROOM_CANCEL_MATCH, self.OnCancelMatch, self)
+    if self.TrialLevelInfo.HeadIcon then
+        self.RImgNandu:SetRawImage(self.TrialLevelInfo.HeadIcon)
+    end
+
+    --XEventManager.AddEventListener(XEventId.EVENT_ROOM_CANCEL_MATCH, self.OnCancelMatch, self)
     self:UpdateInfo()
     self:UpdateMode()
     self:InitBossSkillInfo()
@@ -50,9 +51,9 @@ function XUiFubenExperimentDetail:OnEnable()
     self:UpdatePanelStarReward()
 end
 
-function XUiFubenExperimentDetail:OnDestroy()
-    XEventManager.RemoveEventListener(XEventId.EVENT_ROOM_CANCEL_MATCH, self.OnCancelMatch, self)
-end
+--function XUiFubenExperimentDetail:OnDestroy()
+--    XEventManager.RemoveEventListener(XEventId.EVENT_ROOM_CANCEL_MATCH, self.OnCancelMatch, self)
+--end
 
 function XUiFubenExperimentDetail:OnGetEvents()
     return {
@@ -71,9 +72,9 @@ function XUiFubenExperimentDetail:AddListener()
     self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick)
     self:RegisterClickEvent(self.BtnSingle, self.OnBtnSingleClick)
     self:RegisterClickEvent(self.BtnSingleEnter, self.OnBtnSingleEnterClick)
-    self:RegisterClickEvent(self.BtnMult, self.OnBtnMultClick)
-    self:RegisterClickEvent(self.BtnMultCreateRoom, self.OnBtnMultCreateRoomClick)
-    self:RegisterClickEvent(self.BtnQuickMatch, self.OnBtnQuickMatchClick)
+    --self:RegisterClickEvent(self.BtnMult, self.OnBtnMultClick)
+    --self:RegisterClickEvent(self.BtnMultCreateRoom, self.OnBtnMultCreateRoomClick)
+    --self:RegisterClickEvent(self.BtnQuickMatch, self.OnBtnQuickMatchClick)
     self.BtnHelp.CallBack = function()
         self:OnBtnHelpClick()
     end
@@ -81,8 +82,8 @@ function XUiFubenExperimentDetail:AddListener()
     self.BtnBossInfo.CallBack = function()
         self:OnBtnBossInfoClick()
     end
-    for i=1, #self.GridStarCommonTable, 1 do
-        self.GridStarCommonTable[i].BtnGet.CallBack = function ()
+    for i = 1, #self.GridStarCommonTable, 1 do
+        self.GridStarCommonTable[i].BtnGet.CallBack = function()
             self:OnClickGetBtnStarReward(i)
         end
     end
@@ -90,18 +91,18 @@ end
 
 function XUiFubenExperimentDetail:AutoSetGameObject()
     self.GridStageStarTable = {}
-    for i=0, self.PanelTargetList.childCount - 1, 1 do
+    for i = 0, self.PanelTargetList.childCount - 1, 1 do
         table.insert(self.GridStageStarTable, XUiFubenExperimentGridStar.New(self.PanelTargetList:GetChild(i)))
     end
 
     self.GridStarCommonTable = {}
-    for i=1, 3, 1 do
-        local panelGridCommon = self.PanelDrop:Find("PanelGridCommon"..i)
+    for i = 1, 3, 1 do
+        local panelGridCommon = self.PanelDrop:Find("PanelGridCommon" .. i)
         table.insert(self.GridStarCommonTable,
-        { PanelGridCommon = panelGridCommon,
-        GridCommon = XUiGridCommon.New(self, panelGridCommon:Find("GridCommon")),
-        Effect = panelGridCommon:Find("PanelEffect"),
-        BtnGet = panelGridCommon:Find("BtnGet"):GetComponent("XUiButton")})
+                { PanelGridCommon = panelGridCommon,
+                  GridCommon = XUiGridCommon.New(self, panelGridCommon:Find("GridCommon")),
+                  Effect = panelGridCommon:Find("PanelEffect"),
+                  BtnGet = panelGridCommon:Find("BtnGet"):GetComponent("XUiButton") })
     end
 end
 
@@ -143,10 +144,10 @@ function XUiFubenExperimentDetail:OnBtnBackClick()
         --播放动画
         XLuaUiManager.SetMask(true)
         self:PlayAnimation("PanelSkillInformationDisable", function()
-                self:PlayAnimation("AnimEnable", function()
-                        XLuaUiManager.SetMask(false)
-                    end)
+            self:PlayAnimation("AnimEnable", function()
+                XLuaUiManager.SetMask(false)
             end)
+        end)
         return
     end
     local title = CS.XTextManager.GetText("TipTitle")
@@ -167,43 +168,36 @@ function XUiFubenExperimentDetail:OnBtnSingleClick()
 end
 
 function XUiFubenExperimentDetail:OnBtnSingleEnterClick()
-	if self.TrialLevelInfo.TimeId and self.TrialLevelInfo.TimeId ~= 0 then
-		if XFunctionManager.CheckInTimeByTimeId(self.TrialLevelInfo.TimeId) then
-            if XTool.USENEWBATTLEROOM then
-                XLuaUiManager.Open("UiBattleRoleRoom", self.TrialLevelInfo.SingStageId)
-            else
-                XLuaUiManager.Open("UiNewRoomSingle", self.TrialLevelInfo.SingStageId)
-            end
-		else
-			XUiManager.TipText("ActivityBranchNotOpen")
-		end
-	else
-        if XTool.USENEWBATTLEROOM then
+    if self.TrialLevelInfo.TimeId and self.TrialLevelInfo.TimeId ~= 0 then
+        if XFunctionManager.CheckInTimeByTimeId(self.TrialLevelInfo.TimeId) then
             XLuaUiManager.Open("UiBattleRoleRoom", self.TrialLevelInfo.SingStageId)
         else
-            XLuaUiManager.Open("UiNewRoomSingle", self.TrialLevelInfo.SingStageId)
+            XUiManager.TipText("ActivityBranchNotOpen")
         end
-	end
-end
-
-function XUiFubenExperimentDetail:OnBtnMultClick()
-    self:OnSwitchButton()
-end
-
-function XUiFubenExperimentDetail:OnBtnMultCreateRoomClick()
-    XDataCenter.FubenManager.RequestCreateRoom(self.MultStageCfg)
-end
-
-function XUiFubenExperimentDetail:OnBtnQuickMatchClick()
-    if XDataCenter.RoomManager.Matching then
-        return
+    else
+        XLuaUiManager.Open("UiBattleRoleRoom", self.TrialLevelInfo.SingStageId)
     end
-
-    XDataCenter.FubenManager.RequestMatchRoom(self.MultStageCfg, function()--匹配房间
-        self:RefreshMatching()
-        self.BtnQuickMatch:SetDisable(true)
-    end)
 end
+
+--function XUiFubenExperimentDetail:OnBtnMultClick()
+--    self:OnSwitchButton()
+--end
+--
+--function XUiFubenExperimentDetail:OnBtnMultCreateRoomClick()
+--    XDataCenter.FubenManager.RequestCreateRoom(self.MultStageCfg)
+--end
+
+--function XUiFubenExperimentDetail:OnBtnQuickMatchClick()
+--    if XDataCenter.RoomManager.Matching then
+--        return
+--    end
+--
+--    XDataCenter.FubenManager.RequestMatchRoom(self.MultStageCfg, function()
+--        --匹配房间
+--        self:RefreshMatching()
+--        self.BtnQuickMatch:SetDisable(true)
+--    end)
+--end
 
 --打开图文面板
 function XUiFubenExperimentDetail:OnBtnHelpClick()
@@ -220,53 +214,54 @@ function XUiFubenExperimentDetail:OnBtnBossInfoClick()
     --播放动画
     XLuaUiManager.SetMask(true)
     self:PlayAnimation("PanelInformationDisable", function()
-            self.PanelSkillInformation.gameObject:SetActiveEx(true)
-            self:PlayAnimation("PanelSkillInformationEnable", function()
-                    XLuaUiManager.SetMask(false)
-            end)
+        self.PanelSkillInformation.gameObject:SetActiveEx(true)
+        self:PlayAnimation("PanelSkillInformationEnable", function()
+            XLuaUiManager.SetMask(false)
+        end)
     end)
 
 end
 
-function XUiFubenExperimentDetail:OnCancelMatch()
-    self.BtnQuickMatch:SetDisable(false)
-end
+--function XUiFubenExperimentDetail:OnCancelMatch()
+--    self.BtnQuickMatch:SetDisable(false)
+--end
 
-function XUiFubenExperimentDetail:RefreshMatching()
-    if XDataCenter.RoomManager.Matching then
-        XLuaUiManager.Open("UiOnLineMatching", self.MultStageCfg)
-    end
-end
+--function XUiFubenExperimentDetail:RefreshMatching()
+--    if XDataCenter.RoomManager.Matching then
+--        XLuaUiManager.Open("UiOnLineMatching", self.MultStageCfg)
+--    end
+--end
 
-function XUiFubenExperimentDetail:OnSwitchButton()
-    XDataCenter.RoomManager.CancelMatch() -- 切换模式先取消匹配
-    if self.TrialLevelInfo.Type == XDataCenter.FubenExperimentManager.TrialLevelType.Switch then
-        if self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.Signle then
-            self.CurType = XDataCenter.FubenExperimentManager.TrialLevelType.Mult
-        else
-            self.CurType = XDataCenter.FubenExperimentManager.TrialLevelType.Signle
-        end
-        XDataCenter.FubenExperimentManager.RecordMode(self.TrialLevelInfo.MultStageId,self.CurType)
-    end
-    self:UpdateMode()
-    self:UpdateDes()
-end
+--function XUiFubenExperimentDetail:OnSwitchButton()
+--    XDataCenter.RoomManager.CancelMatch() -- 切换模式先取消匹配
+--    if self.TrialLevelInfo.Type == XDataCenter.FubenExperimentManager.TrialLevelType.Switch then
+--        if self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.Signle then
+--            self.CurType = XDataCenter.FubenExperimentManager.TrialLevelType.Mult
+--        else
+--            self.CurType = XDataCenter.FubenExperimentManager.TrialLevelType.Signle
+--        end
+--        XDataCenter.FubenExperimentManager.RecordMode(self.TrialLevelInfo.MultStageId, self.CurType)
+--    end
+--    self:UpdateMode()
+--    self:UpdateDes()
+--end
 
 function XUiFubenExperimentDetail:UpdateMode()
-    if self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.Signle or self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.SkinTrial then
-        self.PanelSingle.gameObject:SetActive(true)
-        self.PanelTeam.gameObject:SetActive(false)
-    else
-        self.PanelSingle.gameObject:SetActive(false)
-        self.PanelTeam.gameObject:SetActive(true)
-    end
+    --if self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.Signle or self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.SkinTrial then
+    self.PanelSingle.gameObject:SetActive(true)
+    --    self.PanelTeam.gameObject:SetActive(false)
+    --else
+    --    self.PanelSingle.gameObject:SetActive(false)
+    --    self.PanelTeam.gameObject:SetActive(true)
+    --end
 end
 
 function XUiFubenExperimentDetail:UpdateInfo()
     self.TxtTitle.text = self.TrialLevelInfo.Name
     self.TxtRecommendLevel.text = self.TrialLevelInfo.RecommendLevel
     self.ImgFullScreen:SetRawImage(self.TrialLevelInfo.DetailBackGroundIco)
-    if self.TrialLevelInfo.StarReward and self.TrialLevelInfo.StarReward > 0 then -- 带有目标奖励的试玩关
+    if self.TrialLevelInfo.StarReward and self.TrialLevelInfo.StarReward > 0 then
+        -- 带有目标奖励的试玩关
         self.PanelJindu.gameObject:SetActiveEx(true)
         self.PanelNor.gameObject:SetActiveEx(false)
 
@@ -279,11 +274,11 @@ function XUiFubenExperimentDetail:UpdateInfo()
 end
 
 function XUiFubenExperimentDetail:UpdateDes()
-    if self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.Signle or self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.SkinTrial then
-        self.TxtDes.text = string.gsub(self.TrialLevelInfo.SingleDescription, "\\n", "\n")
-    else
-        self.TxtDes.text = string.gsub(self.TrialLevelInfo.MultDescription, "\\n", "\n")
-    end
+    --if self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.Signle or self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.SkinTrial then
+    self.TxtDes.text = string.gsub(self.TrialLevelInfo.SingleDescription, "\\n", "\n")
+    --else
+    --    self.TxtDes.text = string.gsub(self.TrialLevelInfo.MultDescription, "\\n", "\n")
+    --end
 end
 
 function XUiFubenExperimentDetail:UpdatePanelStarReward()
@@ -312,7 +307,8 @@ function XUiFubenExperimentDetail:UpdatePanelStarReward()
             local rewardItemId = XRewardManager.GetRewardList(rewardIdList[i])[1]
             PanelStarCommon.GridCommon:Refresh(rewardItemId)
             local isResived = XDataCenter.FubenExperimentManager.CheckExperimentRewardIsTaked(self.TrialLevelInfo.Id, i)
-            if isResived then -- 已领取
+            if isResived then
+                -- 已领取
                 PanelStarCommon.GridCommon:SetReceived(true)
                 PanelStarCommon.Effect.gameObject:SetActiveEx(false)
                 PanelStarCommon.BtnGet.gameObject:SetActiveEx(true)

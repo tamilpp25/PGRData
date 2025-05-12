@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local StageState = XDoubleTowersConfigs.StageState
 local CHILD_DETAIL_UI_NAME = "UiDoubleTowersDetail"

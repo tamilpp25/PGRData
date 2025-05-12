@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPurchaseHKShop = XClass(nil, "XUiPurchaseHKShop")
 local XUiPurchaseHKShopListItem = require("XUi/XUiPurchase/XUiPurchaseHKShopListItem")
 
@@ -60,7 +61,7 @@ function XUiPurchaseHKShop:OnDynamicTableEvent(event, index, grid)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         self.CurData = self.ListData[index]
         XLuaUiManager.Open("UiPurchaseBuyTips", self.CurData, self.CheckBuyFun, self.UpdateCb)
-        CS.XAudioManager.PlaySound(1011)
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1011)
     end
 end
 
@@ -81,7 +82,7 @@ function XUiPurchaseHKShop:CheckBuy()
     end
 
     if self.CurData.ConsumeCount > 0 and self.CurData.ConsumeCount > XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.HongKa) then --钱不够
-        XUiManager.TipText("PurchaseBuyHongKaCountTips")
+        XUiHelper.OpenPurchaseBuyHongKaCountTips()
         return false
     end
     

@@ -32,7 +32,7 @@ function XUiPanelUnionKillMyRank:RefreshMyPraiseRank()
         self.TxtRankScore.text = CS.XTextManager.GetText("UnionWhitePraiseNum", praiseDatas.Score)
         self.TxtPlayerName.text = XPlayer.Name
         
-        XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
+        XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
 
         self.TxtHighistRank.text = praiseDatas.HistoryRank
     end
@@ -71,7 +71,7 @@ function XUiPanelUnionKillMyRank:RefreshMyKillRank()
                 self.TxtRankScore.text = CS.XTextManager.GetText("UnionWhiteFightPoint", rankLevelInfos.Score)
                 self.TxtPlayerName.text = XPlayer.Name
                 
-                XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
+                XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
                 
                 self.TxtHighistRank.text = rankLevelInfos.HistoryRank
             end

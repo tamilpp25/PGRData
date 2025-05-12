@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiHostelRoom = XLuaUiManager.Register(XLuaUi, "UiHostelRoom")
 
 function XUiHostelRoom:OnAwake()
@@ -53,7 +54,7 @@ function XUiHostelRoom:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

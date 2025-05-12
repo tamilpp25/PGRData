@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XUiChessPursuitGuideGrid = XClass(nil, "XUiChessPursuitGuideGrid")
 local CSUnityEngineVector2 = CS.UnityEngine.Vector2
 

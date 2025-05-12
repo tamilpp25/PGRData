@@ -1,3 +1,5 @@
+local XUiGridAttribute = require("XUi/XUiDorm/XUiDormCommom/XUiGridAttribute")
+local XUiFurnitureScore = require("XUi/XUiDorm/XUiDormCommom/XUiFurnitureScore")
 XUiGridFurniture = XClass(nil, "XUiGridFurniture")
 
 function XUiGridFurniture:Ctor(ui)

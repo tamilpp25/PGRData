@@ -18,7 +18,12 @@ function XUiTRPGShopItem:OnStart(shopId, shopItemId, requestSendCb)
 end
 
 function XUiTRPGShopItem:OnEnable()
+
     self:Refresh()
+end
+
+function XUiTRPGShopItem:OnDisable()
+
 end
 
 function XUiTRPGShopItem:AutoAddListener()

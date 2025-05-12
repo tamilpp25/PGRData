@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XUiChessPursuitCardGrid = XClass(nil, "XUiChessPursuitCardGrid")
 
 local QUALITY_COUNT = 3

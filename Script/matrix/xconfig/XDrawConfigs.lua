@@ -45,9 +45,21 @@ XDrawConfigs.DrawCapacityCheckType = {
     Partner = 1 -- 伙伴
 }
 
+XDrawConfigs.DrawTargetActivityNone = 999
+
+XDrawConfigs.DrawTargetTipType = { 
+    Open = 1,
+    Close = 2,
+    Update = 3,
+}
+
+XDrawConfigs.DrawShowPredictType = {
+    None = 0,
+    Predict = 1, -- 预测轮换池
+}
+
 local TABLE_DRAW_PREVIEW = "Client/Draw/DrawPreview.tab"
 local TABLE_DRAW_PREVIEW_GOODS = "Client/Draw/DrawPreviewGoods.tab"
-local TABLE_DRAW_COMBINATIONS = "Client/Draw/DrawCombinations.tab"
 local TABLE_DRAW_PROB = "Client/Draw/DrawProbShow.tab"
 local TABLE_GROUP_RULE = "Client/Draw/DrawGroupRule.tab"
 local TABLE_AIMPROBABILITY = "Client/Draw/DrawAimProbability.tab"
@@ -57,10 +69,21 @@ local TABLE_DRAW_TABS = "Client/Draw/DrawTabs.tab"
 local TABLE_DRAW_SHOW_CHARACTER = "Client/Draw/DrawShowCharacter.tab"
 local TABLE_DRAW_TYPE_CHANGE = "Client/Draw/DrawTypeChange.tab"
 local TABLE_DRAW_SHOW_EFFECT = "Client/Draw/DrawShowEffect.tab"
+local TABLE_DRAW_SHOW_PICTURE = "Client/Draw/DrawShowPicture.tab"
+local TABLE_DRAW_WAFER_SHOW = "Client/Draw/DrawWaferShow.tab"
 local TABLE_DRAW_GROUP_RELATION = "Client/Draw/DrawGroupRelation.tab"
 local TABLE_DRAW_SKIP = "Client/Draw/DrawSkip.tab"
 local TABLE_DRAW_SCENE = "Client/Draw/DrawScene.tab"
-local TABLE_DRAW_NEWYEARSHOW = "Client/Draw/JPDrawNewYearShow.tab"
+local TABLE_DRAW_ACTIVITY_TARGET_SHOW = "Client/Draw/DrawActivityTargetShow.tab"
+local TABLE_DRAW_ACTIVITY_TARGET_ROLE_BG = "Client/Draw/DrawActivityTargetRoleBg.tab"
+local TABLE_DRAW_CLIENT_CONFIG = "Client/Draw/DrawClientConfig.tab"
+local TABLE_DRAW_PREDICT = "Client/Draw/DrawPredict.tab"
+local TABLE_DRAW_PREDICT_POS = "Client/Draw/DrawPredictPos.tab"
+local TABLE_DRAW_NEW_PLAYER_ASSIGN_TAG = "Client/Draw/DrawNewPlayerAssignTag.tab"
+
+local TABLE_DRAW_COMBINATIONS = "Share/Draw/DrawCombinations.tab"
+local TABLE_DRAW_TICKET = "Share/DrawTicket/DrawTicket.tab"
+local TABLE_DEVILMAYCRY_ACTIVITY = "Share/Draw/DevilMayCryActivity.tab"
 
 local DrawPreviews = {}
 local DrawCombinations = {}
@@ -69,6 +92,8 @@ local DrawGroupRule = {}
 local DrawAimProbability = {}
 local DrawShow = {}
 local DrawShowEffect = {}
+local DrawShowPicture = {}
+local DrawWaferShow = {}
 local DrawCamera = {}
 local DrawTabs = {}
 local DrawShowCharacter = {}
@@ -78,7 +103,25 @@ local DrawGroupRelationCfg = {}
 local DrawGroupRelationDic = {}
 local DrawSkipCfg = {}
 local DrawSceneCfg = {}
-local DrawNewYearShow = {}
+local DrawTicketCfg = {}
+---@type XTableDrawActivityTargetShow[]
+local DrawActivityTargetShowCfg = {}
+---@type XTableDrawActivityTargetRoleBg[]
+local DrawActivityTargetRoleBgCfg = {}
+---@type XTableDrawClientConfig[]
+local DrawClientCfg = {}
+---@type XTableDrawPredict[]
+local DrawPredictCfg = {}
+---@type XTableDrawPredirctPos[]
+local DrawPredictPosCfg = {}
+---@type XTableDrawNewPlayerAssignTag[]
+local DrawNewPlayerAssignTagCfg = {}
+---@type XTableDrawPreview[]
+local DrawPreviewsCfg = {}
+---@type XTableDrawPreviewGoods[]
+local DrawPreviewGoodsCfg = {}
+---@type XTableDevilMayCryActivity[]
+local DevilMayCryActivityCfg = {}
 
 function XDrawConfigs.Init()
     DrawCombinations = XTableManager.ReadByIntKey(TABLE_DRAW_COMBINATIONS, XTable.XTableDrawCombinations, "Id")
@@ -90,32 +133,21 @@ function XDrawConfigs.Init()
     DrawAimProbability = XTableManager.ReadByIntKey(TABLE_AIMPROBABILITY, XTable.XTableDrawAimProbability, "Id")
     DrawTypeChangeCfg = XTableManager.ReadByIntKey(TABLE_DRAW_TYPE_CHANGE, XTable.XTableDrawTypeChange, "MainGroupId")
     DrawShowEffect = XTableManager.ReadByIntKey(TABLE_DRAW_SHOW_EFFECT, XTable.XTableDrawShowEffect, "EffectGroupId")
+    DrawShowPicture = XTableManager.ReadByIntKey(TABLE_DRAW_SHOW_PICTURE, XTable.XTableDrawShowPicture, "GroupId")
+    DrawWaferShow = XTableManager.ReadByIntKey(TABLE_DRAW_WAFER_SHOW, XTable.XTableDrawWaferShow, "Id")
     DrawGroupRelationCfg = XTableManager.ReadByIntKey(TABLE_DRAW_GROUP_RELATION, XTable.XTableDrawGroupRelation, "NormalGroupId")
-    DrawSkipCfg = XTableManager.ReadByIntKey(TABLE_DRAW_SKIP, XTable.XTableDrawSkip, "DrawGroupId")
+    DrawSkipCfg = XTableManager.ReadByIntKey(TABLE_DRAW_SKIP, XTable.XTableDrawSkip, "DrawId")
     DrawSceneCfg = XTableManager.ReadByIntKey(TABLE_DRAW_SCENE, XTable.XTableDrawScene, "Id")
-    DrawNewYearShow = XTableManager.ReadByIntKey(TABLE_DRAW_NEWYEARSHOW, XTable.XTableDrawNewYearActivityShow, "Type")
-
-    local previews = XTableManager.ReadAllByIntKey(TABLE_DRAW_PREVIEW, XTable.XTableDrawPreview, "Id")
-    local previewGoods = XTableManager.ReadAllByIntKey(TABLE_DRAW_PREVIEW_GOODS, XTable.XTableRewardGoods, "Id")
-
-    for drawId, preview in pairs(previews) do
-        local upGoodsIds = preview.UpGoodsId
-        local upGoods = {}
-        for i = 1, #upGoodsIds do
-            tableInsert(upGoods, XRewardManager.CreateRewardGoodsByTemplate(previewGoods[upGoodsIds[i]]))
-        end
-
-        local goodsIds = preview.GoodsId
-        local goods = {}
-        for i = 1, #goodsIds do
-            tableInsert(goods, XRewardManager.CreateRewardGoodsByTemplate(previewGoods[goodsIds[i]]))
-        end
-
-        local drawPreview = {}
-        drawPreview.UpGoods = upGoods
-        drawPreview.Goods = goods
-        DrawPreviews[drawId] = drawPreview
-    end
+    DrawTicketCfg = XTableManager.ReadByIntKey(TABLE_DRAW_TICKET,XTable.XTableDrawTicket, "Id")
+    DrawActivityTargetShowCfg = XTableManager.ReadByIntKey(TABLE_DRAW_ACTIVITY_TARGET_SHOW,XTable.XTableDrawActivityTargetShow, "Id")
+    DrawActivityTargetRoleBgCfg = XTableManager.ReadByIntKey(TABLE_DRAW_ACTIVITY_TARGET_ROLE_BG,XTable.XTableDrawActivityTargetRoleBg, "Quality")
+    DrawClientCfg = XTableManager.ReadByStringKey(TABLE_DRAW_CLIENT_CONFIG,XTable.XTableDrawClientConfig, "Key")
+    DrawPredictCfg = XTableManager.ReadByIntKey(TABLE_DRAW_PREDICT, XTable.XTableDrawPredict, "Id")
+    DrawPredictPosCfg = XTableManager.ReadByIntKey(TABLE_DRAW_PREDICT_POS, XTable.XTableDrawPredictPos, "CharacterId")
+    DrawNewPlayerAssignTagCfg = XTableManager.ReadByIntKey(TABLE_DRAW_NEW_PLAYER_ASSIGN_TAG, XTable.XTableDrawNewPlayerAssignTag, "CharacterId")
+    DrawPreviewsCfg = XTableManager.ReadByIntKey(TABLE_DRAW_PREVIEW, XTable.XTableDrawPreview, "Id")
+    DrawPreviewGoodsCfg = XTableManager.ReadByIntKey(TABLE_DRAW_PREVIEW_GOODS, XTable.XTableRewardGoods, "Id")
+    DevilMayCryActivityCfg = XTableManager.ReadByIntKey(TABLE_DEVILMAYCRY_ACTIVITY, XTable.XTableDevilMayCryActivity, "DrawId")
 
     local drawProbList = XTableManager.ReadByIntKey(TABLE_DRAW_PROB, XTable.XTableDrawProbShow, "Id")
     for _, v in pairs(drawProbList) do
@@ -164,6 +196,19 @@ function XDrawConfigs.GetDrawCombinations()
     return DrawCombinations
 end
 
+function XDrawConfigs.GetDrawIdByTemplateIdAndCombinationsTypes(templateId, type)
+    for drawId, config in pairs(DrawCombinations) do
+        if config.Type == type then
+            local goods = config.GoodsId or {}
+            for _, goodId in ipairs(goods) do
+                if goodId == templateId then
+                    return drawId
+                end
+            end
+        end
+    end
+end
+
 function XDrawConfigs.GetDrawGroupRule()
     return DrawGroupRule
 end
@@ -176,13 +221,9 @@ function XDrawConfigs.GetDrawShow()
     return DrawShow
 end
 
-function XDrawConfigs.GetDrawNewYearShow()
-    return DrawNewYearShow
-end
-
 ---
 --- 获取'drawGroupId'卡组的跳转ID数组
-function XDrawConfigs.GetDrawSkipList(drawGroupId)
+function XDrawConfigs.GetDrawSkip(drawGroupId)
     if DrawSkipCfg[drawGroupId] then
         return DrawSkipCfg[drawGroupId].SkipId
     end
@@ -201,8 +242,36 @@ function XDrawConfigs.GetDrawTabs()
     return DrawTabs
 end
 
-function XDrawConfigs.GetDrawPreviews()
-    return DrawPreviews
+function XDrawConfigs.GetDrawPreviews(drawId)
+    local drawPreview = DrawPreviews[drawId]
+    if drawPreview then
+        return drawPreview
+    end
+
+    local preview = DrawPreviewsCfg[drawId]
+    if not preview then
+        XLog.Error("DrawPreviewn表不存在Id：" .. drawId)
+        return nil
+    end
+
+    local upGoodsIds = preview.UpGoodsId
+    local upGoods = {}
+    for i = 1, #upGoodsIds do
+        tableInsert(upGoods, XRewardManager.CreateRewardGoodsByTemplate(DrawPreviewGoodsCfg[upGoodsIds[i]]))
+    end
+
+    local goodsIds = preview.GoodsId
+    local goods = {}
+    for i = 1, #goodsIds do
+        tableInsert(goods, XRewardManager.CreateRewardGoodsByTemplate(DrawPreviewGoodsCfg[goodsIds[i]]))
+    end
+
+    drawPreview = {}
+    drawPreview.UpGoods = upGoods
+    drawPreview.Goods = goods
+    DrawPreviews[drawId] = drawPreview
+
+    return drawPreview
 end
 
 function XDrawConfigs.GetDrawProbs()
@@ -246,6 +315,21 @@ function XDrawConfigs.GetDrawShowEffectById(id)
     return DrawShowEffect[id]
 end
 
+function XDrawConfigs.GetDrawShowPictureById(id)
+    if not DrawShowPicture[id] then
+        XLog.Error("Client/Draw/DrawShowPicture.tab Id = " .. id .. " Is Null")
+    end
+    return DrawShowPicture[id]
+end
+
+function XDrawConfigs.GetDrawWaferShowById(id)
+    if not DrawWaferShow[id] then
+        XLog.Error("Client/Draw/DrawWaferShow.tab Id = " .. id .. " Is Null")
+        return nil
+    end
+    return DrawWaferShow[id]
+end
+
 function XDrawConfigs.GetOpenUpEffect(id)
     return XDrawConfigs.GetDrawShowEffectById(id).PanelOpenUp
 end
@@ -266,6 +350,143 @@ function XDrawConfigs.GetSkipEffect(id)
     return XDrawConfigs.GetDrawShowEffectById(id).SkipEffect
 end
 
+-- 获取底座特效
+function XDrawConfigs.GetCarriageEffect(id)
+    return XDrawConfigs.GetDrawShowEffectById(id).CarriageEffect
+end
+
+-- 获取线特效
+function XDrawConfigs.GetFloorEffect(id)
+    return XDrawConfigs.GetDrawShowEffectById(id).FloorEffect
+end
+
+-- 获取光圈特效
+function XDrawConfigs.GetApertureEffect(id)
+    return XDrawConfigs.GetDrawShowEffectById(id).ApertureEffect
+end
+
+-- 获取卡片开始特效
+function XDrawConfigs.GetCardEffectStart(id)
+    return XDrawConfigs.GetDrawShowEffectById(id).CardEffectStart
+end
+
+-- 获取卡片特效
+function XDrawConfigs.GetCardEffect(id)
+    return XDrawConfigs.GetDrawShowEffectById(id).CardEffect
+end
+
+-- 获取卡片特效音效
+function XDrawConfigs.GetCardEffectSound(id)
+    return XDrawConfigs.GetDrawShowEffectById(id).CardEffectSound
+end
+
+function XDrawConfigs.GetDrawCardBg(id)
+    return XDrawConfigs.GetDrawShowPictureById(id).Bg
+end
+
+function XDrawConfigs.GetDrawCardHalfBg(id)
+    return XDrawConfigs.GetDrawShowPictureById(id).HalfBg
+end
+
+function XDrawConfigs.GetDrawCardNameBg(id)
+    return XDrawConfigs.GetDrawShowPictureById(id).NameBg
+end
+
 function XDrawConfigs.GetDrawSceneCfg(id)
     return DrawSceneCfg[id]
 end 
+
+function XDrawConfigs.GetDrawTicketCfg(id)
+    return DrawTicketCfg[id]
+end
+
+function XDrawConfigs.GetDrawTicketWorldDesc(id)
+    local cfg = XDrawConfigs.GetDrawTicketCfg(id)
+    return cfg.WorldDescription
+end
+
+function XDrawConfigs.GetDrawTicketDesc(id)
+    local cfg = XDrawConfigs.GetDrawTicketCfg(id)
+    return cfg.Description
+end
+
+--region DrawActivityTargetShow
+function XDrawConfigs.GetDrawActivityTargetShowCfg(activityId)
+    return DrawActivityTargetShowCfg[activityId]
+end
+
+function XDrawConfigs.GetDrawActivityTargetShowTabDesc(activityId)
+    return XDrawConfigs.GetDrawActivityTargetShowCfg(activityId).TabDesc
+end
+
+function XDrawConfigs.GetDrawActivityTargetShowTitleList(activityId)
+    return XDrawConfigs.GetDrawActivityTargetShowCfg(activityId).Title
+end
+
+function XDrawConfigs.GetDrawActivityTargetShowDescList(activityId)
+    return XDrawConfigs.GetDrawActivityTargetShowCfg(activityId).Desc
+end
+
+function XDrawConfigs.GetDrawActivityTargetShowBannerPrefab(activityId)
+    return XDrawConfigs.GetDrawActivityTargetShowCfg(activityId).BannerPrefab
+end
+
+function XDrawConfigs.GetDrawActivityTargetShowActiveTipTxt(activityId)
+    return XDrawConfigs.GetDrawActivityTargetShowCfg(activityId).ActiveTipTxt
+end
+
+function XDrawConfigs.GetDrawActivityTargetShowRuleTipTxt(activityId)
+    return XDrawConfigs.GetDrawActivityTargetShowCfg(activityId).RuleTipTxt
+end
+--endregion
+
+--region DrawActivityTargetRoleBg
+function XDrawConfigs.GetDrawActivityTargetRoleBgCfg(quality)
+    return DrawActivityTargetRoleBgCfg[quality]
+end
+
+function XDrawConfigs.GetDrawActivityTargetRoleBgUrl(quality)
+    return XDrawConfigs.GetDrawActivityTargetRoleBgCfg(quality).BgUrl
+end
+
+function XDrawConfigs.GetDrawActivityTargetRoleProbabilityBgUrl(quality)
+    return XDrawConfigs.GetDrawActivityTargetRoleBgCfg(quality).ProbabilityBgUrl
+end
+--endregion
+
+--region DrawClientConfig
+function XDrawConfigs.GetDrawClientConfig(key, index)
+    index = index or 1
+    return DrawClientCfg[key].ValueList[index]
+end
+
+function XDrawConfigs.GetDrawClientConfigs(key)
+    return DrawClientCfg[key].ValueList
+end
+--endregion
+
+--region DrawPredict
+function XDrawConfigs.GetDrawPredictConfigs()
+    return DrawPredictCfg
+end
+
+function XDrawConfigs.GetDrawPredictPosConfigs()
+    return DrawPredictPosCfg
+end
+
+function XDrawConfigs.GetDrawPredictPosConfig(characterId)
+    return DrawPredictPosCfg[characterId]
+end
+--endregion
+
+function XDrawConfigs.GetDrawNewPlayerAssignTagCfg(characterId)
+    return DrawNewPlayerAssignTagCfg[characterId]
+end
+
+function XDrawConfigs.GetDevilMayCryActivityCfgByDrawId(drawId)
+    return DevilMayCryActivityCfg[drawId]
+end
+
+function XDrawConfigs.GetDevilMayCryActivityCfg()
+    return DevilMayCryActivityCfg
+end

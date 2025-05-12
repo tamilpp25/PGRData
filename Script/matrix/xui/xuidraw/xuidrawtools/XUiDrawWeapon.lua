@@ -11,7 +11,7 @@
 -- end
 
 -- -- local Load = function(equipId, refName)
--- --     local modelConfig = XDataCenter.EquipManager.GetWeaponModelCfgByEquipId(equipId, refName)
+-- --     local modelConfig = XMVCA.XEquip:GetWeaponModelCfgByEquipId(equipId, refName)
 -- --     if modelConfig then
 -- --         XModelManager.LoadWeaponModel(modelConfig.ModelId, node, modelConfig.TransformConfig, self.Name, function(model)
 -- --             Model = model

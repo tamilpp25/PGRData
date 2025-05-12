@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --虚像地平线成员列表页面
 local XUiExpeditionRoleList = XLuaUiManager.Register(XLuaUi, "UiExpeditionRoleList")
 local XUiExpeditionRoleListCharacterList = require("XUi/XUiExpedition/RoleList/XUiExpeditionRoleListCharacterPanel/XUiExpeditionRoleListCharacterList")
@@ -36,7 +37,7 @@ end
 function XUiExpeditionRoleList:OnBtnBackClick()
     if self.OpenChildName == XUiExpeditionRoleList.ChildUiName.UiExpeditionViewRole then
         self:OpenChild(XUiExpeditionRoleList.ChildUiName.UiExpeditionRoleListCharaInfo)
-        self:UpdateCamera(XCharacterConfigs.XUiCharacter_Camera.MAIN)
+        self:UpdateCamera(XEnumConst.CHARACTER.XUiCharacter_Camera.MAIN)
         self.TextRoleList.gameObject:SetActiveEx(true)
         return
     else

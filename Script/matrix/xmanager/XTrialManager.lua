@@ -1,5 +1,7 @@
+local XExFubenSimulationChallengeManager = require("XEntity/XFuben/XExFubenSimulationChallengeManager")
+
 XTrialManagerCreator = function()
-    local XTrialManager = {}
+    local XTrialManager = XExFubenSimulationChallengeManager.New(XFubenConfigs.ChapterType.Trial)
     local TrialInfos = nil
     local PreFinishTrial = {}
     local IsTrialChanllenge = false
@@ -151,7 +153,7 @@ XTrialManagerCreator = function()
 
     -- 打过关卡
     function XTrialManager.OnSettleTrial()
-        local res = XDataCenter.FubenManager.FubenSettleResult
+        local res = XMVCA.XFuben:GetFubenSettleResult()
         if not res or not res.Settle then
             return
         end
@@ -453,13 +455,35 @@ XTrialManagerCreator = function()
     end
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_SETTLE_REWARD, XTrialManager.OnSettleTrial, XTrialManager)
 
-    function XTrialManager.InitStageInfo()
-        local forcfgdata = XTrialConfigs.GetForTotalData(XDataCenter.TrialManager.TrialTypeCfg.TrialFor)
-        for _, v in pairs(forcfgdata) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(v.StageId)
-            stageInfo.Type = XDataCenter.FubenManager.StageType.Trial
-        end
+    ------------------副本入口扩展 start-------------------------
+    function XTrialManager:ExGetFunctionNameType()
+        return XFunctionManager.FunctionName.FubenChallengeTrial
     end
+
+    -- 获取进度提示
+    function XTrialManager:ExGetProgressTip() 
+        local strProgress = ""
+
+        if not self:ExGetIsLocked() then
+            if XTrialManager.FinishTrialType() == XTrialManager.TrialTypeCfg.TrialBackEnd and XTrialManager.TrialRewardGetedFinish() then
+               strProgress = CS.XTextManager.GetText("TrialBackEndPro", XTrialManager:TrialBackEndFinishLevel(), XTrialConfigs.GetBackEndTotalLength())
+            else
+               strProgress = CS.XTextManager.GetText("TrialForPro", XTrialManager:TrialForFinishLevel(), XTrialConfigs.GetForTotalLength())
+            end
+        end
+        return strProgress
+    end
+
+    function XTrialManager:ExOpenMainUi()
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenChallengeTrial) then
+            return
+        end
+        
+
+        XLuaUiManager.OpenWithCallback("UiTrial")
+    end
+    
+    ------------------副本入口扩展 end-------------------------
 
     return XTrialManager
 end

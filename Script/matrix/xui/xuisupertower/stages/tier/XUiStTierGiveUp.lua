@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --===========================
 --超级爬塔 爬塔关卡放弃 页面
 --===========================

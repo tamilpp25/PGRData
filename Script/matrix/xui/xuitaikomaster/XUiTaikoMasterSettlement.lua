@@ -1,4 +1,5 @@
 ---@class XUiTaikoMasterSettlement:XLuaUi
+---@field _Control XTaikoMasterControl
 local XUiTaikoMasterSettlement = XLuaUiManager.Register(XLuaUi, "UiTaikoMasterSettlement")
 
 function XUiTaikoMasterSettlement:Ctor()
@@ -25,28 +26,28 @@ function XUiTaikoMasterSettlement:EndFightAction()
     end
 end
 
-function XUiTaikoMasterSettlement:Init(data, historyScore)
-    local stageId = data.StageId
-    self._StageId = stageId
-    local songId = XTaikoMasterConfigs.GetSongIdByStageId(stageId)
-    -- self.StageName.text = XTaikoMasterConfigs.GetSongName(songId)
-    self.TxtNameNormal.text = XTaikoMasterConfigs.GetDifficultyTextByStageId(stageId)
-    self.RImgCd:SetRawImage(XTaikoMasterConfigs.GetSongSettlementImage(songId))
+function XUiTaikoMasterSettlement:Init(data, historyScore, curHistoryScore)
+    self._StageId = data.StageId
+    local songId = self._Control:GetSongIdByStageId(self._StageId)
+    local difficulty = self._Control:GetDifficulty(self._StageId)
     local result = data.SettleData.TaikoMasterSettleResult
     local score = result.Score or 0
-    local assessImage = XTaikoMasterConfigs.GetAssessImageByScore(stageId, score)
+    local assessImage = self._Control:GetAssessImageByScore(self._StageId, score)
+    local uiData = self._Control:GetUiData()
+
+    self.TxtNameNormal.text = self._Control:GetDifficultyText(difficulty)
+    self.RImgCd:SetRawImage(uiData.SongUiDataDir[songId].SettlementImage)
     if assessImage then
         self.RImgClass:SetRawImage(assessImage)
         self.RImgClass.gameObject:SetActiveEx(true)
     else
         self.RImgClass.gameObject:SetActiveEx(false)
     end
-    local difficulty = XTaikoMasterConfigs.GetDifficulty(stageId)
     --完美连击
-    if XDataCenter.TaikoMasterManager.IsPerfectCombo(songId, difficulty, result.Perfect, result.Combo) then
+    if self._Control:CheckIsPerfectCombo(self._StageId, result.Perfect, result.Combo) then
         self.TxtNameNew2.gameObject:SetActiveEx(true)
         self.TxtNameNew2.text = XUiHelper.GetText("TaikoMasterComboPerfect")
-    elseif XDataCenter.TaikoMasterManager.IsFullCombo(songId, difficulty, result.Combo) then
+    elseif self._Control:CheckIsFullCombo(self._StageId, result.Combo) then
         self.TxtNameNew2.gameObject:SetActiveEx(true)
         self.TxtNameNew2.text = XUiHelper.GetText("TaikoMasterComboFull")
     else
@@ -85,8 +86,7 @@ function XUiTaikoMasterSettlement:Init(data, historyScore)
     --endregion
 
     --历史最高得分(包括本次)
-    local bestScore = XDataCenter.TaikoMasterManager.GetMyScoreByStage(stageId)
-    self.TxtHighScoresNumber.text = bestScore
+    self.TxtHighScoresNumber.text = curHistoryScore
     --新纪录
     local isNewRecord = (not historyScore and score > 0) or (score > (historyScore or 0))
     self.PanelNewTag.gameObject:SetActiveEx(false)
@@ -100,7 +100,7 @@ function XUiTaikoMasterSettlement:Init(data, historyScore)
     else
         self.Enable.gameObject:PlayTimelineAnimation()
     end
-    if isNewRecord and difficulty == XTaikoMasterConfigs.Difficulty.Hard then
+    if isNewRecord and difficulty == XEnumConst.TAIKO_MASTER.DIFFICULTY.HARD then
         --击败xx%的玩家
         local ranking, playerAmount = result.Ranking or 0, result.TotalCount or 0
         local defeatPercent
@@ -130,33 +130,20 @@ end
 
 function XUiTaikoMasterSettlement:OnBtnEncore()
     self:EndFightAction()
-    local stageId = self._StageId
-    local stageConfig = XDataCenter.FubenManager.GetStageCfg(stageId)
-    local team = XDataCenter.TaikoMasterManager.GetXTeam()
-    local teamId = team:GetId()
-    local isAssist = false
-    local challengeCount = 1
-    XDataCenter.FubenManager.EnterFight(
-        stageConfig,
-        teamId,
-        isAssist,
-        challengeCount,
-        nil,
-        function()
-            if XLuaUiManager.IsUiShow(self.Name) then
-                XLuaUiManager.Close(self.Name)
-            end
-        end
-    )
+    self._Control:SetJustEnterStageId(self._StageId)
+    ---@type XFubenAgency
+    local fubenAgency = XMVCA:GetAgency(ModuleId.XFuben)
+    fubenAgency:EnterFightByStageId(self._StageId, nil, false, 1, nil)
+    XLuaUiManager.Remove(self.Name)
 end
 
 function XUiTaikoMasterSettlement:OnBtnBack()
-    XDataCenter.TaikoMasterManager.SetJustPassedStageId(self._StageId)
+    self._Control:SetJustPassedStageId(self._StageId)
     self:Close()
 end
 
 function XUiTaikoMasterSettlement:PlayNumberAudio()
-    self._AudioInfo = CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiSettle_Win_Number)
+    self._AudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiSettle_Win_Number)
 end
 
 function XUiTaikoMasterSettlement:StopNumberAudio()

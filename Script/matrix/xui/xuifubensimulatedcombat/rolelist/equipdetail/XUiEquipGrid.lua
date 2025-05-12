@@ -12,21 +12,21 @@ end
 
 function XUiSimulatedCombatEquipGrid:Refresh(templateId, breakNum, equipSite, isWeapon, level)
     if self.RImgIcon and self.RImgIcon:Exist() then
-        self.RImgIcon:SetRawImage(XDataCenter.EquipManager.GetEquipIconBagPath(templateId, breakNum), nil, true)
+        self.RImgIcon:SetRawImage(XMVCA.XEquip:GetEquipIconPath(templateId, breakNum), nil, true)
     end
 
     --通用的横条品质色
     if self.ImgQuality then
-        self.RootUi:SetUiSprite(self.ImgQuality, XDataCenter.EquipManager.GetEquipQualityPath(templateId))
+        self.RootUi:SetUiSprite(self.ImgQuality, XMVCA.XEquip:GetEquipQualityPath(templateId))
     end
 
     --装备专用的竖条品质色
     if self.ImgEquipQuality then
-        self.RootUi:SetUiSprite(self.ImgEquipQuality, XDataCenter.EquipManager.GetEquipBgPath(templateId))
+        self.RootUi:SetUiSprite(self.ImgEquipQuality, XMVCA.XEquip:GetEquipBgPath(templateId))
     end
 
     if self.TxtName then
-        self.TxtName.text = XDataCenter.EquipManager.GetEquipName(templateId)
+        self.TxtName.text = XMVCA.XEquip:GetEquipName(templateId)
     end
 
     if self.TxtLevel then
@@ -42,16 +42,16 @@ function XUiSimulatedCombatEquipGrid:Refresh(templateId, breakNum, equipSite, is
         end
     end
 
-    for i = 1, XEquipConfig.MAX_STAR_COUNT do
+    for i = 1, XEnumConst.EQUIP.MAX_STAR_COUNT do
         if self["ImgGirdStar" .. i] then
-            if i <= XDataCenter.EquipManager.GetEquipStar(templateId) then
+            if i <= XMVCA.XEquip:GetEquipStar(templateId) then
                 self["ImgGirdStar" .. i].transform.parent.gameObject:SetActiveEx(true)
             else
                 self["ImgGirdStar" .. i].transform.parent.gameObject:SetActiveEx(false)
             end
         end
     end
-    for i = 1, XEquipConfig.MAX_RESONANCE_SKILL_COUNT do
+    for i = 1, XEnumConst.EQUIP.MAX_RESONANCE_SKILL_COUNT do
         local obj = self["ImgResonance" .. i]
         if obj then
             obj.gameObject:SetActiveEx(false)
@@ -77,7 +77,7 @@ function XUiSimulatedCombatEquipGrid:UpdateBreakthrough(breakthroughNum)
         return
     end
     if breakthroughNum > 0 then
-        local icon = XEquipConfig.GetEquipBreakThroughSmallIcon(breakthroughNum)
+        local icon = XMVCA.XEquip:GetEquipBreakThroughSmallIcon(breakthroughNum)
         if icon then
             self.RootUi:SetUiSprite(self.ImgBreakthrough, icon)
             self.ImgBreakthrough.gameObject:SetActiveEx(true)

@@ -28,7 +28,7 @@ function XUiGridLevel:SetGridLevelContent(data)
 
     local gameTypeCfg = XComeAcrossConfig.GetComeAcrossTypeConfigById(gameType)
     self.Parent:SetUiSprite(self.ImgType, gameTypeCfg.Icon)
-    self.Parent:SetUiSprite(self.ImgHead, XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(data.Character.Id))
+    self.Parent:SetUiSprite(self.ImgHead, XMVCA.XCharacter:GetCharRoundnessHeadIcon(data.Character.Id))
 
 end
 

@@ -1,25 +1,14 @@
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
 --
 -- Author: wujie
 -- Note: 图鉴武器格子信息
-local XUiGridArchiveWeapon = XClass(nil, "XUiGridArchiveWeapon")
+local XUiGridArchiveWeapon = XClass(XUiNode, "XUiGridArchiveWeapon")
 
-function XUiGridArchiveWeapon:Ctor(ui, clickCb, rootUi)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiGridArchiveWeapon:OnStart(clickCb, rootUi)
     self.RootUi = rootUi
     self.ClickCb = clickCb
-
-    XTool.InitUiObject(self)
-
+    
     self.BtnClick.CallBack = function() self:OnBtnClick() end
-end
-
-function XUiGridArchiveWeapon:InitRootUi(rootUi)
-    self.RootUi = rootUi
-end
-
-function XUiGridArchiveWeapon:SetClickCallback(callback)
-    self.ClickCb = callback
 end
 
 function XUiGridArchiveWeapon:Refresh(templateIdList,index)
@@ -28,10 +17,10 @@ function XUiGridArchiveWeapon:Refresh(templateIdList,index)
     self.TemplateId = templateId
     self.TemplateIdList = templateIdList
     self.TemplateIndex = index
-    local templateData = XEquipConfig.GetEquipCfg(templateId)
+    local templateData = XMVCA.XEquip:GetConfigEquip(templateId)
 
-    local isGet = XDataCenter.ArchiveManager.IsWeaponGet(templateId)
-    local iconPath = XDataCenter.EquipManager.GetEquipBigIconPath(templateId, 0)
+    local isGet = XMVCA.XArchive:IsWeaponGet(templateId)
+    local iconPath = XMVCA.XEquip:GetEquipBigIconPath(templateId, 0)
     if isGet then
         self.RImgIcon:SetRawImage(iconPath, nil, true)
         self.RImgIcon.gameObject:SetActiveEx(true)
@@ -43,11 +32,11 @@ function XUiGridArchiveWeapon:Refresh(templateIdList,index)
     end
 
     if self.ImgQuality then
-        self.RootUi:SetUiSprite(self.ImgQuality, XDataCenter.EquipManager.GetEquipQualityPath(templateId))
+        self.RootUi:SetUiSprite(self.ImgQuality, XMVCA.XEquip:GetEquipQualityPath(templateId))
     end
 
     if self.TxtName then
-        self.TxtName.text = templateData.Name
+        self.TxtName.text = XMVCA.XEquip:GetEquipName(templateId)
     end
 
     XRedPointManager.CheckOnce(
@@ -72,13 +61,13 @@ function XUiGridArchiveWeapon:OnCheckRedPoint(count)
         self.PanelNewTag.gameObject:SetActiveEx(false)
         self.PanelRedPoint.gameObject:SetActiveEx(false)
     else
-        local isShowTag = XDataCenter.ArchiveManager.IsNewWeapon(templateId)
+        local isShowTag = XMVCA.XArchive:IsNewWeapon(templateId)
         if isShowTag then
             self.PanelNewTag.gameObject:SetActiveEx(true)
             self.PanelRedPoint.gameObject:SetActiveEx(false)
         else
             self.PanelNewTag.gameObject:SetActiveEx(false)
-            self.PanelRedPoint.gameObject:SetActiveEx(XDataCenter.ArchiveManager.IsNewWeaponSetting(templateId))
+            self.PanelRedPoint.gameObject:SetActiveEx(XMVCA.XArchive:IsNewWeaponSetting(templateId))
         end
     end
 end

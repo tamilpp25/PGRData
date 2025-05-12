@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiPanelLineChapter = require("XUi/XUiFubenHack/ChildView/XUiPanelLineChapter")
 local XUiPanelLevelInfo = require("XUi/XUiFubenHack/ChildView/XUiPanelLevelInfo")
 local XUiGridStarReward = require("XUi/XUiFubenHack/ChildItem/XUiGridStarReward")
@@ -30,7 +31,7 @@ function XUiFubenHack:OnStart()
     self.TxtChapterName.text = self.ActTemplate.Name
 
     self:InitUiView()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
 end
 
 function XUiFubenHack:OnGetEvents()

@@ -9,28 +9,35 @@ function XUiDormTemplateScene:OnAwake()
     self:AddListener()
 end
 
-function XUiDormTemplateScene:OnStart(dormitoryId, roomDataType, displaytype)
+function XUiDormTemplateScene:OnStart(dormitoryId, roomDataType, displayType, fromRoomId)
     XLuaUiManager.Close("UiLoading")
-    self.FunitureListPanel = XUiPanelFunitureList.New(self.PanelFurnitureList, self)
+    self.FurnitureListPanel = XUiPanelFunitureList.New(self.PanelFurnitureList, self)
     self.SavePanel = XUiPanelSave.New(self.PanelSave, self)
     self.EncodingPanel = XUiPanelEncoding.New(self.PanelEncoding, self)
-    self:Refresh(dormitoryId, roomDataType, displaytype)
+    self:Refresh(dormitoryId, roomDataType, displayType, fromRoomId)
 end
 
-function XUiDormTemplateScene:Refresh(dormitoryId, roomDataType, displaytype)
+function XUiDormTemplateScene:Refresh(dormitoryId, roomDataType, displayType, fromRoomId)
     local roomType = roomDataType
     if roomDataType == XDormConfig.DormDataType.CollectNone then
         roomType = XDormConfig.DormDataType.Template
     end
-
+    
     self.OldRoomDataType = roomDataType
     self.HomeRoomData = XDataCenter.DormManager.GetRoomDataByRoomId(dormitoryId, roomType)
     self.RoomDataType = self.HomeRoomData:GetRoomDataType()
-    self.Displaytype = displaytype
+    self.DisplayType = displayType
     self.RoomId = self.HomeRoomData:GetRoomId()
+    self.FromRoomId = fromRoomId or self.FromRoomId
 
     self:SetCollectNoneSence(dormitoryId, roomDataType)
     self:SetBtnStatus()
+
+    if (roomDataType == XDormConfig.DormDataType.Target 
+            and self.HomeRoomData:GetPlayerId() ~= XPlayer.Id) 
+            or roomDataType == XDormConfig.DormDataType.Self then
+        self:OnBtnSaveClick()
+    end
 end
 
 function XUiDormTemplateScene:AddListener()
@@ -53,10 +60,10 @@ function XUiDormTemplateScene:OnBtnBackClick()
     -- 退出模板场景
     if self.RoomDataType == XDormConfig.DormDataType.Template then
         if self.OldRoomDataType == XDormConfig.DormDataType.CollectNone then
-            local titletext = CS.XTextManager.GetText("TipTitle")
-            local contenttext = CS.XTextManager.GetText("DormTemplateNoneTip")
+            local title = CS.XTextManager.GetText("TipTitle")
+            local content = CS.XTextManager.GetText("DormTemplateNoneTip")
 
-            XUiManager.DialogTip(titletext, contenttext, XUiManager.DialogType.Normal, function()
+            XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, function()
                 self:BackToDormMain()
                 self:Close()
             end, function()
@@ -71,16 +78,23 @@ function XUiDormTemplateScene:OnBtnBackClick()
         local lastProvisionalRoom = XDataCenter.DormManager.GetLastDormProvisionalData()
         if lastProvisionalRoom then
             local lastRoomId = lastProvisionalRoom:GetRoomId()
-            XDataCenter.DormManager.EnterTeamplateDormitory(lastRoomId, XDormConfig.DormDataType.Provisional)
+            XDataCenter.DormManager.EnterTemplateDormitory(lastRoomId, XDormConfig.DormDataType.Provisional)
         else
             self:BackToDormMain()
         end
+    elseif self.RoomDataType == XDormConfig.DormDataType.Self then
+        self.HomeRoomData:SetHideCharacter(false)
+        self:BackToDormMain()
     end
 
     self:Close()
 end
 
 function XUiDormTemplateScene:BackToDormMain()
+    if self.FromRoomId then
+        XHomeDormManager.SetSelectedRoom(self.FromRoomId, true)
+        return
+    end
     XHomeDormManager.SetSelectedRoom(self.RoomId, false, true)
     XHomeSceneManager.ChangeBackToOverView()
     XHomeSceneManager.SetGlobalIllumSO(CS.XGame.ClientConfig:GetString("HomeSceneSoAssetUrl"))
@@ -89,13 +103,12 @@ end
 -- 隐藏UI
 function XUiDormTemplateScene:OnBtnHideOrShowClick()
     self.IsHide = not self.IsHide
-    --self.BtnShare.gameObject:SetActiveEx(not self.IsHide)
-    --self.BtnDown.gameObject:SetActiveEx(not self.IsHide)
-    self.BtnShare.gameObject:SetActiveEx(false)--海外特供屏蔽宿舍分享按钮
-    self.BtnDown.gameObject:SetActiveEx(false)
+     self.BtnShare.gameObject:SetActiveEx(not self.IsHide)
+     self.BtnDown.gameObject:SetActiveEx(not self.IsHide)
+
 
     self.BtnSet.gameObject:SetActiveEx(not self.IsHide)
-    self.BtnSave.gameObject:SetActiveEx(not self.IsHide)
+    --self.BtnSave.gameObject:SetActiveEx(not self.IsHide)
     self.BtnBack.gameObject:SetActiveEx(not self.IsHide)
     self.BtnFurnitureList.gameObject:SetActiveEx(not self.IsHide)
     self.BtnHide.gameObject:SetActiveEx(not self.IsHide)
@@ -146,7 +159,7 @@ end
 -- 家具列表
 function XUiDormTemplateScene:OnBtnFurnitureListClick()
     self:PlayAnimation("FurnitureListAnimEnable")
-    self.FunitureListPanel:Open(self.HomeRoomData)
+    self.FurnitureListPanel:Open(self.HomeRoomData)
 end
 
 function XUiDormTemplateScene:SetCollectNoneSence(dormitoryId, roomDataType)
@@ -155,7 +168,7 @@ function XUiDormTemplateScene:SetCollectNoneSence(dormitoryId, roomDataType)
         return
     end
 
-    if XDataCenter.FurnitureManager.CheckCollectNoneFurnitrue(dormitoryId) then
+    if XDataCenter.FurnitureManager.CheckCollectNoneFurniture(dormitoryId) then
         return
     end
 
@@ -165,7 +178,7 @@ function XUiDormTemplateScene:SetCollectNoneSence(dormitoryId, roomDataType)
     for _, v in pairs(furnitureList) do
         roomData:AddFurniture(v.Id, v.ConfigId, v.GridX, v.GridY, v.RotateAngle)
     end
-    XDataCenter.FurnitureManager.SetCollectNoneFurnitrue(dormitoryId, roomData:GetFurnitureDic())
+    XDataCenter.FurnitureManager.SetCollectNoneFurniture(dormitoryId, roomData:GetFurnitureDic())
 end
 
 function XUiDormTemplateScene:SetBtnStatus()
@@ -180,21 +193,16 @@ function XUiDormTemplateScene:SetBtnStatus()
         self.BtnDown.gameObject:SetActiveEx(false)
         self.BtnSet.gameObject:SetActiveEx(false)
         self.BtnSave.gameObject:SetActiveEx(false)
-    elseif self.OldRoomDataType == XDormConfig.DormDataType.Collect or
-    self.OldRoomDataType == XDormConfig.DormDataType.CollectNone then
+    elseif self.OldRoomDataType == XDormConfig.DormDataType.Collect or 
+            self.OldRoomDataType == XDormConfig.DormDataType.CollectNone then
         self.BtnShare.gameObject:SetActiveEx(self.OldRoomDataType == XDormConfig.DormDataType.Collect)
         self.BtnDown.gameObject:SetActiveEx(true)
-
         self.BtnSet.gameObject:SetActiveEx(true)
         self.BtnSave.gameObject:SetActiveEx(true)
     elseif self.OldRoomDataType == XDormConfig.DormDataType.Provisional then
         self.BtnShare.gameObject:SetActiveEx(true)
         self.BtnDown.gameObject:SetActiveEx(true)
-
         self.BtnSet.gameObject:SetActiveEx(true)
         self.BtnSave.gameObject:SetActiveEx(true)
     end
-    --海外特供屏蔽宿舍分享按钮
-    self.BtnShare.gameObject:SetActiveEx(false)
-    self.BtnDown.gameObject:SetActiveEx(false)
 end

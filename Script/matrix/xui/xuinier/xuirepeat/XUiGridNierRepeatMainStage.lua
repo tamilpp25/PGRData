@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridNierRepeatMainStage = XClass(nil, "XUiGridNierRepeatMainStage")
 local MAX_GIRD_COUNT = 3
 function XUiGridNierRepeatMainStage:Ctor(ui, rootUi)
@@ -37,7 +38,7 @@ function XUiGridNierRepeatMainStage:UpdateInfo(data)
 
         local consumeId, consumCount = XDataCenter.NieRManager.GetRepeatStageConsumeId(), data:GetNierRepeatStageConsumeCount()
         local haveCount = XDataCenter.ItemManager.GetCount(consumeId)
-        local needActionPoint = self.Stage.RequireActionPoint
+        local needActionPoint = XDataCenter.FubenManager.GetRequireActionPoint(self.StageId)
         local haveActionPoint = XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.ActionPoint)
         local redByShowTime = XDataCenter.NieRManager.CheckNieRRepeatRedTime()
         local isRed = false

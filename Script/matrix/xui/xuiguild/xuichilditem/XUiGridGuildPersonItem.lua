@@ -20,12 +20,12 @@ function XUiGridGuildPersonItem:OnRefresh(itemdata)
     self.ItemData = itemdata
     self.CurId = itemdata.Id
     --构造体头像
-    local path = XCharacterConfigs.GetCharacterEmotionIcon(itemdata.Id)
+    local path = XMVCA.XCharacter:GetCharacterEmotionIcon(itemdata.Id)
     self.ImgIcon:SetRawImage(path)
     --名字1
-    self.TxtName1.text = XCharacterConfigs.GetCharacterTradeName(itemdata.Id)
+    self.TxtName1.text = XMVCA.XCharacter:GetCharacterTradeName(itemdata.Id)
     --名字2
-    self.TxtName2.text = XCharacterConfigs.GetCharacterName(itemdata.Id)
+    self.TxtName2.text = XMVCA.XCharacter:GetCharacterName(itemdata.Id)
     self.CurStatus = itemdata.Status or false
     self:SetSeleStatus(self.CurStatus)
 end

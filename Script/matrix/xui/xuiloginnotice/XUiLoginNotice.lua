@@ -1,19 +1,19 @@
+local XUiPanelWebHtmlView = require("XUi/XUiCommonWebView/XUiPanelWebHtmlView")
+---@class XUiLoginNotice : XLuaUi
+---@field WebHtmlView XUiPanelWebHtmlView
 local XUiLoginNotice = XLuaUiManager.Register(XLuaUi, "UiLoginNotice")
 
 function XUiLoginNotice:OnAwake()
-    self:InitAutoScript()
+    self:AutoAddListener()
+    self._IsClose = false
 end
 
-
-function XUiLoginNotice:OnStart(loginNotice)
-    if XLuaUiManager.IsUiShow("UiLoginAgreement") then
-        XLuaUiManager.Close("UiLoginAgreement")
-    end
-
+function XUiLoginNotice:OnStart(loginNotice, showToggleTodayOnce)
     if not loginNotice or not loginNotice.HtmlUrl then
         return
     end
-
+    self.WebHtmlView = XUiPanelWebHtmlView.New(self.PanelWebView, self)
+    self.WebHtmlView:SetLoadingActive(true)
     if loginNotice.isFullUrl then
         self:SendWebRequestForCustom(loginNotice)
     else
@@ -21,6 +21,14 @@ function XUiLoginNotice:OnStart(loginNotice)
     end
 
     self.TxtTitle.text = loginNotice.Title
+    if self.TogClose then
+        if showToggleTodayOnce then
+            self.TogClose.isOn = XDataCenter.NoticeManager.CheckHasOpenLoginNotice()
+            self.TogClose.gameObject:SetActiveEx(true)
+        else
+            self.TogClose.gameObject:SetActiveEx(false)
+        end
+    end
 end
 
 function XUiLoginNotice:SendWebRequestForLogin(loginNotice)
@@ -53,41 +61,28 @@ function XUiLoginNotice:SendWebRequestForCustom(loginNotice)
 end
 
 function XUiLoginNotice:LoadByHtml(request, loginNotice)
+    if self._IsClose then
+        return
+    end
     if request.isNetworkError or request.isHttpError or not request.downloadHandler then
         return
     end
-
-    if CS.UnityEngine.Application.platform == CS.UnityEngine.RuntimePlatform.WindowsEditor or 
-    CS.UnityEngine.Application.platform == CS.UnityEngine.RuntimePlatform.WindowsPlayer then
-        --PC上，直接加载网页
-        self.PCPanelWebView.gameObject:SetActiveEx(true);
-        CS.XWebView.PCLoadHTML(self.PCPanelWebView.gameObject, request.downloadHandler.text)
-    else
-         -- 手机上暂时使用旧方法，将HTML文本显示上去
-        --此WEB VIEW仅会在手机平台上显示
-        self.PCPanelWebView.gameObject:SetActiveEx(false)
-        local html = request.downloadHandler.text
-        CS.XWebView.LoadByHtml(self.PanelWebView.gameObject, html)
+    local content = request.downloadHandler.text
+    if string.IsNilOrEmpty(content) then
+        return
     end
+    request:Dispose()
+    
+    self.WebHtmlView:ShowHtml(content)
 end
-
-
-function XUiLoginNotice:OnEnable()
-end
-
-
-function XUiLoginNotice:OnDisable()
-end
-
 
 function XUiLoginNotice:OnDestroy()
+    self._IsClose = true
 end
-
 
 function XUiLoginNotice:OnGetEvents()
-    return {XEventId.EVENT_UIDIALOG_VIEW_ENABLE}
+    return { XEventId.EVENT_UIDIALOG_VIEW_ENABLE }
 end
-
 
 function XUiLoginNotice:OnNotify(evt)
     if evt == XEventId.EVENT_UIDIALOG_VIEW_ENABLE then
@@ -95,27 +90,23 @@ function XUiLoginNotice:OnNotify(evt)
     end
 end
 
--- auto
--- Automatic generation of code, forbid to edit
-function XUiLoginNotice:InitAutoScript()
-    self:AutoInitUi()
-    self:AutoAddListener()
-end
-
-function XUiLoginNotice:AutoInitUi()
-    self.PanelWebView = self.Transform:Find("Animator/SafeAreaContentPane/PanelWebView")
-    self.PCPanelWebView = self.Transform:Find("Animator/SafeAreaContentPane/PCPanelWebView")
-    self.TxtTitle = self.Transform:Find("Animator/SafeAreaContentPane/TxtTitle"):GetComponent("Text")
-    self.BtnClose = self.Transform:Find("Animator/SafeAreaContentPane/BtnClose"):GetComponent("Button")
-    self.TxtClose = self.Transform:Find("Animator/SafeAreaContentPane/BtnClose/TxtClose"):GetComponent("Text")
-end
-
 function XUiLoginNotice:AutoAddListener()
     self:RegisterClickEvent(self.BtnClose, self.OnBtnCloseClick)
+    if self.TogClose then
+        self:RegisterClickEvent(self.TogClose, self.OnTogCloseClick)
+    end
 end
+
 -- auto
 
 function XUiLoginNotice:OnBtnCloseClick()
     self:Close()
-    XEventManager.DispatchEvent(XEventId.EVENT_WHEN_CLOSE_LOGIN_NOTICE)
 end
+
+function XUiLoginNotice:OnTogCloseClick()
+    if self.TogClose then
+        XDataCenter.NoticeManager.SaveOpenLoginNoticeValue(self.TogClose.isOn)
+    end
+end
+
+return XUiLoginNotice

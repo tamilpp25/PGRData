@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridFavorList = require("XUi/XUiTheatre/PowerFavor/XUiGridFavorList")
 
 --肉鸽玩法势力总览界面

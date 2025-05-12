@@ -43,7 +43,7 @@ function XUiPanelMultiDimRank:Refresh(rankType, rankInfo)
             txtPlayerName.text = info.Name
             captainTrans.gameObject:SetActiveEx(info.IsCaptain == 1)
             -- 头像
-            XUiPLayerHead.InitPortrait(info.HeadPortraitId, info.HeadFrameId, head)
+            XUiPlayerHead.InitPortrait(info.HeadPortraitId, info.HeadFrameId, head)
             XUiHelper.RegisterClickEvent(self, btnHead, function()
                 if not XTool.IsNumberValid(info.PlayerId) or info.PlayerId == XPlayer.Id then
                     return
@@ -53,7 +53,7 @@ function XUiPanelMultiDimRank:Refresh(rankType, rankInfo)
         else
             txtPlayerName.gameObject:SetActiveEx(false)
             captainTrans.gameObject:SetActiveEx(false)
-            XUiPLayerHead.Hide(head)
+            XUiPlayerHead.Hide(head)
         end
     end
 end

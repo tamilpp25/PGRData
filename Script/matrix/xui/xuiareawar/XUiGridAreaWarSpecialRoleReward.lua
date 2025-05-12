@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridAreaWarSpecialRoleReward = XClass(nil, "XUiGridAreaWarSpecialRoleReward")
 
 function XUiGridAreaWarSpecialRoleReward:Ctor(ui, clickCb, rootUi)

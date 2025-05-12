@@ -1,23 +1,36 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiFubenPokerGuessing = XLuaUiManager.Register(XLuaUi,"UiFubenPokerGuessing")
 
 function XUiFubenPokerGuessing:OnStart()
+    self.PokerGuessing = XDataCenter.PokerGuessingManager.GetPokerGuessingData()
     self.IsFirstEnter = true
     self:RegisterButtonEvent()
     self:InitUiView()
     self:UpdateGameState()
+    self.PanelTips.gameObject:SetActiveEx(false)
     self.BtnBig.ButtonType = CS.UiButtonType.Toggle
     self.BtnSmall.ButtonType = CS.UiButtonType.Toggle
-    self.ItemIds = {XDataCenter.ItemManager.ItemId.PokerGuessingItemId,XDataCenter.ItemManager.ItemId.Coin}
+    self.ItemIds = { XDataCenter.ItemManager.ItemId.PokerGuessingItemId }
+
+    local endTime = XDataCenter.PokerGuessingManager.GetEndTime()
+    self:SetAutoCloseInfo(endTime, function(isClose)
+        if isClose then
+            XDataCenter.PokerGuessingManager.OnActivityEnd()
+            return
+        end
+        self.TxtTime.text = XUiHelper.GetTime(endTime - XTime.GetServerNowTimestamp(), XUiHelper.TimeFormatType.ACTIVITY)
+    end)
 end
 
 function XUiFubenPokerGuessing:OnEnable()
     self:UpdateScore()
     self.AssetActivityPanel:Refresh(self.ItemIds)
-    XRedPointManager.CheckOnce(self.OnCheckRedPoint,self,{XRedPointConditions.Types.CONDITION_POKER_GUESSING_RED})
+    XEventManager.AddEventListener(XEventId.EVENT_TASK_SYNC, self.OnCheckRedPoint, self)
+    self:UpdateView()
 end
 
 function XUiFubenPokerGuessing:OnDisable()
-
+    XEventManager.RemoveEventListener(XEventId.EVENT_TASK_SYNC, self.OnCheckRedPoint, self)
 end
 
 function XUiFubenPokerGuessing:OnGetEvents()
@@ -42,18 +55,20 @@ function XUiFubenPokerGuessing:OnNotify(event, ... )
         XLuaUiManager.RunMain()
     elseif event == XEventId.EVENT_FINISH_TASK or
     event == XEventId.EVENT_TASK_SYNC then
-        XRedPointManager.CheckOnce(self.OnCheckRedPoint,self,{XRedPointConditions.Types.CONDITION_POKER_GUESSING_RED})
+        self:OnCheckRedPoint()
     end
 end
 
 function XUiFubenPokerGuessing:InitUiView()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.PokerGuessingItemId, function()
         self.AssetActivityPanel:Refresh(self.ItemIds)
+        self:OnCheckRedPoint()
+        XDataCenter.PokerGuessingManager.MarkUnlockItemChange()
     end, self.AssetActivityPanel)
-    XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.Coin, function()
-        self.AssetActivityPanel:Refresh(self.ItemIds)
-    end, self.AssetActivityPanel)
+    --XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.Coin, function()
+    --    self.AssetActivityPanel:Refresh(self.ItemIds)
+    --end, self.AssetActivityPanel)
     --self.TxtCostItem.text = CS.XTextManager.GetText("PokerGuessingCostItemText",XDataCenter.PokerGuessingManager.GetCostItemName())
     self.TxtTitle.text = CS.XTextManager.GetText("PokerGuessingStraightWins")
     self.TxtCostNum.text = XDataCenter.PokerGuessingManager.GetCostItemCount()
@@ -61,44 +76,75 @@ function XUiFubenPokerGuessing:InitUiView()
     self.BtnRecord:SetName(CS.XTextManager.GetText("PokerGuessingRecordTitle"))
     self.BtnNewGame:SetName(CS.XTextManager.GetText("PokerGuessingNewGame"))
     self.BtnTask:SetName(CS.XTextManager.GetText("PokerGuessingTask"))
-    self.BtnShop:SetName(CS.XTextManager.GetText("PokerGuessingShop"))
+    self.BtnShop:SetName(CS.XTextManager.GetText("PokerGuessingStory"))
     self:UpdateScore()
 end
 
 function XUiFubenPokerGuessing:RegisterButtonEvent()
     self.BtnMainUi.CallBack = function () XLuaUiManager.RunMain()  end
     self.BtnBack.CallBack = function () self:Close()  end
-    self.BtnHelp.CallBack = function ()
-        local content = CS.XTextManager.GetText("PokerGuessingRuleText")
-        XUiManager.UiFubenDialogTip(CS.XTextManager.GetText("PokerGuessingRuleTextTitle"),string.gsub(content, "\\n", "\n"))
-    end
+    self:BindHelpBtn(self.BtnHelp, "PokerGuessing")
     self.BtnRecord.CallBack = function ()
         XLuaUiManager.Open("UiFubenPokerGuessingCardRecorder")
     end
     self.BtnBig.CallBack = function()
-        XDataCenter.PokerGuessingManager.GuessCompareRequest(XPokerGuessingConfig.GuessType.Greater)
+        XDataCenter.PokerGuessingManager.GuessCompareRequest(XPokerGuessingConfig.GuessType.Greater, function()
+            self.PanelBuff.gameObject:SetActiveEx(true)
+            self.TxtTips.gameObject:SetActiveEx(false)
+        end)
         self.BtnSmall:SetButtonState(CS.UiButtonState.Normal)
     end
     self.BtnSmall.CallBack = function()
-        XDataCenter.PokerGuessingManager.GuessCompareRequest(XPokerGuessingConfig.GuessType.Less)
+        XDataCenter.PokerGuessingManager.GuessCompareRequest(XPokerGuessingConfig.GuessType.Less, function()
+            self.PanelBuff.gameObject:SetActiveEx(true)
+            self.TxtTips.gameObject:SetActiveEx(false)
+        end)
         self.BtnBig:SetButtonState(CS.UiButtonState.Normal)
     end
     self.BtnNewGame.CallBack = function()
         XDataCenter.PokerGuessingManager.StartNewPokerGuessingRequest(function()
+            self.TxtScore.text = 0
             self:PlayNewGameAnimation()
         end)
     end
-    self.BtnShop.CallBack = function()
-        local skipId = XDataCenter.PokerGuessingManager.GetShopSkipId()
-        if skipId and skipId ~= 0 then
-            XFunctionManager.SkipInterface(skipId)
-        end
-    end
+    self.BtnShop.CallBack = function() self:OnBtnShopClick() end
     self.BtnTask.CallBack = function()
         XLuaUiManager.Open("UiFubenPokerGuessingTask")
     end
+
+    self.BtnReplace.CallBack = function()
+        self:OnOpenUiSelectRole()
+    end
+    if self.PanelHead then
+        XUiHelper.RegisterClickEvent(self, self.PanelHead, handler(self, self.OnOpenUiSelectRole))
+    end
+    self.BtnTips.CallBack = function() self:OnBtnTipsClick() end
 end
 
+function XUiFubenPokerGuessing:UpdateView()
+
+    self.TxtTime.text = XUiHelper.GetTime(XDataCenter.PokerGuessingManager.GetEndTime() - XTime.GetServerNowTimestamp(), XUiHelper.TimeFormatType.ACTIVITY)
+    self:BindViewModelPropertyToObj(self.PokerGuessing, function(roleId)
+        self.SelectRoleId = roleId
+        self.RImgHeadIcon:SetRawImage(XPokerGuessingConfig.PokerRoleConfig:GetProperty(roleId, "Icon"))
+    end, "_SelectRoleId")
+
+    self:BindViewModelPropertiesToObj(self.PokerGuessing, function(count, progress)
+        local maxCount = XDataCenter.PokerGuessingManager.GetMaxTipCount()
+        local attachMax = maxCount <= count
+        count = math.min(count, maxCount)
+        self.ImgStars.fillAmount = XUiHelper.GetFillAmountValue(count, maxCount)
+        local maxProgress = XDataCenter.PokerGuessingManager.GetMaxProgress()
+        if attachMax then
+            progress = maxProgress
+        end
+        self.ImgBuffUp.fillAmount = XUiHelper.GetFillAmountValue(progress, maxProgress)
+        self.TxtNumber.text = count
+        self.TxtNumberMax.text = "/" .. maxCount
+    end, "_TipsCount", "_TipsProgress")
+
+    self:OnCheckRedPoint()
+end
 
 function XUiFubenPokerGuessing:UpdateGameState()
     local currGameStatus = XDataCenter.PokerGuessingManager.GetCurrGameStatus()
@@ -154,9 +200,10 @@ function XUiFubenPokerGuessing:UpdateGameState()
         XDataCenter.PokerGuessingManager.IsContinueGuessRequest(false)
     elseif currGameStatus == XPokerGuessingConfig.GameStatus.LibraryEmpty then
         self.RImgRightCard:SetRawImage(XPokerGuessingConfig.GetCardFrontAssetPath(XDataCenter.PokerGuessingManager.GetDisplayCardId()))
-        local result = XDataCenter.PokerGuessingManager.GetResult()
-        self:ShowResultPanel(result)
-        self:PlayShowResultAnimation(currGameStatus == XPokerGuessingConfig.GameStatus.Victory)
+        --牌局为空时，状态必然是胜利的
+        --local result = XDataCenter.PokerGuessingManager.GetResult()
+        self:ShowResultPanel(XPokerGuessingConfig.GameStatus.Victory)
+        self:PlayShowResultAnimation(true)
         self:PlayAnimationWithMask("RImgRightCardRotate",function()
             XUiManager.TipText("PokerGuessingEmptyLibrayText")
             self:PlaySuccessAnimation()
@@ -165,12 +212,17 @@ function XUiFubenPokerGuessing:UpdateGameState()
         end)
     end
     self.IsFirstEnter = false
-    self.RImgCostIcon.gameObject:SetActiveEx(not XDataCenter.PokerGuessingManager.GetIsEnterCost())
-    self.TxtCostNum.gameObject:SetActiveEx(not XDataCenter.PokerGuessingManager.GetIsEnterCost())
+    local count = XDataCenter.PokerGuessingManager.GetCostItemCount()
+    self.RImgCostIcon.gameObject:SetActiveEx(not XDataCenter.PokerGuessingManager.GetIsEnterCost() and count > 0)
+    self.TxtCostNum.gameObject:SetActiveEx(not XDataCenter.PokerGuessingManager.GetIsEnterCost() and count > 0)
 end
 
 function XUiFubenPokerGuessing:UpdateScore()
-    self.TxtScore.text = XDataCenter.PokerGuessingManager.GetCurrentScore()
+    local currGameStatus = XDataCenter.PokerGuessingManager.GetCurrGameStatus()
+    local score = currGameStatus == XPokerGuessingConfig.GameStatus.Failed
+            and XDataCenter.PokerGuessingManager.GetOldScore()
+            or XDataCenter.PokerGuessingManager.GetCurrentScore()
+    self.TxtScore.text = score
 end
 
 function XUiFubenPokerGuessing:ShowResultPanel(gameStatus)
@@ -263,8 +315,42 @@ function XUiFubenPokerGuessing:PlayLibraryEmptyAnimation()
     end,function() XLuaUiManager.SetMask(true) end)
 end
 
-function XUiFubenPokerGuessing:OnCheckRedPoint(count)
-    self.BtnTask:ShowReddot(count >= 0)
+function XUiFubenPokerGuessing:OnBtnTipsClick()
+    local status = XDataCenter.PokerGuessingManager.GetCurrGameStatus()
+    if status == XPokerGuessingConfig.GameStatus.Initialize
+            or status == XPokerGuessingConfig.GameStatus.Failed then
+        XUiManager.TipText("PokerGuessingGameNotStart")
+        return
+    end
+    local count = self.PokerGuessing:GetProperty("_TipsCount")
+    if count <= 0 then
+        XUiManager.TipText("PokerGuessingTipsCountDeficiency")
+        return
+    end
+
+    XDataCenter.PokerGuessingManager.UseTipsRequest(function()
+        local desc = self.PokerGuessing:GetTipsDesc()
+        self.PanelBuff.gameObject:SetActiveEx(false)
+        self.TxtTips.text = desc
+        self.TxtTips.gameObject:SetActiveEx(true)
+    end)
+end
+
+function XUiFubenPokerGuessing:OnBtnShopClick()
+    --local skipId = XDataCenter.PokerGuessingManager.GetShopSkipId()
+    --if skipId and skipId ~= 0 then
+    --    XFunctionManager.SkipInterface(skipId)
+    --end
+    XLuaUiManager.Open("UiFubenPokerGuessingStory")
+end
+
+function XUiFubenPokerGuessing:OnOpenUiSelectRole()
+    XLuaUiManager.Open("UiFubenPokerGuessingSelectRole", self.SelectRoleId)
+end
+
+function XUiFubenPokerGuessing:OnCheckRedPoint()
+    self.BtnTask:ShowReddot(XDataCenter.PokerGuessingManager.CheckTaskRedPoint())
+    self.BtnShop:ShowReddot(XDataCenter.PokerGuessingManager.CheckStoryRedPoint())
 end
 
 return XUiFubenPokerGuessing

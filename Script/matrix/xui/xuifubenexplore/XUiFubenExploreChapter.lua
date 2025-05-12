@@ -1,9 +1,10 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiTabBtnGroup = require("XUi/XUiBase/XUiTabBtnGroup")
 local XUiFubenExploreChapter = XLuaUiManager.Register(XLuaUi, "UiFubenExploreChapter")
 function XUiFubenExploreChapter:OnAwake()
     self.CurChapterId = 0
     self.GridRecordList = {}
     self.ChapterTabBtnList = {}
-    self.AnimQieHuanGo = self:FindGameObject("AnimQieHuan")
     self:AddListener()
     self:InitTabBtn()
     self.TabBtnGroup:SelectIndex(XDataCenter.FubenExploreManager.GetNewestChapterId())
@@ -133,9 +134,7 @@ function XUiFubenExploreChapter:OnBtnEnterClick()
 end
 
 function XUiFubenExploreChapter:OnBtnChapterClick(chapterId)
-    if self.AnimQieHuanGo and self.AnimQieHuanGo.activeInHierarchy then
-        self:PlayAnimation("AnimQieHuan")
-    end
+    self:PlayAnimation("AnimQieHuan")
     self.CurChapterId = chapterId
     XDataCenter.FubenExploreManager.SetCurChapterId(self.CurChapterId)
     self.CurChapterData = XFubenExploreConfigs.GetChapterData(self.CurChapterId)

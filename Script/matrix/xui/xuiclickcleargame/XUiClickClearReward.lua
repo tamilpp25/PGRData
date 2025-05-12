@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiClickClearReward = XLuaUiManager.Register(XLuaUi, "UiClickClearReward")
 
 local XUiGridClickClearReward = require("XUi/XUiClickClearGame/XUiGridClickClearReward")

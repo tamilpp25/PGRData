@@ -1,31 +1,15 @@
 XVideoManagerCreator = function()
 
+    ---@class XVideoManager
     local XVideoManager = {}
 
-    local VideoPlayState = {
-        Stop = 0,
-        Playing = 1,
-        Pause = 2
-    }
-
-    local State = VideoPlayState.Stop
-    -- local PlayingId = -1
-    local VideoPlayer = nil
-
-    function XVideoManager.PlayMovie(id, callback, needAuto, needSkip)
+    function XVideoManager.PlayUiVideo(id, callback, needAuto, needSkip)
         if not id then
             return
         end
 
-        if State == VideoPlayState.Playing then
-            XLog.Error("XVideoManager.PlayMovie: Video正在播放")
-            return
-        end
-
         local config = XVideoConfig.GetMovieById(id)
-
         if not XDataCenter.UiPcManager.IsPc() and not CS.XResourceManager.HasFile(config.VideoUrl, true) then
-            XLog.Error("非pc端且路径不存在", config.VideoUrl)
             if callback then
                 callback()
             end
@@ -33,69 +17,27 @@ XVideoManagerCreator = function()
         end
 
         if XDataCenter.UiPcManager.IsPc() and not CS.XResourceManager.HasFile(config.VideoUrlPc, true) then
-            XLog.Error("pc端且路劲不存在", config.VideoUrlPc)
             if callback then
                 callback()
             end
             return
         end
 
-        -- PlayingId = id
-        State = VideoPlayState.Playing
-
         XLuaUiManager.Open("UiVideoPlayer", id, callback, needAuto, needSkip)
     end
 
-    --停止播放
-    function XVideoManager.Stop()
-        if State ~= VideoPlayState.Playing then
+    function XVideoManager.LoadVideoPlayerUguiWithPrefab(parentTransform)
+        if not parentTransform then
             return
         end
 
-        if not VideoPlayer then
-            return
-        end
-
-        State = VideoPlayState.Stop
-        -- PlayingId = -1
-        VideoPlayer = nil
-
-    end
-
-    function XVideoManager.Pause()
-        if State ~= VideoPlayState.Playing then
-            return
-        end
-
-        if not VideoPlayer then
-            return
-        end
-
-        State = VideoPlayState.Pause
-        VideoPlayer:Pause()
-
-    end
-
-    function XVideoManager.Resume()
-        if State ~= VideoPlayState.Pause then
-            return
-        end
-
-        if not VideoPlayer then
-            return
-        end
-
-        State = VideoPlayState.Playing
-        VideoPlayer:Resume()
-
-    end
-
-    function XVideoManager.SetVideoPlayer(player)
-        VideoPlayer = player
-    end
-
-    function XVideoManager.IsPlaying()
-        return VideoPlayer and VideoPlayer:IsPlaying()
+        local loader = CS.XLoaderUtil.GetModuleLoader(ModuleId.XUiMain)
+        local prefabUrl = CS.XGame.ClientConfig:GetString("VideoPlayerUguiPrefabUrl")
+        local resource = loader:Load(prefabUrl)
+        local videoPrefab = XUiHelper.Instantiate(resource, parentTransform.transform)
+        local videoPlayerUGUI = videoPrefab:GetComponent(typeof(CS.XVideoPlayerUGUI))
+        loader:Unload(prefabUrl)
+        return videoPlayerUGUI
     end
 
     -- 注意pv资源需要放在launch目录下，和下载pv使用同一份

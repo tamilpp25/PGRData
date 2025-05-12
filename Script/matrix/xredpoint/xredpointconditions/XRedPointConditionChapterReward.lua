@@ -15,17 +15,17 @@ function XRedPointConditionChapterReward.GetSubConditions()
 end
 
 function XRedPointConditionChapterReward.Check(chapterId)
-    if XRedPointConditionMainLineTreasure.Check(chapterId) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAINLINE_TREASURE, chapterId) then
         return true
     end
 
     local chapterInfo = XDataCenter.FubenMainLineManager.GetChapterInfo(chapterId)
     local chapterMainId = chapterInfo and chapterInfo.ChapterMainId or 0
-    if XRedPointConditionZhouMuTask.Check(chapterMainId) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_ZHOUMU_TASK, chapterMainId) then
         return true
     end
 
-    if XRedPointConditionTRPGMainView.Check(chapterId) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TRPG_MAIN_VIEW, chapterId) then
         return true
     end
 

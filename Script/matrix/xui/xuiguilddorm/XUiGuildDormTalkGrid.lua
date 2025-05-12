@@ -4,14 +4,16 @@ local XUiGuildDormTalkGrid = XClass(nil, "XUiGuildDormTalkGrid")
 function XUiGuildDormTalkGrid:Ctor(ui)
     XUiHelper.InitUiClass(self, ui)
     self.CurrentRoom = XDataCenter.GuildDormManager.GetCurrentRoom()
-    self.RLRole = nil
+    self.Entity = nil
     self.CreateTime = 0
-    self.PlayerId = nil
+    self.HideTime = 0
 end
 
-function XUiGuildDormTalkGrid:SetData(content, rlRole, offsetHeight, isEmoji)
-    self.RLRole = rlRole
-    self.Offset = CS.UnityEngine.Vector3(0, offsetHeight, 0)
+function XUiGuildDormTalkGrid:SetData(entity, content, isEmoji, hideTime)
+    if hideTime == nil or hideTime <= 0 then hideTime = XGuildDormConfig.GetTalkHideTime() end
+    self.HideTime = hideTime
+    self.Entity = entity
+    self.Offset = CS.UnityEngine.Vector3(0, entity:GetTalkHeightOffset(), 0)
     self.PanelText.gameObject:SetActiveEx(not isEmoji)
     self.PanelEmoji.gameObject:SetActiveEx(isEmoji)
     if isEmoji then
@@ -23,11 +25,11 @@ function XUiGuildDormTalkGrid:SetData(content, rlRole, offsetHeight, isEmoji)
 end
 
 function XUiGuildDormTalkGrid:GetIsArriveHideTime()
-    return Time.realtimeSinceStartup - self.CreateTime >= XGuildDormConfig.GetTalkHideTime()
+    return Time.realtimeSinceStartup - self.CreateTime >= self.HideTime / 1000
 end
 
 function XUiGuildDormTalkGrid:UpdateTransform()
-    self.CurrentRoom:SetViewPosToTransformLocalPosition(self.Transform, self.RLRole:GetTransform(), self.Offset)
+    self.CurrentRoom:SetViewPosToTransformLocalPosition(self.Transform, self.Entity:GetRLEntity():GetTransform(), self.Offset)
 end
 
 function XUiGuildDormTalkGrid:Hide()
@@ -41,12 +43,9 @@ function XUiGuildDormTalkGrid:Show(parent)
     end
 end
 
-function XUiGuildDormTalkGrid:SetPlayerId(value)
-    self.PlayerId = value
+function XUiGuildDormTalkGrid:GetEntityId()
+    return self.Entity:GetEntityId()
 end
 
-function XUiGuildDormTalkGrid:GetPlayerId()
-    return self.PlayerId
-end
 
 return XUiGuildDormTalkGrid

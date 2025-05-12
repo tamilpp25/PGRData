@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --虚像地平线战斗准备换人界面
 local XUiExpeditionRoomCharacter = XLuaUiManager.Register(XLuaUi, "UiExpeditionRoomCharacter")
 local XUiExpeditionRoomCharListPanel = require("XUi/XUiExpedition/Battle/ChangeMember/XUiExpeditionRoomCharListPanel")

@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --虚像地平线主界面
 local XUiExpeditionMain = XLuaUiManager.Register(XLuaUi, "UiExpeditionMain")
 local XUiGridExpeditionChapter = require("XUi/XUiExpedition/Chapter/XUiGridExpeditionChapter")

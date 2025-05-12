@@ -3,7 +3,7 @@ local XUiRpgTowerSkillDetails = XLuaUiManager.Register(XLuaUi, "UiRpgTowerSkillD
 
 function XUiRpgTowerSkillDetails:OnAwake()
     XTool.InitUiObject(self)
-    self.BtnTanchuangClose.CallBack = function() self:Close() end
+    self.BtnTanchuangClose.CallBack = function() self:OnClose() end
 end
 
 function XUiRpgTowerSkillDetails:OnStart(skillInfo)
@@ -18,4 +18,10 @@ function XUiRpgTowerSkillDetails:RefreshSkill()
     self.TxtCount.text = self.SkillInfo.Level
     self.TxtName.text = self.SkillInfo.Name
     self.TxtWorldDesc.text = self.SkillInfo.Intro
+end
+--================
+--点击关闭按钮
+--================
+function XUiRpgTowerSkillDetails:OnClose()
+    self:Close()
 end

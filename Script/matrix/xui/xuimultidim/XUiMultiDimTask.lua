@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMultiDimTask = XLuaUiManager.Register(XLuaUi, "UiMultiDimTask")
 
 function XUiMultiDimTask:OnAwake()
@@ -10,7 +12,7 @@ end
 
 function XUiMultiDimTask:OnStart()
     local itemId = XDataCenter.MultiDimManager.GetActivityItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
     
     self:InitDynamicTable()
     self:InitLeftTabBtn()

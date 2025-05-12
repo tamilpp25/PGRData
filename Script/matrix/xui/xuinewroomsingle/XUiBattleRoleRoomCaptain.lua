@@ -1,5 +1,8 @@
 local XUiBattleRoleRoomCaptain = XLuaUiManager.Register(XLuaUi, "UiBattleRoleRoomCaptain")
 
+-- 最多只记录10次
+local MaxChangeTimes = 10
+
 function XUiBattleRoleRoomCaptain:OnAwake()
     -- 重定义 begin
     self.RImgIcon1 = self.RawImage01
@@ -29,6 +32,7 @@ function XUiBattleRoleRoomCaptain:OnAwake()
     self.Callback = nil
     -- 当前队长位置
     self.CurrentCaptainPos = nil
+    self.ChangeTimes = 0
     self:RegisterUiEvents()
 end
 
@@ -60,10 +64,20 @@ function XUiBattleRoleRoomCaptain:OnCaptainBtnGroupClicked(index)
     if self["BtnSelect" .. index].ButtonState == CS.UiButtonState.Disable then
         return
     end
+    self.ChangeTimes = math.min(MaxChangeTimes, self.ChangeTimes + 1)
     self.CurrentCaptainPos = index
 end
 
 function XUiBattleRoleRoomCaptain:OnCloseClicked()
+    local viewModel = self.CharacterViewModelDic[self.CurrentCaptainPos]
+    if viewModel and self.ChangeTimes > 1 then
+        local id = viewModel:GetId()
+        if XRobotManager.CheckIsRobotId(id) then
+            id = XRobotManager.GetCharacterId(id)
+        end
+
+        XMVCA.XFavorability:PlayCvByType(id, XEnumConst.Favorability.SoundEventType.CaptainJoinTeam)
+    end
     if self.Callback then self.Callback(self.CurrentCaptainPos) end
     self:Close()
 end
@@ -93,6 +107,16 @@ function XUiBattleRoleRoomCaptain:RefreshRoleList()
             self["BtnSelect" .. pos]:SetButtonState(CS.UiButtonState.Disable)
         end
     end    
+end
+
+function XUiBattleRoleRoomCaptain:OnEnable()
+    XEventManager.AddEventListener(XEventId.EVENT_FIGHT_BEGIN_PLAYMOVIE, self.Remove, self)
+    XEventManager.AddEventListener(XEventId.EVENT_FIGHT_LOADINGFINISHED, self.Remove, self)
+end
+
+function XUiBattleRoleRoomCaptain:OnDisable()
+    XEventManager.RemoveEventListener(XEventId.EVENT_FIGHT_BEGIN_PLAYMOVIE, self.Remove, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_FIGHT_LOADINGFINISHED, self.Remove, self)
 end
 
 return XUiBattleRoleRoomCaptain

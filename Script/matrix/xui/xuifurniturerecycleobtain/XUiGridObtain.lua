@@ -35,7 +35,7 @@ end
 
 function XUiGridObtain:OnBtnClickClick()
     local furnitureConfigId = XDataCenter.FurnitureManager.GetFurnitureConfigId(self.FurnitureId)
-    XEventManager.DispatchEvent(XEventId.EVENT_CLICKFURNITURE_GRID, self.FurnitureId, furnitureConfigId, self)
+    XEventManager.DispatchEvent(XEventId.EVENT_CLICK_FURNITURE_GRID, self.FurnitureId, furnitureConfigId, self)
 end
 
 function XUiGridObtain:SetSelected(status)
@@ -74,7 +74,24 @@ function XUiGridObtain:Refresh(furnitureId, selectQualityList)
             break
         end
     end
+    
+    self:RefreshLabel(furnitureConfig.Id)
+end
 
+function XUiGridObtain:RefreshLabel(templateId)
+    if self.GoodsLabel then
+        self.GoodsLabel:Close()
+    end
+    if not XTool.IsNumberValid(templateId) then
+        return
+    end
+    if not XUiConfigs.CheckHasLabel(templateId) then
+        return
+    end
+    if not self.GoodsLabel then
+        self.GoodsLabel = XUiHelper.CreateGoodsLabel(templateId, self.Transform, self.PanelPet)
+    end
+    self.GoodsLabel:Refresh(templateId, self.PanelPet ~= nil)
 end
 
 return XUiGridObtain

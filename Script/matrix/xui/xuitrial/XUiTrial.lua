@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiTrial = XLuaUiManager.Register(XLuaUi, "UiTrial")
 local XUiPanelTrialMain = require("XUi/XUiTrial/XUiPanelTrialMain")
 local XUiPanelTrialSelect = require("XUi/XUiTrial/XUiPanelTrialSelect")

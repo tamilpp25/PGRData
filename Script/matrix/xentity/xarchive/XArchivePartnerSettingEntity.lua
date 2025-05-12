@@ -1,8 +1,13 @@
+---@class XArchivePartnerSettingEntity
 local XArchivePartnerSettingEntity = XClass(nil, "XArchivePartnerSettingEntity")
 
 function XArchivePartnerSettingEntity:Ctor(id)
     self.Id = id
     self.IsLock = true
+end
+
+function XArchivePartnerSettingEntity:SetIsLock(isLock)
+    self.IsLock = isLock
 end
 
 function XArchivePartnerSettingEntity:UpdateData(playerData)
@@ -12,7 +17,7 @@ function XArchivePartnerSettingEntity:UpdateData(playerData)
 end
 
 function XArchivePartnerSettingEntity:GetCfg()
-    return XArchiveConfigs.GetPartnerSettingConfigById(self.Id)
+    return XMVCA.XArchive:GetPartnerSettingConfigById(self.Id)
 end
 
 function XArchivePartnerSettingEntity:GetId()

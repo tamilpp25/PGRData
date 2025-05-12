@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --######################## XUiSignInItem ########################
 local XUiSignInItem = XClass(nil, "XUiSignInItem")
 

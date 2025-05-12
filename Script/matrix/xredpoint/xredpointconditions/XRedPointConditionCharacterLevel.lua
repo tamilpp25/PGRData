@@ -21,13 +21,14 @@ function XRedPointConditionCharacterLevel.Check(characterId)
         return false
     end
 
-    if XDataCenter.CharacterManager.CanLevelUp(characterId) then
+    if XMVCA.XCharacter:CanLevelUp(characterId) then
         return true
     end
 
-    if XRedPointConditionExhibitionNew.Check(characterId) then
-        return true
-    end
+    -- v2.6把解放单独拆出去了
+    -- if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_EXHIBITION_NEW, characterId) then
+    --     return true
+    -- end
 
     return false
 end

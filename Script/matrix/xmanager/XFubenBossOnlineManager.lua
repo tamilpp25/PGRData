@@ -1,6 +1,7 @@
+local XExFubenSimulationChallengeManager = require("XEntity/XFuben/XExFubenSimulationChallengeManager")
 XFubenBossOnlineManagerCreator = function()
 
-    local XFubenBossOnlineManager = {}
+    local XFubenBossOnlineManager = XExFubenSimulationChallengeManager.New(XFubenConfigs.ChapterType.BossOnline)
 
     XFubenBossOnlineManager.OnlineBossDifficultLevel = {
         SIMPLE = 1,
@@ -17,10 +18,7 @@ XFubenBossOnlineManagerCreator = function()
         GetActivityBossDataRequest = "GetActivityBossDataRequest"
     }
 
-    local CsXTextManager = CS.XTextManager
-    local TABLE_FUBEN_ONLINE_OPEN_TIME = "Share/Fuben/BossOnline/BossOnlineOpenTime.tab"
-    local OnlineBossNormalOpenTimeTemplates = {} --联机boss常规开放时间限制
-    local OnlineBossNormalOpenTimeList = {}
+
     local IsActivity
     local BossDataList
     local OnlineLelfTime --联机Boss刷新时间
@@ -35,10 +33,6 @@ XFubenBossOnlineManagerCreator = function()
     function XFubenBossOnlineManager.Init()
         OnlineBossSectionTemplates = XFubenBossOnlineConfig.GetSectionTemplates()
         OnlineBossChapterTemplates = XFubenBossOnlineConfig.GetChapterTemplates()
-        OnlineBossNormalOpenTimeTemplates = XTableManager.ReadByIntKey(TABLE_FUBEN_ONLINE_OPEN_TIME, XTable.XTableActivityBossOnlineOpenTime, "Id")
-        for _, openTimeCfg in pairs(OnlineBossNormalOpenTimeTemplates) do
-            table.insert(OnlineBossNormalOpenTimeList, openTimeCfg)
-        end
     end
 
     function XFubenBossOnlineManager.GetBossOnlineChapters()
@@ -58,40 +52,77 @@ XFubenBossOnlineManagerCreator = function()
         return list
     end
 
-    function XFubenBossOnlineManager.UpdateStageUnlock(stageId, diff)
-        local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    --function XFubenBossOnlineManager.UpdateStageUnlock(stageId, diff)
+    --    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    --    local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
+    --    stageInfo.Unlock = false
+    --    stageInfo.IsOpen = false
+    --    if stageCfg.RequireLevel > 0 and XPlayer.Level < stageCfg.RequireLevel then
+    --        return
+    --    end
+    --
+    --    if diff > 1 then
+    --        for _, v in pairs(OnlineBossSectionTemplates) do
+    --            if v.DifficultType == diff - 1 then
+    --                local preStageInfo = XDataCenter.FubenManager.GetStageInfo(v.StageId)
+    --                if preStageInfo.Passed then
+    --                    stageInfo.Unlock = true
+    --                    stageInfo.IsOpen = true
+    --                    return
+    --                end
+    --            end
+    --        end
+    --    else
+    --        stageInfo.Unlock = true
+    --        stageInfo.IsOpen = true
+    --    end
+    --end
+
+    --function XFubenBossOnlineManager.InitStageInfo()
+    --    for _, sectionCfg in pairs(OnlineBossSectionTemplates) do
+    --        local stageInfo = XDataCenter.FubenManager.GetStageInfo(sectionCfg.StageId)
+    --        --stageInfo.BossSectionId = sectionCfg.Id
+    --        stageInfo.Type = XDataCenter.FubenManager.StageType.BossOnline
+    --        stageInfo.Difficult = sectionCfg.DifficultType
+    --        XFubenBossOnlineManager.UpdateStageUnlock(sectionCfg.StageId, sectionCfg.DifficultType)
+    --    end
+    --end
+    
+    function XFubenBossOnlineManager.GetDifficult(stageId)
+        for _, sectionCfg in pairs(OnlineBossSectionTemplates) do
+            if stageId == sectionCfg.StageId then
+                return sectionCfg.DifficultType
+            end
+        end
+    end
+    
+    local function CheckUnlockAndOpen(stageId)
         local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-        stageInfo.Unlock = false
-        stageInfo.IsOpen = false
         if stageCfg.RequireLevel > 0 and XPlayer.Level < stageCfg.RequireLevel then
-            return
+            return false
         end
 
+        local diff = XFubenBossOnlineManager.GetDifficult(stageId)
         if diff > 1 then
             for _, v in pairs(OnlineBossSectionTemplates) do
                 if v.DifficultType == diff - 1 then
-                    local preStageInfo = XDataCenter.FubenManager.GetStageInfo(v.StageId)
-                    if preStageInfo.Passed then
-                        stageInfo.Unlock = true
-                        stageInfo.IsOpen = true
-                        return
+                    if XMVCA.XFuben:CheckStageIsPass(v.StageId) then
+                        return true
                     end
                 end
             end
         else
-            stageInfo.Unlock = true
-            stageInfo.IsOpen = true
+            return true
         end
+        return false
     end
-
-    function XFubenBossOnlineManager.InitStageInfo()
-        for _, sectionCfg in pairs(OnlineBossSectionTemplates) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(sectionCfg.StageId)
-            stageInfo.BossSectionId = sectionCfg.Id
-            stageInfo.Type = XDataCenter.FubenManager.StageType.BossOnline
-            stageInfo.Difficult = sectionCfg.DifficultType
-            XFubenBossOnlineManager.UpdateStageUnlock(sectionCfg.StageId, sectionCfg.DifficultType)
-        end
+    
+    function XFubenBossOnlineManager.CheckIsOpen(stageId)
+        return CheckUnlockAndOpen(stageId)
+    end
+    
+    function XFubenBossOnlineManager.CheckUnlockByStageId(stageId)
+        return CheckUnlockAndOpen(stageId)
     end
 
     function XFubenBossOnlineManager.CheckAutoExitFight(stageId)
@@ -164,39 +195,6 @@ XFubenBossOnlineManagerCreator = function()
             return OnlineBossSectionTemplates[tmp.LastSectionId]
         end
         return OnlineBossSectionTemplates[secitonId]
-    end
-
-    function XFubenBossOnlineManager.GetBossOnlineNormalOpenTimeList()
-        return OnlineBossNormalOpenTimeList
-    end
-
-    --获取不在指定时间段提示
-    function XFubenBossOnlineManager.GetNotInTimeTip()
-        local tipStr
-
-        local timeQuantum = {}
-        for _, openTimeCfg in pairs(OnlineBossNormalOpenTimeList) do
-            local str = openTimeCfg.BeginTime .. "-" .. openTimeCfg.EndTime
-            table.insert(timeQuantum, str)
-        end
-        tipStr = CsXTextManager.GetText("BossOnlineOpenTimeTip", timeQuantum[1], timeQuantum[2])
-
-        return tipStr or ""
-    end
-
-    --判断常规BossOnLine是不是在指定时间内
-    function XFubenBossOnlineManager.CheckNormalBossOnlineInTime()
-        for _, openTimeCfg in pairs(OnlineBossNormalOpenTimeList) do
-            local beginTimes = string.Split(openTimeCfg.BeginTime, ":")
-            local endTimes = string.Split(openTimeCfg.EndTime, ":")
-            local beginTime = XTime.GeyServerTime(beginTimes[1], beginTimes[2], 0)
-            local endTime = XTime.GeyServerTime(endTimes[1], endTimes[2], 0)
-            local nowTime = XTime.GetServerNowTimestamp()
-            if nowTime >= beginTime and nowTime <= endTime then
-                return true
-            end
-        end
-        return false
     end
 
     function XFubenBossOnlineManager.GetBossDataList()
@@ -334,6 +332,9 @@ XFubenBossOnlineManagerCreator = function()
     end
 
     function XFubenBossOnlineManager.OpenBossOnlineUi(selectIdx)
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.BossOnline) then
+            return
+        end
         XFubenBossOnlineManager.RefreshBossData(function()
             if not XDataCenter.FubenBossOnlineManager.CheckBossDataCorrect() then
                 XLuaUiManager.RunMain()
@@ -349,6 +350,9 @@ XFubenBossOnlineManagerCreator = function()
     end
 
     function XFubenBossOnlineManager.OpenBossOnlineUiWithoutCheck(selectIdx)
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.BossOnline) then
+            return
+        end
         local isActivity = XFubenBossOnlineManager.GetIsActivity()
         if isActivity and XFubenBossOnlineManager.CheckIsInvade() then
             XLuaUiManager.Open("UiOnlineBossActivity", selectIdx)
@@ -384,6 +388,78 @@ XFubenBossOnlineManagerCreator = function()
         end
         return false
     end
+
+    ------------------副本入口扩展 start-------------------------
+    function XFubenBossOnlineManager:ExGetChapterType()
+        return XFubenConfigs.ChapterType.BossOnline
+    end
+
+    -- 获取进度提示
+    function XFubenBossOnlineManager:ExGetProgressTip() 
+        local strProgress = ""
+        if self:ExGetIsLocked() then
+           
+        end
+
+        return strProgress
+    end
+
+    -- 获取倒计时
+    function XFubenBossOnlineManager:ExGetRunningTimeStr()
+        local timeText = ""
+        if XFubenBossOnlineManager.GetIsActivity() then
+            local endtime = XFubenBossOnlineManager.GetOnlineBossUpdateTime()
+            local time = XTime.GetServerNowTimestamp()
+
+            local shopStr = CsXTextManager.GetText("ActivityBranchShopLeftTime")
+            local fightStr = CsXTextManager.GetText("ActivityBranchFightLeftTime")
+
+            if endtime <= time and time <= endtime then
+                local leftTime = endtime - time
+                if leftTime > 0 then
+                    timeText = shopStr .. XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
+                else
+                    if self.OnActivityEnd then
+                        self:OnActivityEnd()
+                    end
+                end
+            else
+                local leftTime = endtime - time
+                if leftTime > 0 then
+                    timeText = fightStr .. XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
+                else
+                    if self.OnActivityEnd then
+                        self:OnActivityEnd()
+                    end
+                end
+            end
+        end
+
+        return timeText
+    end
+
+    function XFubenBossOnlineManager:ExOpenMainUi()
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenActivityOnlineBoss) then
+            return
+        end
+
+        --分包资源检查
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.BossOnline) then
+            return
+        end
+
+        -- 先检查更新再开界面
+        XFubenBossOnlineManager.RefreshBossData(
+            function()
+                if not XFubenBossOnlineManager.CheckBossDataCorrect() then
+                    return
+                end
+                XFubenBossOnlineManager.OpenBossOnlineUiWithoutCheck()
+            end
+        )
+    end
+    
+    ------------------副本入口扩展 end-------------------------
 
     XFubenBossOnlineManager.Init()
     return XFubenBossOnlineManager

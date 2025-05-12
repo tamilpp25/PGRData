@@ -1,3 +1,6 @@
+local XUiPanelJubao = require("XUi/XUiPersonalInfo/PanelPersonalDetails/XUiPanelJubao")
+local XUiPanelMsgBoard = require("XUi/XUiPersonalInfo/PanelBoard/MsgBoard/XUiPanelMsgBoard")
+local XUiPanelPersonalDetails = require("XUi/XUiPersonalInfo/PanelPersonalDetails/XUiPanelPersonalDetails")
 local XUiPersonalInfo = XLuaUiManager.Register(XLuaUi, "UiPersonalInfo")
 
 -- PersonalToggleType = {
@@ -81,7 +84,7 @@ function XUiPersonalInfo:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

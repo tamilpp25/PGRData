@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 -- 组合小游戏
 local XUiComposeGame = XLuaUiManager.Register(XLuaUi, "UiComposeGame")
 local COMPOSE_ANIME_TIME = 500

@@ -1,20 +1,13 @@
 local XUiSummerEpisodeMap = XLuaUiManager.Register(XLuaUi, "UiSummerEpisodeMap")
 local XUiGridSummerEpisodeMap = require("XUi/XUiSummerEpisode/XUiGridSummerEpisodeMap")
-function XUiSummerEpisodeMap:OnStart(stageId, closeCb)
+function XUiSummerEpisodeMap:OnStart(stageId, isIncludeRandomStage, closeCb,ignoreRedPoint)
     self.StageId = stageId
+    self.IsHell = XFubenSpecialTrainConfig.IsHellStageId(stageId)
+    self.IsIncludeRandomStage = isIncludeRandomStage
     self.Lock = false
     self.CloseCallback = closeCb
+    self.IgnoreRedPoint=ignoreRedPoint
     self:InitUiView()
-end
-
-function XUiSummerEpisodeMap:OnEnable()
-
-end
-
-function XUiSummerEpisodeMap:OnDestroy()
-    if self.CloseCallback then
-        self.CloseCallback()
-    end
 end
 
 function XUiSummerEpisodeMap:InitUiView()
@@ -25,8 +18,11 @@ end
 
 function XUiSummerEpisodeMap:InitScrollList()
     self.GridList = {}
-    self.Stages = XDataCenter.FubenSpecialTrainManager.GetPhotoStages()
+    self.Stages = XDataCenter.FubenSpecialTrainManager.GetAllStageIdByActivityId(XDataCenter.FubenSpecialTrainManager.GetCurActivityId(), self.IsIncludeRandomStage)
     for _, stageId in pairs(self.Stages) do
+        if self.IsHell and not self.IsIncludeRandomStage then
+            stageId = XFubenSpecialTrainConfig.GetHellStageId(stageId)
+        end
         local obj = CS.UnityEngine.GameObject.Instantiate(self.GridMap, self.Content)
         local grid = XUiGridSummerEpisodeMap.New(obj, stageId, self)
         grid:SetClickEvent(handler(self, self.OnClickGrid))
@@ -45,16 +41,31 @@ function XUiSummerEpisodeMap:RegisterButtonEvent()
 end
 
 function XUiSummerEpisodeMap:OnClickGrid(stageId)
-    if self.Lock then return end
-    self.Lock = true
-    XDataCenter.RoomManager.PhotoChangeMapRequest(stageId, function()
-        self.Lock = false
-        self.StageId = stageId
-        for _, grid in pairs(self.GridList) do
-            grid:SetSelect(stageId == grid.StageId)
+    if self.IsIncludeRandomStage then
+        if self.CloseCallback then
+            self.CloseCallback(stageId)
         end
+
         self:Close()
-    end)
+        
+    else
+        if self.Lock then return end
+        self.Lock = true
+        XDataCenter.RoomManager.PhotoChangeMapRequest(stageId, function()
+            self.Lock = false
+            self.StageId = stageId
+            if XDataCenter.FubenSpecialTrainManager.CheckStageIsNewUnLock(stageId) then
+                XDataCenter.FubenSpecialTrainManager.SaveForOldUnLock(stageId)
+            end
+            XDataCenter.FubenSpecialTrainManager.SetCurrentStageId(stageId)
+            for _, grid in pairs(self.GridList) do
+                grid:SetSelect(stageId == grid.StageId)
+            end
+            self:Close()
+
+            
+        end)
+    end
 end
 
 return XUiSummerEpisodeMap

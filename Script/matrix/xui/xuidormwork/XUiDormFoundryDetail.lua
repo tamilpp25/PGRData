@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local Object = CS.UnityEngine.Object
 local XUiDormFoundryDetail = XLuaUiManager.Register(XLuaUi, "UiDormFoundryDetail")
 local XUiDormFoundryDetailItem = require("XUi/XUiDormWork/XUiDormFoundryDetailItem")
@@ -34,6 +35,7 @@ end
 
 function XUiDormFoundryDetail:OnEnable()
     self:OnRefresh()
+    XDataCenter.UiPcManager.OnUiEnable(self, "BtnCloseFun")
 end
 
 function XUiDormFoundryDetail:OnDisable()
@@ -43,6 +45,7 @@ function XUiDormFoundryDetail:OnDisable()
         end
     end
     self.UiRoot.PanelWork.gameObject:SetActiveEx(true)
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
 end
 
 function XUiDormFoundryDetail:OnDestroy()

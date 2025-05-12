@@ -10,6 +10,7 @@ local LONG_TIMER = 1
 
 function XUiSSBPickGridPickEnemy:Ctor(grid, pos, rootPanel, teamData, grids)
     self.RootPanel = rootPanel --XUiSSBPickPanelPick
+    ---@type XSmashBMode
     self.Mode = self.RootPanel.Mode
     self.TeamData = teamData
     self.Pos = pos
@@ -255,6 +256,9 @@ function XUiSSBPickGridPickEnemy:OnClickWaitSelect()
 end
 
 function XUiSSBPickGridPickEnemy:OnClickRole()
+    if self.Mode:GetId() == XSuperSmashBrosConfig.ModeType.DeathRandom then
+        return
+    end
     if self.Lock then
         XUiManager.TipText("SSBLockPos")
         return
@@ -263,6 +267,9 @@ function XUiSSBPickGridPickEnemy:OnClickRole()
 end
 
 function XUiSSBPickGridPickEnemy:OnClickRoleRandom()
+    if self.Mode:GetId() == XSuperSmashBrosConfig.ModeType.DeathRandom then
+        return
+    end
     if self.OnlyRandom then
         XUiManager.TipText("SSBOnlyRandom")
         return

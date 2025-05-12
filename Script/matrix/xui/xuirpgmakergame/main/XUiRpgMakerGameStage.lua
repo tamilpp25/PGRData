@@ -1,3 +1,5 @@
+---推箱子关卡Ui
+---@class XUiRpgMakerGameStage
 local XUiRpgMakerGameStage = XClass(nil, "XUiRpgMakerGameStage")
 
 function XUiRpgMakerGameStage:Ctor(ui, rpgMakerGameStageId, tabGroupIndex)
@@ -26,7 +28,7 @@ function XUiRpgMakerGameStage:Refresh(newStageId)
 
     --关卡名
     if self.TxtStageOrder then
-        self.TxtStageOrder.text = stageStatus ~= XRpgMakerGameConfigs.RpgMakerGameStageStatus.Lock and XRpgMakerGameConfigs.GetRpgMakerGameNumberName(rpgMakerGameStageId) or ""
+        self.TxtStageOrder.text = stageStatus ~= XRpgMakerGameConfigs.RpgMakerGameStageStatus.Lock and XRpgMakerGameConfigs.GetStageNumberName(rpgMakerGameStageId) or ""
     end
 
     self.PanelEffect.gameObject:SetActiveEx(newStageId == rpgMakerGameStageId)
@@ -55,13 +57,22 @@ end
 
 function XUiRpgMakerGameStage:UpdatePanelStageStatus(stageStatus)
     if self.PanelStageNormal then
-        self.PanelStageNormal.gameObject:SetActiveEx(stageStatus ~= XRpgMakerGameConfigs.RpgMakerGameStageStatus.Lock)
+        -- ui说四期显示该节点
+        self.PanelStageNormal.gameObject:SetActiveEx(true)
+        -- self.PanelStageNormal.gameObject:SetActiveEx(stageStatus ~= XRpgMakerGameConfigs.RpgMakerGameStageStatus.Lock)
     end
     if self.PanelStageLock then
         self.PanelStageLock.gameObject:SetActiveEx(stageStatus == XRpgMakerGameConfigs.RpgMakerGameStageStatus.Lock)
     end
     if self.PanelStagePass then
-        self.PanelStagePass.gameObject:SetActiveEx(stageStatus == XRpgMakerGameConfigs.RpgMakerGameStageStatus.Clear)
+        self.PanelStagePass.gameObject:SetActiveEx(stageStatus == XRpgMakerGameConfigs.RpgMakerGameStageStatus.Clear or
+        stageStatus == XRpgMakerGameConfigs.RpgMakerGameStageStatus.Perfect)
+    end
+    if self.PanelKill then
+        self.PanelKill.gameObject:SetActiveEx(stageStatus == XRpgMakerGameConfigs.RpgMakerGameStageStatus.Clear)
+    end
+    if self.PanelKill2 then
+        self.PanelKill2.gameObject:SetActiveEx(stageStatus == XRpgMakerGameConfigs.RpgMakerGameStageStatus.Perfect)
     end
 end
 

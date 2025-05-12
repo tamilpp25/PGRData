@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildShop = XLuaUiManager.Register(XLuaUi, "UiGuildShop")
 local XUiGuildGridShop = require("XUi/XUiGuild/XUiChildItem/XUiGuildGridShop")
 

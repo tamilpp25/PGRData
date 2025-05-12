@@ -49,9 +49,10 @@ function XUiPanelEncoding:OnBtnSureClick()
 
     XUiManager.DialogTip(titletext, contenttext, XUiManager.DialogType.Normal, nil, function()
         XDataCenter.DormManager.DormGetPlayerLayoutReq(shareId, function()
+            local fromRoomId = self.RootUi.FromRoomId
             self:Close()
             self.RootUi:Close()
-            XDataCenter.DormManager.EnterTeamplateDormitory(shareId, XDormConfig.DormDataType.Provisional)
+            XDataCenter.DormManager.EnterTemplateDormitory(shareId, XDormConfig.DormDataType.Provisional, fromRoomId)
         end)
     end)
 end

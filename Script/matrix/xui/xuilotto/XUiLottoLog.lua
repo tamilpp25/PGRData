@@ -1,14 +1,21 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+---@class XUiLottoLog:XLuaUi
 local XUiLottoLog = XLuaUiManager.Register(XLuaUi, "UiLottoLog")
-local BtnMaxCount = 3
+local BtnMaxCount = 4
 local TypeText = {}
 local IsInit = {}
 local AnimeNames = {}
 local InitFunctionList = {}
 local TimestampToGameDateTimeString = XTime.TimestampToGameDateTimeString
 local DrawLogLimit = CS.XGame.ClientConfig:GetInt("DrawLogLimit")
-function XUiLottoLog:OnStart(data, selectIndex)
+function XUiLottoLog:OnStart(data, selectIndex, panelType)
     self.LottoGroupData = data
-    self.SelectIndex = selectIndex or 1
+    self.SelectIndex = selectIndex or XDataCenter.LottoManager.GetRuleTagIndex()
+    self.PanelType = panelType
+    self.RewardCore = {}
+    self.RewardFirst = {}
+    self.RewardSecond = {}
+    self.RewardThird = {}
     self.BtnTanchuangClose.CallBack = function()
         self:OnBtnTanchuangClose()
     end
@@ -16,6 +23,9 @@ function XUiLottoLog:OnStart(data, selectIndex)
         self:OnBtnTanchuangClose()
     end
     InitFunctionList = {
+        function()
+            self:InitRewardDetails()
+        end,
         function()
             self:InitBaseRulePanel()
         end,
@@ -35,10 +45,10 @@ end
 function XUiLottoLog:SetTypeText()
     TypeText[XArrangeConfigs.Types.Item] = CS.XTextManager.GetText("TypeItem")
     TypeText[XArrangeConfigs.Types.Character] = function(templateId)
-        local characterType = XCharacterConfigs.GetCharacterType(templateId)
-        if characterType == XCharacterConfigs.CharacterType.Normal then
+        local characterType = XMVCA.XCharacter:GetCharacterType(templateId)
+        if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
             return CS.XTextManager.GetText("TypeCharacter")
-        elseif characterType == XCharacterConfigs.CharacterType.Isomer then
+        elseif characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
             return CS.XTextManager.GetText("TypeIsomer")
         end
     end
@@ -48,7 +58,6 @@ function XUiLottoLog:SetTypeText()
     TypeText[XArrangeConfigs.Types.Furniture] = CS.XTextManager.GetText("TypeFurniture")
     TypeText[XArrangeConfigs.Types.HeadPortrait] = CS.XTextManager.GetText("TypeHeadPortrait")
     TypeText[XArrangeConfigs.Types.ChatEmoji] = CS.XTextManager.GetText("TypeChatEmoji")
-    TypeText[XArrangeConfigs.Types.Partner] = CS.XTextManager.GetText("TypePartner")
 end
 
 function XUiLottoLog:InitDrawLogListPanel()
@@ -60,7 +69,7 @@ function XUiLottoLog:InitDrawLogListPanel()
     local time
 
     local PanelObj = {}
-    PanelObj.Transform = self.Panel3.transform
+    PanelObj.Transform = self.Panel4.transform
     XTool.InitUiObject(PanelObj)
 
     PanelObj.GridLogHigh.gameObject:SetActiveEx(false)
@@ -101,7 +110,7 @@ end
 function XUiLottoLog:SetLogData(obj, name, templateId, from, time, quality)
     local itemType = XArrangeConfigs.GetType(templateId)
     local go
-    if itemType == XArrangeConfigs.Types.Character or itemType == XArrangeConfigs.Types.Partner then
+    if itemType == XArrangeConfigs.Types.Character then
         if quality >= XItemConfigs.Quality.Three then
             go = CS.UnityEngine.Object.Instantiate(obj.GridLogHigh, obj.PanelContent)
         else
@@ -138,10 +147,47 @@ function XUiLottoLog:SetLogData(obj, name, templateId, from, time, quality)
     tmpObj.GameObject:SetActiveEx(true)
 end
 
+function XUiLottoLog:InitRewardDetails()
+    self:UpdatePanelReward(self.Panel1:GetObject("PanelItem1"), self.RewardCore, XLottoConfigs.RareLevel.One)
+    self:UpdatePanelReward(self.Panel1:GetObject("PanelItem2"), self.RewardFirst, XLottoConfigs.RareLevel.Two)
+    self:UpdatePanelReward(self.Panel1:GetObject("PanelItem3"), self.RewardSecond, XLottoConfigs.RareLevel.Three)
+    self:UpdatePanelReward(self.Panel1:GetObject("PanelItem4"), self.RewardThird, XLottoConfigs.RareLevel.Four)
+end
+
+function XUiLottoLog:UpdatePanelReward(panel, rewardDic, rareLevel)
+    local drawData = self.LottoGroupData:GetDrawData()
+    local rewardDataList = drawData:GetRewardDataList()
+    local gridObj = self.Panel1:GetObject("GridItem")
+    
+    gridObj.gameObject:SetActiveEx(false)
+    for _,rewardData in pairs(rewardDataList) do
+        if rewardData:GetRareLevel() == rareLevel then
+            local reward = rewardDic[rewardData:GetId()]
+            if not reward then
+                local obj = CS.UnityEngine.Object.Instantiate(gridObj, panel)
+                obj.gameObject:SetActiveEx(true)
+                reward = XUiGridCommon.New(self, obj)
+                local weaponFashionId = XLottoConfigs.GetLottoClientConfigNumber("WeaponFashionId")
+                local fashionDesc = XUiHelper.GetText("LottoKareninaFashionDesc")
+                if self.PanelType == XEnumConst.Lotto.Luna then
+                    weaponFashionId = XLottoConfigs.GetLottoClientConfigNumber("LunaWeaponFashionId")
+                    fashionDesc = XUiHelper.GetText("LottoLunaFashionDesc")
+                end
+                reward:SetCustomWeaopnFashionId(weaponFashionId, fashionDesc)
+                rewardDic[rewardData:GetId()] = reward
+            end
+            if reward then
+                local tmpData = {TemplateId = rewardData:GetTemplateId(), Count = rewardData:GetCount()}
+                reward:Refresh(tmpData, nil, nil, nil, rewardData:GetIsGeted() and 0 or 1)
+            end
+        end
+    end
+end
+
 function XUiLottoLog:InitBaseRulePanel()
     local baseRules = self.LottoGroupData:GetBaseRulesList()
     local baseRuleTitles = self.LottoGroupData:GetBaseRuleTitleList()
-    self:SetRuleData(baseRules, baseRuleTitles, self.Panel1)
+    self:SetRuleData(baseRules, baseRuleTitles, self.Panel2)
 end
 
 function XUiLottoLog:SetRuleData(rules, ruleTitles, panel)
@@ -156,14 +202,14 @@ function XUiLottoLog:SetRuleData(rules, ruleTitles, panel)
         tmpObj.GameObject = go.gameObject
         XTool.InitUiObject(tmpObj)
         tmpObj.TxtRuleTitle.text = ruleTitles[k]
-        tmpObj.TxtRule.text = rules[k]
+        tmpObj.TxtRule.text = XUiHelper.ConvertLineBreakSymbol(rules[k])
         tmpObj.GameObject:SetActiveEx(true)
     end
 end
 
 function XUiLottoLog:InitDrawPreview()
     local PanelObj = {}
-    PanelObj.Transform = self.Panel2.transform
+    PanelObj.Transform = self.Panel3.transform
     XTool.InitUiObject(PanelObj)
 
     PanelObj.RewardSp.gameObject:SetActiveEx(false)
@@ -240,4 +286,5 @@ function XUiLottoLog:OnSelectedTog(index)
     end
 
     self:PlayAnimation(AnimeNames[index])
+    XDataCenter.LottoManager.SetRuleTagIndex(index)
 end

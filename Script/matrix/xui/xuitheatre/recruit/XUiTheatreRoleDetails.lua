@@ -44,7 +44,7 @@ end
 function XUiTheatreRoleDetails:Refresh()
     local adventureRole = self.AdventureRole
     local characterId = adventureRole:GetCharacterId()
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
 
     --角色名
     self.TxtName.text = charConfig.Name
@@ -54,7 +54,7 @@ function XUiTheatreRoleDetails:Refresh()
 
     --职业类型
     local jobType = adventureRole:GetCareerType()
-    self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(jobType))
+    self.RImgTypeIcon:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(jobType))
 
     --战力
     self.TxtLv.text = math.ceil(adventureRole:GetAbility())
@@ -63,6 +63,17 @@ function XUiTheatreRoleDetails:Refresh()
     self:UpdateWeapon()
     self:UpdateAwareness()
     self:UpdateElement()
+
+    -- 机制
+    local generalSkillIds = XMVCA.XCharacter:GetCharactersActiveGeneralSkillIdList(self.AdventureRole:GetFilterId())
+    for i = 1, self.ListGeneralSkillDetail.childCount, 1 do
+        local id = generalSkillIds[i]
+        self["BtnGeneralSkill"..i].gameObject:SetActiveEx(id)
+        if id then
+            local generalSkillConfig = XMVCA.XCharacter:GetModelCharacterGeneralSkill()[id]
+            self["BtnGeneralSkill"..i]:SetRawImage(generalSkillConfig.Icon)
+        end
+    end
 end
 
 --刷新能量（属性）
@@ -72,7 +83,7 @@ function XUiTheatreRoleDetails:UpdateElement()
         local rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActive(true)
-            local elementConfig = XExpeditionConfig.GetCharacterElementById(elementList[i])
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
             rImg:SetRawImage(elementConfig.Icon)
         else
             rImg.gameObject:SetActive(false)
@@ -117,6 +128,12 @@ function XUiTheatreRoleDetails:AddListener()
             self:OnAwarenessClick(index)
         end)
     end
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill1, function ()
+        self:OnBtnGeneralSkillClick(1)
+    end)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill2, function ()
+        self:OnBtnGeneralSkillClick(2)
+    end)
 end
 
 function XUiTheatreRoleDetails:OnBtnWeaponClick()
@@ -137,11 +154,21 @@ function XUiTheatreRoleDetails:OnAwarenessClick(site)
 end
 
 function XUiTheatreRoleDetails:OnBtnElementDetailClick()
-    XLuaUiManager.Open("UiCharacterElementDetail", self.AdventureRole:GetCharacterId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.AdventureRole:GetCharacterId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
+end
+
+function XUiTheatreRoleDetails:OnBtnGeneralSkillClick(index)
+    local characterId = self.AdventureRole:GetFilterId()
+
+    local activeGeneralSkillIds = XMVCA.XCharacter:GetCharactersActiveGeneralSkillIdList(characterId)
+    local curId = activeGeneralSkillIds[index]
+    local realIndex = XMVCA.XCharacter:GetIndexInCharacterGeneralSkillIdsById(characterId, curId)
+
+    XLuaUiManager.Open("UiCharacterAttributeDetail", characterId, XEnumConst.UiCharacterAttributeDetail.BtnTab.GeneralSkill, realIndex)
 end
 
 function XUiTheatreRoleDetails:OnBtnCareerTipsClick()
-    XLuaUiManager.Open("UiCharacterCarerrTips", self.AdventureRole:GetCharacterId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.AdventureRole:GetCharacterId())
 end
 
 function XUiTheatreRoleDetails:OnBtnRecruitClick()

@@ -1,6 +1,18 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
+local XDynamicTableIrregular = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableIrregular")
+
 local XUiGuildViewMember = XClass(nil, "XUiGuildViewMember")
 local XUiGridMemberItem = require("XUi/XUiGuild/XUiChildItem/XUiGridMemberItem")
 local RequestMemberGap = 5
+
+local SortBtnIndex2SortType = {
+    [1] = XGuildConfig.GuildMemberSortType.SortByRankLevel,
+    [2] = XGuildConfig.GuildMemberSortType.SortByContributeAct,
+    [3] = XGuildConfig.GuildMemberSortType.SortByContributeHistory,
+    [4] = XGuildConfig.GuildMemberSortType.SortByLastLoginTime,
+}
+
+local DefaultSelectSort = 1
 
 function XUiGuildViewMember:Ctor(ui, uiRoot)
     self.GameObject = ui.gameObject
@@ -24,8 +36,9 @@ function XUiGuildViewMember:OnEnable()
     self.GameObject:SetActiveEx(true)
     self.GridMemberItem.gameObject:SetActiveEx(false)
     local updateMemberFunc = function()
-        self.CurSortIndex = self.CurSortIndex or 0
-        self:UpdateMemberInfo()
+        local tmpSelect = self.SelectIndex or DefaultSelectSort
+        self.SelectIndex = nil
+        self.PanelSort:SelectIndex(tmpSelect)
 
         local allMember = XDataCenter.GuildManager.GetMemberList()
         for _, memberInfo in pairs(allMember or {}) do
@@ -40,8 +53,7 @@ function XUiGuildViewMember:OnEnable()
                 else
                     self.TxtLastLogin.text = XUiHelper.CalcLatelyLoginTime(memberInfo.LastLoginTime)
                 end
-                self.TxtPopulation.text = memberInfo.Popularity
-                XUiPLayerHead.InitPortrait(memberInfo.HeadPortraitId, memberInfo.HeadFrameId, self.Head)
+                XUiPlayerHead.InitPortrait(memberInfo.HeadPortraitId, memberInfo.HeadFrameId, self.Head)
 
                 break
             end
@@ -118,18 +130,19 @@ function XUiGuildViewMember:UpdateMemberInfo()
         table.insert(self.AllMemberList, XTool.Clone(memberInfo))
     end
 
-    table.sort(self.AllMemberList, function(memberA, memberB)
-        if memberA.OnlineFlag == memberB.OnlineFlag then
-            if memberA.RankLevel == memberB.RankLevel then
-                if memberA.ContributeAct == memberB.ContributeAct then
-                    return memberA.Level > memberB.Level
-                end
-                return memberA.ContributeAct > memberB.ContributeAct
-            end
-            return memberA.RankLevel < memberB.RankLevel
-        end
-        return memberA.OnlineFlag > memberB.OnlineFlag
-    end)
+    --table.sort(self.AllMemberList, function(memberA, memberB)
+    --    if memberA.OnlineFlag == memberB.OnlineFlag then
+    --        if memberA.RankLevel == memberB.RankLevel then
+    --            if memberA.ContributeAct == memberB.ContributeAct then
+    --                return memberA.Level > memberB.Level
+    --            end
+    --            return memberA.ContributeAct > memberB.ContributeAct
+    --        end
+    --        return memberA.RankLevel < memberB.RankLevel
+    --    end
+    --    return memberA.OnlineFlag > memberB.OnlineFlag
+    --end)
+    self.AllMemberList = XGuildConfig.DoMemberSort(self.AllMemberList, self.SortType, self.IsAscendOrder)
     for index, memberInfo in pairs(self.AllMemberList) do
         memberInfo.Index = index
         memberInfo.IsSetPanel = false
@@ -137,6 +150,8 @@ function XUiGuildViewMember:UpdateMemberInfo()
     self.DynamicMemberTable:SetDataSource(self.AllMemberList)
     self.DynamicMemberTable:ReloadDataASync()
 end
+
+
 
 function XUiGuildViewMember:OnViewDestroy()
 
@@ -153,6 +168,18 @@ function XUiGuildViewMember:InitChildView()
         local likeItemCount = XDataCenter.ItemManager.GetCount(XGuildConfig.LikeItemId)
         self.TextZan.text = string.format("x%d", likeItemCount)
     end, self.TextZan)
+    
+    
+    local tableGroup = {
+        self.BtnPosition,
+        self.BtnRecent,
+        self.BtnHistory,
+        self.BtnSign,
+    }
+    
+    self.PanelSort:Init(tableGroup, function(index) self:OnBtnSortSelect(index) end)
+    self.BtnOrder:SetButtonState(self.IsAscendOrder and CS.UiButtonState.Select or CS.UiButtonState.Normal)
+    self.BtnOrder.CallBack = function() self:OnBtnOrderClick() end
 end
 
 function XUiGuildViewMember:GetProxyType()
@@ -169,6 +196,20 @@ function XUiGuildViewMember:OnDynamicTableEvent(event, index, grid)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         self:OnMemberItemClick(index)
     end
+end
+
+function XUiGuildViewMember:OnBtnSortSelect(index)
+    if index == self.SelectIndex then
+        return
+    end
+    self.SelectIndex = index
+    self.SortType = SortBtnIndex2SortType[self.SelectIndex]
+    self:UpdateMemberInfo()
+end
+
+function XUiGuildViewMember:OnBtnOrderClick()
+    self.IsAscendOrder = not self.IsAscendOrder
+    self:UpdateMemberInfo()
 end
 
 function XUiGuildViewMember:OnMemberItemClick(index)

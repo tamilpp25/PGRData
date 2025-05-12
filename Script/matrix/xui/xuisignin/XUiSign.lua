@@ -3,8 +3,7 @@ local XUiSignPrefabContent = require("XUi/XUiSignIn/XUiSignPrefabContent")
 local XUiSignFirstRecharge = require("XUi/XUiSignIn/XUiSignFirstRecharge")
 local XUiSignCard = require("XUi/XUiSignIn/XUiSignCard")
 local XUiWeekChallenge = require("XUi/XUiWeekChallenge/XUiWeekChallenge")
-local XUiNewYearSignIn = require("XUi/XUiSignIn/XUiNewYearSignIn")
-local XUiSignNewYearDrawActivity = require("XUi/XUiSignIn/XUiSignNewYearDrawActivity")
+local XUiSClassConstructWelfare = require("XUi/XUiSClassConstructWelfare/XUiSClassConstructWelfare")
 
 function XUiSign:OnAwake()
     self:AddListener()
@@ -41,12 +40,11 @@ function XUiSign:AddListener()
     self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick)
 end
 
-function XUiSign:OnBtnMainUiClick(...)
+function XUiSign:OnBtnMainUiClick()
     XLuaUiManager.RunMain()
 end
 
-function XUiSign:OnBtnBackClick(...)
-    XEventManager.DispatchEvent(XEventId.EVENT_NEWYEARYUNSHI_CLOSE_REFRESH)
+function XUiSign:OnBtnBackClick()
     self:Close()
 end
 
@@ -64,6 +62,7 @@ function XUiSign:InitTabGroup(defaultType)
     self.BtnTab:SetName(self.WelfareConfigs[1].Name)
     self.BtnList = {}
     table.insert(self.BtnList, self.BtnTab)
+
     for i = 2, #self.WelfareConfigs do
         local btn = CS.UnityEngine.Object.Instantiate(self.BtnTab.gameObject)
         btn.transform:SetParent(self.PanelTabGroup.gameObject.transform, false)
@@ -89,42 +88,41 @@ function XUiSign:SetPrefabInfos(index, forceRefresh)
     self.Index = index
     self:PlayAnimation("QieHuanEnable")
 
-    for k, v in pairs(self.PrefabList) do
+    for _, v in pairs(self.PrefabList) do
         v.SignPrefabContent.GameObject:SetActive(false)
     end
 
     local config = self.WelfareConfigs[index]
     local signPrefabContent = self.PrefabList[config.PrefabPath] and self.PrefabList[config.PrefabPath].SignPrefabContent or nil
     if not signPrefabContent then
-        local resource = CS.XResourceManager.Load(config.PrefabPath)
-        local go = CS.UnityEngine.Object.Instantiate(resource.Asset)
-        go.transform:SetParent(self.PanelSign, false)
+        local linkGo = CS.UnityEngine.GameObject("Link", typeof(CS.UnityEngine.RectTransform))
+        local rect = linkGo:GetComponent(typeof(CS.UnityEngine.RectTransform))
+        rect.sizeDelta = XLuaVector2.New(0, 0)
+        rect.anchorMin = XLuaVector2.New(0, 0)
+        rect.anchorMax = XLuaVector2.New(1, 1)
+        linkGo.transform:SetParent(self.PanelSign, false)
+        local go = linkGo.gameObject:LoadPrefab(config.PrefabPath, false)
         go.gameObject:SetLayerRecursively(self.PanelSign.gameObject.layer)
 
         if config.FunctionType == XAutoWindowConfigs.AutoFunctionType.Sign then
             signPrefabContent = XUiSignPrefabContent.New(go, self)
+        elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.SClassConstructNovice then
+            signPrefabContent = XUiSClassConstructWelfare.New(go, self)
         elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.FirstRecharge then
             signPrefabContent = XUiSignFirstRecharge.New(go, self)
         elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.Card then
             signPrefabContent = XUiSignCard.New(go, self)
         elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekChallenge then
             signPrefabContent = XUiWeekChallenge.New(go, self)
-        elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewYearZhanBu then
-            signPrefabContent = XUiNewYearSignIn.New(go, self)
-        elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewYearDrawActivity then
-            signPrefabContent = XUiSignNewYearDrawActivity.New(go, self)
-        elseif config.FunctionType == XAutoWindowConfigs.AutoFuncitonType.Fireworks then
-            signPrefabContent = XuiSignFireworks.New(go, self)
         end
 
         signPrefabContent:OnShow()
         local info = {}
         info.SignPrefabContent = signPrefabContent
-        info.Resource = resource
         self.PrefabList[config.PrefabPath] = info
     end
 
-    signPrefabContent:Refresh(config.Id, false)
+    signPrefabContent:Refresh(config.Id, true)
     signPrefabContent.GameObject:SetActive(true)
 end
 
@@ -138,14 +136,9 @@ function XUiSign:RefrshRedHint()
         if config.FunctionType == XAutoWindowConfigs.AutoFunctionType.FirstRecharge then
             xBtn:ShowReddot(not XDataCenter.PayManager.IsGotFirstReCharge())
         elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.Card then
-            local cardConfig = XSignInConfigs.GetSignCardConfig(config.Id)
-            xBtn:ShowReddot(not XDataCenter.PayManager.IsGotCard(cardConfig.Param[1], cardConfig.Param[2]))
+            xBtn:ShowReddot(not XDataCenter.PayManager.IsGotCard())
         elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekChallenge then
             xBtn:ShowReddot(XDataCenter.WeekChallengeManager.IsAnyRewardCanReceived())
-        elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewYearZhanBu then
-            xBtn:ShowReddot(XDataCenter.SignInManager.CheckTodayDiviningState())
-        elseif config.FunctionType == XAutoWindowConfigs.AutoFunctionType.Fireworks then
-            xBtn:ShowReddot(XDataCenter.FireworksManager.HasRedDot())
         end
     end
 end
@@ -155,14 +148,9 @@ function XUiSign:OnDestroy()
         return
     end
 
-    for k, v in pairs(self.PrefabList) do
-        if v.Resource then
-            v.Resource:Release()
-        end
-
+    for _, v in pairs(self.PrefabList) do
         if v.SignPrefabContent then
             v.SignPrefabContent:OnHide()
-            CS.UnityEngine.Object.Destroy(v.SignPrefabContent.GameObject)
         end
     end
 end

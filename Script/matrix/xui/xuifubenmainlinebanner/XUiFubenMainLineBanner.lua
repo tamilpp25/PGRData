@@ -6,8 +6,6 @@ local XUiPanelMainLineBanner = require("XUi/XUiFubenMainLineBanner/XUiPanelMainL
 
 local XUiFubenMainLineBanner = XLuaUiManager.Register(XLuaUi, "UiFubenMainLineBanner")
 
-local CSGameConfig = CS.XGame.ClientConfig
-
 local TAB_BTN_INDEX = {
     MAINLINE = 1,
     DZ = 2,
@@ -101,9 +99,6 @@ function XUiFubenMainLineBanner:AutoAddListener()
     self:RegisterClickEvent(self.BtnCloseDifficult, self.OnBtnCloseDifficultClick)
     self:RegisterClickEvent(self.BtnNormal, self.OnBtnNormalClick)
     self:RegisterClickEvent(self.BtnHard, self.OnBtnHardClick)
-    self.BtnHelp.CallBack = function()
-        self:OnBtnHelpClick()
-    end
 end
 -- auto
 function XUiFubenMainLineBanner:InitTabBtnGroup()
@@ -180,7 +175,6 @@ end
 function XUiFubenMainLineBanner:RefreshPrequel(playAnimation)
     self:HidePanelChapter()
     self.PanelChapterDz.gameObject:SetActiveEx(true)
-    self.BtnHelp.gameObject:SetActive(false)
     self.ChapterDz:SetupCoverDatas(self.DefaultCoverId, self.DefaultChapterId)
     if playAnimation and (not self.DefaultCoverId) then
         self:PlayAnimation("DzQieHuanEnable")
@@ -192,7 +186,6 @@ end
 function XUiFubenMainLineBanner:RefreshBfrt()
     self:HidePanelChapter()
     self.PanelChapterBfrt.gameObject:SetActiveEx(true)
-    self.BtnHelp.gameObject:SetActive(true)
     self.ChapterBfrt:SetupBfrtChapters()
 end
 
@@ -203,7 +196,6 @@ function XUiFubenMainLineBanner:RefreshMainLine(playAnimation)
     end
     self.PanelChapterList.gameObject:SetActiveEx(true)
     self.MainLineBanner:SetupDynamicTable(self.CurDiff)
-    self.BtnHelp.gameObject:SetActive(false)
     if playAnimation then
         self:PlayAnimation("ListQieHuanEnable")
     end
@@ -215,7 +207,6 @@ function XUiFubenMainLineBanner:RefreshExtra(playAnimation)
         self.PanelTopDifficult.gameObject:SetActiveEx(true)
     end
     self.PanelChapterEX.gameObject:SetActiveEx(true)
-    self.BtnHelp.gameObject:SetActive(false)
     self.ChapterExtra:UpdateCoverData(self.CurExtraDifficult)
     if playAnimation then
         self:PlayAnimation("EXQieHuanEnable")
@@ -229,7 +220,6 @@ function XUiFubenMainLineBanner:RefreshShortStory(playAnimation)
         self.PanelTopDifficult.gameObject:SetActiveEx(true)
     end
     self.PanelChapterDP.gameObject:SetActiveEx(true)
-    self.BtnHelp.gameObject:SetActive(false)
     self.ChapterDP:UpdateCoverData(self.CurDPDifficult)
     if playAnimation then
         self:PlayAnimation("DPQieHuanEnable")
@@ -364,10 +354,4 @@ function XUiFubenMainLineBanner:OnNotify(evt, ...)
         self.PanelTab:SelectIndex(TAB_BTN_INDEX.MAINLINE)
         self:UpdateDifficultToggles()
     end
-end
-
---据点点击了帮助按钮
-function XUiFubenMainLineBanner:OnBtnHelpClick()
-    local helpContent = CSGameConfig:GetString("BfrtShowHelpTip01")
-    XUiManager.ShowHelpTip(helpContent)
 end

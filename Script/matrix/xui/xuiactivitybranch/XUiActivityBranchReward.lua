@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridActivityBranchReward = require("XUi/XUiActivityBranch/XUiGridActivityBranchReward")
 
 local XUiActivityBranchReward = XLuaUiManager.Register(XLuaUi, "UiActivityBranchReward")

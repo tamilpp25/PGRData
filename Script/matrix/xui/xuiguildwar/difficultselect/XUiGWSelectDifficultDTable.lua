@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --选择难度动态列表
 local XUiGWSelectDifficultDTable = XClass(nil, "XUiGWSelectDifficultDTable")
 

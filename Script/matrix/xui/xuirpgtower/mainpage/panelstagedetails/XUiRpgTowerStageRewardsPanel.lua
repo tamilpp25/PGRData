@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --兵法蓝图主界面：关卡详细面板
 local XUiRpgTowerStageRewardsPanel = XClass(nil, "XUiRpgTowerStageRewardsPanel")
 function XUiRpgTowerStageRewardsPanel:Ctor(ui, rootUi)
@@ -28,6 +29,10 @@ end
 --显示奖励
 --================
 function XUiRpgTowerStageRewardsPanel:ShowRewards(rewardId)
+    if rewardId <= 0 then
+        return
+    end
+
     local rewards = XRewardManager.GetRewardList(rewardId) or XRewardManager.GetRewardListNotCount(rewardId)
     if rewards then
         for i, item in ipairs(rewards) do

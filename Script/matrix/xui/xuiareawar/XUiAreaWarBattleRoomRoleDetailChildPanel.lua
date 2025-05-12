@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiAreaWarBattleRoomRoleDetailChildPanel = XClass(nil, "XUiAreaWarBattleRoomRoleDetailChildPanel")
 
 function XUiAreaWarBattleRoomRoleDetailChildPanel:Ctor(ui)
@@ -6,7 +7,7 @@ function XUiAreaWarBattleRoomRoleDetailChildPanel:Ctor(ui)
     XTool.InitUiObject(self)
 
     self.ConditionGrids = {}
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.AreaWarCoin,

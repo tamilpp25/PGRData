@@ -1,9 +1,18 @@
+---@class XArchiveStoryChapterEntity
 local XArchiveStoryChapterEntity = XClass(nil, "XArchiveStoryChapterEntity")
 
 function XArchiveStoryChapterEntity:Ctor(id)
     self.Id = id
     self.IsLock = true
     self.LockDesc = ""
+end
+
+function XArchiveStoryChapterEntity:SetIsLock(isLock)
+    self.IsLock = isLock
+end
+
+function XArchiveStoryChapterEntity:SetLockDesc(lockDesc)
+    self.LockDesc = lockDesc
 end
 
 function XArchiveStoryChapterEntity:UpdateData(playerData)
@@ -13,7 +22,7 @@ function XArchiveStoryChapterEntity:UpdateData(playerData)
 end
 
 function XArchiveStoryChapterEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveStoryChapterConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveStoryChapterConfigById(self.Id)
 end
 
 function XArchiveStoryChapterEntity:GetId()

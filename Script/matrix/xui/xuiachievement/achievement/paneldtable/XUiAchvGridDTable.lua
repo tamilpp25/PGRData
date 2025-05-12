@@ -1,3 +1,4 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
 --================
 --成就动态列表项控件
 --================

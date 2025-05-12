@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local stringGsub = string.gsub
 local CsXTextManagerGetText = CS.XTextManager.GetText
 local TimeFormat = "yyyy-MM-dd"
@@ -94,7 +95,7 @@ function XUiActivityBranch:RefreshChapterList()
                         if isPlayAnim then
                             gameObject:FindTransform("BgQieHuan"..seletBgIndex):PlayTimelineAnimation()
                         end
-                        CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiActivityBranch_SwitchBg)
+                        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiActivityBranch_SwitchBg)
                     end,
                     DatumLinePrecent = XDataCenter.FubenActivityBranchManager.GetChapterDatumLinePrecent(chapterId),
                     StageIndexList = XDataCenter.FubenActivityBranchManager.GetChapterMoveStageIndex(chapterId),
@@ -278,7 +279,7 @@ function XUiActivityBranch:OnBtnSwitch2FightClick()
     XDataCenter.FubenActivityBranchManager.SelectDifficult(true)
     self:CloseStageDetail()
     self:Refresh()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiActivityBranch_SwitchBg)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiActivityBranch_SwitchBg)
     self:PlayAnimationWithMask("BranchStagesQieHuan")
 end
 
@@ -286,7 +287,7 @@ function XUiActivityBranch:OnBtnSwitch2RegionalClick()
     XDataCenter.FubenActivityBranchManager.SelectDifficult(false)
     self:CloseStageDetail()
     self:Refresh()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiActivityBranch_SwitchBg)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiActivityBranch_SwitchBg)
     self:PlayAnimationWithMask("BranchStagesQieHuan")
 end
 

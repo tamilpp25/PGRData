@@ -128,11 +128,6 @@ function XLivWarmSoundsActivityConfig.GetSoundReflectedImgUrl(id)
     local cfg = GetSoundConfigById(id)
     return cfg.ReflectedImgUrl or ""
 end
-
-function XLivWarmSoundsActivityConfig.GetSoundWords(id) --海外新增接口:获取每个片段要显示的文字
-    local cfg = GetSoundConfigById(id)
-    return cfg.Words or ""
-end
 -------------sound end ------------
 
 --------stage start------------------

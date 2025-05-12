@@ -1,18 +1,20 @@
+local XExFubenCollegeStudyManager = require("XEntity/XFuben/XExFubenCollegeStudyManager")
+
 XPartnerTeachingManagerCreator = function()
-    local XPartnerTeachingManager = {}
+    local XPartnerTeachingManager = XExFubenCollegeStudyManager.New(XFubenConfigs.ChapterType.PartnerTeaching)
 
     -------------------------------------------------------副本相关------------------------------------------------------
-    function XPartnerTeachingManager.InitStageInfo()
-        local allChapterId = XPartnerTeachingConfigs.GetAllChapterId()
-        for _, chapterId in pairs(allChapterId) do
-            local stageIdList = XPartnerTeachingConfigs.GetChapterStageIds(chapterId)
-            for i, stageId in ipairs(stageIdList) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                stageInfo.Type = XDataCenter.FubenManager.StageType.PartnerTeaching
-                stageInfo.OrderId = i
-            end
-        end
-    end
+    --function XPartnerTeachingManager.InitStageInfo()
+    --    local allChapterId = XPartnerTeachingConfigs.GetAllChapterId()
+    --    for _, chapterId in pairs(allChapterId) do
+    --        local stageIdList = XPartnerTeachingConfigs.GetChapterStageIds(chapterId)
+    --        for i, stageId in ipairs(stageIdList) do
+    --            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    --            stageInfo.Type = XDataCenter.FubenManager.StageType.PartnerTeaching
+    --            stageInfo.OrderId = i
+    --        end
+    --    end
+    --end
     --------------------------------------------------------------------------------------------------------------------
 
     ---
@@ -85,7 +87,9 @@ XPartnerTeachingManagerCreator = function()
             if aIsPass ~= bIsPass then
                 return bIsPass
             end
-            return a < b
+
+            -- Order从大到小排
+            return XPartnerTeachingConfigs.GetChapterOrder(a) > XPartnerTeachingConfigs.GetChapterOrder(b)
         end)
 
         return allChapterIdList
@@ -124,6 +128,44 @@ XPartnerTeachingManagerCreator = function()
         local orderId = XDataCenter.FubenManager.GetStageOrderId(stageId)
         return string.format("%s%d", stagePrefix, orderId)
     end
+
+    ------------------副本入口扩展 start-------------------------
+    function XPartnerTeachingManager:ExGetTagInfo()
+        for k, id in pairs(XPartnerTeachingConfigs.GetAllChapterId()) do
+            if XPartnerTeachingManager.WhetherInActivity(id) then
+                local newTag = XPartnerTeachingConfigs.GetActivityChapterNewTagById(id)
+                if not newTag then
+                    newTag = CS.XTextManager.GetText("PartnerTeachingTag")
+                end
+                return true, newTag
+            end
+        end
+
+        return false
+    end
+
+    function XPartnerTeachingManager:ExGetIcon()
+        for k, id in pairs(XPartnerTeachingConfigs.GetAllChapterId()) do
+            if XPartnerTeachingManager.WhetherInActivity(id) then
+                return XPartnerTeachingConfigs.GetActivityChapterIconById(id)
+            end
+        end
+
+        return self:ExGetConfig().Icon
+    end
+
+    function XPartnerTeachingManager:ExOpenMainUi()
+        if not XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
+            return
+        end
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.PartnerTeaching) then
+            return
+        end
+
+        XLuaUiManager.Open("UiPartnerTeachingBanner")
+    end
+    
+    ------------------副本入口扩展 end-------------------------
 
     return XPartnerTeachingManager
 end

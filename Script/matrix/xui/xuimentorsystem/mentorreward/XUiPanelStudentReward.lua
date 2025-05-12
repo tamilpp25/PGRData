@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelStudentReward = XClass(nil, "XUiPanelStudentReward")
 local XUiPanelStudentGraduateReward = require("XUi/XUiMentorSystem/MentorReward/XUiPanelStudentGraduateReward")
 local CSTextManagerGetText = CS.XTextManager.GetText

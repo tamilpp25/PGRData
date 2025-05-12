@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPurchasePayAddListItem = XClass(nil, "XUiPurchasePayAddListItem")
 local TextManager = CS.XTextManager
 local Object = CS.UnityEngine.Object

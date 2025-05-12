@@ -1,4 +1,7 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiPanelChapter = require("XUi/XUiFubenCoupleCombat/ChildView/XUiPanelChapter")
+local XUiPanelSkillTips = require("XUi/XUiFubenCoupleCombat/ChildView/XUiPanelSkillTips")
+local XUiPanelSkillDesc = require("XUi/XUiFubenCoupleCombat/ChildView/XUiPanelSkillDesc")
 local XUiGlobalComboIcon = require("XUi/XUiFubenCoupleCombat/ChildItem/XUiGlobalComboIcon")
 local XUiGridSkill = require("XUi/XUiFubenCoupleCombat/ChildItem/XUiGridSkill")
 
@@ -25,8 +28,13 @@ function XUiCoupleCombatMain:OnStart(chapterId, chapterIndex)
     self:InitGlobalCombo()
 
     self.TxtTitle.text = XFubenCoupleCombatConfig.GetChapterName(chapterId)
+    local icon = XFubenCoupleCombatConfig.GetChapterNameIcon(chapterId)
+    if icon then
+        self.ImgTitle:SetRawImage(icon)
+    end
 
     self:InitUiView()
+    self:InitSkillDesc()
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     self.PointRewardGridList = {}
 end
@@ -66,8 +74,11 @@ function XUiCoupleCombatMain:Refresh(isAutoScroll)
     self.PanelStage:SetUiData(chapterId, isAutoScroll)
 
     local passCount, allCount = XDataCenter.FubenCoupleCombatManager.GetStageSchedule(chapterId)
-    self.TxtPassCount.text = passCount
-    self.TxtStageCount.text = string.format("/%d", allCount)
+    self.TxtProgress.text = string.format("%d/%d", passCount, allCount)
+    if not self.ImgProgress then
+        self.ImgProgress = self.TxtProgress.transform.parent:GetChild(self.TxtProgress.transform.parent.childCount - 1):GetComponent("Image")
+    end
+    self.ImgProgress.fillAmount = passCount / allCount
 end
 
 function XUiCoupleCombatMain:UpdateSkill()
@@ -82,7 +93,7 @@ function XUiCoupleCombatMain:UpdateSkill()
             gridSkill = XUiGridSkill.New(grid, self, index)
             self.GridSkillTemplates[i] = gridSkill
         end
-        gridSkill:RefreshData(skillId)
+        gridSkill:RefreshData(skillId, function(careerskillId, index, cb) self:OpenPanelSkillTips(careerskillId, index, cb) end)
         gridSkill.GameObject:SetActiveEx(true)
     end
 
@@ -124,7 +135,7 @@ function XUiCoupleCombatMain:InitUiView()
     self.SceneBtnBack.CallBack = function() self:Close() end
     self.SceneBtnMainUi.CallBack = function() XLuaUiManager.RunMain() end
     self.BtnBuff.CallBack = function() self:OnBtnBuffClick() end
-    self.BtnSkill.CallBack = function() self:OnBtnSkillClick() end
+    self.BtnSkill.CallBack = function() self:OpenPanelSkillDesc() end
 
     self:BindHelpBtn(self.BtnHelp, "CoupleCombat")
     self.PanelStage = XUiPanelChapter.New(self.PanelChapter, self, self.ChapterIndex)
@@ -132,6 +143,15 @@ function XUiCoupleCombatMain:InitUiView()
     self.RImgBgHard.gameObject:SetActiveEx(XFubenCoupleCombatConfig.GetChapterType(self.ChapterId) == XFubenCoupleCombatConfig.ChapterType.Hard)
 end
 
+-- v1.32 四期技能介绍不再新开界面
+function XUiCoupleCombatMain:InitSkillDesc()
+    self.PanelSkillTips = XUiPanelSkillTips.New(self, self.PanelSkillTC2)
+    self.PanelSkillDesc = XUiPanelSkillDesc.New(self, self.PanelSkillTC)
+    self.PanelSkillTips:SetActive(false)
+    self.PanelSkillDesc:SetActive(false)
+end
+
+-- 三期打开技能介绍
 function XUiCoupleCombatMain:OnBtnSkillClick()
     XLuaUiManager.Open("UiCoupleCombatSwitchSkill")
 end
@@ -155,4 +175,15 @@ end
 
 function XUiCoupleCombatMain:GetChapterId()
     return self.ChapterId
+end
+
+-- 四期打开技能介绍
+function XUiCoupleCombatMain:OpenPanelSkillDesc()
+    self.PanelSkillDesc:SetActive(true)
+end
+
+-- 四期打开单个技能介绍
+function XUiCoupleCombatMain:OpenPanelSkillTips(careerskillId, index, cb)
+    self.PanelSkillTips:SetData(careerskillId, index, cb)
+    self.PanelSkillTips:SetActive(true)
 end

@@ -37,7 +37,18 @@ end
 
 function XUiCollectionTip:SetDetailData()
     self.TxtCollectionName.text = self.Data.Name
-    self.TxtInfo.text = self.Data.WorldDesc
+
+    if self.Data.Id ~= XEnumConst.SpecialHandling.DEADCollectiblesId 
+        and self.Data.Id ~= XEnumConst.SpecialHandling.ShotrolCollectiblesId then
+        self.TxtInfo.text = self.Data.WorldDesc
+    else
+        if self.Data.Id == XEnumConst.SpecialHandling.DEADCollectiblesId then
+            self.TxtInfo.text = XUiHelper.ReplaceUnicodeSpace(self.Data.WorldDesc)
+        else
+            self.TxtInfo.text = self.Data.WorldDesc
+        end
+        self.TxtCollectionName.resizeTextForBestFit = true
+    end
     self.TxtCondition.text = self.Data.GetDesc
 
     local styleObj = self.CollectionStyleNode.gameObject:LoadPrefab(self.Data.PrefabPath)
@@ -78,7 +89,7 @@ function XUiCollectionTip:SetDetailData()
                         local dataTxt
                         if serverKey == XMedalConfigs.ExpandInfoType.CreateTime then
                             -- 首次进入游戏的时间
-                            dataTxt = XTime.TimestampToLocalDateTimeString(data, "yyyy/MM/dd")
+                            dataTxt = XTime.TimestampToLocalDateTimeString(data, "yyyy年MM月dd日")
                         elseif serverKey == XMedalConfigs.ExpandInfoType.MaxAssignChapter then
                             -- 边界公约最高通关章节
                             local chapterData = XDataCenter.FubenAssignManager.GetChapterDataById(data)

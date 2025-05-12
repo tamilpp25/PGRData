@@ -8,7 +8,7 @@ function XMovieActionInterrupt:Ctor(actionData)
 end
 
 function XMovieActionInterrupt:OnRunning()
-    XSoundManager.Stop(self.CueId)
+    XLuaAudioManager.StopAudioByCueId(self.CueId)
 end
 
 

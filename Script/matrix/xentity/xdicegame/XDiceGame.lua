@@ -5,7 +5,7 @@ local XDiceGameReward = require("XEntity/XDiceGame/XDiceGameReward")
 local XDiceGameEasterEgg = require("XEntity/XDiceGame/XDiceGameEasterEgg")
 
 function XDiceGame:Ctor(activityId)
-    self.ActivityId = activityId or XDiceGame.GetDefaultId()
+    self.ActivityId = activityId
 	
 	self.OperationEntityDict = {} ---@type table<number, XDiceGameOperation>
 	for id, cfg in pairs(XDiceGameConfigs.GetOperationCfgs()) do

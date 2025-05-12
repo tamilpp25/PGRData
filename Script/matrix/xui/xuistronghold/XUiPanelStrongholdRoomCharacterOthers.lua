@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiExpeditionEquipGrid = require("XUi/XUiExpedition/RoleList/XUiExpeditionEquipGrid/XUiExpeditionEquipGrid")
 local XUiGridStrongholdCharacter = require("XUi/XUiStronghold/XUiGridStrongholdCharacter")
 
@@ -176,11 +177,11 @@ function XUiPanelStrongholdRoomCharacterOthers:UpdateEquips()
     local equipSiteDic = {}
     local weaponResonanceCount = 0
     for _, equip in pairs(equips) do
-        if XDataCenter.EquipManager.IsWeaponByTemplateId(equip.TemplateId) then
+        if XMVCA.XEquip:IsEquipWeapon(equip.TemplateId) then
             weapon = equip
             weaponResonanceCount = #equip.ResonanceInfo
         else
-            local site = XDataCenter.EquipManager.GetEquipSiteByEquipData(equip)
+            local site = XMVCA.XEquip:GetEquipSiteByEquip(equip)
             equipSiteDic[site] = equip
         end
     end
@@ -201,7 +202,8 @@ function XUiPanelStrongholdRoomCharacterOthers:UpdateEquips()
         else
             local resonanceCount = #equip.ResonanceInfo
             self.WearingAwarenessGrids[i].GameObject:SetActiveEx(true)
-            self.WearingAwarenessGrids[i]:Refresh(equip.TemplateId, equip.Breakthrough, i, false, equip.Level, resonanceCount)
+            local curCharacterId = XDataCenter.StrongholdManager.GetAssistantPlayerCharacterId(playerId)
+            self.WearingAwarenessGrids[i]:Refresh(equip.TemplateId, equip.Breakthrough, i, false, equip.Level, resonanceCount, equip.AwakeSlotList, assistantInfo.AwarenessSetPositions, equip.ResonanceInfo, curCharacterId)
         end
     end
 
@@ -284,7 +286,7 @@ function XUiPanelStrongholdRoomCharacterOthers:OnClickBtnJoinTeam()
             local inTeamId = XDataCenter.StrongholdManager.GetCharacterInTeamId(characterId, teamList, playerId)
             local title = CsXTextManagerGetText("StrongholdDeployTipTitle")
             local showCharacterId = XRobotManager.GetCharacterId(characterId)
-            local characterName = XCharacterConfigs.GetCharacterName(showCharacterId)
+            local characterName = XMVCA.XCharacter:GetCharacterName(showCharacterId)
             local content = CsXTextManagerGetText("StrongholdDeployTipContent", characterName, inTeamId, teamId)
             XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, setTeamFunc)
         else
@@ -417,7 +419,7 @@ function XUiPanelStrongholdRoomCharacterOthers:GetCharacterType(characterId)
     if not IsNumberValid(characterId) then return end
 
     local showCharacterId = XRobotManager.GetCharacterId(characterId)
-    return XCharacterConfigs.GetCharacterType(showCharacterId)
+    return XMVCA.XCharacter:GetCharacterType(showCharacterId)
 end
 
 return XUiPanelStrongholdRoomCharacterOthers

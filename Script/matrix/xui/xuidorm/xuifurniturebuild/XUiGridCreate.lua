@@ -1,5 +1,6 @@
+local XUiBtnTab = require("XUi/XUiBase/XUiBtnTab")
 -- 家具建造节点
-XUiGridCreate = XClass(nil, "XUiGridCreate")
+local XUiGridCreate = XClass(nil, "XUiGridCreate")
 
 local CREATE_STATE = {
     AVALIABLE = 0,
@@ -97,9 +98,9 @@ function XUiGridCreate:UpdateCreate()
             self.PanelMany.gameObject:SetActive(createDatas.Count > 1)
 
             if createDatas.Count > 1 then
-                self.TxtWorkingFurnitureName.text = XFurnitureConfigs.DefaultName
+                self.TxtWorkingFurnitureName.text = XFurnitureConfigs.DefaultCreateName
                 self.ImgWorkingItemIcon:SetRawImage(XFurnitureConfigs.DefaultIcon)
-                self.TxtWorkKey.text = XFurnitureConfigs.DefaultName .. CS.XTextManager.GetText("DormBuildCountDesc")
+                self.TxtWorkKey.text = XFurnitureConfigs.DefaultCreateName .. CS.XTextManager.GetText("DormBuildCountDesc")
                 self.TxtWorkValue.text = "x" .. tostring(createDatas.Count)
             else
                 local typeDatas = XFurnitureConfigs.GetFurnitureTypeById(furnitureTemplates.TypeId)
@@ -115,9 +116,9 @@ function XUiGridCreate:UpdateCreate()
             self.PanelComMany.gameObject:SetActive(createDatas.Count > 1)
 
             if createDatas.Count > 1 then
-                self.TxtCompleteFurnitureName.text = XFurnitureConfigs.DefaultName
+                self.TxtCompleteFurnitureName.text = XFurnitureConfigs.DefaultCreateName
                 self.ImgCompleteItemIcon:SetRawImage(XFurnitureConfigs.DefaultIcon)
-                self.TxtCompleteKey.text = XFurnitureConfigs.DefaultName .. CS.XTextManager.GetText("DormBuildCountDesc")
+                self.TxtCompleteKey.text = XFurnitureConfigs.DefaultCreateName .. CS.XTextManager.GetText("DormBuildCountDesc")
                 self.TxtCompleteValue.text = "x" .. tostring(createDatas.Count)
             else
                 self.ImgCompleteItemIcon:SetRawImage(XDataCenter.FurnitureManager.GetIconByFurniture(createDatas.Furniture))
@@ -220,9 +221,7 @@ function XUiGridCreate:OnBtnCheckClick()
 
             if #furnitureList > 1 then
                 local gainType = XFurnitureConfigs.GainType.Create
-                XLuaUiManager.Open("UiFurnitureObtain", gainType, furnitureList, nil, createCoinCount, self.Cfg.Pos, function(pos)
-                    self.Parent:UpdateCreateGridByPos(pos)
-                end)
+                XLuaUiManager.Open("UiFurnitureObtain", gainType, furnitureList, nil, createCoinCount)
 
                 return
             end

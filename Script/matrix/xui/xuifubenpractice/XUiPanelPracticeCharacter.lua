@@ -20,6 +20,9 @@ end
 function XUiPanelPracticeCharacter:InitViews(id, selectGroupId)
     self.CharacterDetail = XPracticeConfigs.GetPracticeChapterDetailById(id)
     self.CharacterChapter = XPracticeConfigs.GetPracticeChapterById(id)
+    if self.CharacterChapters and #self.CharacterChapters > 0 then
+        self:UpdateNodesScroll()
+    end
     self.Id = id
     self.SelectGroupId = selectGroupId
     self.CharacterChapterGO = self.PanelPrequelStages:LoadPrefab(self.CharacterDetail.PracticeContentPrefab)
@@ -53,6 +56,11 @@ function XUiPanelPracticeCharacter:InitViews(id, selectGroupId)
         dragProxy = self.CharacterScrollRect.gameObject:AddComponent(typeof(XUguiDragProxy))
     end
     dragProxy:RegisterHandler(handler(self, self.OnDragProxy))
+    
+    -- 根据当前分辨率计算滑动边界
+    local halfScreenWidth = self.CharacterViewport.transform.rect.width / 2
+    UiGridPracticeCharacterMoveMinX = halfScreenWidth
+    UiGridPracticeCharacterMoveMaxX = self.CharacterContent.transform.sizeDelta.x - halfScreenWidth
 end
 
 function XUiPanelPracticeCharacter:OnDragProxy(dragType)
@@ -104,15 +112,26 @@ function XUiPanelPracticeCharacter:UpdateNodes()
     end
 end
 
+function XUiPanelPracticeCharacter:UpdateNodesScroll()
+    self.Nodes = XDataCenter.PracticeManager.GetSortedChapterById(self.Id)
+    for i = 1, #self.Nodes do
+        local node = self.Nodes[i]
+        self.CharacterChapters[i]:UpdateNodeScroll(node.GroupId)
+    end
+end
+
 function XUiPanelPracticeCharacter:PlayScrollViewMove(gridTransform)
     self.CharacterScrollRect.movementType = CS.UnityEngine.UI.ScrollRect.MovementType.Unrestricted
     local gridRect = gridTransform:GetComponent("RectTransform")
     self.CharacterViewport.raycastTarget = false
-    local diffX = gridRect.localPosition.x + self.CharacterContent.localPosition.x
-    if diffX < UiGridPracticeCharacterMoveMinX or diffX > UiGridPracticeCharacterMoveMaxX then
-        local tarPosX = UiGridPracticeCharacterMoveTargetX - gridRect.localPosition.x
-        local tarPos = self.CharacterContent.localPosition
-        tarPos.x = tarPosX
+
+    -- 计算相对位移坐标
+    local tarPosX = UiGridPracticeCharacterMoveTargetX - gridRect.localPosition.x
+    local tarPos = self.CharacterContent.localPosition
+    tarPos.x = tarPosX
+    -- 以当前分辨率屏幕中间为界，处于极左和极右部分的元素不进行居中位移
+    -- 此处理基于Content为左对齐布局及需要居中。若父节点布局改变，则当前算法可能需要调整
+    if gridRect.localPosition.x > UiGridPracticeCharacterMoveMinX and gridRect.localPosition.x < UiGridPracticeCharacterMoveMaxX then
         XLuaUiManager.SetMask(true)
         XUiHelper.DoMove(self.CharacterContent, tarPos, XDataCenter.FubenMainLineManager.UiGridChapterMoveDuration, XUiHelper.EaseType.Sin, function()
             XLuaUiManager.SetMask(false)

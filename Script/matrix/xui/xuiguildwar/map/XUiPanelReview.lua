@@ -32,6 +32,15 @@ function XUiPanelReview:ShowPanel(type)
     self.Base:PlayAnimationWithMask("PanelReviewEnable")
 end
 
+function XUiPanelReview:ShowPanelWithoutAnimation()
+    self.TxtReview.text = ''
+    self.GameObject:SetActiveEx(true)
+end
+
+function XUiPanelReview:HidePanelWithoutAnimation()
+    self.GameObject:SetActiveEx(false)
+end
+
 function XUiPanelReview:HidePanel()
     self.Base:PlayAnimationWithMask("PanelReviewDisable", function ()
             self.GameObject:SetActiveEx(false)

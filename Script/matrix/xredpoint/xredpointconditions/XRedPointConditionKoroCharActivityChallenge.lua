@@ -8,8 +8,8 @@ function XRedPointConditionKoroCharActivityChallenge.GetSubEvents()
     return Events
 end
 
-function XRedPointConditionKoroCharActivityChallenge.Check()
-    return XDataCenter.FubenNewCharActivityManager.CheckChallengeRedPoint()
+function XRedPointConditionKoroCharActivityChallenge.Check(activityId)
+    return XDataCenter.FubenNewCharActivityManager.CheckChallengeRedPoint(activityId)
 end
 
 return XRedPointConditionKoroCharActivityChallenge

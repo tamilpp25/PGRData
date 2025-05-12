@@ -1,107 +1,888 @@
 [
     {
         "Id": 1,
-        "Name": "Unobserved",
+        "Name": "Leaf-Ferried Dreams",
         "ManagerName": "RpgTowerManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner21.png",
         "TimeId": null,
-        "FunctionNameId": 10321,
-        "SkipId": 11736,
-        "Order": 9,
+        "FunctionNameId": 10321.0,
+        "SkipId": 11736.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_RPGTOWER_TASK_RED",
             "CONDITION_RPGTOWER_DAILYREWARD_RED"
-        ]
+        ],
+        "Note": "RPG Mode",
+        "IsAgency": null
     },
     {
         "Id": 2,
-        "Name": "Babel Tower: Triumphant Tide",
+        "Name": "Babel Tower: Ruin's Shade",
         "ManagerName": "FubenBabelTowerManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner06.png",
-        "TimeId": 11811.0,
-        "FunctionNameId": 10307,
-        "SkipId": 20015,
-        "Order": 4,
+        "TimeId": null,
+        "FunctionNameId": 10307.0,
+        "SkipId": 20015.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_ACTIVITYBRIE_BABELTOWER_REWARD"
-        ]
+        ],
+        "Note": "Babel Tower",
+        "IsAgency": null
     },
     {
         "Id": 3,
-        "Name": "Midsummer Memento",
-        "ManagerName": "FubenSpecialTrainManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner80.png",
-        "TimeId": 11102.0,
-        "FunctionNameId": 10316,
-        "SkipId": 11727,
-        "Order": 6,
+        "Name": "Magpie's Fortune",
+        "ManagerName": "PokerGuessingManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner155.png",
+        "TimeId": 29911.0,
+        "FunctionNameId": 10333.0,
+        "SkipId": 11761.0,
+        "Order": null,
         "RedPointConditions": [
-            "CONDITION_SPECIALTRAIN_RED"
-        ]
+            "CONDITION_POKER_GUESSING_RED"
+        ],
+        "Note": "Double Seventh Festival Poker Guessing",
+        "IsAgency": null
     },
     {
         "Id": 4,
-        "Name": "Starry Conversations",
-        "ManagerName": "PokerGuessingManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner81.png",
-        "TimeId": 11701.0,
-        "FunctionNameId": 10333,
-        "SkipId": 11761,
-        "Order": 7,
+        "Name": "Simulated Battlefield",
+        "ManagerName": "FubenRepeatChallengeManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner146.png",
+        "TimeId": 32203.0,
+        "FunctionNameId": 10309.0,
+        "SkipId": 20017.0,
+        "Order": 1.0,
         "RedPointConditions": [
-            "CONDITION_POKER_GUESSING_RED"
-        ]
+            "CONDITION_REPEAT_CHALLENGE_ENTRANCE"
+        ],
+        "Note": "Multi Clear",
+        "IsAgency": null
     },
     {
         "Id": 5,
-        "Name": "Abyssal Voyage",
-        "ManagerName": "FubenRepeatChallengeManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner09.png",
-        "TimeId": 11501.0,
-        "FunctionNameId": 10309,
-        "SkipId": 20017,
-        "Order": 1,
+        "Name": "The Wanderer's Guide to the Galaxy",
+        "ManagerName": "FubenActivityBossSingleManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner166.png",
+        "TimeId": 32801.0,
+        "FunctionNameId": 10304.0,
+        "SkipId": 1300587.0,
+        "Order": 4.0,
         "RedPointConditions": [
-            "CONDITION_REPEAT_CHALLENGE_REWARD"
-        ]
+            "CONDITION_ACTIVITYBRIE_BOSSSINGLE"
+        ],
+        "Note": "Brutal Level",
+        "IsAgency": null
     },
     {
         "Id": 6,
-        "Name": "Exodus Memoria",
-        "ManagerName": "FubenActivityBossSingleManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner82.png",
-        "TimeId": 11301.0,
-        "FunctionNameId": 10304,
-        "SkipId": 11724,
-        "Order": 5,
+        "Name": "Operation Uniframe",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner60.png",
+        "TimeId": null,
+        "FunctionNameId": 10422.0,
+        "SkipId": 82070.0,
+        "Order": null,
         "RedPointConditions": [
-            "CONDITION_ACTIVITYBRIE_BOSSSINGLE"
-        ]
+            "CONDITION_PIVOTCOMBAT_ALL_RED_POINT"
+        ],
+        "Note": "Operation Uniframe",
+        "IsAgency": null
     },
     {
         "Id": 7,
-        "Name": "Operation Uniframe",
-        "ManagerName": "PivotCombatManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner60.png",
+        "Name": "Circuit Connect - Cosmos Star",
+        "ManagerName": "SameColorActivityManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner130.png",
         "TimeId": null,
-        "FunctionNameId": 10422,
-        "SkipId": 82070,
-        "Order": 8,
+        "FunctionNameId": 10413.0,
+        "SkipId": 82010.0,
+        "Order": null,
         "RedPointConditions": [
-            "CONDITION_PIVOTCOMBAT_ALL_RED_POINT"
-        ]
+            "CONDITION_SAMECOLOR_TASK"
+        ],
+        "Note": "\u4e09\u6d88\u73a9\u6cd5",
+        "IsAgency": null
     },
     {
         "Id": 8,
-        "Name": "Reborn Resolve",
+        "Name": "Stellar Witching Hour",
+        "ManagerName": "XRiftAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner163.png",
+        "TimeId": 32001.0,
+        "FunctionNameId": 10437.0,
+        "SkipId": 88003.0,
+        "Order": 3.0,
+        "RedPointConditions": [
+            "CONDITION_RIFT_ENTRANCE"
+        ],
+        "Note": "Deep Blue 2.0",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 9,
+        "Name": "Co-op Mode",
+        "ManagerName": "DlcHuntManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBannerDlcHunt.png",
+        "TimeId": null,
+        "FunctionNameId": null,
+        "SkipId": 87001.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "Hunt DLC",
+        "IsAgency": null
+    },
+    {
+        "Id": 10,
+        "Name": "Cat Grab",
+        "ManagerName": "XGoldenMinerAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner165.png",
+        "TimeId": 32601.0,
+        "FunctionNameId": 10426.0,
+        "SkipId": 20177.0,
+        "Order": 8.0,
+        "RedPointConditions": [
+            "CONDITION_GOLDEN_MINER_REWARD"
+        ],
+        "Note": "Gold Miner",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 11,
+        "Name": "Spectroscopic Binary Star",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner68.png",
+        "TimeId": null,
+        "FunctionNameId": 10343.0,
+        "SkipId": 82001.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_COUPLE_COMBAT_TASK_REWARD"
+        ],
+        "Note": "It Takes Two",
+        "IsAgency": null
+    },
+    {
+        "Id": 12,
+        "Name": "Endless Summer Blue",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner86.png",
+        "TimeId": null,
+        "FunctionNameId": null,
+        "SkipId": 11773.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_FASHION_STORY_HAVE_STAGE"
+        ],
+        "Note": "Coating Story",
+        "IsAgency": null
+    },
+    {
+        "Id": 13,
+        "Name": "Palette Clash",
+        "ManagerName": "ColorTableManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner94.png",
+        "TimeId": null,
+        "FunctionNameId": null,
+        "SkipId": null,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_COLORTABLE_ENTRANCE"
+        ],
+        "Note": "Palette Clash",
+        "IsAgency": null
+    },
+    {
+        "Id": 14,
+        "Name": "Blazing Trails",
+        "ManagerName": "BrilliantWalkManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner92.png",
+        "TimeId": null,
+        "FunctionNameId": 10439.0,
+        "SkipId": 89001.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_BRILLIANTWALK_ENTRANCE"
+        ],
+        "Note": "Lazer Event",
+        "IsAgency": null
+    },
+    {
+        "Id": 15,
+        "Name": "Memory Rescue - Canvas Chronicle",
+        "ManagerName": "MemorySaveManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner91.png",
+        "TimeId": null,
+        "FunctionNameId": 10351.0,
+        "SkipId": 88005.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_MEMORYSAVE_ALL_RED_POINT"
+        ],
+        "Note": "Memory Rescue",
+        "IsAgency": null
+    },
+    {
+        "Id": 16,
+        "Name": "Dawnchaser's Crusade",
         "ManagerName": "FubenNewCharActivityManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner84.png",
-        "TimeId": 11906.0,
-        "FunctionNameId": 10325,
-        "SkipId": 20071,
-        "Order": 2,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner167.png",
+        "TimeId": 32701.0,
+        "FunctionNameId": 10325.0,
+        "SkipId": 1300583.0,
+        "Order": 2.0,
         "RedPointConditions": [
             "CONDITION_KOROMCHARACTIVITYMAINRED"
-        ]
+        ],
+        "Note": "Character Trial Stage",
+        "IsAgency": null
+    },
+    {
+        "Id": 17,
+        "Name": "Ultimate Brawl - Deadlocked",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner99.png",
+        "TimeId": null,
+        "FunctionNameId": 10350.0,
+        "SkipId": 20104.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "Ultimate Brawl",
+        "IsAgency": null
+    },
+    {
+        "Id": 18,
+        "Name": "Crafting Lulu",
+        "ManagerName": "XRestaurantAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner142.png",
+        "TimeId": null,
+        "FunctionNameId": 10443.0,
+        "SkipId": 89008.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_RESTAURANT_ENTRANCE"
+        ],
+        "Note": "Simulated Restaurant",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 19,
+        "Name": "Arcade Anima: Noan",
+        "ManagerName": "CharacterTowerManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner124.png",
+        "TimeId": null,
+        "FunctionNameId": 10436.0,
+        "SkipId": 11795.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "Arcade Anima",
+        "IsAgency": null
+    },
+    {
+        "Id": 20,
+        "Name": "Corrupted Battlefront",
+        "ManagerName": "Maverick2Manager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner98.png",
+        "TimeId": null,
+        "FunctionNameId": 10445.0,
+        "SkipId": 89011.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_MAVERICK2"
+        ],
+        "Note": "Corrupted Battlefront",
+        "IsAgency": null
+    },
+    {
+        "Id": 21,
+        "Name": "Lost in Whitebloom: Rerun",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner102.png",
+        "TimeId": 32910.0,
+        "FunctionNameId": 403.0,
+        "SkipId": 20232.0,
+        "Order": 6.0,
+        "RedPointConditions": [],
+        "Note": "Coating Story",
+        "IsAgency": null
+    },
+    {
+        "Id": 22,
+        "Name": "Pathfinder",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner65.png",
+        "TimeId": null,
+        "FunctionNameId": 10345.0,
+        "SkipId": 20128.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_RPG_MAKER_GAME_RED"
+        ],
+        "Note": "Push Box",
+        "IsAgency": null
+    },
+    {
+        "Id": 23,
+        "Name": "Forever Racer",
+        "ManagerName": "XTwoSideTowerAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner103.png",
+        "TimeId": null,
+        "FunctionNameId": 10431.0,
+        "SkipId": 85013.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_TWO_SIDE_TOWER_TASK"
+        ],
+        "Note": "Yin-Yang Tower",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 24,
+        "Name": "Skylark Nightsong",
+        "ManagerName": "MazeManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner104.png",
+        "TimeId": null,
+        "FunctionNameId": 10445.0,
+        "SkipId": 89013.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_MAZE"
+        ],
+        "Note": "Valentine's Day Maze",
+        "IsAgency": null
+    },
+    {
+        "Id": 25,
+        "Name": "Space Odyssey",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner108.png",
+        "TimeId": null,
+        "FunctionNameId": 10446.0,
+        "SkipId": 89015.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_PLANET_RUNNING_ACTIVITY"
+        ],
+        "Note": "Space Odyssey",
+        "IsAgency": null
+    },
+    {
+        "Id": 26,
+        "Name": "Nemesis Brawl",
+        "ManagerName": "MonsterCombatManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner110.png",
+        "TimeId": null,
+        "FunctionNameId": 10447.0,
+        "SkipId": 89016.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_MONSTER_COMBAT_ACTIVITY"
+        ],
+        "Note": "BVB",
+        "IsAgency": null
+    },
+    {
+        "Id": 27,
+        "Name": "Limit Break",
+        "ManagerName": "Reform2ndManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner115.png",
+        "TimeId": null,
+        "FunctionNameId": 10337.0,
+        "SkipId": 81104.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_REFORM_All_RED_POINT"
+        ],
+        "Note": "Limit Break",
+        "IsAgency": null
+    },
+    {
+        "Id": 28,
+        "Name": "Special Dispatch - Coordinated Simulation",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner149.png",
+        "TimeId": null,
+        "FunctionNameId": 10349.0,
+        "SkipId": 80176.0,
+        "Order": null,
+        "RedPointConditions": [
+            "XRedPointConditionAreaWarActivity"
+        ],
+        "Note": "Special Dispatch",
+        "IsAgency": null
+    },
+    {
+        "Id": 29,
+        "Name": "Into the Deep",
+        "ManagerName": "AreaWarManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner116.png",
+        "TimeId": null,
+        "FunctionNameId": 10339.0,
+        "SkipId": 20083.0,
+        "Order": null,
+        "RedPointConditions": [
+            "XRedPointConditionKillZoneActivity"
+        ],
+        "Note": "Unrivaled Massacre",
+        "IsAgency": null
+    },
+    {
+        "Id": 30,
+        "Name": "Lightning and Thunder",
+        "ManagerName": "XCerberusGame",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner131.png",
+        "TimeId": null,
+        "FunctionNameId": 10448.0,
+        "SkipId": 89018.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CERBERUSE_GAME_CHECK_BTN_FASHION_STORY_RED",
+            "CERBERUSE_GAME_CHECK_BTN_FASHION_CHALLENGE_RED"
+        ],
+        "Note": "Cerberus",
+        "IsAgency": null
+    },
+    {
+        "Id": 31,
+        "Name": "Devour Wave Escape: Time Gap",
+        "ManagerName": "EscapeManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner58.png",
+        "TimeId": null,
+        "FunctionNameId": 10423.0,
+        "SkipId": 82080.0,
+        "Order": null,
+        "RedPointConditions": [
+            "XRedPointConditionEscapeTask"
+        ],
+        "Note": "Battle Royale",
+        "IsAgency": null
+    },
+    {
+        "Id": 32,
+        "Name": "Midsummer Rewind",
+        "ManagerName": "FubenSpecialTrainManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner80.png",
+        "TimeId": null,
+        "FunctionNameId": 10316.0,
+        "SkipId": 89025.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_SPECIALTRAIN_RED"
+        ],
+        "Note": "Co-op Relax",
+        "IsAgency": null
+    },
+    {
+        "Id": 33,
+        "Name": "Guild Expedition V",
+        "ManagerName": "GuildWarManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner119.png",
+        "TimeId": null,
+        "FunctionNameId": 10425.0,
+        "SkipId": 85016.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_GUILDWAR_Main"
+        ],
+        "Note": "Guild War",
+        "IsAgency": null
+    },
+    {
+        "Id": 34,
+        "Name": "Chess Wonderland",
+        "ManagerName": "XBlackRockChessAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner126.png",
+        "TimeId": null,
+        "FunctionNameId": 10455.0,
+        "SkipId": 89028.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_BLACK_ROCK_CHESS_ENTRANCE"
+        ],
+        "Note": "Chess Wonderland",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 35,
+        "Name": "Summer Anecdotes",
+        "ManagerName": "FashionStoryManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner150.png",
+        "TimeId": 29751.0,
+        "FunctionNameId": 10341.0,
+        "SkipId": 89065.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_FASHION_STORY_ENTRANCE"
+        ],
+        "Note": "Coating Story",
+        "IsAgency": null
+    },
+    {
+        "Id": 36,
+        "Name": "Blazing Simulacrum",
+        "ManagerName": "XBlackRockStageAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner127.png",
+        "TimeId": null,
+        "FunctionNameId": 10443.0,
+        "SkipId": 89030.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "BLACK\u2605ROCK SHOOTER Collab Story",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 37,
+        "Name": "Brandishing Tunes",
+        "ManagerName": "XTaikoMasterAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner69.png",
+        "TimeId": null,
+        "FunctionNameId": 10430.0,
+        "SkipId": 84010.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_ACTIVITY_TAIKO_MASTER_TASK"
+        ],
+        "Note": "Punishing: Gray Raven Rhythm Game",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 38,
+        "Name": "Alternate World: Kowloong's Greatest Merchant",
+        "ManagerName": "XRogueSimAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner132.png",
+        "TimeId": null,
+        "FunctionNameId": 10457.0,
+        "SkipId": 89044.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_ROGUESIM_ACTIVITY"
+        ],
+        "Note": "Roguelike Merchant Simulation",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 39,
+        "Name": "Magic Square Bounce",
+        "ManagerName": "XDlcCasualAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner73.png",
+        "TimeId": null,
+        "FunctionNameId": 10458.0,
+        "SkipId": 89045.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_DLC_CASUAL_ACTIVITY"
+        ],
+        "Note": "DLC Cube",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 40,
+        "Name": "Pulao's Cultivation",
+        "ManagerName": "XKotodamaActivityAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner145.png",
+        "TimeId": null,
+        "FunctionNameId": 10459.0,
+        "SkipId": 89050.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_KOTODAMA_MAIN"
+        ],
+        "Note": "Pulao's Cultivation",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 41,
+        "Name": "Wreck-It Froggie",
+        "ManagerName": "XFangKuaiAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner153.png",
+        "TimeId": 29101.0,
+        "FunctionNameId": 10461.0,
+        "SkipId": 89049.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_FANGKUAI_MAIN"
+        ],
+        "Note": "Remove Space",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 42,
+        "Name": "Spring Gala",
+        "ManagerName": "XTempleAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner137.png",
+        "TimeId": null,
+        "FunctionNameId": 10463.0,
+        "SkipId": 89052.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_TEMPLE_MAIN"
+        ],
+        "Note": "Decorate the Temple Fair",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 43,
+        "Name": "Nexus Trek",
+        "ManagerName": "XLinkCraftActivityAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner140.png",
+        "TimeId": null,
+        "FunctionNameId": 10465.0,
+        "SkipId": 89058.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_LINKCRAFT_MAIN"
+        ],
+        "Note": "Nexus Trek",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 44,
+        "Name": "Trial of Simulacrums",
+        "ManagerName": "XBossInshotAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner151.png",
+        "TimeId": 29401.0,
+        "FunctionNameId": 10467.0,
+        "SkipId": 89061.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_BOSS_INSHOT"
+        ],
+        "Note": "Boss Leap",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 45,
+        "Name": "Crouching Cat, Hidden Rat",
+        "ManagerName": "XDlcMultiMouseHunterAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner143.png",
+        "TimeId": 27201.0,
+        "FunctionNameId": 10464.0,
+        "SkipId": 89057.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_DLC_MOUSE_HUNTER_ACTIVITY"
+        ],
+        "Note": "DLC Hide and Seek",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 46,
+        "Name": "Paint of Dunhuang",
+        "ManagerName": "XDunhuangAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner144.png",
+        "TimeId": null,
+        "FunctionNameId": 10466.0,
+        "SkipId": 89060.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_DUNHUANG"
+        ],
+        "Note": "Paint of Dunhuang",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 47,
+        "Name": "Infinity Algorithm",
+        "ManagerName": "XMechanismActivityAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner147.png",
+        "TimeId": null,
+        "FunctionNameId": 10469.0,
+        "SkipId": 89063.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_MECHANISM_MAIN"
+        ],
+        "Note": "Mechanism",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 48,
+        "Name": "Sweet Respite",
+        "ManagerName": "XLineArithmeticAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner148.png",
+        "TimeId": null,
+        "FunctionNameId": 10468.0,
+        "SkipId": 89062.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_LINE_ARITHMETIC"
+        ],
+        "Note": "Wanshi Connect",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 49,
+        "Name": "Hydrangea Gala",
+        "ManagerName": "XTemple2Agency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner162.png",
+        "TimeId": 31010.0,
+        "FunctionNameId": 10472.0,
+        "SkipId": 89074.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_TEMPLE2"
+        ],
+        "Note": "Garden Fair",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 50,
+        "Name": "Holographic Replay",
+        "ManagerName": "XSimulateTrainAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner158.png",
+        "TimeId": 32309.0,
+        "FunctionNameId": 10474.0,
+        "SkipId": 89071.0,
+        "Order": 5.0,
+        "RedPointConditions": [
+            "CONDITION_SIMULATE_TRAIN"
+        ],
+        "Note": "Holographic Replay",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 51,
+        "Name": "After School",
+        "ManagerName": "XBagOrganizeActivityAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner160.png",
+        "TimeId": null,
+        "FunctionNameId": 10473.0,
+        "SkipId": 89072.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_BAGORGANIZE_ANY"
+        ],
+        "Note": "Inventory Sorting",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 52,
+        "Name": "Surviving Samsara",
+        "ManagerName": "XSucceedBossAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner161.png",
+        "TimeId": null,
+        "FunctionNameId": 10471.0,
+        "SkipId": 89073.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_SUCCEED_BOSS"
+        ],
+        "Note": "New Super Hard Boss",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 53,
+        "Name": "Cosmic Odyssey",
+        "ManagerName": "XGame2048Agency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner164.png",
+        "TimeId": 32101.0,
+        "FunctionNameId": 10475.0,
+        "SkipId": 89075.0,
+        "Order": 7.0,
+        "RedPointConditions": [
+            "CONDITION_GAME2048_MAIN"
+        ],
+        "Note": "2048 Relax",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 54,
+        "Name": "Shape of Thunder",
+        "ManagerName": "FubenFestivalActivityManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner154.png",
+        "TimeId": null,
+        "FunctionNameId": 10306.0,
+        "SkipId": 20224.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "Pool Coating Story",
+        "IsAgency": null
+    },
+    {
+        "Id": 55,
+        "Name": "Sinking Mermaid: Rerun",
+        "ManagerName": "FubenFestivalActivityManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner136.png",
+        "TimeId": null,
+        "FunctionNameId": 10306.0,
+        "SkipId": 20229.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "Coating Story",
+        "IsAgency": null
+    },
+    {
+        "Id": 56,
+        "Name": "Slaughterhouse #5",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner152.png",
+        "TimeId": 29603.0,
+        "FunctionNameId": 10304.0,
+        "SkipId": 1300585.0,
+        "Order": 6.0,
+        "RedPointConditions": [
+            "CONDITION_ACTIVITYBRIE_BOSSSINGLE"
+        ],
+        "Note": "\u8d85\u96be\u5173",
+        "IsAgency": null
+    },
+    {
+        "Id": 57,
+        "Name": "Floral Requiem",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner157.png",
+        "TimeId": 30701.0,
+        "FunctionNameId": 10304.0,
+        "SkipId": 1300586.0,
+        "Order": 5.0,
+        "RedPointConditions": [
+            "CONDITION_ACTIVITYBRIE_BOSSSINGLE"
+        ],
+        "Note": "\u8d85\u96be\u5173",
+        "IsAgency": null
+    },
+    {
+        "Id": 58,
+        "Name": "The Watcher's Oath",
+        "ManagerName": "FubenNewCharActivityManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner156.png",
+        "TimeId": 29601.0,
+        "FunctionNameId": 10325.0,
+        "SkipId": 1300581.0,
+        "Order": 2.0,
+        "RedPointConditions": [
+            "CONDITION_KOROMCHARACTIVITYMAINRED1"
+        ],
+        "Note": "\u89d2\u8272\u8bd5\u73a9\u5173",
+        "IsAgency": null
+    },
+    {
+        "Id": 59,
+        "Name": "Soul Ferrier",
+        "ManagerName": "FubenNewCharActivityManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner159.png",
+        "TimeId": 30601.0,
+        "FunctionNameId": 10325.0,
+        "SkipId": 1300582.0,
+        "Order": 2.0,
+        "RedPointConditions": [
+            "CONDITION_KOROMCHARACTIVITYMAINRED2"
+        ],
+        "Note": "\u89d2\u8272\u8bd5\u73a9\u5173",
+        "IsAgency": null
+    },
+    {
+        "Id": 60,
+        "Name": "Neon Dynamite \u2606",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner121.png",
+        "TimeId": 27801.0,
+        "FunctionNameId": 403.0,
+        "SkipId": 20219.0,
+        "Order": 6.0,
+        "RedPointConditions": [],
+        "Note": "Coating Story",
+        "IsAgency": null
     }
 ]

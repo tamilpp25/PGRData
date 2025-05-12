@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local GRID_CONDITION_MAX_COUNT = 3

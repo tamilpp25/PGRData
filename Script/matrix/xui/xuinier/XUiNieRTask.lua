@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiNieRTask = XLuaUiManager.Register(XLuaUi, "UiNierTask")
 local XUiPanelNieRTask = require("XUi/XUiNieR/XUiPanelNieRTask")
 local XUiGridNieRTaskBtn = require("XUi/XUiNieR/XUiGridNieRTaskBtn")

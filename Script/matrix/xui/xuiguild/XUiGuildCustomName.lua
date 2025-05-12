@@ -38,6 +38,7 @@ end
 
 function XUiGuildCustomName:RefreshAllPosition()
     local allPositions = XGuildConfig.GetAllGuildPositions()
+    local level = XDataCenter.GuildManager.GetCurRankLevel()
     self.PositionConfigs = {}
     for id, positionData in pairs(allPositions) do
         table.insert(self.PositionConfigs, {
@@ -45,6 +46,7 @@ function XUiGuildCustomName:RefreshAllPosition()
             Name = positionData.Name,
             Priority = positionData.Priority,
             Authority = positionData.Authority,
+            IsEdit = level <= id
         })
     end
     table.sort(self.PositionConfigs, function(positionA, positionB)

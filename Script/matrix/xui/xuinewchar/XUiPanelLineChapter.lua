@@ -1,3 +1,5 @@
+local XUiGridTreasureGrade = require("XUi/XUiFubenMainLineChapter/XUiGridTreasureGrade")
+local XUiNewCharStageItem = require("XUi/XUiNewChar/XUiNewCharStageItem")
 local XUiPanelLineChapter = XClass(nil, "XUiPanelLineChapter")
 local XUguiDragProxy = CS.XUguiDragProxy
 

@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 -- 虚像地平线排行榜UI
 local XUiExpeditionRanking = XLuaUiManager.Register(XLuaUi, "UiExpeditionRank")
 local XRankInfo = require("XUi/XUiExpedition/Ranking/XUiExpeditionRankInfo")

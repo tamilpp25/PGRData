@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridSpringFestivalBagItem = XClass(nil, "XUiGridSpringFestivalBagItem")
 
 function XUiGridSpringFestivalBagItem:Ctor(ui,parent)
@@ -46,8 +47,8 @@ function XUiGridSpringFestivalBagItem:RefreshPlayerInfo()
         self.TxtNewMessage.text = message
     end
     self.GridReceived.gameObject:SetActiveEx(self.DataInfo:IsReceive())
-    XUiPLayerHead.InitPortrait(self.DataInfo:GetFriendIcon(), self.DataInfo:GetFriendHeadFrameId(), self.PanelRoleOnLine)
-    XUiPLayerHead.InitPortrait(self.DataInfo:GetFriendIcon(), self.DataInfo:GetFriendHeadFrameId(), self.PanelRoleOffLine)
+    XUiPlayerHead.InitPortrait(self.DataInfo:GetFriendIcon(), self.DataInfo:GetFriendHeadFrameId(), self.PanelRoleOnLine)
+    XUiPlayerHead.InitPortrait(self.DataInfo:GetFriendIcon(), self.DataInfo:GetFriendHeadFrameId(), self.PanelRoleOffLine)
 end
 
 return XUiGridSpringFestivalBagItem

@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiPanelDetailTeamItem = require("XUi/XUiCharacterDetail/XUiPanelDetailTeamItem")
 local XUiPanelTeamInfo = XLuaUiManager.Register(XLuaUi, "UiPanelTeamInfo")
 
 function XUiPanelTeamInfo:InitAutoScript()
@@ -40,7 +42,7 @@ function XUiPanelTeamInfo:OnDisable()
 end
 
 function XUiPanelTeamInfo:InitTabBtnGroup()
-    local tabIdList = XCharacterConfigs.GetRecommendTabList(self.CharacterId, XCharacterConfigs.RecommendType.Character)
+    local tabIdList = XMVCA.XCharacter:GetRecommendTabList(self.CharacterId, XEnumConst.CHARACTER.RecommendType.Character)
     if not tabIdList then
         return
     end
@@ -56,7 +58,7 @@ function XUiPanelTeamInfo:InitTabBtnGroup()
             uiButton = itemGo.transform:GetComponent("XUiButton")
         end
 
-        local config = XCharacterConfigs.GetRecommendTabTemplate(self.CharacterId, tabIdList[i], XCharacterConfigs.RecommendType.Character)
+        local config = XMVCA.XCharacter:GetRecommendTabTemplate(self.CharacterId, tabIdList[i], XEnumConst.CHARACTER.RecommendType.Character)
         uiButton:SetName(config.TabName)
 
         table.insert(tabGroup, uiButton)
@@ -80,9 +82,9 @@ function XUiPanelTeamInfo:SetupDynamicTable()
         return
     end
 
-    local groupId = XCharacterConfigs.GetRecommendGroupId(self.CharacterId, self.CurTabId, XCharacterConfigs.RecommendType.Character)
+    local groupId = XMVCA.XCharacter:GetRecommendGroupId(self.CharacterId, self.CurTabId, XEnumConst.CHARACTER.RecommendType.Character)
     local Ids = XDataCenter.VoteManager.GetVoteIdListByGroupId(groupId)
-    self.PageDatas = XCharacterConfigs.GetCharacterRecommendListByIds(Ids)
+    self.PageDatas = XMVCA.XCharacter:GetCharacterRecommendListByIds(Ids)
 
     if not self.PageDatas then
         self.PageDatas = {}

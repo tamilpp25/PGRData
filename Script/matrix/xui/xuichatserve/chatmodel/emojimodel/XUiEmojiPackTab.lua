@@ -20,6 +20,26 @@ end
 function XUiEmojiPackTab:Refresh(emojiPack)
     self.EmojiPack = emojiPack
     self.RImgEmojiPack:SetRawImage(self.EmojiPack:GetIcon())
+    self:RefreshRedPoint()
+end
+
+function XUiEmojiPackTab:RefreshRedPoint()
+    if XTool.IsTableEmpty(self.EmojiPack:GetEmojiList()) then
+        return
+    end
+
+    if not self.BtnEmojiPack or XTool.UObjIsNil(self.BtnEmojiPack) then
+        return
+    end
+
+    local isRed = nil
+    for k, v in pairs(self.EmojiPack:GetEmojiList()) do
+        if v:GetIsNew() then
+            isRed = true
+            break
+        end
+    end
+    self.BtnEmojiPack:ShowReddot(isRed)
 end
 
 function XUiEmojiPackTab:SetSelect(isSelect)
@@ -37,10 +57,15 @@ end
 
 function XUiEmojiPackTab:Show()
     self.GameObject:SetActiveEx(true)
+    XEventManager.AddEventListener(XEventId.EVENT_CHAT_EMOJI_REFRESH_RED, self.RefreshRedPoint, self)
 end
 
 function XUiEmojiPackTab:Hide()
     self.GameObject:SetActiveEx(false)
+end
+
+function XUiEmojiPackTab:OnDestroy()
+    XEventManager.RemoveEventListener(XEventId.EVENT_CHAT_EMOJI_REFRESH_RED, self.RefreshRedPoint, self)
 end
 
 return XUiEmojiPackTab

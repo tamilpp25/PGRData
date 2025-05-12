@@ -13,9 +13,9 @@ function XUiGridWaferSelect:Init(parent, rootUi)
 end
 
 function XUiGridWaferSelect:Refresh(suitId, isSelected, isNew)
-    local suitCfg = XEquipConfig.GetEquipSuitCfg(suitId)
+    local suitCfg = XMVCA.XEquip:GetConfigEquipSuit(suitId)
 
-    local icon = XDataCenter.EquipManager.GetSuitIconBagPath(suitId)
+    local icon = XMVCA.XEquip:GetEquipSuitIconPath(suitId)
     self.RImgIcon:SetRawImage(icon)
     self.RImgIcon.gameObject:SetActive(true)
 
@@ -27,7 +27,7 @@ function XUiGridWaferSelect:Refresh(suitId, isSelected, isNew)
 
     --装备专用的竖条品质色
     if self.ImgEquipQuality then
-        self.RootUi:SetUiSprite(self.ImgEquipQuality, XDataCenter.EquipManager.GetSuitQualityIcon(suitId))
+        self.RootUi:SetUiSprite(self.ImgEquipQuality, XMVCA.XEquip:GetSuitQualityIcon(suitId))
     end
 
     self.GameObject:SetActiveEx(true)

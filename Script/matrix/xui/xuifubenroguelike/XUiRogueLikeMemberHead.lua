@@ -33,14 +33,14 @@ function XUiRogueLikeMemberHead:SetMemberInfo(characterId, isHalf, isRobot)
     self.ImgSword.gameObject:SetActiveEx(true)
 
     if isHalf then
-        self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharacterId))
+        self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyImage(self.CharacterId))
     else
-        self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterId))
+        self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterId))
     end
     if isRobot then
         self.TxtSword.text = ""
     else
-        local character = XDataCenter.CharacterManager.GetCharacter(self.CharacterId)
+        local character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
         self.TxtSword.text = math.floor(character.Ability)
     end
     self.ImgIconUp.gameObject:SetActiveEx(XDataCenter.FubenRogueLikeManager.IsTeamEffectCharacter(characterId))

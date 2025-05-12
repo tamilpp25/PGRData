@@ -2,6 +2,7 @@
 --超限乱斗怪物对象
 --模块负责：吕天元
 --===========================
+---@class XSmashBMonster
 local XSmashBMonster = XClass(nil, "XSmashBMonster")
 
 function XSmashBMonster:Ctor(cfg)

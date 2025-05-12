@@ -32,7 +32,7 @@ function XUiGridRes:Refresh(data)
     if self.Type == XFubenSimulatedCombatConfig.ResType.Member then
         self.ResInfo = XFubenSimulatedCombatConfig.GetMemberById(data.Id)
         self.RImgMember:SetRawImage(XRobotManager.GetRobotSmallHeadIcon(self.ResInfo.RobotId))
-        self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(XRobotManager.GetCharacterId(self.ResInfo.RobotId))
+        self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(XRobotManager.GetCharacterId(self.ResInfo.RobotId))
     elseif self.Type == XFubenSimulatedCombatConfig.ResType.Addition then
         self.ResInfo = XFubenSimulatedCombatConfig.GetAdditionById(data.Id)
         self.RImgBuff:SetRawImage(self.ResInfo.Icon)

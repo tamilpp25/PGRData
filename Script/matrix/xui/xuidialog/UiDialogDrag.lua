@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiDialogDrag = XLuaUiManager.Register(XLuaUi, "UiDialogDrag")
 
 function XUiDialogDrag:OnAwake()

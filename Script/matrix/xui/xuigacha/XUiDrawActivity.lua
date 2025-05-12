@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiDrawActivity = XLuaUiManager.Register(XLuaUi, "UiDrawActivity")
 local drawActivityControl = require("XUi/XUiGacha/XUiDrawActivityControl")
 local LevelMax = 6
@@ -49,35 +50,46 @@ function XUiDrawActivity:UIReset()
     XUiHelper.SetDelayPopupFirstGet(true)
     self.ImgMask.gameObject:SetActiveEx(true)
     self:PlayAnimation("DrawBegan", function() self.ImgMask.gameObject:SetActiveEx(false) end)
-    -- self.PlayableDirector = self.BackGround:GetComponent("PlayableDirector")
-    -- self.PlayableDirector:Stop()
-    -- self.PlayableDirector:Evaluate()
+    --self.PlayableDirector = self.BackGround:GetComponent("PlayableDirector")
+    self.GachaShowLoop = self.BackGround.transform:Find("BoxEffect/Loop")
+    if self.GachaShowLoop then
+        self.CurLoop = self.GachaShowLoop:LoadPrefab(XUiConfigs.GetComponentUrl("UiGachaLoop"))
+        self.CurLoop.gameObject:SetActiveEx(true)
+    end
 
-    --self:PlayLoopAnime()
+    for i = 1, LevelMax do
+        self.PlayableDirector = XUiHelper.TryGetComponent(self.BackGround.transform, "TimeLine/Level" .. i, "PlayableDirector")
+        if self.PlayableDirector then
+            self.PlayableDirector:Stop()
+            self.PlayableDirector:Evaluate()
+        end
+    end
+
+    self:PlayLoopAnime()
 end
 
---function XUiDrawActivity:PlayLoopAnime()
---    self.PlayableDirector = XUiHelper.TryGetComponent(self.BackGround.transform, "TimeLine/Loop", "PlayableDirector")
---    if self.PlayableDirector then
---        self.PlayableDirector.gameObject:SetActiveEx(true)
---        self.PlayableDirector:Play()
---        self.PlayGachaAnim = true
---        local behaviour = self.GameObject:AddComponent(typeof(CS.XLuaBehaviour))
---        if self.Update then
---            behaviour.LuaUpdate = function() self:Update() end
---        end
---    end
---end
+function XUiDrawActivity:PlayLoopAnime()
+    self.PlayableDirector = XUiHelper.TryGetComponent(self.BackGround.transform, "TimeLine/Loop", "PlayableDirector")
+    if self.PlayableDirector then
+        self.PlayableDirector.gameObject:SetActiveEx(true)
+        self.PlayableDirector:Play()
+        self.PlayGachaAnim = true
+        local behaviour = self.GameObject:AddComponent(typeof(CS.XLuaBehaviour))
+        if self.Update then
+            behaviour.LuaUpdate = function() self:Update() end
+        end
+    end
+end
 
---function XUiDrawActivity:Update()
---    if self.PlayGachaAnim then
---        if self.PlayableDirector.time >= self.PlayableDirector.duration - 0.1 then
---            if self.IsReadyForGacha then
---                self.DrawActivityControl:ShowGacha()
---            end
---        end
---    end
---end
+function XUiDrawActivity:Update()
+    if self.PlayGachaAnim then
+        if self.PlayableDirector.time >= self.PlayableDirector.duration - 0.1 then
+            if self.IsReadyForGacha then
+                self.DrawActivityControl:ShowGacha()
+            end
+        end
+    end
+end
 
 function XUiDrawActivity:OnDisable()
     XUiHelper.SetDelayPopupFirstGet()
@@ -123,9 +135,9 @@ function XUiDrawActivity:InitPanelPreview()
     self:SetPreviewData(gachaRewardInfo, self.AllPreviewPanel.GridDrawActivity, self.AllPreviewPanel.PanelDrawItemSP, self.AllPreviewPanel.PanelDrawItemNA, self.PreviewList[type.IN], type.IN)
     self:SetPreviewData(gachaRewardInfo, self.GridDrawActivity, self.PreviewContent, nil, self.PreviewList[type.OUT], type.OUT, self.GachaRule.PreviewShowCount)
 
-    local countStr = CS.XTextManager.GetText("AlreadyobtainedCount", XDataCenter.GachaManager.GetCurCountOfAll(), XDataCenter.GachaManager.GetMaxCountOfAll())
-    self.AllPreviewPanel.PanelTxt.gameObject:SetActiveEx(not XDataCenter.GachaManager.GetIsInfinite())
-    self.PanelNumber.gameObject:SetActiveEx(not XDataCenter.GachaManager.GetIsInfinite())
+    local countStr = CS.XTextManager.GetText("AlreadyobtainedCount", XDataCenter.GachaManager.GetCurCountOfAll(self.GachaId), XDataCenter.GachaManager.GetMaxCountOfAll(self.GachaId))
+    self.AllPreviewPanel.PanelTxt.gameObject:SetActiveEx(not XDataCenter.GachaManager.GetIsInfinite(self.GachaId))
+    self.PanelNumber.gameObject:SetActiveEx(not XDataCenter.GachaManager.GetIsInfinite(self.GachaId))
     self.AllPreviewPanel.TxetFuwenben.text = countStr
     self.TxtNumber.text = countStr
     
@@ -151,32 +163,27 @@ function XUiDrawActivity:LoadModelScene()
     modelUrl = (modelUrl and modelUrl ~= "") and modelUrl or self:GetDefaultUiModelUrl()
     
     self:LoadUiScene(sceneUrl, modelUrl, function ()
-            self:SetGameObject()
+            --self:SetGameObject()
             self.Is3DSceneLoadFinish = true
-            local groupBaseObj = self.UiSceneInfo.Transform:Find("GroupBase").gameObject
-            XTool.DestroyChildren(groupBaseObj)
-            --XTool.DestroyChildren()
             local root = self.UiModelGo.transform
-            root.position = CS.UnityEngine.Vector3(0,300,0)
-            self.BackGround = root
+            self.BackGround = root.parent.parent:FindTransform("GroupBase")
             self:UIReset()
     end, false)
 end
 
 function XUiDrawActivity:PushShow(rewardList)
-    -- self:OpenChildUi("UiDrawActivityShow")
-    -- self:FindChildUiObj("UiDrawActivityShow"):SetData(rewardList, function()
-    --     if self.OpenSound then
-    --         self.OpenSound:Stop()
-    --     end
-    --     self:PushResult(rewardList)
-    --     self:UpdateInfo()
-    -- end, self.BackGround)
-    -- if self.CurLoop and not XTool.UObjIsNil(self.CurLoop.gameObject) then
-    --     self.CurLoop.gameObject:SetActiveEx(false)
-    -- end
-    XLuaUiManager.Open("UiDrawNew", nil, rewardList)
-    --self.PlayableDirector:Stop()
+    self:OpenChildUi("UiDrawActivityShow")
+    self:FindChildUiObj("UiDrawActivityShow"):SetData(rewardList, function()
+        if self.OpenSound then
+            self.OpenSound:Stop()
+        end
+        self:PushResult(rewardList)
+        self:UpdateInfo()
+    end, self.BackGround)
+    if self.CurLoop and not XTool.UObjIsNil(self.CurLoop.gameObject) then
+        self.CurLoop.gameObject:SetActiveEx(false)
+    end
+    self.PlayableDirector:Stop()
 end
 
 function XUiDrawActivity:PushResult(rewardList)
@@ -235,7 +242,7 @@ function XUiDrawActivity:UpDataPreviewData()
         end
     end
     
-    local countStr = CS.XTextManager.GetText("AlreadyobtainedCount", XDataCenter.GachaManager.GetCurCountOfAll(), XDataCenter.GachaManager.GetMaxCountOfAll())
+    local countStr = CS.XTextManager.GetText("AlreadyobtainedCount", XDataCenter.GachaManager.GetCurCountOfAll(self.GachaId), XDataCenter.GachaManager.GetMaxCountOfAll(self.GachaId))
     self.AllPreviewPanel.TxetFuwenben.text = countStr
     self.TxtNumber.text = countStr
 end

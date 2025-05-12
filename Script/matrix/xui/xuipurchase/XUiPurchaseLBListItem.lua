@@ -46,6 +46,9 @@ function XUiPurchaseLBListItem:SetData()
     self.TxtName.text = self.ItemData.Name
     self.ImgSellout.gameObject:SetActive(false)
     self.TxtUnShelveTime.gameObject:SetActive(false)
+    if self.ImgHave then
+        self.ImgHave.gameObject:SetActive(false)
+    end
     self:ActiveImgTimeBg(false)
     self.Parent:RemoveTimerFun(self.ItemData.Id)
     self.RemainTime = 0
@@ -94,9 +97,10 @@ function XUiPurchaseLBListItem:SetData()
         self.TxtHk.gameObject:SetActive(false)
         self.TxtHk2.gameObject:SetActiveEx(false)
         self.TxtFree.gameObject:SetActive(true)
-        local isShowRedPoint = (self.ItemData.BuyTimes == 0 or self.ItemData.BuyTimes < self.ItemData.BuyLimitTimes) 
+        local isShowRedPoint = (self.ItemData.BuyTimes == 0 or self.ItemData.BuyTimes < self.ItemData.BuyLimitTimes) and not XDataCenter.PurchaseManager.IsLBLock(self.ItemData)
         and (self.ItemData.TimeToShelve == 0 or self.ItemData.TimeToShelve < nowTime)
-        and (self.ItemData.TimeToUnShelve == 0 or self.ItemData.TimeToUnShelve > nowTime)
+        and (self.ItemData.TimeToUnShelve == 0 or self.ItemData.TimeToUnShelve > nowTime) 
+        and not XDataCenter.PurchaseManager.IsLBLock(self.ItemData)
         -- self.RedPoint.gameObject:SetActive(XDataCenter.PurchaseManager.LBRedPoint())
         self.RedPoint.gameObject:SetActive(isShowRedPoint)
     elseif self.IsDisCount or self.ItemData.ConvertSwitch < consumeCount then -- 打折或者存在拥有物品折扣的
@@ -108,10 +112,8 @@ function XUiPurchaseLBListItem:SetData()
         end
         if self.ItemData.ConvertSwitch <= 0 then
             self.TxtHk2.gameObject:SetActiveEx(false)
-            self.TextNotNeed.gameObject:SetActiveEx(true)
         else
             self.TxtHk2.gameObject:SetActiveEx(true)
-            self.TextNotNeed.gameObject:SetActiveEx(false)
             local consumeNum = consumeCount
             if self.ItemData.ConvertSwitch > 0 and self.ItemData.ConvertSwitch < consumeCount then
                 consumeNum = self.ItemData.ConvertSwitch
@@ -134,16 +136,29 @@ function XUiPurchaseLBListItem:SetData()
         self.TxtHk.text = self.ItemData.ConsumeCount or ""
     end
 
+    -- 达到限购次数
+    if self.ItemData.BuyLimitTimes and self.ItemData.BuyLimitTimes > 0 and self.ItemData.BuyTimes == self.ItemData.BuyLimitTimes then
+        self.TxtPutawayTime.gameObject:SetActive(false)
+        self.ImgSellout.gameObject:SetActive(true)
+        self.TxtSetOut.text = TextManager.GetText("PurchaseSettOut")
+        self.TxtFree.gameObject:SetActive(false)
+        self.TxtHk.gameObject:SetActive(false)
+        self:SetBuyDes()
+        return
+    end
+
     --是否已拥有
+    local isShowHave = false
     if self.ImgHave then
-        local isShowHave
-        if self.ItemData.RewardGoodsList and #self.ItemData.RewardGoodsList == 1 then
-            local isHave, isLimitTime = XRewardManager.CheckRewardGoodsListIsOwn(self.ItemData.RewardGoodsList)
-            isShowHave = isHave and not isLimitTime
-        else
-            isShowHave = false
-        end
+        isShowHave = XDataCenter.PurchaseManager.IsLBHave(self.ItemData)
         self.ImgHave.gameObject:SetActive(isShowHave)
+    end
+    
+    --是否锁定(如果显示了已拥有，则不需要显示锁定）
+    if self.ImgLock and (not self.ImgHave or not isShowHave)then
+        local isLock, lockDesc = XDataCenter.PurchaseManager.IsLBLock(self.ItemData)
+        self.ImgLock.gameObject:SetActiveEx(isLock)
+        self.TxtLock.text = lockDesc or ''
     end
 
     -- 上架时间
@@ -159,17 +174,6 @@ function XUiPurchaseLBListItem:SetData()
         self.TxtHk.gameObject:SetActive(false)
         self.TxtFree.gameObject:SetActive(false)
         self.TxtPutawayTime.text = TextManager.GetText("PurchaseSetOnTime", XUiHelper.GetTime(self.RemainTime))
-        self:SetBuyDes()
-        return
-    end
-
-    -- 达到限购次数
-    if self.ItemData.BuyLimitTimes and self.ItemData.BuyLimitTimes > 0 and self.ItemData.BuyTimes == self.ItemData.BuyLimitTimes then
-        self.TxtPutawayTime.gameObject:SetActive(false)
-        self.ImgSellout.gameObject:SetActive(true)
-        self.TxtSetOut.text = TextManager.GetText("PurchaseSettOut")
-        self.TxtFree.gameObject:SetActive(false)
-        self.TxtHk.gameObject:SetActive(false)
         self:SetBuyDes()
         return
     end

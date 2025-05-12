@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridShop = require("XUi/XUiShop/XUiGridShop")
 local BtnType = {
     Normal = 1,
     Special = 2
@@ -13,7 +15,7 @@ local XUiTheatreShop = XLuaUiManager.Register(XLuaUi, "UiTheatreShop")
 
 function XUiTheatreShop:OnAwake()
     self.ShopGrids = {}
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self)
     self:InitDynamicTable()
     self:InitButtonGroup()
     self:InitButtonCallBack()
@@ -30,7 +32,7 @@ function XUiTheatreShop:OnStart()
     XShopManager.GetShopInfoList(self.ShopIdList, function()
         self.IsCanCheckLock = true
         self.PanelTabBtn:SelectIndex(BtnType.Normal)
-    end)
+    end, XShopManager.ActivityShopType.TheatreShop)
 end
 
 function XUiTheatreShop:InitDynamicTable()

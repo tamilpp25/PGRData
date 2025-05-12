@@ -67,7 +67,7 @@ function XNameplate:IsNameplateNew()
 end
 
 function XNameplate:GetNameplateName()
-    return self.Config.Name
+    return XMedalConfigs.GetNameplateMapText(self.Config.Name)
 end
 
 function XNameplate:GetNameplateQuality()
@@ -79,11 +79,11 @@ function XNameplate:GetNameplateGroup()
 end
 
 function XNameplate:GetNameplateDescription()
-    return self.Config.Description
+    return XMedalConfigs.GetNameplateMapText(self.Config.Description)
 end
 
 function XNameplate:GetNameplateGetWay()
-    return self.Config.NameplateGetWay
+    return XMedalConfigs.GetNameplateMapText(self.Config.NameplateGetWay)
 end
 
 function XNameplate:GetNameplateHint()
@@ -103,7 +103,7 @@ function XNameplate:GetNameplateConvertItemCount()
 end
 
 function XNameplate:GetNameplateTitle()
-    return self.Config.Title
+    return XMedalConfigs.GetNameplateMapText(self.Config.Title)
 end
 
 function XNameplate:GetNameplateIconType()

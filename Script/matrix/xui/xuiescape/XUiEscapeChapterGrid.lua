@@ -93,8 +93,7 @@ function XUiEscapeChapterGrid:OnBtnClick()
 
     --正在挑战其他章节
     if XTool.IsNumberValid(curChallengeChapterId) then
-        local isNotClick = true
-        for _, chapterId in ipairs(chapterIdList or {}) do
+        local isNotClick = true for _, chapterId in ipairs(chapterIdList or {}) do
             if self.EscapeData:IsInChallengeChapter(chapterId) then
                 isNotClick = false
             end

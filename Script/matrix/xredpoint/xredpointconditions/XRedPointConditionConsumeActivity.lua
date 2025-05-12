@@ -14,7 +14,7 @@ function XRedPointConditionConsumeActivity.Check()
     local consumeDrawActivity = XDataCenter.AccumulatedConsumeManager.GetConsumeDrawActivity()
     local taskGroupIds = consumeDrawActivity:GetTaskGroupId()
     for _, groupId in pairs(taskGroupIds) do
-        if XRedPointConditionConsumeActivityReward.Check(groupId) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CONSUME_ACTIVITY_REWARD, groupId) then
             return true
         end
     end
@@ -24,7 +24,7 @@ function XRedPointConditionConsumeActivity.Check()
         return true
     end
     
-    if XRedPointConditionConsumeActivityBuyGoods.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CONSUME_ACTIVITY_BUY_GOODS) then
         return true
     end
     

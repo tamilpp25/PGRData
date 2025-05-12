@@ -1,8 +1,10 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPartnerActivatePassiveSkill = XLuaUiManager.Register(XLuaUi, "UiPartnerActivatePassiveSkill")
 local XUiGridPassiveSkill = require("XUi/XUiPartner/PartnerSkillInstall/PassiveSkill/XUiGridPassiveSkill")
 local CSTextManagerGetText = CS.XTextManager.GetText
 
 function XUiPartnerActivatePassiveSkill:OnStart(partner)
+    ---@type XPartner
     self.Partner = partner
     self:SetButtonCallBack()
     self:InitDynamicTable()
@@ -18,9 +20,13 @@ end
 
 function XUiPartnerActivatePassiveSkill:OnDisable()
     XEventManager.RemoveEventListener(XEventId.EVENT_PARTNER_SKILLCHANGE, self.CloseMask, self)
+
 end
 
 function XUiPartnerActivatePassiveSkill:SetButtonCallBack()
+    self.BtnClose.CallBack = function()
+        self:OnBtnCloseClick()
+    end
     self.BtnTanchuangClose.CallBack = function()
         self:OnBtnCloseClick()
     end
@@ -31,6 +37,13 @@ function XUiPartnerActivatePassiveSkill:InitPanel()
     local carryPassiveSkillGroupList = self.Partner:GetCarryPassiveSkillGroupList()
     for _,skillGroup in pairs(carryPassiveSkillGroupList) do
         self.SelectSkillDic[skillGroup:GetId()] = skillGroup
+    end
+
+    if self.Partner:GetIsComposePreview() then
+        if self.PanelTitle then
+            self.PanelTitle.gameObject:SetActiveEx(false)
+            self.PanelTitle2.gameObject:SetActiveEx(true)
+        end
     end
 end
 
@@ -66,6 +79,10 @@ function XUiPartnerActivatePassiveSkill:OnDynamicTableEvent(event, index, grid)
 end
 
 function XUiPartnerActivatePassiveSkill:SetSelectSkill(entity, IsAdd)
+    if self.Partner:GetIsComposePreview() then
+        return
+    end
+    
     if IsAdd then
         if self.IsSelectCountFull then
             XUiManager.TipText("PartnerSelectSkillFull")

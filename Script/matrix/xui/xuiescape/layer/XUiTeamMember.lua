@@ -35,7 +35,7 @@ function XUiTeamMember:Refresh()
     end
 
     local characterId = XEntityHelper.GetCharacterIdByEntityId(entityId)
-    self.TxtMemberName.text = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    self.TxtMemberName.text = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
 
     local characterState = self.EscapeData:GetCharacterState(entityId)
     local lifePermyriadPercent = characterState and characterState:GetLifePermyriadPercent()
@@ -46,7 +46,7 @@ function XUiTeamMember:Refresh()
         self.PanelDeath.gameObject:SetActiveEx(isDeath)
     end
 
-    self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(XEntityHelper.GetCharacterIdByEntityId(entityId)))
+    self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyImage(XEntityHelper.GetCharacterIdByEntityId(entityId)))
 
     self:SetObjActive(true)
 end

@@ -1,3 +1,6 @@
+local XUiPanelTask = require("XUi/XUiMoneyReward/XUiPanelTask")
+local XUiPanelTaskCard = require("XUi/XUiMoneyReward/XUiPanelTaskCard")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiMoneyRewardTaskCardTip = XLuaUiManager.Register(XLuaUi, "UiMoneyRewardTaskCardTip")
 
 function XUiMoneyRewardTaskCardTip:OnAwake()

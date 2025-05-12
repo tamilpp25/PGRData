@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local XUiChessPursuitShopGrid = require("XUi/XUiChessPursuit/XUi/XUiChessPursuitShop/XUiChessPursuitShopGrid")
 local XUiChessPursuitShop = XLuaUiManager.Register(XLuaUi, "UiChessPursuitShop")

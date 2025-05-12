@@ -9,7 +9,7 @@ end
 function XUiExpeditionSkillIconGrid:RefreshData(skillInfo)
     self.Data = skillInfo
     self.RImgSkillIcon:SetRawImage(skillInfo.IconPath)
-    self.TxtSkillLevel.text = string.format("Lv:%d", skillInfo.Level)
+    self.TxtSkillLevel.text = string.format("等级:%d", skillInfo.Level)
     if self.TxtStarLevel then self.TxtStarLevel.text = string.format(skillInfo.LockLevel) end
     self:SetLock(skillInfo.IsLock)
 end

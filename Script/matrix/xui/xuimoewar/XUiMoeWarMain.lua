@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 
 local ButtonStateNormal = CS.UiButtonState.Normal
 local ButtonStateSelect = CS.UiButtonState.Select
@@ -50,7 +52,7 @@ end
 function XUiMoeWarMain:InitUi()
 	self.ActInfo = XDataCenter.MoeWarManager.GetActivityInfo()
 	self.TxtName.text = self.ActInfo.Name
-	self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+	self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
 	for i = 1,#self.ActInfo.CurrencyId do
 		XDataCenter.ItemManager.AddCountUpdateListener(self.ActInfo.CurrencyId[i], function()
 				self.AssetActivityPanel:Refresh(self.ActInfo.CurrencyId)
@@ -124,21 +126,7 @@ function XUiMoeWarMain:RegisterButtonEvent()
     self.BtnActivity.CallBack = function()
         local webUrl = XMoeWarConfig.GetWebUrl()
         if webUrl then
-            if string.find(webUrl, "eden") ~= nil then -- 伊甸文化跳转
-                local uid = XUserManager.UserId
-                local serverId = CS.XHeroBdcAgent.ServerId
-                if uid and uid ~= "" then
-                    if serverId and serverId ~= "" then
-                        CS.UnityEngine.Application.OpenURL(webUrl.."?uid="..uid.."&serverId="..serverId)
-                    else
-                        CS.UnityEngine.Application.OpenURL(webUrl.."?uid="..uid)
-                    end
-                else
-                    CS.UnityEngine.Application.OpenURL(webUrl)
-                end
-            else
-                CS.UnityEngine.Application.OpenURL(webUrl)
-            end
+            CS.UnityEngine.Application.OpenURL(webUrl)
         end
     end
 

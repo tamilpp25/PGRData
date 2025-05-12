@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --虚像地平线招募界面角色详细子页面:羁绊展示动态列表
 local XUiExpeditionComboIconPanel = XClass(nil, "XUiExpeditionComboIconPanel")
 local XUiExpeditionComboIconGrid = require("XUi/XUiExpedition/Recruit/XUiExpeditionRoleDetails/XUiExpeditionComboIconGrid")

@@ -9,6 +9,10 @@ function XReformBaseSourceGroup:Ctor(config)
     self.CurrentChallengeScore = 0
 end
 
+function XReformBaseSourceGroup:GetId()
+    return self.Config.Id
+end
+
 function XReformBaseSourceGroup:GetSourceById(id)
     return self.SourceDic[id]
 end

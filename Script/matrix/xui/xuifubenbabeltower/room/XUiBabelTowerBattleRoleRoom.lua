@@ -1,8 +1,11 @@
 local XUiBattleRoleRoomDefaultProxy = require("XUi/XUiNewRoomSingle/XUiBattleRoleRoomDefaultProxy")
 local XUiPanelBabelTowerRoom = require("XUi/XUiFubenBabelTower/Room/XUiPanelBabelTowerRoom")
+---@class XUiBabelTowerBattleRoleRoom : XUiBattleRoleRoomDefaultProxy
 local XUiBabelTowerBattleRoleRoom = XClass(XUiBattleRoleRoomDefaultProxy, "XUiBabelTowerBattleRoleRoom")
 
+---@param team XTeam
 function XUiBabelTowerBattleRoleRoom:Ctor(team, stageId)
+    self.Team = team
     self.StageId = stageId
 end
 
@@ -33,14 +36,49 @@ function XUiBabelTowerBattleRoleRoom:GetAutoCloseInfo()
     end
 end
 
+-- 过滤预设队伍实体Id
+-- teamData : 旧系统的队伍数据
+-- 注意：不能直接使用XTool.Clone克隆teamData数据，会出现无线套娃的现象 
+-- 主要原因是teamData里有PartnerPrefab，PartnerPrefab里又有teamData
+function XUiBabelTowerBattleRoleRoom:FilterPresetTeamEntitiyIds(teamData)
+    -- 根据巴别塔锁角色机制处理
+    local tempTeamData = {}
+    local entitiyIds = {}
+    local isTip = false
+    for pos, characterId in ipairs(teamData.TeamData) do
+        local isLock = XDataCenter.FubenBabelTowerManager.IsCharacterLockByStageId(characterId, self.StageId, self.Team:GetId())
+        entitiyIds[pos] = not isLock and characterId or 0
+        if isLock then
+            isTip = true
+        end
+    end
+    tempTeamData.TeamData = entitiyIds
+    tempTeamData.CaptainPos = teamData.CaptainPos
+    tempTeamData.FirstFightPos = teamData.FirstFightPos
+    tempTeamData.TeamName = teamData.TeamName
+    if isTip then
+        XUiManager.TipText("BabelTowerPresetTeamEntitiyIdLockTip")
+    end
+    return tempTeamData
+end
+
 --######################## AOP ########################
 function XUiBabelTowerBattleRoleRoom:AOPOnStartBefore(rootUi)
     self.RootUi = rootUi
 end
 
 function XUiBabelTowerBattleRoleRoom:AOPOnStartAfter(rootUi)
-    rootUi.BtnTeamPrefab.gameObject:SetActiveEx(false)
     rootUi.BtnEnterFight:SetNameByGroup(0, CSXTextManagerGetText("BabelTowerNewRoomBtnName"))
+end
+
+-- 检查是否开启效应选择
+function XUiBabelTowerBattleRoleRoom:CheckIsEnableGeneralSkillSelection()
+    return false
+end
+
+-- 检查是否开启自选动画
+function XUiBabelTowerBattleRoleRoom:CheckShowAnimationSet()
+    return false
 end
 
 return XUiBabelTowerBattleRoleRoom

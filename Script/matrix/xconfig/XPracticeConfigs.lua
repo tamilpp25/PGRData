@@ -105,6 +105,19 @@ function XPracticeConfigs.GetPracticeChapterById(id)
         return
     end
 
+    if not XTool.IsTableEmpty(currentChapter.Groups) then
+        local res = XTool.Clone(currentChapter)
+        res.Groups = {}
+        for k, charId in pairs(currentChapter.Groups) do
+            if XMVCA.XFavorability:GetModelGetCharacterCollaboration(charId) and not XMVCA.XCharacter:IsOwnCharacter(charId) then
+    
+            else
+                table.insert(res.Groups, charId)
+            end
+        end
+        return res
+    end
+
     return currentChapter
 end
 
@@ -282,9 +295,16 @@ function XPracticeConfigs.CheckSimulateTrainMonsterExist(id)
     return true
 end
 
+-- BOSS开启时间
 function XPracticeConfigs.GetSimulateTrainMonsterTimeId(id)
     local cfg = GetSimulateTrainMonsterById(id)
     return cfg.TimeId
+end
+
+-- 难度4(绝境难度)的开启时间
+function XPracticeConfigs.GetSimulateTrainMonsterImpasseTimeId(id)
+    local cfg = GetSimulateTrainMonsterById(id)
+    return cfg.ImpasseTimeId
 end
 
 function XPracticeConfigs.GetSimulateTrainMonsterType(id)
@@ -353,6 +373,16 @@ function XPracticeConfigs.GetSimulateTrainMonsterStageBasicCe(id)
     return cfg.StageBasicCe or {}
 end
 
+function XPracticeConfigs.GetSimulateTrainMonsterSkillIds(id)
+    local cfg = GetSimulateTrainMonsterById(id)
+    return cfg.SkillIds or {}
+end
+
+function XPracticeConfigs.GetSimulateTrainMonsterMaxStageLevel(id)
+    local cfg = GetSimulateTrainMonsterById(id)
+    return #cfg.NpcId or 0
+end
+
 function XPracticeConfigs.GetSimulateTrainArchiveIdByStageId(stageId)
     local id = XPracticeConfigs.GetSimulateTrainMonsterId(stageId)
     return id or 0
@@ -393,6 +423,25 @@ end
 -- groupId -> chapterId
 function XPracticeConfigs.GetChapterIdByGroupId(groupId)
     return PracticeChapterId2GroupId[groupId]
+end
+
+-- generalSkillId -> groupId
+function XPracticeConfigs.GetGroupIdByGeneralSkillId(generalSkillId)
+    for i, v in pairs(PracticeGroupDetail) do
+        if v.GeneralSkillId == generalSkillId then
+            return v.GroupId
+        end
+    end    
+end
+
+-- groupId -> generalSkillId
+function XPracticeConfigs.GetGeneralSkillIdByGroupId(groupId)
+    ---@type XTablePracticeGroupDetail
+    local cfg = PracticeGroupDetail[groupId]
+    if cfg then
+        return cfg.GeneralSkillId
+    end
+    return 0
 end
 --endregion
 
@@ -437,6 +486,14 @@ function XPracticeConfigs.GetPracticeStageIdsByGroupId(groupId)
     local config = GetPracticeGroup(groupId)
     if config then
         return config.StageIds
+    end
+    return nil
+end
+
+function XPracticeConfigs.GetPracticeSkipIdByGroupId(groupId)
+    local config = GetPracticeGroup(groupId)
+    if config then
+        return config.SkipId
     end
     return nil
 end

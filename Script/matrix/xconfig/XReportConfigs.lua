@@ -14,6 +14,7 @@ XReportConfigs.EnterType = {
     Guild = 2,      --公会信息
     Player = 3,     --个人信息
     Friend = 4,     --好友私聊频道
+    DlcMultiplayer = 5,     --Dlc多人联机
 }
 
 --页签级别
@@ -69,7 +70,7 @@ end
 local GetReportConfig = function(id)
     local config = ReportCfg[id]
     if not config then
-        XLog.ErrorTableDataNotFound("XPassportConfigs.GetReportConfig", "ReportCfg", TABLE_REPORT_PATH, "Id", id)
+        XLog.ErrorTableDataNotFound("XReportConfigs.GetReportConfig", "ReportCfg", TABLE_REPORT_PATH, "Id", id)
         return
     end
     return config
@@ -107,7 +108,7 @@ end
 local GetReportEntryConfig = function(id)
     local config = ReportEntryCfg[id]
     if not config then
-        XLog.ErrorTableDataNotFound("XPassportConfigs.GetReportEntryConfig", "ReportEntryCfg", TABLE_REPORT_ENTRY_PATH, "Id", id)
+        XLog.ErrorTableDataNotFound("XReportConfigs.GetReportEntryConfig", "ReportEntryCfg", TABLE_REPORT_ENTRY_PATH, "Id", id)
         return
     end
     return config

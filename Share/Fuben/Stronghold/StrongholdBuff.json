@@ -275,7 +275,7 @@
         "Name": "Lightning Mine",
         "Desc": "Enemy attacks plant a bomb on their target that detonates after some time, dealing Physical DMG equal to 15% of their ATK.",
         "Condition": [
-            94019.0
+            94020.0
         ],
         "FightEventId": [
             32151.0
@@ -297,7 +297,7 @@
         "Name": "Radiation 2",
         "Desc": "The enemy will deal Physical DMG equal to 2% of its ATK to nearby targets per second.",
         "Condition": [
-            94016.0
+            94017.0
         ],
         "FightEventId": [
             32072.0
@@ -438,7 +438,7 @@
         "Name": "Dynamic Calibration 2",
         "Desc": "Th enemy recovers 2% of max HP per second. This effect is reduced from 2% to 0.8% within 2s after taking DMG.",
         "Condition": [
-            94024.0
+            94023.0
         ],
         "FightEventId": [
             200063.0,
@@ -496,7 +496,7 @@
         "Name": "Flash 1",
         "Desc": "The enemy will teleport toward the target every 10s.",
         "Condition": [
-            94017.0
+            94018.0
         ],
         "FightEventId": [
             33001.0
@@ -705,7 +705,7 @@
         "Desc": "Each time the enemy hits the player, player loses 3% DEF for 10s, stacking up to 10 times.",
         "Condition": [],
         "FightEventId": [
-            32121.0
+            200160.0
         ]
     },
     {
@@ -794,7 +794,7 @@
         "Id": 76,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Physical DMG Boost I",
-        "Desc": "Increases Physical DMG by 10%,",
+        "Desc": "Increases Physical DMG by 10%, ",
         "Condition": [],
         "FightEventId": [
             200024.0
@@ -804,7 +804,7 @@
         "Id": 77,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Fire DMG Boost I",
-        "Desc": "Increases Fire DMG by 10%,",
+        "Desc": "Increases Fire DMG by 10%, ",
         "Condition": [],
         "FightEventId": [
             200025.0
@@ -814,7 +814,7 @@
         "Id": 78,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Ice DMG Boost I",
-        "Desc": "Increases Ice DMG by 10%,",
+        "Desc": "Increases Ice DMG by 10%, ",
         "Condition": [],
         "FightEventId": [
             200026.0
@@ -824,7 +824,7 @@
         "Id": 79,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Lightning DMG Boost I",
-        "Desc": "Lightning DMG increases by 10%,",
+        "Desc": "Lightning DMG increases by 10%, ",
         "Condition": [],
         "FightEventId": [
             200027.0
@@ -834,7 +834,7 @@
         "Id": 80,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Dark DMG Boost I",
-        "Desc": "Increases Dark DMG by 10%,",
+        "Desc": "Increases Dark DMG by 10%, ",
         "Condition": [],
         "FightEventId": [
             200028.0
@@ -844,7 +844,7 @@
         "Id": 81,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Physical DMG Boost II",
-        "Desc": "Increases Physical DMG by 20%,",
+        "Desc": "Increases Physical DMG by 20%, ",
         "Condition": [],
         "FightEventId": [
             200029.0
@@ -854,7 +854,7 @@
         "Id": 82,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Fire DMG Boost II",
-        "Desc": "Increases Fire DMG by 20%,",
+        "Desc": "Increases Fire DMG by 20%, ",
         "Condition": [],
         "FightEventId": [
             200030.0
@@ -864,7 +864,7 @@
         "Id": 83,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Ice DMG Boost II",
-        "Desc": "Increases Ice DMG by 20%,",
+        "Desc": "Increases Ice DMG by 20%, ",
         "Condition": [],
         "FightEventId": [
             200031.0
@@ -874,7 +874,7 @@
         "Id": 84,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Lightning DMG Boost II",
-        "Desc": "Lightning DMG increases by 20%",
+        "Desc": "Lightning DMG increases by 20% ",
         "Condition": [],
         "FightEventId": [
             200032.0
@@ -884,7 +884,7 @@
         "Id": 85,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Dark DMG Boost II",
-        "Desc": "Increases Dark DMG by 20%,",
+        "Desc": "Increases Dark DMG by 20%, ",
         "Condition": [],
         "FightEventId": [
             200033.0
@@ -894,7 +894,7 @@
         "Id": 86,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Physical DMG Boost III",
-        "Desc": "Increases Physical DMG by 30%,",
+        "Desc": "Increases Physical DMG by 30%, ",
         "Condition": [],
         "FightEventId": [
             200034.0
@@ -904,7 +904,7 @@
         "Id": 87,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Fire DMG Boost III",
-        "Desc": "Increases Fire DMG by 30%,",
+        "Desc": "Increases Fire DMG by 30%, ",
         "Condition": [],
         "FightEventId": [
             200035.0
@@ -914,7 +914,7 @@
         "Id": 88,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Ice DMG Boost III",
-        "Desc": "Increases Ice DMG by 30%,",
+        "Desc": "Increases Ice DMG by 30%, ",
         "Condition": [],
         "FightEventId": [
             200036.0
@@ -924,7 +924,7 @@
         "Id": 89,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Lightning DMG Boost III",
-        "Desc": "Lightning DMG increases by 30%,",
+        "Desc": "Lightning DMG increases by 30%, ",
         "Condition": [],
         "FightEventId": [
             200037.0
@@ -934,7 +934,7 @@
         "Id": 90,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Dark DMG Boost III",
-        "Desc": "Increases Dark DMG by 30%,",
+        "Desc": "Increases Dark DMG by 30%, ",
         "Condition": [],
         "FightEventId": [
             200038.0
@@ -1695,7 +1695,7 @@
         "Name": "Abnormal Units",
         "Desc": "The 2nd enemy of the 1st wave is enhanced, and its death increases the ATK and HP of all enemies by 50%.",
         "Condition": [
-            94019.0
+            94020.0
         ],
         "FightEventId": [
             200045.0
@@ -1766,7 +1766,7 @@
         "Name": "High-Energy Rig",
         "Desc": "Main Laser increases DMG by 30%.",
         "Condition": [
-            94019.0
+            94020.0
         ],
         "FightEventId": [
             200051.0
@@ -1800,7 +1800,7 @@
         "Name": "Catalytic Unit",
         "Desc": "After clearing this stage, the time for the first Dark Explosion unleashed from the Deep Hive's field unit delays to 28s.",
         "Condition": [
-            94023.0
+            94024.0
         ],
         "FightEventId": [
             200054.0
@@ -1812,7 +1812,7 @@
         "Name": "Hysteria",
         "Desc": "Adds 10% of Extra DMG Bonus to all enemy units in field after each Dark Explosion (excluding itself).",
         "Condition": [
-            94022.0
+            94023.0
         ],
         "FightEventId": [
             200055.0
@@ -2274,7 +2274,7 @@
     {
         "Id": 209,
         "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32041.png",
-        "Name": "Revenge",
+        "Name": "Bomb",
         "Desc": "Upon death, the enemies will lay a mine where they stand that explodes after a short delay, dealing damage.",
         "Condition": [
             94040.0
@@ -2391,7 +2391,7 @@
         "Name": "Super Lightning Field",
         "Desc": "Generate multiple rounds of vertical and diagonal lightnings around the target every 8s",
         "Condition": [
-            94047.0
+            94050.0
         ],
         "FightEventId": [
             200119.0
@@ -2402,9 +2402,7 @@
         "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12151.png",
         "Name": "Dominator",
         "Desc": "Enemies are immune to Matrix effects.",
-        "Condition": [
-            94048.0
-        ],
+        "Condition": [],
         "FightEventId": [
             200120.0
         ]
@@ -2449,7 +2447,7 @@
         "Name": "War Drum \u03b1",
         "Desc": "The assistant Primes provide the enemies with 2 buffs when on the field: Assult 3 and DMG Immunity 3",
         "Condition": [
-            94047.0
+            94049.0
         ],
         "FightEventId": [
             200124.0
@@ -2461,7 +2459,7 @@
         "Name": "Undying",
         "Desc": "The assistant Primes will revive 20s after death",
         "Condition": [
-            94048.0
+            94050.0
         ],
         "FightEventId": [
             200125.0
@@ -2595,7 +2593,7 @@
         "Name": "Ceremony Preparation",
         "Desc": "After the stage is cleared, each flame summoned will shrink over time and start to track your 30s later.",
         "Condition": [
-            94022.0
+            94023.0
         ],
         "FightEventId": [
             200137.0
@@ -2607,7 +2605,7 @@
         "Name": "Nowhere to Hide",
         "Desc": "The flames' damage cannot be dodged.",
         "Condition": [
-            94023.0
+            94024.0
         ],
         "FightEventId": [
             200138.0
@@ -2617,6 +2615,382 @@
         "Id": 239,
         "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21212.png",
         "Name": "Scorching Flame",
+        "Desc": "Flame deals 200% more DMG.",
+        "Condition": [
+            94024.0
+        ],
+        "FightEventId": [
+            200139.0
+        ]
+    },
+    {
+        "Id": 240,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12251.png",
+        "Name": "Celestial Beam",
+        "Desc": "The laser beam is fired once per 20s and gains more DMG and tracking power as the character stays in battle for a longer duration. This enhancement is reset when another character is switched into battle.",
+        "Condition": [],
+        "FightEventId": [
+            200140.0
+        ]
+    },
+    {
+        "Id": 241,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13061.png",
+        "Name": "Double Threat",
+        "Desc": "The number of tracking lasers increases by 1.",
+        "Condition": [
+            862300.0
+        ],
+        "FightEventId": [
+            200141.0
+        ]
+    },
+    {
+        "Id": 242,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12051.png",
+        "Name": "Blockade",
+        "Desc": "Characters recover Dodge Gauge 30% slower.",
+        "Condition": [
+            862301.0
+        ],
+        "FightEventId": [
+            200142.0
+        ]
+    },
+    {
+        "Id": 243,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13061.png",
+        "Name": "Saturation Airstrike",
+        "Desc": "Fires a large number of missiles to the character every 20s. The number of missiles increases over time.",
+        "Condition": [],
+        "FightEventId": [
+            200143.0
+        ]
+    },
+    {
+        "Id": 244,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32121.png",
+        "Name": "Armor Corruption",
+        "Desc": "After being hit by a missile, character takes 5% more DMG for 5s. This duration is refreshed if character is hit by missiles again, stacking up to 20 times.",
+        "Condition": [
+            862300.0
+        ],
+        "FightEventId": [
+            200144.0
+        ]
+    },
+    {
+        "Id": 245,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12051.png",
+        "Name": "Dust of Destruction",
+        "Desc": "Character's Movement Speed decreases by 20%, HP Recovery decreases by 60%.",
+        "Condition": [
+            862301.0
+        ],
+        "FightEventId": [
+            200145.0
+        ]
+    },
+    {
+        "Id": 246,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21061.png",
+        "Name": "Surging Red Tide",
+        "Desc": "Creates a Red Tide Fountain to damage characters within range continuously and knock them away at the end. This effect is triggered once every 10s.",
+        "Condition": [],
+        "FightEventId": [
+            200146.0
+        ]
+    },
+    {
+        "Id": 247,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33021.png",
+        "Name": "Hands of the Dead",
+        "Desc": "While Red Tide Fountain lasts, it will continuously pull characters toward the center of the Red Tide.",
+        "Condition": [
+            862300.0
+        ],
+        "FightEventId": [
+            200147.0
+        ]
+    },
+    {
+        "Id": 248,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12151.png",
+        "Name": "Red Dominator",
+        "Desc": "Enemies will be immune to Matrix effects.",
+        "Condition": [
+            862301.0
+        ],
+        "FightEventId": [
+            200148.0
+        ]
+    },
+    {
+        "Id": 249,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "All Stats Check +10%",
+        "Desc": "The other Elemental DMG increases by 10%.",
+        "Condition": [],
+        "FightEventId": [
+            200149.0,
+            200164.0
+        ]
+    },
+    {
+        "Id": 250,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Ice, Lightning, Dark, Nihil +10%",
+        "Desc": "Ice, Lightning, Dark, and Nihil DMG increases by 10%.",
+        "Condition": [],
+        "FightEventId": [
+            200150.0,
+            200164.0
+        ]
+    },
+    {
+        "Id": 251,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Lightning, Dark, Physical, Nihil +10%",
+        "Desc": "Lightning, Dark, Physical, and Nihil DMG increases by 10%.",
+        "Condition": [],
+        "FightEventId": [
+            200151.0,
+            200164.0
+        ]
+    },
+    {
+        "Id": 252,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Dark, Physical, Fire, Nihil +10%",
+        "Desc": "Dark, Physical, Fire, and Nihil DMG increases by 10%.",
+        "Condition": [],
+        "FightEventId": [
+            200152.0,
+            200164.0
+        ]
+    },
+    {
+        "Id": 253,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Physical, Fire, Ice, Nihil +10%",
+        "Desc": "Physical, Fire, Ice, and Nihil DMG increases by 10%.",
+        "Condition": [],
+        "FightEventId": [
+            200153.0,
+            200164.0
+        ]
+    },
+    {
+        "Id": 254,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Fire, Ice, Lightning, Nihil +10%",
+        "Desc": "Fire, Ice, Lightning, and Nihil DMG increases by 10%.",
+        "Condition": [],
+        "FightEventId": [
+            200154.0,
+            200164.0
+        ]
+    },
+    {
+        "Id": 255,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Lightning, Dark, Nihil +20%",
+        "Desc": "Lightning, Dark, and Nihil DMG increases by 20%.",
+        "Condition": [],
+        "FightEventId": [
+            200155.0,
+            200165.0
+        ]
+    },
+    {
+        "Id": 256,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Dark, Physical, Nihil +20%",
+        "Desc": "Lightning, Physical, and Nihil DMG increases by 20%.",
+        "Condition": [],
+        "FightEventId": [
+            200156.0,
+            200165.0
+        ]
+    },
+    {
+        "Id": 257,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Physical, Fire, Nihil +20%",
+        "Desc": "Physical, Fire, Nihil DMG increases by 20%.",
+        "Condition": [],
+        "FightEventId": [
+            200157.0,
+            200165.0
+        ]
+    },
+    {
+        "Id": 258,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Fire, Ice, Nihil +20%",
+        "Desc": "Fire, Ice, and Nihil DMG increases by 20%.",
+        "Condition": [],
+        "FightEventId": [
+            200158.0,
+            200165.0
+        ]
+    },
+    {
+        "Id": 259,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Ice, Lightning, Nihil +20%",
+        "Desc": "Ice, Lightning, and Nihil DMG increases by 20%.",
+        "Condition": [],
+        "FightEventId": [
+            200159.0,
+            200165.0
+        ]
+    },
+    {
+        "Id": 260,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Physical, Nihil +20%",
+        "Desc": "Physical and Nihil DMG increases by 20%.",
+        "Condition": [],
+        "FightEventId": [
+            200029.0,
+            200165.0
+        ]
+    },
+    {
+        "Id": 261,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Fire, Nihil +20%",
+        "Desc": "Fire and Nihil DMG increases by 20%.",
+        "Condition": [],
+        "FightEventId": [
+            200030.0,
+            200165.0
+        ]
+    },
+    {
+        "Id": 262,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Ice, Nihil +20%",
+        "Desc": "Ice and Nihil DMG increases by 20%.",
+        "Condition": [],
+        "FightEventId": [
+            200031.0,
+            200165.0
+        ]
+    },
+    {
+        "Id": 263,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Lightning, Nihil +20%",
+        "Desc": "Lightning and Nihil DMG increases by 20%.",
+        "Condition": [],
+        "FightEventId": [
+            200032.0,
+            200165.0
+        ]
+    },
+    {
+        "Id": 264,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Dark, Nihil +20%",
+        "Desc": "Dark and Nihil DMG increases by 20%.",
+        "Condition": [],
+        "FightEventId": [
+            200033.0,
+            200165.0
+        ]
+    },
+    {
+        "Id": 265,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon029.png",
+        "Name": "Dimensional Vortex",
+        "Desc": "The enemy's HP increase significantly. Upon entering the battlefield, your members an 80% ATK Bonus for 8s, which will disappear gradually 8s later.",
+        "Condition": [],
+        "FightEventId": [
+            200161.0
+        ]
+    },
+    {
+        "Id": 266,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon030.png",
+        "Name": "Gradual Underlocking",
+        "Desc": "The ATK bonus provided by Dimensional Vortex lasts 4 fewer seconds and decreases at a faster speed.",
+        "Condition": [
+            862301.0
+        ],
+        "FightEventId": [
+            200162.0
+        ]
+    },
+    {
+        "Id": 267,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Perfect Rotation Switch ATK Boost",
+        "Desc": "The ATK bonus provided by Dimensional Vortex doubles and lasts for 4 more seconds.\\nThe effect decreases at a slower speed.\\nPlayer gains 30% DMG Reduction during the effect of Dimensional Vortex.",
+        "Condition": [],
+        "FightEventId": [
+            200163.0
+        ]
+    },
+    {
+        "Id": 268,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12151.png",
+        "Name": "Dominator",
+        "Desc": "Enemies are immune to Matrix effects.",
+        "Condition": [
+            862300.0
+        ],
+        "FightEventId": [
+            200148.0
+        ]
+    },
+    {
+        "Id": 269,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon031.png",
+        "Name": "Overloading Frequencies",
+        "Desc": "Enemies will accumulate energy over time. Once energy is full, they will enter the Overclocking State and gain the Rift Tunnel Effect. Enemies will gain bonus energy when they deal DMG and lose energy when they take DMG.",
+        "Condition": [],
+        "FightEventId": [
+            200167.0
+        ]
+    },
+    {
+        "Id": 270,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFushe2.png",
+        "Name": "Rift Tunnel",
+        "Desc": "Enemies will gain Dominance and Radiation in the Overclocking State, ignore Matrix and deal continuous DMG to targets around them.",
+        "Condition": [],
+        "FightEventId": []
+    },
+    {
+        "Id": 271,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21091.png",
+        "Name": "Energy Resonance",
+        "Desc": "The energy accumulation efficiency of enemies is increased by 50%, and they will also gain 50% more energy from dealing DMG.",
+        "Condition": [
+            862300.0
+        ],
+        "FightEventId": [
+            200169.0
+        ]
+    },
+    {
+        "Id": 272,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32071.png",
+        "Name": "Rippling Quake",
+        "Desc": "Enemies will deal higher Radiation DMG in the Overclocking State.",
+        "Condition": [
+            862301.0
+        ],
+        "FightEventId": [
+            200170.0
+        ]
+    },
+    {
+        "Id": 200001,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21212.png",
+        "Name": "Temporary Configuration",
         "Desc": "Flame deals 200% more DMG.",
         "Condition": [
             94024.0

@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridStrongholdBanner = require("XUi/XUiStronghold/XUiGridStrongholdBanner")
 
 local BtnTabIndex = {
@@ -13,7 +15,7 @@ function XUiStrongholdMainLineBanner:OnAwake()
     self:AutoAddListener()
     self:InitDynamicTable()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemId = XDataCenter.StrongholdManager.GetMineralItemId()
     XDataCenter.ItemManager.AddCountUpdateListener(itemId, function()
         self.AssetActivityPanel:Refresh({ itemId })

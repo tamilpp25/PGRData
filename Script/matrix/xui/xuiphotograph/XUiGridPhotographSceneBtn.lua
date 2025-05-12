@@ -24,6 +24,7 @@ function XUiGridPhotographSceneBtn:OnTouched(data)
         self.rootUi:PlayAnimation("Loading", function()
             CsXGameEventManager.Instance:Notify(XEventId.EVENT_PHOTO_CHANGE_SCENE, data.Id)
         end)
+        self.rootUi.CurrSeleSceneId = data.Id
     end
 end
 

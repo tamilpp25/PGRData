@@ -73,12 +73,7 @@ function XUiWorldBossFashion:UpdatePanel()
         self.Curfillamount = percent
     end
 
-    local hpProcess = percent * 100 -- 海外修改如果小于百分之一，向上取整
-    if hpProcess > 1 then
-        self.TxtDailyActive.text = string.format("%d%s",math.floor(hpProcess),"%")
-    else
-        self.TxtDailyActive.text = string.format("%d%s",math.ceil(hpProcess),"%")
-    end
+    self.TxtDailyActive.text = string.format("%d%s",math.floor(percent * 100),"%")
     self.TitleText.text = CSTextManagerGetText("WorldBossBossAreaSchedule")
     local discountIds = specialSale:GetDiscountIds()
     local discountCount = #discountIds

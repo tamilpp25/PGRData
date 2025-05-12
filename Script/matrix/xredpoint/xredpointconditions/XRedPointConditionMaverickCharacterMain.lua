@@ -10,7 +10,7 @@ end
 function XRedPointConditionMaverickCharacterMain.Check()
     local memberIds = XDataCenter.MaverickManager.GetMemberIds()
     for _, memberId in ipairs(memberIds) do
-        if XRedPointConditionMaverickCharacter.Check(memberId) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAVERICK_CHARACTER, memberId) then
             return true
         end
     end

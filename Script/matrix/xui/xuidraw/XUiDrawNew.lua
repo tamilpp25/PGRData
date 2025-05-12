@@ -2,29 +2,31 @@ local XUiDrawNew = XLuaUiManager.Register(XLuaUi,"UiDrawNew")
 local MAX_DRAW_COUNT = 10
 local COMPlETE_CUE_ID = CS.XGame.ClientConfig:GetInt("DrawCompleteCueId")
 local DRAW_MUSIC_VOLUME_PERCENT = CS.XGame.ClientConfig:GetInt("DrawMusicVolumePercent")
-function XUiDrawNew:OnStart(drawInfo,rewardList)
+function XUiDrawNew:OnStart(drawInfo,rewardList,background)
     self.DrawInfo = drawInfo
     self.RewardList = rewardList
+    self.Background = background
     self:InitSceneObject()
     self:RegisterButton()
     self:RefreshItem()
-    self.OriginMusicVolume = XSoundManager.GetVolumeByType(XSoundManager.SoundType.BGM)
+    self.OriginMusicVolume = XLuaAudioManager.GetAisacVolumeSecondByType(XLuaAudioManager.SoundType.Music)   
 end
 
 function XUiDrawNew:OnEnable()
-    XSoundManager.SetVolumeByType(self.OriginMusicVolume * (DRAW_MUSIC_VOLUME_PERCENT / 100), XSoundManager.SoundType.BGM)
+    XLuaAudioManager.SetAisacVolumeSecondByType(self.OriginMusicVolume * (DRAW_MUSIC_VOLUME_PERCENT / 100), XLuaAudioManager.SoundType.Music)
 end
 
 function XUiDrawNew:OnDisable()
-    XSoundManager.SetVolumeByType(self.OriginMusicVolume, XSoundManager.SoundType.BGM)
+    XLuaAudioManager.SetAisacVolumeSecondByType(self.OriginMusicVolume, XLuaAudioManager.SoundType.Music)
 end
 
 function XUiDrawNew:RegisterButton()
     self.BtnSkip.CallBack = function()
         self.IsSkip = true
         XLuaUiManager.Remove("UiDrawNew")
-        XLuaUiManager.Open("UiDrawResult",self.DrawInfo,self.RewardList,function()
-        end)    
+        local state = #self.RewardList == 1 and 1 or 2 -- 单抽的时候点击跳转停留在展示界面
+        XLuaUiManager.Open("UiDrawShowNew", self.DrawInfo, self.RewardList, function()
+        end, state)
     end
 end
 
@@ -36,20 +38,24 @@ function XUiDrawNew:InitSceneObject()
     ---@type UnityEngine.Playables.PlayableDirector
     self.DrawEnableAnimationMulti = root:FindTransform("DrawEnable"):GetComponent(typeof(CS.UnityEngine.Playables.PlayableDirector))
     self.SliderTips = root:FindTransform("SlideTips")
+    local isComplete = false --避免快速点击CompleteAction执行了两次导致Timeline不播放的问题
     ---@type XTimelineSlider
     self.TimelineSlider = root:FindTransform("Slider"):GetComponent(typeof(CS.XTimelineSlider))
     self.TimelineSlider.CompleteAction = function(slider)
         if COMPlETE_CUE_ID and COMPlETE_CUE_ID ~= 0 then
-            XSoundManager.PlaySoundByType(COMPlETE_CUE_ID,XSoundManager.SoundType.Sound)
+            XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, COMPlETE_CUE_ID)
         end
-        if #self.RewardList > 1 then
-            self.DrawEnableAnimationMulti.gameObject:PlayTimelineAnimation(function()
-                self:OnDrawEnd()
-            end)
-        else
-            self.DrawEnableAnimationSingle.gameObject:PlayTimelineAnimation(function()
-                self:OnDrawEnd()
-            end)        
+        if not isComplete then
+            isComplete = true
+            if #self.RewardList > 1 then
+                self.DrawEnableAnimationMulti.gameObject:PlayTimelineAnimation(function()
+                    self:OnDrawEnd()
+                end)
+            else
+                self.DrawEnableAnimationSingle.gameObject:PlayTimelineAnimation(function()
+                    self:OnDrawEnd()
+                end)
+            end
         end
     end
     self.TimelineSlider.PointerUpAction = function()
@@ -77,10 +83,10 @@ function XUiDrawNew:OnDrawEnd()
         return
     end
     XLuaUiManager.Remove("UiDrawNew")
-    XLuaUiManager.Open("UiDrawShow",self.DrawInfo,self.RewardList,function()
+    XLuaUiManager.Open("UiDrawShowNew",self.DrawInfo,self.RewardList,function()
         XLuaUiManager.Open("UiDrawResult",self.DrawInfo,self.RewardList,function()
 
-        end)
+        end,self.Background)
     end,nil)
 end
 
@@ -117,7 +123,7 @@ function XUiDrawNew:GetQuality(showIndex)
     elseif Type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     else
         quality = XTypeManager.GetQualityById(id)
     end

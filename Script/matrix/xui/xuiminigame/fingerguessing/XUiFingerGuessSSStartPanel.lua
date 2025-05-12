@@ -4,6 +4,7 @@ local INITIAL_COST_NUM = 99999
 --================
 --构造函数
 --================
+---@param rootUi XUiFingerGuessingSelectStage
 function XUiFingerGuessSSStartPanel:Ctor(gameObject, rootUi)
     self.RootUi = rootUi
     XTool.InitUiObjectByUi(self, gameObject)
@@ -23,7 +24,7 @@ end
 function XUiFingerGuessSSStartPanel:OnStageSelected()
     local isClear = self.RootUi.StageSelected:GetIsClear()
     self.TxtHistoryScore.gameObject:SetActiveEx(isClear)
-    self.ObjHistoryScoreTips.gameObject:SetActiveEx(isClear)
+    --self.ObjHistoryScoreTips.gameObject:SetActiveEx(isClear)
     self.RImgCoinIcon.gameObject:SetActiveEx(not isClear)
     self.TxtCostCoin.gameObject:SetActiveEx(not isClear)
     self.ObjCostCoinTips.gameObject:SetActiveEx(not isClear)
@@ -54,7 +55,22 @@ function XUiFingerGuessSSStartPanel:OnClickBtnStart()
     elseif not self.RootUi.StageSelected:GetIsOpen() then
         XUiManager.TipMsg(CS.XTextManager.GetText("FingerGuessingStageNotOpen"))
     else
-        XDataCenter.FingerGuessingManager.StartGame(self.RootUi.StageSelected)
+        local callBack = function()
+            XDataCenter.FingerGuessingManager.StartGame(self.RootUi.StageSelected)
+        end
+        -- 先判断货币是否足够再播放剧情
+        if self.RootUi.StageSelected:CheckIsFirstEntry() and not self.RootUi.GameController:CheckCoinEnough(self.RootUi.StageSelected:GetCostItemCount()) then
+            XUiManager.TipMsg(XUiHelper.GetText("FingerGuessCoinNotEnough"))
+            return
+        end
+        if XDataCenter.FingerGuessingManager.GetIsFirstStartInStage(self.RootUi.StageSelected:GetStageId()) then
+            local movieId = self.RootUi.StageSelected:GetStartMovieId()
+            if not string.IsNilOrEmpty(movieId) then
+                XDataCenter.MovieManager.PlayMovie(movieId, callBack, nil, nil, false)
+                return
+            end
+        end
+        callBack()
     end
 end
 --================

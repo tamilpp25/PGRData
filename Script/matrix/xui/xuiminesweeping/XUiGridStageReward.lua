@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridStageReward = XClass(nil, "XUiGridStageReward")
 local CSTextManagerGetText = CS.XTextManager.GetText
 function XUiGridStageReward:Ctor(ui, root)

@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridContactItem = XClass(nil, "XUiGridContactItem")
 
 function XUiGridContactItem:Ctor(ui)
@@ -48,7 +49,7 @@ function XUiGridContactItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -156,11 +157,11 @@ function XUiGridContactItem:Refresh(data, isDelete, selectDelete)
         self.TxtOnline.gameObject:SetActiveEx(false)
         self.PanelRoleOffLine.gameObject:SetActiveEx(true)
         self.PanelRoleOnLine.gameObject:SetActiveEx(false)
-        self.TxtRecentLoginTime.text = CS.XTextManager.GetText("FriendLatelyLogin") .. XUiHelper.CalcLatelyLoginTime(data.LastLoginTime)
+        self.TxtRecentLoginTime.text = CS.XTextManager.GetText("FriendLatelyLogin") .. XUiHelper.CalcLatelyLoginTimeEx(data.LastLoginTime)
     end
 
-    XUiPLayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOnLine)
-    XUiPLayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOffLine)
+    XUiPlayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOnLine)
+    XUiPlayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOffLine)
     
     self:ShowDeleteState(isDelete, selectDelete)
 end
@@ -211,7 +212,7 @@ function XUiGridContactItem:NewChatMsgHandler(chatData)
         self.TxtNewMessage.text = XDataCenter.ChatManager.CreateGiftTips(chatData)
     elseif chatData.MsgType == ChatMsgType.Gift then
         self.TxtNewMessage.text = XDataCenter.ChatManager.CreateGiftTips(chatData)
-    elseif chatData.MsgType == ChatMsgType.RoomMsg then
+    elseif chatData.MsgType == ChatMsgType.RoomMsg or chatData.MsgType == ChatMsgType.DlcRoomMsg then
         self.TxtNewMessage.text = chatData:GetRoomMsgContent()
     else
         self.TxtNewMessage.text = chatData.Content

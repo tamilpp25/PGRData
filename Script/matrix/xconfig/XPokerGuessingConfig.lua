@@ -15,6 +15,12 @@ XPokerGuessingConfig.GuessType = {
     Equal = 2,      --等于
 }
 
+XPokerGuessingConfig.Type2DescKey = {
+    [XPokerGuessingConfig.GuessType.Less] = "SmallerDesc",
+    [XPokerGuessingConfig.GuessType.Greater] = "BiggerDesc",
+    [XPokerGuessingConfig.GuessType.Equal] = "EqualDesc",
+}
+
 local TABLE_POKER_GUESSING_ACTIVITY_PATH = "Share/MiniActivity/PokerGuessing/PokerGuessingActivity.tab"
 local TABLE_POKER_GUESSING_GROUP_PATH = "Share/MiniActivity/PokerGuessing/PokerGroup.tab"
 local TABLE_POKER_GUESSInG_BUTTON_GROUP_PATH = "Client/MiniActivity/PokerGuessing/PokerGuessingButtonGroup.tab"
@@ -35,6 +41,9 @@ function XPokerGuessingConfig.Init()
     end
     _PokerGuessingGroupTemplate = XTableManager.ReadByIntKey(TABLE_POKER_GUESSING_GROUP_PATH,XTable.XTablePokerGroup,"Id")
     _PokerGuessingButtonGroupTemplate = XTableManager.ReadByIntKey(TABLE_POKER_GUESSInG_BUTTON_GROUP_PATH,XTable.XTablePokerButtonGroup,"Id")
+
+    XPokerGuessingConfig.PokerRoleConfig = XConfig.New("Client/MiniActivity/PokerGuessing/PokerGuessingRole.tab", XTable.XTablePokerGuessingRole)
+    XPokerGuessingConfig.PokerStoryConfig = XConfig.New("Share/MiniActivity/PokerGuessing/PokerGuessingStory.tab", XTable.XTablePokerGuessingStory)
 end
 
 local GetActivityConfig = function(id)
@@ -59,6 +68,11 @@ end
 function XPokerGuessingConfig.GetBackAssetPath(id)
     local config = GetActivityConfig(id)
     return config.BackAssetPath
+end
+
+function XPokerGuessingConfig.GetActivityStoryId(id)
+    local config = GetActivityConfig(id)
+    return config.StoryId
 end
 
 function XPokerGuessingConfig.GetCostItemName(id)
@@ -94,6 +108,16 @@ end
 function XPokerGuessingConfig.GetShopSkipId(id)
     local config = GetActivityConfig(id)
     return config.ShopSkipId
+end
+
+function XPokerGuessingConfig.GetMaxProgress(id)
+    local config = GetActivityConfig(id)
+    return config.MaxProgress
+end
+
+function XPokerGuessingConfig.GetMaxTipCount(id)
+    local config = GetActivityConfig(id)
+    return config.MaxTipsCount
 end
 
 function XPokerGuessingConfig.GetDefaultActivityId()
@@ -137,7 +161,25 @@ function XPokerGuessingConfig.GetCardListByType(suitType,groupId)
     end
     return tempList
 end
+
 function XPokerGuessingConfig.GetCardNumber(id)
     local config = GetCardConfigById(id)
     return config.PokerNum
 end
+
+function XPokerGuessingConfig.GetDefaultSelectRoleId()
+    local list = XPokerGuessingConfig.PokerRoleConfig:GetConfigs()
+    for _, cfg in pairs(list) do
+        return cfg.Id
+    end
+end 
+
+function XPokerGuessingConfig.GetUnlockCostCount(characterId)
+    local configs = XPokerGuessingConfig.PokerStoryConfig:GetConfigs()
+    for _, cfg in ipairs(configs) do
+        if characterId == cfg.CharacterId then
+            return cfg.Cost
+        end
+    end
+    return 1
+end 

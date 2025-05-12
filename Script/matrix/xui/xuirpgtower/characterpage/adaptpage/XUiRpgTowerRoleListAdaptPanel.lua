@@ -1,4 +1,4 @@
---
+-- 机体专精的天赋界面，点击多人或单人按钮后进到这
 local XUiRpgTowerRoleListAdaptPanel = XClass(nil, "XUiRpgTowerRoleListAdaptPanel")
 
 function XUiRpgTowerRoleListAdaptPanel:Ctor(uiGameObject, page, rootUi)
@@ -38,9 +38,10 @@ function XUiRpgTowerRoleListAdaptPanel:RefreshData(rChara)
     self.RCharacter = rChara
     self.TxtTalentPieces.text = rChara:GetTalentPoints(self.Type)
     self.TalentItemIcon:InitIcon(rChara:GetTalentItem(self.Type))
-    self.TxtTitle.text = XRpgTowerConfig.GetTalentTypeNameById(self.Type)
+    self.TxtTitle.text = XRpgTowerConfig.GetTalentTypeConfigByCharacterId(rChara:GetId(), self.Type).Name
     if self.ImgTalent then
-        self.ImgTalent:SetSprite(XRpgTowerConfig.GetTalentTypeIconById(self.Type))
+        -- self.ImgTalent:SetSprite(XRpgTowerConfig.GetTalentTypeIconById(self.Type))
+        self.ImgTalent:SetSprite(XRpgTowerConfig.GetTalentTypeConfigByCharacterId(rChara:GetId(), self.Type).Icon)
     end
     for _, layer in pairs(self.Layers) do
         layer:RefreshData(rChara, self.Type)
@@ -80,6 +81,10 @@ end
 --点击天赋重置
 --================
 function XUiRpgTowerRoleListAdaptPanel:OnClickReset()
+    if self.RCharacter:GetCharaTalentType() ~= self.Type then
+        XUiManager.TipMsg(CS.XTextManager.GetText("RpgTowerTalentCompatibilityTips"))
+        return
+    end
     XDataCenter.RpgTowerManager.CharacterReset(self.RCharacter:GetCharacterId(), self.Type)
 end
 --================

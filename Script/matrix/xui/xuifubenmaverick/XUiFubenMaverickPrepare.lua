@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiFubenMaverickPrepare = XLuaUiManager.Register(XLuaUi, "UiFubenMaverickPrepare")
 local XUiFubenMaverickCharacterPanel = require("XUi/XUiFubenMaverick/XUiScrollView/XUiFubenMaverickCharacterPanel")
 
@@ -69,7 +70,7 @@ function XUiFubenMaverickPrepare:OnNotify(evt)
 end
 
 function XUiFubenMaverickPrepare:InitPanelAssets()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
             {
                 XDataCenter.MaverickManager.LvUpConsumeItemId,

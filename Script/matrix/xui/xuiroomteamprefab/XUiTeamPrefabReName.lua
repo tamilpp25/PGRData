@@ -7,8 +7,22 @@ function XUiTeamPrefabReName:OnAwake()
     self:AddListener()
 end
 
-function XUiTeamPrefabReName:OnStart(confirmCb)
+function XUiTeamPrefabReName:OnStart(confirmCb, title, customMaxLen)
     self.ConfirmCb = confirmCb
+    if title and self.Txt then
+        self.Txt.text = title
+    end
+    if XTool.IsNumberValid(customMaxLen) then
+        MaxNameLength = customMaxLen
+    end
+end
+
+function XUiTeamPrefabReName:OnEnable()
+
+end
+
+function XUiTeamPrefabReName:OnDisable()
+
 end
 
 function XUiTeamPrefabReName:AddListener()

@@ -18,9 +18,8 @@ function XUiMouseButtonConfig:Init()
         local currMode = XInputManager.IsModifyMouse() and MouseMode.AttackLeft or MouseMode.AttackRight
         if CurrMode ~= currMode then
             XInputManager.SwitchKeyboardMouseFunc()
-            CS.XGameEventManager.Instance:Notify(XEventId.EVENT_SETTING_KEYBOARD_KEY_CHANGED, CS.KeySetType.Keyboard)
+            CS.XGameEventManager.Instance:Notify(XEventId.EVENT_SETTING_KEYBOARD_KEY_CHANGED, CS.InputDeviceType.Keyboard)
         end
-        XUiManager.TipText("SetJoyStickSuccess")
         self:Close()
     end
 

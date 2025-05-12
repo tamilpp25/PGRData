@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPokemonMainLineBanner = XLuaUiManager.Register(XLuaUi, "UiPokemonMainLineBanner")
 local XUiGridPokemonChapter = require("XUi/XUiPokemon/XUiGridPokemonChapter")
 

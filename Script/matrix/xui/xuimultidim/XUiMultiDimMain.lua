@@ -17,7 +17,7 @@ end
 
 function XUiMultiDimMain:OnStart()
     local itemId = XDataCenter.MultiDimManager.GetActivityItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
 
     self:InitView()
     self:InitThemeView()

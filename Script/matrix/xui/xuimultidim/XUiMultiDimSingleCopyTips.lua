@@ -1,3 +1,5 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiMultiDimSingleCopyTips = XLuaUiManager.Register(XLuaUi, "UiMultiDimSingleCopyTips")
 -- 此类和大部分关卡detail类似，命名是ui定的
 function XUiMultiDimSingleCopyTips:OnAwake()
@@ -5,7 +7,7 @@ function XUiMultiDimSingleCopyTips:OnAwake()
     self.GridList = {}
 
     local itemId = XDataCenter.MultiDimManager.GetActivityItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
     self:InitStarPanels()
     self.BtnEnter.CallBack = function() self:OnBtnEnterClick() end
     self.BtnRewardTip.CallBack = function() self:OnBtnRewardTipClick() end

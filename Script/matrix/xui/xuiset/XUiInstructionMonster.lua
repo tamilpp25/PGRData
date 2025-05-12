@@ -4,18 +4,24 @@ local tableInsert = table.insert
 local tableSort = table.sort
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 
-local XUiInstructionMonster = XClass(nil, "XUiInstructionMonster")
+---@class XUiInstructionMonster : XUiNode
+local XUiInstructionMonster = XClass(XUiNode, "XUiInstructionMonster")
 
-function XUiInstructionMonster:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiInstructionMonster:OnStart()
     self.MonsterIds = {}
+    ---@type XUiGridPokemonMonster[]
     self.MonsterGrids = {}
     self.SkillGrids = {}
 
-    XTool.InitUiObject(self)
-
     self:Init()
+end
+
+function XUiInstructionMonster:OnEnable()
+    self:ShowPanel()
+end
+
+function XUiInstructionMonster:OnDisable()
+    self:HidePanel()
 end
 
 function XUiInstructionMonster:Init()
@@ -59,13 +65,13 @@ function XUiInstructionMonster:Init()
             self:OnSelectMonster(paramIndex)
         end
         grid:Refresh(monsterId, clickCb)
-        grid.GameObject:SetActiveEx(true)
+        grid:Open()
     end
 
     for index = #monsterIds + 1, #self.MonsterGrids do
         local grid = self.MonsterGrids[index]
         if grid then
-            grid.GameObject:SetActiveEx(false)
+            grid:Close()
         end
     end
 
@@ -115,12 +121,10 @@ end
 
 function XUiInstructionMonster:ShowPanel()
     self.IsShow = true
-    self.GameObject:SetActive(true)
 end
 
 function XUiInstructionMonster:HidePanel()
     self.IsShow = false
-    self.GameObject:SetActive(false)
 end
 
 function XUiInstructionMonster:CheckDataIsChange()

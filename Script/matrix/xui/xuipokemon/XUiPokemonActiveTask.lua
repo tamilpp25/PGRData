@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPokemonActiveTask = XLuaUiManager.Register(XLuaUi, "UiPokemonActiveTask")
 
 function XUiPokemonActiveTask:OnStart()

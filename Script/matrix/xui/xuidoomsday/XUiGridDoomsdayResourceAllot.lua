@@ -14,7 +14,7 @@ function XUiGridDoomsdayResourceAllot:RefreshCount()
     self.Parent:BindViewModelPropertyToObj(
         self.Resource,
         function(count)
-            self.TxtTool.text = count .. XDoomsdayConfigs.GetNumerText(-self.AllotCount)
+            self.TxtTool.text = count .. XDoomsdayConfigs.GetNumberText(-self.AllotCount, false, false, true)
         end,
         "_Count"
     )

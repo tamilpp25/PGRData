@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridMedal = require("XUi/XUiMedal/XUiGridMedal")
 --================
 --勋章页面动态列表
 --================

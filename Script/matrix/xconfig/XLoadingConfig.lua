@@ -8,6 +8,8 @@ local TypeDic = {}
 local TABLE_LOADING_PATH = "Client/Loading/Loading.tab"
 local TABLE_CUSTOM_LOADING_PATH = "Client/Loading/CustomLoading.tab"
 
+XLoadingConfig.DEFAULT_TYPE = "0"
+
 function XLoadingConfig.Init()
     local LoadingTemplate = XTableManager.ReadAllByIntKey(TABLE_LOADING_PATH, XTable.XTableLoading, "Id")
     CustomLoadingCfg = XTableManager.ReadByIntKey(TABLE_CUSTOM_LOADING_PATH, XTable.XTableCustomLoading, "Id")[1]
@@ -32,10 +34,6 @@ function XLoadingConfig.Init()
     for _, v in pairs(CustomLoadingCfg.BlockGroup) do
         CGBlockGroup[v] = true
     end
-end
-
-function XLoadingConfig.GetCfgByType(type)
-    return TypeDic[type]
 end
 
 function XLoadingConfig.GetCfgByType(type)

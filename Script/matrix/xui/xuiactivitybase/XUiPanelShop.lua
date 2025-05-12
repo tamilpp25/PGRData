@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XUiPanelItemList = require("XUi/XUiShop/XUiPanelItemList")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
 local XUiPanelShop = XClass(nil, "XUiPanelShop")
@@ -8,7 +10,7 @@ function XUiPanelShop:Ctor(ui, rootUi)
     self.RootUi = rootUi
     XTool.InitUiObject(self)
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self)
     self.ItemActivity = XUiPanelItemList.New(self.PanelItemActivity, self, self.RootUi)
 end
 
@@ -108,7 +110,7 @@ function XUiPanelShop:UpdateTimeInfo()
     local leftTime = timeInfo.RefreshLeftTime
     if leftTime and leftTime > 0 then
         refreshFunc = function()
-            local dataTime = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.SHOP)
+            local dataTime = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.SHOP_REFRESH)
             self.TxtRefreshTime.text = CSXTextManagerGetText("ShopAutoRefresh") .. dataTime
             leftTime = leftTime - 1
 
@@ -121,7 +123,7 @@ function XUiPanelShop:UpdateTimeInfo()
     local closedLeftTime = timeInfo.ClosedLeftTime
     if closedLeftTime and closedLeftTime > 0 then
         closedFunc = function()
-            local dataTime = XUiHelper.GetTime(closedLeftTime, XUiHelper.TimeFormatType.SHOP)
+            local dataTime = XUiHelper.GetTime(closedLeftTime, XUiHelper.TimeFormatType.SHOP_REFRESH)
             self.TxtLeftTime.text = CSXTextManagerGetText("ActiveTime", dataTime)
             closedLeftTime = closedLeftTime - 1
 

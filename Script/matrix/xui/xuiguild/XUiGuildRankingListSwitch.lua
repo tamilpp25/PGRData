@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 -- 公会排行榜界面
 local XUiGuildRankingListSwitch = XLuaUiManager.Register(XLuaUi, "UiGuildRankingListSwitch")
 local XUiGridRankingListSwitchItem = require("XUi/XUiGuild/XUiChildItem/XUiGridRankingListSwitchItem")
@@ -9,13 +11,13 @@ local LastReqTime = {}
 function XUiGuildRankingListSwitch:OnAwake()
     self:InitEvent()
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem,
-    XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
+            XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     local optionsDataList = Dropdown.OptionDataList()
 
     local optionContribute = Dropdown.OptionData()
     optionsDataList.options:Add(optionContribute)
     optionContribute.text = CS.XTextManager.GetText("GuildSortByContribute")
-    
+
     local optionLevel = Dropdown.OptionData()
     optionsDataList.options:Add(optionLevel)
     optionLevel.text = CS.XTextManager.GetText("GuildSortByLevel")
@@ -32,12 +34,20 @@ function XUiGuildRankingListSwitch:OnAwake()
 end
 
 function XUiGuildRankingListSwitch:InitEvent()
-    self.BtnBack.CallBack = function() self:OnBtnBackClick() end
-    self.BtnMainUi.CallBack = function() self:OnBtnMainUiClick() end
+    self.BtnBack.CallBack = function()
+        self:OnBtnBackClick()
+    end
+    self.BtnMainUi.CallBack = function()
+        self:OnBtnMainUiClick()
+    end
     self:BindHelpBtn(self.BtnHelp, "GuildRecommendHelp")
     -- 右侧公会的查看详情按钮
-    self.BtnGuildRankYouku.CallBack = function() self:OnBtnGuildRankYoukuClick() end
-    self.BtnGuildRankShenqing.CallBack = function() self:OnBtnGuildRankShenqingClick() end
+    self.BtnGuildRankYouku.CallBack = function()
+        self:OnBtnGuildRankYoukuClick()
+    end
+    self.BtnGuildRankShenqing.CallBack = function()
+        self:OnBtnGuildRankShenqingClick()
+    end
 
     self.DrdSort.onValueChanged:AddListener(function(index)
         if self.CurSortIndex == index then
@@ -54,7 +64,7 @@ function XUiGuildRankingListSwitch:InitList()
     self.DynamicTable:SetDelegate(self)
 end
 
-function XUiGuildRankingListSwitch:OnStart()    
+function XUiGuildRankingListSwitch:OnStart()
     XDataCenter.GuildManager.GuildListRankRequest(XGuildConfig.GuildSortType.SortByContribute, function()
         XDataCenter.GuildManager.SaveMyGuildCurRank(XGuildConfig.GuildSortType.SortByContribute)
         self:OnRefreshList()
@@ -79,8 +89,8 @@ function XUiGuildRankingListSwitch:OnRefreshBaseData(guildId, rank, iconId)
             local guildData = XDataCenter.GuildManager.GetVistorGuildDetailsById(guildId)
             -- 保持两边头像相同（采用排行榜数据）
             if guildData and guildData.GuildIconId then
-                 guildData.GuildIconId = iconId or guildData.GuildIconId
-             end
+                guildData.GuildIconId = iconId or guildData.GuildIconId
+            end
             self:OnSetRefreshInfo(guildData, rank)
         end)
     end
@@ -109,8 +119,17 @@ function XUiGuildRankingListSwitch:OnSetRefreshInfo(data, rank)
         --公告
         self.TxtNoticeText.text = data.GuildDeclaration
         --公会头像
-        local path = XGuildConfig.GetGuildHeadPortraitIconById(data.GuildIconId)
-        self.ImgIcon:SetRawImage(path)
+        local config = XGuildConfig.GetGuildHeadPortraitById(data.GuildIconId)
+        if config then
+            local isHasGuildRankBgIcon = not string.IsNilOrEmpty(config.GuildRankBgIcon)
+            self.HeadBgNormal.gameObject:SetActiveEx(not isHasGuildRankBgIcon)
+            self.HeadBgSpecific.gameObject:SetActiveEx(isHasGuildRankBgIcon)
+            if isHasGuildRankBgIcon then
+                self.HeadBgSpecific:SetSprite(config.GuildRankBgIcon)
+            end
+            self.ImgIcon:SetRawImage(config.Icon)
+        end
+        self.TxtID.text = string.format("%08d", data.GuildId)
     end
 end
 
@@ -154,7 +173,7 @@ function XUiGuildRankingListSwitch:UpdateMyGuildView()
             self.TxtNotRankNormal.gameObject:SetActiveEx(false)
         elseif rank > 0 and rank < 1 then
             local rankNum = rank * 100
-            self.TxtRankNormal.text = string.format("%0.2f%%",rankNum )
+            self.TxtRankNormal.text = string.format("%0.2f%%", rankNum)
             self.TxtRankNormal.gameObject:SetActiveEx(true)
             self.TxtNotRankNormal.gameObject:SetActiveEx(false)
         else
@@ -172,7 +191,7 @@ function XUiGuildRankingListSwitch:UpdateMyGuildView()
             else
                 self.PanelUp.gameObject:SetActiveEx(true)
                 self.TxtUp.text = deltaRank
-                self.TxtUp.text = string.format("%d",deltaRank )
+                self.TxtUp.text = string.format("%d", deltaRank)
             end
         elseif rank > 0 and rank < 1 and lastRank > 0 and lastRank < 1 then
             local deltaRank = lastRank - rank
@@ -180,9 +199,9 @@ function XUiGuildRankingListSwitch:UpdateMyGuildView()
                 self.PanelUp.gameObject:SetActiveEx(false)
             else
                 self.PanelUp.gameObject:SetActiveEx(true)
-                self.TxtUp.text = string.format("%.2f%%",deltaRank * 100 )
+                self.TxtUp.text = string.format("%.2f%%", deltaRank * 100)
             end
-        else 
+        else
             self.PanelUp.gameObject:SetActiveEx(false)
         end
     end
@@ -281,11 +300,15 @@ function XUiGuildRankingListSwitch:OnDynamicTableEvent(event, index, grid)
         grid:Init(self.UiRoot)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local data = self.ListData[index]
-        if not data then return end
+        if not data then
+            return
+        end
         grid:OnRefresh(data, index)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         local data = self.ListData[index]
-        if not data then return end
+        if not data then
+            return
+        end
         self:OnClickItemRefreshInfo(data, index)
     end
 end

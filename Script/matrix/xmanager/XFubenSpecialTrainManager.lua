@@ -1,16 +1,29 @@
+local XExFubenBaseManager = require("XEntity/XFuben/XExFubenBaseManager")
+
 XFubenSpecialTrainManagerCreator = function()
-    ---@class XFubenSpecialTrainManager
-    local XFubenSpecialTrainManager = {}
+    ---@class XFubenSpecialTrainManager:XExFubenBaseManager
+    local XFubenSpecialTrainManager = XExFubenBaseManager.New(XFubenConfigs.ChapterType.SpecialTrain)
     local ActivityId --开启的活动
     local RewardIds --已经领取的奖励
     local PointRewardDic = {} --积分奖励
     local Score --奖杯数
-    
+    local IsHellMod --困难模式
+    local StageId --选择的关卡
     local Proto = {
         SpecialTrainGetRewardRequest = "SpecialTrainGetRewardRequest", --领奖
         SpecialTrainGetWeeklyRewardRequest = "SpecialTrainGetWeeklyRewardRequest", --领奖
         SpecialTrainPointRewardRequest = "SpecialTrainPointRewardRequest", --领奖
-        SpecialTrainSetRobotIdRequest = "SpecialTrainSetRobotIdRequest", --设置活动主界面的模型显示
+        --region 魔方
+        --SpecialTrainSetRobotIdRequest = "SpecialTrainSetRobotIdRequest", --设置活动主界面的模型显示   魔方1.0
+        SpecialTrainSetRobotIdRequest = "SpecialTrainCubeSetRobotRequest", --设置活动主界面的模型显示   魔方2.0
+        SpecialTrainCubeGetPersonRankListRequest = "SpecialTrainCubeGetPersonRankListRequest", -- 个人排行榜 魔方2.0
+        SpecialTrainCubeGetTeamRankListRequest = "SpecialTrainCubeGetTeamRankListRequest", -- 队伍排行榜 魔方2.0
+        --endregion 魔方
+        --region 元宵2023
+        SetSpecialTrainRhythmSkillRequest = "SetSpecialTrainRhythmSkillRequest", -- 元宵活动技能
+        --endregion 元宵2023
+        -- 冰雪感谢祭3
+        SpecialTrainRankSetRobotRequest = "SpecialTrainRankSetRobotRequest", -- 设置机器人
     }
 
     --活动类型
@@ -23,9 +36,17 @@ XFubenSpecialTrainManagerCreator = function()
     XFubenSpecialTrainManager.CurActiveId = -1
 
     function XFubenSpecialTrainManager.Init()
-
+        IsHellMod = XSaveTool.GetData(XFubenSpecialTrainManager.GetSaveHellModeKey()) == 1
+        XEventManager.AddEventListener(XEventId.EVENT_ROOM_LEAVE_ROOM, function()
+            XFubenSpecialTrainManager.ClearYuanXiaoSkill()
+        end)
+        XEventManager.AddEventListener(XEventId.EVENT_ROOM_ENTER_ROOM, function()
+            XFubenSpecialTrainManager.SetSkillFromRoom()
+        end)
+        XEventManager.AddEventListener(XEventId.EVENT_ROOM_PLAYER_ENTER, function(playerData)
+            XFubenSpecialTrainManager.SetSkillFromRoomPlayerData(playerData)
+        end)
     end
-
 
     --检查过期
     function XFubenSpecialTrainManager.CheckActivityTimeout(id, isShowTip)
@@ -36,6 +57,7 @@ XFubenSpecialTrainManagerCreator = function()
         local curTime = XTime.GetServerNowTimestamp()
 
         local config = XFubenSpecialTrainConfig.GetActivityConfigById(id)
+
         local startTime, endTime = XFunctionManager.GetTimeByTimeId(config.TimeId)
         if curTime < startTime then
             if isShowTip then
@@ -173,13 +195,13 @@ XFubenSpecialTrainManagerCreator = function()
 
         return specialStarReward
     end
-    
+
     function XFubenSpecialTrainManager.GetStagesByActivityId(activityId)
         local activityCfg = XFubenSpecialTrainConfig.GetActivityConfigById(activityId)
         local stages = {}
         for _, chapterId in pairs(activityCfg.ChapterIds) do
             local chapterCfg = XFubenSpecialTrainConfig.GetChapterConfigById(chapterId)
-            for _,stageId in pairs(chapterCfg.StageIds) do
+            for _, stageId in pairs(chapterCfg.StageIds) do
                 table.insert(stages, stageId)
             end
         end
@@ -233,7 +255,7 @@ XFubenSpecialTrainManagerCreator = function()
 
         return stageIds
     end
-    
+
     function XFubenSpecialTrainManager.CheckTaskAchieved()
         if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.SpecialTrain) then
             return false
@@ -242,15 +264,20 @@ XFubenSpecialTrainManagerCreator = function()
         if XTool.IsTableEmpty(taskGroupIds) then
             return false
         end
-        return XDataCenter.TaskManager.CheckLimitTaskList(taskGroupIds[1]) or XDataCenter.TaskManager.CheckLimitTaskList(taskGroupIds[2])
+        local id1 = taskGroupIds[1]
+        local id2 = taskGroupIds[2]
+        return (id1 and XDataCenter.TaskManager.CheckLimitTaskList(id1)) 
+                or (id2 and XDataCenter.TaskManager.CheckLimitTaskList(id2))
     end
 
     --夏活特训关关卡获得
     function XFubenSpecialTrainManager.GetPhotoStages()
         local stages = {}
         local activityConfig = XFubenSpecialTrainConfig.GetActivityConfigById(XFubenSpecialTrainManager.GetCurActivityId())
-        if not activityConfig then return end
-        for i = 1,#activityConfig.ChapterIds do
+        if not activityConfig then
+            return
+        end
+        for i = 1, #activityConfig.ChapterIds do
             local chapterConfig = XFubenSpecialTrainConfig.GetChapterConfigById(activityConfig.ChapterIds[i])
             for j = 1, #chapterConfig.StageIds do
                 table.insert(stages, chapterConfig.StageIds[j])
@@ -261,8 +288,10 @@ XFubenSpecialTrainManagerCreator = function()
 
     function XFubenSpecialTrainManager.IsPhotoStage(stageId)
         local activityConfig = XFubenSpecialTrainConfig.GetActivityConfigById(XFubenSpecialTrainManager.GetCurActivityId())
-        if not activityConfig then return end
-        for i = 1,#activityConfig.ChapterIds do
+        if not activityConfig then
+            return
+        end
+        for i = 1, #activityConfig.ChapterIds do
             local chapterConfig = XFubenSpecialTrainConfig.GetChapterConfigById(activityConfig.ChapterIds[i])
             for j = 1, #chapterConfig.StageIds do
                 if chapterConfig.StageIds[j] == stageId then
@@ -301,7 +330,7 @@ XFubenSpecialTrainManagerCreator = function()
     function XFubenSpecialTrainManager.CheckNotPassStage()
         local config = XFubenSpecialTrainConfig.GetActivityConfigById(ActivityId)
         local chapterIds = config.ChapterIds
-    
+
         for _, chapterId in ipairs(chapterIds) do
             local chapterCfg = XFubenSpecialTrainConfig.GetChapterConfigById(chapterId)
             for i = 1, #chapterCfg.StageIds do
@@ -314,13 +343,10 @@ XFubenSpecialTrainManagerCreator = function()
         return false
     end
 
-    function XFubenSpecialTrainManager.CheckConditionSpecialTrainRedPoint()
-        if not XFubenSpecialTrainManager.GetCurActivityId() or XFubenSpecialTrainManager.CheckActivityTimeout(XFubenSpecialTrainManager.GetCurActivityId(), false) then
-            return false
-        end
+    function XFubenSpecialTrainManager.CheckChapterHasReward()
         local config = XFubenSpecialTrainConfig.GetActivityConfigById(ActivityId)
         local chapterIds = config.ChapterIds
-    
+
         for _, chapterId in ipairs(chapterIds) do
             local chapeter = XFubenSpecialTrainConfig.GetChapterConfigById(chapterId)
             if chapeter.RewardType == XFubenSpecialTrainManager.RewardType.StarReward then
@@ -344,15 +370,8 @@ XFubenSpecialTrainManagerCreator = function()
         return false
     end
 
-    function XFubenSpecialTrainManager.CheckConditionSpecialTrainPointRedPoint()
-        if not XFubenSpecialTrainManager.GetCurActivityId() or XFubenSpecialTrainManager.CheckActivityTimeout(XFubenSpecialTrainManager.GetCurActivityId(), false) then
-            return false
-        end
+    function XFubenSpecialTrainManager.CheckHasActivityPointAndSatisfiedToGetReward()
         local config = XFubenSpecialTrainConfig.GetActivityConfigById(ActivityId)
-        local nowTime = XTime.GetServerNowTimestamp() -- 海外修改，在检查红点的时候先判断活动开启时间
-        if nowTime >= XFunctionManager.GetEndTimeByTimeId(config.TimeId) or nowTime <= XFunctionManager.GetStartTimeByTimeId(config.TimeId) then
-            return false
-        end
         if config.PointItemId == 0 then
         else
             local pointCount = XDataCenter.ItemManager.GetCount(config.PointItemId)
@@ -365,7 +384,7 @@ XFubenSpecialTrainManagerCreator = function()
         end
         return false
     end
-    
+
     function XFubenSpecialTrainManager.GetSpecialTrainPointItemId()
         local itemId = XFubenSpecialTrainConfig.GetActivityConfigById(ActivityId).PointItemId
         return itemId ~= 0 and itemId or -1
@@ -385,7 +404,6 @@ XFubenSpecialTrainManagerCreator = function()
             if cb then
                 cb(res.Goods)
             end
-
 
             CsXGameEventManager.Instance:Notify(XEventId.EVENT_FUBEN_SPECIAL_TRAIN_REWARD, id)
         end)
@@ -432,37 +450,16 @@ XFubenSpecialTrainManagerCreator = function()
     --活动登录下发
     function XFubenSpecialTrainManager.NotifySpecialTrainLoginData(data)
         RewardIds = data.RewardIds or {}
-        ActivityId = data.Id
-        for _, pointRewardId in ipairs(data.PointRewards) do
+        XFubenSpecialTrainManager.SetActivityId(data.Id)
+        for _, pointRewardId in ipairs(data.PointRewards or {}) do
             PointRewardDic[pointRewardId] = true
         end
     end
 
     --------------副本相关-------------------
-    --设置关卡类型
-    function XFubenSpecialTrainManager.InitStageInfo()
-        local specailTrainStageConfig = XFubenSpecialTrainConfig.GetSpecialTrainStage()
-        for _, stage in pairs(specailTrainStageConfig) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stage.Id)
-            if stageInfo then
-                if stage.Type == XFubenSpecialTrainConfig.StageType.Music then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainMusic
-                elseif stage.Type == XFubenSpecialTrainConfig.StageType.Snow then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainSnow
-                elseif stage.Type == XFubenSpecialTrainConfig.StageType.Rhythm then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainRhythmRank
-                elseif stage.Type == XFubenSpecialTrainConfig.StageType.Breakthrough then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainBreakthrough
-                else
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrain
-                end    
-            end
-        end
-    end
-
     function XFubenSpecialTrainManager.OpenFightLoading(stageId)
         local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-        if XFubenSpecialTrainConfig.IsBreakthroughStage(stageId) then
+        if XFubenSpecialTrainManager.IsStageCute(stageId) then
             XLuaUiManager.Open("UiOnLineLoadingCute")
         elseif stageCfg.IsMultiplayer then
             XLuaUiManager.Open("UiOnLineLoading")
@@ -499,8 +496,39 @@ XFubenSpecialTrainManagerCreator = function()
                 elseif specialStageCfg.Type == XFubenSpecialTrainConfig.StageType.Rhythm then
                     XLuaUiManager.Open("UiFubenYuanXiaoFight", winData)
                 elseif specialStageCfg.Type == XFubenSpecialTrainConfig.StageType.Breakthrough then
-                    XLuaUiManager.Open("UiFubenYuanXiaoFight", winData, require("XUi/XUiSpecialTrainBreakthrough/XUiGridSpecialTrainBreakthroughFightItem"),
-                        require("XUi/XUiSpecialTrainBreakthrough/XUiFubenSpecialTrainBreakthroughFightProxy"))
+                    --XLuaUiManager.Open("UiFubenYuanXiaoFight", winData, require("XUi/XUiSpecialTrainBreakthrough/XUiGridSpecialTrainBreakthroughFightItem"),
+                    --        require("XUi/XUiSpecialTrainBreakthrough/XUiFubenSpecialTrainBreakthroughFightProxy"))
+
+                    -- 先更新历史积分
+                    local settleData = winData.SettleData
+                    local stageId = winData.StageId
+                    -- 困难模式才纪录历史积分
+                    if XFubenSpecialTrainConfig.IsHellStageId(stageId) then
+                        local data = settleData.SpecialTrainCubeResult
+                        local personalScore, teamScore, remainRound = 0, 0, 0
+                        for i = 1, #data.Players do
+                            local info = data.Players[i]
+                            if info.PlayerId == XPlayer.Id then
+                                personalScore = info.PersonalScore
+                            end
+                        end
+                        teamScore = data.TeamScore
+                        remainRound = data.RemainRound
+                        local mergeScore = XFubenSpecialTrainManager.BreakthroughMergeScore(teamScore, remainRound)
+                        if XFubenSpecialTrainManager.BreakthroughGetTeamScore(true) < mergeScore then
+                            XFubenSpecialTrainManager.BreakthroughSetTeamScore(mergeScore)
+                        else
+                            XFubenSpecialTrainManager.BreakthroughSetTeamScoreOld()
+                        end
+                        if XFubenSpecialTrainManager.BreakthroughGetPersonalScore() < personalScore then
+                            XFubenSpecialTrainManager.BreakthroughSetPersonalScore(personalScore)
+                        else
+                            XFubenSpecialTrainManager.BreakthroughSetPersonalScoreOld()
+                        end
+                    end
+
+                    -- 再结算
+                    XLuaUiManager.Open("UiSpecialTrainBreakthroughSettle", winData)
                 else
                     local cb = nil
                     if specialStageCfg.Type ~= XFubenSpecialTrainConfig.StageType.Music then
@@ -508,16 +536,16 @@ XFubenSpecialTrainManagerCreator = function()
                             XLuaUiManager.PopThenOpen("UiSettleWin", winData)
                         end
                     end
-                    XLuaUiManager.Open("UiSummerRank", cb, winData)    
+                    XLuaUiManager.Open("UiSummerRank", cb, winData)
                 end
-                
+
             end
         else
             XLuaUiManager.Open("UiSettleWinMainLine", winData)
         end
 
     end
-    
+
     function XFubenSpecialTrainManager.FinishFight(settle)
         if settle.IsWin then
             XDataCenter.FubenManager.ChallengeWin(settle)
@@ -528,10 +556,7 @@ XFubenSpecialTrainManagerCreator = function()
 
     function XFubenSpecialTrainManager.OpenSettleUi(winData)
         if XDataCenter.RoomManager.RoomData then
-            XLuaUiManager.PopThenOpen("UiSummerEpisodeSettle",function()
-                XDataCenter.FubenManager.FubenSettling = false
-                XDataCenter.FubenManager.FubenSettleResult = nil
-            end)
+            XLuaUiManager.PopThenOpen("UiSummerEpisodeSettle", winData)
         else
             XLuaUiManager.PopThenOpen("UiSettleWinMainLine", winData)
         end
@@ -543,7 +568,7 @@ XFubenSpecialTrainManagerCreator = function()
 
     function XFubenSpecialTrainManager.SetSavePhotoValue(value)
         local isSave = value == true and 1 or 0
-        XSaveTool.SaveData(XFubenSpecialTrainManager.GetSavePhotoKey(),isSave)
+        XSaveTool.SaveData(XFubenSpecialTrainManager.GetSavePhotoKey(), isSave)
     end
 
     function XFubenSpecialTrainManager.GetSavePhotoValue()
@@ -553,35 +578,40 @@ XFubenSpecialTrainManagerCreator = function()
     ----------------------------------段位相关Start---------------------------------------------
     local CurrentStageId --当前选择关卡id
     local IsRandomMap --随机地图
-    local IsHellMod --困难模式
-    
+    local YuanXiaoActivityDays = 0
+    local SnowGameActivityDays = 0
+    local SnowGameRoboId = 0
+
     function XFubenSpecialTrainManager.NotifySpecialTrainRankData(data)
-        ActivityId = data.Id
+        XFubenSpecialTrainManager.SetActivityId(data.Id)
         Score = data.Score
+        SnowGameActivityDays = data.Day or 0
+        SnowGameRoboId = data.RobotId or 0
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_FUBEN_SPECIAL_TEAIN_RANK_SCORE_CHANGE)
     end
-    
+
     --元宵
     function XFubenSpecialTrainManager.NotifySpecialTrainRhythmRankData(data)
-        ActivityId = data.Id
+        XFubenSpecialTrainManager.SetActivityId(data.Id)
         Score = data.Score
+        YuanXiaoActivityDays = data.Day or 0
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_FUBEN_SPECIAL_TEAIN_RANK_SCORE_CHANGE)
     end
-    
+
     function XFubenSpecialTrainManager.GetCurScore()
         if not Score then
             return
         end
         return Score
     end
-    
+
     function XFubenSpecialTrainManager.GetCurrentRankId()
         if not Score or not ActivityId then
             return
         end
         return XFubenSpecialTrainConfig.GetCurrentRankId(ActivityId, Score)
     end
-    
+
     function XFubenSpecialTrainManager.GetIconByScore(score)
         if not score or not ActivityId then
             return
@@ -589,38 +619,45 @@ XFubenSpecialTrainManagerCreator = function()
         local curId = XFubenSpecialTrainConfig.GetCurrentRankId(ActivityId, score)
         return XFubenSpecialTrainConfig.GetRankIconById(curId)
     end
-    
+
     function XFubenSpecialTrainManager.GetCurIdAndNextIdByScore(curScore)
         if not curScore or not ActivityId then
             return
         end
         return XFubenSpecialTrainConfig.GetCurIdAndNextIdByScore(ActivityId, curScore)
     end
-    
+
     function XFubenSpecialTrainManager.SetCurrentStageId(stageId)
         CurrentStageId = stageId
     end
-    
+
     function XFubenSpecialTrainManager.GetCurrentStageId()
         return CurrentStageId
     end
-    
+
     function XFubenSpecialTrainManager.SetIsRandomMap(isMap)
         IsRandomMap = isMap
     end
-    
+
     function XFubenSpecialTrainManager.GetIsRandomMap()
         return IsRandomMap
     end
 
     function XFubenSpecialTrainManager.SetIsHellMode(isHellMod)
         IsHellMod = isHellMod
+        XSaveTool.SaveData(XFubenSpecialTrainManager.GetSaveHellModeKey(), isHellMod and 1 or 0)
     end
 
     function XFubenSpecialTrainManager.GetIsHellMode()
+        if XFubenSpecialTrainManager.BreakthroughIsOpening() then
+            local stageId = XFubenSpecialTrainManager.BreakthroughGetStageId()
+            if not XFubenSpecialTrainManager.IsCanSelectHellMode(stageId) then
+                return false
+            end
+        end
         return IsHellMod
     end
-    
+
     function XFubenSpecialTrainManager.GetTaskGroupIds()
         if not ActivityId then
             return
@@ -633,7 +670,8 @@ XFubenSpecialTrainManagerCreator = function()
 
     function XFubenSpecialTrainManager.CheckSpecialTrainTypeRobot(stageId)
         local value = XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Music) or
-                XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Rhythm)
+                --XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Rhythm) or
+                XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Photo)
 
         return value
     end
@@ -648,9 +686,7 @@ XFubenSpecialTrainManagerCreator = function()
     end
 
     function XFubenSpecialTrainManager.CheckSpecialTrainShowPattern(stageId)
-        local isShowPattern = XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Music) or
-                XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Rhythm)
-
+        local isShowPattern = XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Music)
         return isShowPattern
     end
 
@@ -669,7 +705,7 @@ XFubenSpecialTrainManagerCreator = function()
         end
         return false
     end
-    
+
     function XFubenSpecialTrainManager.GetRobotIdByStageIdAndCharId(stageId, charId)
         local robotId = charId
         local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
@@ -682,7 +718,7 @@ XFubenSpecialTrainManagerCreator = function()
         end
         return robotId
     end
-    
+
     function XFubenSpecialTrainManager.GetCanUseRobots(stageId)
         local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
         local robotIdList = XFubenConfigs.GetStageTypeRobot(stageInfo.Type)
@@ -694,18 +730,16 @@ XFubenSpecialTrainManagerCreator = function()
         end
         return robotIds
     end
-    
-    function XFubenSpecialTrainManager.GetCanFightRoles(stageId, characterType)
+
+    function XFubenSpecialTrainManager.GetCanFightRoles(stageId)
         local result = {}
         local robots = XFubenSpecialTrainManager.GetCanUseRobots(stageId)
         for _, character in ipairs(robots) do
-            if character:GetCharacterViewModel():GetCharacterType() == characterType then
-                table.insert(result, character)
-            end
+            table.insert(result, character)
         end
         return result
     end
-    
+
     function XFubenSpecialTrainManager.GetActivityEndTime()
         if not ActivityId then
             return 0
@@ -714,14 +748,27 @@ XFubenSpecialTrainManagerCreator = function()
         return XFunctionManager.GetEndTimeByTimeId(activityConfig.TimeId)
     end
 
+    function XFubenSpecialTrainManager.GetActivityStartTime()
+        if not ActivityId then
+            return 0
+        end
+        local activityConfig = XFubenSpecialTrainConfig.GetActivityConfigById(ActivityId)
+        return XFunctionManager.GetStartTimeByTimeId(activityConfig.TimeId)
+    end
+
     function XFubenSpecialTrainManager.HandleActivityEndTime()
         -- notDialogTip 默认设置为true 活动结束时如果在组队或者匹配中 不需要弹确认框
         XLuaUiManager.RunMain(true)
         XUiManager.TipText("CommonActivityEnd")
     end
 
-    -- region 卡列特训关
+    --region 卡列特训关
     local BreakthroughRobotId = false
+    local BreakthroughPersonalScore = 0
+    local BreakthroughTeamScore = 0
+    local BreakthroughPersonalScoreOld = false
+    local BreakthroughTeamScoreOld = false
+
     function XFubenSpecialTrainManager.BreakthroughSetRobotId(robotId)
         BreakthroughRobotId = robotId
         XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_SPECIAL_TRAIN_BREAKTHROUGH_SET_ROBOT)
@@ -737,6 +784,32 @@ XFubenSpecialTrainManagerCreator = function()
         end)
     end
 
+    -- 未配置timeId时默认同时开放
+    function XFubenSpecialTrainManager.IsCanSelectHellMode(stageId, tip)
+        local isYuanXiao = XFubenSpecialTrainConfig.CheckIsYuanXiaoStage(stageId)
+        if isYuanXiao then
+            return false
+        end
+        local isSnowGame = XFubenSpecialTrainConfig.CheckIsSnowGameStage(stageId)
+        if isSnowGame then
+            return false
+        end
+
+        local timeId = XFubenSpecialTrainConfig.GetHellStageTimeId(stageId)
+        local isCanSelect = XFunctionManager.CheckInTimeByTimeId(timeId, true)
+        if tip and not isCanSelect then
+            local time = XFunctionManager.GetStartTimeByTimeId(timeId)
+            local dayFormat = CS.XTextManager.GetText("SpecialTrainTimeFormat")
+            local strTime = XTime.TimestampToGameDateTimeString(time, dayFormat)
+            XUiManager.TipText("SpecialTrainHellModeLock", nil, nil, strTime)
+        end
+        return isCanSelect
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughTipHellModeLock(stageId)
+        XFubenSpecialTrainManager.IsCanSelectHellMode(stageId, true)
+    end
+
     function XFubenSpecialTrainManager.BreakthroughGetRobotId()
         if XTool.IsNumberValid(BreakthroughRobotId) and XRobotManager.GetRobotTemplate(BreakthroughRobotId) then
             return BreakthroughRobotId
@@ -749,7 +822,7 @@ XFubenSpecialTrainManagerCreator = function()
     end
 
     function XFubenSpecialTrainManager.IsSpecialTrainBreakthrough(stageId)
-        local stageType = XFubenConfigs.GetStageType(stageId)
+        local stageType = XFubenConfigs.GetStageMainlineType(stageId)
         return XFubenSpecialTrainManager.IsSpecialTrainBreakthroughType(stageType)
     end
 
@@ -757,28 +830,457 @@ XFubenSpecialTrainManagerCreator = function()
         return stageType == XDataCenter.FubenManager.StageType.SpecialTrainBreakthrough
     end
 
-    function XFubenSpecialTrainManager.IsStageCute(stageId)
-        local stageType = XFubenConfigs.GetStageType(stageId)
-        return XFubenSpecialTrainManager.IsStageTypeCute(stageType)
-    end
+    --function XFubenSpecialTrainManager.GetStageTypeCute(stageId)
+    --    if XFubenSpecialTrainConfig.CheckIsSpecialTrainBreakthroughStage(stageId) then
+    --        return XDataCenter.FubenManager.StageType.SpecialTrainBreakthrough
+    --    elseif XFubenSpecialTrainConfig.CheckIsYuanXiaoStage(stageId) then
+    --        return XDataCenter.FubenManager.StageType.SpecialTrainRhythmRank
+    --    end
+    --end
 
-    function XFubenSpecialTrainManager.IsStageTypeCute(stageType)
-        return stageType == XDataCenter.FubenManager.StageType.SpecialTrainBreakthrough
+    function XFubenSpecialTrainManager.IsStageCute(stageId)
+        return XFubenSpecialTrainConfig.CheckIsSpecialTrainBreakthroughStage(stageId)
+                or XFubenSpecialTrainConfig.CheckIsYuanXiaoStage(stageId)
+                or XFubenSpecialTrainConfig.CheckIsSnowGameStage(stageId)
     end
 
     ---@param data{RobotId:number, Score:number, Id:number}
     function XFubenSpecialTrainManager.NotifySpecialTrainBreakthroughData(data)
         BreakthroughRobotId = data.RobotId
-        ActivityId = data.Id
+        XFubenSpecialTrainManager.SetActivityId(data.Id)
         Score = data.Score
-        CsXGameEventManager.Instance:Notify(XEventId.EVENT_FUBEN_SPECIAL_TEAIN_RANK_SCORE_CHANGE)     
+        XFubenSpecialTrainManager.BreakthroughSetTeamScore(data.HellMaxTeamScore)
+        XFubenSpecialTrainManager.BreakthroughSetPersonalScore(data.HellMaxPersonalScore)
+        CsXGameEventManager.Instance:Notify(XEventId.EVENT_FUBEN_SPECIAL_TEAIN_RANK_SCORE_CHANGE)
     end
+
     function XFubenSpecialTrainManager.GetOneChapterId()
         local activityCfg = XFubenSpecialTrainConfig.GetActivityConfigById(XDataCenter.FubenSpecialTrainManager.GetCurActivityId())
         return activityCfg.ChapterIds[1]
     end
-    --endregion 卡列特训关
+
+    function XFubenSpecialTrainManager.SetActivityId(activityId)
+        ActivityId = activityId
+    end
+
+    function XFubenSpecialTrainManager.GetSaveHellModeKey()
+        return string.format("%s_%s", "SpecialTrainBreakthrough", XPlayer.Id)
+    end
+
+    -- 个人最高积分
+    function XFubenSpecialTrainManager.BreakthroughGetPersonalScore()
+        return BreakthroughPersonalScore
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughGetPersonalScoreOld()
+        return BreakthroughPersonalScoreOld
+    end
+
+    -- 队伍最高积分
+    function XFubenSpecialTrainManager.BreakthroughGetTeamScore(isOrigional)
+        if isOrigional then
+            return BreakthroughTeamScore
+        end
+        return XFubenSpecialTrainManager.BreakthroughGetScore(BreakthroughTeamScore)
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughGetTeamScoreOld()
+        return XFubenSpecialTrainManager.BreakthroughGetScore(BreakthroughTeamScoreOld)
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughSetPersonalScore(value)
+        if not BreakthroughPersonalScoreOld then
+            BreakthroughPersonalScoreOld = value
+        else
+            BreakthroughPersonalScoreOld = BreakthroughPersonalScore
+        end
+        BreakthroughPersonalScore = value
+        XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_SPECIAL_TRAIN_BREAKTHROUGH_UPDATE_PERSONAL_SCORE)
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughSetTeamScore(value)
+        if not BreakthroughTeamScoreOld then
+            BreakthroughTeamScoreOld = value
+        else
+            BreakthroughTeamScoreOld = BreakthroughTeamScore
+        end
+        BreakthroughTeamScore = value
+        XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_SPECIAL_TRAIN_BREAKTHROUGH_UPDATE_TEAM_SCORE)
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughSetTeamScoreOld()
+        BreakthroughTeamScoreOld = BreakthroughTeamScore
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughSetPersonalScoreOld()
+        BreakthroughPersonalScoreOld = BreakthroughPersonalScore
+    end
+
+    -- rank
+    local _RankDataTeam
+    function XFubenSpecialTrainManager.BreakthroughGetTeamRankData()
+        return _RankDataTeam
+    end
+
+    local _RankDataPersonal
+    function XFubenSpecialTrainManager.BreakthroughGetPersonalRankData()
+        return _RankDataPersonal
+    end
+
+    --region 当困难模式解锁后，困难模式入口显示蓝点，玩家首次切换至困难模式后永久不再显示蓝点
+    function XFubenSpecialTrainManager.BreakthroughGetKeyNeverSelectHellMode()
+        return string.format("%s_%s", "SpecialTrainBreakthroughNeverSelectHellMode", XPlayer.Id)
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughIsNeverSelectHellMode()
+        local data = XSaveTool.GetData(XFubenSpecialTrainManager.BreakthroughGetKeyNeverSelectHellMode())
+        return not data
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughSetHasSelectedHellMode()
+        if XFubenSpecialTrainManager.BreakthroughIsNeverSelectHellMode() then
+            XSaveTool.SaveData(XFubenSpecialTrainManager.BreakthroughGetKeyNeverSelectHellMode(), 1)
+            XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_SPECIAL_TRAIN_BREAKTHROUGH_UPDATE_HELL_MODE_HAS_SELECTED)
+        end
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughIsShowRedDotHellMode()
+        return XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.SpecialTrain)
+                and XFubenSpecialTrainManager.BreakthroughIsOpening()
+                and XFubenSpecialTrainManager.IsCanSelectHellMode(XFubenSpecialTrainManager.BreakthroughGetStageId(), false)
+                and XFubenSpecialTrainManager.BreakthroughIsNeverSelectHellMode()
+    end
     
+    function XFubenSpecialTrainManager.IsHardModeOpenAndNew()
+        return XFubenSpecialTrainManager.BreakthroughIsOpening()
+                and XFubenSpecialTrainManager.IsCanSelectHellMode(XFubenSpecialTrainManager.BreakthroughGetStageId(), false)
+                and XFubenSpecialTrainManager.BreakthroughIsNeverSelectHellMode()
+    end
+    --endregion
+
+    local _BreakthroughStageId
+    function XFubenSpecialTrainManager.BreakthroughGetStageId()
+        if _BreakthroughStageId then
+            return _BreakthroughStageId
+        end
+        local stages = XFubenSpecialTrainConfig.GetStageByStageType(XFubenSpecialTrainConfig.StageType.Breakthrough)
+        for i = 1, #stages do
+            local stageId = stages[i]
+            local hellStageId = XFubenSpecialTrainConfig.GetHellStageId(stageId)
+            if hellStageId and hellStageId > 0 then
+                _BreakthroughStageId = stageId
+            end
+            if not _BreakthroughStageId then
+                _BreakthroughStageId = stageId
+            end
+        end
+        return _BreakthroughStageId
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughIsOpening()
+        return XFubenSpecialTrainManager.GetActivityType() == XFubenSpecialTrainConfig.Type.Breakthrough
+    end
+
+    function XFubenSpecialTrainManager.GetActivityType()
+        if not ActivityId then
+            return false
+        end
+        local config = XFubenSpecialTrainConfig.GetActivityConfigById(ActivityId)
+        return config and config.Type
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughSetIsHellMode(value)
+        XFubenSpecialTrainManager.SetIsHellMode(value)
+        if value then
+            XFubenSpecialTrainManager.BreakthroughSetHasSelectedHellMode()
+        end
+    end
+
+    -- 考虑困难模式
+    function XFubenSpecialTrainManager.BreakthroughGetCurrentStageId(isHellMode)
+        if isHellMode == nil then
+            isHellMode = XDataCenter.FubenSpecialTrainManager.GetIsHellMode()
+        end
+        local stageId = XFubenSpecialTrainManager.BreakthroughGetStageId()
+        if isHellMode then
+            local hellStageId = XFubenSpecialTrainConfig.GetHellStageId(stageId)
+            if hellStageId and hellStageId ~= 0 then
+                stageId = hellStageId
+            end
+        end
+        return stageId
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughRequestRankPersonal()
+        XNetwork.Call(Proto.SpecialTrainCubeGetPersonRankListRequest, {
+            StageId = XFubenSpecialTrainManager.BreakthroughGetCurrentStageId(true),
+            ActivityId = XFubenSpecialTrainManager.GetCurActivityId()
+        }, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            _RankDataPersonal = res
+            if _RankDataPersonal.SpecialTrainCubePersonRank and _RankDataPersonal.SpecialTrainCubePersonRank.RankInfos then
+                local rankInfos = _RankDataPersonal.SpecialTrainCubePersonRank.RankInfos
+                for i = 1, #rankInfos do
+                    local info = rankInfos[i]
+                    info.Ranking = i
+                end
+            end
+            XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_SPECIAL_TRAIN_BREAKTHROUGH_UPDATE_RANK_PERSONAL)
+        end)
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughRequestRankTeam()
+        XNetwork.Call(Proto.SpecialTrainCubeGetTeamRankListRequest, {
+            StageId = XFubenSpecialTrainManager.BreakthroughGetCurrentStageId(true),
+            ActivityId = XFubenSpecialTrainManager.GetCurActivityId()
+        }, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            _RankDataTeam = res
+            if _RankDataTeam.SpecialTrainCubeTeamRank and _RankDataTeam.SpecialTrainCubeTeamRank.RankTeamInfos then
+                local rankInfos = _RankDataTeam.SpecialTrainCubeTeamRank.RankTeamInfos
+                for i = 1, #rankInfos do
+                    local info = rankInfos[i]
+                    info.Ranking = i
+                    -- 服务端 将分数和轮次两个信息放进了score ，需要客户端分离
+                    local score = info.Score
+                    info.Score, info.Round = XFubenSpecialTrainManager.BreakthroughGetScore(score)
+                end
+            end
+            XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_SPECIAL_TRAIN_BREAKTHROUGH_UPDATE_RANK_TEAM)
+        end)
+    end
+
+    -- 服务端 将分数和轮次两个信息放进了score ，需要客户端分离
+    function XFubenSpecialTrainManager.BreakthroughGetScore(scoreAndRound)
+        return math.floor(scoreAndRound / 100), scoreAndRound % 100
+    end
+
+    function XFubenSpecialTrainManager.BreakthroughMergeScore(score, round)
+        return score * 100 + round
+    end
+
+    --endregion 卡列特训关
+
+    --region 元宵2023
+    function XFubenSpecialTrainManager.GetYuanXiaoDailyTaskGroup()
+        local day = YuanXiaoActivityDays
+        if day == 0 then
+            local startTime = XFubenSpecialTrainManager.GetActivityStartTime()
+            local currentTime = XTime.GetServerNowTimestamp()
+            local diff = currentTime - startTime
+            day = math.ceil(diff / XTime.Seconds.Day)
+        end
+        if day <= 0 then
+            return {}
+        end
+        local taskGroupId = XFubenSpecialTrainConfig.GetDailyTaskGroupId(ActivityId, day)
+        return XDataCenter.TaskManager.GetTaskByTypeAndGroup(TaskType.SpecialTrainDailySwitchTask, taskGroupId)
+    end
+
+    local YuanXiaoSkillId = {}
+    function XFubenSpecialTrainManager.ClearYuanXiaoSkill()
+        if not XTool.IsTableEmpty(YuanXiaoSkillId) then
+            YuanXiaoSkillId = {}
+        end
+    end
+    function XFubenSpecialTrainManager.SetYuanXiaoSkill(skillId)
+        if YuanXiaoSkillId[XPlayer.Id] == skillId then
+            XUiManager.TipMsg(XUiHelper.GetText("EquipGridUsingWords"))
+            return false
+        end
+        XNetwork.Call(Proto.SetSpecialTrainRhythmSkillRequest, {
+            SkillId = skillId
+        }, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            YuanXiaoSkillId[XPlayer.Id] = skillId
+            XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_SPECIAL_TRAIN_YUANXIAO_UPDATE_SKILL)
+        end)
+        return true
+    end
+
+    function XFubenSpecialTrainManager.GetYuanXiaoSkill(playerId)
+        playerId = playerId or XPlayer.Id
+        local id = YuanXiaoSkillId[playerId]
+        if not id then
+            return false
+        end
+        return XFubenSpecialTrainConfig.GetYuanXiaoSkill(id)
+    end
+
+    function XFubenSpecialTrainManager.NotifyYuanXiaoSkill(data)
+        YuanXiaoSkillId[data.FromPlayerId] = data.SkillId
+        XEventManager.DispatchEvent(XEventId.EVENT_ROOM_REFRESH)
+    end
+
+    function XFubenSpecialTrainManager.SetSkillFromRoom()
+        local roomData = XDataCenter.RoomManager.RoomData
+        if roomData then
+            local playerDataList = roomData.PlayerDataList
+            for i = 1, #playerDataList do
+                local playerData = playerDataList[i]
+                XFubenSpecialTrainManager.SetSkillFromRoomPlayerData(playerData)
+            end
+        end
+    end
+
+    function XFubenSpecialTrainManager.SetSkillFromRoomPlayerData(playerData)
+        local skillId = playerData.SpecialTrainRhythmSkillId
+        if skillId and skillId > 0 then
+            local playerId = playerData.Id
+            XFubenSpecialTrainManager.NotifyYuanXiaoSkill({
+                FromPlayerId = playerId,
+                SkillId = skillId
+            })
+        end
+    end
+
+    function XFubenSpecialTrainManager.YuanXiaoAutoGetReward()
+        local taskList = XDataCenter.FubenSpecialTrainManager.GetYuanXiaoDailyTaskGroup()
+        local taskIdList = {}
+        for i = 1, #taskList do
+            local taskData = taskList[i]
+            if XDataCenter.TaskManager.CheckTaskAchieved(taskData.Id) then
+                taskIdList[#taskIdList + 1] = taskData.Id
+            end
+        end
+        if #taskIdList > 0 then
+            XDataCenter.TaskManager.FinishMultiTaskRequest(taskIdList, function(rewardList)
+                local title = ""
+                local desc = CS.XTextManager.GetText("YuanXiaoGetReward")
+                XLuaUiManager.Open("UiPassportTips", rewardList, title, desc)
+            end)
+        end
+    end
+    --endregion 元宵2023
+
+    --region 冰雪感谢祭3
+
+    function XFubenSpecialTrainManager.SpecialTrainRankSetRobotRequest(robotId, cb)
+        XNetwork.Call(Proto.SpecialTrainRankSetRobotRequest, { RobotId = robotId }, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            XFubenSpecialTrainManager.SetSnowGameRobotId(robotId)
+            if cb then
+                cb()
+            end
+        end)
+    end
+
+    function XFubenSpecialTrainManager.SetSnowGameRobotId(robotId)
+        SnowGameRoboId = robotId
+    end
+
+    function XFubenSpecialTrainManager.GetSnowGameRobotId()
+        if XTool.IsNumberValid(SnowGameRoboId) then
+            return SnowGameRoboId
+        end
+        local robots = XFubenConfigs.GetStageTypeRobot(XDataCenter.FubenManager.StageType.SpecialTrainSnow)
+        if XTool.IsTableEmpty(robots) then
+            return 0
+        end
+        return robots[1]
+    end
+
+    function XFubenSpecialTrainManager.GetSnowGameDailyTaskGroup()
+        local day = SnowGameActivityDays
+        if not XTool.IsNumberValid(day) then
+            local startTime = XFubenSpecialTrainManager.GetActivityStartTime()
+            day = XTime.GetDayCountUntilTime(startTime, true)
+        end
+        if day <= 0 then
+            return {}
+        end
+        local taskGroupId = XFubenSpecialTrainConfig.GetDailyTaskGroupId(ActivityId, day)
+        return XDataCenter.TaskManager.GetTaskByTypeAndGroup(XDataCenter.TaskManager.TaskType.SpecialTrainDailySwitchTask, taskGroupId)
+    end
+    
+    --endregion
+
+    --region 2.6
+    function XFubenSpecialTrainManager.CheckStageIsUnlock(stageId)
+        local timeId=XFubenSpecialTrainConfig.GetSpecialTrainStageTimeId(stageId)
+        if timeId==-1 then
+            XLog.Error("错误的时间Id",stageId,timeId)
+            return false
+        end
+        local startTime=XFunctionManager.GetStartTimeByTimeId(timeId)
+        local endTime=XFunctionManager.GetEndTimeByTimeId(timeId)
+        local curTime = XTime.GetServerNowTimestamp()
+
+        return curTime>=startTime and curTime<endTime
+    end
+
+    function XFubenSpecialTrainManager.GetMapUnLockTime(stageId)
+        local timeId=XFubenSpecialTrainConfig.GetSpecialTrainStageTimeId(stageId)
+        if timeId==-1 then
+            XLog.Error("错误的时间Id",stageId,timeId)
+            return false
+        end
+        local startTime=XFunctionManager.GetStartTimeByTimeId(timeId)
+        return startTime
+    end
+
+    --活动开启的等级下限
+    function XFubenSpecialTrainManager.GetOpenLevelLimit()
+    	local config=XFubenConfigs.GetFubenActivityConfigByManagerName("FubenSpecialTrainManager")
+    	local funcId=config.FunctionNameId
+    	local conditionId=XFunctionConfig.GetFuncOpenCfg(funcId).Condition[1]
+    	local levelLimit=XConditionManager.GetConditionParams(conditionId)
+
+    	return levelLimit
+    end
+    
+    function XFubenSpecialTrainManager.CheckStageIsNewUnLock(stageId)
+        if XFubenSpecialTrainManager.CheckStageIsUnlock(stageId) then
+            local key= XFubenSpecialTrainConfig.GetStageLocalKey(XFubenSpecialTrainManager.GetCurActivityId(),stageId)
+            local use=XSaveTool.GetData(key)
+            return not use
+        end
+    end
+    
+    function XFubenSpecialTrainManager.SaveForOldUnLock(stageId)
+        local key= XFubenSpecialTrainConfig.GetStageLocalKey(XFubenSpecialTrainManager.GetCurActivityId(),stageId)
+        XSaveTool.SaveData(key,true)
+    end
+    
+    function XFubenSpecialTrainManager.CheckHasNewUnLock()
+        local stages=XFubenSpecialTrainManager.GetAllStageIdByActivityId(XFubenSpecialTrainManager.GetCurActivityId())
+        for i, stageId in ipairs(stages) do
+            if XFubenSpecialTrainManager.CheckStageIsNewUnLock(stageId) then
+                return true
+            end
+        end
+        return false
+    end
+    
+    function XFubenSpecialTrainManager.GetCurrentStageId()
+        return StageId
+    end
+    
+    function XFubenSpecialTrainManager.SetCurrentStageId(id)
+        StageId=id
+    end
+    
+    --检查是否允许显示红点（或进一步执行红点检测逻辑）
+    function XFubenSpecialTrainManager.CheckAllowDisplayRedPoint()
+        -- 活动存在&活动开启&入口限制解除
+        return XFubenSpecialTrainManager.GetCurActivityId() and 
+                not XFubenSpecialTrainManager.CheckActivityTimeout(XFubenSpecialTrainManager.GetCurActivityId(), false)  and
+                XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.SpecialTrain)
+    end
+    --endregion
+
     XFubenSpecialTrainManager.Init()
 
     return XFubenSpecialTrainManager
@@ -799,4 +1301,12 @@ end
 
 XRpc.NotifySpecialTrainBreakthroughData = function(data)
     XDataCenter.FubenSpecialTrainManager.NotifySpecialTrainBreakthroughData(data)
+end
+
+XRpc.NotifySpecialTrainCubeData = function(data)
+    XDataCenter.FubenSpecialTrainManager.NotifySpecialTrainBreakthroughData(data)
+end
+
+XRpc.SetSpecialTrainRhythmSkillNotify = function(data)
+    XDataCenter.FubenSpecialTrainManager.NotifyYuanXiaoSkill(data)
 end

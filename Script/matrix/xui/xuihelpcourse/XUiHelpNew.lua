@@ -1,3 +1,4 @@
+local XDynamicTableCurve = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableCurve")
 local XUiHelpNew = XLuaUiManager.Register(XLuaUi, "UiHelpNew")
 local XUiGridHelpCourse = require("XUi/XUiHelpCourse/XUiGridHelpCourse")
 

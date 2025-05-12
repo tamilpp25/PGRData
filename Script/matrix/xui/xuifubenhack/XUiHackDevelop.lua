@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiHackDevelop = XLuaUiManager.Register(XLuaUi, "UiHackDevelop")
 
 local XUiPanelLevelInfo = require("XUi/XUiFubenHack/ChildView/XUiPanelLevelInfo")
@@ -57,7 +58,7 @@ function XUiHackDevelop:InitUi()
     self.TxtTitle.text = CSXTextManagerGetText("FubenHackDevelop")
     self.TxtTitleEn.text = CSXTextManagerGetText("FubenHackDevelopEn")
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
     self.PanelLevelInfo = XUiPanelLevelInfo.New(self, self.PanelLvInfo)
     self.BtnBuffBarList = {}
     for i = 1, XFubenHackConfig.BuffBarCapacity do

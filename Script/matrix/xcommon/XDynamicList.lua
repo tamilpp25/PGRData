@@ -206,7 +206,7 @@ function XDynamicList:GenerateItem(evt, dir, index)
             end
             curShowDataIndex = self.curShowTailIndex
         end
-        self.CallBack(self.NodeListData[curShowDataIndex].data, function(poolName, ctor)
+        self.CallBack(self.NodeListData[curShowDataIndex].data, function(poolName, ctor, ...)
             local item = self.DynamicList:PreDequeueGrid(poolName, index)
             local xlayoutNode = item:GetComponent("XLayoutNode")
             if self.DynamicList and xlayoutNode then
@@ -221,7 +221,7 @@ function XDynamicList:GenerateItem(evt, dir, index)
             if itemScript ~= nil then
                 return itemScript
             else
-                local newItemScript = ctor(item.gameObject)
+                local newItemScript = ctor(item.gameObject, ...)
                 self.ItemCache[key] = newItemScript
                 return newItemScript
             end

@@ -1,3 +1,6 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 
 local XUiMemorySaveDetail = XLuaUiManager.Register(XLuaUi, "UiMemorySaveDetail")
 
@@ -31,7 +34,7 @@ function XUiMemorySaveDetail:UpdateCommon()
     self.TxtTitle.text = self.Stage.Name
     self.PanelNums.gameObject:SetActiveEx(false)
     self.PanelNoLimitCount.gameObject:SetActiveEx(true)
-    self.TxtATNums.text = self.Stage.RequireActionPoint
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(self.Stage.StageId)
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.Stage.StageId)
     for i = 1, 3 do
         self.TargetList[i]:Refresh(self.Stage.StarDesc[i], stageInfo.StarsMap[i])
@@ -88,17 +91,13 @@ function XUiMemorySaveDetail:OnBtnEnterClick()
         return
     end
     self.RootUi:OnHideDetailCallBack()
-    if XTool.USENEWBATTLEROOM then
-        XLuaUiManager.Open("UiBattleRoleRoom", self.Stage.StageId, nil, {
-            OnNotify = function(proxy, evt)
-                if evt == XEventId.EVENT_ACTIVITY_ON_RESET then
-                    XDataCenter.MemorySaveManager.OnActivityEnd()
-                end
+    XLuaUiManager.Open("UiBattleRoleRoom", self.Stage.StageId, nil, {
+        OnNotify = function(proxy, evt)
+            if evt == XEventId.EVENT_ACTIVITY_ON_RESET then
+                XDataCenter.MemorySaveManager.OnActivityEnd()
             end
-        })
-    else
-        XLuaUiManager.Open("UiNewRoomSingle", self.Stage.StageId)
-    end
+        end
+    })
 end
 
 function XUiMemorySaveDetail:OnBtnCloseClick()

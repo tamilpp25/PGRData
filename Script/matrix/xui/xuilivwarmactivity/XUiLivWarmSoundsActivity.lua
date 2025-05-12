@@ -1,3 +1,4 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local XUiLivWarmSoundsActivity = XLuaUiManager.Register(XLuaUi, "UiLivWarmSoundsActivity")
 
 local XUiLivWarmSoundsActivityAudioGrid = require("XUi/XUiLivWarmActivity/XUiLivWarmSoundsActivityAudioGrid")
@@ -33,7 +34,6 @@ function XUiLivWarmSoundsActivity:OnStart()
     self.Camera = CS.XUiManager.Instance.UiCamera
     self.PanelReward = XUiLivWarmSoundsActivityTaskPanel.New(self.PanelCheckReward, self)
     self.ActivityId = XDataCenter.LivWarmSoundsActivityManager.GetActivityId()
-    self.TxtWords.text = ""
     self:SetPlayEff(false)
     self:InitTimer()
     self:InitAudioPieces()
@@ -170,9 +170,6 @@ function XUiLivWarmSoundsActivity:AddListener()
     self:BindHelpBtn(self.BtnHelp, "LivWarmSoundsActivityHelp")
 
     self.BtnTestPlay.CallBack = function()
-        if self.BtnTestPlay.ButtonState == CS.UiButtonState.Disable then
-            return
-        end
         XDataCenter.LivWarmSoundsActivityManager.SetStageAnswer(self.StageId, self.AudioOrder)
     end
 
@@ -240,13 +237,13 @@ function XUiLivWarmSoundsActivity:RefreshTips(count)
     if tipCount then
         if count then
             self["PanelHint" .. count].gameObject:SetActiveEx(true)
-            --self:PlayAnimation("PanelHint" .. count .. "Enable")
+            self:PlayAnimation("PanelHint" .. count .. "Enable")
             self["PanelHint" .. count].transform:Find("Text"):GetComponent("Text").text = hints[count]
         else
             for i = 1, MAX_TIP_COUNT do
                 if i <= tipCount then
                     self["PanelHint" .. i].gameObject:SetActiveEx(true)
-                    --self:PlayAnimation("PanelHint" .. i .. "Enable")
+                    self:PlayAnimation("PanelHint" .. i .. "Enable")
                     self["PanelHint" .. i].transform:Find("Text"):GetComponent("Text").text = hints[i]
                 else
                     self["PanelHint" .. i].gameObject:SetActiveEx(false)
@@ -378,7 +375,6 @@ function XUiLivWarmSoundsActivity:ChangeAudioOrder(changeIndex, targetIndex)
     table.remove(answer, changeIndex)
     table.insert(answer, targetIndex, changeId)
     XDataCenter.LivWarmSoundsActivityManager.SetClientStageAnswer(self.StageId, answer)
-    self:RefreshTestBtnState(self.StageId, answer)
 end
 --拖拽结束--------------
 --关卡点击
@@ -425,16 +421,6 @@ function XUiLivWarmSoundsActivity:RefreshAudioInfo(stageId)
     end
     self.AudioOrder = XDataCenter.LivWarmSoundsActivityManager.GetStageAnswer(self.StageId)
     self:RefreshAudioPieces()
-    self:RefreshTestBtnState(self.StageId, self.AudioOrder)
-end
-
-function XUiLivWarmSoundsActivity:RefreshTestBtnState(stageId,audioOrder) --海外修改：根据是否排列正确刷新按钮状态
-    local flag = XDataCenter.LivWarmSoundsActivityManager.CheckStageAnswer(stageId, audioOrder)
-    if flag then
-        self.BtnTestPlay:SetButtonState(CS.UiButtonState.Normal)
-    else
-        self.BtnTestPlay:SetButtonState(CS.UiButtonState.Disable)
-    end
 end
 
 function XUiLivWarmSoundsActivity:RefreshAudioPieces()
@@ -478,7 +464,7 @@ end
 --客户端调试播放需要服务端验证后播放，重播不需要，重播使用isReplay标识
 function XUiLivWarmSoundsActivity:SwitchToPlayMode(isReplay)
     self.GameState = GAME_STATE.PlayState
-    --[[if XTool.IsNumberValid(self.StageId) then
+    if XTool.IsNumberValid(self.StageId) then
         if XDataCenter.LivWarmSoundsActivityManager.IsStageFinished(self.StageId) and not isReplay then
             --重播不需要播放转场动画
             -- self:PlayAnimationWithMask("AnimEnable2", function()
@@ -487,9 +473,8 @@ function XUiLivWarmSoundsActivity:SwitchToPlayMode(isReplay)
         else
             self:PlayBehaviour()
         end
-    end--]]
+    end
     self:RefreshStateInfo(true)
-    self:PlayAllText()
 end
 
 function XUiLivWarmSoundsActivity:PlayBehaviour()
@@ -503,15 +488,6 @@ function XUiLivWarmSoundsActivity:PlayBehaviour()
     end
 end
 
-function XUiLivWarmSoundsActivity:PlayAllText() --海外修改：显示CG完整文字
-    self.PanelPlayMask.gameObject:SetActiveEx(true)
-    self.TxtTypeWriterL.CompletedHandle = function()
-        self.PanelPlayMask.gameObject:SetActiveEx(false)
-        self.GameState = GAME_STATE.EditorState
-    end
-    self.TxtTypeWriterL:Play()
-end
-
 --一共两种大状态，播放状态以及编辑状态，每个大状下都有两个小状态，通关以及未通关状态
 function XUiLivWarmSoundsActivity:RefreshStateInfo(noPlayEnableAnim)
     if not self.isReplaceBgImg and XDataCenter.LivWarmSoundsActivityManager.IsAllStageFinished() then
@@ -520,9 +496,9 @@ function XUiLivWarmSoundsActivity:RefreshStateInfo(noPlayEnableAnim)
     end
     local isStageFinish = XDataCenter.LivWarmSoundsActivityManager.IsStageFinished(self.StageId)
     if isStageFinish then
-        --if not noPlayEnableAnim then
-            self:PlayAnimation("AnimEnable")
-        --end
+        if not noPlayEnableAnim then
+            self:PlayAnimation("PanelPlayEnable")
+        end
         self.Transform:FindTransform("PanelPlay").gameObject:SetActiveEx(true)
         self.Transform:FindTransform("PanelVinylRecord").gameObject:SetActiveEx(false)
         self.TextFinishTip.text = XUiHelper.ConvertLineBreakSymbol(XLivWarmSoundsActivityConfig.GetStageFinishText(self.StageId))
@@ -609,19 +585,9 @@ function XUiLivWarmSoundsActivity:PlayFun(loopCount)
         self:PlayAnimation("StopMusic")
         self.PanelPlayMask.gameObject:SetActiveEx(false)
         self.BtnReplayStop.gameObject:SetActiveEx(false)
-        XSoundManager.ResumeMusic()
+        XLuaAudioManager.ResumeMusic()
         self:OnButtonStop()  --播放结束或打断播放需要切换状态
         self:DestroyTimerByTimerId(self.PlayTimerId)
         self:DestroyTimerByTimerId(self.ProgressTimerId)
     end
-end
-
-function XUiLivWarmSoundsActivity:PlayTypeWriter(content)
-    self.TxtWords.text = content
-    self.Mask1.gameObject:SetActiveEx(true)
-    self.TxtTypeWriter.CompletedHandle = function()
-        self.Mask1.gameObject:SetActiveEx(false)
-    end
-    --self.TxtTypeWriter.Duration = string.Utf8Len(content) * XMovieConfigs.TYPE_WRITER_SPEED
-    self.TxtTypeWriter:Play()
 end

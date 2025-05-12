@@ -14,12 +14,18 @@ function XUiMovieReview:OnEnable()
     XDataCenter.InputManagerPc.IncreaseLevel()
     XDataCenter.InputManagerPc.RegisterPressFunc(CS.XUiPc.XUiPcCustomKeyEnum.UiMovieReviewUp, function() self:OnContentUp() end)
     XDataCenter.InputManagerPc.RegisterPressFunc(CS.XUiPc.XUiPcCustomKeyEnum.UiMovieReviewDown, function() self:OnContentDown() end)
+
 end
 
 function XUiMovieReview:OnDisable()
+    if self.AudioInfo then
+        self.AudioInfo:Stop()
+        self.AudioInfo = nil
+    end
     XDataCenter.InputManagerPc.UnregisterPressFunc(CS.XUiPc.XUiPcCustomKeyEnum.UiMovieReviewUp)
     XDataCenter.InputManagerPc.UnregisterPressFunc(CS.XUiPc.XUiPcCustomKeyEnum.UiMovieReviewDown)
     XDataCenter.InputManagerPc.DecreaseLevel()
+
 end
 
 function XUiMovieReview:OnContentUp()
@@ -54,7 +60,13 @@ function XUiMovieReview:RefreshView()
         local grid = self.GridList[i]
         if not grid then
             local obj = CS.UnityEngine.Object.Instantiate(self.GridReviewItem)
-            grid = XUiGridReviewItem.New(obj, data)
+            grid = XUiGridReviewItem.New(obj, data, function(cueId)
+                if self.AudioInfo then
+                    self.AudioInfo:Stop()
+                    self.AudioInfo = nil
+                end
+                self.AudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Voice, cueId)
+            end)
             grid.Transform:SetParent(self.PanelReviewContent, false)
             self.GridList[i] = grid
             self.LastColor[i] = grid:GetTextColor()

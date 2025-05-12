@@ -5,7 +5,7 @@ local ADJUST_DISTANCE = 0.2
 local FADE_TIME = 0.1
 local DURATION_TIME = 0.25
 
-function XUiBlackScreen:OnStart(targetTrans, isTweenCanmera, paramName, cb)
+function XUiBlackScreen:OnStart(targetTrans, isTweenCamera, paramName, cb)
     local distance
     local cameraController = XHomeSceneManager.GetSceneCameraController()
 
@@ -27,7 +27,7 @@ function XUiBlackScreen:OnStart(targetTrans, isTweenCanmera, paramName, cb)
         self.ImgBackground:DOFade(0, FADE_TIME):SetDelay(DURATION_TIME):OnUpdate(function()
             if not isCalled then
                 if not XTool.UObjIsNil(cameraController) then
-                    cameraController.IsTweenCamera = isTweenCanmera
+                    cameraController.IsTweenCamera = isTweenCamera
                     XCameraHelper.SetCameraTarget(cameraController, targetTrans, distance)
                 end
                 isCalled = true

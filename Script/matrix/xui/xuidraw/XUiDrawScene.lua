@@ -1,6 +1,7 @@
 ---@class XUiDrawScene
 local XUiDrawScene = XClass(nil,"XUiDrawScene")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
+local XUiModelUtility = require("XUi/XUiCharacter/XUiModelUtility")
 
 ---@param ui XUi
 function XUiDrawScene:Ctor(ui)
@@ -16,20 +17,21 @@ function XUiDrawScene:InitScene()
     self.PanelRoleModel = XUiPanelRoleModel.New(self.ModelRoot, self.Ui.Name, false, true, true, true, false)
 end
 
-function XUiDrawScene:RefreshScene(drawCfg)
+function XUiDrawScene:RefreshScene(drawCfg, modelId)
     self.DrawCfg = drawCfg
+    local beLoadModelId = modelId or drawCfg.ModelId 
     --self.Ui:PlayAnimation("DarkEnable",function()
         self:LoadScene(drawCfg.ScenePath,drawCfg.UiModelPath,function()
             if self.DrawCfg.Type == XDrawConfigs.ModelType.Role then
-                self:LoadRoleModel(tonumber(drawCfg.ModelId),drawCfg.IsHideWeapon == 1,function()
+                self:LoadRoleModel(tonumber(beLoadModelId),drawCfg.IsHideWeapon == 1,function()
                     --self.Ui:PlayAnimation("DarkDisable")
                 end)
             elseif self.DrawCfg.Type == XDrawConfigs.ModelType.Weapon then
-                self:LoadWeaponModel(drawCfg.ModelId,function()
+                self:LoadWeaponModel(beLoadModelId,function()
                     --self.Ui:PlayAnimation("DarkDisable")
                 end)
             elseif self.DrawCfg.Type == XDrawConfigs.ModelType.Partner then
-                self:LoadPartnerModel(tonumber(drawCfg.ModelId),function()
+                self:LoadPartnerModel(tonumber(beLoadModelId),function()
                     --self.Ui:PlayAnimation("DarkDisable")
                 end)
             end
@@ -40,7 +42,7 @@ end
 ---@param modelId number
 function XUiDrawScene:LoadRoleModel(modelId,isHideWeapon,cb)
     self.PanelRoleModel.HideWeapon = isHideWeapon
-    local fashtionId = XCharacterConfigs.GetCharacterTemplate(modelId).DefaultNpcFashtionId
+    local fashtionId = XMVCA.XCharacter:GetCharacterTemplate(modelId).DefaultNpcFashtionId
     --XDataCenter.DisplayManager.UpdateRoleModel(self.PanelRoleModel, modelId, nil, fashtionId)
     self.PanelRoleModel:UpdateCharacterModel(modelId, self.ModelRoot, self.Ui.Name, function(model)
         self:SetModelTransform(model)
@@ -54,7 +56,7 @@ function XUiDrawScene:LoadRoleModel(modelId,isHideWeapon,cb)
         --    self.PanelRoleModel:PlayAnima(animeID)
         --end
         --if voiceId then
-        --    self.CvInfo = CS.XAudioManager.PlayCv(voiceId)
+        --    self.CvInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Voice, voiceId)
         --end
     end,nil,fashtionId,0,true,true,true)
     --XModelManager.LoadRoleModel(modelId, self.ModelRoot, function(model)
@@ -74,7 +76,7 @@ end
 ---@param modelId string
 function XUiDrawScene:LoadWeaponModel(modelId,cb)
     --self.PanelRoleModel:UpdateCharacterWeaponModelsOther(nil,tonumber(modelId),nil,false)
-    local modelConfig = XDataCenter.EquipManager.GetWeaponModelCfg(tonumber(modelId), self.Ui.Name, 0)
+    local modelConfig = XMVCA.XEquip:GetWeaponModelCfg(tonumber(modelId), self.Ui.Name, 0)
     XModelManager.LoadWeaponModel(modelConfig.ModelId, self.ModelRoot.gameObject, modelConfig.TransformConfig, self.Ui.Name,function(model) 
         self:SetModelTransform(model)
         if cb then
@@ -83,45 +85,34 @@ function XUiDrawScene:LoadWeaponModel(modelId,cb)
     end,{showEffect = true, gameObject = self.Ui.GameObject})
 end
 
+function XUiDrawScene:LoadWeaponModelBySwitch(modelConfig, panelDrag)
+    XModelManager.LoadWeaponModel(modelConfig.ModelId, self.ModelRoot.gameObject, modelConfig.TransformConfig, self.Ui.Name, function(model)
+        self:SetModelTransform(model)
+    end, { showEffect = true, gameObject = self.Ui.GameObject, IsDragRotation = true, AntiClockwise = true}, panelDrag)
+end
+
 ---@param templateId string
 function XUiDrawScene:LoadPartnerModel(templateId,cb)
     --self.PanelRoleModel:UpdatePartnerModel(modelId, self.Ui.Name,nil,nil,true,true,true)
     -- 待机模型
-    local standByModel = XPartnerConfigs.GetPartnerModelStandbyModel(templateId)
-    self.PanelRoleModel:UpdatePartnerModel(standByModel, XModelManager.MODEL_UINAME.XUiDrawShow, nil, function(SModel)
+    
+    self.CvInfo = XUiModelUtility.LoadPartnerModelSToC(templateId, self.PanelRoleModel, XModelManager.MODEL_UINAME.XUiDrawShow, function(SModel)
         SModel.gameObject:SetActiveEx(true)
         self:SetModelTransform(SModel)
         if cb then
             cb()
         end
-    end, false, true)
-
-    -- 变形
-    local sToCAnime = XPartnerConfigs.GetPartnerModelSToCAnime(templateId)
-    local sToCBornEffect = XPartnerConfigs.GetPartnerModelSToCEffect(templateId)
-    local combatBornEffect = XPartnerConfigs.GetPartnerModelCombatBornEffect(templateId)
-    local combatModel = XPartnerConfigs.GetPartnerModelCombatModel(templateId)
-    local CombatBornAnime = XPartnerConfigs.GetPartnerModelCombatBornAnime(templateId)
-    local voiceId = XPartnerConfigs.GetPartnerModelSToCVoice(templateId)
-    -- 音效
-    if voiceId and voiceId > 0 then
-        self.CvInfo = XSoundManager.PlaySoundByType(voiceId, XSoundManager.SoundType.Sound)
-    end
-    
-    -- 变形特效
-    self.PanelRoleModel:LoadEffect(sToCBornEffect, "ModelOffEffect", true, true)
-    -- 动画
-    self.PanelRoleModel:PlayAnima(sToCAnime, true, function()
-        -- 出生特效
-        self.PanelRoleModel:LoadEffect(combatBornEffect, "ModelOnEffect", true, true)
+    end, function()
+        local modelConfig = XDataCenter.PartnerManager.GetPartnerModelConfigById(templateId)
         -- 战斗模型
-        self.PanelRoleModel:UpdatePartnerModel(combatModel, XModelManager.MODEL_UINAME.XUiDrawShow, nil, function(CModel)
+        self.PanelRoleModel:UpdatePartnerModel(modelConfig.CombatModel, XModelManager.MODEL_UINAME.XUiDrawShow, nil, function(CModel)
             CModel.gameObject:SetActiveEx(true)
             self:SetModelTransform(CModel)
         end, false, true)
+        -- 出生特效
+        self.PanelRoleModel:LoadPartnerUiEffect(modelConfig.CombatModel, XPartnerConfigs.EffectParentName.ModelOnEffect, true, true)
         -- 动画
-        self.PanelRoleModel:PlayAnima(CombatBornAnime, true, function()
-        end)
+        self.PanelRoleModel:PlayAnima(modelConfig.CombatBornAnime, true)
     end)
 end
 

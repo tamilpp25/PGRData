@@ -1,10 +1,12 @@
+local XExFubenCollegeStudyManager = require("XEntity/XFuben/XExFubenCollegeStudyManager")
+
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local tableInsert = table.insert
 local tableSort = table.sort
 local CSGameEventManager = CS.XGameEventManager.Instance
 
 XFubenExperimentManagerCreator = function()
-    local XFubenExperimentManager = {}
+    local XFubenExperimentManager = XExFubenCollegeStudyManager.New(XFubenConfigs.ChapterType.Experiment)
 
     local TrialGroup = {}
     local TrialLevel = {}
@@ -31,7 +33,7 @@ XFubenExperimentManagerCreator = function()
         ExperimentStarRewardRequest = "ExperimentStarRewardRequest",
     }
 	local function InitLevelDic()
-		for i, v in ipairs(TrialLevel) do
+		for i, v in pairs(TrialLevel) do
 			if not TrialLevelDic[v.GroupID] then
 				TrialLevelDic[v.GroupID] = {v}
 			else
@@ -82,6 +84,19 @@ XFubenExperimentManagerCreator = function()
             end
 		end
 		return startTime,endTime
+	end
+
+	function XFubenExperimentManager.GetCurrActivtySkin()
+		local levels = TrialLevelDic[XFubenExperimentManager.TabGroupId.SkinTrial]
+		if #levels == 0 then return end
+        local levelConfig -- 记录是哪个皮肤关卡开放
+		for i = 1, #levels do
+            local timeId = levels[i].TimeId
+            if timeId and timeId ~= 0 and XFunctionManager.CheckInTimeByTimeId(timeId) then
+                levelConfig = levels[i]
+            end
+		end
+		return levelConfig
 	end
 
 	function XFubenExperimentManager.GetTrialLevelByGroupID(groupID)
@@ -369,24 +384,37 @@ XFubenExperimentManagerCreator = function()
         end
 	end
 	
-	function XFubenExperimentManager.CheckSkinTrialRedPoint()
-		return XFubenExperimentManager.CheckExperimentGroupHaveRedPoint(XFubenExperimentManager.TabGroupId.SkinTrial)
+	function XFubenExperimentManager.CheckSkinTrialRedPoint(id)
+        if id then
+            return XFubenExperimentManager.CheckSkinTrialRedPointById(id)
+        else
+            return XFubenExperimentManager.CheckExperimentGroupHaveRedPoint(XFubenExperimentManager.TabGroupId.SkinTrial)
+        end
 	end
 
-    function XFubenExperimentManager.InitStageInfo()
-        for k, v in ipairs(TrialLevel) do
-            if v.SingStageId and v.SingStageId ~= 0 then
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(v.SingStageId)
-                stageInfo.Type = XDataCenter.FubenManager.StageType.Experiment
-                if v.StarReward and v.StarReward ~= 0 then stageInfo.HasReward = true end
-            end
-            if v.MultStageId and v.MultStageId ~= 0 then
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(v.MultStageId)
-                stageInfo.Type = XDataCenter.FubenManager.StageType.Experiment
-                if v.StarReward and v.StarReward ~= 0 then stageInfo.HasReward = true end
-            end
+    function XFubenExperimentManager.CheckSkinTrialRedPointById(id)
+        local trialCfg = TrialLevel[id]
+        if not trialCfg or not XFunctionManager.CheckInTimeByTimeId(trialCfg.TimeId) then
+            return false
         end
+
+        return XFubenExperimentManager.CheckBannerRedPoint(trialCfg)
     end
+
+    --function XFubenExperimentManager.InitStageInfo()
+    --    for k, v in ipairs(TrialLevel) do
+    --        if v.SingStageId and v.SingStageId ~= 0 then
+    --            local stageInfo = XDataCenter.FubenManager.GetStageInfo(v.SingStageId)
+    --            stageInfo.Type = XDataCenter.FubenManager.StageType.Experiment
+    --            if v.StarReward and v.StarReward ~= 0 then stageInfo.HasReward = true end
+    --        end
+    --        if v.MultStageId and v.MultStageId ~= 0 then
+    --            local stageInfo = XDataCenter.FubenManager.GetStageInfo(v.MultStageId)
+    --            stageInfo.Type = XDataCenter.FubenManager.StageType.Experiment
+    --            if v.StarReward and v.StarReward ~= 0 then stageInfo.HasReward = true end
+    --        end
+    --    end
+    --end
 
     function XFubenExperimentManager.ShowReward(winData)
         local stageId = winData.StageId
@@ -408,6 +436,36 @@ XFubenExperimentManagerCreator = function()
 
         return false
     end
+    ------------------副本入口扩展 start-------------------------
+    function XFubenExperimentManager:ExGetIcon()
+        local skinLevelConfig = XFubenExperimentManager.GetCurrActivtySkin()
+        if skinLevelConfig then
+            return skinLevelConfig.ChapterIcon
+        end
+
+        return self:ExGetConfig().Icon
+    end
+
+    function XFubenExperimentManager:ExCheckIsShowRedPoint()
+        return XFubenExperimentManager.CheckExperimentRedPoint()
+    end
+
+    function XFubenExperimentManager:ExGetTagInfo()
+        local skinLevelConfig = XFubenExperimentManager.GetCurrActivtySkin()
+        if skinLevelConfig then
+            return true, CS.XTextManager.GetText("FuBenExperimentSkinTag")
+        end
+        return false
+    end
+
+    function XFubenExperimentManager:ExOpenMainUi()
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenActivityTrial) then
+            return
+        end
+        XLuaUiManager.Open("UiFubenExperiment")
+    end
+    
+    ------------------副本入口扩展 end-------------------------
 
     XFubenExperimentManager.Init()
     return XFubenExperimentManager

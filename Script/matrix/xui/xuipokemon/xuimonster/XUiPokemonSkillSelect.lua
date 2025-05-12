@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridPokemonMonsterSelectSkill = require("XUi/XUiPokemon/XUiMonster/XUiGridPokemonMonsterSelectSkill")
 
 local XUiPokemonSkillSelect = XLuaUiManager.Register(XLuaUi, "UiPokemonSkillSelect")

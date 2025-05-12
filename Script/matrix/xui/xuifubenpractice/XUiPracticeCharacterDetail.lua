@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPracticeCharacterDetail = XLuaUiManager.Register(XLuaUi,"UiPracticeCharacterDetail")
 
 function XUiPracticeCharacterDetail:OnAwake()
@@ -34,17 +36,13 @@ function XUiPracticeCharacterDetail:UpdateCommon()
         self[string.format("TxtActive%d", i)].text = stageCfg.StarDesc[i]
     end
 
-    self.TxtATNums.text = stageCfg.RequireActionPoint or 0
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(self.StageId)
 end
 
 function XUiPracticeCharacterDetail:OnBtnEnterClick()
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageId)
     if XDataCenter.FubenManager.CheckPreFight(stageCfg) then
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", stageCfg.StageId)
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", stageCfg.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", stageCfg.StageId)
         self:Close()
     end
 end

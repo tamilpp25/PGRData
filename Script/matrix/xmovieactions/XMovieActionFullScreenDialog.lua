@@ -2,11 +2,9 @@ local pairs = pairs
 local XUiGridSingleDialog = require("XUi/XUiMovie/XUiGridSingleDialog")
 local DefaultColor = CS.UnityEngine.Color.white
 local PlayingCvInfo
+local stringUtf8Len = string.Utf8Len
 
 local XMovieActionFullScreenDialog = XClass(XMovieActionBase, "XMovieActionFullScreenDialog")
-
-local DoNextInterval = 0.5
-local LastDonextTime = 0
 
 function XMovieActionFullScreenDialog:Ctor(actionData)
     local params = actionData.Params
@@ -26,10 +24,11 @@ function XMovieActionFullScreenDialog:Ctor(actionData)
     self.ChangeLinePlus = paramToNumber(params[7])
     self.IsReset = paramToNumber(params[8]) ~= 0
     self.IsClose = paramToNumber(params[9]) ~= 0
+    self.IsCenter = paramToNumber(params[10]) ~= 0
 end
 
 function XMovieActionFullScreenDialog:GetEndDelay()
-    return self.IsAutoPlay and XMovieConfigs.AutoPlayDelay or 0
+    return self.IsAutoPlay and XMovieConfigs.AutoPlayDelay + stringUtf8Len(self.DialogContent) * XMovieConfigs.PerWordDelay or 0
 end
 
 function XMovieActionFullScreenDialog:IsBlock()
@@ -46,9 +45,7 @@ end
 
 function XMovieActionFullScreenDialog:OnInit()
     self.IsAutoPlay = XDataCenter.MovieManager.IsAutoPlay()
-
-    self.UiRoot.BtnSkiplFullScreenDialog.CallBack = function() self:OnClickBtnSkipDialog() end
-    XDataCenter.InputManagerPc.RegisterFunc(CS.XUiPc.XUiPcCustomKeyEnum.UiMovieNext, self.UiRoot.BtnSkiplFullScreenDialog.CallBack, 0);
+    self.UiRoot:SetBtnNextCallback(function() self:OnClickBtnSkipDialog() end)
     self.UiRoot.PanelFullScreenDialog.gameObject:SetActiveEx(true)
     self.UiRoot.GridSingleDialog.gameObject:SetActiveEx(false)
 
@@ -57,21 +54,22 @@ function XMovieActionFullScreenDialog:OnInit()
         self.UiRoot.RImgBgFullScreenDialog:SetRawImage(bgPath)
     end
 
-    local dialogContent = self.DialogContent
+    -- 在对话前创建空行
+    if self.ChangeLinePlus < 0 then
+        self:CreateEmptyGrid(math.abs(self.ChangeLinePlus))
+    end
+
+    local dialogContent = XMVCA.XMovie:ExtractGenderContent(self.DialogContent)
     local grid = self:GetDialogGridFromPool()
-    grid:Refresh(dialogContent, self.Color, self.Duration, function()
+    grid:Refresh(dialogContent, self.IsCenter, self.Color, self.Duration, function()
         self:OnTypeWriterComplete()
     end)
     grid.GameObject:SetActiveEx(true)
     self.IsTyping = true
 
-    local isEmptyGrid = true
-    local emptyGridNum = self.ChangeLinePlus
-    for _ = 1, emptyGridNum do
-        local tmpGrid = self:GetDialogGridFromPool(isEmptyGrid)
-        local tmpDialogContent = " "
-        tmpGrid:Refresh(tmpDialogContent)
-        tmpGrid.GameObject:SetActiveEx(true)
+    -- 在对话后创建空行
+    if self.ChangeLinePlus > 0 then
+        self:CreateEmptyGrid(self.ChangeLinePlus)
     end
 
     local imgNext = self.UiRoot.ImgNext
@@ -85,7 +83,7 @@ function XMovieActionFullScreenDialog:OnInit()
     local cvId = self.CvId
     if cvId ~= 0 then
         self:StopLastCv()
-        PlayingCvInfo = XSoundManager.PlaySoundByType(cvId, XSoundManager.SoundType.CV)
+        PlayingCvInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Voice, cvId)
     end
 
     local dialogName = ""
@@ -96,6 +94,7 @@ function XMovieActionFullScreenDialog:OnDestroy()
     self.IsTyping = nil
     self.Skipped = nil
     self.IsAutoPlay = nil
+    self:ClearDelayId() -- 清理定时器
 
     if self.IsReset then
         self:ClearAllDialogGrids()
@@ -105,15 +104,10 @@ function XMovieActionFullScreenDialog:OnDestroy()
         self:ClearAllDialogGrids()
         self.UiRoot.PanelFullScreenDialog.gameObject:SetActiveEx(false)
     end
-    XDataCenter.InputManagerPc.UnregisterFunc(CS.XUiPc.XUiPcCustomKeyEnum.UiMovieNext)
+    self.UiRoot:RemoveBtnNextCallback()
 end
 
 function XMovieActionFullScreenDialog:OnClickBtnSkipDialog()
-    local time = CS.UnityEngine.Time.time
-    if time - LastDonextTime < DoNextInterval then
-        return
-    end
-    LastDonextTime = CS.UnityEngine.Time.time
     if self.IsTyping then
         if not self.IsCanSkip then return end
 
@@ -143,6 +137,7 @@ end
 
 function XMovieActionFullScreenDialog:OnSwitchAutoPlay(autoPlay)
     self.IsAutoPlay = autoPlay
+    self:ClearDelayId() -- 清理定时器
     if autoPlay and self.IsTyping == false then
         XEventManager.DispatchEvent(XEventId.EVENT_MOVIE_BREAK_BLOCK)
     end
@@ -192,6 +187,16 @@ end
 
 function XMovieActionFullScreenDialog:OnUndo()
     XDataCenter.MovieManager.RemoveFromReviewDialogList()
+end
+
+-- 创建空行
+function XMovieActionFullScreenDialog:CreateEmptyGrid(num)
+    for i = 1, num do
+        local tmpGrid = self:GetDialogGridFromPool(true)
+        local tmpDialogContent = " "
+        tmpGrid:Refresh(tmpDialogContent)
+        tmpGrid.GameObject:SetActiveEx(true)
+    end
 end
 
 return XMovieActionFullScreenDialog

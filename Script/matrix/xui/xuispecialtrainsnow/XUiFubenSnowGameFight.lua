@@ -20,6 +20,14 @@ function XUiFubenSnowGameFight:OnStart(winData, cb)
     self:InitPanelMedal()
     self:StartCountDown()
     XEventManager.AddEventListener(XEventId.EVENT_ROOM_KICKOUT, self.OnKickOut, self)
+
+    -- 开启自动关闭检查
+    local endTime = XDataCenter.FubenSpecialTrainManager.GetActivityEndTime()
+    self:SetAutoCloseInfo(endTime, function(isClose)
+        if isClose then
+            XDataCenter.FubenSpecialTrainManager.HandleActivityEndTime()
+        end
+    end)
 end
 
 function XUiFubenSnowGameFight:InitPlayerData()
@@ -30,8 +38,14 @@ function XUiFubenSnowGameFight:InitPlayerData()
         end
     end
     
-    local SpecialTrainRankFightResult = self.WinData.SettleData.SpecialTrainRankFightResult
+    self.ResultPlayer = {}
+    local settleData = self.WinData.SettleData
+    local SpecialTrainRankFightResult = settleData.SpecialTrainRankFightResult
     local players  = SpecialTrainRankFightResult and SpecialTrainRankFightResult.Players or nil
+
+    if not players then
+        return
+    end
     
     self.ResultPlayer = {}
     for _, player in pairs(players) do
@@ -39,35 +53,16 @@ function XUiFubenSnowGameFight:InitPlayerData()
     end
     
     local rankMvp = -1
-    local scoreMvpTable = {}
-
     local rankMvpValue = -1
-    local scoreMvpValue = -1
     XTool.LoopMap(self.ResultPlayer, function(k, v)
         if rankMvpValue == -1 or v.Ranking < rankMvpValue then
             rankMvpValue = v.Ranking
             rankMvp = k
         end
-
-        if scoreMvpValue == -1 or v.Score >= scoreMvpValue then
-            if v.Score > scoreMvpValue then
-                scoreMvpTable = {}
-                scoreMvpValue = v.Score
-            end
-            table.insert(scoreMvpTable,{ Ranking = v.Ranking, Mvp = k })
-        end
     end)
 
     if rankMvp ~= -1 and self.ResultPlayer[rankMvp] then
         self.ResultPlayer[rankMvp].IsRankingMvp = true
-    end
-
-    if not XTool.IsTableEmpty(scoreMvpTable) then
-        table.sort(scoreMvpTable,function(a, b) return a.Ranking < b.Ranking end)
-        local mvp = scoreMvpTable[1].Mvp
-        if self.ResultPlayer[mvp] then
-            self.ResultPlayer[mvp].IsScoreMvp = true
-        end
     end
 end
 

@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMoeWarRankingList = XLuaUiManager.Register(XLuaUi, "UiMoeWarRankingList")
 
 local XUiGridRank = require("XUi/XUiMoeWar/ChildItem/XUiGridRank")
@@ -8,7 +10,7 @@ function XUiMoeWarRankingList:OnAwake()
     self:AddListener()
     self.ActInfo = XDataCenter.MoeWarManager.GetActivityInfo()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(self.ActInfo.CurrencyId[1], function()
         self.AssetActivityPanel:Refresh(self.ActInfo.CurrencyId)
     end, self.AssetActivityPanel)

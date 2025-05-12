@@ -1,4 +1,5 @@
 XSpecialShopManagerCreator = function()
+    local ScreenAll = CS.XTextManager.GetText("ScreenAll")
     local XSpecialShopManager = {}
 
     ---
@@ -92,72 +93,116 @@ XSpecialShopManagerCreator = function()
         return a.Id < b.Id
     end
 
-    ---
-    --- 将'fashionData'分成最大长度为'maxSegSize'的分段，每一段都是同一系列的涂装
-    ---
-    --- 'fashionData'为 按涂装系列Id排序 的数组
-    --- 长度不足'maxSegSize'的分段，剩余的数据为nil
-    --- 'isSeries'是否要区分系列
-    local function Segment(fashionData, maxSegSize, isSeries)
-        local result = {}
-        local segmentation = {}
-        if next(fashionData) and isSeries then
-            segmentation.First = true -- 同系列的首个片段
-        end
+    -- 角色涂装商店：获取所有系列id列表
+    function XSpecialShopManager.GetSeriesIdList(shopId)
+       local goodsList = XShopManager.GetShopGoodsList(shopId)
+       local seriesIdDic = {}
+       for _, good in ipairs(goodsList) do
+            local fashionId = GetFashionId(good)
+            local seriesId = XDataCenter.FashionManager.GetFashionSeries(fashionId)
+            seriesIdDic[seriesId] = true
+       end
 
-        local preSeries -- 当前片段上一个涂装所属的系列，如果为nil，说明当前片段为空
-
-        for _, data in ipairs(fashionData) do
-            if #segmentation == maxSegSize then
-                -- 到达最大长度
-                table.insert(result, segmentation)
-                segmentation = {}
-                preSeries = nil
-            end
-
-            local curFashionId = GetFashionId(data)
-            local curSeries = XDataCenter.FashionManager.GetFashionSeries(curFashionId)
-
-            -- 是否需要区分系列
-            if preSeries  and isSeries then
-                if  preSeries ~= curSeries then
-                    -- 当前涂装与segmentation内的涂装不同系列,使用新的片段
-                    table.insert(result, segmentation)
-                    segmentation = {}
-                    segmentation.First = true
-                    preSeries = nil
-                end
-            end
-
-            if not segmentation.SeriesId then
-                segmentation.SeriesId = curSeries
-            end
-
-            table.insert(segmentation, data)
-            preSeries = curSeries
-        end
-
-        if next(segmentation) then
-            -- 把在循环中剩余的片段放入结果中
-            table.insert(result, segmentation)
-            segmentation = {}
-            preSeries = nil
-        end
-
-        return result
+       local seriesIdList = {}
+       for id, _ in pairs(seriesIdDic) do
+           table.insert(seriesIdList, id)
+       end
+       table.sort(seriesIdList)
+       return seriesIdList
     end
 
-    ---
-    --- 得到商品行的数据,一行有 XSpecialShopConfigs.MAX_COUNT 个商品
-    --- 'groupId'筛选组Id
-    --- 'selectTag'筛选标签
-    --- 'isSeries'是否要区分系列，true区分，false不区分
-    function XSpecialShopManager.GetCommodityLineData(shopId, groupId, selectTag, isSeries)
-        local goodsList = XShopManager.GetScreenGoodsListByTag(shopId, groupId, selectTag)
-        table.sort(goodsList, Sort)
+    -- 角色涂装商店：获取对应系列的商品
+    function XSpecialShopManager.GetFashionListBySeriesId(shopId, seriesId, tagTxt)
+        local screenData = XShopManager.GetShopScreenGroupDataById(XShopManager.ScreenType.FashionType)
+        local allGoodList = XShopManager.GetShopGoodsList(shopId)
+        local goodList = {}
+        for _, good in ipairs(allGoodList) do
+            local fashionId = GetFashionId(good)
+            local goodSeriesId = XDataCenter.FashionManager.GetFashionSeries(fashionId)
+            if goodSeriesId == seriesId then
+                if tagTxt and tagTxt ~= ScreenAll then 
+                    local charId = XDataCenter.FashionManager.GetCharacterId(good.RewardGoods.TemplateId)
+                    for index, screenID in pairs(screenData.ScreenID) do
+                        if charId == screenID then
+                            local screenName = screenData.ScreenName[index]
+                            if screenName == tagTxt then
+                                table.insert(goodList, good)
+                            end
+                            break
+                        end
+                    end
+                else 
+                    table.insert(goodList, good)
+                end
+            end
+        end
+        table.sort(goodList, Sort)
+        return goodList
+    end
 
-        goodsList = Segment(goodsList, XSpecialShopConfigs.MAX_COUNT, isSeries)
-        return goodsList
+    -- 角色涂装商店：获取系列的所有标签
+    function XSpecialShopManager.GetTagListBySeriesId(shopId, seriesId)
+        local tagDic = {}
+        local goodList = XSpecialShopManager.GetFashionListBySeriesId(shopId, seriesId)
+        local screenData = XShopManager.GetShopScreenGroupDataById(XShopManager.ScreenType.FashionType)
+        for _, good in pairs(goodList) do
+            local charId = XDataCenter.FashionManager.GetCharacterId(good.RewardGoods.TemplateId)
+            for index, screenID in pairs(screenData.ScreenID) do
+                if charId == screenID then
+                    local screenName = screenData.ScreenName[index]
+                    local tag = tagDic[screenName]
+                    if not tag then
+                        tag = {}
+                        tag.Text = screenName
+                        tag.Key = index
+                        tagDic[screenName] = tag
+                    end
+                    break
+                end
+            end
+        end
+
+        -- 全部页签
+        local minCount = 0
+        local allTag = {}
+        allTag.Text = ScreenAll
+        allTag.Key = minCount
+        tagDic[allTag.Text] = allTag
+
+        -- 转成list并排序
+        local tagList = {}
+        for _, tag in pairs(tagDic) do
+            table.insert(tagList, tag)
+        end
+        table.sort(tagList, function(a, b)
+            return a.Key < b.Key
+        end)
+
+        return tagList
+    end
+
+    -- 武器涂装商店：获取对应标签的武器涂装商品
+    function XSpecialShopManager.GetWeaponFashionListByTag(shopId, tagTxt)
+        local screenData = XShopManager.GetShopScreenGroupDataById(XShopManager.ScreenType.WeaponType)
+        local allGoodList = XShopManager.GetShopGoodsList(shopId)
+        local goodList = {}
+        for _, good in ipairs(allGoodList) do
+            if tagTxt and tagTxt ~= ScreenAll then
+                local equipType = XDataCenter.WeaponFashionManager.GetEquipTypeByTemplateId(good.RewardGoods.TemplateId)
+                for index, screenID in pairs(screenData.ScreenID) do
+                    if equipType == screenID then
+                        local screenName = screenData.ScreenName[index]
+                        if screenName == tagTxt then
+                            table.insert(goodList, good)
+                        end
+                        break
+                    end
+                end
+            else 
+                table.insert(goodList, good)
+            end
+        end
+        return goodList
     end
 
     ---

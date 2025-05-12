@@ -1,4 +1,4 @@
-XUiGridPrequelPlotTab = XClass(nil, "XUiGridPrequelPlotTab")
+local XUiGridPrequelPlotTab = XClass(nil, "XUiGridPrequelPlotTab")
 
 function XUiGridPrequelPlotTab:Ctor(ui, rootUi, index)
     self.GameObject = ui.gameObject

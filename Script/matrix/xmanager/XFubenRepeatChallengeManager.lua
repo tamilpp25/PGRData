@@ -1,257 +1,137 @@
+local XActivityBrieIsOpen = require("XUi/XUiActivityBrief/XActivityBrieIsOpen")
+--V2.1 复刷关玩法重做(如果想找回旧复刷关的代码，请从V2.0分支获取。)
 XFubenRepeatChallengeManagerCreator = function()
+    local METHOD_NAME = { --请求协议
+        Reward = "RepeatChallengeRewardRequest", --请求奖励
+    }
+    
     local pairs = pairs
     local tableInsert = table.insert
     local stringGsub = string.gsub
 
     local CurActivityId = XFubenRepeatChallengeConfigs.GetDefaultActivityId()
-    local SelectDifficult = false --记录上次是否选中挑战难度
-    local ChapterIdToPassedStageIdDic = {}  --章节Id-通关进度Dic
     local GotRewardIdCheckDic = {} -- 已领取奖励Id记录
-    local NewChapterTipInfo = {} -- 新章节开启提示
-    local StageIdToChapterId = {}
-    local AddLevelTip -- 权限等级增加提示
     -- 活动等级信息
     local LevelInfo = {
         Level = 0,
         Exp = 0,
         DayExp = 0,
     }
+    local AddLevelTip -- 权限等级增加提示
 
     local XFubenRepeatChallengeManager = {}
+    
+    ---是否要重设界面状态（不打开详细界面）
+    local resetPanelState=false
 
     XFubenRepeatChallengeManager.ExCostItemId = CS.XGame.ClientConfig:GetInt("FubenRepeatChallengeExCostItemId")   --复刷关门票Id(展示用)
-    XFubenRepeatChallengeManager.DifficultType = {
-        Normal = 1,
-        Difficult = 2,
-    }
 
     local GetIsFirstAutoFightOpenCookieKey = function ()
         local activityId = XFubenRepeatChallengeConfigs.GetDefaultActivityId()
         return "FubenRepeatChallengeIsFirstAutoFightOpen" .. XPlayer.Id .. activityId
     end
 
-    function XFubenRepeatChallengeManager.Init()
-        XEventManager.AddEventListener(XEventId.EVENT_FUBEN_REFRESH_STAGE_DATA, XFubenRepeatChallengeManager.RefreshStagePassed)
+    function XFubenRepeatChallengeManager.Init() end
+    
+    --======== 活动 功能开启相关 begin ============
+    --region 活动 功能开启相关
+    --活动是否开启
+    function XFubenRepeatChallengeManager.IsOpen()
+        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.RepeatChallenge, false, true) then
+            return true
+        end
+        return false
     end
 
-    function XFubenRepeatChallengeManager.InitStageInfo()
-        local config = XFubenRepeatChallengeManager.GetActivityConfig()
-
-        for _, chapterId in pairs(config.NormalChapter) do
-            local chapterCfg = XFubenRepeatChallengeConfigs.GetChapterCfg(chapterId)
-            for _, stageId in pairs(chapterCfg.StageId) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                stageInfo.Type = XDataCenter.FubenManager.StageType.RepeatChallenge
-                StageIdToChapterId[stageId] = chapterId
-            end
-        end
-
-        for _, chapterId in pairs(config.HiddenChapter) do
-            local chapterCfg = XFubenRepeatChallengeConfigs.GetChapterCfg(chapterId)
-            for _, stageId in pairs(chapterCfg.StageId) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                stageInfo.Type = XDataCenter.FubenManager.StageType.RepeatChallenge
-                StageIdToChapterId[stageId] = chapterId
-            end
-        end
+    --获取活动设置
+    function XFubenRepeatChallengeManager.GetActivityConfig()
+        return XFubenRepeatChallengeConfigs.GetActivityConfig(CurActivityId)
     end
     
-    function XFubenRepeatChallengeManager.GetChapterIdByStageId(stageId)
-        return StageIdToChapterId[stageId]
+    function XFubenRepeatChallengeManager.ExCheckIsFinished()
+        return false
     end
+    
+    -- 商店数据预请求，以支持蓝点判断
+    function XFubenRepeatChallengeManager.ActivityShopPreload()
+        if  XFubenRepeatChallengeManager.IsOpen() and XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon,false,true) then
+            ---@type XTableRepeatChallengeActivity
+            local activityCfg = XDataCenter.FubenRepeatChallengeManager.GetActivityConfig()
 
-    function XFubenRepeatChallengeManager.ResetNewChapterTipInfo()
-        NewChapterTipInfo = {}
-    end
-
-    function XFubenRepeatChallengeManager.GetNewChapterTipInfo()
-        return NewChapterTipInfo
-    end
-
-    function XFubenRepeatChallengeManager.UpdateChapterGotRewardIds(rewardIds)
-        GotRewardIdCheckDic = {}
-        if not rewardIds then return end
-        for _, rewardId in pairs(rewardIds) do
-            GotRewardIdCheckDic[rewardId] = true
-        end
-    end
-
-    function XFubenRepeatChallengeManager.UpdateChapterIdToPassedStageIdDic(chapterInfos)
-        ChapterIdToPassedStageIdDic = {}
-
-        if not chapterInfos then return end
-        for _, chapterInfo in pairs(chapterInfos) do
-            ChapterIdToPassedStageIdDic[chapterInfo.Id] = chapterInfo.FinishStages
-        end
-
-        XFubenRepeatChallengeManager.RefreshStagePassed()
-    end
-
-    local function RefreshStagePassedByChapterIds(chapterIds)
-        for _, chapterId in pairs(chapterIds) do
-            local passedStageIds = ChapterIdToPassedStageIdDic[chapterId]
-            local schedule = passedStageIds and #passedStageIds or 0
-            local chapterCfg = XFubenRepeatChallengeConfigs.GetChapterCfg(chapterId)
-            for index, stageId in pairs(chapterCfg.StageId) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                if index <= schedule then
-                    stageInfo.Passed = true
-                else
-                    stageInfo.Passed = false
-                end
-
-                if index <= schedule + 1 then
-                    stageInfo.Unlock = true
-                    stageInfo.IsOpen = true
-                else
-                    stageInfo.IsOpen = false
-                end
-            end
-        end
-    end
-
-    function XFubenRepeatChallengeManager.RefreshStagePassed()
-        local config = XFubenRepeatChallengeManager.GetActivityConfig()
-        RefreshStagePassedByChapterIds(config.NormalChapter)
-        RefreshStagePassedByChapterIds(config.HiddenChapter)
-    end
-
-    function XFubenRepeatChallengeManager.PassStage(stageId)
-        local chapterId = XFubenRepeatChallengeConfigs.GetChapterIdByStageId(stageId)
-        local chapterStagePassedInfo = ChapterIdToPassedStageIdDic[chapterId] or {}
-        for _, existStageId in pairs(chapterStagePassedInfo) do
-            if existStageId == stageId then
-                return
-            end
-        end
-
-        tableInsert(chapterStagePassedInfo, stageId)
-        ChapterIdToPassedStageIdDic[chapterId] = chapterStagePassedInfo
-        XFubenRepeatChallengeManager.RefreshStagePassed()
-    end
-
-    function XFubenRepeatChallengeManager.GetActivitySections()
-        local sections = {}
-
-        if XFubenRepeatChallengeManager.IsOpen() then
-            local curId = XFubenRepeatChallengeManager.GetCurChapterId(XFubenRepeatChallengeManager.DifficultType.Normal)
-            if not curId then
-                XLog.Error("XFubenRepeatChallengeManager.GetActivitySections Error: 复刷关时间配置错误, 活动开启中但没有可用作战章节时间, 配置路径：" .. XFubenRepeatChallengeConfigs.GetChapterCfgPath())
-                return sections
+            if activityCfg and XTool.IsNumberValid(activityCfg.ActcvityShopId) then
+                XShopManager.GetShopInfo(activityCfg.ActcvityShopId, nil, true)
             end
 
-            local section = {
-                Id = curId,
-                Type = XDataCenter.FubenManager.ChapterType.RepeatChallenge,
-            }
-            tableInsert(sections, section)
         end
-
-        return sections
     end
+    --endregion
+    --======== 活动 功能开启相关 end ============
+    
+    --======== 活动UI相关 end ============
+    -- 重写限时活动界面里基类的方法 在FubenManagerEx.Init()里使用
 
-    function XFubenRepeatChallengeManager.GetChapterId(difficultType, index)
-        local chapterIds = XFubenRepeatChallengeManager.GetChapterIds(difficultType)
-        return chapterIds[index]
+    --======== 活动UI相关 end ============
+    
+    --======== UI操作 begin ==========
+    --region UI操作
+    -- v1.31 直接打开商店，不带播放效果
+    function XFubenRepeatChallengeManager.OpenShop()
+        local skipId = XDataCenter.FubenRepeatChallengeManager.GetActivityConfig().ShopSkipId
+        XFunctionManager.SkipInterface(skipId)
     end
-
-    function XFubenRepeatChallengeManager.GetChapterNum(difficultType)
-        local chapterIds = XDataCenter.FubenRepeatChallengeManager.GetChapterIds(difficultType)
-        return chapterIds and #chapterIds or 0
-    end
-
-    function XFubenRepeatChallengeManager.GetAllChapterIds()
-        local allChapterIds = {}
-        for _, difficultType in pairs(XFubenRepeatChallengeManager.DifficultType) do
-            local chapterIds = XFubenRepeatChallengeManager.GetChapterIds(difficultType)
-            for _, chapterId in pairs(chapterIds) do
-                if chapterId ~= 0 then
-                    tableInsert(allChapterIds, chapterId)
-                end
-            end
+    -- v1.31 打开商店，可回调播放动画
+    function XFubenRepeatChallengeManager.OpenShopByCB(closeCb, openCb, ignoreClosedShopId)
+        if not XFubenRepeatChallengeManager.IsOpen() then
+            XUiManager.TipText("ShopIsNotOpen")
+            return
         end
-        return allChapterIds
-    end
-
-    function XFubenRepeatChallengeManager.GetChapterIds(difficultType)
-        local config = XFubenRepeatChallengeManager.GetActivityConfig()
-        return difficultType == XFubenRepeatChallengeManager.DifficultType.Difficult and config.HiddenChapter or config.NormalChapter
-    end
-
-    function XFubenRepeatChallengeManager.GetCurChapterIndex(difficultType)
-        local curChapterIndex
-
-        local chapterIds = XFubenRepeatChallengeManager.GetChapterIds(difficultType)
-        if XFubenRepeatChallengeManager.IsStatusEqualFightEnd() then
-            curChapterIndex = #chapterIds
-        else
-            for index, chapterId in ipairs(chapterIds) do
-                curChapterIndex = XFubenRepeatChallengeManager.IsChapterUnlock(chapterId) and index or curChapterIndex
-            end
+        
+        local isOpen, desc = XActivityBrieIsOpen.Get(XActivityBriefConfigs.ActivityGroupId.ActivityBriefShop)
+        if not isOpen then
+            XUiManager.TipMsg(desc)
+            return
         end
-
-        return curChapterIndex
+        
+        local functionId = XFunctionManager.FunctionName.ShopActive
+        local isOpen = XFunctionManager.JudgeCanOpen(functionId)
+        if not isOpen then
+            XUiManager.TipError(XFunctionManager.GetFunctionOpenCondition(functionId))
+            return
+        end
+        XDataCenter.ActivityBriefManager.OpenShop(closeCb, openCb, nil, nil, ignoreClosedShopId)
     end
-
-    function XFubenRepeatChallengeManager.GetCurChapterId(difficultType)
-        local curChapterIndex = XFubenRepeatChallengeManager.GetCurChapterIndex(difficultType)
-        local chapterIds = XFubenRepeatChallengeManager.GetChapterIds(difficultType)
-        return chapterIds[curChapterIndex]
+    --endregion
+    --======== UI操作 end ==========
+    
+    --======== 获取UI数据 begin =========
+    --region 获取UI数据
+    --获取章节(改版后只有一个章节)
+    function XFubenRepeatChallengeManager.GetChapterId()
+        local chapterId = XFubenRepeatChallengeConfigs.GetActivityChapterId(CurActivityId)
+        return chapterId
     end
-
-    function XFubenRepeatChallengeManager.GetChapterFinishCount(chapterId)
-        local chapterPassedInfo = ChapterIdToPassedStageIdDic[chapterId]
-        return chapterPassedInfo and #chapterPassedInfo or 0
+    
+    --获取战斗关卡ID(改版后只有一个关卡)
+    function XFubenRepeatChallengeManager.GetStageId()
+        local stageId = XFubenRepeatChallengeConfigs.GetActivityStageId(CurActivityId)
+        return stageId
     end
-
-    function XFubenRepeatChallengeManager.GetActivityBeginTime()
-        local config = XFubenRepeatChallengeManager.GetActivityConfig()
-        return XFunctionManager.GetStartTimeByTimeId(config.ActivityTimeId)
-    end
-
-    function XFubenRepeatChallengeManager.GetActivityChallengeBeginTime()
-        local config = XFubenRepeatChallengeManager.GetActivityConfig()
-        return XFunctionManager.GetStartTimeByTimeId(config.ChallengeTimeId)
-    end
-
-    function XFubenRepeatChallengeManager.GetFightEndTime()
-        local config = XFubenRepeatChallengeManager.GetActivityConfig()
-        return XFunctionManager.GetEndTimeByTimeId(config.FightTimeId)
-    end
-
-    function XFubenRepeatChallengeManager.GetActivityEndTime()
-        local config = XFubenRepeatChallengeManager.GetActivityConfig()
-        return XFunctionManager.GetEndTimeByTimeId(config.ActivityTimeId)
-    end
-
-    function XFubenRepeatChallengeManager.GetActDescription()
-        local config = XFubenRepeatChallengeManager.GetActivityConfig()
-        return stringGsub(config.ActDescription, "\\n", "\n")
-    end
-
-    function XFubenRepeatChallengeManager.GetSelectDifficult()
-        return SelectDifficult
-    end
-
-    function XFubenRepeatChallengeManager.SelectDifficult(selectDifficult)
-        SelectDifficult = selectDifficult
-    end
-
+    --获取权限等级
     function XFubenRepeatChallengeManager.GetLevel()
         return LevelInfo.Level
     end
-
+    --获取下一个需要展示升级UI的权限等级
     function XFubenRepeatChallengeManager.GetNextShowLevel()
         for i = LevelInfo.Level + 1, XFubenRepeatChallengeConfigs.GetMaxLevel() do
             local levelConfig = XFubenRepeatChallengeConfigs.GetLevelConfig(i)
             if levelConfig.NeedShow then return i end
         end
     end
-
+    --获取权限总经验值
     function XFubenRepeatChallengeManager.GetOriginExp()
         return LevelInfo.Exp
     end
-
+    --获取当前权限等级的经验值
     function XFubenRepeatChallengeManager.GetExp()
         local totalExp = LevelInfo.Exp
         local level = XFubenRepeatChallengeManager.GetLevel()
@@ -261,130 +141,86 @@ XFubenRepeatChallengeManagerCreator = function()
         end
         return totalExp
     end
-
+    --获取当日经验值？
     function XFubenRepeatChallengeManager.GetDayExp()
         return LevelInfo.DayExp
     end
-
-    function XFubenRepeatChallengeManager.GetSelectDifficult()
-        return SelectDifficult
-    end
-
-    function XFubenRepeatChallengeManager.GetActivityConfig()
-        return XFubenRepeatChallengeConfigs.GetActivityConfig(CurActivityId)
-    end
-
-    function XFubenRepeatChallengeManager.GetChapterRewardId(chapterId)
-        local rewardConfig = XFubenRepeatChallengeConfigs.GetChapterRewardConfig(chapterId)
-        return rewardConfig.RewardId
-    end
-
-    function XFubenRepeatChallengeManager.GetChapterBeginTime(chapterId)
-        local chapterConfig = XFubenRepeatChallengeConfigs.GetChapterCfg(chapterId)
-        return XFunctionManager.GetStartTimeByTimeId(chapterConfig.TimeId)
-    end
-
-    function XFubenRepeatChallengeManager.GetChapterEndTime(chapterId)
-        local chapterConfig = XFubenRepeatChallengeConfigs.GetChapterCfg(chapterId)
-        return XFunctionManager.GetEndTimeByTimeId(chapterConfig.TimeId)
-    end
-
+    --获取权限BUFF的描述
     function XFubenRepeatChallengeManager.GetBuffDes(buffId)
         local fightEventCfg = buffId and buffId ~= 0 and CS.XNpcManager.GetFightEventTemplate(buffId)
         return fightEventCfg and fightEventCfg.Description
     end
-
+    --判断是否到达等级
     function XFubenRepeatChallengeManager.IsLevelReach(checkLevel)
         local level = XFubenRepeatChallengeManager.GetLevel()
         return level >= checkLevel
     end
-
-    -- 判断关卡是否可自动作战
-    function XFubenRepeatChallengeManager.IsStageCanAutoFight(stageId)
-        local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-        local isPassed = stageInfo and stageInfo.Passed or false
-        return XFubenRepeatChallengeManager.IsAutoFightOpen() and isPassed
+    function XFubenRepeatChallengeManager.GetActDescription()
+        local config = XFubenRepeatChallengeManager.GetActivityConfig()
+        return stringGsub(config.ActDescription, "\\n", "\n")
     end
+    
+    function XFubenRepeatChallengeManager.GetShowRewardId()
+        ---@type XTableRepeatChallengeActivity
+        local activityCfg = XFubenRepeatChallengeManager.GetActivityConfig()
+        
+        -- 选择在开启时间段的奖励展示。当存在多个时显示数组下标更大的奖励
+        if activityCfg then
+            if not XTool.IsTableEmpty(activityCfg.ActivityRewardIds) and not XTool.IsTableEmpty(activityCfg.RewardShowTimeIds) then
+                for i = #activityCfg.RewardShowTimeIds, 1, -1 do
+                    if XFunctionManager.CheckInTimeByTimeId(activityCfg.RewardShowTimeIds[i]) and XTool.IsNumberValid(activityCfg.ActivityRewardIds[i]) then
+                        return activityCfg.ActivityRewardIds[i]
+                    end
+                end
+            end
+        end
+        
+        return 0
+    end
+    --endregion
+    --======== 获取UI数据 end =========
 
+    --======== 红点 begin =========
+    --获取是否有奖励红点
+    function XFubenRepeatChallengeManager.GetRewardRed(taskTimeLimitId)
+        ---@type XTableTaskTimeLimit
+        local taskListCfg = XTaskConfig.GetTimeLimitTaskCfg(taskTimeLimitId)
+        if taskListCfg then
+            for i, taskId in ipairs(taskListCfg.TaskId) do
+                if XDataCenter.TaskManager.CheckTaskAchieved(taskId) then
+                    return true
+                end
+            end
+        end
+        return false
+    end
+    --======== 红点 end =========
+    
+    --======== 自动战斗 begin =========
+    --region 自动战斗
+    --检查是否开启了自动战斗
     function XFubenRepeatChallengeManager.IsAutoFightOpen()
         local level = XFubenRepeatChallengeManager.GetLevel()
         return level >= XFubenRepeatChallengeConfigs.GetMaxLevel()
     end
-
+    --检查是否第一次开启自动战斗(用来播放教程？)
     function XFubenRepeatChallengeManager.GetIsFirstAutoFightOpen()
         local isFirstAutoFightOpen = GetIsFirstAutoFightOpenCookieKey()
         return XSaveTool.GetData(isFirstAutoFightOpen) or false
-    end
-
+    end 
     -- 本地缓存是否第一次开启自动作战
     function XFubenRepeatChallengeManager.SetAutoFightOpen()
         local isFirstAutoFightOpen = GetIsFirstAutoFightOpenCookieKey()
         return XSaveTool.SaveData(isFirstAutoFightOpen, true)
     end
+    --endregion
+    --======== 自动战斗 end =========
 
-    function XFubenRepeatChallengeManager.IsBeforeChapterTime(chapterId)
-        local chapterConfig = XFubenRepeatChallengeConfigs.GetChapterCfg(chapterId)
-        local now = XTime.GetServerNowTimestamp()
-        local beginTime = XFunctionManager.GetStartTimeByTimeId(chapterConfig.TimeId)
-        return now < beginTime
-    end
-
-    function XFubenRepeatChallengeManager.IsChapterUnlock(chapterId)
-        local chapterConfig = XFubenRepeatChallengeConfigs.GetChapterCfg(chapterId)
-        local now = XTime.GetServerNowTimestamp()
-        local beginTime = XFunctionManager.GetStartTimeByTimeId(chapterConfig.TimeId)
-        local endTime = XFunctionManager.GetEndTimeByTimeId(chapterConfig.TimeId)
-        return beginTime <= now and now < endTime
-    end
-
-    function XFubenRepeatChallengeManager.IsStageFinished(stageId)
-        return XFubenRepeatChallengeManager.IsChapterFinished(StageIdToChapterId[stageId])
-    end
-
-    function XFubenRepeatChallengeManager.IsChapterFinished(chapterId)
-        local chapterConfig = XFubenRepeatChallengeConfigs.GetChapterCfg(chapterId)
-        local now = XTime.GetServerNowTimestamp()
-        local endTime = XFunctionManager.GetEndTimeByTimeId(chapterConfig.TimeId)
-        return now > endTime
-    end
-
-    function XFubenRepeatChallengeManager.IsStatusEqualFightEnd()
-        local now = XTime.GetServerNowTimestamp()
-        local fightEndTime = XFubenRepeatChallengeManager.GetFightEndTime()
-        local endTime = XFubenRepeatChallengeManager.GetActivityEndTime()
-        return fightEndTime <= now and now < endTime
-    end
-
-    function XFubenRepeatChallengeManager.IsStatusEqualChallengeBegin()
-        local now = XTime.GetServerNowTimestamp()
-        local challengeBeginTime = XFubenRepeatChallengeManager.GetActivityChallengeBeginTime()
-        local endTime = XFubenRepeatChallengeManager.GetActivityEndTime()
-        return challengeBeginTime <= now and now < endTime
-    end
-
-    function XFubenRepeatChallengeManager.IsOpen()
-        local nowTime = XTime.GetServerNowTimestamp()
-        local beginTime = XFubenRepeatChallengeManager.GetActivityBeginTime()
-        local endTime = XFubenRepeatChallengeManager.GetActivityEndTime()
-        return beginTime <= nowTime and nowTime < endTime
-    end
-
-    function XFubenRepeatChallengeManager.IsDifficultModeOpen()
-        local config = XFubenRepeatChallengeManager.GetActivityConfig()
-        local conditionId = config.HideChapterConditionId
-        if conditionId ~= 0 then
-            return XConditionManager.CheckCondition(conditionId)
-        end
-        return true
-    end
-
+    --==========请求 Begin===========--
+    --region 请求
+    --检查预战斗数据
     function XFubenRepeatChallengeManager.CheckPreFight(stage, challengeCount)
         if not XDataCenter.FubenRepeatChallengeManager.IsOpen() then
-            XUiManager.TipText("ActivityRepeatChallengeOver")
-            return false
-        end
-
-        if XDataCenter.FubenRepeatChallengeManager.IsStatusEqualFightEnd() then
             XUiManager.TipText("ActivityRepeatChallengeOver")
             return false
         end
@@ -397,90 +233,65 @@ XFubenRepeatChallengeManagerCreator = function()
 
         return true
     end
-
-    function XFubenRepeatChallengeManager.CheckChapterRewardCanGetReal(chapterId)
-        if not XFubenRepeatChallengeManager.IsOpen() then return false end
-        if XFubenRepeatChallengeManager.IsBeforeChapterTime(chapterId) then return false end
-
-        local canGet = XFubenRepeatChallengeManager.CheckChapterRewardCanGet(chapterId)
-        local hasGot = XFubenRepeatChallengeManager.CheckChapterRewardGot(chapterId)
-        return canGet and not hasGot
-    end
-
-    function XFubenRepeatChallengeManager.CheckChapterRewardGot(chapterId)
-        return GotRewardIdCheckDic[chapterId]
-    end
-
-    function XFubenRepeatChallengeManager.CheckChapterRewardCanGet(chapterId)
-        local rewardConfig = XFubenRepeatChallengeConfigs.GetChapterRewardConfig(chapterId)
-        local conditionId = rewardConfig.Condition
-        if conditionId ~= 0 then
-            return XConditionManager.CheckCondition(conditionId)
-        end
-    end
-
-    function XFubenRepeatChallengeManager.OnActivityEnd()
-        if CS.XFight.IsRunning or XLuaUiManager.IsUiLoad("UiLoading") then
-            return
-        end
-        XUiManager.TipText("ActivityRepeatChallengeOver")
-        XLuaUiManager.RunMain()
-    end
-
+    --显示胜利结算
     function XFubenRepeatChallengeManager.ShowReward(winData)
         if not winData then return end
-        XFubenRepeatChallengeManager.PassStage(winData.StageId)
         XLuaUiManager.Open("UiRepeatChallengeSettleWin", winData, AddLevelTip)
     end
-
-    function XFubenRepeatChallengeManager.NotifyRepeatChallengeData(data)
-        CurActivityId = data.Id
-        LevelInfo = data.ExpInfo
-        XFubenRepeatChallengeManager.UpdateChapterGotRewardIds(data.RewardIds)
-        XFubenRepeatChallengeManager.UpdateChapterIdToPassedStageIdDic(data.RcChapters)
-    end
-
-    function XFubenRepeatChallengeManager.UpdateLevelInfo(data)
-        local oldExp = XFubenRepeatChallengeManager.GetOriginExp()
-        local oldCurNormalChapterIndex = XFubenRepeatChallengeManager.GetCurChapterIndex(XFubenRepeatChallengeManager.DifficultType.Normal)
-        local oldCurDifficultChapterIndex = XFubenRepeatChallengeManager.GetCurChapterIndex(XFubenRepeatChallengeManager.DifficultType.Difficult)
-        LevelInfo = data.ExpInfo
-        local newExp = XFubenRepeatChallengeManager.GetOriginExp()
-        local newCurNormalChapterIndex = XFubenRepeatChallengeManager.GetCurChapterIndex(XFubenRepeatChallengeManager.DifficultType.Normal)
-        local newCurDifficultChapterIndex = XFubenRepeatChallengeManager.GetCurChapterIndex(XFubenRepeatChallengeManager.DifficultType.Difficult)
-
-        if oldCurNormalChapterIndex ~= newCurNormalChapterIndex then
-            NewChapterTipInfo.OldIndex = oldCurNormalChapterIndex
-            NewChapterTipInfo.NewIndex = newCurNormalChapterIndex
-        elseif oldCurDifficultChapterIndex ~= newCurDifficultChapterIndex then
-            NewChapterTipInfo.OldIndex = oldCurDifficultChapterIndex
-            NewChapterTipInfo.NewIndex = newCurDifficultChapterIndex
-        end
-
-        local addExp = newExp - oldExp
-        if addExp > 0 then
-            AddLevelTip = addExp
-        end
-    end
-
-    function XFubenRepeatChallengeManager.ClearAddLevelTip()
-        AddLevelTip = nil
-    end
-
-    function XFubenRepeatChallengeManager.RequesetGetReward(chapterId, cb)
-        if not chapterId or chapterId == 0 then return end
-        XNetwork.Call("RepeatChallengeRewardRequest", { Id = chapterId }, function(res)
+    --请求获取奖励
+    function XFubenRepeatChallengeManager.RequesetGetReward(rewardId, rewardCB)
+        if not rewardId or rewardId == 0 then return end
+        if GotRewardIdCheckDic[rewardId] then return end
+        XNetwork.Call(METHOD_NAME.Reward, { Id = rewardId }, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
                 return
             end
-
-            GotRewardIdCheckDic[chapterId] = true
-
-            if cb then cb(res.RewardGoodsList) end
+            GotRewardIdCheckDic[rewardId] = true
+            if next(res.RewardGoodsList) then
+                XUiManager.OpenUiObtain(res.RewardGoodsList, nil,rewardCB)
+            end
         end)
     end
+    --endregion
+    --==========请求 End===========--
 
+    --数据更新通知
+    function XFubenRepeatChallengeManager.NotifyRepeatChallengeData(data)
+        CurActivityId = data.Id
+        LevelInfo = data.ExpInfo
+        XFubenRepeatChallengeManager.UpdateChapterGotRewardIds(data.RewardIds)
+
+        XFubenRepeatChallengeManager.ActivityShopPreload()
+    end
+    function XFubenRepeatChallengeManager.UpdateChapterGotRewardIds(rewardIds)
+        GotRewardIdCheckDic = {}
+        if not rewardIds then return end
+        for _, rewardId in pairs(rewardIds) do
+            GotRewardIdCheckDic[rewardId] = true
+        end
+    end
+
+    --权限等级数据通知
+    function XFubenRepeatChallengeManager.NotifyRcExpChange(data)
+        local addExp = data.ExpInfo.Exp - LevelInfo.Exp
+        LevelInfo = data.ExpInfo
+        if addExp > 0 then
+            AddLevelTip = addExp
+        end
+    end
+    function XFubenRepeatChallengeManager.ClearAddLevelTip()
+        AddLevelTip = nil
+    end
+    
+    function XFubenRepeatChallengeManager.ResetPanelState(bool)
+        resetPanelState=bool
+    end
+    
+    function XFubenRepeatChallengeManager.IsResetPanelState()
+        return resetPanelState
+    end
+    
     XFubenRepeatChallengeManager.Init()
     return XFubenRepeatChallengeManager
 end
@@ -490,5 +301,5 @@ XRpc.NotifyRepeatChallengeData = function(data)
 end
 
 XRpc.NotifyRcExpChange = function(data)
-    XDataCenter.FubenRepeatChallengeManager.UpdateLevelInfo(data)
+    XDataCenter.FubenRepeatChallengeManager.NotifyRcExpChange(data)
 end

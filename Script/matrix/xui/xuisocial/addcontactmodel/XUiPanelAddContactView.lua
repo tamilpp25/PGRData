@@ -1,4 +1,5 @@
-XUiPanelAddContactView = XClass(nil, "XUiPanelAddContactView")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiPanelAddContactView = XClass(nil, "XUiPanelAddContactView")
 local XUiGridAddContactItem = require("XUi/XUiSocial/AddContactModel/XUiGridAddContactItem")
 
 function XUiPanelAddContactView:Ctor(ui, rootUi)
@@ -52,7 +53,7 @@ function XUiPanelAddContactView:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -95,6 +96,8 @@ function XUiPanelAddContactView:OnBtnSerachClick()--搜索玩家
         else
             XDataCenter.SocialManager.SearchPlayer(inputid, callback)
         end
+    elseif inputid == nil then
+        XUiManager.TipText("PleaseEnterPlayerID")
     end
 end
 --------------------------End Btn Event--------------------------
@@ -182,3 +185,5 @@ function XUiPanelAddContactView:OnClose()
         self.SearchTimer = nil
     end
 end
+
+return XUiPanelAddContactView

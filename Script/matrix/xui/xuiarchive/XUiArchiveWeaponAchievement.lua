@@ -1,3 +1,4 @@
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
 
 --
 -- Author: wujie
@@ -9,9 +10,9 @@ local XUiGridArchiveWeaponAchievement = require("XUi/XUiArchive/XUiGridArchiveWe
 
 function XUiArchiveWeaponAchievement:OnAwake()
     self.GridCollectionList = {
-        XUiGridArchiveWeaponAchievement.New(self.GridCollection1),
-        XUiGridArchiveWeaponAchievement.New(self.GridCollection2),
-        XUiGridArchiveWeaponAchievement.New(self.GridCollection3),
+        XUiGridArchiveWeaponAchievement.New(self.GridCollection1,self),
+        XUiGridArchiveWeaponAchievement.New(self.GridCollection2,self),
+        XUiGridArchiveWeaponAchievement.New(self.GridCollection3,self),
     }
     for _, grid in ipairs(self.GridCollectionList) do
         grid:SetClickCallback(handler(self, self.OnGridClick))
@@ -27,15 +28,15 @@ end
 function XUiArchiveWeaponAchievement:OnEnable()
     if not self.Parent then return end
     local type = self.Parent.BtnGroupTypeList[self.Parent.FirstHierarchyFilterSelectIndex]
-    local idList = XArchiveConfigs.GetWeaponTemplateIdListByType(type)
+    local idList = self._Control:GetWeaponTemplateIdListByType(type)
     local haveCollectNum = 0
     for _, templateId in pairs(idList) do
-        if XDataCenter.ArchiveManager.IsWeaponGet(templateId) then
+        if XMVCA.XArchive:IsWeaponGet(templateId) then
             haveCollectNum = haveCollectNum + 1
         end
     end
 
-    local groupData = XArchiveConfigs.GetWeaponGroupByType(type)
+    local groupData = XMVCA.XArchive:GetWeaponGroupByType(type)
     local achievementNum = #groupData.CollectNum
 
     for i, grid in ipairs(self.GridCollectionList) do

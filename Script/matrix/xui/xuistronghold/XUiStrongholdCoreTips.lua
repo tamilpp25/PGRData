@@ -14,6 +14,7 @@ function XUiStrongholdCoreTips:OnAwake()
     self:AutoAddListener()
 
     self.GridCore.gameObject:SetActiveEx(false)
+    self.TxtTool1.supportRichText = true
 end
 
 function XUiStrongholdCoreTips:OnStart(teamList, teamId, groupId)
@@ -26,9 +27,14 @@ function XUiStrongholdCoreTips:OnStart(teamList, teamId, groupId)
 end
 
 function XUiStrongholdCoreTips:OnEnable()
+
     self.UseElectric = XDataCenter.StrongholdManager.GetTotalUseElectricEnergy(self.TeamList)
     self:UpdateElectric()
     self:UpdateView()
+end
+
+function XUiStrongholdCoreTips:OnDisable()
+
 end
 
 function XUiStrongholdCoreTips:InitView()
@@ -45,10 +51,13 @@ function XUiStrongholdCoreTips:InitView()
 end
 
 function XUiStrongholdCoreTips:UpdateElectric()
+    local teamList = self.TeamList
     local useElectric = self.UseElectric
-    local totalElectric = XDataCenter.StrongholdManager.GetTotalCanUseElectricEnergy(self.GroupId)
-    self.TxtTool1.text = useElectric .. "/" .. totalElectric
-    self.TxtTool1.color = CONDITION_COLOR[useElectric > totalElectric]
+    local groupId = self.GroupId
+    local totalElectric = XDataCenter.StrongholdManager.GetTotalCanUseElectricEnergy(groupId)
+    local color = XDataCenter.StrongholdManager.GetSuggestElectricColor(groupId, teamList, useElectric)
+    self.TxtTool1.text = string.format("%s/%s", useElectric, totalElectric)
+    self.TxtTool1.color = color
 end
 
 function XUiStrongholdCoreTips:UpdateView()
@@ -80,6 +89,7 @@ function XUiStrongholdCoreTips:AutoAddListener()
     if self.BtnTool1 then
         self.BtnTool1.CallBack = function() self:OnClickBtnTool1() end
     end
+    self.BtnElectricTips.CallBack = function() self:OnClickBtnTool1() end
 end
 
 function XUiStrongholdCoreTips:OnClickBtnClose()
@@ -87,13 +97,7 @@ function XUiStrongholdCoreTips:OnClickBtnClose()
 end
 
 function XUiStrongholdCoreTips:OnClickBtnConfirm()
-    if self:SaveChange() then
-        XUiManager.TipText("StrongholdPluginSetSaveSuc")
-    else
-        XUiManager.TipText("StrongholdPluginSaveFail")
-    end
-
-    self:Close()
+    self:SaveChange()
 end
 
 function XUiStrongholdCoreTips:GetTeam()
@@ -119,7 +123,44 @@ function XUiStrongholdCoreTips:OnCountChange(addElectric)
     self:UpdateElectric()
 end
 
+-- [检查插件更改安全性。在其他区域已经被压制，而此次改动会导致完美战术失效时，此改动需要重置此次作战。]
 function XUiStrongholdCoreTips:SaveChange()
+    if not self.GroupId then --[没进入关卡]
+        return self:DoChangeSave()
+    end
+    if not XDataCenter.StrongholdManager.CheckGroupHasFinishedStage(self.GroupId) then --[没有已经完成关卡的队伍]
+        return self:DoChangeSave()
+    end
+    local fightTeamList = XTool.Clone(XDataCenter.StrongholdManager.GetFighterTeamListTemp(self.TeamList, self.GroupId))
+    if not XDataCenter.StrongholdManager.CheckGroupSupportAcitve(self.GroupId, fightTeamList) then --[没有激活完美战术]
+        return self:DoChangeSave()
+    end
+    local team = fightTeamList[self.TeamId]
+    local plugins = team:GetAllPlugins()
+    for index, plugin in ipairs(plugins) do
+        local grid = self.PluginGrids[index]
+        local newCount = grid and grid:GetCount()
+        plugin:SetCount(newCount)
+    end
+    if XDataCenter.StrongholdManager.CheckGroupSupportAcitve(self.GroupId, fightTeamList) then --[完美战术没被取消]
+        return self:DoChangeSave()
+    end
+    --[完美战术状态从激活变更没激活 必须撤退才能保存插件更改]
+    local sureCallback = function() --[撤退]
+        local groupId = self.GroupId
+        local cb = function()
+            self:DoChangeSave()
+        end
+        XDataCenter.StrongholdManager.ResetStrongholdGroupRequest(groupId, cb)
+    end
+    local closeCallback = function() --[取消]
+        self:DoChangeCancel()
+    end
+    local data = {Content2 = CSXTextManagerGetText("StrongholdPerfectStrategyNotActivate")}
+    XUiManager.DialogTip("", "", XUiManager.DialogType.Normal, closeCallback, sureCallback,data)
+end
+
+function XUiStrongholdCoreTips:DoChangeSave()
     local team = self:GetTeam()
     local plugins = team:GetAllPlugins()
     for index, plugin in ipairs(plugins) do
@@ -127,14 +168,15 @@ function XUiStrongholdCoreTips:SaveChange()
         local newCount = grid and grid:GetCount()
         plugin:SetCount(newCount)
     end
-
     XEventManager.DispatchEvent(XEventId.EVENT_STRONGHOLD_PLUGIN_CHANGE_ACK)
     CsXGameEventManager.Instance:Notify(XEventId.EVENT_STRONGHOLD_PLUGIN_CHANGE_ACK)
+    self:Close()
+end
 
-    return true
+function XUiStrongholdCoreTips:DoChangeCancel()
+    self:Close()
 end
 
 function XUiStrongholdCoreTips:OnClickBtnTool1()
-    local itemId = XDataCenter.StrongholdManager.GetBatteryItemId()
-    XLuaUiManager.Open("UiTip", itemId)
+    XLuaUiManager.Open("UiStrongholdPowerusageTips", self.GroupId, self.TeamList)
 end

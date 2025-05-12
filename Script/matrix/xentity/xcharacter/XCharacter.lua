@@ -19,6 +19,7 @@ local Default = {
     TrustExp = 0,
     Type = 0, -- 职业类型
     NpcId = 0,
+    LiberateAureoleId = 0, -- 超解环颜色
     Attribs = {},
     __SkillGroupDatas = {},
     __EnhanceSkillGroupPosDic = {},
@@ -34,10 +35,11 @@ function XCharacter.GetDefaultFields()
     return Default
 end
 
-function XCharacter:Ctor(data)
+function XCharacter:Ctor(data, isOther)
     -- XCharacterViewModel
     self.CharacterViewModel = nil
     self.UpdatedData = nil
+    self.IsOther = isOther -- 是否是其他人的角色
     for key, value in pairs(Default) do
         if type(value) == "table" then
             self[key] = {}
@@ -46,14 +48,7 @@ function XCharacter:Ctor(data)
         end
     end
 
-    XEventManager.AddEventListener(XEventId.EVENT_LOGIN_DATA_LOAD_COMPLETE, self.RefreshAttribsByEvent, self)
-    XEventManager.AddEventListener(XEventId.EVENT_EQUIP_PUTON_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.AddEventListener(XEventId.EVENT_EQUIPLIST_TAKEOFF_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.AddEventListener(XEventId.EVENT_EQUIP_STRENGTHEN_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.AddEventListener(XEventId.EVENT_EQUIP_BREAKTHROUGH_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.AddEventListener(XEventId.EVENT_EQUIP_RESONANCE_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.AddEventListener(XEventId.EVENT_EQUIP_RESONANCE_ACK_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.AddEventListener(XEventId.EVENT_EQUIP_AWAKE_NOTYFY, self.RefreshAttribsByEvent, self)
+    --XEventManager.AddEventListener(XEventId.EVENT_LOGIN_DATA_LOAD_COMPLETE, self.RefreshAttribsByEvent, self)
     XEventManager.AddEventListener(XEventId.EVENT_BASE_EQUIP_DATA_CHANGE_NOTIFY, self.RefreshAttribsByEvent, self)
     XEventManager.AddEventListener(XEventId.EVENT_REFRESH_CHRACTER_ABLIITY, self.RefreshAbility, self)
     XEventManager.AddEventListener(XEventId.EVENT_PARTNER_ABLITYCHANGE, self.RefreshAbility, self)
@@ -62,14 +57,7 @@ function XCharacter:Ctor(data)
 end
 
 function XCharacter:RemoveEventListeners()
-    XEventManager.RemoveEventListener(XEventId.EVENT_LOGIN_DATA_LOAD_COMPLETE, self.RefreshAttribsByEvent, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_EQUIP_PUTON_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_EQUIPLIST_TAKEOFF_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_EQUIP_STRENGTHEN_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_EQUIP_BREAKTHROUGH_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_EQUIP_RESONANCE_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_EQUIP_RESONANCE_ACK_NOTYFY, self.RefreshAttribsByEvent, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_EQUIP_AWAKE_NOTYFY, self.RefreshAttribsByEvent, self)
+    --XEventManager.RemoveEventListener(XEventId.EVENT_LOGIN_DATA_LOAD_COMPLETE, self.RefreshAttribsByEvent, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_BASE_EQUIP_DATA_CHANGE_NOTIFY, self.RefreshAttribsByEvent, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_REFRESH_CHRACTER_ABLIITY, self.RefreshAbility, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_PARTNER_ABLITYCHANGE, self.RefreshAbility, self)
@@ -101,7 +89,7 @@ function XCharacter:UpdateSkillData(skillList, ignoreChangeAbility)
     XTool.LoopCollection(skillList, function(data)
         local skillId = data.Id
 
-        local skillGroupId = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
+        local skillGroupId = XMVCA.XCharacter:GetSkillGroupIdAndIndex(skillId)
         if not skillGroupId then
             XLog.Error("XCharacter:UpdateSkillData Error: 角色技能数据同步错误，技能Id未配置在技能组中, skillId: " .. skillId)
             return
@@ -122,14 +110,14 @@ function XCharacter:UpdateSkillData(skillList, ignoreChangeAbility)
 end
 
 function XCharacter:SwithSkill(skillId)
-    local skillGroupId = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
+    local skillGroupId = XMVCA.XCharacter:GetSkillGroupIdAndIndex(skillId)
     local skillGroupData = self:GetSkillGroupData(skillGroupId)
     if not skillGroupData then return end
     skillGroupData:SwitchSkill(skillId)
 end
 
 function XCharacter:GetSkillLevelBySkillId(skillId)
-    local skillGroupId = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
+    local skillGroupId = XMVCA.XCharacter:GetSkillGroupIdAndIndex(skillId)
     return self:GetSkillLevel(skillGroupId)
 end
 
@@ -141,19 +129,19 @@ end
 function XCharacter:GetGroupCurSkillId(skillGroupId)
     local skillGroupData = self:GetSkillGroupData(skillGroupId)
     if not skillGroupData then
-        return XCharacterConfigs.GetGroupDefaultSkillId(skillGroupId)
+        return XMVCA.XCharacter:GetGroupDefaultSkillId(skillGroupId)
     end
     return skillGroupData:GetCurSKillId() or 0
 end
 
 function XCharacter:IsSkillUsing(skillId)
     if not skillId or skillId == 0 then return false end
-    local skillGroupId = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
+    local skillGroupId = XMVCA.XCharacter:GetSkillGroupIdAndIndex(skillId)
     return self:GetGroupCurSkillId(skillGroupId) == skillId
 end
 
 function XCharacter:RefreshAttribs(ignoreChangeAbility)
-    local attribs = XDataCenter.CharacterManager.GetCharacterAttribs(self)
+    local attribs = XMVCA.XCharacter:GetCharacterAttribs(self)
     if attribs then
         self.Attribs = attribs
     end
@@ -172,11 +160,15 @@ function XCharacter:GetAttributes()
 end
 
 function XCharacter:RefreshAbility()
-    self.Ability = XDataCenter.CharacterManager.GetCharacterAbility(self)
+    if self.IsOther then
+        return
+    end
+
+    self.Ability = XMVCA.XCharacter:GetCharacterAbility(self)
 end
 
 function XCharacter:ChangeNpcId()
-    local npcId = XCharacterConfigs.GetCharNpcId(self.Id, self.Quality)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(self.Id, self.Quality)
     if npcId == nil then
         return
     end
@@ -227,11 +219,11 @@ end
 
 -------------------------补强技能相关---------------------------------
 function XCharacter:GetEnhanceSkillCfg()
-    return XCharacterConfigs.GetEnhanceSkillConfig(self:GetId()) or {}
+    return XMVCA.XCharacter:GetEnhanceSkillConfig(self:GetId()) or {}
 end
 
 function XCharacter:GetEnhanceSkillPosCfg()
-    return XCharacterConfigs.GetEnhanceSkillPosConfig(self:GetId()) or {}
+    return XMVCA.XCharacter:GetEnhanceSkillPosConfig(self:GetId()) or {}
 end
 
 function XCharacter:GetEnhanceSkillGroupIdList()
@@ -262,6 +254,7 @@ function XCharacter:GetEnhanceSkillGroupDataDic()
     return self.__EnhanceSkillGroupDatas
 end
 
+---@return XEnhanceSkillGroup
 function XCharacter:GetEnhanceSkillGroupData(skillGroupId)
     return self.__EnhanceSkillGroupDatas[skillGroupId]
 end

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridElementDetail = require("XUi/XUiCharacter/XUiGridElementDetail")
 
 local tableInsert = table.insert
@@ -16,6 +17,7 @@ function XUiCharacterElementDetail:OnStart(characterId)
 end
 
 function XUiCharacterElementDetail:OnEnable()
+    self.TxtTitle.text = CS.XTextManager.GetText(self.Name)
     self:UpdateDynamicTable()
 end
 
@@ -33,7 +35,7 @@ end
 
 function XUiCharacterElementDetail:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        grid:Refresh(self.SortedElementIds[index])
+        grid:Refresh(self.CharacterId, self.SortedElementIds[index])
     end
 end
 
@@ -41,14 +43,14 @@ function XUiCharacterElementDetail.ConstructSortedElementIds(characterId)
     local sortedElementIds = {}
 
     local curElementIdsCheckDic = {}
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
     local curElementList = detailConfig.ObtainElementList
     for _, elementId in pairs(curElementList) do
         curElementIdsCheckDic[elementId] = true
         tableInsert(sortedElementIds, -elementId)
     end
 
-    local allElementIds = XCharacterConfigs.GetAllCharElments()
+    local allElementIds = XMVCA.XCharacter:GetModelCharacterElement()
     for _, element in pairs(allElementIds) do
         local elementId = element.Id
         if not curElementIdsCheckDic[elementId] then

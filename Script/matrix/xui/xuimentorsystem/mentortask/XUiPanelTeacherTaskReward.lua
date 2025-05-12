@@ -1,3 +1,4 @@
+local XUiGridTask = require("XUi/XUiTask/XUiGridTask")
 local XUiPanelTeacherTaskReward = XClass(nil, "XUiPanelTeacherTaskReward")
 local XUiGridTaskReward = require("XUi/XUiMentorSystem/MentorTask/XUiGridTaskReward")
 local CSTextManagerGetText = CS.XTextManager.GetText

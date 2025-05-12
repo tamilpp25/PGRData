@@ -28,8 +28,11 @@ local Default = {
     _Star = 0, --星级统计
     _WinCount = 0, --胜利次数
     _KillEnemyCount = 0, --击败敌人数目
+    _RandomFightEventId = 0, -- 携带buff
+    _MaxScore = 0, -- 最高分数
 }
 
+---@class XKillZoneStage
 local XKillZoneStage = XClass(nil, "XKillZoneStage")
 
 function XKillZoneStage:Ctor(id)
@@ -52,6 +55,8 @@ function XKillZoneStage:UpdateData(info)
     self._Star = info.Star or self._Star
     self._WinCount = info.WinCount or self._WinCount
     self._KillEnemyCount = info.KillEnemyCount or self._KillEnemyCount
+    self._RandomFightEventId = info.RandomFightEventId or self._RandomFightEventId
+    self._MaxScore = info.MaxScore or self._MaxScore
 end
 
 function XKillZoneStage:GetId()
@@ -68,6 +73,14 @@ end
 
 function XKillZoneStage:GetMaxStar()
     return XKillZoneConfigs.GetStageMaxStar(self._Id)
+end
+
+function XKillZoneStage:GetRandomFightEventId()
+    return self._RandomFightEventId
+end
+
+function XKillZoneStage:GetMaxScore()
+    return self._MaxScore
 end
 
 function XKillZoneStage:IsFinishedPerfect()

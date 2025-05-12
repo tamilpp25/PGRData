@@ -1,4 +1,4 @@
-XUiPanelSocialMyMsgGiftItem = XClass(nil, "XUiPanelSocialMyMsgGiftItem")
+local XUiPanelSocialMyMsgGiftItem = XClass(nil, "XUiPanelSocialMyMsgGiftItem")
 
 function XUiPanelSocialMyMsgGiftItem:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -48,7 +48,7 @@ function XUiPanelSocialMyMsgGiftItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -100,7 +100,7 @@ function XUiPanelSocialMyMsgGiftItem:Refresh(chatData)
     self.CreateTime = chatData.CreateTime
     self.SenderId = chatData.SenderId
     self.TxtName.text = XDataCenter.SocialManager.GetPlayerRemark(chatData.SenderId, chatData.NickName)
-    XUiPLayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
     
     if chatData:CheckIsSelfChat() then
         self.ImgGet.gameObject:SetActive(false)
@@ -126,3 +126,5 @@ end
 function XUiPanelSocialMyMsgGiftItem:SetShow(code)
     self.GameObject.gameObject:SetActive(code)
 end
+
+return XUiPanelSocialMyMsgGiftItem

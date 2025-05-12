@@ -1,13 +1,21 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local CSUnityColorWhite = CS.UnityEngine.Color.white
+
 local XUiGuildViewSetHeadPortrait = XClass(nil, "XUiGuildViewSetHeadPortrait")
 local XUiGuildHeadPortraitItem = require("XUi/XUiGuild/XUiChildItem/XUiGuildHeadPortraitItem")
-function XUiGuildViewSetHeadPortrait:Ctor(ui, parent)
+---@param ui Ui
+---@param parent 父Ui
+---@param hideUnlock 隐藏未解锁头像
+function XUiGuildViewSetHeadPortrait:Ctor(ui, parent, hideUnlock)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     self.Parent = parent
+    self.HideUnLock = hideUnlock
     XTool.InitUiObject(self)
     self:AddListener()
     self.CurHeadPortraitId = -1
     self.InitHeadPortraitId = 1
+    self.DefaultIconColor = self.RImgPlayerIcon.color
     self:InitDynamicTable()
 end
 
@@ -62,12 +70,36 @@ function XUiGuildViewSetHeadPortrait:UpdateInfo(id)
     self.CurHeadPortraitId = id
     local config = XGuildConfig.GetGuildHeadPortraitById(id)
     self.RImgPlayerIcon:SetRawImage(config.Icon)
+    if config.IsSpecial then
+        self.RImgPlayerIcon.color = CSUnityColorWhite
+        self.RImgSpecialIconBg.gameObject:SetActiveEx(true)
+        self.RImgSpecialIconBg:SetRawImage(config.CreateGuildBg)
+    else
+        self.RImgPlayerIcon.color = self.DefaultIconColor
+        self.RImgSpecialIconBg.gameObject:SetActiveEx(false)
+    end
     self.TxtHeadName.text = config.Name
     self.TxtDecs.text = config.Describe
 end
 
 function XUiGuildViewSetHeadPortrait:SetListDatas()
-    self.ListDatas = XGuildConfig.GetGuildHeadPortraitDatas()
+    local list = XGuildConfig.GetGuildHeadPortraitDatas()
+    if self.HideUnLock then
+        local tmp = {}
+        for _, data in ipairs(list or {}) do
+            local conditionId = data.ConditionId
+            if conditionId <= 0 then
+                table.insert(tmp, data)
+            else
+                local unlock, _ = XConditionManager.CheckCondition(data.ConditionId)
+                if unlock then
+                    table.insert(tmp, data)
+                end
+            end
+        end
+        list = tmp
+    end
+    self.ListDatas = list
     self.DynamicTable:SetDataSource(self.ListDatas)
     self.DynamicTable:ReloadDataSync(1)
 end

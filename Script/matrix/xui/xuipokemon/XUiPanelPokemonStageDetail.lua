@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelPokemonStageDetail = XLuaUiManager.Register(XLuaUi, "UiPokemonStageDetail")
 local XUiGridPokemonPortrait = require("XUi/XUiPokemon/XUiGridPokemonPortrait")
 

@@ -18,7 +18,7 @@ end
 function XUiCharSkillOtherParsing:InitCanvasOrder()
     local canvas = self.Transform:GetComponent("Canvas")
     
-    local scrollCanvas = self.Transform.parent:FindTransformWithSplit("PaneSkillInfo/PanelScroll"):GetComponent("Canvas")
+    local scrollCanvas = self.Transform.parent:FindTransformWithSplit("PanelSkillInfo/PanelScroll"):GetComponent("Canvas")
     scrollCanvas.sortingOrder = canvas.sortingOrder + 1
 end
 

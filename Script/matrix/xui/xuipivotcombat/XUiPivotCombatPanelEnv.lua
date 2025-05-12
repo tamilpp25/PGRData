@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 
 local XUiPivotCombatPanelEnv = XClass(nil, "XUiPivotCombatPanelEnv")
 local XUiPivotCombatEnvGrid = require("XUi/XUiPivotCombat/XUiGrid/XUiPivotCombatEnvGrid")

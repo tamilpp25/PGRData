@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local TableInsert = table.insert
 local Next = _G.next
@@ -22,12 +23,12 @@ function XUiDrawPurchaseLB:OnEnable()
     self.TimeFuns = {}
     self:OnRefresh()
     self:StartLBTimer()
-    XEventManager.AddEventListener(XEventId.EVENT_PURCAHSE_BUYUSERIYUAN, self.OnUpdate, self) -- 海外修改
+    XDataCenter.UiPcManager.OnUiEnable(self)
 end
 
 function XUiDrawPurchaseLB:OnDisable()
     self:DestroyTimer()
-    XEventManager.RemoveEventListener(XEventId.EVENT_PURCAHSE_BUYUSERIYUAN, self.OnUpdate, self) -- 海外修改
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
 end
 
 function XUiDrawPurchaseLB:OnRefresh()
@@ -79,7 +80,7 @@ function XUiDrawPurchaseLB:OnDynamicTableEvent(event, index, grid)
         XDataCenter.PurchaseManager.RemoveNotInTimeDiscountCoupon(data) -- 移除未到时间的打折券
         self.CurData = data
         XLuaUiManager.Open("UiPurchaseBuyTips", data, self.CheckBuyFun, self.UpdateCb, nil, XPurchaseConfigs.GetLBUiTypesList())
-        -- CS.XAudioManager.PlaySound(1011)
+        -- XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1011)
     end
 end
 
@@ -87,33 +88,29 @@ function XUiDrawPurchaseLB:CheckBuy(count, disCountCouponIndex)
     count = count or 1
     disCountCouponIndex = disCountCouponIndex or 0
 
-    if not XDataCenter.PayManager.CheckCanBuy(self.CurData.Id) then
-        return false
-    end
-
     if self.CurData.BuyLimitTimes > 0 and self.CurData.BuyTimes == self.CurData.BuyLimitTimes then --卖完了，不管。
         XUiManager.TipText("PurchaseLiSellOut")
-        return false
+        return 0
     end
 
     if self.CurData.TimeToShelve > 0 and self.CurData.TimeToShelve > XTime.GetServerNowTimestamp() then --没有上架
         XUiManager.TipText("PurchaseBuyNotSet")
-        return false
+        return 0
     end
 
     if self.CurData.TimeToUnShelve > 0 and self.CurData.TimeToUnShelve < XTime.GetServerNowTimestamp() then --下架了
         XUiManager.TipText("PurchaseSettOff")
-        return false
+        return 0
     end
 
     if self.CurData.TimeToInvalid > 0 and self.CurData.TimeToInvalid < XTime.GetServerNowTimestamp() then --失效了
         XUiManager.TipText("PurchaseSettOff")
-        return false
+        return 0
     end
 
     if self.CurData.ConsumeCount > 0 and self.CurData.ConvertSwitch <= 0 then -- 礼包内容全部拥有
         XUiManager.TipText("PurchaseRewardAllHaveErrorTips")
-        return false
+        return 0
     end
 
     local consumeCount = self.CurData.ConsumeCount
@@ -133,18 +130,19 @@ function XUiDrawPurchaseLB:CheckBuy(count, disCountCouponIndex)
     
     consumeCount = count * consumeCount -- 全部数量的总价
     if consumeCount > 0 and consumeCount > XDataCenter.ItemManager.GetCount(self.CurData.ConsumeId) then --钱不够
-        local name = XDataCenter.ItemManager.GetItemName(self.CurData.ConsumeId) or ""
-        local tips = CSXTextManagerGetText("PurchaseBuyKaCountTips", name)
+        -- local name = XDataCenter.ItemManager.GetItemName(self.CurData.ConsumeId) or ""
+        -- local tips = CSXTextManagerGetText("PurchaseBuyKaCountTips", name)
+        local tips = XUiHelper.GetCountNotEnoughTips(self.CurData.ConsumeId)
         XUiManager.TipMsg(tips,XUiManager.UiTipType.Wrong)
         if self.CurData.ConsumeId == XDataCenter.ItemManager.ItemId.PaidGem then
             XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.HK, false)
         elseif self.CurData.ConsumeId == XDataCenter.ItemManager.ItemId.HongKa then
             XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.Pay, false)
         end
-        return false
+        return 0
     end
     
-    return true
+    return 1
 end
 
 function XUiDrawPurchaseLB:OnUpdate(rewardList)

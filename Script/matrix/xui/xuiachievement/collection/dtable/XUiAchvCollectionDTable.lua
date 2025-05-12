@@ -1,3 +1,5 @@
+local XUiGridCollection = require("XUi/XUiMedal/XUiGridCollection")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 
 local XUiAchvCollectionDTable = XClass(nil, "XUiAchvCollectionDTable")
 

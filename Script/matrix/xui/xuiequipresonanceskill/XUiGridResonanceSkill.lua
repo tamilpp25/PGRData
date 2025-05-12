@@ -7,7 +7,7 @@ local CONDITION_COLOR = {
 
 local XUiGridResonanceSkill = XClass(nil, "XUiGridResonanceSkill")
 
-function XUiGridResonanceSkill:Ctor(ui, equipId, pos, characterId, clickCb, isAwakeDes, forceShowBindCharacter)
+function XUiGridResonanceSkill:Ctor(ui, equipId, pos, characterId, clickCb, isAwakeDes, forceShowBindCharacter, isShowPos)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     self.EquipId = equipId
@@ -16,6 +16,7 @@ function XUiGridResonanceSkill:Ctor(ui, equipId, pos, characterId, clickCb, isAw
     self.ClickCb = clickCb
     self.IsAwakeDes = isAwakeDes
     self.ForceShowBindCharacter = forceShowBindCharacter
+    self.IsShowPos = isShowPos
     self:InitAutoScript()
 end
 
@@ -25,18 +26,27 @@ function XUiGridResonanceSkill:SetEquipIdAndPos(equipId, pos, isAwakeDes)
     self.IsAwakeDes = isAwakeDes
 end
 
+function XUiGridResonanceSkill:SetCharacterId(characterId)
+    self.CharacterId = characterId
+end
+
+--- 设置技能详情长度限制
+function XUiGridResonanceSkill:SetDescLengthLimit(lengthLimit)
+    self.DescLengthLimit = lengthLimit
+end
+
 function XUiGridResonanceSkill:Refresh(skillInfo, bindCharacterId)
     local equipId = self.EquipId
     local pos = self.Pos
     local characterId = self.CharacterId
     local isAwakeDes = self.IsAwakeDes
-    skillInfo = skillInfo or XDataCenter.EquipManager.GetResonanceSkillInfo(equipId, pos)
-    bindCharacterId = bindCharacterId or XDataCenter.EquipManager.GetResonanceBindCharacterId(equipId, pos)
+    skillInfo = skillInfo or XMVCA.XEquip:GetResonanceSkillInfo(equipId, pos)
+    bindCharacterId = bindCharacterId or XMVCA.XEquip:GetResonanceBindCharacterId(equipId, pos)
 
     if self.PanelBindCharacter and self.RImgHead then
         --if not isAwakeDes then
             if bindCharacterId > 0 then
-                self.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(bindCharacterId))
+                self.RImgHead:SetRawImage(XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(bindCharacterId))
                 self.PanelBindCharacter.gameObject:SetActiveEx(true)
             else
                 self.PanelBindCharacter.gameObject:SetActiveEx(false)
@@ -55,19 +65,23 @@ function XUiGridResonanceSkill:Refresh(skillInfo, bindCharacterId)
     end
 
     if self.TxtSkillDes then
-		XUiHelper.TextHasBubble(self.TxtSkillDes, skillInfo.Description) -- 海外修改
+        if self.DescLengthLimit then
+            self.TxtSkillDes.text = XUiHelper.DeleteOverlengthStringSupportRichFormat(skillInfo.Description, self.DescLengthLimit, "...")
+        else
+            self.TxtSkillDes.text = skillInfo.Description
+        end
         self.TxtSkillDes.gameObject:SetActiveEx(not self.IsAwakeDes)
     end
 
     if self.TxtPos then
-        -- self.TxtPos.text = CsXTextManagerGetText("EquipResonancePosText", self.Pos)
-        self.TxtPos.gameObject:SetActiveEx(false)
+        self.TxtPos.text = "0"..tostring(self.Pos)
+        self.TxtPos.gameObject:SetActiveEx(self.IsShowPos == true)
     end
 
     if self.PanelAwakeSkills then
         if isAwakeDes then
-            local awakeSkillDes = XDataCenter.EquipManager.GetAwakeSkillDesList(equipId, pos)
-            for i = 1, XEquipConfig.AWAKE_SKILL_COUNT do
+            local awakeSkillDes = XMVCA.XEquip:GetAwakeSkillDesList(equipId, pos)
+            for i = 1, XEnumConst.EQUIP.MAX_AWAKE_COUNT do
                 self["TxtAwakeSkill" .. i].text = awakeSkillDes[i]
             end
             self.PanelAwakeSkills.gameObject:SetActiveEx(true)
@@ -80,7 +94,7 @@ function XUiGridResonanceSkill:Refresh(skillInfo, bindCharacterId)
     if self.ForceShowBindCharacter then
         notBindResonance = false
     end
-    local isAwaken = XDataCenter.EquipManager.IsEquipPosAwaken(equipId, pos)
+    local isAwaken = XMVCA.XEquip:IsEquipPosAwaken(equipId, pos)
     if self.PanelAwaken then
         self.PanelAwaken.gameObject:SetActiveEx(isAwaken)
     end
@@ -102,7 +116,7 @@ function XUiGridResonanceSkill:Refresh(skillInfo, bindCharacterId)
     if self.TxtAwake then
         if isAwakeDes then
             if bindCharacterId ~= 0 then
-                local characterName = XCharacterConfigs.GetCharacterTradeName(bindCharacterId)
+                local characterName = XMVCA.XCharacter:GetCharacterTradeName(bindCharacterId)
                 self.TxtAwake.text = CsXTextManagerGetText("AwakeCharacterName", characterName)
                 self.TxtAwake.color = CONDITION_COLOR[not notBindResonance]
                 self.TxtAwake.gameObject:SetActiveEx(true)

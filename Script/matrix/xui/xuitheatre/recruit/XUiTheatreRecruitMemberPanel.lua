@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiTheatreRecruitMemberGrid = require("XUi/XUiTheatre/Recruit/XUiTheatreRecruitMemberGrid")
 
 --招募界面：底下的成员列表控件

@@ -1,4 +1,5 @@
-XUiPanelAddContactViewPools = XClass(nil, "XUiPanelAddContactViewPools")
+local XUiPanelAddContactView = require("XUi/XUiSocial/AddContactModel/XUiPanelAddContactView")
+local XUiPanelAddContactViewPools = XClass(nil, "XUiPanelAddContactViewPools")
 
 function XUiPanelAddContactViewPools:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -37,7 +38,7 @@ function XUiPanelAddContactViewPools:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -54,3 +55,5 @@ function XUiPanelAddContactViewPools:InitData(dynamicList)
     self.GameObject:SetActive(false)
     dynamicList:AddObjectPools("contactItem", self.GridAddContact.gameObject)
 end
+
+return XUiPanelAddContactViewPools

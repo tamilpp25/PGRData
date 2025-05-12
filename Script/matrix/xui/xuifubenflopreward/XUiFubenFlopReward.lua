@@ -1,3 +1,4 @@
+local XUiPanelRewardBox = require("XUi/XUiFubenFlopReward/XUiPanelRewardBox")
 local XUiFubenFlopReward = XLuaUiManager.Register(XLuaUi, "UiFubenFlopReward")
 
 local PanelStatus = {
@@ -210,7 +211,7 @@ function XUiFubenFlopReward:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

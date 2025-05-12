@@ -13,11 +13,14 @@ XActivityManagerCreator = function()
     local SortedActivityGroupInfos = {}
     local HaveReadActivityIds = {}
     local SavedTimeDataDic = {}
+    local BackFlowEndTime = 0
+    local UrlParamFunc = false
 
     local METHOD_NAME = {
         LinkTaskFinished = "DoClientTaskEventRequest"
     }
 
+    ---@class XActivityManager
     local XActivityManager = {}
     function XActivityManager.Init()
         XEventManager.AddEventListener(XEventId.EVENT_LOGIN_SUCCESS, XActivityManager.ReadCookie)
@@ -32,10 +35,12 @@ XActivityManagerCreator = function()
         local sortFunc = function(l, r)
             return l.SortId < r.SortId
         end
+        
+        local dictActivityGroup = {}
 
         local activityGroupTemplates = XActivityConfigs.GetActivityGroupTemplates()
         for groupId, template in pairs(activityGroupTemplates) do
-            SortedActivityGroupInfos[groupId] = {
+            dictActivityGroup[template.Id] = {
                 SortId = template.SortId,
                 ActivityGroupCfg = template,
                 ActivityCfgs = {}
@@ -45,7 +50,7 @@ XActivityManagerCreator = function()
         local activityTemplates = XActivityConfigs.GetActivityTemplates()
         for _, template in pairs(activityTemplates) do
             local groupId = template.GroupId
-            local activityGroupCfg = SortedActivityGroupInfos[groupId]
+            local activityGroupCfg = dictActivityGroup[groupId]
             if not activityGroupCfg then
                 XLog.ErrorTableDataNotFound("XActivityManager.InitSortedActivityGroupInfos",
                 "activityGroupCfg", "Client/Activity/ActivityGroup.tab", "GroupId", tostring(groupId))
@@ -55,10 +60,13 @@ XActivityManagerCreator = function()
             tableInsert(activityCfgs, template)
         end
 
-        for _, activityGroupInfo in pairs(SortedActivityGroupInfos) do
+        for _, activityGroupInfo in pairs(dictActivityGroup) do
             tableSort(activityGroupInfo.ActivityCfgs, sortFunc)
         end
 
+        for i, v in pairs(dictActivityGroup) do
+            SortedActivityGroupInfos[#SortedActivityGroupInfos + 1] = v
+        end
         tableSort(SortedActivityGroupInfos, sortFunc)
     end
 
@@ -87,8 +95,14 @@ XActivityManagerCreator = function()
         local now = XTime.GetServerNowTimestamp()
         local activityType = activityCfg.ActivityType
         if activityType == XActivityConfigs.ActivityType.Task then
-            local taskGroupId = activityCfg.Params[1]
-            return XTaskConfig.IsTimeLimitTaskInTime(taskGroupId)
+            for index, taskGroupId in ipairs(activityCfg.Params) do
+                if index ~= 1 then -- 参数1为跳转ID
+                    if XTaskConfig.IsTimeLimitTaskInTime(taskGroupId) then
+                        return true
+                    end
+                end
+            end
+            return false
         elseif activityType == XActivityConfigs.ActivityType.SendInvitation or activityType == XActivityConfigs.ActivityType.AcceptInvitation then
             if XDataCenter.RegressionManager.IsActivityOpenInUiActivityBase(activityType) then
                 local regressionId = activityCfg.Params[1]
@@ -108,6 +122,16 @@ XActivityManagerCreator = function()
             local endTime = tempTime
             local nowTime = XTime.GetServerNowTimestamp()
             if nowTime > openTime and nowTime < endTime then
+                return true
+            end
+            return false
+        elseif activityType == XActivityConfigs.ActivityType.BackFlowLink then
+            local endTime = XDataCenter.ActivityManager.GetBackFlowEndTime()
+            if not XTool.IsNumberValid(endTime) then
+                return false
+            end
+            local nowTime = XTime.GetServerNowTimestamp()
+            if nowTime < endTime then
                 return true
             end
             return false
@@ -144,8 +168,19 @@ XActivityManagerCreator = function()
             return {}
         end
 
-        local taskGroupId = activityCfg.Params[1]
-        return XDataCenter.TaskManager.GetTimeLimitTaskListByGroupId(taskGroupId)
+        local taskList = {}
+        for index, taskGroupId in ipairs(activityCfg.Params) do
+            if index ~= 1 then -- 参数1为跳转ID
+                local data = XDataCenter.TaskManager.GetTimeLimitTaskListByGroupId(taskGroupId, false) -- 合并后再排序，之前就不需要排序了
+                if data and next(data) then
+                    taskList = XTool.MergeArray(taskList, data)
+                end
+            end
+        end
+        
+        XDataCenter.TaskManager.SortTaskDatas(taskList)
+        
+        return taskList
     end
 
     function XActivityManager.CheckRedPoint()
@@ -164,6 +199,7 @@ XActivityManagerCreator = function()
         end
 
         --任务类型特殊加入已完成小红点逻辑
+        ---@type XTableActivity
         local activityCfg = XActivityConfigs.GetActivityTemplate(activityId)
         if activityCfg.ActivityType == XActivityConfigs.ActivityType.Task or activityCfg.ActivityType == XActivityConfigs.ActivityType.ConsumeReward then -- 累计消费活动使用task类型红点判断
             local achieved = XDataCenter.TaskManager.TaskState.Achieved
@@ -173,7 +209,15 @@ XActivityManagerCreator = function()
                     return true
                 end
             end
-            if activityCfg.Params[2] and activityCfg.Params[2] ~= 0 then -- 存在可跳转的任务面板
+            
+            local skipId = 0
+            if activityCfg.ActivityType == XActivityConfigs.ActivityType.Task then
+                skipId = activityCfg.Params[1]
+            else
+                skipId = activityCfg.Params[2]
+            end
+            
+            if skipId and skipId ~= 0 then -- 存在可跳转的任务面板
                 return XActivityManager.CheckTaskSkipRedPoint(activityCfg.Params[2])
             end
             -- 拼图活动有自己的红点判断
@@ -187,24 +231,31 @@ XActivityManagerCreator = function()
             --接受邀请活动有自己的红点判断
         elseif activityCfg.ActivityType == XActivityConfigs.ActivityType.AcceptInvitation then
             return XDataCenter.RegressionManager.IsAcceptInvitationHaveRedPoint()
-        elseif activityCfg.ActivityType == XActivityConfigs.ActivityType.Link then
-            --取得链接公告对应的链接内容
-            local linkCfg = XActivityConfigs.GetActivityLinkCfg(activityCfg.Params[1])
+        elseif activityCfg.ActivityType == XActivityConfigs.ActivityType.Link or activityCfg.ActivityType == XActivityConfigs.ActivityType.BackFlowLink then
             --如果已经领取过了，那么就不会再显示红点了
-            local TaskData = XDataCenter.TaskManager.GetTimeLimitTaskListByGroupId(activityCfg.Params[2])
-            if not TaskData or not TaskData[1] then
+            local TaskData
+            if activityCfg.ActivityType == XActivityConfigs.ActivityType.BackFlowLink then
+                TaskData = XDataCenter.TaskManager.GetTaskDataById(activityCfg.Params[2])
+            else
+                local TaskDatas = XDataCenter.TaskManager.GetTimeLimitTaskListByGroupId(activityCfg.Params[2])
+                TaskData = TaskDatas[1] or nil
+            end
+            if not TaskData then
                 return false
             end
-            if TaskData[1].State == XDataCenter.TaskManager.TaskState.Achieved then
+            if TaskData.State == XDataCenter.TaskManager.TaskState.Achieved then
                 return true
             end
-            if XDataCenter.TaskManager.IsTaskFinished(TaskData[1].Id) then
+            if XDataCenter.TaskManager.IsTaskFinished(TaskData.Id) then
                 return false
             end
-            if linkCfg.RedPointType == 1 then
+
+            local redPointType = activityCfg.ActivityType == XActivityConfigs.ActivityType.Link and activityCfg.Params[3] or activityCfg.Params[4]
+            
+            if redPointType == 1 then
                 return not HaveReadActivityIds[activityId]
             end
-            if linkCfg.RedPointType == 2 then
+            if redPointType == 2 then
                 if SavedTimeDataDic[activityId] == 0 then
                     return true
                 end
@@ -215,13 +266,43 @@ XActivityManagerCreator = function()
         -- 跳转活动需要特殊红点显示时
         elseif activityCfg.ActivityType == XActivityConfigs.ActivityType.Skip then 
             local redPointCondition = XActivityBriefConfigs.GetRedPointConditionsBySkipId(activityCfg.Params[1])
+            local redPointParam = XActivityBriefConfigs.GetRedPointParamBySkipId(activityCfg.Params[1])
             if redPointCondition then
                 for _, red in pairs(redPointCondition) do
-                    if XRedPointConditions[red]:Check() then
+                    if XRedPointConditions[red].Check(redPointParam) then
                         return true
                     end
                 end
             end
+        -- 复刷关常驻任务红点
+        elseif activityCfg.ActivityType == XActivityConfigs.ActivityType.RepeatChallengeReward then
+            local redPointCondition = XActivityBriefConfigs.GetRedPointConditionsBySkipId(activityCfg.Params[1])
+            local redPointParam = XActivityBriefConfigs.GetRedPointParamBySkipId(activityCfg.Params[1])
+            if redPointCondition then
+                for _, red in pairs(redPointCondition) do
+                    if XRedPointConditions[red].Check(redPointParam) then
+                        return true
+                    end
+                end
+            end
+        -- 轮椅手册红点
+        elseif activityCfg.ActivityType == XActivityConfigs.ActivityType.WheelChairManual then
+            local tabType = activityCfg.Params[1]
+            local redPointCondition = XMVCA.XWheelchairManual:GetRedPointConditionTypeByTabType(tabType)
+
+            if redPointCondition then
+                -- 特殊处理，首次未点击蓝点依附于子页签首位：阶段奖励
+                if tabType == XEnumConst.WheelchairManual.TabType.StepReward then
+                    return XRedPointConditions[redPointCondition].Check() or XRedPointConditions[XRedPointConditions.Types.CONDITION_WHEELCHAIRMANUAL_ENTRANCE_CHANGE].Check()
+                else
+                    return XRedPointConditions[redPointCondition].Check()
+                end
+            end
+            
+            return false
+        -- GachaCanLiver卡池红点
+        elseif activityCfg.ActivityType ==  XActivityConfigs.ActivityType.GachaCanLiver then
+            return XRedPointConditions[XRedPointConditions.Types.CONDITION_GACHACANLIVER_MAIN].Check()
         end
         --当活动类型（ActivityType）为Shop或Skip时，红点通过本地记录来判断是否显示
         return not HaveReadActivityIds[activityId]
@@ -319,21 +400,21 @@ XActivityManagerCreator = function()
         or skipType == XActivityConfigs.TaskPanelSkipType.CanZhangHeMing_LuNa
         or skipType == XActivityConfigs.TaskPanelSkipType.CanZhangHeMing_SP
         then
-            return XRedPointConditionFuBenDragPuzzleGameRed.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FUBEN_DRAGPUZZLEGAME_RED)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.ChrismasTree_Dress then
-            return XRedPointConditionChristmasTree.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHRISTMAS_TREE)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.Couplet_Game then
-            return XRedPointConditionCoupletGameRed.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_COUPLET_GAME)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.InvertCard_Game then
-            return XRedPointConditionInvertCardGameRed.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_INVERTCARDGAME_RED)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.LivWarmPop_Game then
-            return XRedPointConditionLivWarmActivity.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_LIV_WARM_ACTIVITY)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.DiceGame then
-            return XRedPointConditionDiceGameRed.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_DICEGAME_RED)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.BodyCombineGame then
-            return XRedPointBodyCombineGameMain.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_BODYCOMBINEGAME_MAIN)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.InvertCardGame2 then
-            return XRedPointConditionInvertCardGameRed.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_INVERTCARDGAME_RED)
         end
     end
     
@@ -344,9 +425,9 @@ XActivityManagerCreator = function()
         end
         
         local activityCfg = XActivityConfigs.GetActivityTemplate(activityId)
-        local linkCfg = XActivityConfigs.GetActivityLinkCfg(activityCfg.Params[1])
+        local redPointType = activityCfg.ActivityType == XActivityConfigs.ActivityType.Link and activityCfg.Params[3] or activityCfg.Params[4]
         --只显示一次的类型，按照以前的方式处理
-        if linkCfg.RedPointType == 1 then
+        if redPointType == 1 then
             HaveReadActivityIds[activityId] = true
             local saveContent = ""
             for id in pairs(HaveReadActivityIds) do
@@ -358,7 +439,7 @@ XActivityManagerCreator = function()
             XEventManager.DispatchEvent(XEventId.EVENT_ACTIVITY_ACTIVITIES_READ_CHANGE)
         end
         --每天都显示一次的类型，保存每天5点的时间戳，然后用这个做比较
-        if linkCfg.RedPointType == 2 then
+        if redPointType == 2 then
             local todayTime = XTime.GetSeverTodayFreshTime()
             SavedTimeDataDic[activityId] = todayTime
             local saveContent = ""
@@ -384,40 +465,18 @@ XActivityManagerCreator = function()
                 end
             end)
     end
-
-    -- [ 海外新增(Rooot活动)
-    XActivityManager.RoootData = {
-        Token = nil,
-        StartTime = nil,
-        ExchangeEndTime = nil,
-    }
-    function XActivityManager.OpenRoootUrl(hostUrl)
-        if not hostUrl or hostUrl == "" then
-            XUiManager.TipText("RoootActivityUrlError")
+    
+    --回流问卷结束时间
+    function XActivityManager.SetBackFlowEndTime(data)
+        if not data then
             return
         end
-        if XActivityManager.RoootData.Token and XActivityManager.RoootData.StartTime and XActivityManager.RoootData.ExchangeEndTime then
-            local nowTime = XTime.GetServerNowTimestamp()
-            if nowTime < XActivityManager.RoootData.StartTime or nowTime > XActivityManager.RoootData.ExchangeEndTime then
-                XUiManager.TipText("RoootActivityNotInTime")
-            end
-            local fullUrl = hostUrl.."?associate_token="..XActivityManager.RoootData.Token
-            CS.UnityEngine.Application.OpenURL(fullUrl)
-        else
-            XNetwork.Call("RoootAuthRequest", {}, function(res)
-                if res.Code ~= XCode.Success then
-                    XUiManager.TipCode(res.Code)
-                    return
-                end
-                XActivityManager.RoootData.Token = res.Token
-                XActivityManager.RoootData.StartTime = res.StartTime
-                XActivityManager.RoootData.ExchangeEndTime = res.ExchangeEndTime
-                local fullUrl = hostUrl.."?associate_token="..XActivityManager.RoootData.Token
-                CS.UnityEngine.Application.OpenURL(fullUrl)
-            end)
-        end
+        BackFlowEndTime = data.BackFlowEndTime or 0
     end
-    -- ]
+    
+    function XActivityManager.GetBackFlowEndTime()
+        return BackFlowEndTime
+    end
 
     XActivityManager.Init()
 

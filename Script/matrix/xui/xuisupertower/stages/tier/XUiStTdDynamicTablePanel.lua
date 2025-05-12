@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local Base = require("XUi/XUiSuperTower/Common/XUiSTChildPanel")
 --=====================
 --爬塔掉落页面动态列表面板

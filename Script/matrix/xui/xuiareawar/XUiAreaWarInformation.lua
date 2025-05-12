@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridAreaWarRank = require("XUi/XUiAreaWar/XUiGridAreaWarRank")
 
 local stringFormat = string.format
@@ -11,7 +13,7 @@ local TabBtnIndex = {
 local XUiAreaWarInformation = XLuaUiManager.Register(XLuaUi, "UiAreaWarInformation")
 
 function XUiAreaWarInformation:OnAwake()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.AreaWarCoin,
@@ -35,10 +37,10 @@ function XUiAreaWarInformation:OnAwake()
 end
 
 function XUiAreaWarInformation:OnStart()
-    self.SelectIndex = 1
-    self.ShowTypeGrids = {}
-    self.BlockGrids = {}
-    self:InitView()
+    --self.SelectIndex = 1
+    --self.ShowTypeGrids = {}
+    --self.BlockGrids = {}
+    --self:InitView()
 end
 
 function XUiAreaWarInformation:OnEnable()
@@ -51,7 +53,8 @@ function XUiAreaWarInformation:OnEnable()
     end
 
     self:UpdateAssets()
-    self.PanelTab:SelectIndex(self.SelectIndex)
+    --self.PanelTab:SelectIndex(self.SelectIndex)
+    self:OnClickTabBtn(TabBtnIndex.Rank)
 end
 
 function XUiAreaWarInformation:OnGetEvents()
@@ -75,27 +78,23 @@ function XUiAreaWarInformation:OnNotify(evt, ...)
 end
 
 function XUiAreaWarInformation:AutoAddListener()
-    self.BtnBack.CallBack = function()
-        self:Close()
-    end
-    self.BtnMainUi.CallBack = function()
-        XLuaUiManager.RunMain()
-    end
+    self:BindExitBtns()
 end
 
 function XUiAreaWarInformation:InitTabGroup()
     local btns = {}
     for _, index in pairs(TabBtnIndex) do
-        btns[tonumber(index)] = self["BtnTab" .. index]
+        --btns[tonumber(index)] = self["BtnTab" .. index]
+        self["BtnTab" .. index].gameObject:SetActiveEx(false)
     end
 
-    self.PanelTab:Init(
-        btns,
-        function(index)
-            self:OnClickTabBtn(index)
-        end
-    )
-    self.Btns = btns
+    --self.PanelTab:Init(
+    --    btns,
+    --    function(index)
+    --        self:OnClickTabBtn(index)
+    --    end
+    --)
+    --self.Btns = btns
 end
 
 function XUiAreaWarInformation:InitView()
@@ -162,63 +161,75 @@ function XUiAreaWarInformation:UpdateInformation()
     self.TxtExp.text = stringFormat("%d/%d", curExp, totalExp)
 
     --小地图
-    local blockIds = XAreaWarConfigs.GetAllBlockIds()
-    for index, blockId in pairs(blockIds) do
-        local parent = self["Stage" .. blockId]
-        if not parent then
-            XLog.Error(
-                "XUiAreaWarInformation:UpdateInformation error: 地图信息错误，UiAreaWarInformation上找不到对应的Stage节点，blockId：",
-                blockId
-            )
-            goto CONTINUE
+    local gridIndex = 0
+    local chapterIds = XAreaWarConfigs.GetChapterIds()
+    for _, chapterId in ipairs(chapterIds) do
+        --章节未开启不显示
+        if not XDataCenter.AreaWarManager.IsChapterUnlock(chapterId) then
+            goto continue1
         end
-
-        --不可见区块不做更新
-        if not XDataCenter.AreaWarManager.IsBlockVisible(blockId) then
-            parent.gameObject:SetActiveEx(false)
-            goto CONTINUE
-        end
-        parent.gameObject:SetActiveEx(true)
-
-        --区块信息
-        local grid = self.BlockGrids[index]
-        if not grid then
-            local go = CSObjectInstantiate(self.GridInformation, parent)
-            grid = XTool.InitUiObjectByUi({}, go)
-            self.BlockGrids[index] = grid
-        end
-
-        if XAreaWarConfigs.CheckBlockShowType(blockId, XAreaWarConfigs.BlockShowType.NormalCharacter) then
-            grid.ImgRole:SetRawImage(XAreaWarConfigs.GetRoleBlockIcon(blockId))
-            grid.ImgIcon.gameObject:SetActiveEx(false)
-            grid.ImgRole.gameObject:SetActiveEx(true)
-        else
-            grid.ImgIcon:SetSprite(XAreaWarConfigs.GetBlockShowTypeIconByBlockId(blockId))
-            grid.ImgIcon.gameObject:SetActiveEx(true)
-            grid.ImgRole.gameObject:SetActiveEx(false)
-        end
-
-        local isClear = XDataCenter.AreaWarManager.IsBlockClear(blockId)
-        local isUnlock = XDataCenter.AreaWarManager.IsBlockUnlock(blockId)
-        grid.Clear.gameObject:SetActiveEx(isClear and not XAreaWarConfigs.IsInitBlock(blockId))
-        grid.Disable.gameObject:SetActiveEx(not isClear and not isUnlock)
-        grid.Normal.gameObject:SetActiveEx(not isClear and isUnlock)
-        grid.GameObject:SetActiveEx(true)
-
-        --当前区块可显示，寻找前置区块中已净化的，尝试连线
-        local alternativeList = XAreaWarConfigs.GetBlockPreBlockIdsAlternativeList(blockId)
-        for _, preBlockIds in pairs(alternativeList) do
-            local preBlockId = preBlockIds[1] --只显示并列表中第一个区块的线
-            if XDataCenter.AreaWarManager.IsBlockClear(preBlockId) then
-                self:TryShowLine(preBlockId, blockId)
+        
+        local blockIds = XAreaWarConfigs.GetBlockIdsByChapterId(chapterId)
+        for _, blockId in ipairs(blockIds) do
+            gridIndex = gridIndex + 1
+            local parent = self["Stage" .. blockId]
+            if not parent then
+                XLog.Error(
+                        "XUiAreaWarInformation:UpdateInformation error: 地图信息错误，UiAreaWarInformation上找不到对应的Stage节点，blockId：",
+                        blockId
+                )
+                goto continue2
             end
-        end
 
-        ::CONTINUE::
+            --不可见区块不做更新
+            if not XDataCenter.AreaWarManager.IsBlockVisible(blockId) then
+                parent.gameObject:SetActiveEx(false)
+                goto continue2
+            end
+
+            parent.gameObject:SetActiveEx(true)
+
+            --区块信息
+            local grid = self.BlockGrids[gridIndex]
+            if not grid then
+                local go = CSObjectInstantiate(self.GridInformation, parent)
+                grid = XTool.InitUiObjectByUi({}, go)
+                self.BlockGrids[gridIndex] = grid
+            end
+
+            if XAreaWarConfigs.CheckBlockShowType(blockId, XAreaWarConfigs.BlockShowType.NormalCharacter) then
+                grid.ImgRole:SetRawImage(XAreaWarConfigs.GetRoleBlockIcon(blockId))
+                grid.ImgIcon.gameObject:SetActiveEx(false)
+                grid.ImgRole.gameObject:SetActiveEx(true)
+            else
+                grid.ImgIcon:SetSprite(XAreaWarConfigs.GetBlockShowTypeIconByBlockId(blockId))
+                grid.ImgIcon.gameObject:SetActiveEx(true)
+                grid.ImgRole.gameObject:SetActiveEx(false)
+            end
+
+            local isClear = XDataCenter.AreaWarManager.IsBlockClear(blockId)
+            local isUnlock = XDataCenter.AreaWarManager.IsBlockUnlock(blockId)
+            grid.Clear.gameObject:SetActiveEx(isClear and not XAreaWarConfigs.IsInitBlock(blockId))
+            grid.Disable.gameObject:SetActiveEx(not isClear and not isUnlock)
+            grid.Normal.gameObject:SetActiveEx(not isClear and isUnlock)
+            grid.GameObject:SetActiveEx(true)
+
+            --当前区块可显示，寻找前置区块中已净化的，尝试连线
+            local alternativeList = XAreaWarConfigs.GetBlockPreBlockIdsAlternativeList(blockId)
+            for _, preBlockIds in pairs(alternativeList) do
+                local preBlockId = preBlockIds[1] --只显示并列表中第一个区块的线
+                if XDataCenter.AreaWarManager.IsBlockClear(preBlockId) then
+                    self:TryShowLine(preBlockId, blockId)
+                end
+            end
+            
+            ::continue2::
+        end
+        
+        ::continue1::
     end
 end
 
---Fucking Line!
 function XUiAreaWarInformation:TryShowLine(startBlockId, endBlockId)
     local lineName = stringFormat("Line%d_%d", startBlockId, endBlockId)
     local line = self[lineName]

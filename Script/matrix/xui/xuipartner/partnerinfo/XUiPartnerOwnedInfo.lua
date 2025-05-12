@@ -52,6 +52,7 @@ function XUiPartnerOwnedInfo:OnBtnPartnerLockClick()
         end)
 end
 
+---@param data XPartner
 function XUiPartnerOwnedInfo:UpdatePanel(data)
     self.Data = data
     if data then
@@ -65,6 +66,22 @@ function XUiPartnerOwnedInfo:UpdatePanel(data)
         self:ShowLock()
         self:ShowPanelSkill()
         self:PlayAnimation("QieHuan")
+
+        --region 辅助机 -> 异界装备
+        if data:GetPartnerType() == XPartnerConfigs.PartnerType.Link then
+            if self.StatciLvTextLink and self.StatciLvText then
+                self.StatciLvTextLink.gameObject:SetActiveEx(true)
+                self.StatciLvText.gameObject:SetActiveEx(false)
+            end
+            self.BtnRename.gameObject:SetActiveEx(false)
+        else
+            if self.StatciLvTextLink and self.StatciLvText then
+                self.StatciLvTextLink.gameObject:SetActiveEx(false)
+                self.StatciLvText.gameObject:SetActiveEx(true)
+            end
+            self.BtnRename.gameObject:SetActiveEx(true)
+        end
+        --endregion 辅助机 -> 异界装备
     end
 end
 

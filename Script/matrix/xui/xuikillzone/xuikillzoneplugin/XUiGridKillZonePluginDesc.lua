@@ -1,11 +1,11 @@
 local XUiGridKillZonePluginDesc = XClass(nil, "XUiGridKillZonePluginDesc")
 
-function XUiGridKillZonePluginDesc:Ctor(ui, clickCb)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-
-    XTool.InitUiObject(self)
-end
+--function XUiGridKillZonePluginDesc:Ctor(ui, clickCb)
+--    self.GameObject = ui.gameObject
+--    self.Transform = ui.transform
+--
+--    XTool.InitUiObject(self)
+--end
 
 function XUiGridKillZonePluginDesc:Refresh(desc, level, currentLevel)
     local isCurrent = level == currentLevel

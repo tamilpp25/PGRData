@@ -18,19 +18,19 @@ function XRedPointConditionPlayerAchieve.Check()
         return false
     end
 
-    if XRedPointConditionPlayerAchieveType.Check(XDataCenter.TaskManager.AchvType.Fight) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE, XDataCenter.TaskManager.AchvType.Fight) then
         return true
     end
 
-    if XRedPointConditionPlayerAchieveType.Check(XDataCenter.TaskManager.AchvType.Collect) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE, XDataCenter.TaskManager.AchvType.Collect) then
         return true
     end
 
-    if XRedPointConditionPlayerAchieveType.Check(XDataCenter.TaskManager.AchvType.Social) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE, XDataCenter.TaskManager.AchvType.Social) then
         return true
     end
 
-    if XRedPointConditionPlayerAchieveType.Check(XDataCenter.TaskManager.AchvType.Other) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE, XDataCenter.TaskManager.AchvType.Other) then
         return true
     end
 

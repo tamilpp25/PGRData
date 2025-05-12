@@ -9,7 +9,8 @@ local Default = {
     _UnlockRoleId = {},     --已解锁的角色id列表
 }
 
---活动数据
+---推箱子活动数据
+---@class XRpgMakerGameActivityDb
 local XRpgMakerGameActivityDb = XClass(nil, "XRpgMakerGameActivityDb")
 
 function XRpgMakerGameActivityDb:Ctor(day)
@@ -52,6 +53,8 @@ function XRpgMakerGameActivityDb:GetUnlockRoleIdList()
     return self._UnlockRoleId
 end
 
+---@param stageCfgId integer
+---@return XRpgMakerActivityStageDb
 function XRpgMakerGameActivityDb:GetStageDb(stageCfgId)
     for _, stageDb in ipairs(self._StageDbs) do
         if stageDb:GetStageCfgId() == stageCfgId then

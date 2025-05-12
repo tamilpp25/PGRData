@@ -79,6 +79,12 @@ function XUiGuildDormPanelChannel:RegisterUiEvents()
 end
 
 function XUiGuildDormPanelChannel:OnBtnSureClicked()
+    local currentRoom = self.GuildDormManager.GetCurrentRoom()
+    local playerRole = currentRoom:GetRoleByPlayerId(XPlayer.Id)
+    if playerRole:GetIsInteracting() then
+        XUiManager.TipErrorWithKey("GuildDormRoleInteracting")
+        return
+    end
     -- 相同频道
     if self.CurrentSelectChannelIndex == self.GuildDormManager.GetCurrentChannelIndex() then
         XUiManager.TipErrorWithKey("GuildDormSwitchSameChannelTip")

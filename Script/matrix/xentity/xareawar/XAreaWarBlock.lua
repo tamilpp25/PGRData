@@ -82,6 +82,10 @@ function XAreaWarBlock:GetProgress()
     return self._Purification / self._RequirePurification
 end
 
+function XAreaWarBlock:GetPercentProgress()
+    return self:GetProgress() * 100
+end
+
 function XAreaWarBlock:GetFightCount()
     return self._FightCount
 end

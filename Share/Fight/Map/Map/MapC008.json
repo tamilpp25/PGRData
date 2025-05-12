@@ -23,13 +23,13 @@
     {
         "Id": 99920002,
         "Behavior": 99920002,
-        "Name": "\u63a7\u5236\u5c0f\u866b\u5b9e\u9a8c",
+        "Name": "\u7279\u6548\u9884\u89c8\u573a\u5730",
         "Environment": null,
         "TerrainRoot": null,
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 1,
+        "SceneCamera": 167,
         "CameraId": 9,
         "Terrains": [
             999200020
@@ -44,7 +44,7 @@
     {
         "Id": 99920003,
         "Behavior": 99920003,
-        "Name": "\u5b9e\u9a8c\u573a\u5730",
+        "Name": "\u903b\u8f91\u5b9e\u9a8c\u573a\u5730",
         "Environment": null,
         "TerrainRoot": null,
         "CloseLoadingDelay": 0.15,
@@ -65,13 +65,13 @@
     {
         "Id": 99920004,
         "Behavior": 99920004,
-        "Name": "\u5143\u65e6\u5b9e\u9a8c\u573a",
+        "Name": "\u6beb\u79d2\u8ba1\u65f6\u5668",
         "Environment": null,
         "TerrainRoot": null,
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 26,
+        "SceneCamera": 25,
         "CameraId": 9,
         "Terrains": [
             999200040
@@ -86,13 +86,13 @@
     {
         "Id": 99920005,
         "Behavior": 99920005,
-        "Name": "\u722c\u5854\u5b9e\u9a8c\u573a",
+        "Name": "\u4e07\u4e8b\u94ed\u53cd\u51fb",
         "Environment": null,
         "TerrainRoot": null,
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 25,
+        "SceneCamera": 185,
         "CameraId": 9,
         "Terrains": [
             999200050
@@ -107,13 +107,13 @@
     {
         "Id": 99920006,
         "Behavior": 99920006,
-        "Name": "\u5361\u5217\u5b9e\u9a8c\u573a\u5730",
+        "Name": "\u4e07\u4e8b\u94ed\u521d\u89c1",
         "Environment": null,
         "TerrainRoot": null,
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 25,
+        "SceneCamera": 185,
         "CameraId": 9,
         "Terrains": [
             999200060
@@ -126,18 +126,81 @@
         ]
     },
     {
-        "Id": 99920008,
-        "Behavior": 99920008,
-        "Name": "2803\u6d4b\u8bd5\u5173",
+        "Id": 99920007,
+        "Behavior": 99920007,
+        "Name": "2.9BOSS\u6d4b\u8bd5",
         "Environment": null,
         "TerrainRoot": null,
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 157,
+        "SceneCamera": 168,
+        "CameraId": 9,
+        "Terrains": [
+            999200070
+        ],
+        "Position": [
+            "0|0|0"
+        ],
+        "Rotation": [
+            "0|0|0"
+        ]
+    },
+    {
+        "Id": 99920008,
+        "Behavior": 99920008,
+        "Name": "2.9\u6218\u8f66\u6d4b\u8bd5",
+        "Environment": null,
+        "TerrainRoot": null,
+        "CloseLoadingDelay": 0.15,
+        "IsAsyncLoadNpc": null,
+        "SwitchNpcCd": 15,
+        "SceneCamera": 185,
         "CameraId": 9,
         "Terrains": [
             999200080
+        ],
+        "Position": [
+            "0|0|0"
+        ],
+        "Rotation": [
+            "0|0|0"
+        ]
+    },
+    {
+        "Id": 99920009,
+        "Behavior": 99920009,
+        "Name": "\u4e07\u4e8b\u94ed\u6570\u636e",
+        "Environment": null,
+        "TerrainRoot": null,
+        "CloseLoadingDelay": 0.15,
+        "IsAsyncLoadNpc": null,
+        "SwitchNpcCd": 15,
+        "SceneCamera": 185,
+        "CameraId": 9,
+        "Terrains": [
+            999200090
+        ],
+        "Position": [
+            "0|0|0"
+        ],
+        "Rotation": [
+            "0|0|0"
+        ]
+    },
+    {
+        "Id": 99920010,
+        "Behavior": 99920010,
+        "Name": "BOSS\u6d4b\u8bd5",
+        "Environment": null,
+        "TerrainRoot": null,
+        "CloseLoadingDelay": 0.15,
+        "IsAsyncLoadNpc": null,
+        "SwitchNpcCd": 15,
+        "SceneCamera": 185,
+        "CameraId": 9,
+        "Terrains": [
+            999200100
         ],
         "Position": [
             "0|0|0"

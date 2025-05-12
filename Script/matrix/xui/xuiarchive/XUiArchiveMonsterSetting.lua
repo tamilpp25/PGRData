@@ -1,13 +1,9 @@
-XUiArchiveMonsterSetting = XClass(nil, "XUiArchiveMonsterSetting")
+local XUiArchiveMonsterSetting = XClass(XUiNode, "XUiArchiveMonsterSetting")
 
 local SettingMax = 5
 local StoryMax = 5
 
-function XUiArchiveMonsterSetting:Ctor(ui, data, base)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-
+function XUiArchiveMonsterSetting:OnStart(data, base)
     self.Data = data
     self.Base = base
 
@@ -27,13 +23,14 @@ function XUiArchiveMonsterSetting:Ctor(ui, data, base)
     }
 end
 
-function XUiArchiveMonsterSetting:SelectType(index)
-    self:SetMonsterSettingData(index)
-    self:SetMonsterStoryData(index)
+function XUiArchiveMonsterSetting:SelectType(npcId)
+    self:Open()
+    self:SetMonsterSettingData(npcId)
+    self:SetMonsterStoryData(npcId)
 end
 
-function XUiArchiveMonsterSetting:SetMonsterSettingData(type)
-    local settingList = XDataCenter.ArchiveManager.GetArchiveMonsterSettingList(self.Data:GetNpcId(type), XArchiveConfigs.MonsterSettingType.Setting)
+function XUiArchiveMonsterSetting:SetMonsterSettingData(npcId)
+    local settingList = self._Control:GetArchiveMonsterSettingList(npcId, XEnumConst.Archive.MonsterSettingType.Setting)
 
     for index = 1, SettingMax do
         if settingList[index] then
@@ -55,8 +52,8 @@ function XUiArchiveMonsterSetting:SetMonsterSettingData(type)
     end
 end
 
-function XUiArchiveMonsterSetting:SetMonsterStoryData(type)
-    local settingList = XDataCenter.ArchiveManager.GetArchiveMonsterSettingList(self.Data:GetNpcId(type), XArchiveConfigs.MonsterSettingType.Story)
+function XUiArchiveMonsterSetting:SetMonsterStoryData(npcId)
+    local settingList = self._Control:GetArchiveMonsterSettingList(npcId, XEnumConst.Archive.MonsterSettingType.Story)
 
     for index = 1, StoryMax do
         if settingList[index] then
@@ -78,3 +75,6 @@ function XUiArchiveMonsterSetting:SetMonsterStoryData(type)
     end
 end
 
+
+
+return XUiArchiveMonsterSetting

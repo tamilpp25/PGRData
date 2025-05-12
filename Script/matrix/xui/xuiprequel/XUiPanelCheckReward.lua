@@ -1,4 +1,6 @@
-XUiPanelCheckReward = XClass(nil, "XUiPanelCheckReward")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridPrequelCheckPointReward = require("XUi/XUiPrequel/XUiGridPrequelCheckPointReward")
+local XUiPanelCheckReward = XClass(nil, "XUiPanelCheckReward")
 
 function XUiPanelCheckReward:Ctor(ui, rootUi)
     self.GameObject = ui.gameObject
@@ -62,6 +64,7 @@ end
 
 function XUiPanelCheckReward:OnBtnMaskClick()
     self.GameObject:SetActive(false)
+    self:OnDisable()
 end
 
 -- [刷新奖励界面]
@@ -110,6 +113,14 @@ function XUiPanelCheckReward:OnDynamicTableEvent(event, index, grid)
     -- elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         -- 点击事件交由按钮处理
     end
+end
+
+function XUiPanelCheckReward:OnEnable()
+    XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnMaskClick")
+end
+
+function XUiPanelCheckReward:OnDisable()
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
 end
 
 return XUiPanelCheckReward

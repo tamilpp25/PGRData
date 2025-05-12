@@ -1,4 +1,4 @@
-XUiClickClearPanelGameRewardData = XClass(nil, "XUiClickClearPanelGameRewardData")
+local XUiClickClearPanelGameRewardData = XClass(nil, "XUiClickClearPanelGameRewardData")
 
 function XUiClickClearPanelGameRewardData:Ctor(gameStageId, rewardId, rewardConditionDesc)
     self.GameStageId = gameStageId

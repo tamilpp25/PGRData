@@ -1,3 +1,4 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local mathFloor = math.floor
 local XMathClamp = XMath.Clamp
 local stringFormat = string.format

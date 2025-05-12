@@ -10,10 +10,7 @@ function XUiDormPersonListItem:Ctor(ui)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     XTool.InitUiObject(self)
-end
-
-function XUiDormPersonListItem:Init(uiRoot)
-    self.UiRoot = uiRoot
+    self.PersonSingleItem.gameObject:SetActiveEx(false)
 end
 
 -- 更新数据
@@ -23,15 +20,9 @@ function XUiDormPersonListItem:OnRefresh(itemData, curDormId)
     end
 
     self.ItemData = itemData
-    if curDormId ~= itemData.DormitoryId then
-        self.PanelName.gameObject:SetActive(true)
-        self.TxtName.text = itemData.DormitoryName
-        self.PanelNameAtPresent.gameObject:SetActive(false)
-    else
-        self.PanelName.gameObject:SetActive(false)
-        self.TxtNameAtPresent.text = itemData.DormitoryName
-        self.PanelNameAtPresent.gameObject:SetActive(true)
-    end
+    self.PanelName.gameObject:SetActive(true)
+    self.TxtName.text = itemData.DormitoryName
+    self.PanelNameAtPresent.gameObject:SetActive(curDormId == itemData.DormitoryId)
 
     self.CharacterIds = XTool.Clone(itemData.CharacterIdList or {})
 
@@ -68,7 +59,7 @@ function XUiDormPersonListItem:GetItem(index)
     obj.transform:SetParent(self.PersonList, false)
     obj.transform.localScale = V3O
     obj.gameObject.name = index
-    local item = XUiDormPersonSingleItem.New(obj, self.UiRoot)
+    local item = XUiDormPersonSingleItem.New(obj)
     item:SetState(true)
     return item
 end

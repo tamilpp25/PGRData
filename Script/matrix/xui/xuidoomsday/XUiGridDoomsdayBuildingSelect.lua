@@ -10,6 +10,8 @@ end
 function XUiGridDoomsdayBuildingSelect:Init()
     self.BtnEnvironment.CallBack = handler(self, self.OnClickBtnClick)
     self:SetSelect(false)
+    self.TxtUnlock = self.Disable.transform:Find("TxtUnlock")
+    self.TxtUnlock.gameObject:SetActiveEx(false)
 end
 
 function XUiGridDoomsdayBuildingSelect:Refresh(cfgId)
@@ -29,17 +31,30 @@ function XUiGridDoomsdayBuildingSelect:Refresh(cfgId)
     else
         self.TxtQuantity.gameObject:SetActiveEx(false)
     end
+    local conditionId = XDoomsdayConfigs.BuildingConfig:GetProperty(cfgId, "UnlockCondition")
+    local passCondition, desc
+    if XTool.IsNumberValid(conditionId) then
+        passCondition, desc = XDoomsdayConfigs.CheckCondition(conditionId, self.StageId)
+    else
+        passCondition, desc = true, ""
+    end
     local reachLimit = XTool.IsNumberValid(limit) and cur >= limit
-    self.BtnEnvironment:SetDisable(reachLimit, not reachLimit)
-    self.Disable.gameObject:SetActiveEx(reachLimit)
+    local isLock = reachLimit or not passCondition
+    self.BtnEnvironment:SetDisable(isLock, not isLock)
+    if reachLimit then
+        self.TxtDisable.text = XUiHelper.GetText("DoomsdayBuildReachLimit")
+    elseif not passCondition then
+        self.TxtDisable.text = desc
+    end
+    self.Disable.gameObject:SetActiveEx(isLock)
     self.ReachLimit = reachLimit
 
     --工期 工期：{0}天
     self.TxtSpendTime.text =
         CsXTextManagerGetText(
         "DoomsdayBuildingBuildDay",
-        XDoomsdayConfigs.BuildingConfig:GetProperty(cfgId, "FinishDayCount")
-    )
+        XDoomsdayConfigs.BuildingConfig:GetProperty(cfgId, "FinishDayCount"))
+    
 
     local costResourceList = XDoomsdayConfigs.GetBuildingConstructResourceInfos(cfgId)
     for index, resourceInfo in pairs(costResourceList) do

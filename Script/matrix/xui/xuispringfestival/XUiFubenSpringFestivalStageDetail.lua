@@ -1,3 +1,6 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenSpringFestivalStageDetail = XLuaUiManager.Register(XLuaUi, "UiFubenSpringFestivalStageDetail")
 
 function XUiFubenSpringFestivalStageDetail:OnAwake()
@@ -127,7 +130,7 @@ function XUiFubenSpringFestivalStageDetail:OnBtnEnterClick()
             self.RootUi:ClearNodesSelect()
             self.RootUi:CloseStageDetails()
         end
-        XLuaUiManager.Open("UiNewRoomSingle", self.FStage:GetStageId())
+        XLuaUiManager.Open("UiBattleRoleRoom", self.FStage:GetStageId())
     end
 end
 

@@ -5,7 +5,7 @@ local CsGetText = CS.XTextManager.GetText
 
 local XUiPanelSelectReplicatedGift = XClass(nil, "XUiPanelSelectReplicatedGift")
 
--- local XUiGridSelectReplicatedGift = require("XUi/XUiBag/XUiGridSelectReplicatedGift")
+local XUiGridSelectReplicatedGift = require("XUi/XUiBag/XUiGridSelectReplicatedGift")
 
 function XUiPanelSelectReplicatedGift:Ctor(rootUi, ui)
     self.GameObject = ui.gameObject
@@ -26,7 +26,7 @@ function XUiPanelSelectReplicatedGift:AutoAddListener()
     self.BtnClose.CallBack = function() self:Close() end
     self.BtnCloseAllScreen.CallBack = function() self:Close() end
     self.BtnConfirm.CallBack = function() self:OnBtnConfirmClick() end
-    self.BtnClearSelection.CallBack = function() self:OnBtnClearSelectionClick() end
+    self.BtnClearSelection.CallBack = function() self:OnBtnClearSelectionClick() end   
 end
 
 function XUiPanelSelectReplicatedGift:Open(itemId,maxSelectCount)
@@ -96,13 +96,14 @@ function XUiPanelSelectReplicatedGift:Open(itemId,maxSelectCount)
     self.TxtGfitCount.text = CS.XTextManager.GetText("ItemHaveSelectedCount", self.CurSelectCount, self.MaxSelectCount)
     self:UpdateConfirmStatus()
     self.RootUi:PlayAnimation("AnimSelectReplicatedGift")
+    XDataCenter.UiPcManager.OnUiEnable(self)
 end
 
 function XUiPanelSelectReplicatedGift:OpenDetailUi(data)
     if data.RewardType == XRewardManager.XRewardType.Character then
         XLuaUiManager.Open("UiCharacterDetail", data.TemplateId)
     elseif data.RewardType == XRewardManager.XRewardType.Equip then
-        XLuaUiManager.Open("UiEquipDetail", data.TemplateId, true)
+        XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipPreview(data.TemplateId)
     elseif data.RewardType == XRewardManager.XRewardType.Fashion then
         XLuaUiManager.Open("UiFashionDetail", data.TemplateId, false, nil)
     elseif data.RewardType == XRewardManager.XRewardType.Partner then
@@ -309,6 +310,7 @@ function XUiPanelSelectReplicatedGift:OnBtnClearSelectionClick()
 end
 
 function XUiPanelSelectReplicatedGift:Close()
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
     self.GameObject:SetActiveEx(false)
 end
 

@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 local CSXTextManagerGetText = CS.XTextManager.GetText
 

@@ -25,6 +25,7 @@ function XUiGuildBossLevelGrid:Init(data, curLevel, nextLevel, rankLevel, highSc
         --如果已解锁
         if highScore >= data.UnlockScore then
             self.FunctionGroup.gameObject:SetActiveEx(true)
+            self.Lock.gameObject:SetActiveEx(false)
             self.TxtGroup.alpha = 1
             --如果是下次选择的level
             if data.Level == nextLevel then
@@ -34,13 +35,15 @@ function XUiGuildBossLevelGrid:Init(data, curLevel, nextLevel, rankLevel, highSc
                 self.NextSelectMark.gameObject:SetActiveEx(false)
                 self.BtnSelect.gameObject:SetActiveEx(true)
             end
-        --未解锁
+        --未解锁 nzwjV3 显示未解锁标签 fixme
         else
-            self.TxtGroup.alpha = 0.8
+            self.TxtGroup.alpha = 0.5
             self.FunctionGroup.gameObject:SetActiveEx(false)
+            self.Lock.gameObject:SetActiveEx(true)
         end
     else
         self.FunctionGroup.gameObject:SetActiveEx(false)
+        self.Lock.gameObject:SetActiveEx(false)
         if highScore >= data.UnlockScore then
             self.TxtGroup.alpha = 1
             if data.Level == nextLevel then
@@ -48,8 +51,9 @@ function XUiGuildBossLevelGrid:Init(data, curLevel, nextLevel, rankLevel, highSc
                 self.NextSelectMark.gameObject:SetActiveEx(true)
                 self.BtnSelect.gameObject:SetActiveEx(false)
             end
-        else
-            self.TxtGroup.alpha = 0.8
+        else -- nzwjV3 显示未解锁标签 fixme
+            self.TxtGroup.alpha = 0.5
+            self.Lock.gameObject:SetActiveEx(true)
         end
     end
 end

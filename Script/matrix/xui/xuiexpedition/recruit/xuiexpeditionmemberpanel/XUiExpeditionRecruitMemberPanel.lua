@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --虚像地平线招募界面：成员列表控件
 local XUiExpeditionRecruitMemberPanel = XClass(nil, "XUiExpeditionRecruitMemberPanel")
 local XUiExpeditionMemberGrid = require("XUi/XUiExpedition/Recruit/XUiExpeditionMemberPanel/XUiExpeditionRecruitMemberGrid")

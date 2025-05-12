@@ -1,3 +1,5 @@
+local XUiGridTask = require("XUi/XUiTask/XUiGridTask")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridTaskReward = XClass(nil, "XUiGridTaskReward")
 local CSTextManagerGetText = CS.XTextManager.GetText
 function XUiGridTaskReward:Ctor(ui,root)

@@ -1,4 +1,5 @@
 local XDrawGroupBtnBaseEntity = require("XEntity/XDrawMianButton/XDrawGroupBtnBaseEntity")
+---@class XNormalDrawGroupBtnEntity:XDrawGroupBtnBaseEntity
 local XNormalDrawGroupBtnEntity = XClass(XDrawGroupBtnBaseEntity, "XNormalDrawGroupBtnEntity")
 local CSTextManagerGetText = CS.XTextManager.GetText
 function XNormalDrawGroupBtnEntity:Ctor()
@@ -96,6 +97,10 @@ function XNormalDrawGroupBtnEntity:IsShowTag()
         end
     end
     return IsShowNewTag
+end
+
+function XNormalDrawGroupBtnEntity:IsShowFreeTip()
+    return XDataCenter.DrawManager.CheckHasFreeTicket(self:GetId())
 end
 
 return XNormalDrawGroupBtnEntity

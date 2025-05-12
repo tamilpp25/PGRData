@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiLoadingSelection = XClass(nil, "XUiLoadingSelection")
 
 local XUiGridSelected = require("XUi/UiLoading/ChildItem/XUiGridSelected")
@@ -22,7 +23,7 @@ end
 function XUiLoadingSelection:Refresh(selectionDic)
     self.EntityList = {}
     for i in pairs(selectionDic) do
-        table.insert(self.EntityList, XDataCenter.ArchiveManager.GetArchiveCgEntity(i))
+        table.insert(self.EntityList, XMVCA.XArchive:GetArchiveCgEntity(i))
     end
 
     table.sort(self.EntityList, function(a, b)

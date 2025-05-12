@@ -1,8 +1,10 @@
+local XUiPanelArea = require("XUi/XUiMission/XUiPanelArea")
 local MAX_SPECIAL_NUM = 3 --前多少名用特殊数字的图片显示
 
 local ipairs = ipairs
 
---区块排行榜3D的UI
+---@class XUiPanelAreaWarMainRank3D 区块排行榜3D的UI
+---@field
 local XUiPanelAreaWarMainRank3D = XClass(nil, "XUiPanelAreaWarMainRank3D")
 
 function XUiPanelAreaWarMainRank3D:Ctor(ui)
@@ -50,12 +52,20 @@ function XUiPanelAreaWarMainRank3D:Refresh(blockId)
         end
         grid.TxtNumber.text = rankItem.Score
         grid.TxtName.text = XDataCenter.SocialManager.GetPlayerRemark(rankItem.PlayerId, rankItem.Name)
-        XUiPLayerHead.InitPortrait(rankItem.HeadPortraitId, rankItem.HeadFrameId, grid.Head)
+        XUiPlayerHead.InitPortrait(rankItem.HeadPortraitId, rankItem.HeadFrameId, grid.Head)
         grid.GameObject:SetActiveEx(true)
     end
     for index = #rankList + 1, #self.GridList do
         self.GridList[index].GameObject:SetActiveEx(false)
     end
+end
+
+function XUiPanelAreaWarMainRank3D:Show()
+    self.GameObject:SetActiveEx(true)
+end
+
+function XUiPanelAreaWarMainRank3D:Hide()
+    self.GameObject:SetActiveEx(false)
 end
 
 return XUiPanelAreaWarMainRank3D

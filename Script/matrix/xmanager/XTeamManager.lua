@@ -1,6 +1,7 @@
 local XTeam = require("XEntity/XTeam/XTeam")
 local XPartnerPrefab = require("XEntity/XPartner/XPartnerPrefab")
 XTeamManagerCreator = function()
+    ---@class XTeamManager XTeamManager
     local XTeamManager = {}
 
     local TeamDataKey = "STAGE_TEAM_DATA_"
@@ -142,7 +143,7 @@ XTeamManagerCreator = function()
 
         local team = XSaveTool.GetData(GetTeamKey(stageId)) or EmptyTeam
         for _, v in ipairs(team.TeamData) do
-            if v ~= 0 and not XRobotManager.CheckIsRobotId(v) and not XDataCenter.CharacterManager.IsOwnCharacter(v) then
+            if v ~= 0 and not XRobotManager.CheckIsRobotId(v) and not XMVCA.XCharacter:IsOwnCharacter(v) then
                 return EmptyTeam
             end
         end
@@ -168,7 +169,9 @@ XTeamManagerCreator = function()
         params.CaptainPos = curTeam.CaptainPos
         params.FirstFightPos = curTeam.FirstFightPos
         params.TeamName = curTeam.TeamName
-
+        params.SelectedGeneralSkill = curTeam.SelectedGeneralSkill
+        params.EnterCgIndex = curTeam.EnterCgIndex
+        params.SettleCgIndex = curTeam.SettleCgIndex
         local methodName, req
         if isPrefab then
             local partnerPrefab = XTeamManager.GetPartnerPrefab(curTeamId)
@@ -245,6 +248,9 @@ XTeamManagerCreator = function()
         playerTeamData[curTeamId].FirstFightPos = curTeam.FirstFightPos
         playerTeamData[curTeamId].TeamData = curTeam.TeamData
         playerTeamData[curTeamId].TeamName = curTeam.TeamName
+        playerTeamData[curTeamId].SelectedGeneralSkill = curTeam.SelectedGeneralSkill
+        playerTeamData[curTeamId].EnterCgIndex = curTeam.EnterCgIndex
+        playerTeamData[curTeamId].SettleCgIndex = curTeam.SettleCgIndex
         if isPrefab then
             playerTeamData[curTeamId].PartnerPrefab = XDataCenter.TeamManager.GetPartnerPrefab(curTeamId)
         end
@@ -254,51 +260,51 @@ XTeamManagerCreator = function()
     end
 
     -- todo  特别优化
-    function XTeamManager.SetExpeditionTeamData(curTeam, cb)
-        local curTeamId = curTeam.TeamId
-        local params = {}
-        params.TeamData = {}
-        params.TeamId = curTeamId
-        XMessagePack.MarkAsTable(params.TeamData)
-        for k, v in pairs(curTeam.TeamData) do
-            params.TeamData[k] = v
-        end
-        params.CaptainPos = curTeam.CaptainPos
-        params.FirstFightPos = curTeam.FirstFightPos
-        local req = { TeamData = params}
-        XNetwork.Call(METHOD_NAME.SetTeam, req, function(res)
-            if res.Code ~= XCode.Success then
-                XUiManager.TipCode(res.Code)
-                return
-            end
-            local characterCheckTable = {}
-            local playerTeamData = PlayerTeamGroupData
-            -- 更新客户端队伍缓存
-            if playerTeamData[curTeamId] == nil then
-                playerTeamData[curTeamId] = {}
-            else
-                for _, baseId in pairs(playerTeamData[curTeamId].TeamData) do
-                    characterCheckTable[baseId] = true
-                end
-
-                for pos, baseId in pairs(curTeam.TeamData) do
-                    if not characterCheckTable[baseId] then
-                        local charId = XExpeditionConfig.GetCharacterIdByBaseId(baseId)
-                        XEventManager.DispatchEvent(XEventId.EVENT_TEAM_MEMBER_CHANGE, curTeamId, charId, pos == curTeam.CaptainPos)
-                    end
-                end
-            end
-            playerTeamData[curTeamId].TeamId = curTeamId
-            playerTeamData[curTeamId].CaptainPos = curTeam.CaptainPos
-            playerTeamData[curTeamId].FirstFightPos = curTeam.FirstFightPos
-            playerTeamData[curTeamId].TeamData = curTeam.TeamData
-            playerTeamData[curTeamId].TeamName = curTeam.TeamName
-
-            if cb then cb() end
-
-            XEventManager.DispatchEvent(XEventId.EVENT_TEAM_PREFAB_CHANGE, curTeamId, playerTeamData[curTeamId])
-        end)
-    end
+    --function XTeamManager.SetExpeditionTeamData(curTeam, cb)
+    --    local curTeamId = curTeam.TeamId
+    --    local params = {}
+    --    params.TeamData = {}
+    --    params.TeamId = curTeamId
+    --    XMessagePack.MarkAsTable(params.TeamData)
+    --    for k, v in pairs(curTeam.TeamData) do
+    --        params.TeamData[k] = v
+    --    end
+    --    params.CaptainPos = curTeam.CaptainPos
+    --    params.FirstFightPos = curTeam.FirstFightPos
+    --    local req = { TeamData = params}
+    --    XNetwork.Call(METHOD_NAME.SetTeam, req, function(res)
+    --        if res.Code ~= XCode.Success then
+    --            XUiManager.TipCode(res.Code)
+    --            return
+    --        end
+    --        local characterCheckTable = {}
+    --        local playerTeamData = PlayerTeamGroupData
+    --        -- 更新客户端队伍缓存
+    --        if playerTeamData[curTeamId] == nil then
+    --            playerTeamData[curTeamId] = {}
+    --        else
+    --            for _, baseId in pairs(playerTeamData[curTeamId].TeamData) do
+    --                characterCheckTable[baseId] = true
+    --            end
+    --
+    --            for pos, baseId in pairs(curTeam.TeamData) do
+    --                if not characterCheckTable[baseId] then
+    --                    local charId = XExpeditionConfig.GetCharacterIdByBaseId(baseId)
+    --                    XEventManager.DispatchEvent(XEventId.EVENT_TEAM_MEMBER_CHANGE, curTeamId, charId, pos == curTeam.CaptainPos)
+    --                end
+    --            end
+    --        end
+    --        playerTeamData[curTeamId].TeamId = curTeamId
+    --        playerTeamData[curTeamId].CaptainPos = curTeam.CaptainPos
+    --        playerTeamData[curTeamId].FirstFightPos = curTeam.FirstFightPos
+    --        playerTeamData[curTeamId].TeamData = curTeam.TeamData
+    --        playerTeamData[curTeamId].TeamName = curTeam.TeamName
+    --
+    --        if cb then cb() end
+    --
+    --        XEventManager.DispatchEvent(XEventId.EVENT_TEAM_PREFAB_CHANGE, curTeamId, playerTeamData[curTeamId])
+    --    end)
+    --end
 
     function XTeamManager.GetPlayerTeamData(teamId)
         return PlayerTeamGroupData[teamId] or false
@@ -367,6 +373,63 @@ XTeamManagerCreator = function()
         return posId
     end
 
+    function XTeamManager.GetTeamEnterCgIndex(teamId)
+        local index = XTeamManager.GetXTeamEnterCgIndex(teamId)
+        if index then return index end
+
+        if not XTeamConfig.GetTeamTypeCfg(teamId) and teamId ~= 0 then
+            XLog.Error("XTeamManager.GetTeamFirstFightPos, 缺少TeamTypeCfg，teamId = ", tostring(teamId))
+            return
+        end
+
+        -- 默认位置为0
+        index = 0
+
+        -- 是否设置过该teamId数据
+        if PlayerTeamGroupData[teamId] ~= nil then
+            index = PlayerTeamGroupData[teamId].EnterCgIndex
+        end
+        return index
+    end
+
+    function XTeamManager.GetTeamSettleCgIndex(teamId)
+        local index = XTeamManager.GetXTeamSettleCgIndex(teamId)
+        if index then return index end
+
+        if not XTeamConfig.GetTeamTypeCfg(teamId) and teamId ~= 0 then
+            XLog.Error("XTeamManager.GetTeamFirstFightPos, 缺少TeamTypeCfg，teamId = ", tostring(teamId))
+            return
+        end
+
+        -- 默认位置为0
+        index = 0
+
+        -- 是否设置过该teamId数据
+        if PlayerTeamGroupData[teamId] ~= nil then
+            index = PlayerTeamGroupData[teamId].SettleCgIndex
+        end
+        return index
+    end
+    
+    function XTeamManager.GetTeamSelectedGeneralSkill(teamId)
+        local selectedGeneralSkill = XTeamManager.GetXTeamSelectGeneralSkill(teamId)
+        if XTool.IsNumberValid(selectedGeneralSkill) then
+            return selectedGeneralSkill
+        end
+
+        if not XTeamConfig.GetTeamTypeCfg(teamId) and teamId ~= 0 then
+            XLog.Error("XTeamManager.GetTeamFirstFightPos, 缺少TeamTypeCfg，teamId = ", tostring(teamId))
+            return
+        end
+
+        selectedGeneralSkill = 0
+        -- 是否设置过该teamId数据
+        if PlayerTeamGroupData[teamId] ~= nil then
+            selectedGeneralSkill = PlayerTeamGroupData[teamId].SelectedGeneralSkill
+        end
+        return selectedGeneralSkill
+    end
+
     function XTeamManager.GetTeamCaptainId(teamId)
         local xTeam = XTeamManager.GetXTeam(teamId)
         if xTeam then
@@ -425,6 +488,9 @@ XTeamManagerCreator = function()
             ["TeamData"] = XTeamManager.GetTeamData(curTeamId),
             ["CaptainPos"] = XTeamManager.GetTeamCaptainPos(curTeamId),
             ["FirstFightPos"] = XTeamManager.GetTeamFirstFightPos(curTeamId),
+            ["SelectedGeneralSkill"] = XTeamManager.GetTeamSelectedGeneralSkill(curTeamId),
+            ["EnterCgIndex"] = XTeamManager.GetTeamEnterCgIndex(curTeamId),
+            ["SettleCgIndex"] = XTeamManager.GetTeamSettleCgIndex(curTeamId),
         }
         return CurTeam
     end
@@ -478,6 +544,9 @@ XTeamManagerCreator = function()
             PlayerTeamGroupData[key].CaptainPos = value.CaptainPos
             PlayerTeamGroupData[key].FirstFightPos = value.FirstFightPos
             PlayerTeamGroupData[key].TeamData = teamTemp
+            PlayerTeamGroupData[key].SelectedGeneralSkill = value.SelectedGeneralSkill
+            PlayerTeamGroupData[key].EnterCgIndex = value.EnterCgIndex
+            PlayerTeamGroupData[key].SettleCgIndex = value.SettleCgIndex
         end
     end
 
@@ -502,6 +571,9 @@ XTeamManagerCreator = function()
             PlayerTeamPrefabData[key].TeamData = teamTemp
             PlayerTeamPrefabData[key].TeamName = value.TeamName
             PlayerTeamPrefabData[key].PartnerPrefab = partnerPrefab
+            PlayerTeamPrefabData[key].SelectedGeneralSkill = value.SelectedGeneralSkill
+            PlayerTeamPrefabData[key].EnterCgIndex = value.EnterCgIndex
+            PlayerTeamPrefabData[key].SettleCgIndex = value.SettleCgIndex
         end
     end
     
@@ -567,11 +639,12 @@ XTeamManagerCreator = function()
     end
 
     --######################## 新队伍逻辑代码 ########################
-    -- return : XTeam
+    ---@return XTeam
     function XTeamManager.GetMainLineTeam()
         return XTeamManager.GetXTeamByTypeId(CS.XGame.Config:GetInt("TypeIdMainLine"))
     end
 
+    ---@return XTeam
     function XTeamManager.GetXTeamByTypeId(typeId)
         local teamData = XTeamManager.GetPlayerTeam(typeId)
         local result = TeamDic[teamData.TeamId]
@@ -585,21 +658,52 @@ XTeamManagerCreator = function()
         result:UpdateFromTeamData(teamData)
         return result
     end
-
+    
     function XTeamManager.GetXTeamByStageId(stageId)
+        --- GetTeamKey接口获取的TeamId和XTeam内部自动保存时用的Id不一致（详见XTeam内GetSaveKey接口）
+        --- 如果没有配套使用SaveTeamLocal接口，teamData将始终为空
         local teamData = XTeamManager.LoadTeamLocal(stageId)
         local teamId = GetTeamKey(stageId)
         local result = TeamDic[teamId]
         if result == nil then
+            -- 如果Xteam此前执行了内部变更保存，构造函数执行期间将正常加载本地缓存的队伍数据（详见XTeam内LoadTeamData接口)
             result = XTeam.New(teamId)
+            -- 此处teamData数据覆盖，teamData始终为空时，无论XTeam内部缓存结果，最终始终读取空队伍
             result:UpdateFromTeamData(teamData)
             TeamDic[teamId] = result
         end
         return result
     end
 
+    --- 该接口获取的XTeam启用内部变更自动保存，无需外部手动调用保存接口
+    function XTeamManager.GetXTeamByStageIdEx(stageId)
+        local teamId = GetTeamKey(stageId)
+        ---@type XTeam
+        local result = TeamDic[teamId]
+        if result == nil then
+            result = XTeam.New(teamId)
+            result:UpdateAutoSave(true)
+            TeamDic[teamId] = result
+        end
+        return result
+    end
+
+    --根据teamID从内存获取XTeam
+    ---@return XTeam
     function XTeamManager.GetXTeam(teamId)
         return TeamDic[teamId]
+    end
+
+    --把XTeam根据其TeamID存到内存
+    ---@param xTeam
+    function XTeamManager.SetXTeam(xTeam)
+        TeamDic[xTeam:GetId()] = xTeam
+    end
+
+    --把XTeam从内存引用中移除
+    ---@param xTeam
+    function XTeamManager.RemoveXTeam(xTeam)
+        TeamDic[xTeam:GetId()] = nil
     end
 
     function XTeamManager.GetXTeamEntityIds(teamId)
@@ -627,19 +731,61 @@ XTeamManagerCreator = function()
         return nil
     end
 
+    function XTeamManager.GetXTeamEnterCgIndex(teamId)
+        local team = XTeamManager.GetXTeam(teamId)
+        if team then
+            return team:GetEnterCgIndex()
+        end
+        return nil
+    end
+
+    function XTeamManager.GetXTeamSettleCgIndex(teamId)
+        local team = XTeamManager.GetXTeam(teamId)
+        if team then
+            return team:GetSettleCgIndex()
+        end
+        return nil
+    end
+
+    function XTeamManager.GetXTeamSelectGeneralSkill(teamId)
+        ---@type XTeam
+        local team = XTeamManager.GetXTeam(teamId)
+        if team then
+            return team:GetCurGeneralSkill()
+        end
+        return 0
+    end
+
     function XTeamManager.SaveXTeam(teamId)
         local team = XTeamManager.GetXTeam(teamId)
         if team then
             team:ManualSave()
         end
     end
+    
+    local _TempTeam
 
     -- 创建临时使用的队伍实体
     function XTeamManager.CreateTempTeam(entityIds)
         local result = XTeam.New(XTime.GetServerNowTimestamp())
         result:UpdateAutoSave(false)
         result:UpdateEntityIds(entityIds)
+        _TempTeam = result
         return result
+    end
+
+    function XTeamManager.ClearTempTeam()
+        _TempTeam = nil
+    end
+    
+    function XTeamManager.GetTempTeam(teamId)
+        if _TempTeam and _TempTeam.Id == teamId then
+            return _TempTeam
+        end
+    end
+    
+    function XTeamManager.GetTempTeamForce()
+        return _TempTeam
     end
 
     function XTeamManager.CreateTeam(teamId)
@@ -648,6 +794,8 @@ XTeamManagerCreator = function()
         return result
     end
 
+
+    
     function XTeamManager.GetXTeamWithPrefab(teamId)
         local result
         for _, teamData in pairs(PlayerTeamPrefabData) do
@@ -661,7 +809,7 @@ XTeamManagerCreator = function()
         return result
     end
 
-    -- team : XTeam
+    ---@param team XTeam
     function XTeamManager.RequestSaveTeam(team)
         local entityIds = {}
         XMessagePack.MarkAsTable(entityIds)
@@ -674,10 +822,104 @@ XTeamManagerCreator = function()
                 TeamId = team:GetId(),
                 CaptainPos = team:GetCaptainPos(),
                 FirstFightPos = team:GetFirstFightPos(),
-                TeamName = team:GetName()
+                TeamName = team:GetName(),
+                SelectedGeneralSkill = team:GetCurGeneralSkill(),
+                EnterCgIndex = team:GetEnterCgIndex(),
+                SettleCgIndex = team:GetSettleCgIndex(),
             }
         }
         XNetwork.CallWithAutoHandleErrorCode(METHOD_NAME.SetTeam, requestBody)
+    end
+
+    --- 根据传入的限定可选角色，对上阵队伍进行筛选剔除掉无效实体(提供通用接口用于支持那些非XTeam类型管理的队伍）
+    ---@param entityIds @队伍上阵实体的id列表（自机id或机器人id。按通用标准，无角色位填充0）
+    ---@param limitEntityIds @限定的可选实体id列表
+    ---@param captainPos @队伍的队长位，不填则不判断队长变更的情况
+    ---@return any @是否实体有变化, 是否队长位变更，过滤后的实体表
+    function XTeamManager.GetValidEntitiesByLimitEntityIds(entityIds, limitEntityIds, captainPos)
+        if not XTool.IsTableEmpty(entityIds) and not XTool.IsTableEmpty(limitEntityIds) then
+            if not XTool.IsNumberValid(captainPos) or captainPos > 3 then
+                captainPos = 0
+            end
+            
+            local needChangeCaptainPos = false
+            local entityChanged = false
+            -- 剔除不在可选角色列表中的id
+            for i = 1, #entityIds do
+                if XTool.IsNumberValid(entityIds[i]) and not table.contains(limitEntityIds, entityIds[i]) then
+                    entityIds[i] = 0
+                    entityChanged = true
+                    if captainPos == i then
+                        needChangeCaptainPos = true
+                    end
+                end
+            end
+            
+            return entityChanged, needChangeCaptainPos, entityIds
+        end
+        
+        return false, false, nil
+    end
+
+    --- 根据传入的实体Id列表, 按照既定规则返回一个默认效应技能id(提供通用接口用于支持那些不会转换到XTeam处理的情况）
+    --- 需注意本接口仅一次性查找、不能用于查其他玩家角色的数据，不会收集和处理可选技能，无法用于“效应选择”功能
+    ---@param entityIds @队伍上阵实体的id列表（自机id或机器人id。按通用标准，无角色位填充0）
+    ---@param lastGeneralSkillId @该队伍变更前所选择的效应技能Id, 缺省时为0
+    ---@return number @新选择的效应技能Id
+    function XTeamManager.GetTeamDefaultGeneralSkillId(entityIds, lastGeneralSkillId)
+        if XTool.IsTableEmpty(entityIds) then
+            return 0
+        end
+
+        if lastGeneralSkillId == nil then
+            lastGeneralSkillId = 0
+        end
+        
+        -- 判断新队伍产生的可选技能是否包含旧选择的技能
+        local containsLastGeneralSkillId = false
+        -- 优先选人数多的，其次选id小的
+        -- 根据以下编码，值最大的即为选择的generalSkillId
+        local generalSkillMap = {} -- <key: id, value: 100000 + characterCount*1000 + (999 - id) >
+
+        for i, entityId in pairs(entityIds) do
+            -- 获取角色已激活的效应技能列表（自机和机器人）
+            local skillIds = XMVCA.XCharacter:GetCharactersActiveGeneralSkillIdList(entityId)
+            if not XTool.IsTableEmpty(skillIds) then
+                for i, skillId in pairs(skillIds) do
+                    if generalSkillMap[skillId] == nil then
+                        generalSkillMap[skillId] = 100000 + 999 - skillId
+                    end
+
+                    generalSkillMap[skillId] = generalSkillMap[skillId] + 1000
+
+                    if skillId == lastGeneralSkillId then
+                        containsLastGeneralSkillId = true
+                    end
+                end
+            end
+        end
+
+        -- 如果新队伍可选的效应技能包括旧选择的，那么仍使用旧的
+        if containsLastGeneralSkillId then
+            return lastGeneralSkillId
+        end
+
+        -- 按照规则选择新效应技能
+        if not XTool.IsTableEmpty(generalSkillMap) then
+            local maxKey = 1
+            local maxValue = 0
+
+            for i, v in pairs(generalSkillMap) do
+                if v > maxValue then
+                    maxKey = i
+                    maxValue = v
+                end
+            end
+
+            return maxKey
+        end
+
+        return 0
     end
 
     XTeamManager.Init()

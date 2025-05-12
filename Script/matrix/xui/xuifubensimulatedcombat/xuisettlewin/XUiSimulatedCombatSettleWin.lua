@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelExpBar = require("XUi/XUiSettleWinMainLine/XUiPanelExpBar")
 local XUiGridWinRole = require("XUi/XUiFubenSimulatedCombat/XUiSettleWin/XUiGridWinRole")
 local XUiGridCond = require("XUi/XUiFubenSimulatedCombat/XUiSettleWin/XUiGridCond")
@@ -104,7 +105,7 @@ function XUiSimulatedCombatSettleWin:PlayShowFriend()
     self.TxtName.text = self.CurrAssistInfo.Name
     self.TxtLv.text = self.CurrAssistInfo.Level
     
-    XUiPLayerHead.InitPortrait(self.CurrAssistInfo.HeadPortraitId, self.CurrAssistInfo.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(self.CurrAssistInfo.HeadPortraitId, self.CurrAssistInfo.HeadFrameId, self.Head)
 
     self.PanelFriend.gameObject:SetActive(true)
     self:PlayAnimation("PanelFriendEnable", self.Cb)
@@ -229,7 +230,7 @@ function XUiSimulatedCombatSettleWin:UpdatePlayerInfo(data)
     local curExp = XPlayer.Exp
     local curMaxExp = XPlayerManager.GetMaxExp(curLevel, XPlayer.IsHonorLevelOpen())
     local txtLevelName = XPlayer.IsHonorLevelOpen() and CS.XTextManager.GetText("HonorLevel") or CS.XTextManager.GetText("PlayerLevelShort")
-    local addExp = self.StageCfg.TeamExp
+    local addExp = XDataCenter.FubenManager.GetTeamExp(self.StageId)
     self.PlayerExpBar = self.PlayerExpBar or XUiPanelExpBar.New(self.PanelPlayerExpBar)
     self.PlayerExpBar:LetsRoll(lastLevel, lastExp, lastMaxExp, curLevel, curExp, curMaxExp, addExp, txtLevelName)
 end
@@ -298,7 +299,7 @@ function XUiSimulatedCombatSettleWin:OnBtnEnterNextClick()
     if self.StageInfos.Type == XDataCenter.FubenManager.StageType.Tower then
         local stageId = XDataCenter.TowerManager.GetTowerData().CurrentStageId
         if XDataCenter.TowerManager.CheckStageCanEnter(stageId) then
-            XLuaUiManager.PopThenOpen("UiNewRoomSingle", stageId)
+            XLuaUiManager.PopThenOpen("UiBattleRoleRoom", stageId)
         else
             local text = CS.XTextManager.GetText("TowerCannotEnter")
             XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)
@@ -307,7 +308,7 @@ function XUiSimulatedCombatSettleWin:OnBtnEnterNextClick()
         if self.StageInfos.NextStageId then
             local nextStageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageInfos.NextStageId)
             self:HidePanel()
-            XDataCenter.FubenManager.OpenRoomSingle(nextStageCfg)
+            XDataCenter.FubenManager.OpenBattleRoom(nextStageCfg)
         else
             local text = CS.XTextManager.GetText("BattleWinMainCannotEnter")
             XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)

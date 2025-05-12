@@ -5,11 +5,12 @@ local XRedPointConditionCharacter = {}
 local SubCondition = nil
 function XRedPointConditionCharacter.GetSubConditions()
     SubCondition = SubCondition or {
+        XRedPointConditions.Types.CONDITION_CHARACTER_UNLOCK,
         XRedPointConditions.Types.CONDITION_CHARACTER_GRADE ,
         XRedPointConditions.Types.CONDITION_CHARACTER_QUALITY,
-        XRedPointConditions.Types.CONDITION_CHARACTER_UNLOCK,
-        XRedPointConditions.Types.CONDITION_CHARACTER_ENHANCESKILL,
         XRedPointConditions.Types.CONDITION_EXHIBITION_NEW,
+        XRedPointConditions.Types.CONDITION_CHARACTER_NEW_ENHANCESKILL_TIPS,
+        XRedPointConditions.Types.CONDITION_CHARACTER_EVO_SKILL_TIPS_RED,
     }
     return SubCondition
 end
@@ -19,30 +20,31 @@ function XRedPointConditionCharacter.Check(characterId)
         return false
     end
 
-    if XRedPointConditionCharacterUnlock.Check(characterId) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHARACTER_UNLOCK, characterId) then
         return true
     end
 
-    if XRedPointConditionCharacterGrade.Check(characterId) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHARACTER_GRADE, characterId) then
         return true
     end
 
-    if XRedPointConditionCharacterQuality.Check(characterId) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHARACTER_QUALITY, characterId) then
         return true
     end
 
-    if XRedPointConditionExhibitionNew.Check(characterId) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_EXHIBITION_NEW, characterId) then
         return true
     end
-    
-    if XRedPointConditionCharacterEnhanceSkill.Check(characterId) and
-       XCharacterConfigs.GetCharacterType(characterId) == XCharacterConfigs.CharacterType.Normal --过滤独域角色补强技能
-    then
+
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHARACTER_NEW_ENHANCESKILL_TIPS, characterId) then
+        return true
+    end
+
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHARACTER_EVO_SKILL_TIPS_RED, characterId) then
         return true
     end
 
     return false
-
 end
 
 return XRedPointConditionCharacter

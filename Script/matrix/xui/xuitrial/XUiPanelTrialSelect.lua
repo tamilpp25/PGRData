@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelTrialSelect = XClass(nil, "XUiPanelTrialSelect")
 local XUiGridTrialDesItem = require("XUi/XUiTrial/XUiGridTrialDesItem")
 
@@ -54,7 +56,7 @@ function XUiPanelTrialSelect:UpdateView(itemData)
     self.TxtLevel.text = level
 
     -- 电量
-    local active = stagecfg.RequireActionPoint or 0
+    local active = XDataCenter.FubenManager.GetRequireActionPoint(self.StageId)
     self.TxtNums.text = active
 
     -- 设置战斗力
@@ -77,7 +79,7 @@ function XUiPanelTrialSelect:SetPro(itemData)
 end
 
 function XUiPanelTrialSelect:SetAbility(itemData)
-    local charlist = XDataCenter.CharacterManager.GetCharacterList()
+    local charlist = XMVCA.XCharacter:GetCharacterList()
     local maxAbility = 0
 
     for _, v in pairs(charlist) do
@@ -195,11 +197,7 @@ function XUiPanelTrialSelect:EnterFight(stage)
         local groupId = XDataCenter.BfrtManager.GetGroupIdByBaseStage(stage.StageId)
         XLuaUiManager.Open("UiBfrtDeploy", groupId)
     else
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", stage.StageId)
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", stage.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", stage.StageId)
     end
 end
 return XUiPanelTrialSelect

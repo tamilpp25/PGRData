@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridMatchReward = XClass(nil, "XUiGridMatchReward")
 
 function XUiGridMatchReward:Ctor(ui)

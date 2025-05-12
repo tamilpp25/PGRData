@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiGuildVistor = XLuaUiManager.Register(XLuaUi, "UiGuildVistor")
 
 local XUiGuildViewVistorInformation = require("XUi/XUiGuild/XUiChildView/XUiGuildViewVistorInformation")

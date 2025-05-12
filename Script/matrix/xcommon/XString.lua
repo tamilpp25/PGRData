@@ -43,9 +43,9 @@ function string.Utf8Len(str)
 end
 
 --==============================--
---desc: 通过utf8获取单个字符长度
+--desc: 通过utf8获取单个字符大小
 --@str: 单个字符
---@return 字符串长度
+--@return 字符大小(字节为单位)
 --==============================--
 function string.Utf8Size(char)
     if not char then
@@ -83,6 +83,72 @@ function string.Utf8Sub(str, startChar, numChars)
         local char = stringByte(str, currentIndex)
         currentIndex = currentIndex + string.Utf8Size(char)
         numChars = numChars - 1
+    end
+    return str:sub(startIndex, currentIndex - 1)
+end
+
+--==============================--
+--desc: 通过utf8并且以(中文为2,其余为1)的方式获取字符串长度
+--@str: 字符串(中文为2,其余为1)
+--@return 字符串长度
+--==============================--
+function string.Utf8LenCustom(str)
+    local len = stringLen(str)
+    local left = len
+    local cnt = 0
+    local arr = { 0, 192, 224, 240, 248, 252 }
+    while left ~= 0 do
+        local tmp = stringByte(str, -left)
+        local i = #arr
+        while arr[i] do
+            if tmp >= arr[i] then
+                left = left - i
+                break
+            end
+            i = i - 1
+        end
+        if tmp >= 228 and tmp <= 233 then
+            cnt = cnt + 2
+        else
+            cnt = cnt + 1
+        end
+    end
+    return cnt
+end
+
+--==============================--
+--desc: 通过utf8以(中文为2,其余为1)的方式获取单个字符长度
+--@str: 单个字符
+--@return 字符长度
+--==============================--
+function string.Utf8CharLenCustom(char)
+    if not char then
+        return 0
+    elseif char >= 228 and char <= 233 then
+        return 2
+    else
+        return 1
+    end
+end
+
+--==============================--
+--desc: 按utf8长度并且以(中文为2,其余为1)的方式截取字符串
+--@str: 字符串(中文为2)
+--@return 字符串
+--==============================--
+function string.Utf8SubCustom(str, startChar, numChars)
+    local startIndex = 1
+    while startChar > 1 do
+        local char = stringByte(str, startIndex)
+        startIndex = startIndex + string.Utf8Size(char)
+        startChar = startChar - string.Utf8CharLenCustom(char)
+    end
+
+    local currentIndex = startIndex
+    while numChars > 0 and currentIndex <= #str do
+        local char = stringByte(str, currentIndex)
+        currentIndex = currentIndex + string.Utf8Size(char)
+        numChars = numChars - string.Utf8CharLenCustom(char)
     end
     return str:sub(startIndex, currentIndex - 1)
 end
@@ -408,4 +474,54 @@ function string.IsIp(ip)
     end
 
     return true, pureIpStr
+end
+
+-- 判断一个字符串是不是纯数字
+function string.IsNumeric(inputString)
+    local isNumeric = string.match(inputString, "^%d+$")
+    if isNumeric then
+        return true
+    else
+        return false
+    end
+end
+
+-- 判断一个字符串是不是一个浮点数
+function string.IsFloatNumber(inputString)
+    local isNumeric = string.match(inputString, "^-?%d+%.?%d*$")
+    if isNumeric then
+        return true
+    else
+        return false
+    end
+end
+
+local function pchar_to_char(str)
+    return string.char(tonumber(str, 16))
+end
+
+local function char_to_pchar(c)
+    return string.format("%%%02X", c:byte(1,1))
+end
+
+function string.decodeURIComponent(str)
+    return (str:gsub("%%(%x%x)", pchar_to_char))
+end
+
+function string.encodeURIComponent(str)
+    return (str:gsub("[^%w%-_%.%!%~%*%'%(%)]", char_to_pchar))
+end
+
+-- 格式化字符串用table替换 参数
+function string.ConcatWithPlaceholdersWithTable(str, args)
+    return string.gsub(str, "{(%d+)}", function(index)
+        local i = tonumber(index)
+        return args[i + 1] or ""
+    end)
+end
+
+-- 格式化字符串
+function string.ConcatWithPlaceholders(str, ...)
+    local args = {...}
+    return string.ConcatWithPlaceholdersWithTable(str, args)
 end

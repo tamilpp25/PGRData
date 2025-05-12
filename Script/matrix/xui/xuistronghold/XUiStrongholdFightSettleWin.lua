@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelExpBar = require("XUi/XUiSettleWinMainLine/XUiPanelExpBar")
 local XUiGridRewardLine = require("XUi/XUiStronghold/XUiGridRewardLine")
 
@@ -105,9 +106,11 @@ function XUiStrongholdFightSettleWin:CheckIsOpenStrongholdMinerUp(groupFightResu
 
     local addMinerCount = 0
     for _, groupFightResultInfo in ipairs(groupFightResultInfos) do
-        for _, v in ipairs(groupFightResultInfo.RewardGoodsList) do
-            if v.TemplateId == minerItemId then
-                addMinerCount = addMinerCount + v.Count
+        if groupFightResultInfo and groupFightResultInfo.RewardGoodsList then
+            for _, v in ipairs(groupFightResultInfo.RewardGoodsList) do
+                if v.TemplateId == minerItemId then
+                    addMinerCount = addMinerCount + v.Count
+                end
             end
         end
     end

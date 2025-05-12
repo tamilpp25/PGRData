@@ -1,11 +1,5 @@
----@class XUiSpecialTrainGrid
-local XUiSpecialTrainGrid = XClass(nil, "XUiSpecialTrainGrid")
-
-function XUiSpecialTrainGrid:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-end
+---@class XUiSpecialTrainGrid : XUiNode
+local XUiSpecialTrainGrid = XClass(XUiNode, "XUiSpecialTrainGrid")
 
 function XUiSpecialTrainGrid:Update(data)
     self.Bg:SetSprite(data.Image)

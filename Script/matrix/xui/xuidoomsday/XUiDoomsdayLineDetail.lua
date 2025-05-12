@@ -36,19 +36,30 @@ function XUiDoomsdayLineDetail:UpdateView()
     local stageId = self.StageId
     local stageData = XDataCenter.DoomsdayManager.GetStageData(stageId)
 
-    local subTargetIds = XDoomsdayConfigs.StageConfig:GetProperty(stageId, "SubTaskId")
-    self:RefreshTemplateGrids(self.GridSubTarget, subTargetIds, self.PanelTargetList, XUiGridDoomsdayTarget)
-    for index, targetId in pairs(subTargetIds) do
-        local target = XDataCenter.DoomsdayManager.GetStageData(stageId):GetTarget(targetId)
-        self:BindViewModelPropertyToObj(
-            stageData,
-            function()
-                local passed = XDataCenter.DoomsdayManager.IsStageSubTargetFinished(stageId, targetId)
-                self:GetGrid(index):SetPassed(passed)
-            end,
-            "_Star"
-        )
-    end
+    --local subTargetIds = XDoomsdayConfigs.StageConfig:GetProperty(stageId, "SubTaskId")
+    local mainTargetId = XDoomsdayConfigs.StageConfig:GetProperty(stageId, "MainTaskId")
+    local tips = XDoomsdayConfigs.TargetConfig:GetProperty(mainTargetId, "Tips")
+    self:RefreshTemplateGrids(
+            self.GridSubTarget,
+            tips, 
+            self.PanelTips, 
+            nil,
+            "GridSubTargets",
+            function(grid, tip) 
+                grid.TxtTips.text = XUiHelper.ReplaceUnicodeSpace(tip)
+            end
+    )
+    --for index, targetId in pairs(subTargetIds) do
+    --    local target = XDataCenter.DoomsdayManager.GetStageData(stageId):GetTarget(targetId)
+    --    self:BindViewModelPropertyToObj(
+    --        stageData,
+    --        function()
+    --            local passed = XDataCenter.DoomsdayManager.IsStageSubTargetFinished(stageId, targetId)
+    --            self:GetGrid(index):SetPassed(passed)
+    --        end,
+    --        "_Star"
+    --    )
+    --end
 
     --按钮状态
     self:BindViewModelPropertyToObj(
@@ -80,7 +91,12 @@ function XUiDoomsdayLineDetail:OnClickBtnClose()
 end
 
 function XUiDoomsdayLineDetail:OnClickBtnReStart()
-    XDataCenter.DoomsdayManager.EnterFight(self.StageId, true)
+    XUiManager.DialogTip(XUiHelper.GetText("TipTitle"),
+            XUiHelper.GetText("DoomsDayReStartDoubleCheckTips"), 
+            nil, 
+            nil, function() 
+                XDataCenter.DoomsdayManager.EnterFight(self.StageId, true)
+    end)
 end
 
 function XUiDoomsdayLineDetail:OnClickBtnEnter()

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridChooseReward = require("XUi/XUiFubenInfestorExplore/XUiGridChooseReward")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText

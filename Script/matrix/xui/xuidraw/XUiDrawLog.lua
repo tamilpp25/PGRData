@@ -1,32 +1,34 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiDrawLog = XLuaUiManager.Register(XLuaUi, "UiDrawLog")
-local BtnMaxCount = 4
-local IndexEventRule = 4
-local TypeText = {}
+local BtnMaxCount = 5
 local IsInit = {}
 local AnimeNames = {}
 local InitFunctionList = {}
-local TimestampToGameDateTimeString = XTime.TimestampToGameDateTimeString
-local DrawLogLimit = CS.XGame.ClientConfig:GetInt("DrawLogLimit")
+local INDEX = {
+    EVENT_RULE = 3,
+    ACTIVITY_TARGET = 4,
+}
+
 function XUiDrawLog:OnStart(drawInfo, selectIndex, cb)
     self.DrawId = drawInfo.Id
     self.DrawInfo = drawInfo
-    self.SelectIndex = selectIndex
-    if not self.SelectIndex then
-        self.SelectIndex = 1
-    end
+    self.SelectIndex = selectIndex or 1
     self.Cb = cb
-    self.BtnTanchuangClose.CallBack = function()
-        self:OnBtnTanchuangClose()
-    end
-    self.BtnClose.CallBack = function()
-        self:OnBtnTanchuangClose()
-    end
-    self.BtnSwitchOff.CallBack = function()
-        self:OnBtnSwitchOff()
-    end
-    self.BtnSwitchOn.CallBack = function()
-        self:OnBtnSwitchOn()
-    end
+    self:InitData()
+    self:InitBtnTab()
+    self:AddBtnListener()
+end
+
+function XUiDrawLog:OnEnable()
+    self:AddEventListener()
+end
+
+function XUiDrawLog:OnDisable()
+    self:RemoveEventListener()
+end
+
+--region Data & Obj
+function XUiDrawLog:InitData()
     InitFunctionList = {
         function()
             self:InitBaseRulePanel()
@@ -35,138 +37,14 @@ function XUiDrawLog:OnStart(drawInfo, selectIndex, cb)
             self:InitDrawPreview()
         end,
         function()
-            self:InitDrawLogListPanel()
+            self:InitEventRulePanel()
         end,
         function()
-            self:InitEventRulePanel()
+            self:InitActivityTargetPanel()
         end,
     }
     IsInit = {false, false, false, false }
-    AnimeNames = { "QieHuanOne", "QieHuanTwo", "QieHuanThree", "QieHuanFour" }
-    self:SetTypeText()
-    self:InitBtnTab()
-end
-
-function XUiDrawLog:SetTypeText()
-    TypeText[XArrangeConfigs.Types.Item] = CS.XTextManager.GetText("TypeItem")
-    TypeText[XArrangeConfigs.Types.Character] = function(templateId)
-        local characterType = XCharacterConfigs.GetCharacterType(templateId)
-        if characterType == XCharacterConfigs.CharacterType.Normal then
-            return CS.XTextManager.GetText("TypeCharacter")
-        elseif characterType == XCharacterConfigs.CharacterType.Isomer then
-            return CS.XTextManager.GetText("TypeIsomer")
-        end
-    end
-    TypeText[XArrangeConfigs.Types.Weapon] = CS.XTextManager.GetText("TypeWeapon")
-    TypeText[XArrangeConfigs.Types.Wafer] = CS.XTextManager.GetText("TypeWafer")
-    TypeText[XArrangeConfigs.Types.Fashion] = CS.XTextManager.GetText("TypeFashion")
-    TypeText[XArrangeConfigs.Types.Furniture] = CS.XTextManager.GetText("TypeFurniture")
-    TypeText[XArrangeConfigs.Types.HeadPortrait] = CS.XTextManager.GetText("TypeHeadPortrait")
-    TypeText[XArrangeConfigs.Types.ChatEmoji] = CS.XTextManager.GetText("TypeChatEmoji")
-    TypeText[XArrangeConfigs.Types.Partner] = CS.XTextManager.GetText("TypePartner")
-end
-
-function XUiDrawLog:InitDrawLogListPanel()
-    local groupId = XDataCenter.DrawManager.GetDrawInfo(self.DrawId).GroupId
-    local Rules = XDataCenter.DrawManager.GetDrawGroupRule(groupId)
-    local name
-    local quality
-    local fromName
-    local time
-    local type
-
-    local PanelObj = {}
-    PanelObj.Transform = self.Panel3.transform
-    XTool.InitUiObject(PanelObj)
-
-    PanelObj.GridLogHigh.gameObject:SetActiveEx(false)
-    PanelObj.GridLogMid.gameObject:SetActiveEx(false)
-    PanelObj.GridLogLow.gameObject:SetActiveEx(false)
-    PanelObj.TxtLogCount.text = CS.XTextManager.GetText("DrawLogCpunt", DrawLogLimit)
-    if Rules.SpecialBottomMin > 0 and Rules.SpecialBottomMax > 0 then
-        PanelObj.TxtEnsureCount.text = Rules.BottomText .. " " .. self.DrawInfo.BottomTimes .. "/(" .. Rules.SpecialBottomMin .. "~" .. Rules.SpecialBottomMax .. ")"
-    else
-        PanelObj.TxtEnsureCount.text = Rules.BottomText .. " " .. self.DrawInfo.BottomTimes .. "/" .. self.DrawInfo.MaxBottomTimes
-    end
-    for _, v in pairs(self.DrawInfo.HistoryRewardList) do
-        if v.RewardGoods.ConvertFrom ~= 0 then
-            local fromGoods = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(v.RewardGoods.ConvertFrom)
-            local Goods = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(v.RewardGoods.TemplateId)
-            quality = fromGoods.Quality
-            quality = quality or 1
-            fromName = fromGoods.Name
-            if fromGoods.TradeName then
-                fromName = fromName .. "." .. fromGoods.TradeName
-            end
-            name = Goods.Name
-            time = TimestampToGameDateTimeString(v.DrawTime)
-            self:SetLogData(PanelObj, fromName, v.RewardGoods.ConvertFrom, name, time, quality)
-        else
-            local Goods = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(v.RewardGoods.TemplateId)
-            quality = Goods.Quality
-            quality = quality or 1
-            name = Goods.Name
-            if Goods.TradeName then
-                name = name .. "." .. Goods.TradeName
-            end
-            time = TimestampToGameDateTimeString(v.DrawTime)
-            self:SetLogData(PanelObj, name, v.RewardGoods.TemplateId, nil, time, quality)
-        end
-    end
-end
-
-function XUiDrawLog:SetLogData(obj, name, templateId, from, time, quality)
-    local itemType = XArrangeConfigs.GetType(templateId)
-    local go
-    if itemType == XArrangeConfigs.Types.Character or itemType == XArrangeConfigs.Types.Partner then
-        if quality >= XItemConfigs.Quality.Three then
-            go = CS.UnityEngine.Object.Instantiate(obj.GridLogHigh, obj.PanelContent)
-        else
-            go = CS.UnityEngine.Object.Instantiate(obj.GridLogMid, obj.PanelContent)
-        end
-    else
-        if quality == XItemConfigs.Quality.Six then
-            go = CS.UnityEngine.Object.Instantiate(obj.GridLogHigh, obj.PanelContent)
-        elseif quality == XItemConfigs.Quality.Five then
-            go = CS.UnityEngine.Object.Instantiate(obj.GridLogMid, obj.PanelContent)
-        else
-            go = CS.UnityEngine.Object.Instantiate(obj.GridLogLow, obj.PanelContent)
-        end
-    end
-
-    local tmpObj = {}
-    tmpObj.Transform = go.transform
-    tmpObj.GameObject = go.gameObject
-    XTool.InitUiObject(tmpObj)
-    tmpObj.TxtName.text = name
-    
-    if type(TypeText[itemType]) == "function" then
-        tmpObj.TxtType.text = TypeText[itemType](templateId)
-    else
-        tmpObj.TxtType.text = TypeText[itemType]
-    end
-    
-    if not from then
-        tmpObj.TxtTo.gameObject:SetActiveEx(false)
-    else
-        tmpObj.TxtTo.text = CS.XTextManager.GetText("ToOtherThing", from)
-    end
-    tmpObj.TxtTime.text = time
-    tmpObj.GameObject:SetActiveEx(true)
-end
-
-function XUiDrawLog:InitBaseRulePanel()
-    local groupId = XDataCenter.DrawManager.GetDrawInfo(self.DrawId).GroupId
-    local baseRules = XDataCenter.DrawManager.GetDrawGroupRule(groupId).BaseRules
-    local baseRuleTitles = XDataCenter.DrawManager.GetDrawGroupRule(groupId).BaseRuleTitles
-    self:SetRuleData(baseRules, baseRuleTitles, self.Panel1)
-end
-
-function XUiDrawLog:InitEventRulePanel()
-    local groupId = XDataCenter.DrawManager.GetDrawInfo(self.DrawId).GroupId
-    local eventRules = XDataCenter.DrawManager.GetDrawGroupRule(groupId).EventRules
-    local eventRuleTitles = XDataCenter.DrawManager.GetDrawGroupRule(groupId).EventRuleTitles
-    self:SetRuleData(eventRules, eventRuleTitles, self.Panel4)
+    AnimeNames = { "QieHuanOne", "QieHuanTwo", "QieHuanThree", "QieHuanFour", "QieHuanFour" }
 end
 
 function XUiDrawLog:SetRuleData(rules, ruleTitles, panel)
@@ -181,12 +59,22 @@ function XUiDrawLog:SetRuleData(rules, ruleTitles, panel)
         tmpObj.GameObject = go.gameObject
         XTool.InitUiObject(tmpObj)
         tmpObj.TxtRuleTittle.text = ruleTitles[k]
-        tmpObj.TxtRule.supportRichText = true -- 解决需要配置空，二进制不兼容导致的问题(text支持富文本并且配置个富文本标签)
         tmpObj.TxtRule.text = rules[k]
         tmpObj.GameObject:SetActiveEx(true)
     end
 end
+--endregion
 
+--region Ui - BaseRule
+function XUiDrawLog:InitBaseRulePanel()
+    local groupId = XDataCenter.DrawManager.GetDrawInfo(self.DrawId).GroupId
+    local baseRules = XDataCenter.DrawManager.GetDrawGroupRule(groupId).BaseRules
+    local baseRuleTitles = XDataCenter.DrawManager.GetDrawGroupRule(groupId).BaseRuleTitles
+    self:SetRuleData(baseRules, baseRuleTitles, self.Panel1)
+end
+--endregion
+
+--region Ui - DrawPreview
 function XUiDrawLog:InitDrawPreview()
     local PanelObj = {}
     PanelObj.Transform = self.Panel2.transform
@@ -200,8 +88,19 @@ function XUiDrawLog:InitDrawPreview()
     if not previewList then
         return
     end
+    
+    local groupInfo = XDataCenter.DrawManager.GetDrawGroupInfoByGroupId(self.DrawInfo.GroupId)
+    local drawGroupRule = XDrawConfigs.GetDrawGroupRuleById(self.DrawInfo.GroupId)
+    local isNotSelectUp = drawGroupRule and drawGroupRule.IsNotSelectDefault and not XTool.IsNumberValid(groupInfo.UseDrawId)
+    
     local upGoods = previewList.UpGoods
     local goods = previewList.Goods
+
+    if isNotSelectUp then -- 没选Up的话不显示Up标志
+        goods = XTool.MergeArray(upGoods, goods)
+        upGoods = {}
+    end
+    
     for i = 1, #upGoods do
         local go = CS.UnityEngine.Object.Instantiate(PanelObj.PanelProCard, PanelObj.PanelCardParent)
         local item = XUiGridCommon.New(self, go)
@@ -228,38 +127,114 @@ function XUiDrawLog:InitDrawPreview()
         tmpObj.Transform = go.transform
         tmpObj.GameObject = go.gameObject
         XTool.InitUiObject(tmpObj)
-        --日服定制化需求，概率可以跳转到网站查看更详细的概率
-        tmpObj.TxtName.HrefListener = function(link, content)
-            self:ClickLink(link)
-        end
         tmpObj.GameObject:SetActiveEx(true)
-        local str = list[i].Name
-        tmpObj.TxtName.text = str
-        --tmpObj.TxtName.text = list[i].Name
+        tmpObj.TxtName.text = list[i].Name
         tmpObj.TxtProbability.text = list[i].ProbShow
     end
     XScheduleManager.ScheduleOnce(function()
         CS.UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(PanelObj.PanelCardParent);
     end, 0)
 end
+--endregion
 
-function XUiDrawLog:InitBtnTab()
+--region Ui - EventRulePanel
+function XUiDrawLog:InitEventRulePanel()
     local groupId = XDataCenter.DrawManager.GetDrawInfo(self.DrawId).GroupId
     local eventRules = XDataCenter.DrawManager.GetDrawGroupRule(groupId).EventRules
+    local eventRuleTitles = XDataCenter.DrawManager.GetDrawGroupRule(groupId).EventRuleTitles
+    self:SetRuleData(eventRules, eventRuleTitles, self.Panel3)
+end
 
+function XUiDrawLog:RefreshEventRulePanel()
+    local groupId = XDataCenter.DrawManager.GetDrawInfo(self.DrawId).GroupId
+    local eventRules = XDataCenter.DrawManager.GetDrawGroupRule(groupId).EventRules
+    if XTool.IsTableEmpty(eventRules) then
+        self.TabGroup[INDEX.EVENT_RULE].gameObject:SetActiveEx(false)
+    else
+        self.TabGroup[INDEX.EVENT_RULE].gameObject:SetActiveEx(true)
+    end
+end
+--endregion
+
+--region Ui - ActivityTargetPanel
+function XUiDrawLog:_CreateActivityTargetPanel()
+    if not self["BtnTab" .. INDEX.ACTIVITY_TARGET] then
+        local btnGo = XUiHelper.Instantiate(self.BtnTab1.gameObject, self.BtnTab1.transform.parent)
+        self["BtnTab" .. INDEX.ACTIVITY_TARGET] = XUiHelper.TryGetComponent(btnGo.transform, "", "XUiButton")
+    end
+    if not self["Panel" .. INDEX.ACTIVITY_TARGET] then
+        local panelGo = XUiHelper.Instantiate(self.Panel1.gameObject, self.Panel1.transform.parent)
+        self["Panel" .. INDEX.ACTIVITY_TARGET] = XUiHelper.TryGetComponent(panelGo.transform, "")
+    end
+end
+
+function XUiDrawLog:InitActivityTargetPanel()
+    local activityId = XDataCenter.DrawManager.GetDrawActivityTargetIdByGroupId(self.DrawInfo.GroupId)
+    local baseRules = XDrawConfigs.GetDrawActivityTargetShowDescList(activityId)
+    local baseRuleTitles = XDrawConfigs.GetDrawActivityTargetShowTitleList(activityId)
+    self:SetRuleData(baseRules, baseRuleTitles, self["Panel" .. INDEX.ACTIVITY_TARGET])
+end
+
+function XUiDrawLog:RefreshActivityTargetPanel()
+    local data = XDataCenter.DrawManager.GetDrawGroupActivityTargetInfo(self.DrawInfo.GroupId)
+    if data then
+        self.TabGroup[INDEX.ACTIVITY_TARGET].gameObject:SetActiveEx(true)
+        self.TabGroup[INDEX.ACTIVITY_TARGET]:SetNameByGroup(0, XDrawConfigs.GetDrawActivityTargetShowTabDesc(data:GetActivityId()))
+    else
+        self.TabGroup[INDEX.ACTIVITY_TARGET].gameObject:SetActiveEx(false)
+    end
+end
+--endregion
+
+--region Ui - TabGroup
+function XUiDrawLog:InitBtnTab()
     self.TabGroup = self.TabGroup or {}
     for i = 1, BtnMaxCount do
         if not self.TabGroup[i] then
+            self:_CreateActivityTargetPanel()
             self.TabGroup[i] = self["BtnTab" .. i]
         end
     end
     self.PanelTabTc:Init(self.TabGroup, function(tabIndex) self:OnSelectedTog(tabIndex) end)
-    if #eventRules > 0 then
-        self.TabGroup[IndexEventRule].gameObject:SetActiveEx(true)
-    else
-        self.TabGroup[IndexEventRule].gameObject:SetActiveEx(false)
-    end
+    
+    self:RefreshEventRulePanel()
+    self:RefreshActivityTargetPanel()
     self.PanelTabTc:SelectIndex(self.SelectIndex)
+end
+
+function XUiDrawLog:OnSelectedTog(index)
+    for i = 1, BtnMaxCount do
+        if self["Panel" .. i] then
+            self["Panel" .. i].gameObject:SetActiveEx(false)
+        end
+    end
+
+    if not self["Panel" .. index] then
+        return
+    end
+    self["Panel" .. index].gameObject:SetActiveEx(true)
+    if not IsInit[index] then
+        InitFunctionList[index]()
+        IsInit[index] = true
+    end
+    self:PlayAnimation(AnimeNames[index])
+end
+--endregion
+
+--region Ui - BtnListener
+function XUiDrawLog:AddBtnListener()
+    self.BtnTanchuangClose.CallBack = function()
+        self:OnBtnTanchuangClose()
+    end
+    self.BtnClose.CallBack = function()
+        self:OnBtnTanchuangClose()
+    end
+    self.BtnSwitchOff.CallBack = function()
+        self:OnBtnSwitchOff()
+    end
+    self.BtnSwitchOn.CallBack = function()
+        self:OnBtnSwitchOn()
+    end
 end
 
 function XUiDrawLog:OnBtnTanchuangClose()
@@ -285,21 +260,14 @@ function XUiDrawLog:OnBtnSwitchOn()
 
     self:PlayAnimation("DetailViewQieHuan")
 end
+--endregion
 
-function XUiDrawLog:OnSelectedTog(index)
-    for i = 1, BtnMaxCount do
-        self["Panel" .. i].gameObject:SetActiveEx(false)
-    end
-
-    self["Panel" .. index].gameObject:SetActiveEx(true)
-    if not IsInit[index] then
-        InitFunctionList[index]()
-        IsInit[index] = true
-    end
-
-    self:PlayAnimation(AnimeNames[index])
+--region Event
+function XUiDrawLog:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_DRAW_TARGET_ACTIVITY_CHANGE, self.Close, self)
 end
 
-function XUiDrawLog:ClickLink(url)
-    CS.UnityEngine.Application.OpenURL(url)
+function XUiDrawLog:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_DRAW_TARGET_ACTIVITY_CHANGE, self.Close, self)
 end
+--endregion

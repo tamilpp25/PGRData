@@ -33,7 +33,7 @@ function XUiHackRoomCharacter.GetCharInfo(roomCharacterUi, charId)
         -- 骇入玩法战力计算特殊处理
         charInfo.Ability = XRobotManager.GetRobotAbility(charId) + XDataCenter.FubenHackManager.GetBuffAbilityBonus()
     else
-        charInfo = XDataCenter.CharacterManager.GetCharacter(charId)
+        charInfo = XMVCA.XCharacter:GetCharacter(charId)
     end
     return charInfo
 end

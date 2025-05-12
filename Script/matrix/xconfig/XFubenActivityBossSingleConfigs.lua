@@ -4,6 +4,7 @@ local TABLE_BOSS_CHALLENGE_PATH = "Share/Fuben/BossActivity/BossChallenge.tab"
 local TABLE_BOSS_CHALLENGE_RES_PATH = "Client/Fuben/BossActivity/BossChallengeRes.tab"
 local TABLE_BOSS_STARREWARD_PATH = "Share/Fuben/BossActivity/BossStarReward.tab"
 local TABLE_BOSS_GROUP_ROBOT_PATH = "Share/Fuben/BossActivity/BossRobotGroup.tab"
+local TABLE_BOSS_ACTIVITY_STORY_PATH="Share/Fuben/BossActivity/BossActivityStory.tab"
 
 local pairs = pairs
 local tableInsert = table.insert
@@ -14,6 +15,7 @@ local BossChallengeTemplates = {}
 local BossChallengeResTemplates = {}
 local BossStarRewardTemplates = {}
 local BossRobotGroupTemplates = {}
+local BossActivityStoryTemplates={}
 
 local DefaultActivityId = 0
 local ChallengeIdToOrderIdDic = {}
@@ -28,7 +30,7 @@ function XFubenActivityBossSingleConfigs.Init()
     BossChallengeResTemplates = XTableManager.ReadByIntKey(TABLE_BOSS_CHALLENGE_RES_PATH, XTable.XTableBossChallengeRes, "Id")
     BossStarRewardTemplates = XTableManager.ReadByIntKey(TABLE_BOSS_STARREWARD_PATH, XTable.XTableBossStarReward, "Id")
     BossRobotGroupTemplates = XTableManager.ReadByIntKey(TABLE_BOSS_GROUP_ROBOT_PATH, XTable.XTableBossRobotGroup, "Id")
-
+    BossActivityStoryTemplates=XTableManager.ReadByIntKey(TABLE_BOSS_ACTIVITY_STORY_PATH,XTable.XTableBossActivityStory,'Id')
     for activityId, config in pairs(BossActivityTemplates) do
         if XTool.IsNumberValid(config.ActivityTimeId) then
             DefaultActivityId = activityId
@@ -152,6 +154,19 @@ function XFubenActivityBossSingleConfigs.GetBossChallengeEffectPath(stageId)
     return nil
 end
 
+function XFubenActivityBossSingleConfigs.GetBossChallengeDetailTitle(stageId)
+    if BossChallengeTemplates == nil then
+        return
+    end
+    local challengeId = XFubenActivityBossSingleConfigs.GetChanllengeIdByStageId(stageId)
+
+    if BossChallengeTemplates[challengeId] then
+        return BossChallengeTemplates[challengeId].StageDetailTitle
+    end
+    
+    return ''
+end
+
 function XFubenActivityBossSingleConfigs.GetLastBossActivityTemplates()
     return BossActivityTemplates[#BossActivityTemplates]
 end
@@ -196,3 +211,80 @@ function XFubenActivityBossSingleConfigs.GetGroupCanUseRobotIds(activityId)
     return robotIds or {}
 end
 
+
+function XFubenActivityBossSingleConfigs.GetBossActivityStoryTemplate(storyId)
+    return BossActivityStoryTemplates[storyId]
+end
+
+function XFubenActivityBossSingleConfigs.GetStoryIds(sectionId)
+    local ids={}
+
+    local cfg=XFubenActivityBossSingleConfigs.GetSectionCfg(sectionId)
+    if not cfg then
+        XLog.Error("关卡数据不存在：",sectionId)
+        return
+    elseif not cfg.StoryId then
+        XLog.Error("关卡数据不存在故事列表：",sectionId)
+        return
+    end
+    for i=1,#cfg.StoryId,1 do
+        table.insert(ids,cfg.StoryId[i])
+    end
+    
+    table.sort(ids,function(a, b) 
+        return a<b
+    end)
+    
+   
+    return ids
+end
+
+function XFubenActivityBossSingleConfigs.GetStoryCount(sectionId)
+    local len=0
+
+    local cfg=XFubenActivityBossSingleConfigs.GetSectionCfg(sectionId)
+    if not cfg then 
+        XLog.Error("关卡数据不存在：",sectionId)
+        return 
+    elseif not cfg.StoryId then
+        XLog.Error("关卡数据不存在故事列表：",sectionId)
+        return
+    end
+
+    len=#cfg.StoryId
+    
+    return len
+end
+
+function XFubenActivityBossSingleConfigs.GetFirstStoryId(sectionId)
+    local cfg=XFubenActivityBossSingleConfigs.GetSectionCfg(sectionId)
+    if not cfg then
+        XLog.Error("关卡数据不存在：",sectionId)
+        return
+    elseif not cfg.StoryId then
+        XLog.Error("关卡数据不存在故事列表：",sectionId)
+        return
+    end
+    return cfg.StoryId[1]
+end
+
+---获取指定id故事的前驱故事的id
+function XFubenActivityBossSingleConfigs.GetPreStoryId(sectionId,storyId)
+    local index=0
+    local cfg=XFubenActivityBossSingleConfigs.GetSectionCfg(sectionId)
+    if not cfg or not cfg.StoryId then return nil end
+    
+    for i=1,#cfg.StoryId,1 do
+        if cfg.StoryId[i] ==storyId then
+            index=i-1
+            break
+        end
+    end
+
+    if cfg.StoryId[index] then
+        return cfg.StoryId[index]
+    end
+    
+    return nil
+    
+end

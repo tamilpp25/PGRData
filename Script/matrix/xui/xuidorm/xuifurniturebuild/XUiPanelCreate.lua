@@ -1,3 +1,5 @@
+local XUiGridCreate = require("XUi/XUiDorm/XUiFurnitureBuild/XUiGridCreate")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 -- 家具建造子界面
 XUiPanelCreate = XClass(nil, "XUiPanelCreate")
 
@@ -63,17 +65,6 @@ end
 
 function XUiPanelCreate:SetPanelActive(value)
     self.GameObject:SetActive(value)
-end
-
-function XUiPanelCreate:CheckInverstNum()
-    local currentSum = 0
-    for _, v in pairs(self.GridInvestmentPool) do
-        currentSum = currentSum + v:GetCurrentSum()
-    end
-
-    local currentOwn = XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.FurnitureCoin)
-    local _, maxConsume = XFurnitureConfigs.GetFurnitureCreateMinAndMax()
-    return currentOwn - currentSum >= 0 and currentSum >= maxConsume
 end
 
 return XUiPanelCreate

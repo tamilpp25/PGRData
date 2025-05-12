@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildViewVistorMember = XClass(nil, "XUiGuildViewVistorMember")
 local XUiGridMemberVistorItem = require("XUi/XUiGuild/XUiChildItem/XUiGridMemberVistorItem")
 

@@ -1,3 +1,4 @@
+local XUiPracticeBasicsStage = require("XUi/XUiFubenPractice/XUiPracticeBasicsStage")
 local XUiPanelPracticeAdvanced = XClass(nil, "XUiPanelPracticeAdvanced")
 local XUguiDragProxy = CS.XUguiDragProxy
 

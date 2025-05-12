@@ -33,17 +33,20 @@ function XUiActivityBaseChild:OnStart(activityGroupInfos, selectIndex, selectId)
     self.AcitivityTypeGroups = {}
     self.ActivityGroupInfos = activityGroupInfos
     self:UpdateActivityInfos(selectIndex, selectId)
-    XRedPointManager.AddRedPointEvent(self.PanelNoticeTitleBtnGroup, self.OnCheckRedPointRegression, self, { XRedPointConditions.Types.CONDITION_ACTIVITY_NEW_ACTIVITIES_TOGS }, nil, false)
+    XRedPointManager.AddRedPointEvent(self.PanelNoticeTitleBtnGroup, self.OnCheckRedPoint, self, { XRedPointConditions.Types.CONDITION_ACTIVITY_NEW_ACTIVITIES_TOGS }, nil, false)
 end
 
 function XUiActivityBaseChild:OnEnable()
     if self.SelectIndex then
-        if self.SelectIndex == -1 then
-            self.SelectIndex = #self.TabBtns
-        end
         self.PanelNoticeTitleBtnGroup:SelectIndex(self.SelectIndex)
     end
-    XEventManager.AddEventListener(XEventId.EVENT_NEWYEARYUNSHI_CLOSE_REFRESH, self.Update, self)
+end
+
+function XUiActivityBaseChild:OnDisable()
+    if self.SelectedPanel and self.SelectedPanel.OnDisable then
+        self.SelectedPanel:OnDisable()
+    end
+    self:StopDelayUpdateTaskPanelTimer()
 end
 
 function XUiActivityBaseChild:OnDestroy()
@@ -59,16 +62,8 @@ function XUiActivityBaseChild:OnDestroy()
     end
 end
 
-function XUiActivityBaseChild:OnDisable()
-    XEventManager.RemoveEventListener(XEventId.EVENT_NEWYEARYUNSHI_CLOSE_REFRESH, self.Update, self)
-end
-
-function XUiActivityBaseChild:Update()
-    self:OnSelectedTog(self.SelectIndex)
-end
-
 function XUiActivityBaseChild:OnGetEvents()
-    return { XEventId.EVENT_FINISH_TASK, XEventId.EVENT_ACTIVITY_INFO_UPDATE }
+    return { XEventId.EVENT_FINISH_TASK, XEventId.EVENT_ACTIVITY_INFO_UPDATE, XEventId.EVENT_TASK_SYNC }
 end
 
 function XUiActivityBaseChild:OnNotify(evt, ...)
@@ -84,12 +79,31 @@ function XUiActivityBaseChild:OnNotify(evt, ...)
         if panel.UpdateInfo then 
             panel:UpdateInfo()
         end
-    end
+    elseif evt == XEventId.EVENT_TASK_SYNC then
+        --通知过多导致频繁刷新，延迟刷新防卡顿
+        if self.DelayUpdateTaskPanelTimer then
+            return
+        end
 
+        self.DelayUpdateTaskPanelTimer = XScheduleManager.ScheduleOnce(function()
+            if XTool.UObjIsNil(self.GameObject) then
+                return
+            end
+
+            local panel = self.SelectedPanel
+            if panel.UpdateTask then 
+                panel:UpdateTask()
+            end
+            self:StopDelayUpdateTaskPanelTimer()
+        end, 50)
+    end
 end
 
-function XUiActivityBaseChild:OnCheckRedPointRegression()
-    self:OnCheckRedPoint()
+function XUiActivityBaseChild:StopDelayUpdateTaskPanelTimer()
+    if self.DelayUpdateTaskPanelTimer then
+        XScheduleManager.UnSchedule(self.DelayUpdateTaskPanelTimer)
+        self.DelayUpdateTaskPanelTimer = nil
+    end
 end
 
 -- 只刷新tog红点不刷新界面
@@ -97,11 +111,9 @@ function XUiActivityBaseChild:OnCheckRedPoint(index, id)
     index = index or self.SelectIndex 
     id = id or self.SelectActvityId
     if not index or not id then return end
+
     local uiButton = self.TabBtns[index]
     local needRedPoint = XDataCenter.ActivityManager.CheckRedPointByActivityId(id)
-	if not uiButton then -- 海外修改
-        return
-    end
     uiButton:ShowReddot(needRedPoint)
 
     local subGroupIndex = uiButton.SubGroupIndex
@@ -281,11 +293,7 @@ function XUiActivityBaseChild:OnSelectedTog(index)
     else
         self:UpdatePanel(activityCfg)
     end
-    
-    if activityCfg.ActivityType ~= XActivityConfigs.ActivityType.Task then
-        self.PanelTask.gameObject:SetActiveEx(false)
-    end
-    
+
     if activityCfg.ActivityBgType == XActivityConfigs.ActivityBgType.Image then
         self.SpineRoot.gameObject:SetActiveEx(false)
         self.RImgContentBg.gameObject:SetActiveEx(true)

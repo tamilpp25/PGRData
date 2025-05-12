@@ -10,16 +10,37 @@ function XUiGridSummerEpisodeMap:Ctor(ui,stageId,rootUi)
 end
 
 function XUiGridSummerEpisodeMap:InitUiView()
-    self.TxtMapName.text = XDataCenter.FubenManager.GetStageName(self.StageId)
-    local config = XDataCenter.FubenManager.GetStageCfg(self.StageId)
-    if config then
-        self.RImgMap:SetRawImage(config.StoryIcon)
+    local isRandomStage = XDataCenter.FubenSpecialTrainManager.CheckHasRandomStage(self.StageId)
+    if not isRandomStage then
+        local config = XDataCenter.FubenManager.GetStageCfg(self.StageId)
+        if config then
+            self.RImgMap:SetRawImage(config.StoryIcon)
+            self.TxtMapName.text = config.Description
+        end
+        self.UnLock=XDataCenter.FubenSpecialTrainManager.CheckStageIsUnlock(self.StageId)
+        if self.Lock then
+            self.Lock.gameObject:SetActiveEx(not self.UnLock)
+            local unlockTime=XDataCenter.FubenSpecialTrainManager.GetMapUnLockTime(self.StageId)
+            self.TxtCondition.text=XUiHelper.GetText("SummerEpisodeMapUnLock",XUiHelper.GetTimeMonthDayHourMinutes(unlockTime))
+        end
+
+        if self.Red then
+            self.Red.gameObject:SetActiveEx(XDataCenter.FubenSpecialTrainManager.CheckStageIsNewUnLock(self.StageId) and not self.RootUi.IgnoreRedPoint)
+        end
+        
+    else
+        self.UnLock=true
+        local storyIcon = XFubenSpecialTrainConfig.GetRandomStageStoryIconById(self.StageId)
+        self.RImgMap:SetRawImage(storyIcon)
+        self.TxtMapName.text = XFubenSpecialTrainConfig.GetRandomStageNameById(self.StageId)
     end
 end
 
 function XUiGridSummerEpisodeMap:SetClickEvent(event)
     self.RootUi:RegisterClickEvent(self.BtnMap, function()
-        event(self.StageId)
+        if self.UnLock then
+            event(self.StageId)
+        end
     end)
 end
 

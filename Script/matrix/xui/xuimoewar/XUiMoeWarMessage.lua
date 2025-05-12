@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local ipairs = ipairs
 local XUiMessageGridPlayer = require("XUi/XUiMoeWar/ChildItem/XUiMessageGridPlayer")
 local XUiMessageGridAction = require("XUi/XUiMoeWar/ChildItem/XUiMessageGridAction")
@@ -22,7 +24,7 @@ function XUiMoeWarMessage:OnAwake()
     self.ActionList[XMoeWarConfig.ActionType.Thank] = XUiMessageGridAction.New(self, self.GridActionThank)
 
     self.ActInfo = XDataCenter.MoeWarManager.GetActivityInfo()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(self.ActInfo.CurrencyId[1], function()
         self.AssetActivityPanel:Refresh(self.ActInfo.CurrencyId)
     end, self.AssetActivityPanel)
@@ -198,10 +200,7 @@ function XUiMoeWarMessage:OnActionClick(actionData, grid)
     --XDataCenter.FavorabilityManager.SetDontStopCvContent(true)
     --停止正在播放的动作，准备播放新动作
     self.RoleModelPanel:PlayAnima(self.SelectPlayer:GetAnim(actionData.ActionType), true)
-    self.content = XFavorabilityConfigs.GetCvContent(self.SelectPlayer:GetCv(actionData.ActionType))
-    self.TxtContent.text = self.content
-    self.PanelLayout.gameObject:SetActiveEx(true)
-    CurrentCvInstance = XSoundManager.PlaySoundByType(self.SelectPlayer:GetCv(actionData.ActionType), XSoundManager.SoundType.CV)
+    CurrentCvInstance = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Voice, self.SelectPlayer:GetCv(actionData.ActionType))
 
     self.CurrentPlayAction = actionData
     self.CurrentPlayAction.IsPlay = true
@@ -266,7 +265,6 @@ function XUiMoeWarMessage:StopAction(isForce)
     if CurrentCvInstance then
         CurrentCvInstance:Stop()
     end
-    self.PanelLayout.gameObject:SetActiveEx(false)
 end
 
 function XUiMoeWarMessage:CheckIsNeedPop()

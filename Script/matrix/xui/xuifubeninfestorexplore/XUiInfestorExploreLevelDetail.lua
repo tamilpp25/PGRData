@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridArenaLevel = require("XUi/XUiArenaLevelDetail/ArenaLevelDetailCommon/XUiGridArenaLevel")
 local XUiGridRegion = require("XUi/XUiArenaLevelDetail/ArenaLevelDetailCommon/XUiGridRegion")
 

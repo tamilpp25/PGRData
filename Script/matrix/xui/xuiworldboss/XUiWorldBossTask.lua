@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiWorldBossTask = XLuaUiManager.Register(XLuaUi, "UiWorldBossTask")
 
 function XUiWorldBossTask:OnAwake()

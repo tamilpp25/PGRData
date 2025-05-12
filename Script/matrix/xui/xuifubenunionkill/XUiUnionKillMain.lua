@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiUnionKillMain = XLuaUiManager.Register(XLuaUi, "UiUnionKillMain")
 
 function XUiUnionKillMain:OnAwake()

@@ -5,6 +5,9 @@ local defaultHKButtonGroupIndex = 1
 
 function XUiPurchaseHKExchangeTop:Ctor(ui, uiRoot, notEnoughCb)
     self.IsShowBuyTipDataId = nil
+    --- 放止鼠标连点导致多次购买
+    self.CurrentClickTime = -1
+    self.ClickInterval = 1
     self.PanelPurchaseDh.gameObject:SetActiveEx(false)
     XUiHelper.RegisterClickEvent(self, self.BtnBuy, self.OnBtnBuyClicked)
     --v1.27 默认选项为1
@@ -46,7 +49,7 @@ end
 function XUiPurchaseHKExchangeTop:SetListItemActive(index, grid, data)
     self.CurrentData = data
     self:RefreshBuyInfo(data)
-    CS.XAudioManager.PlaySound(1011)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1011)
     -- 处理切换点击状态
     self:SetListItemState(index)
     if self.IsShowBuyTipDataId == nil then
@@ -92,14 +95,22 @@ function XUiPurchaseHKExchangeTop:RefreshBuyInfo(data)
 end
 
 function XUiPurchaseHKExchangeTop:OnBtnBuyClicked()
+    local nowTime = CS.System.DateTime.Now.Ticks / 10000000
+    
+    if self.CurrentClickTime ~= -1 and self.CurrentClickTime + self.ClickInterval > nowTime then
+        return
+    end
+    self.CurrentClickTime = nowTime
     if self.CurrentData.ConsumeCount > XDataCenter.ItemManager.GetCount(self.CurrentData.ConsumeId) then
-        XUiManager.TipText("PurchaseBuyHongKaCountTips")
+        XUiHelper.OpenPurchaseBuyHongKaCountTips()
         if self.NotEnoughCb then
-            self.NotEnoughCb(XPurchaseConfigs.TabsConfig.Pay)
+            local payCount = self.CurrentData.ConsumeCount - XDataCenter.ItemManager.GetCount(self.CurrentData.ConsumeId)
+            self.NotEnoughCb(XPurchaseConfigs.TabsConfig.Pay, nil, payCount)
         end
         return
     end
     if self.CurrentData and self.CurrentData.Id then
+        self.IsPurchasing = true
         self:ReqBuy(self.CurrentData.Id)
     end
     -- self.HKExchangeUi:OnRefresh(self.CurrentData)

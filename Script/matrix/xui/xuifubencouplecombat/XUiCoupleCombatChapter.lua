@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiPanelSkillTips = require("XUi/XUiFubenCoupleCombat/ChildView/XUiPanelSkillTips")
+local XUiPanelSkillDesc = require("XUi/XUiFubenCoupleCombat/ChildView/XUiPanelSkillDesc")
 local XUiGridChapter = require("XUi/XUiFubenCoupleCombat/ChildItem/XUiGridChapter")
 local XUiGridSkill = require("XUi/XUiFubenCoupleCombat/ChildItem/XUiGridSkill")
 
@@ -13,10 +16,12 @@ function XUiCoupleCombatChapter:OnAwake()
     self:AutoAddListener()
     self:InitChapterBtns()
     self:InitSkillIcons()
+    self:InitSkillDesc()
 end
 
 function XUiCoupleCombatChapter:OnEnable()
     self:CreateActivityTimer()
+    self:UpdateGridChapter()
     self:UpdateSkill()
     self:UpdateTask()
 end
@@ -47,10 +52,18 @@ end
 function XUiCoupleCombatChapter:AutoAddListener()
     self.BtnBack.CallBack = function() self:OnClickBtnBack() end
     self.BtnMainUi.CallBack = function() self:OnClickBtnMainUi() end
-    self:RegisterClickEvent(self.BtnSkill, self.OnClickBtnSkill)
+    self:RegisterClickEvent(self.BtnSkill, self.OpenPanelSkillDesc)
     self:RegisterClickEvent(self.BtnTaskReward, self.OnBtnTaskRewardClick)
     
     self:BindHelpBtn(self.BtnHelp, "CoupleCombat")
+end
+
+-- v1.32 四期技能介绍不再新开界面
+function XUiCoupleCombatChapter:InitSkillDesc()
+    self.PanelSkillTips = XUiPanelSkillTips.New(self, self.PanelSkillTC2)
+    self.PanelSkillDesc = XUiPanelSkillDesc.New(self, self.PanelSkillTC)
+    self.PanelSkillTips:SetActive(false)
+    self.PanelSkillDesc:SetActive(false)
 end
 
 function XUiCoupleCombatChapter:InitSkillIcons()
@@ -102,12 +115,18 @@ function XUiCoupleCombatChapter:UpdateSkill()
             gridSkill = XUiGridSkill.New(grid, self, index)
             self.GridSkillTemplates[i] = gridSkill
         end
-        gridSkill:RefreshData(skillId)
+        gridSkill:RefreshData(skillId, function(careerskillId, index, cb) self:OpenPanelSkillTips(careerskillId, index, cb) end)
         gridSkill.GameObject:SetActiveEx(true)
     end
 
     for i = skillCount + 1, #self.GridSkillTemplates do
         self.GridSkillTemplates[i].GameObject:SetActiveEx(false)
+    end
+end
+
+function XUiCoupleCombatChapter:UpdateGridChapter()
+    for i, grid in ipairs(self.ChapterBtnGrids) do
+        grid:Refresh(self.ChapterIds[i], i)
     end
 end
 
@@ -146,6 +165,7 @@ function XUiCoupleCombatChapter:OnBtnTaskRewardClick()
     end)
 end
 
+-- 三期打开技能介绍
 function XUiCoupleCombatChapter:OnClickBtnSkill()
     XLuaUiManager.Open("UiCoupleCombatSwitchSkill")
 end
@@ -156,4 +176,15 @@ end
 
 function XUiCoupleCombatChapter:OnClickBtnMainUi()
     XLuaUiManager.RunMain()
+end
+
+-- 四期打开技能介绍
+function XUiCoupleCombatChapter:OpenPanelSkillDesc()
+    self.PanelSkillDesc:SetActive(true)
+end
+
+-- 四期打开单个技能介绍
+function XUiCoupleCombatChapter:OpenPanelSkillTips(careerskillId, index, cb)
+    self.PanelSkillTips:SetData(careerskillId, index, cb)
+    self.PanelSkillTips:SetActive(true)
 end

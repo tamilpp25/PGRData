@@ -22,11 +22,11 @@ function XUiPromotionWay:OnBtnClose()
 end
 
 function XUiPromotionWay:OnBtnCharacterJump()
-    XLuaUiManager.Open("UiCharacter", self.TeamData[self.TargetCharacter], nil, nil, nil, true)
+    XLuaUiManager.Open("UiCharacterSystemV2P6", self.TeamData[self.TargetCharacter], XEnumConst.CHARACTER.SkipEnumV2P6.PropertyLvUp)
 end
 
 function XUiPromotionWay:OnBtnEquipJump()
-    XLuaUiManager.Open("UiCharacter", self.TeamData[self.TargetCharacter])
+    XLuaUiManager.Open("UiCharacterSystemV2P6", self.TeamData[self.TargetCharacter])
 end
 
 function XUiPromotionWay:UpdateData()
@@ -42,7 +42,7 @@ function XUiPromotionWay:UpdateData()
     --找出最接近战力限制的为显示目标
     local teamAbility = {}
     for i = 1, #self.TeamData do
-        local character = XDataCenter.CharacterManager.GetCharacter(self.TeamData[i])
+        local character = XMVCA.XCharacter:GetCharacter(self.TeamData[i])
         if character == nil then
             table.insert(teamAbility, 0)
         else
@@ -62,7 +62,7 @@ function XUiPromotionWay:UpdateData()
     self.TargetCharacter = targetCharacter
     local targetCharacterAbility = data.CharacterFight
     local targetEquipAbility = data.EquipFight
-    local equipAbility = XDataCenter.EquipManager.GetEquipAbility(self.TeamData[targetCharacter])
+    local equipAbility = XMVCA.XEquip:GetEquipAbility(self.TeamData[targetCharacter])
     local characterAbility = teamAbility[targetCharacter] - equipAbility
 
     self.TxtCharacter.text = math.floor(characterAbility / targetCharacterAbility * 100) .. "%"

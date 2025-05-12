@@ -28,7 +28,7 @@ function XUiGridPlayer:SetPlayerData(entity)
         local startNode = self.Base.NodeList[entity:GetPosNodeId()]
         self.CurNodeText.text = startNode.NoteEntity:GetName()
         self.Transform.position = startNode.Transform.position
-        XUiPLayerHead.InitPortrait(entity:GetHeadPortraitId(), entity:GetHeadFrameId(), self.Head)
+        XUiPlayerHead.InitPortrait(entity:GetHeadPortraitId(), entity:GetHeadFrameId(), self.Head)
         self.CurOutNodeId = entity:GetPosNodeId()
         self.CurInNodeId = entity:GetPosNodeId()
         self.Base.NodeList[self.CurOutNodeId]:PlayerInShow(true, false)

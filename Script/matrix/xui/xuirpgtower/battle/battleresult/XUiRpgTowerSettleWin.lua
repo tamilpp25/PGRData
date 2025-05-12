@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 -- 兵法蓝图战斗胜利结算Ui
 local XUiRpgTowerSettleWin = XLuaUiManager.Register(XLuaUi, "UiRpgTowerSettleWin")
 local CharaItem = require("XUi/XUiRpgTower/Common/XUiRpgTowerCharaItem")
@@ -127,6 +128,27 @@ function XUiRpgTowerSettleWin:SetStageInfo(data)
     local chapterName, stageName = XDataCenter.FubenManager.GetFubenNames(data.StageId)
     self.TxtChapterName.text = chapterName
     self.TxtStageName.text = stageName
+
+    local rStage = XDataCenter.RpgTowerManager.GetRStageByStageId(data.StageId)
+    self.PanelScore.gameObject:SetActiveEx(rStage:GetIsShowScore())
+
+    local score = self.WinData.SettleData.RpgSettleResult.Score
+    local scoreStr = nil
+    if score and score > 10000 then
+        local scoreNum = string.format("%.2f", score / 10000)
+        scoreStr = scoreNum.."w"
+    else
+        scoreStr = score
+    end
+    -- 是否有新纪录
+    if rStage:GetNewTrigger() then
+        scoreStr = scoreStr.. CS.XTextManager.GetText("NewRecord")
+        self.TxtScore.color = XUiHelper.Hexcolor2Color("E63934") -- 红
+    else
+        self.TxtScore.color = XUiHelper.Hexcolor2Color("FFFFFF") -- 白
+    end
+
+    self.TxtScore.text = scoreStr
 end
 
 -- 角色奖励列表

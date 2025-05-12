@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFashionStoryStageTrialDetail = XLuaUiManager.Register(XLuaUi, "UiFashionStoryStageTrialDetail")
 
 function XUiFashionStoryStageTrialDetail:OnAwake()
@@ -33,7 +34,7 @@ function XUiFashionStoryStageTrialDetail:OnBtnEnterClick()
 
     local isInTime = XDataCenter.FashionStoryManager.IsTrialStageInTime(self.StageId)
     if isInTime then
-        XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
     else
         XUiManager.TipText("FashionStoryTrialStageEnd")
     end

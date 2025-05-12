@@ -8,11 +8,13 @@ local TABLE_ACTIVITY = SHARE_TABLE_PATH .. "FingerGuessingActivity.tab"
 local TABLE_STAGE = SHARE_TABLE_PATH .. "FingerGuessingStage.tab"
 local TABLE_ROUND = SHARE_TABLE_PATH .. "FingerGuessingStageRound.tab"
 local TABLE_FINGER = SHARE_TABLE_PATH .. "FingerGuessingFinger.tab"
+local TABLE_CONFIG = CLIENT_TABLE_PATH .. "FingerGuessingConfig.tab"
 --    ===================原表数据
 local FingerGuessingActivityConfig = {}
 local FingerGuessingStageConfig = {}
 local FingerGuessingRoundConfig = {}
 local FingerGuessingFingerConfig = {}
+local FingerGuessingClientConfig = {}
 --    ===================构建字典
 local Stage2RoundDic = {}
 
@@ -31,6 +33,7 @@ function XFingerGuessingConfig.Init()
     FingerGuessingStageConfig = XTableManager.ReadByIntKey(TABLE_STAGE, XTable.XTableFingerGuessingStage, "Id")
     FingerGuessingRoundConfig = XTableManager.ReadByIntKey(TABLE_ROUND, XTable.XTableFingerGuessingStageRound, "Id")
     FingerGuessingFingerConfig = XTableManager.ReadByIntKey(TABLE_FINGER, XTable.XTableFingerGuessingFinger, "Id")
+    FingerGuessingClientConfig = XTableManager.ReadByStringKey(TABLE_CONFIG, XTable.XTableFingerGuessingConfig, "Key")
     CreateStage2RoundDic()
 end
 --================
@@ -153,4 +156,13 @@ function XFingerGuessingConfig.GetFingerConfigById(fingerId)
         return nil
     end
     return config
+end
+
+function XFingerGuessingConfig.GetClientConfigValueByKey(key)
+    local template = FingerGuessingClientConfig[key]
+    if not template then
+        XLog.ErrorTableDataNotFound("XFingerGuessingConfig -> GetClientConfigValueByKey", "FingerGuessingClientConfig", TABLE_CONFIG, "Key", tostring(key))
+        return ""
+    end
+    return template.Value or ""
 end

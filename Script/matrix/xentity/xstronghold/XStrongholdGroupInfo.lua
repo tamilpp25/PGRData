@@ -13,13 +13,14 @@ local Default = {
     _SupportId = 0, --支援方案Id
     _StageIds = {}, --关卡Id列表
     _StageDatas = {}, --关卡数据
-    _PassUseElectric = 0 --通关当前据点使用电量
+    _PassUseElectric = -1, --通关当前据点使用电量
+    _UsedSystemElectricEnergy = -1, --通关当前据点使用的系统电量
 }
 
---超级据点据点信息
+---@class XStrongholdGroupInfo 超级据点据点信息
 local XStrongholdGroupInfo = XClass(nil, "XStrongholdGroupInfo")
 
-function XStrongholdGroupInfo:Ctor(id)
+function XStrongholdGroupInfo:Ctor(id, isHistory)
     for key, value in pairs(Default) do
         if type(value) == "table" then
             self[key] = {}
@@ -29,7 +30,9 @@ function XStrongholdGroupInfo:Ctor(id)
     end
 
     self._Id = id
-    self._ChapterType = XStrongholdConfigs.GetChapterTypeByGroupId(id)
+    if not isHistory then
+        self._ChapterType = XStrongholdConfigs.GetChapterTypeByGroupId(id)
+    end
 end
 
 function XStrongholdGroupInfo:GetStageId(stageIndex)
@@ -45,6 +48,7 @@ function XStrongholdGroupInfo:GetStageDataByIndex(stageIndex)
     return self:GetStageData(stageId)
 end
 
+---@return XStrongholdStageData
 function XStrongholdGroupInfo:GetStageData(stageId)
     if not isNumberValid(stageId) then
         XLog.Error("XStrongholdGroupInfo:GetStageData error: stageId illegal, stageId is: ", stageId)
@@ -59,7 +63,7 @@ function XStrongholdGroupInfo:GetStageData(stageId)
     return stageData
 end
 
-function XStrongholdGroupInfo:InitStageData(stageIds, stageBuffIdDic, supportId)
+function XStrongholdGroupInfo:InitStageData(stageIds, stageBuffIdDic, supportId, extendBuffId)
     self._StageIds = {}
 
     for _, stageId in ipairs(stageIds or {}) do
@@ -68,7 +72,7 @@ function XStrongholdGroupInfo:InitStageData(stageIds, stageBuffIdDic, supportId)
 
         local buffId = stageBuffIdDic[stageId]
         if isNumberValid(buffId) then
-            stageData:SetBuff(buffId)
+            stageData:SetBuff(buffId, extendBuffId)
         end
     end
 
@@ -76,13 +80,14 @@ function XStrongholdGroupInfo:InitStageData(stageIds, stageBuffIdDic, supportId)
 end
 
 --更新通关使用电量
-function XStrongholdGroupInfo:UpdatePassUseElectric(electric)
+function XStrongholdGroupInfo:UpdatePassUseElectric(electric, systemElectric)
     self._PassUseElectric = electric or self._PassUseElectric
+    self._UsedSystemElectricEnergy = systemElectric or self._UsedSystemElectricEnergy
 end
 
---更新通关使用电量
+--获得通关使用电量
 function XStrongholdGroupInfo:GetPassUseElectric()
-    return self._PassUseElectric
+    return self._PassUseElectric, self._UsedSystemElectricEnergy
 end
 
 function XStrongholdGroupInfo:UpdateFinishStages(finishStageIds)
@@ -120,6 +125,11 @@ end
 function XStrongholdGroupInfo:GetStageBuffId(stageIndex)
     local stageData = self:GetStageDataByIndex(stageIndex)
     return stageData and stageData:GetBuffId() or 0
+end
+
+function XStrongholdGroupInfo:GetStageExtendBuffId(stageIndex)
+    local stageData = self:GetStageDataByIndex(stageIndex)
+    return stageData and stageData:GetExtendBuffId() or 0
 end
 
 function XStrongholdGroupInfo:IsStageFinished(stageIndex)

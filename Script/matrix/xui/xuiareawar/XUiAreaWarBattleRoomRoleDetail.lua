@@ -13,12 +13,16 @@ function XUiAreaWarBattleRoomRoleDetail:Ctor(blockId)
 end
 
 function XUiAreaWarBattleRoomRoleDetail:AOPOnStartBefore(rootUi)
-    self.Entities = {}
     rootUi.PanelAsset.gameObject:SetActiveEx(false)
     rootUi.BtnFilter.gameObject:SetActiveEx(false)
 end
 
 function XUiAreaWarBattleRoomRoleDetail:GetEntities(characterType)
+    if self.Entities == nil then
+        self.Entities = {}
+    end
+    
+    characterType = characterType or 1
     local result = {}
     if XTool.IsTableEmpty(self.Entities[characterType]) then
         self.Entities[characterType] = XDataCenter.AreaWarManager.GetCanFightEntities(characterType)
@@ -31,54 +35,30 @@ function XUiAreaWarBattleRoomRoleDetail:GetEntities(characterType)
     return result
 end
 
-function XUiAreaWarBattleRoomRoleDetail:GetCharacterViewModelByEntityId(entityId)
-    for _, typeDic in pairs(self.Entities) do
-        for _, entity in pairs(typeDic) do
-            if entity:GetId() == entityId then
-                return entity:GetCharacterViewModel()
-            end
-        end
-    end
-end
+--function XUiAreaWarBattleRoomRoleDetail:GetCharacterViewModelByEntityId(entityId)
+--    for _, typeDic in pairs(self.Entities) do
+--        for _, entity in pairs(typeDic) do
+--            if entity:GetId() == entityId then
+--                return entity:GetCharacterViewModel()
+--            end
+--        end
+--    end
+--end
 
-function XUiAreaWarBattleRoomRoleDetail:SortEntitiesWithTeam(team, entities, sortTagType)
-    local blockId = self.BlockId
-    tableSort(
-        entities,
-        function(entityA, entityB)
-            local aId = entityA:GetId()
-            local bId = entityB:GetId()
+--function XUiAreaWarBattleRoomRoleDetail:SortEntitiesWithTeam(team, entities, sortTagType)
+--    local blockId = self.BlockId
+--    return entities
+--end
 
-            --是否满足区块派遣条件
-            local aFit =
-                XDataCenter.AreaWarManager.CheckDispatchConditionsFitCharacter(
-                blockId,
-                XEntityHelper.GetCharacterIdByEntityId(aId)
-            )
-            local bFit =
-                XDataCenter.AreaWarManager.CheckDispatchConditionsFitCharacter(
-                blockId,
-                XEntityHelper.GetCharacterIdByEntityId(bId)
-            )
-            if aFit ~= bFit then
-                return aFit
-            end
-
-            return aId < bId
-        end
-    )
-    return entities
-end
-
-function XUiAreaWarBattleRoomRoleDetail:GetChildPanelData()
-    if self.ChildPanelData == nil then
-        self.ChildPanelData = {
-            assetPath = XUiConfigs.GetComponentUrl("XUiAreaWarBattleRoomRoleDetail"),
-            proxy = XUiAreaWarBattleRoomRoleDetailChildPanel
-        }
-    end
-    return self.ChildPanelData
-end
+--function XUiAreaWarBattleRoomRoleDetail:GetChildPanelData()
+--    if self.ChildPanelData == nil then
+--        self.ChildPanelData = {
+--            assetPath = XUiConfigs.GetComponentUrl("XUiAreaWarBattleRoomRoleDetail"),
+--            proxy = XUiAreaWarBattleRoomRoleDetailChildPanel
+--        }
+--    end
+--    return self.ChildPanelData
+--end
 
 function XUiAreaWarBattleRoomRoleDetail:GetAutoCloseInfo()
     return true, XDataCenter.AreaWarManager.GetEndTime(), function(isClose)

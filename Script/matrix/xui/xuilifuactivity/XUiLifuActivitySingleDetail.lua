@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiLifuActivitySingleDetail = XLuaUiManager.Register(XLuaUi,"UiLifuActivitySingleDetail")
 
 function XUiLifuActivitySingleDetail:OnStart(stageId, skipId)
@@ -25,7 +26,7 @@ function XUiLifuActivitySingleDetail:Refresh()
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
     local desc = XUiHelper.ConvertLineBreakSymbol(stageCfg.Description)
     self.TxtActive1.text = desc
-    self.TxtATNums.text = stageCfg.RequireActionPoint
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(self.StageId)
     
     local rewardId = 0
     local IsFirst = false
@@ -60,7 +61,7 @@ function XUiLifuActivitySingleDetail:Refresh()
 end
 
 function XUiLifuActivitySingleDetail:OnClickBtnEnterFight()
-    XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
 end
 
 function XUiLifuActivitySingleDetail:OnClickBtnSkipDraw()

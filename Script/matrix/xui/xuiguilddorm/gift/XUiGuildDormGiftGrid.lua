@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 
 local XUiGuildDormGiftGrid = XClass(nil, "XUiGuildDormGiftGrid")
 
@@ -44,7 +45,8 @@ function XUiGuildDormGiftGrid:RefreshData(rootUi, data)
 end
 
 function XUiGuildDormGiftGrid:RefreshRewards(rootUi, data)
-    local rewards = XRewardManager.GetRewardList(data.GiftReward)
+    local rewardId = XDataCenter.GuildManager.GetGuildGiftRewardId(data.Id)
+    local rewards = XRewardManager.GetRewardList(rewardId)
     -- reset reward panel
     for i = 1, #self.RewardPanelList do
         self.RewardPanelList[i]:Refresh()

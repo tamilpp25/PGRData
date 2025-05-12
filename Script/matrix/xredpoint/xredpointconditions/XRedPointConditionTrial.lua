@@ -21,7 +21,7 @@ function XRedPointConditionTrial.Check()
         return false
     end
 
-    if XRedPointConditionTrialReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TRIAL_REWARD_RED) then
         return true
     end
 

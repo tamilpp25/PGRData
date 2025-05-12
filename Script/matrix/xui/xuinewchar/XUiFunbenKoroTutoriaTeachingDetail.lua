@@ -1,3 +1,5 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFunbenKoroTutoriaTeachingDetail = XLuaUiManager.Register(XLuaUi, "UiFunbenKoroTutoriaTeachingDetail")
 local DescCount = 3
 
@@ -25,7 +27,7 @@ function XUiFunbenKoroTutoriaTeachingDetail:SetStageDetail(stageId, id)
     self.Id = id
     self.StageId = stageId
     self.StageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-    self.TxtTitle.text = self.StageCfg.Name
+    self.TxtTitle.text = self.StageCfg.Description
     for i = 1, DescCount do
         self.StarGridList[i]:Refresh(self.StageCfg.StarDesc[i], true)
     end
@@ -81,13 +83,9 @@ function XUiFunbenKoroTutoriaTeachingDetail:OnBtnEnterClick()
         end
         self.RootUi:CloseStageDetails()
         --self:Close() 
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", self.StageCfg.StageId
-            , XDataCenter.TeamManager.GetXTeamByStageId(self.StageCfg.StageId)
-            , require("XUi/XUiNewChar/XUiTutoriaBattleRoleRoom"))
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", self.StageCfg.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageCfg.StageId
+        , XDataCenter.TeamManager.GetXTeamByStageId(self.StageCfg.StageId)
+        , require("XUi/XUiNewChar/XUiTutoriaBattleRoleRoom"))
     end
 end
 

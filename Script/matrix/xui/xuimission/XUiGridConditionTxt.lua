@@ -1,3 +1,4 @@
+local XUiGridCond = require("XUi/XUiSettleWinMainLine/XUiGridCond")
 local XUiGridConditionTxt = XClass(nil, "XUiGridConditionTxt")
 
 function XUiGridConditionTxt:Ctor(ui)
@@ -62,7 +63,7 @@ function XUiGridConditionTxt:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 

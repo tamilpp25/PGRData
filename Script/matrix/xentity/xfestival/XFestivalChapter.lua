@@ -1,4 +1,5 @@
--- 庆典类活动章节对象
+---@class XFestivalChapter @庆典类活动章节对象
+---@class XFestivalChapter
 local XFestivalChapter = XClass(nil, "XFestivalChapter")
 --====================
 --构造函数
@@ -20,6 +21,7 @@ end
 --====================
 function XFestivalChapter:InitStages()
     self.Stages = {}
+    ---@type XFestivalStage[]
     self.StageId2Stage = {}
     self.StagePassCount = 0
     self.StageTotalCount = 0
@@ -56,6 +58,12 @@ end
 --====================
 function XFestivalChapter:GetTimeId()
     return self.ChapterCfg and self.ChapterCfg.TimeId or 0
+end
+--====================
+--获取置顶展示时间ID
+--====================
+function XFestivalChapter:GetActivityTimeId()
+    return self.ChapterCfg and self.ChapterCfg.ActivityTimeId or 0
 end
 --====================
 --获取章节名称
@@ -98,6 +106,12 @@ end
 --====================
 function XFestivalChapter:GetChapterType()
     return self.ChapterCfg and self.ChapterCfg.ChapterType
+end
+--====================
+--获取Ui类型
+--====================
+function XFestivalChapter:GetUiType()
+    return self.ChapterCfg and self.ChapterCfg.UiType
 end
 --====================
 --获取主页面背景图
@@ -187,6 +201,18 @@ function XFestivalChapter:GetChapterStageIsPass(stageId)
     return stage:GetIsPass()
 end
 --====================
+--获取是否已经通关
+--@param stageId:关卡Id
+--====================
+function XFestivalChapter:GetChapterIsPassed()
+    for id, stage in pairs(self.StageId2Stage) do
+        if not self:GetChapterStageIsPass(id) then
+            return false
+        end
+    end
+    return true
+end
+--====================
 --刷新章节关卡信息
 --====================
 function XFestivalChapter:RefreshChapterStageInfos()
@@ -205,7 +231,7 @@ function XFestivalChapter:GetIsInTime()
     if self:GetIsOffline() then return false end
     local startTime, endTime = XFunctionManager.GetTimeByTimeId(self:GetTimeId())
     local nowTime = XTime.GetServerNowTimestamp()
-    return (nowTime >= startTime) and (nowTime < endTime)
+    return (nowTime >= startTime) and (nowTime < endTime or endTime == 0)
 end
 --====================
 --获取章节是否在活动时间内及对应提示文本

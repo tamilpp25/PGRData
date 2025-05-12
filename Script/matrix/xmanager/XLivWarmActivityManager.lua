@@ -222,6 +222,7 @@ XLivWarmActivityManagerCreator = function()
     --更新推送
     function XLivWarmActivityManager.NotifyLivWarmActivityOnChange(data)
         LivWarmActivityEntity:UpdateData(data.ActivityDb)
+        XLivWarmActivityConfigs.SetDefaultActivityId(data.ActivityDb.ActivityId)
         XEventManager.DispatchEvent(XEventId.EVENT_NOTIFY_LIV_WARM_ACTIVITY_ON_CHANGE)
     end
     ---------------------protocol end------------------

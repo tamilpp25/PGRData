@@ -1,3 +1,4 @@
+---@class XUiFubenYuanXiao:XLuaUi
 local XUiFubenYuanXiao = XLuaUiManager.Register(XLuaUi, "UiFubenYuanXiao")
 
 function XUiFubenYuanXiao:OnAwake()
@@ -151,17 +152,19 @@ function XUiFubenYuanXiao:RefreshMapData()
     self.IsRandomStage = XDataCenter.FubenSpecialTrainManager.CheckHasRandomStage(self.CurrentStageId)
     self.BtnCreateRoom:SetButtonState(self.IsRandomStage and CS.UiButtonState.Disable or CS.UiButtonState.Normal)
 
-    if not self.IsRandomStage then
-        local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.CurrentStageId)
-        self.TextMapName.text = stageCfg.Name
-        self.TextMapDesc.text = stageCfg.Description
-        self.IconEffect = XFubenSpecialTrainConfig.GetIconEffectByStageId(self.CurrentStageId)
-    else
-        self.TextMapName.text = XFubenSpecialTrainConfig.GetRandomStageNameById(self.CurrentStageId)
-        self.TextMapDesc.text = XFubenSpecialTrainConfig.GetRandomStageDescriptionById(self.CurrentStageId)
-        self.IconEffect = XFubenSpecialTrainConfig.GetRandomStageIconEffectById(self.CurrentStageId)
+    --if not self.IsRandomStage then
+    --    local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.CurrentStageId)
+    --    self.TextMapName.text = stageCfg.Name
+    --    self.TextMapDesc.text = stageCfg.Description
+    --    self.IconEffect = XFubenSpecialTrainConfig.GetIconEffectByStageId(self.CurrentStageId)
+    --else
+    --    self.TextMapName.text = XFubenSpecialTrainConfig.GetRandomStageNameById(self.CurrentStageId)
+    --    self.TextMapDesc.text = XFubenSpecialTrainConfig.GetRandomStageDescriptionById(self.CurrentStageId)
+    --    self.IconEffect = XFubenSpecialTrainConfig.GetRandomStageIconEffectById(self.CurrentStageId)
+    --end
+    if self.BgMap then
+        self.BgMap.gameObject:LoadPrefab(self.IconEffect)
     end
-    self.BgMap.gameObject:LoadPrefab(self.IconEffect)
 end
 
 function XUiFubenYuanXiao:RefreshPattern()

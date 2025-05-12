@@ -2,18 +2,18 @@ local XUiFashionStoryChapter = XClass(nil,"XUiFashionStoryChapter")
 
 local XUiGridFashionStoryStage = require("XUi/XUiFubenFashionStory/XUiGridFashionStoryStage")
 
-function XUiFashionStoryChapter:Ctor(ui,activityId)
+function XUiFashionStoryChapter:Ctor(ui,activityId,singleLineId)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     self.ActivityId = activityId
-
+    self.SingleLineId=singleLineId
     self.LastOpenStage = nil
 
     self.StageItemList = {}     -- 关卡数组
     self.LineItemList = {}      -- 关卡线数组
 
     self.StageClassList = {}    -- 关卡类实例数组
-    self.StageIdList = XFashionStoryConfigs.GetChapterStagesList(activityId)   -- 关卡Id数组
+    self.StageIdList = XFashionStoryConfigs.GetSingleLineStages(singleLineId)   -- 关卡Id数组
 
     XTool.InitUiObject(self)
     self:InitComponent()
@@ -67,7 +67,7 @@ function XUiFashionStoryChapter:LoadAllStages()
 
     -- 如果stageClassNum > stageIdNum，多余的stageClass会拿到空的stageId，然后隐藏关卡与线条
     for i, stageClass in ipairs(self.StageClassList) do
-        stageClass:LoadStagePrefab(self.ActivityId, self.StageIdList[i])
+        stageClass:LoadStagePrefab(self.ActivityId, self.StageIdList[i],self.SingleLineId)
     end
 end
 

@@ -1,23 +1,15 @@
 --角色入口红点检测
+--- 2.13复刷关转常驻后奖励只在版本公告
 local XRedPointConditionRepeatChallengeReward = {}
 local SubCondition = nil
-function XRedPointConditionRepeatChallengeReward.GetSubConditions()
-    SubCondition = SubCondition or {
-        XRedPointConditions.Types.CONDITION_REPEAT_CHALLENGE_CHAPTER_REWARD,
-    }
-    return SubCondition
-end
 
-function XRedPointConditionRepeatChallengeReward.Check()
-    local allChapterIds = XDataCenter.FubenRepeatChallengeManager.GetAllChapterIds()
-
-    for _, chapterId in pairs(allChapterIds) do
-        if XRedPointConditionRepeatChallengeChapterReward.Check(chapterId) then
-            return true
-        end
+function XRedPointConditionRepeatChallengeReward.Check(taskTimeLimitId)
+    local rewardRed = false
+    if XTool.IsNumberValid(taskTimeLimitId) then
+        rewardRed = XDataCenter.FubenRepeatChallengeManager.GetRewardRed(taskTimeLimitId)
     end
+    return rewardRed
 
-    return false
 end
 
 return XRedPointConditionRepeatChallengeReward

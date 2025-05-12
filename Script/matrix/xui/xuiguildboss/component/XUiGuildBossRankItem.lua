@@ -17,7 +17,7 @@ function XUiGuildBossRankItem:Init(data, rank)
     if self.Team == nil then
         self.Team = XUiGuildBossTeamList.New(self.TeamObj)
     end
-    XUiPLayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.UObjHead)
+    XUiPlayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.UObjHead)
     self.TxtRankName.text = XDataCenter.GuildManager.GetRankNameByLevel(data.RankLevel)
     self.Team:Init(data.CardIds, data.CharacterHeadInfoList, false)
 end

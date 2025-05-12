@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiTRPGRewardGrid = require("XUi/XUiTRPG/XUiTRPGRewardTip/XUiTRPGRewardGrid")
 
 --领取奖励弹窗
@@ -14,6 +15,14 @@ function XUiTRPGRewardTip:OnStart(rewardIdList, truthRoadGroupId, secondMainId)
     self.SecondMainId = secondMainId
     self:InitDynamicTable()
     self:Refresh()
+end
+
+function XUiTRPGRewardTip:OnEnable()
+
+end
+
+function XUiTRPGRewardTip:OnDisable()
+
 end
 
 function XUiTRPGRewardTip:AutoAddListener()

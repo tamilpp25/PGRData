@@ -10,8 +10,8 @@ end
 
 function XUiGridHelpRoleItem:UpdateHelpRoleInfo(robotId)
     local characterId = XRobotManager.GetCharacterId(robotId)
-    self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(characterId))
-    self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyImage(characterId))
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
     self.ImgNew.gameObject:SetActiveEx(XDataCenter.FubenRogueLikeManager.IsRobotNew(robotId))
 end
 

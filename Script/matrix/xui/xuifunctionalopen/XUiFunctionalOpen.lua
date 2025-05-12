@@ -26,7 +26,7 @@ function XUiFunctionalOpen:OnStart(actionList,IsDoEventEnd,IsDoNext,OnDisableCal
 end
 
 function XUiFunctionalOpen:OnEnable()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Common_UiFunctionalOpen)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Common_UiFunctionalOpen)
 end
 
 function XUiFunctionalOpen:SetupContent(actionList)
@@ -318,7 +318,7 @@ end
 --播放CV
 function XUiFunctionalOpen:PlayCv(cvId)
     self:CvStop()
-    self.PlayingCv = CS.XAudioManager.PlayCv(cvId)
+    self.PlayingCv = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Voice, cvId)
     self.CurPlayingCvId = cvId
 end
 

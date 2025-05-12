@@ -9,8 +9,9 @@ function XMovieActionUnLoad:Ctor(actionData)
     self.EffectPath = params[2]
     self.PrefabAnimPath = params[3]
     self.EffectActorIndex = paramToNumber(params[4])
+    self.EffectKey = params[5]
 
-    if not self.AnimName and not self.EffectPath and not self.PrefabAnimPath then
+    if not self.AnimName and not self.EffectPath and not self.PrefabAnimPath and not self.EffectKey then
         XLog.Error("XMovieActionUnLoad:Ctor error: params can not be empty!")
         return
     end
@@ -21,7 +22,9 @@ function XMovieActionUnLoad:OnRunning()
     local effectPath = self.EffectPath
     local effectActorIndex = self.EffectActorIndex
     local isActorEffect = effectActorIndex > 0 and effectActorIndex <= XMovieConfigs.MAX_ACTOR_NUM
-    local effectKey = isActorEffect and stringFormat("%s%s", effectPath, effectActorIndex) or effectPath
+    if string.IsNilOrEmpty(self.EffectKey) then
+        self.EffectKey = isActorEffect and stringFormat("%s%s", effectPath, effectActorIndex) or effectPath
+    end
 
     if animName then
         local anim = self.UiRoot[animName]
@@ -30,8 +33,8 @@ function XMovieActionUnLoad:OnRunning()
         end
     end
 
-    if effectPath then
-        local effectGo = self.UiRoot.EffectGoDic[effectKey]
+    if self.EffectKey then
+        local effectGo = self.UiRoot.EffectGoDic[self.EffectKey]
         if not XTool.UObjIsNil(effectGo) then
             effectGo.gameObject:SetActiveEx(false)
         end

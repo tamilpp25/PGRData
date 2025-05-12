@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --########################## XUiGridPartnerShowMainSkillOption ##############################
 local XUiGridPartnerShowMainSkillOption = XClass(nil, "XUiGridPartnerShowMainSkillOption")
 
@@ -10,7 +11,7 @@ function XUiGridPartnerShowMainSkillOption:Ctor(ui)
     XTool.InitUiObject(self)
     self:RegisterUiEvents()
     -- 默认隐藏选择按钮
-    local showBtnSelect = self.Normal.gameObject:FindGameObject("BtnSelect")
+    local showBtnSelect = self.Normal.gameObject:FindGameObject("BtnSelect2")
     if showBtnSelect then
         showBtnSelect:SetActiveEx(false)
     end
@@ -111,7 +112,7 @@ end
 function XUiPanelPartnerShowMainSkillOption:GetCharacterName()
     local result = CS.XTextManager.GetText("PartnerNoBadyCarry")
     if self.Partner:GetIsCarry() then
-        result = XCharacterConfigs.GetCharacterLogName(self.Partner:GetCharacterId())
+        result = XMVCA.XCharacter:GetCharacterLogName(self.Partner:GetCharacterId())
     end
     return result
 end
@@ -119,8 +120,8 @@ end
 function XUiPanelPartnerShowMainSkillOption:GetCharacterElementIcon()
     local result
     if self.Partner:GetIsCarry() then
-        local element = XCharacterConfigs.GetCharacterElement(self.Partner:GetCharacterId())
-        result = XCharacterConfigs.GetCharElement(element).Icon2
+        local element = XMVCA.XCharacter:GetCharacterElement(self.Partner:GetCharacterId())
+        result = XMVCA.XCharacter:GetCharElement(element).Icon2
     end
     return result
 end

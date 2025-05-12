@@ -1,4 +1,4 @@
-XUiPanelChatPools = XClass(nil, "XUiPanelChatPools")
+local XUiPanelChatPools = XClass(nil, "XUiPanelChatPools")
 
 function XUiPanelChatPools:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -43,7 +43,7 @@ function XUiPanelChatPools:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -66,3 +66,6 @@ function XUiPanelChatPools:InitData(dynamicList)
     dynamicList:AddObjectPools("myHelp",self.PanelWorldChatMyHelp.gameObject)
     dynamicList:AddObjectPools("otherHelp",self.PanelWorldChatOtherHelp.gameObject)
 end
+
+
+return XUiPanelChatPools

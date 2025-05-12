@@ -62,8 +62,8 @@ function XUiPanelSkillUpConfirm:SetButtonCallBack()
 end
 
 function XUiPanelSkillUpConfirm:OnBtnCloseClick()
-    self.Base:SetSkillUpFinish(false)
-    self.Base:UpdatePanel(self.Data)
+    self.Base:SetSkillInfoState()
+    self.Base:ShowPanel()
 end
 
 return XUiPanelSkillUpConfirm

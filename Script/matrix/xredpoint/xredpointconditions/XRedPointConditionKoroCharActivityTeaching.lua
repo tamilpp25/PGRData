@@ -8,8 +8,8 @@ function XRedPointConditionKoroCharActivityTeaching.GetSubEvents()
     return Events
 end
 
-function XRedPointConditionKoroCharActivityTeaching.Check()
-    return XDataCenter.FubenNewCharActivityManager.CheckTeachingRedPoint()
+function XRedPointConditionKoroCharActivityTeaching.Check(activityId)
+    return XDataCenter.FubenNewCharActivityManager.CheckTeachingRedPoint(activityId)
 end
 
 return XRedPointConditionKoroCharActivityTeaching

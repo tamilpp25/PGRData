@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XUiChessPursuitBuzhenGrid = XClass(nil, "XUiChessPursuitBuzhenGrid")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local CSUnityEngineVector3 = CS.UnityEngine.Vector3
@@ -51,7 +52,7 @@ function XUiChessPursuitBuzhenGrid:OnBtnBuzhen01Click()
     if not curTeam then
         curTeam = {TeamData = {0,0,0}, CaptainPos = 1, FirstFightPos = 1}
     end
-    XLuaUiManager.Open("UiNewRoomSingle", stageId, {
+    XLuaUiManager.Open("UiBattleRoleRoom", stageId, {
         ChessPursuitData = {
             RobotList = robotList,
             TeamGridIndex = self.TeamGridIndex,

@@ -13,7 +13,7 @@ function XRedPointConditionArchiveWeaponSettingUnlock.GetSubEvents()
 end
 
 function XRedPointConditionArchiveWeaponSettingUnlock.Check(templateId)
-    return XDataCenter.ArchiveManager.IsNewWeaponSetting(templateId)
+    return XMVCA.XArchive:IsNewWeaponSetting(templateId)
 end
 
 return XRedPointConditionArchiveWeaponSettingUnlock

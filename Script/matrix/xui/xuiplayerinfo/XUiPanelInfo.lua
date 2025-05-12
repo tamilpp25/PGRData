@@ -1,4 +1,7 @@
-XUiPanelInfo = XClass(nil, "XUiPanelInfo")
+local XUiPlayerInfoFetters = require("XUi/XUiPlayerInfo/XUiPlayerInfoFetters")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiOtherPlayerGridMedal = require("XUi/XUiMedal/XUiOtherPlayerGridMedal")
+local XUiPanelInfo = XClass(nil, "XUiPanelInfo")
 local TextManager = CS.XTextManager
 
 function XUiPanelInfo:Ctor(ui, rootUi)
@@ -22,8 +25,8 @@ end
 
 function XUiPanelInfo:Show()
     self.GameObject:SetActiveEx(true)
-    self:SetupDynamicTable()
     self:UpdateInfo()
+    self:SetupDynamicTable()
 end
 
 function XUiPanelInfo:UpdateInfo()
@@ -52,18 +55,24 @@ function XUiPanelInfo:UpdateInfo()
     local appearanceShowType = (self.RootUi.Data.AppearanceSettingInfo or {}) .DormitoryType
     local hasPermission = XDataCenter.DormManager.HasDormPermission(playerId, appearanceShowType)
 
-    if hasPermission then
-        if data.DormDetail then
-            self.BtnDorm.gameObject:SetActiveEx(true)
-            self.TxtDormName.text = data.DormDetail.DormitoryName
+    if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Dorm, true, true) then
+        if hasPermission then
+            if data.DormDetail then
+                self.BtnDorm.gameObject:SetActiveEx(true)
+                self.TxtDormName.text = data.DormDetail.DormitoryName
+            else
+                -- 宿舍系统未开启
+                self.BtnDorm.gameObject:SetActiveEx(false)
+                self.TxtDormName.text = TextManager.GetText("DormDisable")
+            end
         else
-            -- 宿舍系统未开启
             self.BtnDorm.gameObject:SetActiveEx(false)
-            self.TxtDormName.text = TextManager.GetText("DormDisable")
+            self.TxtDormName.text = TextManager.GetText("PlayerInfoWithoutPermission")
         end
     else
+        -- 宿舍系统未开启
         self.BtnDorm.gameObject:SetActiveEx(false)
-        self.TxtDormName.text = TextManager.GetText("PlayerInfoWithoutPermission")
+        self.TxtDormName.text = TextManager.GetText("DormDisable")
     end
 
     --收集
@@ -89,7 +98,7 @@ function XUiPanelInfo:InitDynamicTable()
 end
 
 function XUiPanelInfo:SetupDynamicTable(index)
-    self.MedalData = XMedalConfigs.GetMeadalConfigs()
+    self.MedalData = XDataCenter.MedalManager.SortMedal(self.MedalInfos)
     self.DynamicTable:SetDataSource(self.MedalData)
     self.DynamicTable:ReloadDataSync(index and index or 1)
 end
@@ -113,16 +122,37 @@ function XUiPanelInfo:OnBtnFriendLevel()
 end
 
 function XUiPanelInfo:OnBtnDorm()
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Dorm) then
+        return
+    end
+     
     if XDataCenter.RoomManager.RoomData then
         XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))
         return
     end
-
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
+    if XMVCA.XDlcRoom:IsInRoom() then
         XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))
         return
     end
+
+    if XDataCenter.GuildDormManager.GetIsRunning() then
+        XDataCenter.GuildDormManager.RequestExitRoom(function()
+            local uiList = {"UiPlayerInfo", "UiGuildRongyu"}
+            for _, uiName in pairs(uiList) do
+                if XLuaUiManager.IsUiLoad(uiName)
+                        or XLuaUiManager.IsUiShow(uiName) then
+                    XLuaUiManager.Remove(uiName)
+                end
+            end
+            XLuaUiManager.Remove("UiGuildDormMain")
+        end)
+    end
+
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))
+    --    return
+    --end
 
     local data = self.RootUi.Data
     if data and data.Id and data.DormDetail and data.DormDetail.DormitoryId then
@@ -141,11 +171,15 @@ function XUiPanelInfo:OnBtnExhibition()
         XUiManager.TipError(TextManager.GetText("InTeamCantLookExhibition"))
         return
     end
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
+    if XMVCA.XDlcRoom:IsInRoom() then
         XUiManager.TipError(TextManager.GetText("InTeamCantLookExhibition"))
         return
     end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipError(TextManager.GetText("InTeamCantLookExhibition"))
+    --    return
+    --end
 
     if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.CharacterExhibition) then
         XLuaUiManager.Open("UiExhibition", false)
@@ -164,3 +198,5 @@ end
 function XUiPanelInfo:Close()
     self.GameObject:SetActiveEx(false)
 end
+
+return XUiPanelInfo

@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --===========================
 --超级爬塔选择插件页面
 --===========================

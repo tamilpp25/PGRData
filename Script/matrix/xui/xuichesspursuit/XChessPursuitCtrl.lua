@@ -1,6 +1,5 @@
-XChessPursuitCtrl = XChessPursuitCtrl or {}
+local XChessPursuitCtrl = {}
 local XChessPursuitSceneManager = require("XUi/XUiChessPursuit/XScene/XChessPursuitSceneManager")
-local XChessPursuitCube = require("XUi/XUiChessPursuit/XScene/XChessPursuitCube")
 local CSXChessPursuitDirection = CS.XChessPursuitDirection
 
 local CSXChessPursuitCtrlCom = nil
@@ -71,6 +70,7 @@ end
 function XChessPursuitCtrl.Init()
     for i=0,CSXChessPursuitCtrlCom.Cubes.Count-1 do
         local cube = CSXChessPursuitCtrlCom.Cubes[i]
+        local XChessPursuitCube = require("XUi/XUiChessPursuit/XScene/XChessPursuitCube")
         table.insert(ChessPursuitCubes, XChessPursuitCube.New(cube))
     end
 end
@@ -124,3 +124,6 @@ function XChessPursuitCtrl.GetMoveDirection(currentPos, nextPos)
         end
     end
 end
+
+
+return XChessPursuitCtrl

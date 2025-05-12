@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --角色选择界面
 local XUiSimulatedCombatRoomCharacter = XLuaUiManager.Register(XLuaUi, "UiSimulatedCombatRoomCharacter")
 local XUiSimulatedCombatRoomCharListGrid = require("XUi/XUiFubenSimulatedCombat/ChildItem/XUiRoomCharListGrid")
@@ -7,7 +9,7 @@ local CSXTextManagerGetText = CS.XTextManager.GetText
 
 function XUiSimulatedCombatRoomCharacter:OnAwake()
     XTool.InitUiObject(self)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
     self.AssetActivityPanel:SetQueryFunc(XDataCenter.FubenSimulatedCombatManager.GetCurrencyByItem)
     local root = self.UiModelGo.transform
     self.PanelRoleModel = root:FindTransform("PanelRoleModel")

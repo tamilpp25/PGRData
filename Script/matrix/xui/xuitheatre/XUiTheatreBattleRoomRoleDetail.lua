@@ -1,39 +1,64 @@
 --######################## XUiTheatreRoleGrid ########################
 local XUiBattleRoomRoleGrid = require("XUi/XUiNewRoomSingle/XUiBattleRoomRoleGrid")
+---@class XUiTheatreRoleGrid:XUiBattleRoomRoleGrid
+---@field Super XUiBattleRoomRoleGrid
 local XUiTheatreRoleGrid = XClass(XUiBattleRoomRoleGrid, "XUiTheatreRoleGrid")
 
+---@param entity XTheatreAdventureRole
 function XUiTheatreRoleGrid:SetData(entity)
     self.Super.SetData(self, entity)
     if not entity:GetIsLocalRole() then
         self.TxtLevel.text = XDataCenter.TheatreManager.GetCurrentAdventureManager():GetCurrentLevel()
-        self.TxtPower.text = entity:GetAbility()
+
+        self.TxtFight.gameObject:SetActiveEx(true)
+        self.TxtFight.text = entity:GetAbility()
     end
+end
+
+function XUiTheatreRoleGrid:UpdateFight()
+    if self.IsFragment then
+        self.PanelFight.gameObject:SetActiveEx(false)
+        return
+    end
+
+    self.TxtFight.gameObject:SetActiveEx(true)
+    self.TxtLevel.text = self.Character:GetCharacterViewModel():GetLevel()
+    self.TxtFight.text = self.Character:GetCharacterViewModel():GetAbility()
+    self.PanelFight.gameObject:SetActiveEx(true)
 end
 
 --######################## XUiTheatreBattleRoomRoleDetail ########################
 local XUiBattleRoomRoleDetailDefaultProxy = require("XUi/XUiNewRoomSingle/XUiBattleRoomRoleDetailDefaultProxy")
+
+---@class XUiTheatreBattleRoomRoleDetail:XUiBattleRoomRoleDetailDefaultProxy
 local XUiTheatreBattleRoomRoleDetail = XClass(XUiBattleRoomRoleDetailDefaultProxy, "XUiTheatreBattleRoomRoleDetail")
 
 function XUiTheatreBattleRoomRoleDetail:Ctor()
     self.TheatreManager = XDataCenter.TheatreManager
     self.AdventureManager = self.TheatreManager.GetCurrentAdventureManager()
     self.Chapter = self.AdventureManager:GetCurrentChapter()
+    self._IdDir = {}
 end
 
--- characterType : XCharacterConfigs.CharacterType
+function XUiTheatreBattleRoomRoleDetail:AOPOnBtnJoinTeamClickedAfter(ui)
+    local id = self._IdDir[ui.CurrentEntityId] and self._IdDir[ui.CurrentEntityId] or ui.CurrentEntityId
+    ui.Team:UpdateEntityTeamPos(id, ui.Pos, true)
+end
+
+-- characterType : XEnumConst.CHARACTER.CharacterType
 function XUiTheatreBattleRoomRoleDetail:GetEntities(characterType)
     local roles = self.AdventureManager:GetCurrentRoles(true)
-    local result = {}
     for _, role in ipairs(roles) do
-        if role:GetCharacterViewModel():GetCharacterType() == characterType then
-            table.insert(result, role)
+        if not role:GetIsLocalRole() then
+            local robotId = role:GetRawData().Id
+            self._IdDir[robotId] = role:GetId()
         end
     end
-    return result
+    return roles
 end
 
 function XUiTheatreBattleRoomRoleDetail:GetCharacterViewModelByEntityId(entityId)
-    local role = self.AdventureManager:GetRole(entityId)
+    local role = self.AdventureManager:GetRoleByRobotId(entityId)
     if role == nil then return nil end
     return role:GetCharacterViewModel()
 end
@@ -59,6 +84,36 @@ end
 
 function XUiTheatreBattleRoomRoleDetail:GetGridProxy()
     return XUiTheatreRoleGrid
+end
+
+function XUiTheatreBattleRoomRoleDetail:GetFilterControllerConfig()
+    ---@type XCharacterAgency
+    local characterAgency = XMVCA:GetAgency(ModuleId.XCharacter)
+    return characterAgency:GetModelCharacterFilterController()["UiTheatreBattleRoomDetail"]
+end
+
+---v2.6 新筛选器用
+function XUiTheatreBattleRoomRoleDetail:CheckInTeam(team, entityId)
+    local id = self._IdDir[entityId] and self._IdDir[entityId] or entityId
+    return team:GetEntityIdIsInTeam(id)
+end
+
+function XUiTheatreBattleRoomRoleDetail:GetCurrentEntityId(currentEntityId)
+    return self._IdDir[currentEntityId] and self._IdDir[currentEntityId] or currentEntityId
+end
+
+---@param entity XTheatreAdventureRole
+function XUiTheatreBattleRoomRoleDetail:GetFilterCharIdFun(entity)
+    return entity:GetId()
+end
+
+function XUiTheatreBattleRoomRoleDetail:CheckEntityIdIsIsomer(entityId)
+    for robotId, adventureRoleId in pairs(self._IdDir) do
+        if adventureRoleId == entityId then
+            return XMVCA.XCharacter:GetIsIsomer(robotId)
+        end
+    end
+    return XMVCA.XCharacter:GetIsIsomer(entityId)
 end
 
 return XUiTheatreBattleRoomRoleDetail

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiChatUiWorldBoss = XLuaUiManager.Register(XLuaUi, "UiChatUiWorldBoss")
 local XUiGridReportMsgItem = require("XUi/XUiWorldBoss/XUiGridReportMsgItem")
 

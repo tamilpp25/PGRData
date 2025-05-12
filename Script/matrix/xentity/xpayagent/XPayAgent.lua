@@ -8,6 +8,13 @@ local tableRemove = table.remove
 local pairs = pairs
 
 local TipsQueue = {}
+-- 网页支付提示弹框
+local WebTipsQueue = {}
+
+local PayType = {
+    Base = 0,   -- 基础支付
+    Web = 1,    -- 网页支付
+}
 
 local OnSaveOrders = function(playerId, orders)
     local orderStr = Json.encode(orders)
@@ -100,13 +107,56 @@ function XPayAgent:TipsPaySuccess()
     if not next(TipsQueue) then
         return
     end
-    
+
     tableRemove(TipsQueue, 1)
     local text = CS.XTextManager.GetText("PaySuccess")
-    
+
     XUiManager.TipMsg(text, XUiManager.UiTipType.Success, function()
         self:TipsPaySuccess()
+        XEventManager.DispatchEvent(XEventId.EVENT_SUCCESS_PAY)
     end)
+end
+
+-- 网页充值成功弹框
+function XPayAgent:WebTipsPaySuccess()
+    if not self:CheckWebTips() then
+        XEventManager.DispatchEvent(XEventId.EVENT_WEB_RECHARGE_SUCCESS_END)
+        return
+    end
+    local payKey = tableRemove(WebTipsQueue, 1)
+    local template = XPayConfigs.GetPayTemplate(payKey)
+    if not template then
+        self:WebTipsPaySuccess()
+        return
+    end
+    local rewardList = XRewardManager.CreateRewardGoods(XDataCenter.ItemManager.ItemId.HongKa, template.MoneyCard)
+    XUiManager.OpenUiObtain({ rewardList }, nil, function()
+        self:WebTipsPaySuccess()
+    end)
+end
+
+-- 检查是否有网页弹框
+function XPayAgent:CheckWebTips()
+    if not next(WebTipsQueue) then
+        return false
+    end
+    return true
+end
+
+-- 显示网页弹框
+function XPayAgent:ShowWebTips()
+    if CS.XFight.IsRunning then
+        return
+    end
+    if not self:CheckWebTips() then
+        return
+    end
+    -- 采购界面或者采购界面已加载，弹出网页充值成功弹框
+    if XLuaUiManager.IsUiShow("UiPurchase") then
+        self:WebTipsPaySuccess()
+        return
+    end
+    XEventManager.DispatchEvent(XEventId.EVENT_WEB_RECHARGE_SUCCESS)
 end
 
 --==============================--
@@ -129,11 +179,16 @@ function XPayAgent:OnDealSuccess(orderList)
             self:RemoveOrder(order.OrderNo)
         end
 
-        tableInsert(TipsQueue, order.PayKey)
+        if order.PayType == PayType.Web then
+            tableInsert(WebTipsQueue, order.PayKey)
+        else
+            tableInsert(TipsQueue, order.PayKey)
+        end
     end
 
     -- 测试充值
     -- XLog.Error("充值结果回调--self:TipsPaySuccess()")
     -- XLog.Error(TipsQueue)
     self:TipsPaySuccess()
+    self:ShowWebTips()
 end

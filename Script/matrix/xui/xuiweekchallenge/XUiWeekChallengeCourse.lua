@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 ---@class XUiWeekChallengeCourse
 local XUiWeekChallengeCourse = XClass(nil, "XUiWeekChallengeCourse")
 

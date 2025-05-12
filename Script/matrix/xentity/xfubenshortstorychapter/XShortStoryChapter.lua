@@ -7,9 +7,13 @@ local Default = {
     _IsOpen = false,
 }
 
-local XShortStoryChapter = XClass(nil,"XShortStoryChapter")
+---@class XShortStoryChapter
+---@field _Id number 章节Id
+---@field _Unlock boolean 是否解锁
+---@field _IsOpen boolean 是否开启
+local XShortStoryChapter = XClass(nil, "XShortStoryChapter")
 
-function XShortStoryChapter:Ctor()
+function XShortStoryChapter:Ctor(chapterId)
     for key, value in pairs(Default) do
         if type(value) == "table" then
             self[key] = {}
@@ -17,6 +21,7 @@ function XShortStoryChapter:Ctor()
             self[key] = value
         end
     end
+    self._Id = chapterId
 end
 
 function XShortStoryChapter:Change(isUnlock, isOpen)

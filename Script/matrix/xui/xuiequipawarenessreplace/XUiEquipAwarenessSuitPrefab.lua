@@ -1,5 +1,6 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridSuitPrefab = require("XUi/XUiEquipAwarenessReplace/XUiGridSuitPrefab")
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 local XUiGridResonanceSkill = require("XUi/XUiEquipResonanceSkill/XUiGridResonanceSkill")
 local XUiGridDoubleResonanceSkill = require("XUi/XUiEquipResonanceSkill/XUiGridDoubleResonanceSkill")
 
@@ -11,6 +12,7 @@ local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 local CUR_SUIT_PREFAB_INDEX = 0
 local MAX_MERGE_ATTR_COUNT = 4
 local MAX_RESONANCE_SKILL_COUNT = 6
+local MAX_SUIT_SKILL_COUNT = 4
 local ShowPropertyIndex = {
     Attr = 1,
     SuitSkill = 2,
@@ -51,6 +53,9 @@ function XUiEquipAwarenessSuitPrefab:OnEnable()
     else
         self.TabGroup:SelectIndex(TAB_TYPE.ALL)
     end
+
+    -- 刷新意识组数据
+    self:UpdateCurEquipGrids(self.CurPrefabIndex)
 end
 
 function XUiEquipAwarenessSuitPrefab:OnGetEvents()
@@ -83,12 +88,12 @@ function XUiEquipAwarenessSuitPrefab:AutoAddListener()
     self.BtnEquip.CallBack = function() self:OnBtnEquip() end
     self.BtnChangeName.CallBack = function() self:OnBtnChangeName() end
     self.BtnDelete.CallBack = function() self:OnBtnDelete() end
-    self:RegisterClickEvent(self.BtnPos1, function() self:OnSelectEquipSite(XEquipConfig.EquipSite.Awareness.One) end)
-    self:RegisterClickEvent(self.BtnPos2, function() self:OnSelectEquipSite(XEquipConfig.EquipSite.Awareness.Two) end)
-    self:RegisterClickEvent(self.BtnPos3, function() self:OnSelectEquipSite(XEquipConfig.EquipSite.Awareness.Three) end)
-    self:RegisterClickEvent(self.BtnPos4, function() self:OnSelectEquipSite(XEquipConfig.EquipSite.Awareness.Four) end)
-    self:RegisterClickEvent(self.BtnPos5, function() self:OnSelectEquipSite(XEquipConfig.EquipSite.Awareness.Five) end)
-    self:RegisterClickEvent(self.BtnPos6, function() self:OnSelectEquipSite(XEquipConfig.EquipSite.Awareness.Six) end)
+    self:RegisterClickEvent(self.BtnPos1, function() self:OnSelectEquipSite(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.ONE) end)
+    self:RegisterClickEvent(self.BtnPos2, function() self:OnSelectEquipSite(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.TWO) end)
+    self:RegisterClickEvent(self.BtnPos3, function() self:OnSelectEquipSite(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.THREE) end)
+    self:RegisterClickEvent(self.BtnPos4, function() self:OnSelectEquipSite(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.FOUR) end)
+    self:RegisterClickEvent(self.BtnPos5, function() self:OnSelectEquipSite(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.FIVE) end)
+    self:RegisterClickEvent(self.BtnPos6, function() self:OnSelectEquipSite(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.SIX) end)
     self:RegisterClickEvent(self.PanelDynamicTable, self.OnPanelDynamicTable)
 end
 
@@ -98,6 +103,7 @@ function XUiEquipAwarenessSuitPrefab:OnSelectType(index)
         self.CurPrefabIndex = CUR_SUIT_PREFAB_INDEX
 
         self:Refresh()
+        self:PlayAnimation("QieHuan")
     end
 end
 
@@ -123,9 +129,9 @@ function XUiEquipAwarenessSuitPrefab:OnBtnSave()
     local maxNum
 
     if self.TabType == TAB_TYPE.ALL then
-        maxNum = XDataCenter.EquipManager.GetSuitPrefabNumMax()
+        maxNum = XMVCA.XEquip:GetSuitPrefabNumMax()
     elseif self.TabType == TAB_TYPE.ONE then
-        maxNum = XDataCenter.EquipManager.GetEquipSuitCharacterPrefabMaxNum()
+        maxNum = XMVCA.XEquip:GetEquipSuitCharacterPrefabMaxNum()
     end
 
     if num >= maxNum then
@@ -134,9 +140,9 @@ function XUiEquipAwarenessSuitPrefab:OnBtnSave()
     end
 
     if self.TabType == TAB_TYPE.ALL then
-        XDataCenter.EquipManager.EquipSuitPrefabSave(self.UnSavedPrefabInfo, 0)
+        XMVCA.XEquip:EquipSuitPrefabSave(self.UnSavedPrefabInfo, 0)
     elseif self.TabType == TAB_TYPE.ONE then
-        XDataCenter.EquipManager.EquipSuitPrefabSave(self.UnSavedPrefabInfo, self.CharacterId)
+        XMVCA.XEquip:EquipSuitPrefabSave(self.UnSavedPrefabInfo, self.CharacterId)
     end
 
     self:ClosePopup()
@@ -145,17 +151,17 @@ end
 function XUiEquipAwarenessSuitPrefab:OnBtnEquip()
     self:ClosePopup()
 
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterId)
     local conflictInfoList = {}
     local suitPrefabInfo = self:GetShowingPrefabInfo()
     local equipIds = suitPrefabInfo:GetEquipIds()
     for _, equipId in pairs(equipIds) do
-        if not XDataCenter.EquipManager.IsCharacterTypeFit(equipId, characterType) then
+        if not XMVCA.XEquip:IsCharacterTypeFit(equipId, characterType) then
             XUiManager.TipText("EquipAwarenessSuitPrefabCharacterTypeWrong")
             return
         end
 
-        local characterId = XDataCenter.EquipManager.GetEquipWearingCharacterId(equipId)
+        local characterId = XMVCA.XEquip:GetEquipWearingCharacterId(equipId)
         if characterId and characterId ~= self.CharacterId then
             local conflictInfo = {
                 EquipId = equipId,
@@ -165,11 +171,11 @@ function XUiEquipAwarenessSuitPrefab:OnBtnEquip()
         end
     end
     tableSort(conflictInfoList, function(a, b)
-        return XDataCenter.EquipManager.GetEquipSite(a.EquipId) < XDataCenter.EquipManager.GetEquipSite(b.EquipId)
+        return XMVCA.XEquip:GetEquipSiteByEquipId(a.EquipId) < XMVCA.XEquip:GetEquipSiteByEquipId(b.EquipId)
     end)
 
     local equipFunc = function()
-        XDataCenter.EquipManager.EquipSuitPrefabEquip(self.CurPrefabIndex, self.CharacterId, function()
+        XMVCA:GetAgency(ModuleId.XEquip):EquipSuitPrefabEquip(self.CurPrefabIndex, self.CharacterId, function()
             self.CurPrefabIndex = CUR_SUIT_PREFAB_INDEX
         end)
     end
@@ -184,7 +190,7 @@ end
 function XUiEquipAwarenessSuitPrefab:OnBtnChangeName()
     self:ClosePopup()
     XLuaUiManager.Open("UiEquipSuitPrefabRename", function(newName)
-        XDataCenter.EquipManager.EquipSuitPrefabRename(self.CurPrefabIndex, newName)
+        XMVCA.XEquip:EquipSuitPrefabRename(self.CurPrefabIndex, newName)
     end)
 end
 
@@ -196,7 +202,7 @@ function XUiEquipAwarenessSuitPrefab:OnBtnDelete()
     XLuaUiManager.Open("UiEquipSuitPrefabConfirm", content, function()
         local prefabIndex = self.CurPrefabIndex
         self.CurPrefabIndex = CUR_SUIT_PREFAB_INDEX
-        XDataCenter.EquipManager.EquipSuitPrefabDelete(prefabIndex)
+        XMVCA.XEquip:EquipSuitPrefabDelete(prefabIndex)
     end)
 end
 
@@ -216,10 +222,9 @@ function XUiEquipAwarenessSuitPrefab:InitCurEquipGrids()
 
     self.CurEquipGirds = {}
     self.GridCurAwareness.gameObject:SetActiveEx(false)
-    for _, equipSite in pairs(XEquipConfig.EquipSite.Awareness) do
+    for _, equipSite in pairs(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS) do
         local item = CS.UnityEngine.Object.Instantiate(self.GridCurAwareness)
-        self.CurEquipGirds[equipSite] = XUiGridEquip.New(item, clickCb)
-        self.CurEquipGirds[equipSite]:InitRootUi(self)
+        self.CurEquipGirds[equipSite] = XUiGridEquip.New(item, self, clickCb)
         self.CurEquipGirds[equipSite].Transform:SetParent(self["PanelPos" .. equipSite], false)
     end
 end
@@ -228,7 +233,7 @@ function XUiEquipAwarenessSuitPrefab:InitTabGroup()
     local tabBtns = { self.BtnTabAll, self.BtnTabOne }
 
     self.TabGroup:Init(tabBtns, function(index) self:OnSelectType(index) end)
-    self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterId))
+    self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterId))
 end
 
 function XUiEquipAwarenessSuitPrefab:InitPropertyBtnGroup()
@@ -265,7 +270,7 @@ end
 
 function XUiEquipAwarenessSuitPrefab:Refresh(doNotResetUnsaved, resetScroll)
     local characterId = self.CharacterId
-    self.UnSavedPrefabInfo = not doNotResetUnsaved and XDataCenter.EquipManager.GetUnSavedSuitPrefabInfo(characterId) or self.UnSavedPrefabInfo
+    self.UnSavedPrefabInfo = not doNotResetUnsaved and XMVCA.XEquip:GetUnSavedSuitPrefabInfo(characterId) or self.UnSavedPrefabInfo
     self.SuitPrefabInfoList = self:GetSuitPrefabIndexList()
 
     self:UpdateDynamicTable(resetScroll)
@@ -274,7 +279,7 @@ end
 
 function XUiEquipAwarenessSuitPrefab:UpdateCurEquipAttr()
     local suitPrefabInfo = self:GetShowingPrefabInfo()
-    local attrMap = XDataCenter.EquipManager.GetAwarenessMergeAttrMap(suitPrefabInfo:GetEquipIds())
+    local attrMap = XMVCA.XEquip:GetAwarenessMergeAttrMap(suitPrefabInfo:GetEquipIds())
     local attrCount = 0
 
     for _, attr in pairs(attrMap) do
@@ -294,10 +299,10 @@ end
 
 function XUiEquipAwarenessSuitPrefab:UpdateCurEquipSkill()
     local suitPrefabInfo = self:GetShowingPrefabInfo()
-    local activeSkillDesInfoList = XDataCenter.EquipManager.GetSuitMergeActiveSkillDesInfoList(suitPrefabInfo:GetEquipIds())
+    local activeSkillDesInfoList = XMVCA.XEquip:GetSuitActiveSkillDescInfoList(suitPrefabInfo:GetEquipIds(), self.CharacterId)
     local skillCount = 0
 
-    for i = 1, XEquipConfig.MAX_SUIT_SKILL_COUNT do
+    for i = 1, MAX_SUIT_SKILL_COUNT do
         if not activeSkillDesInfoList[i] then
             self["TxtSkillDes" .. i].gameObject:SetActiveEx(false)
         else
@@ -359,11 +364,11 @@ end
 function XUiEquipAwarenessSuitPrefab:UpdateDynamicTable(resetScroll)
     local num = #self.SuitPrefabInfoList-1
     if self.TabType == TAB_TYPE.ALL then
-        self.TxtTotalNum.text = CSXTextManagerGetText("EquipSuitPrefabNum", num, XDataCenter.EquipManager.GetSuitPrefabNumMax())
+        self.TxtTotalNum.text = CSXTextManagerGetText("EquipSuitPrefabNum", num, XMVCA.XEquip:GetSuitPrefabNumMax())
         self.TextName.text = CSXTextManagerGetText("AwarenessGroup")
     elseif self.TabType == TAB_TYPE.ONE then
-        local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
-        self.TxtTotalNum.text = CSXTextManagerGetText("EquipSuitPrefabNum", num, XDataCenter.EquipManager.GetEquipSuitCharacterPrefabMaxNum())
+        local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
+        self.TxtTotalNum.text = CSXTextManagerGetText("EquipSuitPrefabNum", num, XMVCA.XEquip:GetEquipSuitCharacterPrefabMaxNum())
         self.TextName.text = CSXTextManagerGetText("AwarenessGroupWithName", charConfig.TradeName)
     end    
 
@@ -401,7 +406,7 @@ function XUiEquipAwarenessSuitPrefab:UpdateCurEquipGrids(suitPrefabIndex)
 
     self:UpdateSavePanel()
     self.EquipBtnGroup:SelectIndex(self.SelectShowProperty)
-    for _, equipSite in pairs(XEquipConfig.EquipSite.Awareness) do
+    for _, equipSite in pairs(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS) do
         self:UpdateCurEquipGrid(equipSite)
     end
 end
@@ -411,11 +416,11 @@ function XUiEquipAwarenessSuitPrefab:UpdateCurEquipGrid(equipSite)
 
     local equipId = suitPrefabInfo:GetEquipId(equipSite)
     if not equipId or equipId == 0 then
-        self.CurEquipGirds[equipSite].GameObject:SetActiveEx(false)
+        self.CurEquipGirds[equipSite]:Close()
         self["PanelNoEquip" .. equipSite].gameObject:SetActiveEx(true)
     else
         self.CurEquipGirds[equipSite]:Refresh(equipId)
-        self.CurEquipGirds[equipSite].GameObject:SetActiveEx(true)
+        self.CurEquipGirds[equipSite]:Open()
         self["PanelNoEquip" .. equipSite].gameObject:SetActiveEx(false)
     end
 end
@@ -427,7 +432,7 @@ function XUiEquipAwarenessSuitPrefab:ClosePopup()
 end
 
 function XUiEquipAwarenessSuitPrefab:OnSelectEquip(equipId)
-    local equipSite = XDataCenter.EquipManager.GetEquipSite(equipId)
+    local equipSite = XMVCA.XEquip:GetEquipSiteByEquipId(equipId)
     self:OnSelectEquipSite(equipSite)
 
     if self.CurEquipGirds[equipSite] then
@@ -463,13 +468,13 @@ end
 
 function XUiEquipAwarenessSuitPrefab:GetShowingPrefabInfo(prefabIndex)
     prefabIndex = prefabIndex or self.CurPrefabIndex
-    return XDataCenter.EquipManager.GetSuitPrefabInfo(prefabIndex) or self.UnSavedPrefabInfo
+    return XMVCA.XEquip:GetSuitPrefabInfo(prefabIndex) or self.UnSavedPrefabInfo
 end
 
 function XUiEquipAwarenessSuitPrefab:GetSuitPrefabIndexList(tabType)
     if tabType == nil then tabType = self.TabType end
     local tl = {0} --0对应自定义的那列
-    local suitPrefabInfoList = XDataCenter.EquipManager.GetSuitPrefabIndexList()
+    local suitPrefabInfoList = XMVCA.XEquip:GetSuitPrefabIndexList()
 
     for i,suitPrefabIndex in ipairs(suitPrefabInfoList) do
         local suitPrefabInfo = self:GetShowingPrefabInfo(suitPrefabIndex)

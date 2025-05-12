@@ -12,20 +12,21 @@ function XMovieActionActorAlphaChange:Ctor(actionData)
 end
 
 function XMovieActionActorAlphaChange:OnRunning()
-    if self.Index ~= FRONT_BG_INDEX then
+    if self.Index < FRONT_BG_INDEX then
         local actor = self.UiRoot:GetActor(self.Index)
         actor:PlayFadeAnimation(self.BeginAlpha, self.EndAlpha, self.Duration)
     else
+        local bgIndex = self.Index == FRONT_BG_INDEX and 3 or self.Index % 1000
+        local rImgBg = self.UiRoot["RImgBg" .. bgIndex]
         if not string.IsNilOrEmpty(self.BgPath) then
-            self.UiRoot.RImgBg3:SetRawImage(self.BgPath)
+            rImgBg:SetRawImage(self.BgPath)
         end
-        self.UiRoot.RImgBg3.gameObject:SetActiveEx(not string.IsNilOrEmpty(self.BgPath))
-        local oldColor = self.UiRoot.RImgBg3.color
+        rImgBg.gameObject:SetActiveEx(not string.IsNilOrEmpty(self.BgPath))
+        local oldColor = rImgBg.color
         local newColor = CS.UnityEngine.Color(oldColor.r, oldColor.g, oldColor.b, self.BeginAlpha)
-        self.UiRoot.RImgBg3.color = newColor
-        self.UiRoot.RImgBg3:DOFade(self.EndAlpha, self.Duration)
+        rImgBg.color = newColor
+        rImgBg:DOFade(self.EndAlpha, self.Duration)
     end
-    
 end
 
 return XMovieActionActorAlphaChange

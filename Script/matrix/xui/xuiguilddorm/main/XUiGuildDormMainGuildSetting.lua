@@ -3,6 +3,9 @@
 --============
 local XUiGuildDormMainGuildSetting = XClass(nil, "XUiGuildDormMainGuildSetting")
 
+local MaxPanelBgWidth = 682 --背景最大宽度
+local MaxPanelBtnCount = 5 --设置最大按钮数
+
 function XUiGuildDormMainGuildSetting:Ctor(panel)
     XTool.InitUiObjectByUi(self, panel)
     self.BtnDarkCloseBg.CallBack = function() self:OnClickClose() end
@@ -11,6 +14,8 @@ function XUiGuildDormMainGuildSetting:Ctor(panel)
     self.BtnGuildApplication.CallBack = function() self:OnClickApplication() end
     self.BtnGuildSetName.CallBack = function() self:OnClickSetName() end
     self.BtnGuildReport.CallBack = function() self:OnClickReport() end
+    
+    self.SettingBtnWidth = self.BtnGuildExitGuild.transform.sizeDelta.x
 end
 
 function XUiGuildDormMainGuildSetting:OnClickClose()
@@ -28,6 +33,11 @@ function XUiGuildDormMainGuildSetting:OnClickExitGuild()
         else
             local title = CS.XTextManager.GetText("GuildDialogTitle")
             local content = CS.XTextManager.GetText("GuildQuitLastMember")
+
+            if XDataCenter.GuildWarManager.CheckActivityIsInTime() and XDataCenter.GuildWarManager.CheckRoundIsInTime() then
+                content = XGuildWarConfig.GetClientConfigValues('GuildQuitLastMemberInWar')[1]
+            end
+            
             XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, function()
                 end, function()
                     XDataCenter.GuildManager.QuitGuild(function()
@@ -88,13 +98,17 @@ function XUiGuildDormMainGuildSetting:RefreshApplyRed(count)
 end
 
 function XUiGuildDormMainGuildSetting:Show()
+    local showCount = XGuildConfig.RefreshSetView(self.BtnGuildExitGuild, self.BtnGuildJob, self.BtnGuildApplication, self.BtnGuildSetName, self.BtnGuildReport)
     self.GameObject:SetActiveEx(true)
-    XRedPointManager.AddRedPointEvent(self.BtnGuildApplication, self.RefreshApplyRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    local width = MaxPanelBgWidth - (MaxPanelBtnCount - showCount) * self.SettingBtnWidth
+    width = CS.UnityEngine.Mathf.Clamp(width, 0, MaxPanelBgWidth)
+    self.UiGuildBg:SetSizeWithCurrentAnchors(CS.UnityEngine.RectTransform.Axis.Horizontal, width)
+    self.RedPointID = XRedPointManager.AddRedPointEvent(self.BtnGuildApplication, self.RefreshApplyRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
 end
 
 function XUiGuildDormMainGuildSetting:Hide()
     self.GameObject:SetActiveEx(false)
-    XRedPointManager.RemoveRedPointEvent(self.BtnGuildApplication, self.RefreshApplyRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    XRedPointManager.RemoveRedPointEvent(self.RedPointID)
 end
 
 return XUiGuildDormMainGuildSetting

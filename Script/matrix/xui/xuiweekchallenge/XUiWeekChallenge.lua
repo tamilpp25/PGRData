@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 ---@class XUiWeekChallenge
 local XUiWeekChallenge = XClass(nil, "XUiWeekChallenge")
 
@@ -17,10 +19,15 @@ function XUiWeekChallenge:Ctor(ui, rootUi)
     self._IsSelectDefaultWeek = false
 
     self._TodayRefreshTime = -1
+    
+    self._SkipCallBackHandle = function() 
+        XDataCenter.FunctionEventManager.OnFunctionEventBreak()
+    end
 end
 
 function XUiWeekChallenge:OnShow()
     self:Refresh()
+    self:RefreshReward()
 end
 
 function XUiWeekChallenge:Init()
@@ -122,7 +129,9 @@ function XUiWeekChallenge:UpdateTask()
 end
 
 function XUiWeekChallenge:OnDynamicTableEvent(event, index, grid)
-    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
+    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
+        grid:SetSkipCallBack(self._SkipCallBackHandle)
+    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local data = self._TaskDataList[index]
         grid.RootUi = self.RootUi
         grid:ResetData(data)
@@ -215,7 +224,7 @@ function XUiWeekChallenge:InitRewardGrid()
             self,
             grid:GetButtonComponent(),
             function()
-                if not XDataCenter.WeekChallengeManager.RequestReceiveReward(taskCount) then
+                if not XDataCenter.WeekChallengeManager.RequestReceiveReward(taskCount, handler(self, self.RefreshReward)) then
                     grid:CallClickItem()
                 end
             end

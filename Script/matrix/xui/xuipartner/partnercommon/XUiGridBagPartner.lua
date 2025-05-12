@@ -38,7 +38,7 @@ function XUiGridBagPartner:UpdateGrid(data, isInPrefab)
     self.Data = data
     if data then
         self.RImgIcon:SetRawImage(data:GetIcon())
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(data:GetQuality()))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(data:GetQuality()))
         self.ImgBreak:SetSprite(data:GetBreakthroughIcon())
         self.TxtLevel.text = data:GetLevel()
         self.TxtName.text = data:GetName()
@@ -50,7 +50,7 @@ function XUiGridBagPartner:UpdateGrid(data, isInPrefab)
             self.PanelDefault.gameObject:SetActiveEx(false)
             self.TextUsing.text = PanelUsingWords
             if not XTool.UObjIsNil(self.RImgRole) then
-                local icon = XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(data:GetCharacterId())
+                local icon = XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(data:GetCharacterId())
                 self.RImgRole:SetRawImage(icon)
             end
         elseif isInPrefab then

@@ -3,7 +3,8 @@ XTaskConfig = XTaskConfig or {}
 XTaskConfig.ActivenessRewardType = {
     Daily = 1,
     Weekly = 2,
-    Newbie = 3
+    Newbie = 3,
+    NewbieTwo = 4, -- 新手任务二期
 }
 
 XTaskConfig.PANELINDEX = {
@@ -16,6 +17,7 @@ local TaskActivenessTemplate = {}
 local NewPlayerTaskGroupTemplate = {}
 local NewPlayerTaskTalkTemplate = {}
 local TaskNewbieActivenessTemplate = {}
+local NewbieTaskTwoActivenessTemplate = {}
 local CourseTemplate = {}
 local DailyActivenessTemplate = {}
 local WeeklyActivenessTemplate = {}
@@ -24,6 +26,7 @@ local TimeLimitDailyTasksCheckTable = {}
 local TimeLimitWeeklyTasksCheckTable = {}
 local TaskConditionTemplate = {}
 local AlarmClockTemplate = {}
+local TaskBackFlowTemplate = {}
 
 local DailyActivenessTotal = 0
 
@@ -35,11 +38,20 @@ local TABLE_TASK_COURSE_PATH = "Share/Task/Course.tab"
 local TABLE_TASK_TIME_LIMIT_PATH = "Share/Task/TaskTimeLimit.tab"
 local TABLE_TASK_CONDITION_PATH = "Share/Task/Condition.tab"
 local TABLE_ALARMCLOCK_PATH = "Share/AlarmClock/AlarmClock.tab"
+local TABLE_TASK_BACK_FLOW_PATH = "Share/Task/BackFlow.tab"
 local NextTaskIds = {}
 
 local function SetNextTaskId()
     for id, task in pairs(TaskTemplate) do
         NextTaskIds[task.ShowAfterTaskId] = id
+    end
+    if XMVCA.XBigWorldGamePlay:IsBigWorldOpen() then
+        local bigWorldTask = XMVCA.XBigWorldService:GetBigWorldTaskTemplates()
+        if not XTool.IsTableEmpty(bigWorldTask) then
+            for id, task in pairs(bigWorldTask) do
+                NextTaskIds[task.ShowAfterTaskId] = id
+            end
+        end
     end
 end
 
@@ -65,11 +77,13 @@ function XTaskConfig.Init()
     CourseTemplate = XTableManager.ReadByIntKey(TABLE_TASK_COURSE_PATH, XTable.XTableCourse, "StageId")
     TimeLimitTaskTemplate = XTableManager.ReadByIntKey(TABLE_TASK_TIME_LIMIT_PATH, XTable.XTableTaskTimeLimit, "Id")
     AlarmClockTemplate = XTableManager.ReadByIntKey(TABLE_ALARMCLOCK_PATH, XTable.XTableAlarmClock, "ClockId")
+    TaskBackFlowTemplate = XTableManager.ReadByIntKey(TABLE_TASK_BACK_FLOW_PATH, XTable.XTableBackFlow, "Id")
     InitTimeLimitWithRefreshableTasks()
 
     DailyActivenessTemplate = TaskActivenessTemplate[XTaskConfig.ActivenessRewardType.Daily]
     WeeklyActivenessTemplate = TaskActivenessTemplate[XTaskConfig.ActivenessRewardType.Weekly]
     TaskNewbieActivenessTemplate = TaskActivenessTemplate[XTaskConfig.ActivenessRewardType.Newbie]
+    NewbieTaskTwoActivenessTemplate = TaskActivenessTemplate[XTaskConfig.ActivenessRewardType.NewbieTwo]
 
     local count = #DailyActivenessTemplate.Activeness
     DailyActivenessTotal = DailyActivenessTemplate.Activeness[count]
@@ -77,15 +91,53 @@ end
 
 ----------------------------------------- 配置表对外暴露的get方法开始 -----------------------------------------
 function XTaskConfig.GetTaskTemplate()
+    --外部尽量别直接调用，后续不好维护
     return TaskTemplate
 end
 
+---@return XTableTask
 function XTaskConfig.GetTaskCfgById(id)
-    return TaskTemplate[id]
+    local template = TaskTemplate[id]
+    if template then
+        return template
+    end
+    if XMVCA.XBigWorldGamePlay:IsBigWorldOpen() then
+        template = XMVCA.XBigWorldService:GetBigWorldTaskTemplate(id, true)
+        if not template then
+            XLog.Error(string.format("主线任务表(Task.tab)与空花任务表(BigWorldTask.tab)均无法找到任务配置Id = %s, 请检查配置是否已经删除!", id))
+        end
+    end
+    return template
 end
 
 function XTaskConfig.GetTaskRewardId(id)
-    return TaskTemplate[id].RewardId
+    local template = XTaskConfig.GetTaskCfgById(id)
+    return template and template.RewardId or 0
+end
+
+function XTaskConfig.GetTaskGroupId(id)
+    local template = XTaskConfig.GetTaskCfgById(id)
+    return template and template.GroupId or 0
+end
+
+function XTaskConfig.GetTaskType(id)
+    local template = XTaskConfig.GetTaskCfgById(id)
+    return template and template.Type or 0
+end
+
+function XTaskConfig.GetTaskAchvType(id)
+    local template = XTaskConfig.GetTaskCfgById(id)
+    return template and template.AchvType or 0
+end
+
+function XTaskConfig.GetTaskPriority(id)
+    local template = XTaskConfig.GetTaskCfgById(id)
+    return template and template.Priority or 0
+end
+
+function XTaskConfig.GetTaskShowAfterTaskId(id)
+    local template = XTaskConfig.GetTaskCfgById(id)
+    return template and template.ShowAfterTaskId or 0
 end
 
 function XTaskConfig.GetCourseTemplate()
@@ -102,6 +154,10 @@ end
 
 function XTaskConfig.GetTaskNewbieActivenessTemplate()
     return TaskNewbieActivenessTemplate
+end
+-- 新手任务二期
+function XTaskConfig.GetNewbieTaskTwoActivenessTemplate()
+    return NewbieTaskTwoActivenessTemplate
 end
 
 ----------------------------------------- 配置表对外暴露的get方法结束 -----------------------------------------
@@ -215,13 +271,16 @@ function XTaskConfig.GetPriority(taskId)
     return config.Priority
 end
 
-function XTaskConfig.GetTaskConfigById(id)
-    local taskCfg = TaskTemplate[id]
+function XTaskConfig.GetProgress(taskId)
+    local config = XTaskConfig.GetTaskCfgById(taskId)
+    return config.Result
+end
 
-    if not taskCfg then
-        XLog.Error("读取配置表" .. TABLE_TASK_PATH .. "出错")
+function XTaskConfig.GetBackFlowById(id)
+    local template = TaskBackFlowTemplate[id]
+    if not template then
+        XLog.ErrorTableDataNotFound("XTaskConfig.GetBackFlowById", "BackFlow", TABLE_TASK_BACK_FLOW_PATH, "Id", tostring(id))
         return
     end
-
-    return taskCfg
+    return template
 end

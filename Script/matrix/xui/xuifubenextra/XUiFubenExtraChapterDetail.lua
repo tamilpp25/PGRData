@@ -1,3 +1,7 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiStageFightControl = require("XUi/XUiCommon/XUiStageFightControl")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenExtraChapterDetail = XLuaUiManager.Register(XLuaUi, "UiFubenMainLineDetailFw")
 
 function XUiFubenExtraChapterDetail:OnAwake()
@@ -111,7 +115,7 @@ end
 function XUiFubenExtraChapterDetail:Refresh(stage)
     self.Stage = stage or self.Stage
     self:UpdateCommon()
-    self:UpdateRewards()
+    self:NewUpdateRewards()
     self:UpdateDifficulty()
     self:UpdateStageFightControl()--更新战力限制提示
 end
@@ -122,7 +126,7 @@ function XUiFubenExtraChapterDetail:UpdateCommon()
     local stageTitle = XDataCenter.ExtraChapterManager.GetChapterDetailsStageTitle(stageInfo.ChapterId)
     self.TxtTitle.text = stageTitle .. "-" .. stageCfg.OrderId .. self.Stage.Name
     self.TxtDesc.text = self.Stage.Description
-    self.TxtATNums.text = self.Stage.RequireActionPoint
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(self.Stage.StageId)
 
     local maxChallengeNum = XDataCenter.FubenManager.GetStageMaxChallengeNums(self.Stage.StageId)
     local buyChallengeCount = XDataCenter.FubenManager.GetStageBuyChallengeCount(self.Stage.StageId)
@@ -158,16 +162,6 @@ function XUiFubenExtraChapterDetail:UpdateCommon()
         self.TxtLeftNums.text = maxChallengeNum - chanllengeNum
     end
 
-    local firstDrop = false
-    if not stageInfo.Passed then
-        local cfg = XDataCenter.FubenManager.GetStageLevelControl(self.Stage.StageId)
-        if cfg and cfg.FirstRewardShow > 0 or self.Stage.FirstRewardShow > 0 then
-            firstDrop = true
-        end
-    end
-    self.TxtFirstDrop.gameObject:SetActive(firstDrop)
-    self.TxtDrop.gameObject:SetActive(not firstDrop)
-
     for i = 1, 3 do
         self.GridStarList[i]:Refresh(self.Stage.StarDesc[i], stageInfo.StarsMap[i])
     end
@@ -178,31 +172,55 @@ function XUiFubenExtraChapterDetail:UpdateDifficulty()
     self.RImgNandu:SetRawImage(nanDuIcon)
 end
 
-function XUiFubenExtraChapterDetail:UpdateRewards()
+function XUiFubenExtraChapterDetail:UpdateRewardTitle(isFirstDrop)
+    self.TxtDrop.gameObject:SetActiveEx(not isFirstDrop)
+    self.TxtFirstDrop.gameObject:SetActiveEx(isFirstDrop)
+end
+
+function XUiFubenExtraChapterDetail:NewUpdateRewards()
     local stage = self.Stage
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(stage.StageId)
-
-    -- 获取显示奖励Id
-    local rewardId = 0
-    local IsFirst = false
     local cfg = XDataCenter.FubenManager.GetStageLevelControl(stage.StageId)
-    if not stageInfo.Passed then
-        rewardId = cfg and cfg.FirstRewardShow or stage.FirstRewardShow
-        if cfg and cfg.FirstRewardShow > 0 or stage.FirstRewardShow > 0 then
-            IsFirst = true
-        end
-    end
-    if rewardId == 0 then
-        rewardId = cfg and cfg.FinishRewardShow or stage.FinishRewardShow
-    end
-    if rewardId == 0 then
+
+    local firstRewardId = cfg and cfg.FirstRewardShow or stage.FirstRewardShow
+    local finishRewardId = cfg and cfg.FinishRewardShow or stage.FinishRewardShow
+
+    local firstShow = XTool.IsNumberValid(firstRewardId)
+    local finishShow = XTool.IsNumberValid(finishRewardId)
+    local firstDrop = false
+    -- 无奖励
+    if not firstShow and not finishShow then
+        self.TxtFirstDrop.gameObject:SetActiveEx(false)
+        self.TxtDrop.gameObject:SetActiveEx(false)
         for j = 1, #self.GridList do
-            self.GridList[j].GameObject:SetActive(false)
+            self.GridList[j].GameObject:SetActiveEx(false)
         end
         return
     end
+    -- 只有首通奖励
+    if firstShow and not finishShow then
+        firstDrop = true
+        local rewards = XRewardManager.GetRewardList(firstRewardId)
+        self:UpdateRewards(rewards, stageInfo.Passed)
+    end
+    -- 只有复刷奖励
+    if not firstShow and finishShow then
+        firstDrop = false
+        local rewards = XRewardManager.GetRewardListNotCount(finishRewardId)
+        self:UpdateRewards(rewards, false)
+    end
+    -- 普通和复刷都有
+    if firstShow and finishShow then
+        if not stageInfo.Passed then
+            firstDrop = true  
+        end
+        local rewards = not stageInfo.Passed and XRewardManager.GetRewardList(firstRewardId) or XRewardManager.GetRewardListNotCount(finishRewardId)
+        self:UpdateRewards(rewards, false)
+    end
+    self:UpdateRewardTitle(firstDrop)
+end
 
-    local rewards = IsFirst and XRewardManager.GetRewardList(rewardId) or XRewardManager.GetRewardListNotCount(rewardId)
+function XUiFubenExtraChapterDetail:UpdateRewards(rewards, isReceived)
     if rewards then
         for i, item in ipairs(rewards) do
             local grid
@@ -215,7 +233,8 @@ function XUiFubenExtraChapterDetail:UpdateRewards()
                 self.GridList[i] = grid
             end
             grid:Refresh(item)
-            grid.GameObject:SetActive(true)
+            grid:SetReceived(isReceived)
+            grid.GameObject:SetActiveEx(true)
         end
     end
 
@@ -226,7 +245,7 @@ function XUiFubenExtraChapterDetail:UpdateRewards()
 
     for j = 1, #self.GridList do
         if j > rewardsCount then
-            self.GridList[j].GameObject:SetActive(false)
+            self.GridList[j].GameObject:SetActiveEx(false)
         end
     end
 end

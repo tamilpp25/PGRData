@@ -1,9 +1,16 @@
-XUiPanelPushSet = XClass(nil, "XUiPanelPushSet")
+---@class XUiPanelPushSet : XUiNode
+local XUiPanelPushSet = XClass(XUiNode, "XUiPanelPushSet")
 
-function XUiPanelPushSet:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiPanelPushSet:OnStart()
     self:InitAutoScript()
+end
+
+function XUiPanelPushSet:OnEnable()
+    self:ShowPanel()
+end
+
+function XUiPanelPushSet:OnDisable()
+    self:HidePanel()
 end
 
 -- auto
@@ -41,7 +48,7 @@ function XUiPanelPushSet:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -86,12 +93,10 @@ end
 
 function XUiPanelPushSet:ShowPanel()
     self.IsShow = true
-    self.GameObject:SetActive(true)
 end
 
 function XUiPanelPushSet:HidePanel()
     self.IsShow = false
-    self.GameObject:SetActive(false)
 end
 
 function XUiPanelPushSet:CheckDataIsChange()
@@ -110,3 +115,5 @@ end
 function XUiPanelPushSet:ResetToDefault()
 
 end
+
+return XUiPanelPushSet

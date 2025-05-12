@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiArchivePartnerDetail = XLuaUiManager.Register(XLuaUi, "UiArchivePartnerDetail")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
@@ -22,6 +23,12 @@ function XUiArchivePartnerDetail:OnStart(dataList, index)
 
     if not self.Data then
         return
+    end
+    local data = self.Data
+    if data.GetTemplateId then
+        self._PartnerId = data:GetTemplateId()
+    else
+        XLog.Error("[XUiPartnerPreview] 麻烦联系曾立斌, 这个数据不是伙伴")
     end
 
     self.ModelEffect = {}
@@ -107,7 +114,7 @@ function XUiArchivePartnerDetail:DoPartnerStateChange(state)
 
         local voiceId = partner:GetSToCVoice()
         if voiceId and voiceId > 0 then
-            XSoundManager.PlaySoundByType(voiceId, XSoundManager.SoundType.Sound)
+            XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, voiceId)
         end
 
         self.CurPartnerState = state
@@ -123,7 +130,7 @@ function XUiArchivePartnerDetail:DoPartnerStateChange(state)
 
         local voiceId = partner:GetCToSVoice()
         if voiceId and voiceId > 0 then
-            XSoundManager.PlaySoundByType(voiceId, XSoundManager.SoundType.Sound)
+            XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, voiceId)
         end
         self.RoleModelPanel:LoadEffect(partner:GetCToSEffect(), "ModelOnEffect", true, true)
         self:PlayPartnerAnima(partner:GetCToSAnime(), true, function()
@@ -159,13 +166,14 @@ function XUiArchivePartnerDetail:UpdateRoleModel(modelId, partner, IsShowEffect)
 end
 
 function XUiArchivePartnerDetail:SetCameraType(type)
-    for k, _ in pairs(self.CameraFar) do
-        self.CameraFar[k].gameObject:SetActiveEx(k == type)
-    end
-
-    for k, _ in pairs(self.CameraNear) do
-        self.CameraNear[k].gameObject:SetActiveEx(k == type)
-    end
+    --for k, _ in pairs(self.CameraFar) do
+    --    self.CameraFar[k].gameObject:SetActiveEx(k == type)
+    --end
+    --
+    --for k, _ in pairs(self.CameraNear) do
+    --    self.CameraNear[k].gameObject:SetActiveEx(k == type)
+    --end
+    XUiHelper.SetPartnerCameraType(self, type, self._PartnerId)
 end
 
 function XUiArchivePartnerDetail:UpdateCamera()
@@ -194,8 +202,8 @@ function XUiArchivePartnerDetail:UpdatePartnerStory()
         self.PartnerStory:GetObject("GridStory4"),
         self.PartnerStory:GetObject("GridStory5")
     }
-
-    for index, grid in pairs(storyObjList or {}) do
+    
+    for index, grid in pairs(storyObjList) do
         if storyDataList[index] then
             grid.gameObject:SetActiveEx(true)
             self:UpdateGrid(storyDataList[index], grid)
@@ -216,7 +224,7 @@ function XUiArchivePartnerDetail:UpdatePartnerSetting()
         self.PartnerSetting:GetObject("GridSetting5")
     }
 
-    for index, grid in pairs(settingObjList or {}) do
+    for index, grid in pairs(settingObjList) do
         if settingDataList[index] then
             grid.gameObject:SetActiveEx(true)
             self:UpdateGrid(settingDataList[index], grid)
@@ -288,7 +296,7 @@ end
 
 function XUiArchivePartnerDetail:OnBtnStorySkipClick()
     local storyChapterId = self.Data:GetStoryChapterId()
-    local storyChapter = XDataCenter.ArchiveManager.GetArchiveStoryChapter(storyChapterId)
+    local storyChapter = self._Control:GetArchiveStoryChapter(storyChapterId)
 
     if not storyChapter then
         XLog.Error("storyChapterId Is Not In Share/Archive/StoryChapter.tab Id:" .. storyChapterId)

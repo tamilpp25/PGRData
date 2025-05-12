@@ -42,7 +42,7 @@ function XUiGridRank:Refresh(rankMetaData, rankType)
     self.TxtRankScore.text = CSXTextManagerGetText("MoeWarRankScore", textPrefix, self.RankMetaData.Score)
     self.TxtPlayerName.text = XDataCenter.SocialManager.GetPlayerRemark(self.RankMetaData.PlayerId, self.RankMetaData.Name)
     
-    XUiPLayerHead.InitPortrait(self.RankMetaData.HeadPortraitId, self.RankMetaData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(self.RankMetaData.HeadPortraitId, self.RankMetaData.HeadFrameId, self.Head)
 end
 
 function XUiGridRank:OnBtnDetailClick()

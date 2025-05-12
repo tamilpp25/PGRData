@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local REWARD_GRID_MAX_COUNT = 3
 local LABEL_TEXT_MAX_COUNT = 3
 local stringFormat = string.format

@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local BTN_INDEX = {
     First = 1,
     Second = 2,
@@ -10,7 +12,7 @@ local tableInsert = table.insert
 local XUiTheatreTask = XLuaUiManager.Register(XLuaUi, "UiTheatreTask")
 
 function XUiTheatreTask:OnAwake()
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self)
     self:InitDynamicTable()
     self:AddListener()
 end

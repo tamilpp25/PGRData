@@ -1,4 +1,4 @@
-XDynamicTableIrregular = {}
+local XDynamicTableIrregular = {}
 
 function XDynamicTableIrregular.New(gameObject)
     if gameObject == nil then
@@ -41,6 +41,19 @@ function XDynamicTableIrregular:Init(gameObject)
     return true
 end
 
+---@param proxy XUiNode
+function XDynamicTableIrregular:SetProxyDisplay(proxy, isShow)
+    if CheckClassSuper(proxy, XUiNode) then
+        if isShow then
+            proxy:Open()
+        else
+            if proxy:IsValid() then
+                proxy:Close()
+            end
+        end
+    end
+end
+
 --事件回调
 function XDynamicTableIrregular:OnDynamicTableEvent(event, index)
 
@@ -81,7 +94,7 @@ function XDynamicTableIrregular:OnDynamicTableEvent(event, index)
         if grid ~= nil then
             proxy = self.ProxyMap[grid]
             if not proxy then
-                proxy = self.Proxy[proxyType].New(grid)
+                proxy = self.Proxy[proxyType].New(grid, table.unpack(self.ProxyArgs))
                 self.ProxyMap[grid] = proxy
                 --初始化只调动一次
                 proxy.Index = index
@@ -99,10 +112,12 @@ function XDynamicTableIrregular:OnDynamicTableEvent(event, index)
         proxy.Index = index
         proxy.DynamicGrid = grid
         self.ProxyImpMap[index] = proxy
+        self:SetProxyDisplay(proxy, true)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_RECYCLE then
         proxy.Index = -1
         proxy.DynamicGrid = nil
         self.ProxyImpMap[index] = nil
+        self:SetProxyDisplay(proxy, false)
     end
     if self.DynamicEventDelegate then
         self.DynamicEventDelegate(event, index, proxy)
@@ -110,6 +125,22 @@ function XDynamicTableIrregular:OnDynamicTableEvent(event, index)
         self.Delegate:OnDynamicTableEvent(event, index, proxy)
     end
 
+end
+
+-- 兼容XUiNode
+function XDynamicTableIrregular:SetActive(flag)
+    if not self.Imp then
+        return
+    end
+    self.Imp.gameObject:SetActiveEx(flag)
+    local allGrid = self:GetGrids()
+    for k, grid in pairs(allGrid or {}) do
+        if flag then
+            grid:Open()
+        else
+            grid:Close()
+        end
+    end
 end
 
 --回收所有节点
@@ -143,7 +174,7 @@ function XDynamicTableIrregular:SetDynamicEventDelegate(fun)
 end
 
 --设置代理器
-function XDynamicTableIrregular:SetProxy(proxyType, proxy, prefab)
+function XDynamicTableIrregular:SetProxy(proxyType, proxy, prefab, ...)
     if not self.Imp or not self.Imp.ObjectPool then
         return
     end
@@ -151,6 +182,7 @@ function XDynamicTableIrregular:SetProxy(proxyType, proxy, prefab)
     self.Proxy = self.Proxy or {}
     self.Proxy[proxyType] = proxy
     self.Imp.ObjectPool:Add(proxyType, prefab)
+    self.ProxyArgs = { ... }
 end
 
 --设置总数

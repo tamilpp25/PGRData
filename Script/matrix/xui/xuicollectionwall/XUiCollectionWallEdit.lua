@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiCollectionWallEdit = XLuaUiManager.Register(XLuaUi, "UiCollectionWallEdit")
 
 local XUiGridSelectItem = require("XUi/XUiCollectionWall/XUiCollectionWallGrid/XUiGridSelectItem")
@@ -8,6 +9,7 @@ function XUiCollectionWallEdit:OnStart(wallData)
     self.WallData = wallData
     self.CurSelectCollection = nil          -- 摆放模式中选择的收藏品
     self.IsPanelSelectItemDraging = false   -- 底部的Item选择界面是否在拖动中
+    self.IsSaving = false                   -- 是否正在保存中
 
     self.RedHorPool = {}    -- 水平红格子条
     self.RedVerPool = {}    -- 垂直红格子条
@@ -50,7 +52,6 @@ function XUiCollectionWallEdit:Refresh()
     self.BackgroundId = self.WallData:GetBackgroundId()
     self:RefreshBackground()
     self:GenerateCollection(self.WallData:GetCollectionSetInfos())
-    self:RefreshEmpty()
     self:UpdateGridOccupy()
 
     if self.IsEditMode then
@@ -232,6 +233,10 @@ end
 --- 'isNew':是新摆放的物体，还是点击旧的物体
 ---@param placedCollection table
 function XUiCollectionWallEdit:EnterPutModel(placedCollection)
+    if self:GetIsSaving() then
+        return
+    end
+    
     self.CurSelectCollection = placedCollection
     local isEnter = placedCollection and true or false
     if isEnter then
@@ -448,14 +453,6 @@ function XUiCollectionWallEdit:GenerateCollection(collectionSetInfos)
     end
 end
 
-function XUiCollectionWallEdit:RefreshEmpty()
-    local count = 0
-    for k , v in pairs(self.CollectionDic) do
-        count = count + 1
-    end
-    self.CollectionEmpty.gameObject:SetActiveEx(count == 0)
-end
-
 function XUiCollectionWallEdit:ClearAllCollection()
     for _, placedCollection in pairs(self.CollectionDic) do
         CS.UnityEngine.GameObject.Destroy(placedCollection.GameObject)
@@ -477,7 +474,7 @@ end
 
 function XUiCollectionWallEdit:AddListener()
     self.BtnBack.CallBack = function()
-        self:OnBtnBackClick()
+        self:Close()
     end
     self:BindHelpBtn(self.BtnExplain, "CollectionWall")
 
@@ -511,6 +508,16 @@ function XUiCollectionWallEdit:OnBtnUndoClick()
 end
 
 function XUiCollectionWallEdit:OnBtnSaveClick()
+    --摆放模式中选择了收藏品不保存
+    if self.CurSelectCollection then
+        return
+    end
+
+    self.IsSaving = true
+    local errorCb = function()
+        self.IsSaving = false
+    end
+    
     -- 构造发送请求需要的数据
     local wallId = self.WallData:GetId()
     local setInfo = self:GenerateCurWallData()
@@ -535,9 +542,10 @@ function XUiCollectionWallEdit:OnBtnSaveClick()
             self.BtnEdit.gameObject:SetActiveEx(not self.IsEditMode)
             self.PanelSelectItem.gameObject:SetActiveEx(self.IsEditMode)
             self.PanelTag.gameObject:SetActiveEx(self.IsEditMode)
+            self.IsSaving = false
             XUiManager.TipSuccess(CS.XTextManager.GetText("SetAppearanceSuccess"))
         end)
-    end)
+    end, errorCb)
 end
 
 function XUiCollectionWallEdit:OnBtnOkClick()
@@ -549,7 +557,6 @@ function XUiCollectionWallEdit:OnBtnOkClick()
         self:RecoverAcross(gridNum)
         self.CurSelectCollection:Confirm()
         self:EnterPutModel(nil)
-        self:RefreshEmpty()
     end
 end
 
@@ -565,7 +572,6 @@ function XUiCollectionWallEdit:OnBtnStorageClick()
     self:RecoverAcross(gridNum)
     self.CurSelectCollection:Storage()
     self:EnterPutModel(nil)
-    self:RefreshEmpty()
 end
 
 function XUiCollectionWallEdit:OnBtnEditClick()
@@ -577,7 +583,7 @@ function XUiCollectionWallEdit:OnBtnEditClick()
     self.IsEditMode = true
 end
 
-function XUiCollectionWallEdit:OnBtnBackClick()
+function XUiCollectionWallEdit:Close()
     if self.IsEditMode then
         local curWallData = self:GenerateCurWallData()
         if XDataCenter.CollectionWallManager.IsNeedSave(self.WallData:GetId(), curWallData) then
@@ -594,6 +600,10 @@ function XUiCollectionWallEdit:OnBtnBackClick()
             self:QuitEditMode()
         end
     else
-        self:Close()
+        self.Super.Close(self)
     end
 end
+
+function XUiCollectionWallEdit:GetIsSaving()
+    return self.IsSaving
+end 

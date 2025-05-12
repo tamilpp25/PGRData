@@ -1,4 +1,5 @@
-XUiPanelChatContent = XClass(nil, "XUiPanelChatContent")
+local XUiPanelChatPools = require("XUi/XUiChatServe/XUiPanelChatPools")
+local XUiPanelChatContent = XClass(XUiNode, "XUiPanelChatContent")
 
 XUiPanelChatContent.WorldChatBoxType = {
     OtherChatBox = 1,
@@ -7,11 +8,8 @@ XUiPanelChatContent.WorldChatBoxType = {
     SelfChatBoxEmoji = 4
 }
 
-function XUiPanelChatContent:Ctor(rootUi, ui, parent)
+function XUiPanelChatContent:OnStart(rootUi)
     self.RootUi = rootUi
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.Parent = parent
     self:InitAutoScript()
     self.DynamicListManager = XDynamicList.New(self.PanelChatView.transform, self)
     self.DynamicListManager:SetReverse(true)
@@ -20,6 +18,18 @@ function XUiPanelChatContent:Ctor(rootUi, ui, parent)
     self.PanelChatPools:InitData(self.DynamicListManager)
 
     self.UnreadMsgCount = 0
+    
+    self._ShowedChatItemList = {}
+end
+
+function XUiPanelChatContent:OnDisable()
+    -- XDynamicList内部在显示前会回收所有gameobject, 外部无法在回收期间获得对应grid，需要先手动关闭XUiNode
+    if not XTool.IsTableEmpty(self._ShowedChatItemList) then
+        for i = #self._ShowedChatItemList, 1, -1 do
+            self._ShowedChatItemList[i]:Close()
+            table.remove(self._ShowedChatItemList, i)
+        end
+    end
 end
 
 
@@ -59,7 +69,7 @@ function XUiPanelChatContent:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -115,30 +125,33 @@ function XUiPanelChatContent:InitWorldChatDynamicList(msgData)
         local ctor = nil
         if data.MsgType == ChatMsgType.Normal and data.SenderId == XPlayer.Id then
             poolName = "myMsg"
-            ctor = XUiPanelWorldChatMyMsgItem.New
+            ctor = require('XUi/XUiChatServe/Item/XUiPanelWorldChatMyMsgItem').New
         elseif data.MsgType == ChatMsgType.Normal and data.SenderId ~= XPlayer.Id then
             poolName = "ohterMsg"
-            ctor = XUiPanelWorldChatMyMsgItem.New
+            ctor = require('XUi/XUiChatServe/Item/XUiPanelWorldChatMyMsgItem').New
         elseif data.MsgType == ChatMsgType.Emoji and data.SenderId == XPlayer.Id then
             poolName = "myEmoji"
-            ctor = XUiPanelWorldChatMyMsgEmoji.New
+            ctor = require('XUi/XUiChatServe/Item/XUiPanelWorldChatMyMsgEmoji').New
         elseif data.MsgType == ChatMsgType.Emoji and data.SenderId ~= XPlayer.Id then
             poolName = "otherEmoji"
-            ctor = XUiPanelWorldChatMyMsgEmoji.New
+            ctor = require('XUi/XUiChatServe/Item/XUiPanelWorldChatMyMsgEmoji').New
         elseif data.MsgType == ChatMsgType.System then
             poolName = "system"
-            ctor = XUiPanelWorldChatSystemItem.New
+            ctor = require('XUi/XUiChatServe/Item/XUiPanelWorldChatSystemItem').New
         elseif data.MsgType == ChatMsgType.SpringFestival and data.SenderId ~= XPlayer.Id then
             poolName = "otherHelp"
-            ctor = XUiPanelWorldChatMyHelp.New
+            ctor = require('XUi/XUiChatServe/Item/XUiPanelWorldChatMyHelp').New
         elseif data.MsgType == ChatMsgType.SpringFestival and data.SenderId == XPlayer.Id then
             poolName = "myHelp"
-            ctor = XUiPanelWorldChatMyHelp.New
+            ctor = require('XUi/XUiChatServe/Item/XUiPanelWorldChatMyHelp').New
         end
         if cb and poolName and ctor then
-            local item = cb(poolName, ctor)
+            local item = cb(poolName, ctor, self)
             item.RootUi = self.RootUi
+            item:Open()
             item:Refresh(data, handler(self, self.LongClickCb))
+            -- 加入到列表以便控制其生命周期
+            table.insert(self._ShowedChatItemList, item)
         else
             XLog.Error("------Init social worldChatData item is error!------")
         end
@@ -152,3 +165,5 @@ end
 function XUiPanelChatContent:ScrollCallBack()
     self.RootUi:SetBtnReportActive(false)
 end
+
+return XUiPanelChatContent

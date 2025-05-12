@@ -134,7 +134,7 @@ end
 
 function XUiAssignInfo:AddTeamMember(order, charId)
     if charId and charId > 0 then
-        self["RImgCharIcon" .. order]:SetRawImage(XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(charId))
+        self["RImgCharIcon" .. order]:SetRawImage(XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(charId))
         self["PanelCharIcon" .. order].gameObject:SetActiveEx(true)
     else
         self["PanelCharIcon" .. order].gameObject:SetActiveEx(false)

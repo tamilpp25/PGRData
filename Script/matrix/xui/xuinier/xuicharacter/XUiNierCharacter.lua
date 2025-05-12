@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiNierCharacter = XLuaUiManager.Register(XLuaUi, "UiNierCharacter")
 local UiPanelFoster = require("XUi/XUiNieR/XUiCharacter/XUiPanelNierCharacterFoster")
 local UiPanelStory = require("XUi/XUiNieR/XUiCharacter/XUiPanelNierCharacterStory")
@@ -102,7 +103,7 @@ function XUiNierCharacter:OnNotify(evt, ...)
 end
 
 function XUiNierCharacter:EnterFight(stage)
-    if XDataCenter.FubenManager.OpenRoomSingle(stage) then
+    if XDataCenter.FubenManager.OpenBattleRoom(stage) then
         XLuaUiManager.Remove("UiFubenStageDetail")
     end
 end

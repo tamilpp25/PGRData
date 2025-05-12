@@ -1,15 +1,9 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --选取角色页面
 local XUiSelectCharacterWin = XLuaUiManager.Register(XLuaUi, "UiSelectCharacterWin")
 local XUiSelectCharacterGrid = require("XUi/XUiCommonWindow/XUiSelectCharacterGrid")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
-
---自定义选择种类
-UiSelectCharacterType = {
-    Normal = 1, --选取我所拥有的角色
-    LimitedByCharacterAndRobot = 2, --在给定的限制范围（robotId，以及这些robot对应的characterid）内选取角色 工会boss使用
-    WorldBoss = 3, --选取我所拥有的角色和开放的机器人（世界Boss用）
-    NieROnlyRobot = 4, --仅使用开放的机器人（尼尔玩法用）
-}
 
 function XUiSelectCharacterWin:OnAwake()
     self.BtnBack.CallBack = function() self:OnBtnBackClick() end
@@ -83,7 +77,7 @@ function XUiSelectCharacterWin:LimitedByCharacterAndRobotTypeUpdate(robotTab)
     --拥有对应的character才加入可选列表
     for i = 1, #robotTab do
         local characterId = XRobotManager.GetRobotTemplate(robotTab[i]).CharacterId
-        if XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
+        if XMVCA.XCharacter:IsOwnCharacter(characterId) then
             table.insert(list, characterId)
         end
     end
@@ -109,7 +103,7 @@ end
 
 function XUiSelectCharacterWin:WorldBossUpdate(robotTab)
     local list = XTool.Clone(robotTab)
-    local charlist = XDataCenter.CharacterManager.GetCharacterListInTeam(XCharacterConfigs.CharacterType.Normal)
+    local charlist = XMVCA.XCharacter:GetCharacterListInTeam(XEnumConst.CHARACTER.CharacterType.Normal)
     for _, char in pairs(charlist) do
         table.insert(list, char.Id)
     end
@@ -178,7 +172,7 @@ function XUiSelectCharacterWin:GetAbility(data)
     if data.Type == UiCharacterGridType.Try then
         return XRobotManager.GetRobotAbility(data.Id)
     elseif data.Type == UiCharacterGridType.Normal then
-        return XDataCenter.CharacterManager.GetCharacter(data.Id).Ability
+        return XMVCA.XCharacter:GetCharacter(data.Id).Ability
     end
 end
 
@@ -233,12 +227,12 @@ function XUiSelectCharacterWin:UpdateFunctionBtn()
         self.BtnFashion.gameObject:SetActiveEx(true)
         self.BtnConsciousness.gameObject:SetActiveEx(true)
         self.BtnWeapon.gameObject:SetActiveEx(true)
-        -- self.BtnPartner.gameObject:SetActiveEx(true)
+        self.BtnPartner.gameObject:SetActiveEx(true)
     elseif self.CurSelectData.Type == UiCharacterGridType.Try then
         self.BtnFashion.gameObject:SetActiveEx(false)
         self.BtnConsciousness.gameObject:SetActiveEx(false)
         self.BtnWeapon.gameObject:SetActiveEx(false)
-        -- self.BtnPartner.gameObject:SetActiveEx(false)
+        self.BtnPartner.gameObject:SetActiveEx(false)
     end
 end
 
@@ -388,14 +382,16 @@ function XUiSelectCharacterWin:OnBtnFashionClick()
 end
 
 function XUiSelectCharacterWin:OnBtnConsciousnessClick()
-    XLuaUiManager.Open("UiEquipAwarenessReplace", self.CurSelectData.Id, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipAwareness(self.CurSelectData.Id)
 end
 
 function XUiSelectCharacterWin:OnBtnWeaponClick()
-    XLuaUiManager.Open("UiEquipReplaceNew", self.CurSelectData.Id, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipReplace(self.CurSelectData.Id, nil, true)
 end
 
 function XUiSelectCharacterWin:OnBtnTeachingClick()
     XDataCenter.PracticeManager.OpenUiFubenPractice(self.CurSelectData.Id, true)
 end
 --On Event end
+
+return XUiSelectCharacterWin

@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiNodeShopBuyDetails = XClass(nil, "XUiNodeShopBuyDetails")
 local XUiGridBuffInfoItem = require("XUi/XUiFubenRogueLike/XUiGridBuffInfoItem")
 local XUiGridRoleInfoItem = require("XUi/XUiFubenRogueLike/XUiGridRoleInfoItem")

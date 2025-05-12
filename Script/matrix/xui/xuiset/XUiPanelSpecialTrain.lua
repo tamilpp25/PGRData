@@ -1,18 +1,15 @@
----@class XUiPanelSpecialTrain
-local XUiPanelSpecialTrain = XClass(nil, "XUiPanelSpecialTrain")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+---@class XUiPanelSpecialTrain : XUiNode
+local XUiPanelSpecialTrain = XClass(XUiNode, "XUiPanelSpecialTrain")
 
-function XUiPanelSpecialTrain:Ctor(ui, parent)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.Parent = parent
+function XUiPanelSpecialTrain:OnStart()
     self.DynamicTable = false
-    XTool.InitUiObject(self)
     self:InitUi()
 end
 
 function XUiPanelSpecialTrain:InitUi()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelCore)
-    self.DynamicTable:SetProxy(require("XUi/XUiSet/XUiPanelSpecialTrainGrid"))
+    self.DynamicTable:SetProxy(require("XUi/XUiSet/XUiPanelSpecialTrainGrid"), self.Parent)
     self.DynamicTable:SetDelegate(self)
     self.Grid.gameObject:SetActiveEx(false)
     self:InitData()
@@ -34,14 +31,6 @@ end
 
 function XUiPanelSpecialTrain:CheckDataIsChange()
     return false
-end
-
-function XUiPanelSpecialTrain:ShowPanel()
-    self.GameObject:SetActive(true)
-end
-
-function XUiPanelSpecialTrain:HidePanel()
-    self.GameObject:SetActive(false)
 end
 
 return XUiPanelSpecialTrain

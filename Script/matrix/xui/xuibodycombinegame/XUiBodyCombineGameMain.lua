@@ -125,7 +125,7 @@ end
 function XUiBodyCombineGameMain:OnStart()
     
     local itemId = XDataCenter.BodyCombineGameManager.GetCoinItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelAsset)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelAsset, self)
     
     self.RImgTittle:SetRawImage(XDataCenter.BodyCombineGameManager.GetActivityTitle())
 
@@ -154,16 +154,12 @@ function XUiBodyCombineGameMain:OnEnable()
     
     self:CheckTreasureRedPoint()
 
-    XEventManager.AddEventListener(XEventId.EVENT_BODYCOMBINEGAME_ACTIVITY_END, function()
-        XDataCenter.BodyCombineGameManager.OnActivityEnd()
-    end, self)
+    XEventManager.AddEventListener(XEventId.EVENT_BODYCOMBINEGAME_ACTIVITY_END, XDataCenter.BodyCombineGameManager.OnActivityEnd)
     
 end
 
 function XUiBodyCombineGameMain:OnDisable()
-    XEventManager.RemoveEventListener(XEventId.EVENT_BODYCOMBINEGAME_ACTIVITY_END, function()
-        XDataCenter.BodyCombineGameManager.OnActivityEnd()
-    end, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_BODYCOMBINEGAME_ACTIVITY_END, XDataCenter.BodyCombineGameManager.OnActivityEnd)
 end
 
 function XUiBodyCombineGameMain:OnGetEvents()

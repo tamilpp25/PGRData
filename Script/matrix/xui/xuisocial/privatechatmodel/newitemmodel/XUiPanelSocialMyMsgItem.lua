@@ -1,4 +1,5 @@
-XUiPanelSocialMyMsgItem = XClass(nil, "XUiPanelSocialMyMsgItem")
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
+local XUiPanelSocialMyMsgItem = XClass(nil, "XUiPanelSocialMyMsgItem")
 
 function XUiPanelSocialMyMsgItem:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -38,7 +39,7 @@ function XUiPanelSocialMyMsgItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -84,7 +85,7 @@ function XUiPanelSocialMyMsgItem:Refresh(chatData, longClickCb)
     self.ChatContent = chatData.Content
 
     self.TxtName.text = XDataCenter.SocialManager.GetPlayerRemark(chatData.SenderId, chatData.NickName)
-    XUiPLayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
     
     self.CreateTime = chatData.CreateTime
     self:SetText(chatData)
@@ -92,7 +93,7 @@ function XUiPanelSocialMyMsgItem:Refresh(chatData, longClickCb)
 end
 
 function XUiPanelSocialMyMsgItem:SetText(chatData)
-    if chatData.MsgType == ChatMsgType.RoomMsg then
+    if chatData.MsgType == ChatMsgType.RoomMsg or chatData.MsgType == ChatMsgType.DlcRoomMsg then
         self:SetRoomMsgText(chatData)
     else
         self:SetNormalMsgText(chatData)
@@ -131,3 +132,5 @@ end
 function XUiPanelSocialMyMsgItem:GetChatContent()
     return self.ChatContent
 end
+
+return XUiPanelSocialMyMsgItem

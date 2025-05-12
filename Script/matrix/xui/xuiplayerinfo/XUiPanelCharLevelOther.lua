@@ -1,4 +1,4 @@
-XUiPanelCharLevelOther = XClass(nil, "XUiPanelCharLevelOther")
+local XUiPanelCharLevelOther = XClass(nil, "XUiPanelCharLevelOther")
 
 function XUiPanelCharLevelOther:Ctor(ui, parent, character, equipList,assignChapterRecords)
     self.GameObject = ui.gameObject
@@ -30,17 +30,19 @@ end
 
 function XUiPanelCharLevelOther:UpdatePanel(character)
     local characterId = character.Id
-    local nextLeveExp = XCharacterConfigs.GetNextLevelExp(characterId, character.Level)
+    local nextLeveExp = XMVCA.XCharacter:GetNextLevelExp(characterId, character.Level)
 
     self.TxtCurLevel.text = character.Level
-    self.TxtMaxLevel.text = "/" .. XCharacterConfigs.GetCharMaxLevel(characterId)
+    self.TxtMaxLevel.text = "/" .. XMVCA.XCharacter:GetCharMaxLevel(characterId)
     self.TxtExp.text = character.Exp .. "/" .. nextLeveExp
     self.ImgFill.fillAmount = character.Exp / nextLeveExp
 
-    character.Attribs = XDataCenter.CharacterManager.GetCharacterAttribsOther(character, self.EquipList, self.AssignChapterRecords)
+    character.Attribs = XMVCA.XCharacter:GetCharacterAttribsOther(character, self.EquipList, self.AssignChapterRecords)
 
     self.TxtAttack.text = FixToInt(character.Attribs[XNpcAttribType.AttackNormal])
     self.TxtLife.text = FixToInt(character.Attribs[XNpcAttribType.Life])
     self.TxtDefense.text = FixToInt(character.Attribs[XNpcAttribType.DefenseNormal])
     self.TxtCrit.text = FixToInt(character.Attribs[XNpcAttribType.Crit])
 end
+
+return XUiPanelCharLevelOther

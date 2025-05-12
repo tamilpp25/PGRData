@@ -1,9 +1,7 @@
-XUiGridArchiveCommunication = XClass(nil, "XUiGridArchiveCommunication")
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
+local XUiGridArchiveCommunication = XClass(XUiNode, "XUiGridArchiveCommunication")
 
-function XUiGridArchiveCommunication:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchiveCommunication:OnStart()
     self:SetButtonCallBack()
 end
 
@@ -30,3 +28,5 @@ function XUiGridArchiveCommunication:SetMonsterData(chapter)
     end
     self.CommunicationText.text = chapter:GetName() or ""
 end
+
+return XUiGridArchiveCommunication

@@ -8,7 +8,10 @@ function XRedPointConditionCharacterUnlock.Check(characterId)
         return false
     end
 
-    local canUnlock = XDataCenter.CharacterManager:CanCharacterUnlock(characterId)
+    ---@type XCharacterAgency
+    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+
+    local canUnlock = ag:CanCharacterUnlock(characterId)
     return canUnlock
 end
 

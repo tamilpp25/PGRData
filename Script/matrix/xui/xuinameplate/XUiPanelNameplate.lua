@@ -26,7 +26,9 @@ function XUiPanelNameplate:UpdateDataById(id)
     self.PanelGold.gameObject:SetActiveEx(true)
     self.PanelSilver.gameObject:SetActiveEx(false)
     self.PanelCopper.gameObject:SetActiveEx(false)
-    self.PanelNew.gameObject:SetActiveEx(false)
+    if self.PanelNew then
+        self.PanelNew.gameObject:SetActiveEx(false)
+    end
 
     local setSpriteCb = function ()
         -- 自适应聊天铭牌宽度
@@ -53,16 +55,26 @@ function XUiPanelNameplate:UpdateDataById(id)
     end
 
     -- 特效
-    local res = XMedalConfigs.GetNameplateEffectRes(id)
+    local lp = nil
+    if self.Effect then
+        lp = self.Effect:GetComponent("XUiLoadPrefab")
+    else
+        return
+    end
+    local currInstatiePrefabUrl = lp and lp.PrefabAssetUrl or nil
+    local res = XMedalConfigs.GetNameplateEffectRes(id) 
+    
     if res then
         self.Effect.gameObject:SetActiveEx(true)
         self.EffectGo = self.Effect:LoadPrefab(res)
         self.EffectGo.gameObject:SetActiveEx(true)
         self.Enablenim.gameObject:SetActiveEx(true)
 
-        if res ~= self.LastRes then -- 防止重复Init
-            self.LastRes = res
-            XScheduleManager.ScheduleOnce(function() 
+        if not XTool.UObjIsNil(self.EffectGo) and res ~= currInstatiePrefabUrl then -- 防止重复Init
+            XScheduleManager.ScheduleOnce(function()
+                if XTool.UObjIsNil(self.Effect) then
+                    return
+                end
                 self.Effect:GetComponent("XUiEffectLayer"):Init()   -- 延时初始化，因为自动初始化过早，render还未加载出来
             end, 50)
         end
@@ -109,6 +121,12 @@ function XUiPanelNameplate:UpdateDataById(id)
     --     --self.ImgGold:SetSprite("")
     --     self.TxtGold.text = Title
     -- end
+end
+
+function XUiPanelNameplate:SetEffectActive(isActive)
+    if not XTool.UObjIsNil(self.EffectGo) then
+        self.EffectGo.gameObject:SetActiveEx(isActive)
+    end
 end
 
 return XUiPanelNameplate

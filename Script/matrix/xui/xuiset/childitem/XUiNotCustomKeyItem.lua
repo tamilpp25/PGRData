@@ -3,11 +3,11 @@ local XUiNotCustomKeyItem = XClass(XUiBtnKeyItem, "XUiNotCustomKeyItem")
 
 local XInputManager = CS.XInputManager
 
-function XUiNotCustomKeyItem:Refresh(data, cb, resetTextOnly, curOperationType)
-    self:SetData(data, cb, curOperationType)
+function XUiNotCustomKeyItem:Refresh(data, cb, resetTextOnly, curInputMapId, curOperationType)
+    self:SetData(data, cb, curInputMapId, curOperationType)
     
     local isKeyboard = self:IsKeyboard()
-    local operationKey = self.Data.OperationKey
+    local operationKey = self.DefaultKeyMapTable and self.DefaultKeyMapTable.OperationKey
 
     self.TxtTitle.text = self.Data.Title
     if operationKey and self._KeySetType then
@@ -17,9 +17,10 @@ function XUiNotCustomKeyItem:Refresh(data, cb, resetTextOnly, curOperationType)
             self.GroupRecommend.gameObject:SetActiveEx(true)
         end
         
-        local isCustom = XInputManager.IsCustomKey(operationKey, 0)
+        local isCustom = XInputManager.IsCustomKey(operationKey, 0, self._KeySetType, self.CurOperationType)
         self.BtnKeyItem.enabled = isCustom
-        local name = XInputManager.GetKeyCodeString(self._KeySetType, CS.XOperationType.__CastFrom(self.CurOperationType), operationKey)
+        local name = XInputManager.GetKeyCodeString(self._KeySetType, CS.XInputMapId.__CastFrom(self.CurOperationType), operationKey, 
+                CS.XInputManager.XOperationType.__CastFrom(self.CurOperationType))
         self.BtnKeyItem:SetName(name)
         if (resetTextOnly == true) then
             return
@@ -29,7 +30,7 @@ function XUiNotCustomKeyItem:Refresh(data, cb, resetTextOnly, curOperationType)
     else
         self.GroupRecommend.gameObject:SetActiveEx(false)
         self.BtnKeyItem.enabled = false
-        self.TxtKeyName.text = self.Data.KeyName
+        self.TxtKeyName.text = ""
     end
 end
 

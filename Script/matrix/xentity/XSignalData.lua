@@ -1,10 +1,11 @@
---######################## 事件系统，TODO：可进一步抽离出外部文件 ########################
+--######################## 独立事件系统，用于提供信号机制拥有独立处理事件的功能 ########################
 local XEventSystem = XClass(nil, "XEventSystem")
 
 function XEventSystem:Ctor( )
 	self._handlers = {}
 end
 
+-- 注册事件
 -- @params keepEvent : bool 常驻事件，不会被清除
 function XEventSystem:Push( eventType, caller, callback, keepEvent, returnArgKey)
 	assert(eventType and callback, "XEventSystem:Push fail. eventType or callback cannot be empty")
@@ -61,8 +62,10 @@ function XEventSystem:Call( eventType, ... )
     	msgData = handler[i]
         if msgData then
             local tmpResult = msgData.callback(msgData.caller, ...)
+            -- 如果被通知的事件方法有返回值并注册时显示传入返回结果的key，丢进callResult里返回调用者进行下一步处理
             if tmpResult and msgData.returnArgKey then
                 if callResult == nil then callResult = {} end
+                -- 小优化:可判断是否存在相同key进行报错或警告处理
                 callResult[msgData.returnArgKey] = tmpResult
             end
         end
@@ -79,11 +82,11 @@ end
 --######################## 信号数据 ########################
 XSignalCode = {
     SUCCESS = 0,
-    EMPTY_FROM_OBJ = 1,
-    RELEASE = 2,
-    EMPTY_UI = 3,
+    EMPTY_FROM_OBJ = 1, -- 等待信号的对象已被置为null
+    RELEASE = 2, -- 信号拥有者已被释放，如果是XLuaUi被关闭时也会触发此code，因为有部分Ui代码直接判断RELEASE来获取Ui是否关闭
+    EMPTY_UI = 3, -- 针对Ui，Ui信号拥有者为null。PS:这块可以统一成EMPTY_FROM_OBJ
 }
-
+---@class XSignalData
 XSignalData = XClass(nil, "XSignalData")
 
 function XSignalData:Ctor()
@@ -101,9 +104,12 @@ function XSignalData:RemoveConnectSignalWithName(signalName)
     self.EventSystem:PopWithEventType(signalName)
 end
 
--- 等待信号
+-- 等待信号，必选放在RunAsyn方法内才会起作用
+-- signalName: 等待的信号名
+-- fromObj: 在等待该信号的对象
 function XSignalData:AwaitSignal(signalName, fromObj)
     self.SignalMap[signalName] = self.SignalMap[signalName] or {}
+    -- 获取正在运行的协程
     local running = coroutine.running()
     -- 注册正在挂起的协程
     table.insert(self.SignalMap[signalName], {
@@ -127,47 +133,53 @@ function XSignalData:CheckHasSignal(signalName, fromObj)
     return false
 end
 
--- 发射信号
+-- 发射信号，通知已注册的事件（ConnectSignal）调用回调或解除已挂起的协程（AwaitSignal）继续往下运行
 function XSignalData:EmitSignal(signalName, ...)
     local result = nil
     -- 发送事件
     result = self.EventSystem:Call(signalName, ...)
     -- 处理信号
     local signalData = self.SignalMap[signalName]  
+    -- 如果没有对应的信号处理直接返回
     if XTool.IsTableEmpty(signalData) then
         return result
     end
     local tmpData, code
     for i = #signalData, 1, -1 do
         tmpData = signalData[i]
+        -- 如果状态没有运行完主体函数或因错误停止的话，恢复协程
         if coroutine.status(tmpData.running) ~= "dead" then
+            -- 可优化的点：如果fromObj为nil的时候直接不处理即可，但这里需要测试一下不处理后积攒了大量挂起的协程会有什么影响，目前这个写法判空是为了尽量让所有活着的协程都尽量恢复。
             code = tmpData.fromObj ~= nil and XSignalCode.SUCCESS or XSignalCode.EMPTY_FROM_OBJ
             coroutine.resume(tmpData.running, code, ...) 
         end
         table.remove(signalData, i)
     end
     signalData = nil
-    self.SignalMap[signalName] = nil
+    -- 可能主体函数已经关闭了子界面，导致子界面的信号map被清空，这里需要判断一下
+    if self.SignalMap then
+        self.SignalMap[signalName] = nil
+    end
     return result
 end
 
-function XSignalData:EmitSingleSignal(signalName, ...)
-    local signalData = self.SignalMap[signalName]  
-    if XTool.IsTableEmpty(signalData) then
-        return
-    end
-    local code
-    local tmpData = signalData[#signalData]
-    if coroutine.status(tmpData.running) ~= "dead" then
-        code = tmpData.fromObj ~= nil and XSignalCode.SUCCESS or XSignalCode.EMPTY_FROM_OBJ
-        coroutine.resume(tmpData.running, code, ...) 
-    end
-    table.remove(signalData, #signalData)
-    if #signalData <= 0 then
-        signalData = nil
-        self.SignalMap[signalName] = nil
-    end
-end
+-- function XSignalData:EmitSingleSignal(signalName, ...)
+--     local signalData = self.SignalMap[signalName]  
+--     if XTool.IsTableEmpty(signalData) then
+--         return
+--     end
+--     local code
+--     local tmpData = signalData[#signalData]
+--     if coroutine.status(tmpData.running) ~= "dead" then
+--         code = tmpData.fromObj ~= nil and XSignalCode.SUCCESS or XSignalCode.EMPTY_FROM_OBJ
+--         coroutine.resume(tmpData.running, code, ...) 
+--     end
+--     table.remove(signalData, #signalData)
+--     if #signalData <= 0 then
+--         signalData = nil
+--         self.SignalMap[signalName] = nil
+--     end
+-- end
 
 function XSignalData:Release()
     if self.EventSystem then

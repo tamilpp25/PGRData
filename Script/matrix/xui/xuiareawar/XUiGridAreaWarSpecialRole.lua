@@ -6,10 +6,13 @@ function XUiGridAreaWarSpecialRole:Ctor(ui, clickCb)
 
     XTool.InitUiObject(self)
 
+    --if self.BtnClick then
+    --    self.BtnClick.CallBack = function()
+    --        clickCb(self.RoleId)
+    --    end
+    --end
     if self.BtnClick then
-        self.BtnClick.CallBack = function()
-            clickCb(self.RoleId)
-        end
+        self.BtnClick.gameObject:SetActiveEx(false)
     end
 
     self:SetSelect(false)
@@ -37,6 +40,10 @@ function XUiGridAreaWarSpecialRole:Refresh(roleId)
     if self.RImgSkill then
         local buffId = XAreaWarConfigs.GetSpecialRoleBuffId(roleId)
         self.RImgSkill:SetRawImage(XAreaWarConfigs.GetBuffIcon(buffId))
+
+        if self.TxtDetail then
+            self.TxtDetail.text = XAreaWarConfigs.GetBuffDesc(buffId)
+        end
     end
 
     --未解锁

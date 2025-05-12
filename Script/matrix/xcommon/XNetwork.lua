@@ -1,5 +1,14 @@
 XNetwork = XNetwork or {}
 
+if XMain.IsEditorDebug then 
+    CS.XNetwork.IsShowNetLog = false
+    XNetwork.IsShowNetLog = true
+    XNetwork.IsShowHearBeat = false
+else
+    XNetwork.IsShowNetLog = CS.XNetwork.IsShowNetLog
+    XNetwork.IsShowHearBeat = true
+end
+
 local Ip
 local Port
 local LastIp
@@ -8,13 +17,6 @@ local XRpc = XRpc
 local IsDebug = XMain.IsEditorDebug
 local ShieldedProtocol = {}
 local NeedShieldProtocol = false
-
-XNetwork.NetworkMode = {
-    Auto = 1,
-    Ipv4 = 2,
-    Ipv6 = 3,
-}
-XNetwork.NetworkModeKey = "NETWORK_MODE_KEY"
 
 local function GetIpAndPort()
     return Ip, Port
@@ -56,7 +58,8 @@ local function TipTableDiff(sha1Table)
 end
 
 XRpc.NotifyCheckTableSha1 = function(data)
-    TipTableDiff(data.Sha1Table)
+    -- 讨论后先屏蔽 - 【#173976】屏蔽表格sha1校验的输出
+    -- TipTableDiff(data.Sha1Table)
 end
 
 function XNetwork.ConnectGateServer(args)
@@ -71,23 +74,28 @@ function XNetwork.ConnectGateServer(args)
     CS.XNetwork.OnConnect = function()
         if args.IsReconnect then
             local request = { PlayerId = XPlayer.Id, Token = XUserManager.ReconnectedToken, LastMsgSeqNo = CS.XNetwork.ServerMsgSeqNo }
-            if CS.XNetwork.IsShowNetLog then
-                XLog.Debug("PlayerId=" .. request.PlayerId .. ", Token=" .. request.Token .. ", LastMsgSeqNo=" .. request.LastMsgSeqNo)
-            end
+            --if XNetwork.IsShowNetLog then
+            CS.XLog.Debug("PlayerId=" .. request.PlayerId .. ", Token=" .. request.Token .. ", LastMsgSeqNo=" .. request.LastMsgSeqNo)
+            --end
 
             local request_func
             request_func = function()
+                --放在外层，避免重连协议比其他协议慢返回
+                XEventManager.DispatchEvent(XEventId.EVENT_NETWORK_RECONNECT)
                 XNetwork.Call("ReconnectRequest", request, function(res)
+                    -- XLog.Debug("服务器返回断线重连 测试，当作失败。" .. tostring(res.Code))
+                    -- XLoginManager.OnReconnectFailed()
+                    -- do return end
                     if res.Code ~= XCode.Success then
-                        if CS.XNetwork.IsShowNetLog then
-                            XLog.Debug("服务器返回断线重连失败。" .. tostring(res.Code))
-                        end
-                        XLoginManager.DoDisconnect()
+                        --if XNetwork.IsShowNetLog then
+                            CS.XLog.Debug("服务器返回断线重连失败。" .. tostring(res.Code))
+                        --end
+                        XLoginManager.OnReconnectFailed()
                     else
                         XNetwork.Send("ReconnectAck")
-                        if CS.XNetwork.IsShowNetLog then
-                            XLog.Debug("服务器返回断线重连成功。")
-                        end
+                        --if XNetwork.IsShowNetLog then
+                            CS.XLog.Debug(string.format("服务器返回断线重连成功。新的ReconnectToken：%s", res.ReconnectToken))
+                        --end
                         XUserManager.ReconnectedToken = res.ReconnectToken
                         if args.ConnectCb then
                             args.ConnectCb()
@@ -123,9 +131,19 @@ function XNetwork.ConnectGateServer(args)
                     elseif response.Code == XCode.LoginApplicationVersionError then
                         -- 处于调试模式时进错服显示取消按钮，否则不显示
                         local cancelCb = XMain.IsDebug and function() end or nil
-                        CS.XTool.WaitCoroutine(CS.XApplication.CoDialog(CS.XApplication.GetText("Tip"),
-                        CS.XStringEx.Format(CS.XApplication.GetText("UpdateApplication"),
-                        CS.XInfo.Version), cancelCb, function() CS.XTool.WaitCoroutine(CS.XApplication.GoToUpdateURL(GetAppUpgradeUrl()), nil) end))
+                        if XDataCenter.UiPcManager.IsPc() then
+                            CS.XTool.WaitCoroutine(CS.XApplication.CoDialog(CS.XApplication.GetText("Tip"),
+                                CS.XStringEx.Format(CS.XApplication.GetText("PCUpdateApplication"), CS.XInfo.Version), cancelCb, 
+                                CS.XApplication.Exit))
+                        else
+                            CS.XTool.WaitCoroutine(CS.XApplication.CoDialog(CS.XApplication.GetText("Tip"),
+                                CS.XStringEx.Format(CS.XApplication.GetText("UpdateApplication"), CS.XInfo.Version), cancelCb, 
+                            function() CS.XTool.WaitCoroutine(CS.XApplication.GoToUpdateURL(GetAppUpgradeUrl()), nil) end))
+                        end
+                    elseif response.Code == XCode.LoginDocumentVersionError then
+                        XUiManager.DialogTip("", CS.XTextManager.GetCodeText(response.Code), XUiManager.DialogType.OnlySure, nil, function()
+                            CS.XApplication.Exit()
+                        end)
                     else
                         XUiManager.DialogTip("", CS.XTextManager.GetCodeText(response.Code), XUiManager.DialogType.OnlySure)
                     end
@@ -188,19 +206,16 @@ function XNetwork.ConnectServer(ip, port, bReconnect)
     end
 
     LastIp, LastPort = ip, port
-    local networkMode = XSaveTool.GetData(XNetwork.NetworkModeKey) or XNetwork.NetworkMode.Auto
-    if networkMode == XNetwork.NetworkMode.Auto then
-        CS.XNetwork.Connect(ip, tonumber(port), bReconnect, CS.XNetwork.NetworkMode.Auto)
-    elseif networkMode == XNetwork.NetworkMode.Ipv4 then
-        CS.XNetwork.Connect(ip, tonumber(port), bReconnect, CS.XNetwork.NetworkMode.Ipv4)
-    elseif networkMode == XNetwork.NetworkMode.Ipv6 then
-        CS.XNetwork.Connect(ip, tonumber(port), bReconnect, CS.XNetwork.NetworkMode.Ipv6)
-    else -- Auto保底
-        CS.XNetwork.Connect(ip, tonumber(port), bReconnect, CS.XNetwork.NetworkMode.Auto)
-    end
+    CS.XNetwork.Connect(ip, tonumber(port), bReconnect)
 end
 
 function XNetwork.Send(handler, request)
+    if IsDebug then
+        if handler == "" or (string.find(handler, " ")) then
+            XLog.Error("发送协议名错误！handler: " .. tostring(handler) .. ", request:", request)
+            return
+        end
+    end
     -- 检查是否是屏蔽协议
     if NeedShieldProtocol and ShieldedProtocol[handler] then
         XUiManager.TipMsg(CS.XGame.ClientConfig:GetString("ShieldedProtocol"))
@@ -219,10 +234,17 @@ function XNetwork.Send(handler, request)
     CS.XNetwork.Send(handler, requestContent);
 end
 
-function XNetwork.Call(handler, request, reply, isEncoded)
+function XNetwork.Call(handler, request, reply, isEncoded, exReply, shieldReply)
+    if IsDebug then
+        if handler == "" or (string.find(handler, " ")) then
+            XLog.Error("发送协议名错误！handler: " .. tostring(handler) .. ", request:", request)
+            return
+        end
+    end
     -- 检查是否是屏蔽协议
     if NeedShieldProtocol and ShieldedProtocol[handler] then
         XUiManager.TipMsg(CS.XGame.ClientConfig:GetString("ShieldedProtocol"))
+        if shieldReply then shieldReply() end
         return
     end
 
@@ -240,6 +262,9 @@ function XNetwork.Call(handler, request, reply, isEncoded)
         end
     end
 
+    if XLoginManager.CheckPrintHeartbeatLog() and handler == "HeartbeatRequest" then
+        XLog.Error("上次心跳包收发异常，本次打印发送心跳包请求")
+    end
     CS.XNetwork.Call(handler, requestContent, function(responseContent)
         local response, err = XMessagePack.Decode(responseContent)
         if response == nil then
@@ -250,9 +275,12 @@ function XNetwork.Call(handler, request, reply, isEncoded)
         if IsDebug then
             XRpc.DebugPrint(XRpc.DEBUG_TYPE.Recv_Call, handler, response)
         end
-        
+
+        if XLoginManager.CheckPrintHeartbeatLog() and handler == "HeartbeatRequest" then
+            XLog.Error("上次心跳包收发异常，本次打印成功收到消息！")
+        end
         reply(response)
-    end)
+    end, exReply)
 end
 
 function XNetwork.CallWithAutoHandleErrorCode(handler, request, reply, isEncoded)

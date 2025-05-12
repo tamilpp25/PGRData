@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CsXTextManagerGetText = CsXTextManagerGetText
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 
@@ -6,13 +8,10 @@ local XUiKillZoneStageDetail = XLuaUiManager.Register(XLuaUi, "UiKillZoneStageDe
 function XUiKillZoneStageDetail:OnAwake()
     self:AutoAddListener()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
-    XDataCenter.ItemManager.AddCountUpdateListener(
-    {
-        XKillZoneConfigs.ItemIdCoinA,
-        XKillZoneConfigs.ItemIdCoinB,
-    }, handler(self, self.UpdateAssets), self.AssetActivityPanel)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
+    XDataCenter.ItemManager.AddCountUpdateListener({ XKillZoneConfigs.ItemIdCoinB }, handler(self, self.UpdateAssets), self.AssetActivityPanel)
 
+    self.GridCommon.gameObject:SetActiveEx(false)
     self.GridBuff.gameObject:SetActiveEx(false)
 end
 
@@ -35,10 +34,7 @@ function XUiKillZoneStageDetail:OnDestroy()
 end
 
 function XUiKillZoneStageDetail:UpdateAssets()
-    self.AssetActivityPanel:Refresh({
-        XKillZoneConfigs.ItemIdCoinA,
-        XKillZoneConfigs.ItemIdCoinB,
-    })
+    self.AssetActivityPanel:Refresh({ XKillZoneConfigs.ItemIdCoinB })
 end
 
 function XUiKillZoneStageDetail:UpdateView()
@@ -48,7 +44,7 @@ function XUiKillZoneStageDetail:UpdateView()
     self.TxtTitle.text = name
 
     --关卡词缀
-    local buffIds = XKillZoneConfigs.GetStageBuffIds(stageId)
+    local buffIds = XDataCenter.KillZoneManager.GetStageBuffIds(stageId)
     for index, buffId in ipairs(buffIds) do
         local grid = self.BuffGrids[index]
         if not grid then
@@ -79,6 +75,43 @@ function XUiKillZoneStageDetail:UpdateView()
     self.TxtTip.gameObject:SetActiveEx(isPassed)
     self.TxtTipNone.gameObject:SetActiveEx(not isPassed)
 
+    --首通奖励
+    if not isPassed then
+        local rewardId = XFubenConfigs.GetFirstRewardShow(stageId)
+        if not rewardId or rewardId == 0 then
+            rewardId = XFubenConfigs.GetFinishRewardShow(stageId)
+        end
+        local rewards = XRewardManager.GetRewardList(rewardId) or {}
+        if rewards then
+            for index, item in ipairs(rewards) do
+                local grid = self.RewardGrids[index]
+
+                if not grid then
+                    local ui = index == 1 and self.GridCommon or CSUnityEngineObjectInstantiate(self.GridCommon, self.PanelDropContent)
+                    grid = XUiGridCommon.New(self, ui)
+                    self.RewardGrids[index] = grid
+                end
+
+                grid:Refresh(item)
+                grid.GameObject:SetActiveEx(true)
+            end
+        end
+        for index = #rewards + 1, #self.RewardGrids do
+            self.RewardGrids[index].GameObject:SetActiveEx(false)
+        end
+
+        self.PanelDropNone.gameObject:SetActiveEx(false)
+        self.PanelDropContent.gameObject:SetActiveEx(true)
+    else
+        self.PanelDropContent.gameObject:SetActiveEx(false)
+        self.PanelDropNone.gameObject:SetActiveEx(true)
+    end
+
+    local isDailyStage = XDataCenter.KillZoneManager.IsDailyStageId(stageId)
+    if isDailyStage then
+        self.GridStageStar.gameObject:SetActiveEx(false)
+        return
+    end
     --星级条件
     local currentStar = XDataCenter.KillZoneManager.GetStageStar(stageId)
     local starDescList = XKillZoneConfigs.GetStageStarDescList(stageId)
@@ -106,35 +139,6 @@ function XUiKillZoneStageDetail:UpdateView()
 
         grid.GameObject:SetActiveEx(true)
     end
-
-    --首通奖励
-    if not isPassed then
-        local rewardId = XFubenConfigs.GetFirstRewardShow(stageId)
-        local rewards = XRewardManager.GetRewardList(rewardId)
-        if rewards then
-            for index, item in ipairs(rewards) do
-                local grid = self.RewardGrids[index]
-
-                if not grid then
-                    local ui = index == 1 and self.GridCommon or CSUnityEngineObjectInstantiate(self.GridCommon, self.PanelDropContent)
-                    grid = XUiGridCommon.New(self, ui)
-                    self.RewardGrids[index] = grid
-                end
-
-                grid:Refresh(item)
-                grid.GameObject:SetActiveEx(true)
-            end
-        end
-        for index = #rewards + 1, #self.RewardGrids do
-            self.RewardGrids[index].GameObject:SetActiveEx(false)
-        end
-
-        self.PanelDropNone.gameObject:SetActiveEx(false)
-        self.PanelDropContent.gameObject:SetActiveEx(true)
-    else
-        self.PanelDropContent.gameObject:SetActiveEx(false)
-        self.PanelDropNone.gameObject:SetActiveEx(true)
-    end
 end
 
 function XUiKillZoneStageDetail:AutoAddListener()
@@ -145,11 +149,12 @@ end
 
 function XUiKillZoneStageDetail:OnClickBtnEnter()
     local stageId = self.StageId
-    XLuaUiManager.Open("UiNewRoomSingle", stageId)
+    local team = XDataCenter.KillZoneManager.GetTeam(stageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", stageId, team, require("XUi/XUiKillZone/Battle/XUiKillZoneBattleRoleRoom"))
 end
 
 function XUiKillZoneStageDetail:OnClickBtnBuffTip()
-    local buffIds = XKillZoneConfigs.GetStageBuffIds(self.StageId)
+    local buffIds = XDataCenter.KillZoneManager.GetStageBuffIds(self.StageId)
     if not XTool.IsTableEmpty(buffIds) then
         XLuaUiManager.Open("UiKillZoneBuffTips", self.StageId)
     end

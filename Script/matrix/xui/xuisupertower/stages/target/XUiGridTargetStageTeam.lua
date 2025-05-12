@@ -49,9 +49,9 @@ function XUiGridTargetStageTeam:UpdateInfo()
         local element = DefaultElement
         local recommendType = XFubenConfigs.GetStageRecommendCharacterType(stageId)
         
-        if recommendType == XCharacterConfigs.CharacterType.Isomer then
+        if recommendType == XEnumConst.CHARACTER.CharacterType.Isomer then
             element = IsomerElement
-        elseif recommendType == XCharacterConfigs.CharacterType.Normal then
+        elseif recommendType == XEnumConst.CHARACTER.CharacterType.Normal then
             element = XFubenConfigs.GetStageRecommendCharacterElement(stageId) or DefaultElement
         end
         

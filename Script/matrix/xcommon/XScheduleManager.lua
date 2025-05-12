@@ -28,7 +28,11 @@ end
 -- /// <returns>定时器id</returns>
 function XScheduleManager.ScheduleOnce(func, delay)
     local name = IsEditor and XTool.GetStackTraceName() or nil
-    return CSXScheduleManager.ScheduleOnce(func, delay, name)
+    return CSXScheduleManager.ScheduleOnce(func, delay or 0, name)
+end
+
+function XScheduleManager.ScheduleNextFrame(func)
+    return CSXScheduleManager.ScheduleNextFrame(func)
 end
 
 -- /// <summary>
@@ -79,8 +83,13 @@ function XScheduleManager.UnSchedule(id)
     return CSXScheduleManager.UnSchedule(id)
 end
 
--- 释放所有定时器
-function XScheduleManager.UnScheduleAll()
+local __Private = {}
+__Private.__Clear__ = function ()
+    if XMain.IsWindowsEditor then
+        XLog.Debug("移除所有定时器")
+    end
     XTool.ResetInitSchedule()
-    return CSXScheduleManager.UnScheduleAll()
+    CSXScheduleManager.UnScheduleAll()
 end
+
+return __Private

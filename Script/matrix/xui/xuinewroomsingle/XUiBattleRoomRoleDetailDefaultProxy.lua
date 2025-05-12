@@ -1,10 +1,11 @@
+---@class XUiBattleRoomRoleDetailDefaultProxy
 local XUiBattleRoomRoleDetailDefaultProxy = XClass(nil, "XUiBattleRoomRoleDetailDefaultProxy")
 
 -- 获取实体数据
--- characterType : XCharacterConfigs.CharacterType 参数为空时要返回所有实体
+-- characterType : XEnumConst.CHARACTER.CharacterType 参数为空时要返回所有实体
 -- return : { ... }
 function XUiBattleRoomRoleDetailDefaultProxy:GetEntities(characterType)
-    return XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+    return XMVCA.XCharacter:GetOwnCharacterList(characterType)
 end
 
 function XUiBattleRoomRoleDetailDefaultProxy:GetFilterJudge()
@@ -38,6 +39,13 @@ function XUiBattleRoomRoleDetailDefaultProxy:GetGridProxy()
     return nil
 end
 
+---用于某种特殊玩法需要给grid传特殊参数
+---V2.6PS：据点用上了,代码坐标XUiGridEchelonMember:GetProxyInstance(viewData) by 标仔
+---@return table 传的必须是table
+function XUiBattleRoomRoleDetailDefaultProxy:GetGridExParams()
+    return {}
+end
+
 -- 获取子面板数据，主要用来增加编队界面自身玩法信息，就不用污染通用的预制体
 --[[
     return : {
@@ -58,7 +66,7 @@ function XUiBattleRoomRoleDetailDefaultProxy:GetCharacterViewModelByEntityId(id)
         if XEntityHelper.GetIsRobot(id) then
             entity = XRobotManager.GetRobotById(id)
         else
-            entity = XDataCenter.CharacterManager.GetCharacter(id)
+            entity = XMVCA.XCharacter:GetCharacter(id)
         end
         if entity == nil then
             XLog.Error(string.format("找不到id%s的角色", id))
@@ -70,13 +78,13 @@ function XUiBattleRoomRoleDetailDefaultProxy:GetCharacterViewModelByEntityId(id)
 end
 
 -- 根据实体id获取角色类型
--- return : XCharacterConfigs.CharacterType
+-- return : XEnumConst.CHARACTER.CharacterType
 function XUiBattleRoomRoleDetailDefaultProxy:GetCharacterType(entityId)
     local viewModel = self:GetCharacterViewModelByEntityId(entityId)
     if viewModel then
         return viewModel:GetCharacterType()
     end
-    return XCharacterConfigs.CharacterType.Normal
+    return XEnumConst.CHARACTER.CharacterType.Normal
 end
 
 --==============================
@@ -84,7 +92,7 @@ end
  ---@return number 机体类型
 --==============================
 function XUiBattleRoomRoleDetailDefaultProxy:GetDefaultCharacterType()
-    return XCharacterConfigs.CharacterType.Normal
+    return XEnumConst.CHARACTER.CharacterType.Normal
 end
 
 -- 检查队伍里是否有相同的角色
@@ -104,6 +112,7 @@ function XUiBattleRoomRoleDetailDefaultProxy:CheckTeamHasSameCharacterId(team, c
     return false
 end
 
+-- 旧方法已废弃、请使用 GetFilterControllerConfig 和 GetFilterSortOverrideFunTable
 -- 排序算法，默认队伍>XDataCenter.RoomCharFilterTipsManager.GetSort
 -- team : XTeam
 -- sortTagType : XRoomCharFilterTipsConfigs.EnumSortTag
@@ -175,10 +184,12 @@ end
 -- 获取角色战力
 function XUiBattleRoomRoleDetailDefaultProxy:GetRoleAbility(entityId)
     local viewModel = self:GetCharacterViewModelByEntityId(entityId)
-    if viewModel then
-        return viewModel:GetAbility()
+    if not viewModel then
+        ---@type XCharacterAgency
+        local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+        return ag:GetCharacterHaveRobotAbilityById(entityId)
     end
-    return 0
+    return viewModel:GetAbility()
 end
 
 --######################## AOP ########################
@@ -191,11 +202,19 @@ function XUiBattleRoomRoleDetailDefaultProxy:AOPOnStartAfter(rootUi)
     
 end
 
+function XUiBattleRoomRoleDetailDefaultProxy:AOPOnClickBtnBack(rootUi)
+    return false
+end
+
 function XUiBattleRoomRoleDetailDefaultProxy:AOPOnBtnJoinTeamClickedBefore(rootUi)
 
 end
 
 function XUiBattleRoomRoleDetailDefaultProxy:AOPOnBtnJoinTeamClickedAfter(rootUi)
+    
+end
+
+function XUiBattleRoomRoleDetailDefaultProxy:AOPSetJoinBtnIsActiveBefore(rootUi)
     
 end
 
@@ -219,8 +238,40 @@ function XUiBattleRoomRoleDetailDefaultProxy:AOPRefreshOperationBtnsBefore()
     return false
 end
 
+--截断自定义模型显示逻辑
+function XUiBattleRoomRoleDetailDefaultProxy:AOPRefreshModelBefore(rootUi,characterViewModel,sourceEntityId,finishedCallback)
+
+end
+
 function XUiBattleRoomRoleDetailDefaultProxy:CheckIsNeedPractice()
     return true
+end
+
+function XUiBattleRoomRoleDetailDefaultProxy:GetFilterControllerConfig(rootUi)
+    return nil
+end
+
+-- 覆写排序算法的table
+function XUiBattleRoomRoleDetailDefaultProxy:GetFilterSortOverrideFunTable()
+    return nil
+end
+
+function XUiBattleRoomRoleDetailDefaultProxy:GetFilterCharIdFun(entity)
+    return nil
+end
+
+-- 该界面是否启用q版模型 默认用愚人节检测
+function XUiBattleRoomRoleDetailDefaultProxy:CheckUseCuteModel()
+    return XMVCA.XAprilFoolDay:IsInCuteModelTime()
+end
+
+function XUiBattleRoomRoleDetailDefaultProxy:CheckEntityIdIsIsomer(entityId)
+    return XMVCA.XCharacter:GetIsIsomer(entityId)
+end
+
+--- 是否屏蔽效应、效应元素和效应筛选
+function XUiBattleRoomRoleDetailDefaultProxy:IsHideGeneralSkill()
+    return false
 end
 
 return XUiBattleRoomRoleDetailDefaultProxy

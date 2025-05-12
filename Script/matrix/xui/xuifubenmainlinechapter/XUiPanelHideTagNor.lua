@@ -69,17 +69,18 @@ function XUiPanelHideTagNor:OnBtnOnHideLockClick()
         return
     end
 
+    local beginStoryId = XMVCA.XFuben:GetBeginStoryId(self.StageId)
     if stageCfg.StageType == XFubenConfigs.STAGETYPE_STORYEGG then
         if stageInfo.Passed then
             self.RootUi:OnEnterStory(self.StageId, function()
-                XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId, function()
+                XDataCenter.MovieManager.PlayMovie(beginStoryId, function()
                     XDataCenter.PrequelManager.UpdateShowChapter(self.StageId)
                 end)
             end)
         else
             self.RootUi:OnEnterStory(self.StageId, function()
                 XDataCenter.PrequelManager.FinishStoryRequest(self.StageId, function()
-                    XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId, function()
+                    XDataCenter.MovieManager.PlayMovie(beginStoryId, function()
                         --self.RootUi:RefreshRegional()
                         XDataCenter.PrequelManager.UpdateShowChapter(self.StageId)
                     end)

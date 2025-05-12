@@ -1,3 +1,5 @@
+---@class XLuaBehaviorAgent 行为代理类
+---@field
 XLuaBehaviorAgent = XClass(nil, "XLuaBehaviorAgent")
 
 function XLuaBehaviorAgent:Ctor(agentName, agentProxy)

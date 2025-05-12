@@ -1,204 +1,209 @@
-local XUiPanelBossRankInfo = XClass(nil, "XUiPanelBossRankInfo")
+local XUiTabBtnGroup = require("XUi/XUiBase/XUiTabBtnGroup")
+---@class XUiPanelBossRankInfo : XUiNode
+---@field Parent XUiFubenBossSingle
+---@field _Control XFubenBossSingleControl
+local XUiPanelBossRankInfo = XClass(XUiNode, "XUiPanelBossRankInfo")
 local XUiPanelMyBossRank = require("XUi/XUiFubenBossSingle/XUiPanelMyBossRank")
-local XUiPanelRankReward = require("XUi/XUiFubenBossSingle/XUiPanelRankReward")
 local XUiGridBossRank = require("XUi/XUiFubenBossSingle/XUiGridBossRank")
 
-function XUiPanelBossRankInfo:Ctor(rootUi, ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.RootUi = rootUi
-    XTool.InitUiObject(self)
-    self:AutoAddListener()
-    self.PanelRankReward.gameObject:SetActive(false)
-    self.GridRankList = {}
+function XUiPanelBossRankInfo:OnStart()
+    ---@type XBossSingle
+    local bossSingleData = self.Parent:GetBossSingleData()
+
+    ---@type XUiGridBossRank[]
+    self._GridRankList = {}
+    self._CurLevelType = bossSingleData:GetBossSingleLevelType()
+    self._RankPlatform = bossSingleData:GetBossSingleRankPlatform()
+    self._Timer = nil
     self.GridRankLevel.gameObject:SetActive(false)
     self.GridBossRank.gameObject:SetActive(false)
     self.TxtCurTime.text = ""
-    self:Init()
+    self:_RegisterButtonListeners()
+    self:_Init()
 end
 
-function XUiPanelBossRankInfo:RegisterClickEvent(uiNode, func)
-    if func == nil then
-        XLog.Error("XUiPanelBossRankInfo:RegisterClickEvent函数参数错误：参数func不能为空")
-        return
-    end
+function XUiPanelBossRankInfo:OnEnable()
+    self:_Refresh()
+    self:_RefreshTime()
+end 
 
-    if type(func) ~= "function" then
-        XLog.Error("XUiPanelBossRankInfo:RegisterClickEvent函数错误, 参数func需要是function类型, func的类型是" .. type(func))
-    end
-
-    local listener = function(...)
-        func(self, ...)
-    end
-
-    CsXUiHelper.RegisterClickEvent(uiNode, listener)
+function XUiPanelBossRankInfo:OnDisable()
+    self:_RemoveTimer()
 end
 
-function XUiPanelBossRankInfo:AutoAddListener()
-    self:RegisterClickEvent(self.BtnRankReward, self.OnBtnRankRewardClick)
+function XUiPanelBossRankInfo:_RegisterButtonListeners()
+    XUiHelper.RegisterClickEvent(self, self.BtnRankReward, self.OnBtnRankRewardClick, true)
 end
 
-function XUiPanelBossRankInfo:Init()
+function XUiPanelBossRankInfo:_Init()
     if self.TabBtnGroup then
         self.TabBtnGroup:Dispose()
     end
     self.TabBtnGroup = nil
     self.BtnTabList = {}
-    local Cfgs = XDataCenter.FubenBossSingleManager.GetRankLevelCfgs()
-
-    for _ = 1, #Cfgs do
-        local grid = CS.UnityEngine.Object.Instantiate(self.GridRankLevel)
-        grid.transform:SetParent(self.PanelTags, false)
-        grid.gameObject:SetActive(true)
-        table.insert(self.BtnTabList, grid)
+    self.BtnIndexDic = {}
+    
+    local Cfgs = self._Control:GetBossGradeConfigs()
+    for i = 1, #Cfgs do
+        if self._Control:GetRankIsOpenByType(Cfgs[i].LevelType) then
+            local grid = CS.UnityEngine.Object.Instantiate(self.GridRankLevel)
+            grid.transform:SetParent(self.PanelTags, false)
+            grid.gameObject:SetActive(true)
+            table.insert(self.BtnTabList, grid)
+            self.BtnIndexDic[#self.BtnIndexDic + 1] = Cfgs[i].LevelType
+        end
     end
 
     self.TabBtnGroup = XUiTabBtnGroup.New(self.BtnTabList, function(levelType)
-            self:RefreshRankInfo(levelType)
-        end)
+        self:_RefreshRankInfo(levelType)
+    end)
 
     for k, btn in ipairs(self.TabBtnGroup.TabBtnList) do
-        local text = CS.XTextManager.GetText("BossSingleRankDesc", Cfgs[k].MinPlayerLevel, Cfgs[k].MaxPlayerLevel)
-        btn:SetName(Cfgs[k].LevelName, text)
+        local type = self.BtnIndexDic[k]
+        local text = XUiHelper.GetText("BossSingleRankDesc", Cfgs[type].MinPlayerLevel, Cfgs[type].MaxPlayerLevel)
+        btn:SetName(Cfgs[type].LevelName, text)
         local icon = btn.Transform:Find("RImgIcon"):GetComponent("RawImage")
-        icon:SetRawImage(Cfgs[k].Icon)
+        icon:SetRawImage(Cfgs[type].Icon)
         self.TabBtnGroup:UnLockIndex(k)
     end
 
-    self.MyBossRank = XUiPanelMyBossRank.New(self.RootUi, self.PanelMyBossRank)
-    self.MyBossRank:HidePanel()
-    self.RankReward = XUiPanelRankReward.New(self.RootUi, self.PanelRankReward)
+    ---@type XUiPanelMyBossRank
+    self.MyBossRank = XUiPanelMyBossRank.New(self.PanelMyBossRank, self, self.Parent)
+    self.MyBossRank:Close()
 end
 
+function XUiPanelBossRankInfo:_Refresh()
+    local index = 1
+    ---@type XBossSingle
+    local bossSingleData = self.Parent:GetBossSingleData()
 
-function XUiPanelBossRankInfo:ShowPanel(levelType, rankPlatform)
-    self.CurLevelType = levelType
-    self.RankPlatform = rankPlatform
+    self._CurLevelType = bossSingleData:GetBossSingleLevelType()
+    self._RankPlatform = bossSingleData:GetBossSingleRankPlatform()
 
-    self.TabBtnGroup:SelectIndex(self.CurLevelType)
-    self.GameObject:SetActive(true)
+    for i = 1, #self.BtnIndexDic do
+        if self.BtnIndexDic[i] == self._CurLevelType then
+            index = i
+        end
+    end
 
-    self.RootUi:PlayAnimation("AnimRankInfolEnable")
-    self:RefreshTime()
+    self.TabBtnGroup:SelectIndex(index)
+    self.Parent:PlayAnimation("AnimRankInfolEnable")
 end
 
-function XUiPanelBossRankInfo:HidePanel()
-    self:RemoveTimer()
-    self.GameObject:SetActive(false)
+function XUiPanelBossRankInfo:_RefreshRankInfo(levelType)
+    local indexType = self.BtnIndexDic[levelType] or 1
+
+    self._CurLevelType = indexType
+    self.Parent:PlayAnimation("AnimInfoQieHuan")
+    self:_RefreshRank()
 end
 
-function XUiPanelBossRankInfo:RefreshRankInfo(levelType)
-    self.CurLevelType = levelType
-    self.RootUi:PlayAnimation("AnimInfoQieHuan")
-    self:RefreshRank()
-end
-
-function XUiPanelBossRankInfo:RemoveTimer()
-    if self.Timer then
-        XScheduleManager.UnSchedule(self.Timer)
-        self.Timer = nil
+function XUiPanelBossRankInfo:_RemoveTimer()
+    if self._Timer then
+        XScheduleManager.UnSchedule(self._Timer)
+        self._Timer = nil
     end
 end
 
-function XUiPanelBossRankInfo:RefreshRank()
-    local func = function(rankData)
-        self:SetRankInfo(rankData)
-        self:RefreshMyRankInfo(rankData)
-    end
-    XDataCenter.FubenBossSingleManager.GetRankData(func, self.CurLevelType)
+function XUiPanelBossRankInfo:_RefreshRank()
+    XMVCA.XFubenBossSingle:RequestRankData(function(rankData)
+        self:_SetRankInfo(rankData)
+        self:_RefreshMyRankInfo(rankData)
+    end, self._CurLevelType)
 end
 
-function XUiPanelBossRankInfo:RefreshTime()
-    local func = function(rankData)
-        self:SetLeftTime(rankData)
-    end
-    XDataCenter.FubenBossSingleManager.GetRankData(func, self.CurLevelType)
+function XUiPanelBossRankInfo:_RefreshTime()
+    XMVCA.XFubenBossSingle:RequestRankData(function(rankData)
+        self:_SetLeftTime(rankData)
+    end, self._CurLevelType)
 end
 
-function XUiPanelBossRankInfo:SetLeftTime(rankData)
-    local leftTime = rankData.LeftTime
-    if self.Timer then
-        self:RemoveTimer()
+---@param rankData XBossSingleRankData
+function XUiPanelBossRankInfo:_SetLeftTime(rankData)
+    local leftTime = rankData:GetLeftTime()
+    if self._Timer then
+        self:_RemoveTimer()
     end
-    self.TxtIos.gameObject:SetActiveEx(false)
-    self.Timer = XScheduleManager.ScheduleForever(function()
-            if XTool.UObjIsNil(self.GameObject) then
-                return
-            end
 
-            local desc = "BossSingleLeftTimeIos"
-            if self.RankPlatform == XFubenBossSingleConfigs.Platform.Win then
-                desc = "BossSingleLeftTimeWin"
-            elseif self.RankPlatform == XFubenBossSingleConfigs.Platform.Android then
-                desc = "BossSingleLeftTimeAndroid"
-            elseif self.RankPlatform == XFubenBossSingleConfigs.Platform.IOS then
-                desc = "BossSingleLeftTimeIos"
-            elseif self.RankPlatform == XFubenBossSingleConfigs.Platform.All then
-                desc = "BossSingleLeftTimeAll"
-            end
-            self.TxtIos.text =  CS.XTextManager.GetText(desc)
+    self._Timer = XScheduleManager.ScheduleForever(function()
+        if XTool.UObjIsNil(self.GameObject) then
+            return
+        end
 
-            leftTime = leftTime - 1
-            if leftTime <= 0 then
-                local dataTime = XUiHelper.GetTime(0)
-                self.TxtCurTime.text = CS.XTextManager.GetText("BossSingleLeftTime", dataTime)
-                self:RemoveTimer()
-            else
-                local dataTime = XUiHelper.GetTime(leftTime)
-                self.TxtCurTime.text = CS.XTextManager.GetText("BossSingleLeftTime", dataTime)
-            end
-        end, 1000)
+        local desc = "BossSingleLeftTimeIos"
+        if self._RankPlatform == XEnumConst.BossSingle.Platform.Win then
+            desc = "BossSingleLeftTimeWin"
+        elseif self._RankPlatform == XEnumConst.BossSingle.Platform.Android then
+            desc = "BossSingleLeftTimeAndroid"
+        elseif self._RankPlatform == XEnumConst.BossSingle.Platform.IOS then
+            desc = "BossSingleLeftTimeIos"
+        elseif self._RankPlatform == XEnumConst.BossSingle.Platform.All then
+            desc = "BossSingleLeftTimeAll"
+        end
+        self.TxtIos.text =  XUiHelper.GetText(desc)
+
+        leftTime = leftTime - 1
+        if leftTime <= 0 then
+            local dataTime = XUiHelper.GetTime(0)
+            self.TxtCurTime.text = XUiHelper.GetText("BossSingleLeftTime", dataTime)
+            self:_RemoveTimer()
+        else
+            local dataTime = XUiHelper.GetTime(leftTime)
+            self.TxtCurTime.text = XUiHelper.GetText("BossSingleLeftTime", dataTime)
+        end
+    end, 1000)
 end
 
-function XUiPanelBossRankInfo:SetRankInfo(rankData)
-    local count = #rankData.rankData
-    local maxCount =  XDataCenter.FubenBossSingleManager.MAX_RANK_COUNT
+---@param rankData XBossSingleRankData
+function XUiPanelBossRankInfo:_SetRankInfo(rankData)
+    local count = rankData:GetRankListCount()
+    local maxCount =  self._Control:GetMaxRankCount()
 
-    if #rankData.rankData > maxCount then
+    if count > maxCount then
         count = maxCount
     end
 
     for i = 1, count do
-        local grid = self.GridRankList[i]
+        local grid = self._GridRankList[i]
         if not grid then
             local ui = CS.UnityEngine.Object.Instantiate(self.GridBossRank)
-            grid = XUiGridBossRank.New(self.RootUi, ui)
+            grid = XUiGridBossRank.New(ui, self, self.Parent)
             grid.Transform:SetParent(self.PanelRankContent, false)
-            self.GridRankList[i] = grid
+            self._GridRankList[i] = grid
         end
 
-        grid:Refresh(rankData.rankData[i], self.CurLevelType)
-        grid.GameObject:SetActive(true)
+        grid:SetData(rankData:GetRankByIndex(i), self._CurLevelType)
+        grid:Open()
     end
 
-    for i = count + 1, #self.GridRankList do
-        self.GridRankList[i].GameObject:SetActive(false)
+    for i = count + 1, #self._GridRankList do
+        self._GridRankList[i]:Close()
     end
 
-    self.PanelNoRank.gameObject:SetActive(count <= 0)
+    self.PanelNoRank.gameObject:SetActiveEx(count <= 0)
 end
 
-function XUiPanelBossRankInfo:RefreshMyRankInfo(rankData)
-    local myLevelType = XDataCenter.FubenBossSingleManager.GetBoosSingleData().LevelType
+---@param rankData XBossSingleRankData
+function XUiPanelBossRankInfo:_RefreshMyRankInfo(rankData)
+    local myLevelType = self._Control:GetBossSingleData():GetBossSingleLevelType()
 
     self.MyRankData = {
         MylevelType = myLevelType,
-        MineRankNum = rankData.MineRankNum,
-        HistoryMaxRankNum = rankData.HistoryMaxRankNum,
-        TotalCount = rankData.TotalCount,
+        MineRankNum = rankData:GetRankNumber(),
+        HistoryMaxRankNum = rankData:GetHistoryNumber(),
+        TotalCount = rankData:GetTotalCount(),
     }
 
-    if self.CurLevelType == myLevelType then
-        self.MyBossRank:ShowPanel()
-        self.MyBossRank:Refresh(self.MyRankData)
+    if self._CurLevelType == myLevelType then
+        self.MyBossRank:SetData(self.MyRankData)
+        self.MyBossRank:Open()
     else
-        self.MyBossRank:HidePanel()
+        self.MyBossRank:Close()
     end
-
 end
 
 function XUiPanelBossRankInfo:OnBtnRankRewardClick()
-    self.RankReward:ShowPanel(self.CurLevelType, self.MyRankData)
+    self.Parent:ShowRankRewardPanel(self._CurLevelType, self.MyRankData)
 end
 
 return XUiPanelBossRankInfo

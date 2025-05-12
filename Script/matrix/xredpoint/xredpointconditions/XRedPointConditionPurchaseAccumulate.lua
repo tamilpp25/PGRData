@@ -14,6 +14,7 @@ function XRedPointConditionPurchaseAccumulate.Check()
     if XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.PurchaseAdd) then
         return false
     end
+
     return XDataCenter.PurchaseManager.AccumulatePayRedPoint()
 end
 

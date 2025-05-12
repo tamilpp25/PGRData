@@ -1,7 +1,4 @@
-XUiGridFashionShop = XClass(nil, "XUiGridFashionShop")
-local Application = CS.UnityEngine.Application
-local Platform = Application.platform
-local RuntimePlatform = CS.UnityEngine.RuntimePlatform
+local XUiGridFashionShop = XClass(nil, "XUiGridFashionShop")
 local BuyCount = 1
 function XUiGridFashionShop:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -35,101 +32,62 @@ end
 
 function XUiGridFashionShop:SetButtonCallback()
     self.BtnCondition.CallBack = function()
-        self:OnBtnConditionClick()
+        self:OnBtnBuyClick()
     end
     self.BtnBuy.CallBack = function()
         self:OnBtnBuyClick()
     end
 end
--- auto
-function XUiGridFashionShop:OnBtnConditionClick()
-    if self.ConditionDesc then
-        XUiManager.TipError(self.ConditionDesc)
-    end
-end
 
 function XUiGridFashionShop:OnBtnBuyClick()
-    if self.IsSellOut then
-        XUiManager.TipText("ShopItemSellOut")
-        return
-    end
     if self.IsShopOnSaleLock then
         XUiManager.TipError(self.ShopOnSaleLockDecs)
         return
     end
     local buyData = {}
+    buyData.CurRewardGoods = self.Data.RewardGoods
     buyData.IsHave = false
     buyData.ItemIcon = self.ItemIcon
     buyData.ItemCount = self.NeedCount
     buyData.GiftRewardId = self.GiftRewardId
-    buyData.PayKeySuffix = self.Data.PayKeySuffix
     buyData.BuyCallBack = function()
-        if self.Data.PayKeySuffix then
-            local key = XPayConfigs.GetProductKey(self.Data.PayKeySuffix)
-            XDataCenter.PayManager.Pay(key, 2, { self.Parent:GetCurShopId(), self.Data.Id }, self.Data.Id, function()
-                XShopManager.SetGiftFashionID(buyData.GiftRewardId)
-                XShopManager.SetBuyCallback(self.Parent:GetCurShopId(), function()
-                    if not XLuaUiManager.IsUiShow("UiShop") then
-                        return
-                    end
-                    self:RefreshSellOut()
-                    self:RefreshCondition()
-                    self:RefreshOnSales()
-                    self:RefreshPrice()
-                    self:RefreshBuyCount()
-                    
-                    local text = CS.XTextManager.GetText("BuySuccess")
-                    XUiManager.TipMsg(text, nil, function()
-                        local GiftRewardId = XShopManager.GetGiftFashionID()
-                        if GiftRewardId and GiftRewardId ~= 0 then
-                            local rewardGoodList = XRewardManager.GetRewardList(GiftRewardId)
-                            XShopManager.SetGiftFashionID(nil)
-                            XUiManager.OpenUiObtain(rewardGoodList)
-                        end
-                    end)
-                    self.Parent:RefreshBuy()
-                end)
-            end)
-        else
-            for _, consume in pairs(self.Data.ConsumeList) do
-                if consume.Id == XDataCenter.ItemManager.ItemId.HongKa then
-                    local result = XDataCenter.ItemManager.CheckItemCountById(consume.Id, consume.Count)
-                    if not result then
-                        XUiManager.TipText("ShopItemHongKaNotEnough")
-                        XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.Pay)
-                        return
-                    end
-                elseif consume.Id == XDataCenter.ItemManager.ItemId.PaidGem then
-                    local result = XDataCenter.ItemManager.CheckItemCountById(consume.Id, consume.Count)
-                    if not result then
-                        XUiManager.TipText("ShopItemPaidGemNotEnough")
-                        XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.HK)
-                        return
-                    end
+        for _, consume in pairs(self.Data.ConsumeList) do
+            if consume.Id == XDataCenter.ItemManager.ItemId.HongKa then
+                local result = XDataCenter.ItemManager.CheckItemCountById(consume.Id, consume.Count)
+                if not result then
+                    XUiManager.TipText("ShopItemHongKaNotEnough")
+                    XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.Pay)
+                    return
+                end
+            elseif consume.Id == XDataCenter.ItemManager.ItemId.PaidGem then
+                local result = XDataCenter.ItemManager.CheckItemCountById(consume.Id, consume.Count)
+                if not result then
+                    XUiManager.TipText("ShopItemPaidGemNotEnough")
+                    XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.HK)
+                    return
                 end
             end
-
-            XShopManager.BuyShop(self.Parent:GetCurShopId(), self.Data.Id, BuyCount, function()
-                self:RefreshSellOut()
-                self:RefreshCondition()
-                self:RefreshOnSales()
-                self:RefreshPrice()
-                self:RefreshBuyCount()
-
-                local text = CS.XTextManager.GetText("BuySuccess")
-                XUiManager.TipMsg(text, nil, function()
-                    if buyData.GiftRewardId and buyData.GiftRewardId ~= 0 then
-                        local rewardGoodList = XRewardManager.GetRewardList(buyData.GiftRewardId)
-                        XUiManager.OpenUiObtain(rewardGoodList)
-                    end
-                end)
-                self.Parent:RefreshBuy()
-            end)
         end
+
+        XShopManager.BuyShop(self.Parent:GetCurShopId(), self.Data.Id, BuyCount, function(res)
+            self:RefreshSellOut()
+            self:RefreshCondition()
+            self:RefreshOnSales()
+            self:RefreshPrice()
+            self:RefreshBuyCount()
+
+            local text = CS.XTextManager.GetText("BuySuccess")
+            XUiManager.TipMsg(text, nil, function()
+                if res.IsShowBuyResult and not XTool.IsTableEmpty(res.GoodList) then
+                    XUiManager.OpenUiObtain(res.GoodList)
+                    return
+                end
+            end)
+            self.Parent:RefreshBuy()
+        end)
     end
 
-    local isShowFashionIconWithoutGift = true
-    XLuaUiManager.Open("UiFashionDetail", self.Id, self.IsWeaponFashion, buyData, isShowFashionIconWithoutGift)
+    XLuaUiManager.Open("UiFashionDetail", self.Id, self.IsWeaponFashion, buyData)
 end
 
 function XUiGridFashionShop:UpdateData(data)
@@ -173,7 +131,6 @@ end
 function XUiGridFashionShop:RefreshCondition()
     if not self.BtnCondition then return end
     self.BtnCondition.gameObject:SetActiveEx(false)
-    self.ConditionDesc = nil
     local conditionIds = self.Data.ConditionIds
     if not conditionIds or #conditionIds <= 0 then return end
 
@@ -182,7 +139,6 @@ function XUiGridFashionShop:RefreshCondition()
         if not ret then
             self.BtnCondition.gameObject:SetActiveEx(true)
             self.ImgSellOut.gameObject:SetActiveEx(false)
-            self.ConditionDesc = desc
             self.ConditionText.text = desc
             return
         end
@@ -255,66 +211,44 @@ function XUiGridFashionShop:RefreshPrice()
     end
 
     local index = 1
-    if self.Data.PayKeySuffix then
-        if self.Count and self.Count:Exist() then
-            self.Count.gameObject:SetActiveEx(false)
+    for _, count in pairs(self.Data.ConsumeList) do
+        if index > panelCount then
+            return
         end
-        if self.TxtYuan and self.TxtYuan:Exist() then
-            self.TxtYuan.gameObject:SetActiveEx(true)
-            self.TxtYuan.text = self:GetPayAmount()
-        end
-    else
-        if self.Count and self.Count:Exist() then
-            self.Count.gameObject:SetActiveEx(true)
-        end
-        if self.TxtYuan and self.TxtYuan:Exist() then
-            self.TxtYuan.gameObject:SetActiveEx(false)
-        end
-        for _, count in pairs(self.Data.ConsumeList) do
-            if index > panelCount then
-                return
-            end
 
-            local txtOldPrice = self.TxtOldPrice[index]
-            if txtOldPrice then
-                if self.Sales == 100 then
-                    txtOldPrice.gameObject:SetActiveEx(false)
-                else
-                    txtOldPrice.text = count.Count
-                    txtOldPrice.gameObject:SetActiveEx(true)
-                end
+        local txtOldPrice = self.TxtOldPrice[index]
+        if txtOldPrice then
+            if self.Sales == 100 then
+                txtOldPrice.gameObject:SetActiveEx(false)
+            else
+                txtOldPrice.text = count.Count
+                txtOldPrice.gameObject:SetActiveEx(true)
             end
-
-            local rImgPrice = self.RImgPrice[index]
-            if rImgPrice then
-                self.ItemIcon = XDataCenter.ItemManager.GetItemIcon(count.Id)
-                if self.ItemIcon ~= nil then
-                    rImgPrice:SetRawImage(self.ItemIcon)
-                end
-            end
-
-            local txtNewPrice = self.TxtNewPrice[index]
-            if txtNewPrice then
-                self.NeedCount = math.floor(count.Count * self.Sales / 100)
-                txtNewPrice.text = self.NeedCount
-                local itemCount = XDataCenter.ItemManager.GetCount(count.Id)
-                if itemCount < self.NeedCount then
-                    txtNewPrice.color = CS.UnityEngine.Color(1, 0, 0)
-                else
-                    txtNewPrice.color = CS.UnityEngine.Color(0, 0, 0)
-                end
-            end
-
-            self.PanelPrice[index].gameObject:SetActiveEx(true)
-            index = index + 1
         end
+
+        local rImgPrice = self.RImgPrice[index]
+        if rImgPrice then
+            self.ItemIcon = XDataCenter.ItemManager.GetItemIcon(count.Id)
+            if self.ItemIcon ~= nil then
+                rImgPrice:SetRawImage(self.ItemIcon)
+            end
+        end
+
+        local txtNewPrice = self.TxtNewPrice[index]
+        if txtNewPrice then
+            self.NeedCount = math.floor(count.Count * self.Sales / 100)
+            txtNewPrice.text = self.NeedCount
+            local itemCount = XDataCenter.ItemManager.GetCount(count.Id)
+            if itemCount < self.NeedCount then
+                txtNewPrice.color = CS.UnityEngine.Color(1, 0, 0)
+            else
+                txtNewPrice.color = CS.UnityEngine.Color(0, 0, 0)
+            end
+        end
+
+        self.PanelPrice[index].gameObject:SetActiveEx(true)
+        index = index + 1
     end
-end
-
-function XUiGridFashionShop:GetPayAmount()
-    local key = XPayConfigs.GetProductKey(self.Data.PayKeySuffix)
-    local payConfig = XPayConfigs.GetPayTemplate(key)
-    return payConfig and payConfig.Amount or 0
 end
 
 function XUiGridFashionShop:RefreshOnSales()
@@ -417,11 +351,16 @@ function XUiGridFashionShop:RefreshTimer(time)
 end
 
 function XUiGridFashionShop:RefreshGift()
-    if self.Data.GiftRewardId and self.Data.GiftRewardId ~= 0 then
-        self.ImgTabLb.gameObject:SetActiveEx(true)
-        self.GiftRewardId = self.Data.GiftRewardId
+    --2.10 涂装赠品
+    if self.Data.RewardGoods.RewardType == XRewardManager.XRewardType.Fashion then
+        local fashionId = self.Data.RewardGoods.TemplateId
+        local fashionCfg = XFashionConfigs.GetFashionTemplate(fashionId)
+        if fashionCfg and XTool.IsNumberValid(fashionCfg.GiftId) then
+            self.ImgTabLb.gameObject:SetActiveEx(true)
+        else
+            self.ImgTabLb.gameObject:SetActiveEx(false)
+        end
     else
-        self.GiftRewardId = 0
         self.ImgTabLb.gameObject:SetActiveEx(false)
     end
 end
@@ -466,3 +405,5 @@ function XUiGridFashionShop:RefreshOnSaleTime(time)
             func()
         end, 1000)
 end
+
+return XUiGridFashionShop

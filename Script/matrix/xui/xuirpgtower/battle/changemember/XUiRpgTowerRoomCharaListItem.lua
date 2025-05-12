@@ -1,4 +1,4 @@
--- 兵法蓝图出战换人界面角色列表项控件
+-- 编队界面的角色列表
 local XUiRpgTowerRoomCharaListItem = XClass(nil, "XUiRpgTowerRoomCharaListItem")
 local XUiRpgTowerCharaItem = require("XUi/XUiRpgTower/Common/XUiRpgTowerCharaItem")
 function XUiRpgTowerRoomCharaListItem:Ctor()
@@ -21,6 +21,7 @@ function XUiRpgTowerRoomCharaListItem:RefreshData(rCharacter, gridIndex)
     self.GridIndex = gridIndex
     self.TxtFight.text = self.RChara:GetAbility()
     self.ImgInTeam.gameObject:SetActiveEx(self.RChara:GetIsInTeam())
+    self.Red.gameObject:SetActiveEx(self.RChara:CheckCanActiveTalent())
     self:RefreshElements()
 end
 --================

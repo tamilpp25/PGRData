@@ -53,12 +53,14 @@ function XAttribManager.RegisterPromotedIdInterface(inter)
 end
 
 ---属性计算
-local function CreateAttribArray()
+local function CreateAttribArray(isInit)
     local array = {}
-    -- 初始化时不申请全部内存，改用字典
-    -- for _ = 1, AttribCount - 1 do
-    --     tableInsert(array, fix.zero)
-    -- end
+    -- 初始化时默认不申请全部内存，改用字典
+    if isInit then
+        for _ = 1, AttribCount - 1 do
+            tableInsert(array, fix.zero)
+        end
+    end
     return array
 end
 

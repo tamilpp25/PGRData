@@ -49,6 +49,8 @@ function XPivotCombatStageItem:InitData(config)
     self.SupplyEnergyLevelReward = config.SupplyEnergyLevelReward
     --是否积分关
     self.IsScoreStage = config.IsScoreStage
+    --是否互斥锁角色（强制不锁）
+    self.MutexLockCharacter = config.MutexLockCharacter
     --是否锁角色关
     self.IsLockCharacterStage = config.IsLockCharacterStage
     --词缀
@@ -268,10 +270,26 @@ function XPivotCombatStageItem:CheckIsScoreStage()
 end
 
 --===========================================================================
- ---@desc 检测是否是锁角色关卡
+ ---@desc 检测是否是锁角色关卡, 通关会锁定角色
 --===========================================================================
 function XPivotCombatStageItem:CheckIsLockCharacterStage()
     return self.IsLockCharacterStage
+end
+
+--==============================
+ ---@desc 强制不锁角色
+ ---@return boolean
+--==============================
+function XPivotCombatStageItem:CheckIsMutexLockRole()
+    return self.MutexLockCharacter
+end
+
+--==============================
+ ---@desc 能否使用锁定角色
+ ---@return boolean
+--==============================
+function XPivotCombatStageItem:CanUseLockedRole()
+    return self:CheckIsScoreStage() or self:CheckIsMutexLockRole()
 end
 
 --===========================================================================

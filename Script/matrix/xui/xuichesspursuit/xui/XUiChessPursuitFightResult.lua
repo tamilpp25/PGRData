@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XUiChessPursuitFightResult = XLuaUiManager.Register(XLuaUi, "UiChessPursuitFightResult")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
@@ -33,7 +34,12 @@ function XUiChessPursuitFightResult:OnDestroy()
 end
 
 function XUiChessPursuitFightResult:OnActivityEnd()
-    XDataCenter.FubenBossSingleManager.OnActivityEnd()
+    if CS.XFight.IsRunning or XLuaUiManager.IsUiLoad("UiLoading") then
+        return
+    end
+    
+    XUiManager.TipText("BossOnlineOver")
+    XLuaUiManager.RunMain()
 end
 
 --@region 点击事件
@@ -111,7 +117,7 @@ function XUiChessPursuitFightResult:UpdateInfo(settleData)
         ration = maxHpRatio
     end
 
-    self.AudioInfo = CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiSettle_Win_Number)
+    self.AudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiSettle_Win_Number)
 
     self.TxtHighScore.text = string.format("%.2f%%", oldRation * 100)
     self.TxtRemainHpScoreMax.text = CSXTextManagerGetText("ChessPursuitMaxScore", selfHpMax)

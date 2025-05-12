@@ -14,10 +14,14 @@ function XUiGridEquipReplaceAttr:Ctor(ui, name, doNotChangeColor)
     self.DoNotChangeColor = doNotChangeColor
 end
 
-function XUiGridEquipReplaceAttr:UpdateData(curAttrValue, newattrvalue, notShowSame)
+function XUiGridEquipReplaceAttr:UpdateData(curAttrValue, newattrvalue, notShowSame, attrName)
     if curAttrValue then
         self.CurAttrValue = curAttrValue
         self.TxtCurAttr.text = self.CurAttrValue
+    end
+
+    if attrName then
+        self.TxtName.text = attrName
     end
 
     if not newattrvalue or notShowSame and self.CurAttrValue and newattrvalue == self.CurAttrValue then

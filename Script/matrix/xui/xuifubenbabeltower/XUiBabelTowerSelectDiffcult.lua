@@ -1,5 +1,7 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridBabelSelectDifficult = require("XUi/XUiFubenBabelTower/XUiGridBabelSelectDifficult")
 
+---@class XUiBabelTowerSelectDiffcult : XLuaUi
 local XUiBabelTowerSelectDiffcult = XLuaUiManager.Register(XLuaUi, "UiBabelTowerSelectDiffcult")
 
 function XUiBabelTowerSelectDiffcult:OnAwake()
@@ -29,6 +31,7 @@ function XUiBabelTowerSelectDiffcult:OnDestroy()
     if self.CloseCb then self.CloseCb() end
 end
 
+---@param grid XUiGridBabelSelectDifficult
 function XUiBabelTowerSelectDiffcult:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
         grid:InitRootUi(self)

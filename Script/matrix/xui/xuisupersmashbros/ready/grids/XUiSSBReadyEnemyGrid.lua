@@ -3,20 +3,41 @@
 --==============
 local XUiSSBReadyEnemyGrid = XClass(nil, "XUiSSBReadyEnemyGrid")
 
-function XUiSSBReadyEnemyGrid:Ctor(uiPrefab)
+function XUiSSBReadyEnemyGrid:Ctor(uiPrefab, mode)
+    ---@type XSmashBMode
+    self._Mode = mode
+    self._IsOut = false
     XTool.InitUiObjectByUi(self, uiPrefab)
     self:InitPanels()
 end
 
 function XUiSSBReadyEnemyGrid:InitPanels()
     self.Character = {}
-    self.PanelCharecterNext.gameObject:SetActiveEx(false)
+    if self.PanelCharecterNext then
+        self.PanelCharecterNext.gameObject:SetActiveEx(false)
+    end
     XTool.InitUiObjectByUi(self.Character, self.PanelCharecter)
     local buffScript = require("XUi/XUiSuperSmashBros/Common/XUiSSBPanelMonsterBuffs")
     self.Buff = buffScript.New(self.Character.PanelBuff)
+    XUiHelper.RegisterClickEvent(self, self.BtnClick, function()
+        if not self.Monster then
+            return
+        end
+        local monsterGroupId = self.Monster:GetId()
+        local stageId = self._Mode:GetStageId(monsterGroupId)
+        local nextStageId = self._Mode:GetNextStageId()
+        if self._IsOut then
+            return
+        end
+        if self._Mode and self._Mode:IsCanChangeStage() and stageId == nextStageId then
+            XLuaUiManager.Open("UiSuperSmashBrosPick", self._Mode, nil, nil, true)
+            --XDataCenter.SuperSmashBrosManager.ChangeStage()
+        end
+    end)
 end
 
 function XUiSSBReadyEnemyGrid:Refresh(data)
+    ---@type XSmashBMonsterGroup
     self.Monster = data
     self:RefreshCharacter()
 end
@@ -26,6 +47,9 @@ function XUiSSBReadyEnemyGrid:RefreshCharacter()
     self.Character.RImgRole:SetRawImage(self.Monster:GetIcon())
     self.Character.ImgProgressHp.fillAmount = self.Monster:GetHpLeft() / 100
     self.Buff:SetBuff(self.Monster:GetBuffList())
+    if not self._IsOut and self.PanelOut then
+        self.PanelOut.gameObject:SetActiveEx(false)
+    end
 end
 
 function XUiSSBReadyEnemyGrid:SetOrder(order)
@@ -33,13 +57,16 @@ function XUiSSBReadyEnemyGrid:SetOrder(order)
 end
 
 function XUiSSBReadyEnemyGrid:SetReady(value)
-    self.PanelReady.gameObject:SetActiveEx(value)
+    if self.PanelReady then
+        self.PanelReady.gameObject:SetActiveEx(value)
+    end
 end
 
 function XUiSSBReadyEnemyGrid:SetOut(value)
     if value then
         self.PlayOut = true
     end
+    self._IsOut = value
 end
 
 function XUiSSBReadyEnemyGrid:SetWin(value)
@@ -50,19 +77,33 @@ end
 
 function XUiSSBReadyEnemyGrid:SetBan()
     self.PanelCharecter.gameObject:SetActiveEx(false)
-    self.PanelReady.gameObject:SetActiveEx(false)
-    self.PanelOut.gameObject:SetActiveEx(false)
-    self.PanelWin.gameObject:SetActiveEx(false)
-    self.PanelBan.gameObject:SetActiveEx(true)
+    if self.PanelReady then
+        self.PanelReady.gameObject:SetActiveEx(false)
+    end
+    if self.PanelOut then
+        self.PanelOut.gameObject:SetActiveEx(false)
+    end
+    if self.PanelWin then
+        self.PanelWin.gameObject:SetActiveEx(false)
+    end
+    if self.PanelBan then
+        self.PanelBan.gameObject:SetActiveEx(true)
+    end
 end
 
 function XUiSSBReadyEnemyGrid:SetNextEnemy(monsterGroup)
     if not monsterGroup then
-        self.PanelCharecterNext.gameObject:SetActiveEx(false)
+        if self.PanelCharecterNext then
+            self.PanelCharecterNext.gameObject:SetActiveEx(false)
+        end
         return
     end
-    self.PanelCharecterNext.gameObject:SetActiveEx(true)
-    self.RImgRoleNext:SetRawImage(monsterGroup:GetIcon())
+    if self.PanelCharecterNext then
+        self.PanelCharecterNext.gameObject:SetActiveEx(true)
+    end
+    if self.RImgRoleNext then
+        self.RImgRoleNext:SetRawImage(monsterGroup:GetIcon())
+    end
 end
 
 function XUiSSBReadyEnemyGrid:ShowPanel()
@@ -72,7 +113,9 @@ function XUiSSBReadyEnemyGrid:ShowPanel()
     self.GridPickEnemyWin:Stop()
     --self.PanelCharecterNextEnable:Stop()
     self.GridPickEnemyAlpha:Stop()
-    self.PanelWin.gameObject:SetActiveEx(false)
+    if self.PanelWin then
+        self.PanelWin.gameObject:SetActiveEx(false)
+    end
     self.GameObject:SetActiveEx(true)
 end
 
@@ -118,7 +161,9 @@ function XUiSSBReadyEnemyGrid:OnSwitchFinished()
         cb()
         self:ResetPanelCharacterAlpha()
         self.GridPickEnemyOut:Stop()
-        self.PanelOut.gameObject:SetActiveEx(false)
+        if self.PanelOut then
+            self.PanelOut.gameObject:SetActiveEx(false)
+        end
     end
 end
 

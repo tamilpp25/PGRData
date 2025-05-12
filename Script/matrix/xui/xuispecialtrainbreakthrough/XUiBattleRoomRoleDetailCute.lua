@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiBattleRoomRoleGridCute = require("XUi/XUiSpecialTrainBreakthrough/XUiBattleRoomRoleGridCute")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 local XUiBattleRoomRoleDetailDefaultProxy = require("XUi/XUiNewRoomSingle/XUiBattleRoomRoleDetailDefaultProxy")
@@ -88,7 +89,7 @@ function XUiBattleRoomRoleDetailCute:RegisterUiEvents()
     self:RegisterClickEvent(
         self.BtnEnterFight,
         function()
-            if self:isSameRole() then
+            if self:IsSameRole() then
                 return
             end
             self:JoinTeam()
@@ -156,6 +157,7 @@ function XUiBattleRoomRoleDetailCute:RefreshModel(robotId)
     local sourceEntityId = characterViewModel:GetSourceEntityId()
     local robotConfig = XRobotManager.GetRobotTemplate(sourceEntityId)
     local characterId = XRobotManager.GetCharacterId(robotId)
+    local needDisplayController = XCharacterCuteConfig.GetNeedDisplayController(self.StageId)
     self.UiPanelRoleModel:UpdateCuteModel(
         robotId,
         characterId,
@@ -163,7 +165,7 @@ function XUiBattleRoomRoleDetailCute:RefreshModel(robotId)
         robotConfig.FashionId,
         robotConfig.WeaponId,
         finishedCallback,
-        true,
+        needDisplayController,
         self.PanelRoleModelGo,
         self.Name
     )
@@ -171,10 +173,10 @@ end
 
 function XUiBattleRoomRoleDetailCute:UpdateCurrentEntityId(value)
     self.CurrentEntityId = value
-    self.BtnEnterFight:SetDisable(self:isSameRole())
+    self.BtnEnterFight:SetDisable(self:IsSameRole())
 end
 
-function XUiBattleRoomRoleDetailCute:isSameRole()
+function XUiBattleRoomRoleDetailCute:IsSameRole()
     return self.CurrentEntityId == self.Team:GetEntityIdByTeamPos(self.Pos)
 end
 
@@ -190,11 +192,12 @@ function XUiBattleRoomRoleDetailCute:Close(updated)
 end
 
 function XUiBattleRoomRoleDetailCute:GetEntities()
-    local stageType = XFubenConfigs.GetStageType(self.StageId)
-    local robotIdList = XFubenConfigs.GetStageTypeRobot(stageType)
+    local stageId = self.StageId
+    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    local robotIdList = XFubenConfigs.GetStageTypeRobot(stageInfo.Type) or {}
     local robots = {}
     for _, robotId in ipairs(robotIdList) do
-        robots[#robots + 1] = XRobot.New(robotId)
+        robots[#robots + 1] = XRobotManager.GetRobotById(robotId)
     end
     return robots
 end
@@ -204,7 +207,11 @@ function XUiBattleRoomRoleDetailCute:OnModelLoadBegin()
 end
 
 function XUiBattleRoomRoleDetailCute:OnModelLoadCallback()
-    local actionArray = XFubenSpecialTrainConfig.GetModelRandomAction(self.UiPanelRoleModel:GetCurRoleName())
+    local needDisplayController = XCharacterCuteConfig.GetNeedDisplayController(self.StageId)
+    if not needDisplayController then
+        return
+    end
+    local actionArray = XCharacterCuteConfig.GetModelRandomAction(self.UiPanelRoleModel:GetCurRoleName())
     self.SpecialTrainActionRandom:SetAnimator(self.UiPanelRoleModel:GetAnimator(), actionArray, self.UiPanelRoleModel)
     self.SpecialTrainActionRandom:Play()
 end

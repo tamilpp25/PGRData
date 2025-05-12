@@ -1,10 +1,11 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --===========================================================================
  ---@desc 枢纽作战--次级作战界面
 --===========================================================================
 local XUiPivotCombatSecondary = XLuaUiManager.Register(XLuaUi, "UiPivotCombatSecondary")
 local XUiPivotCombatChapterGrid = require("XUi/XUiPivotCombat/XUiGrid/XUiPivotCombatChapterGrid")
 
-local MAX_STAGE_MEMBER = 3 --最大的关卡数量
+local MAX_STAGE_MEMBER = 5 --最大的关卡数量
 
 -- 滑动列表滑动类型
 local MovementType = {
@@ -51,12 +52,12 @@ function XUiPivotCombatSecondary:OnEnable()
     
     self.TxtTitleDate.text = self.Region:GetRegionLeftTime()
     self:RefreshEnergy()
-    
+    local stageNumbers = #self.StageList
     for index, stage in ipairs(self.StageList) do
         --超过了提供的最大关卡数量
-        if index > MAX_STAGE_MEMBER then break end
+        if index > stageNumbers then break end
         --关卡线 (1 ~ MAX_STAGE_MEMBER - 1)
-        if index < MAX_STAGE_MEMBER then
+        if index < stageNumbers then
             self["Line"..index].gameObject:SetActiveEx(stage:GetPassed())
         end
         

@@ -1,4 +1,4 @@
-XUiPanelSupport = XClass(nil, "XUiPanelSupport")
+local XUiPanelSupport = XClass(nil, "XUiPanelSupport")
 
 function XUiPanelSupport:Ctor(ui,parent)
     self.GameObject = ui.gameObject
@@ -48,7 +48,7 @@ function XUiPanelSupport:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -65,9 +65,9 @@ end
 function XUiPanelSupport:Refresh(AssistData)
     if AssistData then
         self.TxtLevel.text = AssistData.Level
-        self.Parent:SetUiSprite(self.ImgIcon, XDataCenter.CharacterManager.GetCharSmallHeadIcon(AssistData.CharacterId))
-        self.Parent:SetUiSprite(self.ImgRoleQulity, XCharacterConfigs.GetCharacterQualityIcon(AssistData.Quality))
-        self.TxtName.text = XCharacterConfigs.GetCharacterName(AssistData.CharacterId)
+        self.Parent:SetUiSprite(self.ImgIcon, XMVCA.XCharacter:GetCharSmallHeadIcon(AssistData.CharacterId))
+        self.Parent:SetUiSprite(self.ImgRoleQulity, XMVCA.XCharacter:GetCharacterQualityIcon(AssistData.Quality))
+        self.TxtName.text = XMVCA.XCharacter:GetCharacterName(AssistData.CharacterId)
         self.PanelHaveData.gameObject:SetActive(true)
         self.PanelNoData.gameObject:SetActive(false)
     else
@@ -75,3 +75,6 @@ function XUiPanelSupport:Refresh(AssistData)
         self.PanelNoData.gameObject:SetActive(true)
     end
 end
+
+
+return XUiPanelSupport

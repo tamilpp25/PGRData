@@ -1,5 +1,6 @@
+local XUiGridTeamRole = require("XUi/XUiRoomTeamPrefab/XUiGridTeamRole")
 local CSXTextManagerGetText = CS.XTextManager.GetText
-
+---@class XUiGridTeam
 local XUiGridTeam = XClass(nil, "XUiGridTeam")
 
 local MAX_TEAM_MEMBER = 3 --队员最大数量
@@ -18,6 +19,7 @@ function XUiGridTeam:Ctor(rootUi, ui, characterLimitType, limitBuffId, stageType
     self.LimitBuffId = limitBuffId
     self.TeamGridId = teamGridId
     self.StageId = stageId
+    self:OnAnimationSetChange()
 end
 
 function XUiGridTeam:RegisterClickEvent(uiNode, func)
@@ -49,9 +51,7 @@ function XUiGridTeam:AddListener()
     end
 
     local func
-    if self:IsChessPursuit() then
-        func = handler(self, self.OnChessPursuitBtnChoicesClick)
-    elseif self:IsPivotCombat() then
+    if self:IsPivotCombat() then
         func = handler(self, self.OnPivotCombatBtnChoicesClick)
     else
         func = handler(self, self.OnSelectCallback)
@@ -59,6 +59,7 @@ function XUiGridTeam:AddListener()
     self.ChoicesCallBack = func
 
     self:RegisterClickEvent(self.BtnChoices, self.OnBtnChoicesClick)
+    self.BtnAnimationSet.CallBack = handler(self, self.OnBtnAnimationSetClick)
 end
 
 function XUiGridTeam:InitFirstFightTabBtnGroup()
@@ -127,7 +128,7 @@ function XUiGridTeam:HandleCharacterType(teamData)
     local characterType = 0
     for _, charId in ipairs(teamData.TeamData) do
         if charId > 0 then
-            local charTemplate = XCharacterConfigs.GetCharacterTemplate(charId)
+            local charTemplate = XMVCA.XCharacter:GetCharacterTemplate(charId)
             if charTemplate then
                 characterType = charTemplate.Type
                 break
@@ -142,7 +143,7 @@ function XUiGridTeam:GetTeamIsMixType()
     local countDic = {}
     for _, charId in pairs(self.TeamData.TeamData) do
         if charId > 0 then
-            local charTemplate = XCharacterConfigs.GetCharacterTemplate(charId)
+            local charTemplate = XMVCA.XCharacter:GetCharacterTemplate(charId)
             if charTemplate then
                 countDic[charTemplate.Type] = true
             end
@@ -170,6 +171,10 @@ function XUiGridTeam:RefreshRoleGrid(pos)
     local characterLimitType = self.CharacterLimitType
     local limitBuffId = self.LimitBuffId
     grid:Refresh(pos, self.TeamData, characterLimitType, limitBuffId)
+end
+
+function XUiGridTeam:OnAnimationSetChange()
+    self.BtnAnimationSet.gameObject:SetActiveEx(XMVCA.XFuben:IsFightCgEnable())
 end
 
 function XUiGridTeam:SetSelectFasle(pos)
@@ -200,83 +205,59 @@ function XUiGridTeam:OnPivotCombatBtnChoicesClick()
             newTeamData[id] = entityId
         end
     end
-    local pivotStage = XDataCenter.PivotCombatManager.GetStage(self.StageId)
-    local isCenterStage = pivotStage and pivotStage:CheckIsScoreStage() or false
-    if lockTeamMembers >= teamMembers and teamMembers ~= 0 and not isCenterStage then
-        XUiManager.TipText("PivotCombatTeamPrefabLockTeam")
-        return
-    elseif lockTeamMembers > 0 and not isCenterStage then --被锁定角色大于0，且非积分关卡
-        local confirmCb = function()
-            local newTeam = XTool.Clone(self.TeamData)
-            newTeam.TeamData = newTeamData
+    local stage = XDataCenter.PivotCombatManager.GetStage(self.StageId)
+    local useLockRole = stage and stage:CanUseLockedRole() or false
+    if not useLockRole and lockTeamMembers > 0 then
+        if lockTeamMembers >= teamMembers and teamMembers ~= 0 then
+            XUiManager.TipText("PivotCombatTeamPrefabLockTeam")
+            return
+        else
+            local confirmCb = function()
+                local newTeam = XTool.Clone(self.TeamData)
+                newTeam.TeamData = newTeamData
 
-            local characterLimitType = self.CharacterLimitType
-            local characterType = self.CharacterType
+                local characterLimitType = self.CharacterLimitType
+                local characterType = self.CharacterType
 
-            local selectFunc = function()
-                XEventManager.DispatchEvent(XEventId.EVENT_TEAM_PREFAB_SELECT, newTeam)
-                self.RootUi:EmitSignal("RefreshTeamData", newTeam)
-                self.RootUi:Close(newTeam)
-            end
+                local selectFunc = function()
+                    XEventManager.DispatchEvent(XEventId.EVENT_TEAM_PREFAB_SELECT, newTeam)
+                    self.RootUi:EmitSignal("RefreshTeamData", newTeam)
+                    self.RootUi:Close(newTeam)
+                end
 
-            -- 混合类型
-            if self:GetTeamIsMixType() then
+                -- 混合类型
+                if self:GetTeamIsMixType() then
+                    if characterLimitType == XFubenConfigs.CharacterLimitType.Normal then
+                        XUiManager.TipText("TeamCharacterTypeNormalLimitText")
+                        return
+                    end
+                    if characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
+                        XUiManager.TipText("TeamCharacterTypeIsomerLimitText")
+                        return
+                    end
+                end
+
                 if characterLimitType == XFubenConfigs.CharacterLimitType.Normal then
-                    XUiManager.TipText("TeamCharacterTypeNormalLimitText")
-                    return
+                    if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
+                        XUiManager.TipText("TeamCharacterTypeNormalLimitText")
+                        return
+                    end
+                elseif characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
+                    if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
+                        XUiManager.TipText("TeamCharacterTypeIsomerLimitText")
+                        return
+                    end
                 end
-                if characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
-                    XUiManager.TipText("TeamCharacterTypeIsomerLimitText")
-                    return
-                end
-            end
 
-            if characterLimitType == XFubenConfigs.CharacterLimitType.Normal then
-                if characterType == XCharacterConfigs.CharacterType.Isomer then
-                    XUiManager.TipText("TeamCharacterTypeNormalLimitText")
-                    return
-                end
-            elseif characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
-                if characterType == XCharacterConfigs.CharacterType.Normal then
-                    XUiManager.TipText("TeamCharacterTypeIsomerLimitText")
-                    return
-                end
+                selectFunc()
             end
-
-            selectFunc()
+            local title = XUiHelper.GetText("BfrtDeployTipTitle")
+            local content = XUiHelper.GetText("PivotCombatTeamPrefabLockCharacter")
+            XUiManager.DialogTip(title, content, nil, nil, confirmCb)
         end
-        local title = XUiHelper.GetText("BfrtDeployTipTitle")
-        local content = XUiHelper.GetText("PivotCombatTeamPrefabLockCharacter")
-        XUiManager.DialogTip(title, content, nil, nil, confirmCb)
     else
         self:OnSelectCallback()
     end
-end
-
-function XUiGridTeam:OnChessPursuitBtnChoicesClick()
-    local isInOtherTeam = false
-    local isInOtherTeamTemp, teamGridIndex, teamIndex, inOtherTeamCharId
-    local teamData = XTool.Clone(self.TeamData.TeamData)
-    table.sort(teamData, function(charIdA, charIdB)
-        return charIdA < charIdB
-    end)
-    for _, charId in ipairs(teamData) do
-        isInOtherTeamTemp, teamGridIndex = XDataCenter.ChessPursuitManager.CheckIsInChessPursuit(nil, charId, self.TeamGridId)
-        if isInOtherTeamTemp then
-            inOtherTeamCharId = charId
-            isInOtherTeam = true
-            break
-        end
-    end
-    if isInOtherTeam then
-        local name = XCharacterConfigs.GetCharacterFullNameStr(inOtherTeamCharId)
-        local content = CSXTextManagerGetText("ChessPursuitUsePrefabTipsContent", name, teamGridIndex)
-        content = string.gsub(content, " ", "\u{00A0}") --不换行空格
-        XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, nil, function() self:OnSelectCallback() end)
-        return
-    end
-
-    self:OnSelectCallback()
 end
 
 function XUiGridTeam:OnBtnChoicesClick()
@@ -328,7 +309,9 @@ function XUiGridTeam:OnSelectCallback()
     local selectFunc = function()
         XEventManager.DispatchEvent(XEventId.EVENT_TEAM_PREFAB_SELECT, self.TeamData)
         self.RootUi:EmitSignal("RefreshTeamData", self.TeamData)
-        self.RootUi:Close(self.TeamData)
+        if XLuaUiManager.IsUiShow("UiRoomTeamPrefab") then
+            self.RootUi:Close(self.TeamData)
+        end
     end
 
     -- 混合类型
@@ -344,17 +327,17 @@ function XUiGridTeam:OnSelectCallback()
     end
 
     if characterLimitType == XFubenConfigs.CharacterLimitType.Normal then
-        if characterType == XCharacterConfigs.CharacterType.Isomer then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
             XUiManager.TipText("TeamCharacterTypeNormalLimitText")
             return
         end
     elseif characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
-        if characterType == XCharacterConfigs.CharacterType.Normal then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
             XUiManager.TipText("TeamCharacterTypeIsomerLimitText")
             return
         end
         -- elseif characterLimitType == XFubenConfigs.CharacterLimitType.IsomerDebuff then
-        --     if characterType == XCharacterConfigs.CharacterType.Isomer then
+        --     if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
         --         local buffDes = XFubenConfigs.GetBuffDes(limitBuffId)
         --         local content = CSXTextManagerGetText("TeamPrefabCharacterTypeLimitTipIsomerDebuff", buffDes)
         --         local sureCallBack = selectFunc
@@ -362,7 +345,7 @@ function XUiGridTeam:OnSelectCallback()
         --         return
         --     end
         -- elseif characterLimitType == XFubenConfigs.CharacterLimitType.NormalDebuff then
-        --     if characterType == XCharacterConfigs.CharacterType.Normal then
+        --     if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
         --         local buffDes = XFubenConfigs.GetBuffDes(limitBuffId)
         --         local content = CSXTextManagerGetText("TeamPrefabCharacterTypeLimitTipNormalDebuff", buffDes)
         --         local sureCallBack = selectFunc
@@ -400,7 +383,14 @@ function XUiGridTeam:OnBtnCoverClick()
     else
         teamData = XTool.Clone(team)
     end
-    if self:IsSameTeam(teamData) then
+    --判断出场设置有没有变化
+    local isAnimChange = false
+    if XMVCA.XFuben:IsFightCgEnable() then
+        if teamData.EnterCgIndex ~= self.TeamData.EnterCgIndex or teamData.SettleCgIndex ~= self.TeamData.SettleCgIndex then
+            isAnimChange = true
+        end
+    end
+    if self:IsSameTeam(teamData) and not isAnimChange then
         XUiManager.TipText("RoomTeamPrefabSameTeam")
     else
         XLuaUiManager.Open("UiPartnerPresetPopup", teamData, self.TeamData, true, handler(self, self.OnCoverCallback))
@@ -441,6 +431,8 @@ function XUiGridTeam:OnCoverCallback()
     self:HandleCharacterType(teamData)
     self.TeamData.CaptainPos = teamData.CaptainPos
     self.TeamData.FirstFightPos = teamData.FirstFightPos
+    self.TeamData.EnterCgIndex = teamData.EnterCgIndex or 0
+    self.TeamData.SettleCgIndex = teamData.SettleCgIndex or 0
     self.TeamData.TeamData = XTool.Clone(teamData.TeamData)
     self.PanelTabFirstFight:SelectIndex(self.TeamData.FirstFightPos)
     self:RefreshTeamRoles()
@@ -448,6 +440,12 @@ function XUiGridTeam:OnCoverCallback()
     partnerPrefab:CoverByTeam(self.TeamData.TeamData)
     XDataCenter.TeamManager.SetPlayerTeam(self.TeamData, true)
     
+end
+
+function XUiGridTeam:OnBtnAnimationSetClick()
+    XLuaUiManager.OpenWithCloseCallback("UiPopupAnimationSet", function()
+        XDataCenter.TeamManager.SetPlayerTeam(self.TeamData, true)
+    end, self.TeamData)
 end
 
 --===========================================================================
@@ -503,10 +501,6 @@ function XUiGridTeam:IsSameTeam(teamData)
     end
     
     return true
-end
-
-function XUiGridTeam:IsChessPursuit()
-    return self.StageType == XDataCenter.FubenManager.StageType.ChessPursuit
 end
 
 --==============================

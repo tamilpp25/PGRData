@@ -1,9 +1,18 @@
+---@class XArchiveCommunicationEntity
 local XArchiveCommunicationEntity = XClass(nil, "XArchiveCommunicationEntity")
 
 function XArchiveCommunicationEntity:Ctor(id)
     self.Id = id
     self.IsLock = true
     self.LockDesc = ""
+end
+
+function XArchiveCommunicationEntity:SetIsLock(isLock)
+    self.IsLock = isLock
+end
+
+function XArchiveCommunicationEntity:SetLockDesc(lockDesc)
+    self.LockDesc = lockDesc
 end
 
 function XArchiveCommunicationEntity:UpdateData(playerData)
@@ -13,7 +22,7 @@ function XArchiveCommunicationEntity:UpdateData(playerData)
 end
 
 function XArchiveCommunicationEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveCommunicationsConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveCommunicationsConfigById(self.Id)
 end
 
 function XArchiveCommunicationEntity:GetId()

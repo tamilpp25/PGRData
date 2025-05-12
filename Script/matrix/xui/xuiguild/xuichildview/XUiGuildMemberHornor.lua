@@ -1,3 +1,4 @@
+local XDynamicTableCurve = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableCurve")
 local XUiGuildMemberHornor = XClass(nil, "XUiGuildMemberHornor")
 local XUiGridGuildHornorMemberGroup = require("XUi/XUiGuild/XUiChildItem/XUiGridGuildHornorMemberGroup")
 local XUiGridGuildMemberCard = require("XUi/XUiGuild/XUiChildItem/XUiGridGuildMemberCard")

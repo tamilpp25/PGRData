@@ -1,21 +1,26 @@
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --
 -- Author: wujie
 -- Note: 图鉴意识一级界面
+---@class XUiArchiveAwareness: XLuaUi
+---@field private _Control XArchiveControl
 local XUiArchiveAwareness = XLuaUiManager.Register(XLuaUi, "UiArchiveAwareness")
 
 local XUiGridArchiveAwareness = require("XUi/XUiArchive/XUiGridArchiveAwareness")
 local Object = CS.UnityEngine.Object
 local DrdSortIndexToType = {
-    XArchiveConfigs.EquipStarType.All,
-    XArchiveConfigs.EquipStarType.Two,
-    XArchiveConfigs.EquipStarType.Three,
-    XArchiveConfigs.EquipStarType.Four,
-    XArchiveConfigs.EquipStarType.Five,
-    XArchiveConfigs.EquipStarType.Six,
+    XEnumConst.Archive.EquipStarType.All,
+    XEnumConst.Archive.EquipStarType.Two,
+    XEnumConst.Archive.EquipStarType.Three,
+    XEnumConst.Archive.EquipStarType.Four,
+    XEnumConst.Archive.EquipStarType.Five,
+    XEnumConst.Archive.EquipStarType.Six,
 }
 
 local StarTypeToStarNum = function(type)
-    if type == XArchiveConfigs.EquipStarType.All then XLog.Error("StarType.All cannot be passed in") end
+    if type == XEnumConst.Archive.EquipStarType.All then XLog.Error("StarType.All cannot be passed in") end
     return type
 end
 
@@ -28,7 +33,7 @@ function XUiArchiveAwareness:OnAwake()
     self:InitDynamicTable()
     self:AutoAddListener()
 
-    self.EventIdAwarenessRedPoint = XRedPointManager.AddRedPointEvent(
+    self.EventIdAwarenessRedPoint = self:AddRedPointEvent(
     self.TabBtnGroup,
     self.OnCheckAwarenessRedPoint,
     self,
@@ -41,7 +46,6 @@ end
 function XUiArchiveAwareness:OnStart()
     self.IsStarAscendOrder = false
     self.SecondHierarchyFilterSelectIndex = self.DrdSort.value + 1
-    self.AwarenessDataDic = XArchiveConfigs.GetAwarenessTypeToGroupDatasDic()
 
     XRedPointManager.Check(self.EventIdAwarenessRedPoint)
     self:UpdateOrderStatus(self.IsStarAscendOrder)
@@ -60,12 +64,12 @@ function XUiArchiveAwareness:OnEnable()
 end
 
 function XUiArchiveAwareness:OnDestroy()
-    XDataCenter.ArchiveManager.HandleCanUnlockAwarenessSuit()
-    XDataCenter.ArchiveManager.HandleCanUnlockAwarenessSetting()
+    self._Control.AwarenessControl:HandleCanUnlockAwarenessSuit()
+    self._Control.AwarenessControl:HandleCanUnlockAwarenessSetting()
 end
 
 function XUiArchiveAwareness:InitTabBtnGroup()
-    self.GroupTypeList = XArchiveConfigs.GetAwarenessGroupTypes()
+    self.GroupTypeList = XMVCA.XArchive.AwarenessArchiveCom:GetAwarenessGroupTypes()
     self.BtnTypeList = {}
     self.TabBtnTypeDic = {}
     self.BtnAwareness.gameObject:SetActiveEx(false)
@@ -84,7 +88,7 @@ function XUiArchiveAwareness:InitTabBtnGroup()
 end
 
 function XUiArchiveAwareness:InitDrdSort()
-    local StarToQualityName = XArchiveConfigs.StarToQualityName
+    local StarToQualityName = self._Control:GetStarToQualityNameEnum()
     self.DrdSort:ClearOptions()
     local firstOptionType = DrdSortIndexToType[1]
     self.DrdSort.captionText.text = StarToQualityName[firstOptionType]
@@ -98,7 +102,7 @@ end
 
 function XUiArchiveAwareness:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelDynamicTable)
-    self.DynamicTable:SetProxy(XUiGridArchiveAwareness)
+    self.DynamicTable:SetProxy(XUiGridArchiveAwareness,self,handler(self, self.OnGridClick),self)
     self.DynamicTable:SetDelegate(self)
 end
 
@@ -123,12 +127,12 @@ end
 -- 第二层判断
 function XUiArchiveAwareness:SecondHierarchyFilter(firstHierarchyFilterDataList, filterType)
     local dataList = {}
-    if filterType == XArchiveConfigs.EquipStarType.All then
+    if filterType == XEnumConst.Archive.EquipStarType.All then
         return firstHierarchyFilterDataList
     else
         local filterStar = StarTypeToStarNum(filterType)
         for _, data in ipairs(firstHierarchyFilterDataList) do
-            if XDataCenter.EquipManager.GetSuitStar(data.Id) == filterStar then
+            if XMVCA.XEquip:GetSuitStar(data.Id) == filterStar then
                 table.insert(dataList, data)
             end
         end
@@ -145,8 +149,8 @@ function XUiArchiveAwareness:SortEquipDataList(dataList, isAscendOrder)
             local aId = aData.Id
             local bId = bData.Id
 
-            local aStar = XDataCenter.EquipManager.GetSuitStar(aId)
-            local bStar = XDataCenter.EquipManager.GetSuitStar(bId)
+            local aStar = XMVCA.XEquip:GetSuitStar(aId)
+            local bStar = XMVCA.XEquip:GetSuitStar(bId)
 
             if aStar == bStar then
                 return aId < bId
@@ -159,8 +163,8 @@ function XUiArchiveAwareness:SortEquipDataList(dataList, isAscendOrder)
             local aId = aData.Id
             local bId = bData.Id
 
-            local aStar = XDataCenter.EquipManager.GetSuitStar(aId)
-            local bStar = XDataCenter.EquipManager.GetSuitStar(bId)
+            local aStar = XMVCA.XEquip:GetSuitStar(aId)
+            local bStar = XMVCA.XEquip:GetSuitStar(bId)
 
 
             if aStar == bStar then
@@ -175,7 +179,7 @@ end
 function XUiArchiveAwareness:ResetDrdSort()
     local selectIndex = 1
     for index, filterType in ipairs(DrdSortIndexToType) do
-        if filterType == XArchiveConfigs.EquipStarType.All then
+        if filterType == XEnumConst.Archive.EquipStarType.All then
             selectIndex = index
             break
         end
@@ -207,13 +211,12 @@ function XUiArchiveAwareness:UpdateCollection()
     local collectionNum = 0
     local suitId
     local awarenessIdList
-    local isGetFunc = XDataCenter.ArchiveManager.IsAwarenessGet
     for _, groupData in ipairs(self.FirstHierarchyFilterDataList) do
         suitId = groupData.Id
-        awarenessIdList = XEquipConfig.GetEquipTemplateIdsBySuitId(suitId)
+        awarenessIdList = XMVCA.XEquip:GetSuitEquipIds(suitId)
         sumNum = sumNum + #awarenessIdList
-        for _, templateId in ipairs(awarenessIdList) do
-            if isGetFunc(templateId) then
+        for _, templateId in pairs(awarenessIdList) do
+            if XMVCA.XArchive.AwarenessArchiveCom:IsAwarenessGet(templateId) then
                 collectionNum = collectionNum + 1
             end
         end
@@ -224,15 +227,14 @@ function XUiArchiveAwareness:UpdateCollection()
         return
     end
 
-    local percentNum = XDataCenter.ArchiveManager.GetPercent(collectionNum * 100 / sumNum)
+    local percentNum = self._Control:GetPercent(collectionNum * 100 / sumNum)
     self.TxtCollectionRate.text = percentNum
 end
 
 -----------------------------------事件相关----------------------------------------->>>
 function XUiArchiveAwareness:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        grid:InitRootUi(self)
-        grid:SetClickCallback(handler(self, self.OnGridClick))
+
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         grid:Refresh(self.DynamicTableDataList, index)
     end
@@ -250,20 +252,21 @@ function XUiArchiveAwareness:OnTabBtnGroupClick(index)
         local oldFilterType = self.GroupTypeList[self.FirstHierarchyFilterSelectIndex] and
         self.GroupTypeList[self.FirstHierarchyFilterSelectIndex].GroupId or 0
         if oldFilterType ~= 0 then
-            XDataCenter.ArchiveManager.HandleCanUnlockAwarenessSuitByGetType(oldFilterType)
-            XDataCenter.ArchiveManager.HandleCanUnlockAwarenessSettingByGetType(oldFilterType)
+            self._Control.AwarenessControl:HandleCanUnlockAwarenessSuitByGetType(oldFilterType)
+            self._Control.AwarenessControl:HandleCanUnlockAwarenessSettingByGetType(oldFilterType)
         end
     end
 
     local filterType = self.GroupTypeList[index] and self.GroupTypeList[index].GroupId or 0
+    --- 第一层筛选，获取指定组的意识套装
     if filterType ~= 0 then
-        self.DynamicTableDataList = self:FirstHierarchyFilter(self.AwarenessDataDic, filterType)
+        self.DynamicTableDataList = self._Control.AwarenessControl:GetAwarenessTypeToGroupDatas(filterType) or {}
         self.FirstHierarchyFilterDataList = self.DynamicTableDataList
         self.FirstHierarchyFilterSelectIndex = index
 
         self:UpdateCollection()
 
-        if DrdSortIndexToType[self.SecondHierarchyFilterSelectIndex] == XArchiveConfigs.EquipStarType.All then
+        if DrdSortIndexToType[self.SecondHierarchyFilterSelectIndex] == XEnumConst.Archive.EquipStarType.All then
             self:SortEquipDataList(self.DynamicTableDataList, self.IsStarAscendOrder)
             self:UpdateDynamicTable()
         else
@@ -295,16 +298,16 @@ end
 function XUiArchiveAwareness:OnCheckAwarenessRedPoint()
     local btn
     local isShowTag
-    for type, _ in pairs(self.AwarenessDataDic) do
+    for type, _ in pairs(self._Control.AwarenessControl:GetAwarenessGroupTypeCfgs()) do
         btn = self.TabBtnTypeDic[type]
         if btn then
-            isShowTag = XDataCenter.ArchiveManager.IsHaveNewAwarenessSuitByGetType(type)
+            isShowTag = self._Control.AwarenessControl:IsHaveNewAwarenessSuitByGetType(type)
             if isShowTag then
                 btn:ShowTag(true)
                 btn:ShowReddot(false)
             else
                 btn:ShowTag(false)
-                btn:ShowReddot(XDataCenter.ArchiveManager.IsHaveNewAwarenessSettingByGetType(type))
+                btn:ShowReddot(self._Control.AwarenessControl:IsHaveNewAwarenessSettingByGetType(type))
             end
         end
     end

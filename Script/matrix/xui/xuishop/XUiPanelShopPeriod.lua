@@ -1,4 +1,4 @@
-XUiPanelShopPeriod = XClass(nil, "XUiPanelShopPeriod")
+local XUiPanelShopPeriod = XClass(nil, "XUiPanelShopPeriod")
 
 function XUiPanelShopPeriod:Ctor(ui, parent)
     self.GameObject = ui.gameObject
@@ -23,7 +23,7 @@ end
 function XUiPanelShopPeriod:OnBtnRefreshClick()
     XShopManager.RefreshShopGoods(self.ShopId, function()
         self:UpdateManualRefreshInfo()
-        self.Parent:RefreshBuy(false)
+        self.Parent:RefreshBuy(true)
     end)
     self.Parent:PlayAnimation("AnimQieHuan")
 end
@@ -85,9 +85,6 @@ function XUiPanelShopPeriod:UpdateManualRefreshInfo()
 end
 
 function XUiPanelShopPeriod:UpdateShopBuyInfo()
-    if not self.ShopId then
-        return
-    end
     local buyInfo = XShopManager.GetShopBuyInfo(self.ShopId)
     if not buyInfo then
         self.TxtAllLeftCout.gameObject:SetActive(false)
@@ -117,7 +114,7 @@ function XUiPanelShopPeriod:ShowTimer()
 
     if timeInfo.RefreshLeftTime and timeInfo.RefreshLeftTime > 0 then
         refreshFunc = function()
-            local dataTime = XUiHelper.GetTime(timeInfo.RefreshLeftTime, XUiHelper.TimeFormatType.SHOP)
+            local dataTime = XUiHelper.GetTime(timeInfo.RefreshLeftTime, XUiHelper.TimeFormatType.SHOP_REFRESH)
             self.TxtRefreshTime.text = CS.XTextManager.GetText("ShopAutoRefresh") .. dataTime
             timeInfo.RefreshLeftTime = timeInfo.RefreshLeftTime - 1
 
@@ -129,7 +126,7 @@ function XUiPanelShopPeriod:ShowTimer()
 
     if timeInfo.ClosedLeftTime and timeInfo.ClosedLeftTime > 0 then
         closedFunc = function()
-            local dataTime = XUiHelper.GetTime(timeInfo.ClosedLeftTime, XUiHelper.TimeFormatType.SHOP)
+            local dataTime = XUiHelper.GetTime(timeInfo.ClosedLeftTime, XUiHelper.TimeFormatType.SHOP_REFRESH)
             self.TxtLeftTime.text = CS.XTextManager.GetText("ActiveTime", dataTime)
             timeInfo.ClosedLeftTime = timeInfo.ClosedLeftTime - 1
 
@@ -157,14 +154,14 @@ function XUiPanelShopPeriod:ShowTimer()
         if timeInfo.ClosedLeftTime and not closedFunc then
             self:RemoveTimer()
             XShopManager.GetShopInfo(self.ShopId, function()
-                    self.Parent:RefreshBuy(false)
+                    self.Parent:RefreshBuy()
             end)
             return
         end
         if timeInfo.RefreshLeftTime and not refreshFunc then
            self:RemoveTimer()
             XShopManager.GetShopInfo(self.ShopId, function()
-                    self.Parent:RefreshBuy(false)
+                    self.Parent:RefreshBuy()
                     self:ShowTimer()
             end)
             return
@@ -184,3 +181,5 @@ end
 function XUiPanelShopPeriod:SetPanelActive()
     self.PanelTxt.gameObject:SetActive(self.TxtLeftTime.gameObject.activeSelf or self.TxtAllLeftCout.gameObject.activeSelf or self.TxtRefreshTime.gameObject.activeSelf or self.BtnRefresh.gameObject.activeSelf)
 end
+
+return XUiPanelShopPeriod

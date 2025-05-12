@@ -16,17 +16,33 @@ function XUiGridPhotographOtherBtn:RefrashFashion(data)
     self.TxtNor.text = fashionName
     self.TxtSel.text = fashionName
     self.TxtLock.text = fashionName
-    if not XDataCenter.FashionManager.CheckHasFashion(data) then
+    local status = XDataCenter.FashionManager.GetFashionStatus(data)
+    
+    if not (status == XDataCenter.FashionManager.FashionStatus.UnLock 
+            or status == XDataCenter.FashionManager.FashionStatus.Dressed) then
         self:SetLock()
     end
 end
 
 function XUiGridPhotographOtherBtn:RefrashAction(data, charData)
-    self.TxtNor.text = data.Name
-    self.TxtSel.text = data.Name
-    self.TxtLock.text = data.Name
-    self.Txtcondition.text = data.ConditionDescript
-    if charData.TrustLv < data.UnlockLv then
+    self.TxtNor.text = XMVCA.XFavorability:GetCharacterActionMapText(data.config.Name)
+    self.TxtSel.text = XMVCA.XFavorability:GetCharacterActionMapText(data.config.Name)
+    if self.TxtLock then
+        self.TxtLock.text = XMVCA.XFavorability:GetCharacterActionMapText(data.config.Name)
+    end
+    self.Txtcondition.text = XUiHelper.ConvertSpaceToLineBreak(XMVCA.XFavorability:GetCharacterActionMapText(data.config.ConditionDescript))
+
+    local tryFashionId
+    local trySceneId
+    if self.rootUi.RootUi then
+        tryFashionId = self.rootUi.RootUi.SelectFashionId
+        trySceneId = self.rootUi.RootUi.CurrSeleSceneId
+    else
+        tryFashionId = self.rootUi.FashionId
+        trySceneId = self.rootUi.CurrSeleSceneId
+    end
+
+    if not XMVCA.XFavorability:CheckTryCharacterActionUnlock(data, charData.TrustLv, tryFashionId, trySceneId) then
         self:SetLock()
     end
 end
@@ -38,7 +54,7 @@ end
 
 function XUiGridPhotographOtherBtn:OnActionTouched(data)
     self:SetSelect(true)
-    CsXGameEventManager.Instance:Notify(XEventId.EVENT_PHOTO_PLAY_ACTION, data.SignBoardActionId)
+    CsXGameEventManager.Instance:Notify(XEventId.EVENT_PHOTO_PLAY_ACTION, data.config.SignBoardActionId, data.config.Id)
 end
 
 function XUiGridPhotographOtherBtn:SetSelect(bool)

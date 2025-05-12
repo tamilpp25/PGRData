@@ -13,7 +13,7 @@ local Default = {
 }
 
 local GetDefaultRoleId = function()
-    local charList = XDataCenter.CharacterManager.GetOwnCharacterList(XCharacterConfigs.CharacterType.Normal)
+    local charList = XMVCA.XCharacter:GetOwnCharacterList(XEnumConst.CHARACTER.CharacterType.Normal)
     return charList[1]:GetId()
 end
 

@@ -1,4 +1,4 @@
-XUiPanelCollectionScrollPlayerInfo = XClass(nil, "XUiPanelCollectionScrollPlayerInfo")
+local XUiPanelCollectionScrollPlayerInfo = XClass(nil, "XUiPanelCollectionScrollPlayerInfo")
 
 local XUiCollectionWallOther = require("XUi/XUiCollectionWall/XUiCollectionWallOther")
 local XCollectionWall = require("XEntity/XCollectionWall/XCollectionWall")
@@ -116,3 +116,5 @@ function XUiPanelCollectionScrollPlayerInfo:Close()
     self.AppearanceSettingInfo = nil
     self.GameObject:SetActiveEx(false)
 end
+
+return XUiPanelCollectionScrollPlayerInfo

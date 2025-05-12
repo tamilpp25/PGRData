@@ -1,4 +1,4 @@
-XUiPanelChallengeTab = XClass(nil, "XUiPanelChallengeTab")
+local XUiPanelChallengeTab = XClass(nil, "XUiPanelChallengeTab")
 
 function XUiPanelChallengeTab:Ctor(ui, rootUi)
     self.GameObject = ui.gameObject

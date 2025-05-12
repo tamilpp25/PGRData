@@ -1,3 +1,4 @@
+---@class XArchiveMonsterDetailEntity
 local XArchiveMonsterDetailEntity = XClass(nil, "XArchiveMonsterDetailEntity")
 
 local EntityType = {
@@ -13,6 +14,14 @@ function XArchiveMonsterDetailEntity:Ctor(type,id)
     self.Type = type
 end
 
+function XArchiveMonsterDetailEntity:SetIsLock(isLock)
+    self.IsLock = isLock
+end
+
+function XArchiveMonsterDetailEntity:SetLockDesc(lockDesc)
+    self.LockDesc = lockDesc
+end
+
 function XArchiveMonsterDetailEntity:UpdateData(playerData)
     for key, value in pairs(playerData) do
         self[key] = value
@@ -21,11 +30,11 @@ end
 
 function XArchiveMonsterDetailEntity:GetCfg()
     if self.Type == EntityType.Info then
-        return XArchiveConfigs.GetArchiveMonsterInfoConfigById(self.Id)
+        return XMVCA.XArchive:GetArchiveMonsterInfoConfigById(self.Id)
     elseif self.Type == EntityType.Setting then
-        return XArchiveConfigs.GetArchiveMonsterSettingConfigById(self.Id)
+        return XMVCA.XArchive:GetArchiveMonsterSettingConfigById(self.Id)
     elseif self.Type == EntityType.Skill then
-        return XArchiveConfigs.GetArchiveMonsterSkillConfigById(self.Id)
+        return XMVCA.XArchive:GetArchiveMonsterSkillConfigById(self.Id)
     end
 end
 

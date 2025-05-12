@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildRecommendation = XLuaUiManager.Register(XLuaUi, "UiGuildRecommendation")
 local XUiGridRecommendationItem = require("XUi/XUiGuild/XUiChildItem/XUiGridRecommendationItem")
 local RefreshTime = 1000
@@ -52,7 +54,7 @@ function XUiGuildRecommendation:InitFun()
     self.RefreshTimerCb = function() self:RefreshTimerFun() end
     self:OnRefresh()
 
-    XRedPointManager.AddRedPointEvent(self.RedNews, self.OnCheckGuildRecruitList, self, { XRedPointConditions.Types.CONDITION_GUILD_NEWS })
+    self:AddRedPointEvent(self.RedNews, self.OnCheckGuildRecruitList, self, { XRedPointConditions.Types.CONDITION_GUILD_NEWS })
 end
 
 function XUiGuildRecommendation:OnCheckGuildRecruitList(count)
@@ -71,8 +73,11 @@ function XUiGuildRecommendation:OnStart()
     self.FirstRefresh = true
     --首次进入展示帮助
     if not XSaveTool.GetData(ShowGuildRecommendHelp) then
-        XSaveTool.SaveData(ShowGuildRecommendHelp, true)
-        XUiManager.ShowHelpTip("GuildRecommendHelp")
+        -- 引导状态下不需要显示
+        if not XDataCenter.GuideManager.CheckIsInGuide() then
+            XSaveTool.SaveData(ShowGuildRecommendHelp, true)
+            XUiManager.ShowHelpTip("GuildRecommendHelp")
+        end
     end
 end
 
@@ -174,13 +179,14 @@ function XUiGuildRecommendation:OnBtnSearchOfficeClick()
     self.RefreshTimer = XScheduleManager.ScheduleOnce(self.RefreshTimerCb,RefreshTime)
     self.IsDelayIng = true
     local str = self.InputField.text
-    if str == "" then
+    local id = tonumber(str)
+    if str == "" or string.Utf8Len(str) ~= 8 or (not id) then
         XUiManager.TipText("GuildRecommErrorTipsDes",XUiManager.UiTipType.Wrong)
         return
     end
     self.CurRefreshIndex = self.CurIndex
-    XDataCenter.GuildManager.GuildFind(str,function()
-        local datas = XDataCenter.GuildManager.GetGuildFindDatas(str)
+    XDataCenter.GuildManager.GuildFind(id, function()
+        local datas = XDataCenter.GuildManager.GetGuildFindDatas(id)
         if #datas <= 0 then
             XUiManager.TipMsg(CS.XTextManager.GetText("GuildSearchGuildNotFound"))
         end

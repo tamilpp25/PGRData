@@ -1,4 +1,5 @@
-XUiGridAttributeComparable = XClass(nil, "XUiGridAttributeComparable")
+local XUiGridAttribute = require("XUi/XUiDorm/XUiDormCommom/XUiGridAttribute")
+local XUiGridAttributeComparable = XClass(nil, "XUiGridAttributeComparable")
 
 function XUiGridAttributeComparable:Ctor(rootUi, ui)
     self.RootUi = rootUi

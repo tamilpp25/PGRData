@@ -78,7 +78,7 @@ end
 function XUiGridPartner:ShowOverviewInfo()
     self.RImgHeadIcon:SetRawImage(self.Data:GetIcon())
     self.PanelLevel:GetObject("TxtLevel").text = self.Data:GetLevel()
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.Data:GetQuality()))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(self.Data:GetQuality()))
     self.ImgLock.gameObject:SetActiveEx(self.Data:GetIsLock())
     self.ImgIsCarry.gameObject:SetActiveEx(self.Data:GetIsCarry())
     
@@ -95,7 +95,7 @@ end
 
 function XUiGridPartner:ShowComposeInfo()
     self.RImgHeadIcon:SetRawImage(self.Data:GetIcon())
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.Data:GetInitQuality()))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(self.Data:GetInitQuality()))
     self.PanelFragment:GetObject("TxtCurCount").text = self.Data:GetChipCurCount()
     self.PanelFragment:GetObject("TxtNeedCount").text = self.Data:GetChipNeedCount()
     

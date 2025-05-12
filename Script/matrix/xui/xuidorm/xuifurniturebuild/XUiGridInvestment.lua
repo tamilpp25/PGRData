@@ -1,10 +1,10 @@
+local XUiBtnTab = require("XUi/XUiBase/XUiBtnTab")
 -- 建造家具，家具币选择
-XUiGridInvestment = XClass(nil, "XUiGridInvestment")
+local XUiGridInvestment = XClass(nil, "XUiGridInvestment")
 
 local incresment = CS.XGame.ClientConfig:GetInt("FurnitureInvestmentIncreaseStep")
 
-function XUiGridInvestment:Ctor(rootUi, ui)
-    self.RootUi = rootUi
+function XUiGridInvestment:Ctor(ui)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     self.CurrentSum = 0
@@ -34,6 +34,7 @@ function XUiGridInvestment:OnBtnReduceClick()
     end
 
     self:SetSumText(self.CurrentSum)
+    self:UpdateInfos()
     self.Parent:UpdateTotalNum()
 end
 
@@ -44,18 +45,18 @@ function XUiGridInvestment:OnBtnAddClick()
         return
     end
 
-    if self.Parent:CheckCanAddSum() then
-        self.CurrentSum = self.CurrentSum + incresment
-        self:SetSumText(self.CurrentSum)
-        self.Parent:UpdateTotalNum()
-    else
-        local isEngouth = self.Parent:CheckInverstNum()
-        if isEngouth then
-            XUiManager.TipMsg(CS.XTextManager.GetText("FurnitureMaxCoin"))
-        else
-            XUiManager.TipMsg(CS.XTextManager.GetText("FurnitureZeroCoin"))
-        end
+    local checkAdd = self.Parent:CheckCanAddSum()
+    if not checkAdd then
+        local isEnough = self.Parent:CheckInvestNum()
+        local key = isEnough and "FurnitureMaxCoin" or "FurnitureZeroCoin"
+        XUiManager.TipText(key)
+        return
     end
+    
+    self.CurrentSum = self.CurrentSum + incresment
+    self:SetSumText(self.CurrentSum)
+    self:UpdateInfos()
+    self.Parent:UpdateTotalNum()
 end
 
 function XUiGridInvestment:OnBtnMaxClick()
@@ -64,20 +65,20 @@ function XUiGridInvestment:OnBtnMaxClick()
         XUiManager.TipMsg(CS.XTextManager.GetText("FurnitureSelectAType"))
         return
     end
+    
+    local checkAdd = self.Parent:CheckCanAddSum()
 
-    if self.Parent:CheckCanAddSum() then
-        local extraNum = self.Parent:GetPassableSum()
-        self.CurrentSum = self.CurrentSum + extraNum
-        self:SetSumText(self.CurrentSum)
-        self.Parent:UpdateTotalNum()
-    else
-        local isEngouth = self.Parent:CheckInverstNum()
-        if isEngouth then
-            XUiManager.TipMsg(CS.XTextManager.GetText("FurnitureMaxCoin"))
-        else
-            XUiManager.TipMsg(CS.XTextManager.GetText("FurnitureZeroCoin"))
-        end
+    if not checkAdd then
+        local isEnough = self.Parent:CheckInvestNum()
+        local key = isEnough and "FurnitureMaxCoin" or "FurnitureZeroCoin"
+        XUiManager.TipText(key)
+        return
     end
+    local extraNum = self.Parent:GetPassableSum()
+    self.CurrentSum = self.CurrentSum + extraNum
+    self:SetSumText(self.CurrentSum)
+    self:UpdateInfos()
+    self.Parent:UpdateTotalNum()
 end
 
 function XUiGridInvestment:RegisterListener(uiNode, eventName, func)
@@ -112,7 +113,7 @@ function XUiGridInvestment:Init(cfg, parent)
 
     self.CurrentSum = 0
     self:SetSumText(self.CurrentSum)
-    self.RootUi:SetUiSprite(self.ImgAttributeIcon, self.Cfg.TypeIcon)
+    self.ImgAttributeIcon:SetSprite(self.Cfg.TypeIcon)
     self.TxtAttributeName.text = self.Cfg.TypeName
 
     self:UpdateInfos()
@@ -121,13 +122,21 @@ end
 
 function XUiGridInvestment:UpdateInfos()
     if not self.Parent then return end
-
-    self.BtnReduce.interactable = not (self.CurrentSum <= 0)
+    if self.Parent and self.Parent.OnInvestmentChanged then
+        self.Parent:OnInvestmentChanged()
+    end
+    self.BtnReduce.interactable = self.CurrentSum > 0 and self.Parent:HasSelectType()
 end
 
 function XUiGridInvestment:SetBtnState(state)
     self.BtnAdd.interactable = state
     self.BtnMax.interactable = state
+end
+
+function XUiGridInvestment:ResetSum()
+    self.CurrentSum = 0
+    self:SetSumText(self.CurrentSum)
+    self:UpdateInfos()
 end
 
 function XUiGridInvestment:GetCostDatas()

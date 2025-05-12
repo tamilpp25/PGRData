@@ -1,5 +1,6 @@
 --猜拳小游戏管理器
 XFingerGuessingManagerCreator = function()
+    ---@class FingerGuessingManager
     local FingerGuessingManager = {}
     -- 出拳种类
     FingerGuessingManager.FINGER_TYPE = {
@@ -21,6 +22,7 @@ XFingerGuessingManagerCreator = function()
         OpenEyes = "FingerGuessingGameChangeCheatStatusRequest", -- 开启天眼
         FingerPlay = "FingerGuessingGamePlayerActionRequest", -- 出拳
     }
+    ---@type XFingerGuessingGameController
     local GameControl
     function FingerGuessingManager.Init()
         local XGame = require("XEntity/XMiniGame/FingerGuessing/XFingerGuessingGameController")
@@ -69,10 +71,6 @@ XFingerGuessingManagerCreator = function()
     --请求开始游戏
     --================    
     function FingerGuessingManager.StartGame(stage)
-        if stage:CheckIsFirstEntry() and not GameControl:CheckCoinEnough(stage:GetCostItemCount()) then
-            XUiManager.TipMsg(CS.XTextManager.GetText("FingerGuessCoinNotEnough"))
-            return
-        end
         XNetwork.Call(REQUEST_NAMES.StartGame, { StageId = stage:GetStageId()}, function(reply)
                 if reply.Code ~= XCode.Success then
                     XUiManager.TipCode(reply.Code)
@@ -126,13 +124,43 @@ XFingerGuessingManagerCreator = function()
     function FingerGuessingManager.GetStageByStageId(stageId)
         GameControl:GetStageByStageId()
     end
+    function FingerGuessingManager.GetFirstInKey()
+        return string.format("FingerGuessFirstIn_%s_%s", XPlayer.Id, GameControl:GetId())
+    end
     --================
     --判断是否第一次进入玩法(本地存储纪录)
     --================
     function FingerGuessingManager.GetIsFirstIn()
-        local localData = XSaveTool.GetData("FingerGuessFirstIn" .. XPlayer.Id)
-        if localData == nil then
-            XSaveTool.SaveData("FingerGuessFirstIn".. XPlayer.Id, true)
+        local key = FingerGuessingManager.GetFirstInKey()
+        local value = XSaveTool.GetData(key) or 0
+        if value == 0 then
+            XSaveTool.SaveData(key, 1)
+            return true
+        end
+        return false
+    end
+    function FingerGuessingManager.GetStartPlayMovieKey(stageId)
+        return string.format("FingerGuessingStartPlayMovie_%s_%s_%s", XPlayer.Id, GameControl:GetId(), stageId)
+    end
+    -- 判断是否第一次进入关卡
+    function FingerGuessingManager.GetIsFirstStartInStage(stageId)
+        local key = FingerGuessingManager.GetStartPlayMovieKey(stageId)
+        local value = XSaveTool.GetData(key) or 0
+        if value == 0 then
+            XSaveTool.SaveData(key, 1)
+            return true
+        end
+        return false
+    end
+    function FingerGuessingManager.GetEndPlayMovieKey(stageId)
+        return string.format("FingerGuessingEndPlayMovie_%s_%s_%s", XPlayer.Id, GameControl:GetId(), stageId)
+    end
+    -- 判断是否第一次结束关卡
+    function FingerGuessingManager.GetIsFirstEndInStage(stageId)
+        local key = FingerGuessingManager.GetEndPlayMovieKey(stageId)
+        local value = XSaveTool.GetData(key) or 0
+        if value == 0 then
+            XSaveTool.SaveData(key, 1)
             return true
         end
         return false

@@ -1,3 +1,4 @@
+local XUiGridAttribute = require("XUi/XUiDorm/XUiDormCommom/XUiGridAttribute")
 local stringFormat = string.format
 local XUiGridAttributeStage = XClass(nil, "XUiGridAttributeStage")
 

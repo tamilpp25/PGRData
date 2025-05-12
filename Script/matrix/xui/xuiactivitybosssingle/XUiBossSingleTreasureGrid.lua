@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiBossSingleTreasureGrid = XClass(nil, "XUiBossSingleTreasureGrid")
 
 function XUiBossSingleTreasureGrid:Ctor(ui)

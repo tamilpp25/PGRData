@@ -19,6 +19,10 @@ local function GetConfig(fashionId)
 end
 
 local function GetResConfig(fashionId)
+    if not XTool.IsNumberValid(fashionId) then
+        return {}
+    end
+
     local tab = WeaponFashionResTemplates[fashionId]
     if tab == nil then
         XLog.ErrorTableDataNotFound("XWeaponFashionConfigs.GetResConfig", "WeaponFashionRes", TABLE_WEAPON_FASHION_RES_PATH, "Id", tostring(fashionId))
@@ -97,7 +101,7 @@ function XWeaponFashionConfigs.GetFashionSkipIdParams(fashionId)
 end
 
 function XWeaponFashionConfigs.GetFashionPriority(fashionId)
-    return GetResConfig(fashionId).Priority
+    return GetResConfig(fashionId).Priority or 0
 end
 
 function XWeaponFashionConfigs.GetWeaponResonanceModelId(case, fashionId, resonanceCount)
@@ -105,6 +109,14 @@ function XWeaponFashionConfigs.GetWeaponResonanceModelId(case, fashionId, resona
     local config = GetResConfig(fashionId)
     local resonanceModelTransIds = config["ResonanceModelTransId" .. resonanceCount]
     return resonanceModelTransIds and resonanceModelTransIds[case] or config.ModelTransId[case]
+end
+
+-- 获取涂装模型Id列表
+function XWeaponFashionConfigs.GetWeaponResonanceModelIds(fashionId, resonanceCount)
+    resonanceCount = resonanceCount or 0
+    local config = GetResConfig(fashionId)
+    local resonanceModelTransIds = config["ResonanceModelTransId" .. resonanceCount]
+    return not XTool.IsTableEmpty(resonanceModelTransIds) and resonanceModelTransIds or config.ModelTransId
 end
 
 function XWeaponFashionConfigs.GetWeaponFashionResTemplates()
@@ -140,4 +152,9 @@ function XWeaponFashionConfigs.GetWeaponFashionResTemplatesInTime()
     end
 
     return weaponFashionResTemplateDic
+end
+
+function XWeaponFashionConfigs.IsWeaponFashion(fashionId)
+    local tab = WeaponFashionTemplates[fashionId]
+    return tab ~= nil
 end

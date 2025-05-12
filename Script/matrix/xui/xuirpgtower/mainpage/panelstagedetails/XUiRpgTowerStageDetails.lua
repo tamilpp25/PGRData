@@ -1,12 +1,15 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --兵法蓝图主界面：关卡详细面板
 local XUiRpgTowerStageDetails = XClass(nil, "XUiRpgTowerStageDetails")
 local XUiRpgTowerStageBuffPanel = require("XUi/XUiRpgTower/MainPage/PanelStageDetails/XUiRpgTowerStageBuffPanel")
 local XUiRpgTowerStageRewardsPanel = require("XUi/XUiRpgTower/MainPage/PanelStageDetails/XUiRpgTowerStageRewardsPanel")
+local TipLevelDialogKey = "TipLevelDialogKey"
+
 function XUiRpgTowerStageDetails:Ctor(ui, rootUi)
     XTool.InitUiObjectByUi(self, ui)
     self.RootUi = rootUi
     self.RewardsPanel = XUiRpgTowerStageRewardsPanel.New(self.PanelReward, self.RootUi)
-    self.BuffPanel = XUiRpgTowerStageBuffPanel.New(self.PanelBuff, self.RootUi)
+    self.BuffPanel = XUiRpgTowerStageBuffPanel.New(self.PanelBuff, self.RootUi, self)
     self.BtnEnter.CallBack = function() self:OnClickBtnEnter() end
     XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint)
     XUiHelper.RegisterClickEvent(self, self.BtnClose, function() self:HidePanel() end)
@@ -26,13 +29,26 @@ function XUiRpgTowerStageDetails:RefreshStage(rStage)
     self.RewardsPanel:RefreshRewards(rStage)
     self.BuffPanel:RefreshBuff(rStage)
 
+    -- 显示奖励就不显示积分
+    self.RewardsPanel.Transform.parent.gameObject:SetActiveEx(not rStage:GetIsShowScore())
 end
 --================
 --进入关卡按钮
 --================
 function XUiRpgTowerStageDetails:OnClickBtnEnter()
     local stageCfg = self.RootUi.RStage:GetStageCfg()
-    if XDataCenter.RpgTowerManager.GetCurrentLevel() < (self.RootUi.RStage:GetRecommendLevel() or 0) then
+    local isNewDayNoClicked = nil -- 今天没点击过
+    local updateTime = XSaveTool.GetData(TipLevelDialogKey)
+    if updateTime then
+        isNewDayNoClicked = XTime.GetServerNowTimestamp() > updateTime
+    else
+        isNewDayNoClicked = true
+    end
+
+    if XDataCenter.RpgTowerManager.GetCurrentLevel() < (self.RootUi.RStage:GetRecommendLevel() or 0) and isNewDayNoClicked then
+        local updateTime = XTime.GetSeverTomorrowFreshTime()
+        XSaveTool.SaveData(TipLevelDialogKey, updateTime)
+
         local tipTitle = CS.XTextManager.GetText("RpgTowerTeamLevelNotEnoughTitle")
         local tipContent = CS.XTextManager.GetText("RpgTowerTeamLevelNotEnoughContent")
         XLuaUiManager.Open("UiDialog", tipTitle, tipContent, XUiManager.DialogType.Normal, nil, function()

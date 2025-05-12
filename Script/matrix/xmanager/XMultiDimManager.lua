@@ -147,25 +147,6 @@ XMultiDimManagerCreator = function()
     local _CloseStartHour = XMultiDimConfig.GetMultiDimConfigValue("MultiFubenCloseStartHour")
     local _CloseEndHour = XMultiDimConfig.GetMultiDimConfigValue("MultiFubenCloseEndHour")
     
-    -- 设置关卡类型    
-    function XMultiDimManager.InitStageInfo()
-        -- 多维挑战多人
-        local stageIds = XMultiDimConfig.GetMultiDimDifficultyStageId()
-        for _, stageId in pairs(stageIds) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-            if stageInfo then
-                stageInfo.Type = XDataCenter.FubenManager.StageType.MultiDimOnline
-            end
-        end
-        local stageDatas = XMultiDimConfig.GetMultiSingleStageDatas()
-        for stageId, value in pairs(stageDatas) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-            if stageInfo then
-                stageInfo.Type = XDataCenter.FubenManager.StageType.MultiDimSingle
-            end
-        end
-    end
-    
     function XMultiDimManager.IsMultiDimStage(stageId)
         local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
         return stageInfo.Type == XDataCenter.FubenManager.StageType.MultiDimSingle or stageInfo.Type == XDataCenter.FubenManager.StageType.MultiDimOnline

@@ -1,3 +1,7 @@
+local XUiPanelArea = require("XUi/XUiMission/XUiPanelArea")
+local XUiPanelMissionGrid = require("XUi/XUiMission/XUiPanelMissionGrid")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMission = XLuaUiManager.Register(XLuaUi, "UiMission")
 
 function XUiMission:OnAwake()
@@ -276,7 +280,7 @@ function XUiMission:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

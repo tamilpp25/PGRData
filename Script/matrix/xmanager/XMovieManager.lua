@@ -9,26 +9,42 @@ local CSMovieXMovieManagerInstance = CS.Movie.XMovieManager.Instance
 local UI_MOVIE = "UiMovie"
 local RESOLUTION_RATIO = CS.XResolutionManager.OriginWidth / CS.XResolutionManager.OriginHeight / CS.XUiManager.DefaultScreenRatio
 local TIMELINE_SECONDS_TRANS = 1 / 60
+local DEFAULT_SPEED = 1
 local DisableFunction = false     --功能屏蔽标记（调试模式时使用）
-local CurrentAction = nil
+local CurrentAction = nil;
 
 local ActionClass = {
     [101] = require("XMovieActions/XMovieActionBgSwitch"), --背景切换
     [102] = require("XMovieActions/XMovieActionTheme"), --章节主题
     [103] = require("XMovieActions/XMovieActionBgScale"), --背景缩放位置调整
     [104] = require("XMovieActions/XMovieActionBgMoveAnimation"), --背景位移动画
+    [105] = require("XMovieActions/XMovieActionSpineAnim"), --Spine动画加载
+    [106] = require("XMovieActions/XMovieActionPlaySpineAnim"), --Spine动画播放
+    [107] = require("XMovieActions/XMovieActionLeftTitleAppear"), --左边标题出现
+    [108] = require("XMovieActions/XMovieActionLeftTitleDisappear"), --左边标题消失
+    [109] = require("XMovieActions/XMovieActionTextAppear"), -- 文本出现
+    [110] = require("XMovieActions/XMovieActionTextDisAppear"), -- 文本消失
+    [111] = require("XMovieActions/XMovieActionBgEffect"), -- 背景特效
 
     [201] = require("XMovieActions/XMovieActionActorAppear"), --演员出现
     [202] = require("XMovieActions/XMovieActionActorDisappear"), --演员消失
     [203] = require("XMovieActions/XMovieActionActorShift"), --演员位移
     [204] = require("XMovieActions/XMovieActionActorChangeFace"), --演员表情
     [205] = require("XMovieActions/XMovieActionActorAlphaChange"), --演员背景
+    [211] = require("XMovieActions/XMovieActionSpineActorAppear"), --spine演员出现
+    [212] = require("XMovieActions/XMovieActionSpineActorDisappear"), --spine演员消失
+    [213] = require("XMovieActions/XMovieActionSpineActorShift"), --spine演员位移
+    [214] = require("XMovieActions/XMovieActionSpineActorChangeAnim"), --spine演员切换动画
+    [215] = require("XMovieActions/XMovieActionSpineActorAnimationPlay"), --spine演员预置的UI动画播放
 
     [301] = require("XMovieActions/XMovieActionDialog"), --普通对话
     [302] = require("XMovieActions/XMovieActionSelection"), --选择分支对话
     [303] = require("XMovieActions/XMovieActionDelaySkip"), --延迟跳转
     [304] = require("XMovieActions/XMovieActionFullScreenDialog"), --全屏字幕
     [305] = require("XMovieActions/XMovieActionYieldResume"), --挂起/恢复
+    [306] = require("XMovieActions/XMovieActionRoleMask"), --上下遮罩动画
+    [307] = require("XMovieActions/XMovieActionCenterTips"), --居中提示文本
+    [308] = require("XMovieActions/XMovieActionAutoSkip"), --自动跳转节点
 
     [401] = require("XMovieActions/XMovieActionSoundPlay"), --BGM/CV/音效 播放
     [402] = require("XMovieActions/XMovieActionAudioInterrupt"), --BGM/CV/音效 打断
@@ -43,6 +59,7 @@ local ActionClass = {
     [508] = require("XMovieActions/XMovieActionInsertTipDisappear"), --中间横幅消失
     [509] = require("XMovieActions/XMovieActionShowInsertPanel"), --显示两边插入分屏
     [510] = require("XMovieActions/XMovieActionHideInsertPanel"), --隐藏插入分屏
+    [511] = require("XMovieActions/XMovieActionEffectMove"), --特效位移
 
     [601] = require("XMovieActions/XMovieActionStaff"), --staff职员表
 
@@ -83,6 +100,7 @@ XMovieManagerCreator = function()
     local IsPause = false
     local YieldCallBack
     local MovieBackStack = XStack.New()
+    local Speed = 1 -- 自动播放的倍速
 
     local function InitMovieActions(movieId)
         local movieActions = {}
@@ -143,6 +161,12 @@ XMovieManagerCreator = function()
         return index
     end
 
+    local function ReleaseAll(isRelease)
+        if (not CS.XFight.IsRunning) and isRelease then
+            CsXUiManager.Instance:ReleaseAll(CsXUiType.Normal)
+        end
+    end
+
     local function OnPlayBegin(movieId, hideSkipBtn,isRelease)
         CurPlayingMovieId = movieId
         CurPlayingActionIndex = 1
@@ -156,9 +180,7 @@ XMovieManagerCreator = function()
 
         if XLuaUiManager.IsUiShow(UI_MOVIE) then return end
 
-        if (not CS.XFight.IsRunning) and isRelease then
-            CsXUiManager.Instance:ReleaseAll(CsXUiType.Normal)
-        end
+        ReleaseAll(isRelease)
 
         XLuaUiManager.Open(UI_MOVIE, hideSkipBtn)
     end
@@ -168,6 +190,7 @@ XMovieManagerCreator = function()
         local dict = {}
         dict["story_id"] = CurPlayingMovieId
         dict["role_level"] = XPlayer.GetLevel()
+        dict["sex"] = XPlayer.Gender or 0
         CS.XRecord.Record(dict, "200002", "StorylineEnd")
         
         if not CS.XFight.IsRunning then
@@ -272,6 +295,7 @@ XMovieManagerCreator = function()
 
             action = WaitToPlayList[CurPlayingActionIndex]
             CurrentAction = action
+            action:OnReset()
             if not action then
                 OnPlayEnd()
                 return
@@ -281,6 +305,7 @@ XMovieManagerCreator = function()
         action:ChangeStatus()
     end
 
+    ---@class XMovieManager
     local XMovieManager = {}
 
     function XMovieManager.Init()
@@ -302,25 +327,52 @@ XMovieManagerCreator = function()
         YieldCallBack = yieldCb
         OnPlayBegin(movieId, hideSkipBtn,isRelease)
     end
-
-    function XMovieManager.PlayMovie(movieId, cb, yieldCb, hideSkipBtn,isRelease)
-        if DisableFunction or XUiManager.IsHideFunc then
-            XLog.Warning(string.format("已跳过剧情%s", movieId))
-            if cb then cb() end
-            return
-        end
-        local dict = {}
-        if isRelease == nil then
-            isRelease = true
-        end
-        dict["story_id"] = movieId
-        dict["role_level"] = XPlayer.GetLevel()
-        CS.XRecord.Record(dict, "200001", "StorylineStart")
-        movieId = tostring(movieId)
+    
+    --检查剧情存在
+    function XMovieManager.CheckMovieExist(movieId)
         if XMovieConfigs.CheckMovieConfigExist(movieId) then
-            PlayNewMovie(movieId, cb, yieldCb, hideSkipBtn, isRelease)
+            return true
+        end
+        if CSMovieXMovieManagerInstance:CheckMovieExist(movieId) then
+            return true
+        end
+        return false
+    end
+
+    -- 是否跳过剧情播放
+    function XMovieManager.IsSkipMovie()
+        return DisableFunction or XUiManager.IsHideFunc
+    end
+    
+    function XMovieManager.PlayMovie(movieId, cb, yieldCb, hideSkipBtn,isRelease)
+        local fun = function ()
+            if isRelease == nil then
+                isRelease = true
+            end
+            if XMovieManager.IsSkipMovie() then
+                XLog.Warning(string.format("已跳过剧情%s", movieId))
+                if cb then cb() end
+                return
+            end
+            local dict = {}
+            dict["story_id"] = movieId
+            dict["role_level"] = XPlayer.GetLevel()
+            dict["sex"] = XPlayer.Gender or 0
+            CS.XRecord.Record(dict, "200001", "StorylineStart")
+            movieId = tostring(movieId)
+            XMVCA.XMovie:RequestMovieOptions(movieId)
+            if XMovieConfigs.CheckMovieConfigExist(movieId) then
+                PlayNewMovie(movieId, cb, yieldCb, hideSkipBtn, isRelease)
+            else
+                PlayOldMovie(movieId, cb)
+            end
+        end
+
+        local stageId = XMVCA.XFuben:GetStageIdByBeginStoryId(movieId)
+        if XTool.IsNumberValid(stageId) then
+            XMVCA.XSubPackage:CheckStageIdResIdListDownloadComplete(stageId, fun)
         else
-            PlayOldMovie(movieId, cb)
+            fun()
         end
     end
 
@@ -355,6 +407,19 @@ XMovieManagerCreator = function()
             end
         end
         XEventManager.DispatchEvent(XEventId.EVENT_MOVIE_BREAK_BLOCK)
+    end
+    
+    -- 获取当前播放的Action下标
+    function XMovieManager.GetCurPlayingActionIndex()
+        return CurPlayingActionIndex
+    end
+
+    -- 获取当前播放的Action类型
+    function XMovieManager.GetCurPlayingActionType()
+        local curAction = WaitToPlayList[CurPlayingActionIndex]
+        if curAction then
+            return curAction:GetType()
+        end
     end
 
     local function IsPlayingNewMovie()
@@ -422,13 +487,16 @@ XMovieManagerCreator = function()
         DoAction()
     end
 
-    function XMovieManager.PushInReviewDialogList(roleName, dialogContent)
+    function XMovieManager.PushInReviewDialogList(roleName, dialogContent,cueId)
         roleName = roleName and roleName ~= "" and roleName .. ":  " or ""
-        dialogContent = dialogContent and dialogContent ~= "" and '"' .. dialogContent .. '"' or ""
-
+        if not string.IsNilOrEmpty(roleName) then
+            dialogContent = dialogContent and dialogContent ~= "" and dialogContent or ""
+        end
+        
         local data = {
             RoleName = roleName,
             Content = dialogContent,
+            CueId = cueId
         }
         tableInsert(ReviewDialogList, data)
     end
@@ -456,8 +524,20 @@ XMovieManagerCreator = function()
     function XMovieManager.SwitchAutoPlay()
         AutoPlay = not AutoPlay
         local action = WaitToPlayList[CurPlayingActionIndex]
-        if action and action:CanContinue() then
+        if action then
             XEventManager.DispatchEvent(XEventId.EVENT_MOVIE_AUTO_PLAY, AutoPlay)
+        end
+
+        -- 打点
+        local dict = {}
+        dict["story_id"] = CurPlayingMovieId
+        dict["role_level"] = XPlayer.GetLevel()
+        dict["speed"] = Speed
+        dict["sex"] = XPlayer.Gender or 0
+        if AutoPlay then
+            CS.XRecord.Record(dict, "200011", "StoryAutoplayStart")
+        else
+            CS.XRecord.Record(dict, "200012", "StoryAutoplayEnd")
         end
     end
 
@@ -496,12 +576,38 @@ XMovieManagerCreator = function()
         XMovieConfigs.DeleteMovieCfgs()
     end
 
-    function XMovieManager.GetMovieDescription()
-        return XMovieConfigs.GetMovieSkipSkipDesc(CurPlayingMovieId)
+    function XMovieManager.TryGetMovieSkipSummaryCfg()
+        return XMovieConfigs.TryGetMovieSkipSummaryCfg(CurPlayingMovieId)
+    end
+    
+    --- 针对传入的文本，根据玩家当前的性别类型进行处理，返回处理过后的文本
+    function XMovieManager.GetSummaryContentByGenderCheck(content)
+        -- 这里写死了标签与性别ID的映射，若后期需要走配置，则需要调整这里的逻辑
+        if XPlayer.Gender == 0 or XPlayer.Gender == XEnumConst.PLAYER.GENDER_TYPE.MAN or XPlayer.Gender == XEnumConst.PLAYER.GENDER_TYPE.SECRECY then
+            -- 未配置、男、保密，均按男的文本
+            -- 将由女性标签包围的连续字符串，或男性标签字符串替换为空
+            local result = string.gsub(content, '<W>.-</W>', '')
+            result = string.gsub(result, '<M>', '')
+            result = string.gsub(result, '</M>', '')
+            return result
+        else
+            -- 将由男性标签包围的连续字符串，或女性标签字符串替换为空
+            local result = string.gsub(content, '<M>.-</M>', '')
+            result = string.gsub(result, '<W>', '')
+            result = string.gsub(result, '</W>', '')
+            return result
+        end
     end
 
     function XMovieManager.GetCurPlayingMovieId()
         return CurPlayingMovieId
+    end
+    
+    function XMovieManager:GetCurPlayingActionId()
+        if CurrentAction then
+            return CurrentAction:GetActionId()
+        end
+        return 0
     end
 
     --检测功能开关
@@ -512,6 +618,38 @@ XMovieManagerCreator = function()
     function XMovieManager.ChangeFuncDisable(state)
         DisableFunction = state
         XSaveTool.SaveData(XPrefs.StoryTrigger, DisableFunction)
+    end
+
+    -- 设置倍速
+    function XMovieManager.SetSpeed(speed)
+        Speed = speed
+
+        -- 打点
+        local dict = {}
+        dict["story_id"] = CurPlayingMovieId
+        dict["role_level"] = XPlayer.GetLevel()
+        dict["speed"] = Speed
+        dict["sex"] = XPlayer.Gender or 0
+        CS.XRecord.Record(dict, "200013", "StoryAutoplayChangeSpeed")
+    end
+
+    -- 获取倍速
+    function XMovieManager.GetSpeed()
+        if AutoPlay then
+            return Speed
+        else
+            return DEFAULT_SPEED
+        end
+    end
+
+    -- 重置速度
+    function XMovieManager.RestSpeed()
+        Speed = DEFAULT_SPEED
+    end
+
+    -- 当前是否加速
+    function XMovieManager.IsSpeedUp()
+        return Speed ~= DEFAULT_SPEED and AutoPlay
     end
 
     XMovieManager.Init()

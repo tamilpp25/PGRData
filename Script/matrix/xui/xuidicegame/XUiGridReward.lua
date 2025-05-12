@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridReward = XClass(nil, "XUiGridReward")
 
 XUiGridReward.ViewState = {

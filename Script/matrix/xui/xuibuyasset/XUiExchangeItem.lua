@@ -39,31 +39,9 @@ function XUiExchangeItem:SetData(data, targetId, buyTime)
     self.TxtCostCount.text = data.CostCount
     self.TxtCurrentCount.text = XDataCenter.ItemManager.GetCount(data.TemplateId)
     self.RImgIcon:SetRawImage(data.CustomIcon or XEntityHelper.GetItemIcon(data.TemplateId))
-    if self.Data.TemplateId and self.Data.TemplateId == 3 then --这里的3是指黑卡
-        self:ShowSpecialRegulationForJP() --日服特定商吸引法弹窗链接显示
-    end
 end
 
 --######################## 私有方法 ########################
-
-function XUiExchangeItem:ShowSpecialRegulationForJP() --海外修改
-    local isShow = CS.XGame.ClientConfig:GetInt("ShowRegulationEnable")
-    if isShow and isShow == 1 then
-        local url = CS.XGame.ClientConfig:GetString("RegulationPrefabUrl")
-        if url then
-            local obj = self.CardImg.transform:LoadPrefab(url)
-            local data = {type = 1,consumeId = 3}
-            self.ShowSpecialRegBtn = obj.transform:GetComponent("XHtmlText")
-            self.ShowSpecialRegBtn.text = CSXTextManagerGetText("JPBusinessLawsDetailsEnter")
-            self.ShowSpecialRegBtn.HrefUnderLineColor = CS.UnityEngine.Color(1, 45 / 255, 45 / 255, 1)
-            self.ShowSpecialRegBtn.transform.localPosition = CS.UnityEngine.Vector3(132, -86, 0)
-            self.ShowSpecialRegBtn.fontSize = 30
-            self.ShowSpecialRegBtn.HrefListener = function(link)
-                XLuaUiManager.Open("UiSpecialRegulationShow",data)
-            end
-        end
-    end
-end
 
 function XUiExchangeItem:RegisterUiEvents()
     XUiHelper.RegisterClickEvent(self, self.BtnBuy, self.OnBtnBuyClicked)
@@ -71,10 +49,6 @@ function XUiExchangeItem:RegisterUiEvents()
 end
 
 function XUiExchangeItem:OnBtnBuyClicked()
-    -- if self.Data.TemplateId and self.Data.TemplateId ~= 3 then --这里的3是指黑卡
-    --     XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.LB, nil, 1)
-    --     return
-    -- end
     local itemManager = XDataCenter.ItemManager
     -- todo 购买前各种判断
     local currentExchangeData = itemManager.GetBuyAssetInfo(self.TargetId)
@@ -102,12 +76,7 @@ function XUiExchangeItem:OnBtnBuyClicked()
         if itemId == itemManager.ItemId.FreeGem or itemId == itemManager.ItemId.PaidGem
             or itemId == itemManager.ItemId.HongKa then
             -- 二次确认
-            -- BuyAssetHKNotEnoughTipsEN 
-            local textKey = "BuyAssetHKNotEnoughTips"
-            if itemId == itemManager.ItemId.HongKa then
-                textKey = "BuyAssetHKNotEnoughTipsEN"
-            end
-            XUiManager.DialogDragTip(XUiHelper.GetText("TipTitle"), XUiHelper.GetText(textKey, itemName), XUiManager.DialogType.Normal, nil
+            XUiManager.DialogDragTip(XUiHelper.GetText("TipTitle"), XUiHelper.GetText("BuyAssetHKNotEnoughTips", itemName), XUiManager.DialogType.Normal, nil
             , function ()
                 local skipParams = itemManager.GetItemSkipIdParams(itemId)
                 if skipParams then
@@ -122,7 +91,7 @@ function XUiExchangeItem:OnBtnBuyClicked()
     -- 正式开始购买
     local callback = function(targetId, targetCount)
         local name = itemManager.GetItemName(targetId)
-        local msg = string.format("%s %s", name, XUiHelper.GetText("BuySuccess"))
+        local msg = string.format("%s,%s%s%s%s", XUiHelper.GetText("BuySuccess"), XUiHelper.GetText("Acquire"), targetCount, XUiHelper.GetText("QuantifiersA"), name)
         XUiManager.TipMsg(msg, XUiManager.UiTipType.Tip)
         self:EmitSignal("BuySuccess")
     end
@@ -130,11 +99,7 @@ function XUiExchangeItem:OnBtnBuyClicked()
 end
 
 function XUiExchangeItem:OnBtnItemDetailClicked()
-    -- if self.Data.TemplateId and self.Data.TemplateId == 3 then --这里的3是指黑卡
-        XLuaUiManager.Open("UiTip", self.Data.TemplateId)
-    -- else
-    --     XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.LB, nil, 1)
-    -- end
+    XLuaUiManager.Open("UiTip", self.Data.TemplateId)
 end
 
 return XUiExchangeItem

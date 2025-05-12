@@ -1,3 +1,4 @@
+---@class XUiGridBabelChallengeItem
 local XUiGridBabelChallengeItem = XClass(nil, "XUiGridBabelChallengeItem")
 local UiButtonState = CS.UiButtonState
 

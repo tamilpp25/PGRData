@@ -127,15 +127,13 @@
             "S1",
             "S1"
         ],
-        "DefaultObstacleArea": [
-            "Upstairs"
-        ],
+        "DefaultObstacleArea": [],
         "DefaultDynamicObject": []
     },
     {
         "Id": 999199060,
-        "Name": "Scene02301",
-        "Info": 10170121,
+        "Name": "Scene03602",
+        "Info": 10270120,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -150,15 +148,13 @@
             "S1",
             "S1"
         ],
-        "DefaultObstacleArea": [
-            "Downstairs"
-        ],
+        "DefaultObstacleArea": [],
         "DefaultDynamicObject": []
     },
     {
         "Id": 999199070,
-        "Name": "Scene00303a",
-        "Info": 90090001,
+        "Name": "Scene01201",
+        "Info": 99919907,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -167,15 +163,13 @@
             "PB5"
         ],
         "LookPosition": [
-            "B102",
+            "S1",
             "S1",
             "S1",
             "S1",
             "S1"
         ],
-        "DefaultObstacleArea": [
-            "Downstairs"
-        ],
+        "DefaultObstacleArea": [],
         "DefaultDynamicObject": []
     },
     {
@@ -243,8 +237,29 @@
     },
     {
         "Id": 999199180,
-        "Name": "Scene00002a",
-        "Info": 10010101,
+        "Name": "Scene02402",
+        "Info": 30090676,
+        "BornPosition": [
+            "PB1",
+            "PB1",
+            "PB1",
+            "PB1",
+            "PB1"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199300,
+        "Name": "Scene00001Exb",
+        "Info": 30030101,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -263,29 +278,8 @@
         "DefaultDynamicObject": []
     },
     {
-        "Id": 999199300,
-        "Name": "Scene02503",
-        "Info": 99919930,
-        "BornPosition": [
-            "PB1",
-            "PB1",
-            "PB2",
-            "PB3",
-            "PB3"
-        ],
-        "LookPosition": [
-            "S1",
-            "S1",
-            "S1",
-            "S1",
-            "S1"
-        ],
-        "DefaultObstacleArea": [],
-        "DefaultDynamicObject": []
-    },
-    {
         "Id": 999199310,
-        "Name": "Scene02503",
+        "Name": "Scene03302",
         "Info": 99919930,
         "BornPosition": [
             "PB1",
@@ -306,8 +300,8 @@
     },
     {
         "Id": 999199320,
-        "Name": "Scene02605",
-        "Info": 10180112,
+        "Name": "Scene04003c",
+        "Info": 96992203,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -327,8 +321,8 @@
     },
     {
         "Id": 999199330,
-        "Name": "Scene01204",
-        "Info": 99919907,
+        "Name": "Scene01704",
+        "Info": 99919930,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -344,14 +338,14 @@
             "S1"
         ],
         "DefaultObstacleArea": [
-            "door"
+            "Lock01"
         ],
         "DefaultDynamicObject": []
     },
     {
         "Id": 999199340,
-        "Name": "Scene01106",
-        "Info": 10110204,
+        "Name": "Scene01704",
+        "Info": 99919930,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -366,13 +360,38 @@
             "S1",
             "S1"
         ],
-        "DefaultObstacleArea": [],
+        "DefaultObstacleArea": [
+            "Lock01"
+        ],
         "DefaultDynamicObject": []
     },
     {
         "Id": 999199350,
-        "Name": "Scene01503",
-        "Info": 99919917,
+        "Name": "Scene01704",
+        "Info": 99919930,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [
+            "Lock01"
+        ],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199360,
+        "Name": "Scene04003c",
+        "Info": 96992203,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -391,9 +410,51 @@
         "DefaultDynamicObject": []
     },
     {
-        "Id": 999199360,
-        "Name": "Scene01501b",
-        "Info": 99919917,
+        "Id": 999199370,
+        "Name": "Scene04003c",
+        "Info": 96992203,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199380,
+        "Name": "Scene04003c",
+        "Info": 96992203,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199390,
+        "Name": "Scene04001",
+        "Info": 30090792,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -413,8 +474,8 @@
     },
     {
         "Id": 999199400,
-        "Name": "Scene07005",
-        "Info": 30070171,
+        "Name": "Scene04001",
+        "Info": 30090792,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -434,8 +495,8 @@
     },
     {
         "Id": 999199410,
-        "Name": "Scene01704",
-        "Info": 99919930,
+        "Name": "Scene04102",
+        "Info": 99919907,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -455,8 +516,8 @@
     },
     {
         "Id": 999199420,
-        "Name": "Scene02202",
-        "Info": 99919930,
+        "Name": "Scene04102",
+        "Info": 99919907,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -476,8 +537,134 @@
     },
     {
         "Id": 999199430,
-        "Name": "Scene02504",
-        "Info": 99999901,
+        "Name": "Scene04102",
+        "Info": 99919907,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199440,
+        "Name": "Scene03701",
+        "Info": 30062811,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199450,
+        "Name": "Scene03504",
+        "Info": 15020511,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199460,
+        "Name": "Scene04201b",
+        "Info": 99920000,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199470,
+        "Name": "Scene04201a",
+        "Info": 99920000,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199480,
+        "Name": "Scene02301",
+        "Info": 30101020,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S2",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199490,
+        "Name": "Scene03503",
+        "Info": 30090787,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -497,8 +684,8 @@
     },
     {
         "Id": 999199500,
-        "Name": "Scene00303a",
-        "Info": 31150204,
+        "Name": "Scene01601",
+        "Info": 10130105,
         "BornPosition": [
             "PB1",
             "PB2",
@@ -554,6 +741,784 @@
             "S1",
             "S1",
             "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199530,
+        "Name": "Scene00303a",
+        "Info": 99919918,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199540,
+        "Name": "Scene03402",
+        "Info": 99910001,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199550,
+        "Name": "Scene03802",
+        "Info": 99920000,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199560,
+        "Name": "Scene03501",
+        "Info": 99920005,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199570,
+        "Name": "Scene03602",
+        "Info": 99999901,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199580,
+        "Name": "Scene02803",
+        "Info": 99990001,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199590,
+        "Name": "Scene01904",
+        "Info": 99999901,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199600,
+        "Name": "Scene04301",
+        "Info": 99999901,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199610,
+        "Name": "Scene04301",
+        "Info": 99999901,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199620,
+        "Name": "Scene03701",
+        "Info": 30062811,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199630,
+        "Name": "Scene01104",
+        "Info": 30062302,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199640,
+        "Name": "Scene03503",
+        "Info": 30090787,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199650,
+        "Name": "Scene04402a",
+        "Info": 10300206,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199660,
+        "Name": "Scene04402a",
+        "Info": 10300206,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199670,
+        "Name": "Scene03002",
+        "Info": 99919930,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199680,
+        "Name": "Scene01501c",
+        "Info": 30090571,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199690,
+        "Name": "Scene04403",
+        "Info": 99919969,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199700,
+        "Name": "Scene02408",
+        "Info": 30161287,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199710,
+        "Name": "Scene04003",
+        "Info": 96992203,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199720,
+        "Name": "Scene04501b",
+        "Info": 99919972,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199730,
+        "Name": "Scene03702",
+        "Info": 15020610,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199740,
+        "Name": "Scene04402",
+        "Info": 99919974,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199750,
+        "Name": "Scene03903",
+        "Info": 99919975,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199760,
+        "Name": "Scene04501b",
+        "Info": 99919972,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199770,
+        "Name": "Scene04501b",
+        "Info": 99919972,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199780,
+        "Name": "Scene04501b",
+        "Info": 99919972,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199790,
+        "Name": "Scene04201b",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199800,
+        "Name": "Scene04601",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199810,
+        "Name": "Scene03504",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199820,
+        "Name": "Scene03102",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199830,
+        "Name": "Scene04302",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199840,
+        "Name": "Scene04701",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199850,
+        "Name": "Scene01304",
+        "Info": 10130154,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199860,
+        "Name": "Scene01304",
+        "Info": 10130154,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199870,
+        "Name": "Scene01803",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199880,
+        "Name": "Scene01803",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199890,
+        "Name": "Scene01801",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199900,
+        "Name": "Scene04803",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199910,
+        "Name": "Scene07005",
+        "Info": 99919930,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199920,
+        "Name": "Scene01206b",
+        "Info": 30062305,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199930,
+        "Name": "Scene01206b",
+        "Info": 30062305,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199940,
+        "Name": "Scene04403",
+        "Info": 99919969,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199950,
+        "Name": "Scene04203",
+        "Info": 30303201,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199960,
+        "Name": "Scene01704",
+        "Info": 99919930,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199970,
+        "Name": "Scene01301",
+        "Info": 30101069,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199980,
+        "Name": "Scene03802",
+        "Info": 99920000,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999199990,
+        "Name": "Scene04902a",
+        "Info": 99919800,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999200110,
+        "Name": "Scene03501",
+        "Info": 99920005,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999200120,
+        "Name": "Scene04201a",
+        "Info": 99920000,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
+        ],
+        "DefaultObstacleArea": [],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 999200130,
+        "Name": "Scene04901a",
+        "Info": 99919801,
+        "BornPosition": [
+            "PB1"
+        ],
+        "LookPosition": [
+            "B101"
         ],
         "DefaultObstacleArea": [],
         "DefaultDynamicObject": []

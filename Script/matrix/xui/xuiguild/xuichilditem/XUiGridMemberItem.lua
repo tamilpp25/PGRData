@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridMemberItem = XClass(nil, "XUiGridMemberItem")
 
 function XUiGridMemberItem:Ctor(ui)
@@ -5,8 +6,9 @@ function XUiGridMemberItem:Ctor(ui)
     self.Transform = ui.transform
     XTool.InitUiObject(self)
     self.CanSet = false
-    self.BtnDismiss.CallBack = function() self:OnBtnDismissClick() end
-    self.BtnGift.CallBack = function() self:OnBtnGiftClick() end
+
+    self.BtnDismiss.gameObject:SetActiveEx(false)
+    self.BtnDis.CallBack = function() self:OnBtnDismissClick() end
     self.BtnKickOut.CallBack = function() self:OnBtnKickOut() end
     self.BtnChangePosition.CallBack = function() self:OnBtnChangePosition() end
     self.BtnSet.CallBack = function() self:OnBtnSet() end
@@ -44,11 +46,9 @@ function XUiGridMemberItem:SetMemberInfo(memberInfo, selectIndex)
     else
         self.TxtLastLogin.text = XUiHelper.CalcLatelyLoginTime(memberInfo.LastLoginTime)
     end
-    self.TxtPopulation.text = memberInfo.Popularity
     self:UpdateDissmissState(self.MemberInfo)
-    XUiPLayerHead.InitPortrait(memberInfo.HeadPortraitId, memberInfo.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(memberInfo.HeadPortraitId, memberInfo.HeadFrameId, self.Head)
     local isPlayer = memberInfo.Id == XPlayer.Id
-    self.BtnGift:SetDisable(isPlayer, not isPlayer)
 
     self.LayoutNode:SetDirty()
 end
@@ -60,12 +60,13 @@ function XUiGridMemberItem:UpdateDissmissState(memberInfo)
     local canImpeach = XDataCenter.GuildManager.CanImpeachLeader()
     local isLeaderMyself = XDataCenter.GuildManager.IsGuildLeader()
     local memberIsLeader = memberInfo.RankLevel == XGuildConfig.GuildRankLevel.Leader
-    self.BtnDismiss.gameObject:SetActiveEx(canImpeach and not hasImpeach and not isLeaderMyself and memberIsLeader)
+    local showDis = canImpeach and not hasImpeach and not isLeaderMyself and memberIsLeader
+    self.BtnDis.gameObject:SetActiveEx(showDis)
+    self.PanelJob.gameObject:SetActiveEx(not showDis)
 end
 
 function XUiGridMemberItem:UpdateMemberJobInfo(memberInfo)
     self.TxtJob.text = XDataCenter.GuildManager.GetRankNameByLevel(memberInfo.RankLevel)
-    self.TxtPopulation.text = memberInfo.Popularity
 end
 
 function XUiGridMemberItem:OnBtnDismissClick()
@@ -77,11 +78,6 @@ function XUiGridMemberItem:OnBtnDismissClick()
         end)
     end
     XLuaUiManager.Open("UiGuildAsset", self.DissmissCallBack)
-end
-
-function XUiGridMemberItem:OnBtnGiftClick()
-    if self:CheckKickOut() then return end
-    XLuaUiManager.Open("UiGuildGift", self.MemberInfo)
 end
 
 function XUiGridMemberItem:UpdateGuildInfo()
@@ -119,9 +115,14 @@ function XUiGridMemberItem:OnBtnKickOut()
     -- 职位变更
     if self:HasModifyGuildAccess() then return end
 
-    local title = CS.XTextManager.GetText("GuildDialogTitle")
+    local title = CS.XTextManager.GetText("GuildDialogKickMemberTitle")
     local content = CS.XTextManager.GetText("GuildIsKickMember")
 
+    --判断工会战是否开启 如果开启 置换踢出提示
+    if XDataCenter.GuildWarManager.CheckActivityIsInTime() then
+        content = CS.XTextManager.GetText("GuildIsKickMemberInGuildWarTime")
+    end
+    
     XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, function()
     end, function()
         XDataCenter.GuildManager.GuildKickMember(self.MemberInfo.Id, function()
@@ -139,7 +140,15 @@ function XUiGridMemberItem:OnBtnChangePosition()
     local memberList = XDataCenter.GuildManager.GetMemberList()
     local memberInfo = memberList[self.MemberInfo.Id]
     if memberInfo then
-        XLuaUiManager.Open("UiGuildChangePosition", XGuildConfig.TipsType.ChangePosition, memberInfo)
+        RunAsyn(function()
+            XLuaUiManager.Open("UiGuildChangePosition", XGuildConfig.TipsType.ChangePosition, memberInfo)
+            local signalCode, targetMemberInfo = XLuaUiManager.AwaitSignal("UiGuildChangePosition", "Close", self)
+            if signalCode ~= XSignalCode.SUCCESS then return end
+            self.MemberInfo = targetMemberInfo
+            local jobName = XDataCenter.GuildManager.GetRankNameByLevel(self.MemberInfo.RankLevel)
+            self.TxtJob.text = jobName
+        end)
+        
     end
 end
 

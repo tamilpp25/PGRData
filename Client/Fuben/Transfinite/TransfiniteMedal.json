@@ -1,37 +1,65 @@
 [
     {
-        "Id": 1.0,
-        "Time": 0.0,
+        "Id": 1,
         "Icon": "Assets/Product/Texture/Image/UiTransfinite/UiTransfiniteBadge01.png",
-        "Name": "\u4e13\u5bb6\u4e4b\u8bc1",
-        "Desc": "\u901a\u5173\u65f6\u95f4\u5c0f\u4e8e540\u79d2\u5347\u7ea7"
+        "Name": "Expert's Seal",
+        "Time": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "Desc": [
+            "Clear within 540s to level up",
+            "Clear within 540s to level up",
+            "Clear within 535s to level up",
+            "Clear within 530s to level up",
+            "Clear within 525s to level up",
+            "Clear within 510s to level up"
+        ]
     },
     {
-        "Id": 2.0,
-        "Time": 540.0,
+        "Id": 2,
         "Icon": "Assets/Product/Texture/Image/UiTransfinite/UiTransfiniteBadge02.png",
-        "Name": "\u53f2\u8bd7\u540d\u8ff9",
-        "Desc": "\u901a\u5173\u65f6\u95f4\u5c0f\u4e8e420\u79d2\u53ef\u5347\u7ea7"
+        "Name": "Epic Heritage",
+        "Time": [
+            540,
+            540,
+            535,
+            530,
+            525,
+            510
+        ],
+        "Desc": [
+            "Clear within 420s to level up",
+            "Clear within 420s to level up",
+            "Clear within 415s to level up",
+            "Clear within 410s to level up",
+            "Clear within 405s to level up",
+            "Clear within 390s to level up"
+        ]
     },
     {
-        "Id": 3.0,
-        "Time": 420.0,
+        "Id": 3,
         "Icon": "Assets/Product/Texture/Image/UiTransfinite/UiTransfiniteBadge03.png",
-        "Name": "\u4f20\u8bf4\u529f\u52cb",
-        "Desc": "\u5df2\u8fbe\u5230\u6700\u9ad8\u7ea7"
-    },
-    {
-        "Id": null,
-        "Time": null,
-        "Icon": null,
-        "Name": null,
-        "Desc": null
-    },
-    {
-        "Id": null,
-        "Time": null,
-        "Icon": " ",
-        "Name": null,
-        "Desc": null
+        "Name": "Legendary Merit",
+        "Time": [
+            420,
+            420,
+            415,
+            410,
+            405,
+            390
+        ],
+        "Desc": [
+            "Max level reached",
+            "Max level reached",
+            "Max level reached",
+            "Max level reached",
+            "Max level reached",
+            "Max level reached"
+        ]
     }
 ]

@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiAwarenessTfChoice = XLuaUiManager.Register(XLuaUi, "UiAwarenessTfChoice")
 local XUiGridSuitDetail = require("XUi/XUiEquipAwarenessReplace/XUiGridSuitDetail")
 local XUiAwarenessTfBtnPos = require("XUi/XUiAwarenessTf/XUiAwarenessTfBtnPos")
@@ -184,10 +185,10 @@ function XUiAwarenessTfChoice:InitSelectPart(suitId)
         self:OnSelectPart(pos)
     end
     --套装名字
-    self.TxtSuitName.text = XDataCenter.EquipManager.GetSuitName(suitId)
+    self.TxtSuitName.text = XMVCA.XEquip:GetSuitName(suitId)
     --套装效果
-    local skillDesList = XDataCenter.EquipManager.GetSuitSkillDesList(suitId)
-    for i = 1, XEquipConfig.MAX_SUIT_SKILL_COUNT do
+    local skillDesList = XMVCA.XEquip:GetEquipSuitSkillDescription(suitId)
+    for i = 1, XEnumConst.EQUIP.OLD_MAX_SUIT_SKILL_COUNT do
         if skillDesList[i * 2] then
             self["TxtSkillDes" .. i].text = skillDesList[i * 2]
             self["TxtSkillDes" .. i].gameObject:SetActive(true)
@@ -197,7 +198,7 @@ function XUiAwarenessTfChoice:InitSelectPart(suitId)
     end
     --部位选择
     --获取数据
-    self.PartIds = XDataCenter.EquipManager.GetEquipTemplateIdsBySuitId(suitId)
+    self.PartIds = XMVCA.XEquip:GetSuitEquipIds(suitId)
     table.sort(self.PartIds, function(a, b)
         local aid = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(a)
         local bid = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(b)
@@ -235,14 +236,14 @@ function XUiAwarenessTfChoice:UpdateSelectPos()
     end
     self.CurSelectGrid:Refresh(self.PartIds[self.CurSelectPos])
     self.TxtPosNum.text = CS.XTextManager.GetText("AwarenessTfPos", self.PartSiteIds[self.CurSelectPos])
-    self.TxtNum.text = XDataCenter.EquipManager.GetEquipCountByTemplateID(self.PartIds[self.CurSelectPos])
+    self.TxtNum.text = XMVCA.XEquip:GetEquipCount(self.PartIds[self.CurSelectPos])
     self:UpdateEquipAttr()
 end
 
 --更新属性(未获取只能显示1级的属性)
 function XUiAwarenessTfChoice:UpdateEquipAttr()
     local attrCount = 1
-    local attrMap = XDataCenter.EquipManager.GetTemplateEquipAttrMap(self.PartIds[self.CurSelectPos], 1)
+    local attrMap = XMVCA.XEquip:GetTemplateEquipAttrMap(self.PartIds[self.CurSelectPos], 1)
     for _, attrInfo in pairs(attrMap) do
         if attrCount > MAX_AWARENESS_ATTR_COUNT then break end
         self["TxtName" .. attrCount].text = attrInfo.Name

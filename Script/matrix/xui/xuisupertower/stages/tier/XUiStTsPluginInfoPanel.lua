@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local BasePanel = require("XUi/XUiSuperTower/Common/XUiSTChildPanel")
 --==================
 --超级爬塔 爬塔 结算界面插件面板控件

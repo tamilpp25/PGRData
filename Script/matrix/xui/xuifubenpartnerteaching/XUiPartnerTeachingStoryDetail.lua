@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiPartnerTeachingStoryDetail = XLuaUiManager.Register(XLuaUi, "UiPartnerTeachingStoryDetail")
 
 function XUiPartnerTeachingStoryDetail:OnAwake()

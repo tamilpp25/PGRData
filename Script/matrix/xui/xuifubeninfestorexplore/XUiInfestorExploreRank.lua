@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelInfestorExploreBossRank = require("XUi/XUiFubenInfestorExplore/XUiPanelInfestorExploreBossRank")
 local XUiGridInfestorExploreRank = require("XUi/XUiFubenInfestorExplore/XUiGridInfestorExploreRank")
 

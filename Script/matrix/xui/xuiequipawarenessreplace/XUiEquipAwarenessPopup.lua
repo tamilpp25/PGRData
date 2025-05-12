@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
@@ -16,12 +16,12 @@ local ATTR_COLOR = {
 }
 
 local CUR_EQUIP_CLICK_POPUP_POS = {
-    [XEquipConfig.EquipSite.Awareness.One] = CS.UnityEngine.Vector2(-230, 14),
-    [XEquipConfig.EquipSite.Awareness.Two] = CS.UnityEngine.Vector2(-681, 14),
-    [XEquipConfig.EquipSite.Awareness.Three] = CS.UnityEngine.Vector2(-681, 14),
-    [XEquipConfig.EquipSite.Awareness.Four] = CS.UnityEngine.Vector2(-230, 14),
-    [XEquipConfig.EquipSite.Awareness.Five] = CS.UnityEngine.Vector2(-681, 14),
-    [XEquipConfig.EquipSite.Awareness.Six] = CS.UnityEngine.Vector2(-681, 14)
+    [XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.ONE] = CS.UnityEngine.Vector2(-230, 14),
+    [XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.TWO] = CS.UnityEngine.Vector2(-681, 14),
+    [XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.THREE] = CS.UnityEngine.Vector2(-681, 14),
+    [XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.FOUR] = CS.UnityEngine.Vector2(-230, 14),
+    [XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.FIVE] = CS.UnityEngine.Vector2(-681, 14),
+    [XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.SIX] = CS.UnityEngine.Vector2(-681, 14)
 }
 
 local XUiEquipAwarenessPopup = XLuaUiManager.Register(XLuaUi, "UiEquipAwarenessPopup")
@@ -57,9 +57,9 @@ function XUiEquipAwarenessPopup:OnDisable()
 end
 
 function XUiEquipAwarenessPopup:Refresh()
-    local equipSite = XDataCenter.EquipManager.GetEquipSite(self.EquipId)
-    self.UsingEquipId = XDataCenter.EquipManager.GetWearingEquipIdBySite(self.CharacterId, equipSite)
-    self.UsingAttrMap = XDataCenter.EquipManager.GetEquipAttrMap(self.UsingEquipId)
+    local equipSite = XMVCA.XEquip:GetEquipSiteByEquipId(self.EquipId)
+    self.UsingEquipId = XMVCA.XEquip:GetCharacterEquipId(self.CharacterId, equipSite)
+    self.UsingAttrMap = XMVCA.XEquip:GetEquipAttrMap(self.UsingEquipId)
 
     self:UpdateSelectPanel()
     self:UpdateUsingPanel()
@@ -126,7 +126,7 @@ function XUiEquipAwarenessPopup:UpdateLockStatues(equipId)
     end
 
     if equipId == self.EquipId then
-        local isLock = XDataCenter.EquipManager.IsLock(equipId)
+        local isLock = XMVCA.XEquip:IsLock(equipId)
         self.BtnLockSelect.gameObject:SetActiveEx(isLock)
         self.BtnUnlockSelect.gameObject:SetActiveEx(not isLock)
     end
@@ -146,8 +146,8 @@ function XUiEquipAwarenessPopup:UpdateRecycleStatues(equipId)
     end
 
     if equipId == self.EquipId then
-        local isCanRecycle = XDataCenter.EquipManager.IsEquipCanRecycle(equipId)
-        local isRecycle = XDataCenter.EquipManager.IsRecycle(equipId)
+        local isCanRecycle = XMVCA.XEquip:IsEquipCanRecycle(equipId)
+        local isRecycle = XMVCA.XEquip:IsRecycle(equipId)
         self.BtnLaJiSelect.gameObject:SetActiveEx(isCanRecycle and isRecycle)
         self.BtnUnlaJiSelect.gameObject:SetActiveEx(isCanRecycle and not isRecycle)
     end
@@ -155,16 +155,15 @@ end
 
 function XUiEquipAwarenessPopup:UpdateSelectPanel()
     if not self.SelectEquipGrid then
-        self.SelectEquipGrid = XUiGridEquip.New(self.GridEquipSelect)
-        self.SelectEquipGrid:InitRootUi(self)
+        self.SelectEquipGrid = XUiGridEquip.New(self.GridEquipSelect, self)
     end
     self.SelectEquipGrid:Refresh(self.EquipId)
 
-    local equip = XDataCenter.EquipManager.GetEquip(self.EquipId)
-    self.TxtNameA.text = XDataCenter.EquipManager.GetEquipName(equip.TemplateId)
+    local equip = XMVCA.XEquip:GetEquip(self.EquipId)
+    self.TxtNameA.text = XMVCA.XEquip:GetEquipName(equip.TemplateId)
 
     local attrCount = 1
-    local attrMap = XDataCenter.EquipManager.GetEquipAttrMap(self.EquipId)
+    local attrMap = XMVCA.XEquip:GetEquipAttrMap(self.EquipId)
     for attrIndex, attrInfo in pairs(attrMap) do
         if attrCount > MAX_AWARENESS_ATTR_COUNT then
             break
@@ -197,10 +196,11 @@ function XUiEquipAwarenessPopup:UpdateSelectPanel()
     end
 
     --是否激活颜色不同
-    local suitId = XDataCenter.EquipManager.GetSuitId(equip.Id)
-    local activeEquipsCount = XDataCenter.EquipManager.GetActiveSuitEquipsCount(self.CharacterId, suitId)
-    local skillDesList = XDataCenter.EquipManager.GetSuitActiveSkillDesList(suitId, activeEquipsCount)
-    for i = 1, XEquipConfig.MAX_SUIT_SKILL_COUNT do
+    local suitId = XMVCA.XEquip:GetEquipSuitIdByEquipId(equip.Id)
+    local activeEquipsCount = XMVCA.XEquip:GetActiveSuitEquipsCount(self.CharacterId, suitId)
+    local isOverrun = self:IsOverrun(suitId, self.CharacterId)
+    local skillDesList = XMVCA.XEquip:GetSuitActiveSkillDesList(suitId, activeEquipsCount, isOverrun, isOverrun)
+    for i = 1, XEnumConst.EQUIP.OLD_MAX_SUIT_SKILL_COUNT do
         local componentText = self["TxtSkillDesA" .. i]
         if not skillDesList[i] then
             componentText.gameObject:SetActiveEx(false)
@@ -215,10 +215,10 @@ function XUiEquipAwarenessPopup:UpdateSelectPanel()
 
     --修正弹窗位置
     if self.RootUi.NeedFixPopUpPos and (not self.UsingEquipId or self.UsingEquipId == self.EquipId) then
-        local equipSite = XDataCenter.EquipManager.GetEquipSite(self.EquipId)
+        local equipSite = XMVCA.XEquip:GetEquipSiteByEquipId(self.EquipId)
         self.PanelSelectRectTransform.anchoredPosition = CUR_EQUIP_CLICK_POPUP_POS[equipSite]
     else
-        self.PanelSelectRectTransform.anchoredPosition = CUR_EQUIP_CLICK_POPUP_POS[XEquipConfig.EquipSite.Awareness.One]
+        self.PanelSelectRectTransform.anchoredPosition = CUR_EQUIP_CLICK_POPUP_POS[XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.ONE]
     end
 
     self.BtnStrengthen.gameObject:SetActiveEx(not self.HideStrengthenBtn and not self.HideAllBtns)
@@ -233,13 +233,12 @@ function XUiEquipAwarenessPopup:UpdateUsingPanel()
     end
 
     if not self.UsingEquipGrid then
-        self.UsingEquipGrid = XUiGridEquip.New(self.GridEquipUsing)
-        self.UsingEquipGrid:InitRootUi(self)
+        self.UsingEquipGrid = XUiGridEquip.New(self.GridEquipUsing, self)
     end
     self.UsingEquipGrid:Refresh(self.UsingEquipId)
 
-    local equip = XDataCenter.EquipManager.GetEquip(self.UsingEquipId)
-    self.TxtName.text = XDataCenter.EquipManager.GetEquipName(equip.TemplateId)
+    local equip = XMVCA.XEquip:GetEquip(self.UsingEquipId)
+    self.TxtName.text = XMVCA.XEquip:GetEquipName(equip.TemplateId)
 
     local attrCount = 1
     local attrMap = self.UsingAttrMap
@@ -259,11 +258,12 @@ function XUiEquipAwarenessPopup:UpdateUsingPanel()
     end
 
     --是否激活颜色不同
-    local suitId = XDataCenter.EquipManager.GetSuitId(equip.Id)
-    local activeEquipsCount = XDataCenter.EquipManager.GetActiveSuitEquipsCount(self.CharacterId, suitId)
-    local skillDesList = XDataCenter.EquipManager.GetSuitActiveSkillDesList(suitId, activeEquipsCount)
+    local suitId = XMVCA.XEquip:GetEquipSuitIdByEquipId(equip.Id)
+    local activeEquipsCount = XMVCA.XEquip:GetActiveSuitEquipsCount(self.CharacterId, suitId)
+    local isOverrun = self:IsOverrun(suitId, self.CharacterId)
+    local skillDesList = XMVCA.XEquip:GetSuitActiveSkillDesList(suitId, activeEquipsCount, isOverrun, isOverrun)
 
-    for i = 1, XEquipConfig.MAX_SUIT_SKILL_COUNT do
+    for i = 1, XEnumConst.EQUIP.OLD_MAX_SUIT_SKILL_COUNT do
         local componentText = self["TxtSkillDes" .. i]
         if not skillDesList[i] then
             componentText.gameObject:SetActiveEx(false)
@@ -315,42 +315,43 @@ function XUiEquipAwarenessPopup:AutoAddListener()
     self:RegisterClickEvent(self.BtnUnlaJiUsing, self.OnBtnUnlaJiUsingClick)
     self:RegisterClickEvent(self.BtnLaJiSelect, self.OnBtnLaJiSelectClick)
     self:RegisterClickEvent(self.BtnUnlaJiSelect, self.OnBtnUnlaJiSelectClick)
+    self:RegisterClickEvent(self.BtnClose, self.Close)
 end
 
 function XUiEquipAwarenessPopup:OnBtnLaJiSelectClick()
-    XDataCenter.EquipManager.EquipUpdateRecycleRequest(self.EquipId, false)
+    XMVCA.XEquip:EquipUpdateRecycleRequest(self.EquipId, false)
 end
 
 function XUiEquipAwarenessPopup:OnBtnUnlaJiSelectClick()
-    XDataCenter.EquipManager.EquipUpdateRecycleRequest(self.EquipId, true)
+    XMVCA.XEquip:EquipUpdateRecycleRequest(self.EquipId, true)
 end
 
 function XUiEquipAwarenessPopup:OnBtnLaJiUsingClick()
-    XDataCenter.EquipManager.EquipUpdateRecycleRequest(self.UsingEquipId, false)
+    XMVCA.XEquip:EquipUpdateRecycleRequest(self.UsingEquipId, false)
 end
 
 function XUiEquipAwarenessPopup:OnBtnUnlaJiUsingClick()
-    XDataCenter.EquipManager.EquipUpdateRecycleRequest(self.UsingEquipId, true)
+    XMVCA.XEquip:EquipUpdateRecycleRequest(self.UsingEquipId, true)
 end
 
 function XUiEquipAwarenessPopup:OnBtnUnlockSelectClick()
-    XDataCenter.EquipManager.SetLock(self.EquipId, true)
+    XMVCA.XEquip:SetLock(self.EquipId, true)
 end
 
 function XUiEquipAwarenessPopup:OnBtnLockSelectClick()
-    XDataCenter.EquipManager.SetLock(self.EquipId, false)
+    XMVCA.XEquip:SetLock(self.EquipId, false)
 end
 
 function XUiEquipAwarenessPopup:OnBtnLockUsingClick()
-    XDataCenter.EquipManager.SetLock(self.UsingEquipId, false)
+    XMVCA.XEquip:SetLock(self.UsingEquipId, false)
 end
 
 function XUiEquipAwarenessPopup:OnBtnUnlockUsingClick()
-    XDataCenter.EquipManager.SetLock(self.UsingEquipId, true)
+    XMVCA.XEquip:SetLock(self.UsingEquipId, true)
 end
 
 function XUiEquipAwarenessPopup:OnBtnStrengthenClick()
-    XLuaUiManager.Open("UiEquipDetail", self.EquipId, nil, self.CharacterId)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipDetail(self.EquipId, nil, self.CharacterId)
     self:Close()
 end
 
@@ -358,10 +359,10 @@ function XUiEquipAwarenessPopup:OnBtnPutOnClick()
     local characterId = self.CharacterId
     local equipId = self.EquipId
 
-    local wearingCharacterId = XDataCenter.EquipManager.GetEquipWearingCharacterId(equipId)
+    local wearingCharacterId = XMVCA.XEquip:GetEquipWearingCharacterId(equipId)
     if wearingCharacterId and wearingCharacterId > 0 then
-        local fullName = XCharacterConfigs.GetCharacterFullNameStr(wearingCharacterId)
-        local content = CSXTextManagerGetText("EquipAwarenessReplaceTip", fullName)
+        local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(wearingCharacterId)
+        local content = string.gsub(CSXTextManagerGetText("EquipAwarenessReplaceTip", fullName), " ", "")
         XUiManager.DialogTip(
             CSXTextManagerGetText("TipTitle"),
             content,
@@ -369,14 +370,27 @@ function XUiEquipAwarenessPopup:OnBtnPutOnClick()
             function()
             end,
             function()
-                XDataCenter.EquipManager.PutOn(characterId, equipId)
+                XMVCA:GetAgency(ModuleId.XEquip):PutOn(characterId, equipId)
             end
         )
     else
-        XDataCenter.EquipManager.PutOn(characterId, equipId)
+        XMVCA:GetAgency(ModuleId.XEquip):PutOn(characterId, equipId)
     end
 end
 
 function XUiEquipAwarenessPopup:OnBtnTakeOffClick()
-    XDataCenter.EquipManager.TakeOff({self.EquipId})
+    XMVCA:GetAgency(ModuleId.XEquip):TakeOff({self.EquipId})
+end
+
+function XUiEquipAwarenessPopup:IsOverrun(suitId, characterId)
+    if characterId then
+        local usingWeaponId = XMVCA.XEquip:GetCharacterWeaponId(characterId)
+        if usingWeaponId ~= 0 then
+            local usingEquip = XMVCA.XEquip:GetEquip(usingWeaponId)
+            local choseSuit = usingEquip:GetOverrunChoseSuit()
+            return choseSuit == suitId
+        end
+    end
+
+    return false
 end

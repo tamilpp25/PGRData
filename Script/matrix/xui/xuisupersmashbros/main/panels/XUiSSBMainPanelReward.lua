@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --=================
 --主界面奖励面板
 --=================
@@ -65,6 +66,7 @@ end
 --初始化
 --=================
 function XUiSSBMainPanelReward.Init(ui)
+    Panel.Parent = ui
     Panel = XTool.InitUiObjectByUi(Panel, ui.PanelReward)
     InitBtnRewardDetails()
     InitIcon(ui)
@@ -75,6 +77,7 @@ end
 function XUiSSBMainPanelReward.OnEnable()
     XUiSSBMainPanelReward.RefreshReward()
     XUiSSBMainPanelReward.AddEventListeners()
+    XUiSSBMainPanelReward.UpdateDailyReward()
 end
 --=================
 --隐藏时
@@ -114,4 +117,37 @@ function XUiSSBMainPanelReward.RefreshReward()
     ShowPointGet()
 end
 
+--==============
+--新增每日任务奖励，任务可领取时点击图标后领取奖励；每日奖励类型中的任务不计入总任务数与完成任务数
+--==============
+function XUiSSBMainPanelReward.UpdateDailyReward()
+    if not Panel.UiDailyRewardItem then
+        Panel.UiDailyRewardItem = XUiGridCommon.New(Panel.Parent, Panel.GridDailyReward)
+        Panel.RewardPanelEffect = XUiHelper.TryGetComponent(Panel.GridDailyReward, "PanelEffect", "Transform")
+    end
+    
+    local rewardItemId = XSuperSmashBrosConfig.GetDailyRewardItemId()
+    if not rewardItemId or rewardItemId == 0 then
+        Panel.UiDailyRewardItem.GameObject:SetActiveEx(false)
+        return
+    end
+    Panel.UiDailyRewardItem:Refresh(rewardItemId)
+
+    local isReceiveDailyReward = XDataCenter.SuperSmashBrosManager.IsReceiveDailyReward()
+    if not isReceiveDailyReward then
+        Panel.UiDailyRewardItem:SetClickCallback(function()
+            XDataCenter.SuperSmashBrosManager.ReceiveDailyReward(function()
+                Panel.Parent:UpdateRewardAndTeamLevel()
+            end)
+        end)
+        Panel.UiDailyRewardItem:SetReceived(false)
+        Panel.RewardPanelEffect.gameObject:SetActiveEx(true)
+    else
+        Panel.RewardPanelEffect.gameObject:SetActiveEx(false)
+        Panel.UiDailyRewardItem:SetReceived(true)
+        Panel.UiDailyRewardItem:SetClickCallback(function()
+            --do nothing
+        end)
+    end
+end
 return XUiSSBMainPanelReward

@@ -21,15 +21,15 @@ function XRedPointConditionSimulatedCombat.Check()
         return false
     end
 
-    if XRedPointConditionSimulatedCombatPoint.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_SIMULATED_COMBAT_POINT) then
         return true
     end
     
-    if XRedPointConditionSimulatedCombatTask.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_SIMULATED_COMBAT_TASK) then
         return true
     end
 
-    if XRedPointConditionSimulatedCombatChallenge.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_SIMULATED_COMBAT_CHALLENGE) then
         return true
     end
 

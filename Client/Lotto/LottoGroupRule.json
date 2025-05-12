@@ -130,6 +130,240 @@
         ]
     },
     {
+        "Id": 6,
+        "Name": null,
+        "Tag": 6,
+        "Priority": 6,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCoating/DrawCoating03.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "<color=#fa8f26></color>Guaranteed<color=#fa8f26> <size=28>Core Layer</size></color> Reward in <color=#fa8f26><size=28>10 pulls</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Cost",
+            "Obtain Tokens",
+            "Volatility",
+            "Extra Reward"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will be guaranteed to obtain the character coating [Dance of Ripplets] once you complete [10X] research.",
+            "Each research needs to cost a [Mermaid's Gift] and the research cost increases as follows: 50/100/250/400/600/800/1200/1700/2200/2700",
+            "When the [Mermaid's Gift] for research is inadequate, you can use Black Card or Rainbow Card to exchange                                                     Black Card: Equivalent     Rainbow Card: Discount",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the coating [Dance of Ripplets] starting at the [5th] research. You can go to [Drop Details] to check the probability.",
+            "When the [8th] research is reached, you will obtain an extra reward: [Dance of Ripplets Portrait]."
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "Light Trail Supply",
+        "Tag": 2,
+        "Priority": 7,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCoating/DrawCoating04.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "<color=#fa8f26><size=28>Guaranteed</size> </color>Core Layer<color=#fa8f26> Reward in <size=28>10 pulls</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Cost",
+            "Obtain Tokens",
+            "Volatility",
+            "Extra Reward"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will be guaranteed to obtain the [S-Rank Omniframe Choice] Pack once you complete [10X] research.",
+            "Each research needs to cost a [Light Trail R&D Ticket] and the research cost increases as follows: 50/200/400/600/800/1200/1600/2000/2500/3150",
+            "When the [Light Trail R&D Ticket] for research are inadequate, you can use Event Construct R&D Tickets or Target Weapon R&D Tickets to exchange for them. Both tokens can exchange for the same amount of [Light Trail R&D Ticket].",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the [S-Rank Omniframe Choice] Pack starting at the [5th] research. You can advance to [Drop Details] to check the probability.",
+            "When the [8th] research is reached, you will obtain an extra [A-Rank CUB Choice]."
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Azure Apocalypse",
+        "Tag": 6,
+        "Priority": 1,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCoating/DrawCoating02.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "<color=#fa8f26><size=28>Guaranteed</size> </color>Core Layer<color=#fa8f26> Reward in <size=28>10 pulls</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Cost",
+            "Obtain Tokens",
+            "Volatility",
+            "Extra Reward"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will be guaranteed to obtain the Construct Coating [Azure Apocalypse] once you complete [10X] research.",
+            "Each research needs to cost an Azure Pact and the research cost increases as follows: 50/100/250/400/600/800/1200/1700/2200/2700",
+            "When there are not enough Secret Pact Cards for research, you can use Black Cards or Rainbow Cards to exchange for them. (Black Card: Equivalent, Rainbow Card: Discount)",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the coating [Azure Apocalypse] starting at the [5th] research. You can go to [Drop Details] to check the probability.",
+            "When it comes to the [8th] research, you can obtain an extra reward: [Azure Apocalypse Portrait]"
+        ]
+    },
+    {
+        "Id": 9,
+        "Name": "Neon Dynamite",
+        "Tag": 6,
+        "Priority": 8,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCollaboration/DrawExtra02.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "<color=#fa8f26><size=28>Guaranteed</size> </color>Core Layer<color=#fa8f26> Reward in <size=28>10 pulls</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Cost",
+            "Token Description",
+            "Probability",
+            "Extra Reward"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will be guaranteed to obtain the Construct coating [Neon Dynamite \u2606] once you complete [10x] research.",
+            "Each research needs to cost a [Concert Ticket] and the research cost increases as follows: 50/100/250/400/600/800/1200/1700/2200/2700",
+            "When the [Concert Tickets] for research is inadequate, you can exchange Black Card or Rainbow Card to for them.\\nBlack Card: Equivalent    Rainbow Card: Discount\\nAfter the research event, the unused [Concert Tickets] will be converted into Black Cards at a ratio of 1:1.",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the coating [Neon Dynamite \u2606] starting at the [5th] research. You can go to [Drop Details] to check the probability.",
+            "When it comes to the [8th] research, you will obtain an extra reward: [Neon Dynamite \u2606 Portrait]"
+        ]
+    },
+    {
+        "Id": 10,
+        "Name": "Grandiose Glamor",
+        "Tag": 6,
+        "Priority": 9,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCollaboration/DrawExtra02.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "<color=#fa8f26><size=28>Guaranteed</size> </color>Core Layer<color=#fa8f26> Reward in <size=28>10 pulls</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Cost",
+            "Token Description",
+            "Volatility",
+            "Extra Reward"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will be guaranteed to obtain the Construct coating [Grandiose Glamor] once you complete [10x] research.",
+            "Each research requires [Heroic Songs] and the research cost increases as follows:\\n50/100/250/400/600/800/1200/1700/2200/2700",
+            "When the [Heroic Songs] for research is inadequate, you can exchange Black Card or Rainbow Card for them.\\nBlack Card: Equivalent    Rainbow Card: Discount\\nAfter the research event, the unused [Heroic Songs] will be converted into Black Cards at a ratio of 1:1.",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the coating [Grandiose Glamor] starting at the [5th] research.\\nYou can go to [Drop Details] to check the probability.",
+            "When the [8th] research is reached, you will obtain an extra reward: [Grandiose Glamor Portrait]."
+        ]
+    },
+    {
+        "Id": 11,
+        "Name": "Dreamcatcher",
+        "Tag": 6,
+        "Priority": 5,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCollaboration/DrawExtra02.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "<color=#fa8f26><size=28>Guaranteed</size> </color>Core Layer<color=#fa8f26> Reward in <size=28>10 pulls</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Cost",
+            "Obtain Tokens",
+            "Volatility",
+            "Extra Rewards"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will be guaranteed to obtain the character coating [Dreamcatcher] once you complete [10X] research.",
+            "Each research costs [Woven Dream's Aurora] and the research cost increases as follows: 50/100/250/400/600/800/1200/1700/2200/2700",
+            "When the [Woven Dream's Aurora] for research is inadequate, you can use Black Card or Rainbow Card to exchange                                                     Black Card: Equivalent     Rainbow Card: Discount",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the coating [Dreamcatcher] starting at the [5th] research. You can go to [Drop Details] to check the probability.",
+            "When the [8th] research is reached, you will obtain an extra reward: [Dreamcatcher Portrait]."
+        ]
+    },
+    {
+        "Id": 12,
+        "Name": "Reinforcement Supplies",
+        "Tag": 2,
+        "Priority": 10,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCoating/DrawCoating04.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "<color=#fa8f26><size=28>Guaranteed</size> </color>Core Layer<color=#fa8f26> Reward in <size=28>10 pulls</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Cost",
+            "Obtain Coins",
+            "Probability",
+            "Extra Reward"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will be guaranteed to obtain the [S-Rank Omniframe Choice] Pack once you complete [10X] research.",
+            "Each research needs to cost a [Support R&D Ticket] and the research cost increases as follows: 50/200/400/600/800/1200/1600/2000/2500/3150",
+            "When the [Support R&D Ticket] for research are inadequate, you can use Event Construct R&D Tickets or Target Weapon R&D Tickets to exchange for them. Both tokens can exchange for the same amount of [Support R&D Ticket].",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the [S-Rank Omniframe Choice] Pack starting at the [5th] research. You can advance to [Drop Details] to check the probability.",
+            "When the [8th] research is reached, you will obtain an extra [A-Rank CUB Choice]."
+        ]
+    },
+    {
+        "Id": 13,
+        "Name": "Neon Dynamite",
+        "Tag": 6,
+        "Priority": 8,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCollaboration/DrawExtra02.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "Guaranteed <color=#fa8f26><size=28>Core Layer</size></color> reward within <color=#fa8f26><size=28>10 attempts</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Cost",
+            "Token Description",
+            "Volatility",
+            "Extra Reward"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will be guaranteed to obtain the Construct coating [Neon Dynamite \u2606] once you complete [10x] research.",
+            "Each research needs to cost a [Concert Ticket] and the research cost increases as follows: 50/100/250/400/600/800/1200/1700/2200/2700",
+            "When the [Concert Tickets] for research is inadequate, you can exchange Black Card or Rainbow Card to for them.\\nBlack Card: Equivalent    Rainbow Card: Discount\\nAfter the research event, the unused [Concert Tickets] will be converted into Black Cards at a ratio of 1:1.",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the coating [Neon Dynamite \u2606] starting at the [5th] research. You can go to [Drop Details] to check the probability.",
+            "When the [8th] research is reached, you will obtain an extra reward: [Neon Dynamite \u2606 Portrait]."
+        ]
+    },
+    {
+        "Id": 14,
+        "Name": "Stellar Glow Supply",
+        "Tag": 2,
+        "Priority": 11,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCoating/DrawCoating04.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "Guaranteed <color=#fa8f26><size=28>Core Layer</size></color> Reward in <color=#fa8f26><size=28>10 pulls</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Cost",
+            "Obtain Token",
+            "Probability",
+            "Bonus Rewards"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will be guaranteed to obtain the [S-Rank Omniframe Choice] Pack once you complete [10X] research",
+            "Each research needs to cost a [Stellar R&D Ticket] and the research cost increases as follows: 50/200/400/600/800/1200/1600/2000/2500/3150",
+            "When the [Stellar R&D Ticket] for research is inadequate, it is allowed to use Event Construct R&D Tickets or Target Weapon R&D Tickets to exchange for them. Both tokens can exchange for the same amount of [Stellar R&D Ticket].",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the [S-Rank Omniframe Pick] Pack starting at the [5th] research. You can advance to [Drop Details] to check the probability.",
+            "When the [8th] research is reached, you will obtain an extra [A-Rank CUB Choice]."
+        ]
+    },
+    {
         "Id": 100001,
         "Name": "Volatile Priestess",
         "Tag": 6,

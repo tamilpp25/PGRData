@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 -- 家具建造主界面
 local XUiPracticeSingleDetail = XLuaUiManager.Register(XLuaUi, "UiPracticeSingleDetail")
 
@@ -35,17 +37,13 @@ function XUiPracticeSingleDetail:UpdateCommon()
         self[string.format("TxtActive%d", i)].text = stageCfg.StarDesc[i]
     end
 
-    self.TxtATNums.text = stageCfg.RequireActionPoint or 0
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(self.StageId)
 end
 
 function XUiPracticeSingleDetail:OnBtnEnterClick()
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageId)
     if XDataCenter.FubenManager.CheckPreFight(stageCfg) then
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", stageCfg.StageId)
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", stageCfg.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", stageCfg.StageId)
         self:Close()
     end
 end
@@ -81,7 +79,7 @@ function XUiPracticeSingleDetail:UpdateReward()
                 grid = XUiGridCommon.New(self, ui)
                 grid.Transform:SetParent(self.PanelDropContent, false)
                 self.GridList[i] = grid
-                self.GridListTag[i] = grid.ImgReceived
+                self.GridListTag[i] = grid.Transform:Find("Received")
             end
             grid:Refresh(item)
             grid.GameObject:SetActiveEx(true)

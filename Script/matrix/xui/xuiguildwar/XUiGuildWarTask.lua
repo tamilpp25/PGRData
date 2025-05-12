@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --######################## XUiGuildWarUpCharacter ########################
 local XUiCommonTaskControl = require("XUi/XUiCommon/XUiCommonTaskControl")
 local XUiGuildWarTask = XLuaUiManager.Register(XUiCommonTaskControl, "UiGuildWarTask")
@@ -15,8 +16,8 @@ function XUiGuildWarTask:OnAwake()
     self:RegisterUiEvents()
     self.TabBtns = nil
     self.GuildWarManager = XDataCenter.GuildWarManager
-    XUiHelper.NewPanelActivityAsset({ XGuildWarConfig.ActivityPointItemId } ,self.PanelSpecialTool
-        , { self.GuildWarManager.GetMaxEnergy() })
+    XUiHelper.NewPanelActivityAssetSafe({ XGuildWarConfig.ActivityPointItemId } ,self.PanelSpecialTool, self
+        , { self.GuildWarManager.GetMaxActionPoint() })
 end
 
 function XUiGuildWarTask:CreateTabBtns()
@@ -51,6 +52,14 @@ function XUiGuildWarTask:CheckBtnsRed()
         local isRed = XDataCenter.GuildWarManager.CheckTaskCanAchievedByType(self.TaskTypeDatas[index].TaskType)
         btn:ShowReddot(isRed)
     end
+end
+
+function XUiGuildWarTask:OnDataSourceChanged()
+    -- if not self.CurrentTasks or #self.CurrentTasks == 0 then
+    --     self.TextEmpty.gameObject:SetActiveEx(true)
+    -- else
+    --     self.TextEmpty.gameObject:SetActiveEx(false)
+    -- end
 end
 
 return XUiGuildWarTask

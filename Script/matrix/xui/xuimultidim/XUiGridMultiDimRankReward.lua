@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridMultiDimRankReward = XClass(nil, "XUiGridMultiDimRankReward")
 
 function XUiGridMultiDimRankReward:Ctor(ui, rootUi)

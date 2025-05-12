@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 ---@class XUiDoubleTowersSettlement:XLuaUi
 local XUiDoubleTowersSettlement = XLuaUiManager.Register(XLuaUi, "UiDoubleTowersSettlement")
 
@@ -94,7 +95,7 @@ end
 
 -- 角色半身图
 function XUiDoubleTowersSettlement:SetRoleImg(roldId)
-    local path = XDataCenter.CharacterManager.GetCharHalfBodyBigImage(roldId)
+    local path = XMVCA.XCharacter:GetCharHalfBodyBigImage(roldId)
     self.RImgRole:SetRawImage(path)
 end
 

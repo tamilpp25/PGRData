@@ -1,4 +1,6 @@
-XUiPanelBountyTask = XClass(nil, "XUiPanelBountyTask")
+local XUiPanelTask = require("XUi/XUiMoneyReward/XUiPanelTask")
+local XUiPanelTaskCard = require("XUi/XUiMoneyReward/XUiPanelTaskCard")
+local XUiPanelBountyTask = XClass(nil, "XUiPanelBountyTask")
 
 function XUiPanelBountyTask:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -112,7 +114,7 @@ function XUiPanelBountyTask:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

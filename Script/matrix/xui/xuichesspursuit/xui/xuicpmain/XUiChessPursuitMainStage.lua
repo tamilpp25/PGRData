@@ -1,3 +1,5 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiChessPursuitMainBase = require("XUi/XUiChessPursuit/XUi/XUiCPMain/XUiChessPursuitMainBase")
 local XUiChessPursuitMainStage = XClass(XUiChessPursuitMainBase, "XUiChessPursuitMainStage")
 local XUiChessPursuitStageGrid = require("XUi/XUiChessPursuit/XUi/XUiCPMain/XUiChessPursuitStageGrid")

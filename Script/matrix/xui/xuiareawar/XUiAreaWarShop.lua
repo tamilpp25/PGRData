@@ -1,3 +1,6 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridShop = require("XUi/XUiShop/XUiGridShop")
 local ShopItemTextColor = {
     CanBuyColor = "34AFF8FF",
     CanNotBuyColor = "C64141FF"
@@ -8,7 +11,7 @@ local XUiAreaWarShop = XLuaUiManager.Register(XLuaUi, "UiAreaWarShop")
 function XUiAreaWarShop:OnAwake()
     self.GridShop.gameObject:SetActiveEx(false)
     self.TxtTime.gameObject:SetActiveEx(false)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.AreaWarCoin
@@ -19,11 +22,18 @@ function XUiAreaWarShop:OnAwake()
     self:AutoAddListener()
     self:InitShopButton()
     self:InitDynamicTable()
+    self.TargetUiName = "UiShopItem"
+    self.SyncRefresh = function() 
+        self:OnSyncRefresh()
+    end
 end
 
 function XUiAreaWarShop:OnStart()
     self.CurIndex = 1
     self.ShopIdList = XDataCenter.AreaWarManager.GetActivityShopIds()
+    XDataCenter.AreaWarManager.MarkShopRedPoint()
+    
+    self:InitView()
 end
 
 function XUiAreaWarShop:OnEnable()
@@ -60,6 +70,8 @@ function XUiAreaWarShop:InitShopButton()
             self:SelectShop(index)
         end
     )
+    
+    self.Btns = shopBtns
 end
 
 function XUiAreaWarShop:UpdateAssets()
@@ -82,13 +94,22 @@ function XUiAreaWarShop:SelectShop(index)
     self:UpdateShop()
 end
 
+function XUiAreaWarShop:InitView()
+    for i, shopId in ipairs(self.ShopIdList) do
+        local btn = self.Btns[i]
+        if btn then
+            btn:SetNameByGroup(0, XShopManager.GetShopName(shopId))
+        end
+    end
+end
+
 function XUiAreaWarShop:UpdateShop()
     local shopId = self:GetCurShopId()
 
     local leftTime = XShopManager.GetShopTimeInfo(shopId).ClosedLeftTime
-    if leftTime and leftTime > 0 then
+        if leftTime and leftTime > 0 then
         local timeStr = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
-        self.TxtTime.text = CSXTextManagerGetText("AreaWarActivityShopLeftTime", timeStr)
+        self.TxtTime.text = timeStr --CSXTextManagerGetText("AreaWarActivityShopLeftTime", timeStr)
         self.TxtTime.gameObject:SetActiveEx(true)
     else
         self.TxtTime.gameObject:SetActiveEx(false)
@@ -110,6 +131,10 @@ function XUiAreaWarShop:OnDynamicTableEvent(event, index, grid)
         local data = self.ShopGoods[index]
         grid:UpdateData(data, ShopItemTextColor)
         grid:RefreshShowLock()
+        if data.RewardGoods.RewardType == XRewardManager.XRewardType.Fashion 
+                or XDataCenter.ItemManager.IsWeaponFashion(data.RewardGoods.TemplateId) then
+            grid:BugOnFashionDetail()
+        end
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_RECYCLE then
         grid:OnRecycle()
     end
@@ -124,5 +149,18 @@ function XUiAreaWarShop:GetCurShopId()
 end
 
 function XUiAreaWarShop:RefreshBuy()
+    RunAsyn(self.SyncRefresh)
+end
+
+--- 在协程里等待UiShopItem的关闭
+--------------------------
+function XUiAreaWarShop:OnSyncRefresh()
+    while true do
+        if not XLuaUiManager.IsUiLoad(self.TargetUiName) then
+            break
+        end
+        asynWaitSecond(0.2)
+    end
+    XLuaUiManager.SafeClose("UiFashionDetail")
     self:UpdateShop()
 end

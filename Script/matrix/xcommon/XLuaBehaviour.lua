@@ -24,6 +24,8 @@ function XLuaBehaviour:Ctor(rootUi, ui)
     if self.OnDestroy then
         behaviour.LuaOnDestroy = function() self:OnDestroy() end
     end
+    
+    self.Behaviour = behaviour
 end
 
 function XLuaBehaviour:Dispose()

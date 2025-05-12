@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --背包
 local XUiTRPGGridItem = require("XUi/XUiTRPG/XUiGridTRPGItem")
 local XUiTRPGItemUsePanel = require("XUi/XUiTRPG/XUiTRPGBag/XUiTRPGItemUsePanel")
@@ -13,7 +15,7 @@ function XUiTRPGBag:OnAwake()
 
     self.GridTRPGSpecialItem.gameObject:SetActiveEx(false)
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.TRPGMoney, function()
         self.AssetActivityPanel:Refresh({XDataCenter.ItemManager.ItemId.TRPGMoney})
     end, self.AssetActivityPanel)

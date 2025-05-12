@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiFubenPractice = XLuaUiManager.Register(XLuaUi, "UiFubenPractice")
 local XUiPanelPracticeBoss = require("XUi/XUiFubenPractice/XUiPanelPracticeBoss")
 local XUiPanelPracticeBasics = require("XUi/XUiFubenPractice/XUiPanelPracticeBasics")
@@ -26,6 +27,10 @@ function XUiFubenPractice:InitViews()
     self.BtnTabList = {}
     self.ChapterDetailList = XPracticeConfigs.GetPracticeChapterDetails()
     for id, chapterDetail in pairs(self.ChapterDetailList) do
+        if XPracticeConfigs.CharacterTabIndex.Ganged == id and not XMVCA.XFavorability:IsHasCollaborationCharacter() then
+            goto continue
+        end
+
         local chapter = XPracticeConfigs.GetPracticeChapterById(id)
         if not self.BtnTabList[id] then
             if not XTool.IsNumberValid(chapterDetail.SubTag) then
@@ -34,9 +39,11 @@ function XUiFubenPractice:InitViews()
                 self.BtnTabList[id] = tabGo.transform:GetComponent("XUiButton")
             else
                 --二级节点
-                if XPracticeConfigs.GetPracticeChapterTypeById(id) == XPracticeConfigs.PracticeType.Boss
-                        and not XDataCenter.PracticeManager.CheckPracticeStagesVisibleByChapterId(id) then
-                    goto continue
+                if XPracticeConfigs.GetPracticeChapterTypeById(id) == XPracticeConfigs.PracticeType.Boss then
+                    if not XDataCenter.PracticeManager.CheckPracticeStagesVisibleByChapterId(id) 
+                        or not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.SimulateTrain) then
+                        goto continue
+                    end
                 end
 
                 local tabGo = CS.UnityEngine.Object.Instantiate(self.BtnTabShortSecond.gameObject)
@@ -76,8 +83,15 @@ function XUiFubenPractice:OnStart(tabType, stageId)
     if not self.SelectStageId then
         self:SetSelectStageId(stageId)
     end
+
+    -- 活动结束，没有此页签
+    self.HasTabBtn = self.BtnTabList[self.CurrentSelect] ~= nil
+    if not self.HasTabBtn then
+        self.CurrentSelect = self:GetDefaultOpen()
+    end
+
     self.BtnGroupList:SelectIndex(self.CurrentSelect)
-    --self.AnimEnable:PlayTimelineAnimation()
+    self:StartTimer()
 end
 
 function XUiFubenPractice:OnReleaseInst()
@@ -85,7 +99,11 @@ function XUiFubenPractice:OnReleaseInst()
 end
 
 function XUiFubenPractice:SetAssetPanelActive(isActive)
-    self.AssetPanel.GameObject:SetActiveEx(isActive)
+    if isActive then
+        self.AssetPanel:Open()
+    else
+        self.AssetPanel:Close()
+    end
 end
 
 function XUiFubenPractice:GetDefaultOpen()
@@ -120,6 +138,7 @@ end
 
 function XUiFubenPractice:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_PRACTICE_ON_DATA_REFRESH, self.RefreshSelectPanel, self)
+    self:ClearTimer()
 end
 
 function XUiFubenPractice:OnBtnBackClick()
@@ -182,7 +201,14 @@ function XUiFubenPractice:SelectPanel(id)
         end
     end
 
-    --切换标签或关卡胜利，重置当前选择的关卡Id
+    if chapterDetail and chapterDetail.Type == XPracticeConfigs.PracticeType.Boss then
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            self.BtnGroupList:SelectIndex(self.CurrentSelect, false)
+            return 
+        end
+    end
+
+        --切换标签或关卡胜利，重置当前选择的关卡Id
     if self.CurrentSelect and self.CurrentSelect ~= id or XDataCenter.PracticeManager.GetIsChallengeWin() then
         self:SetSelectStageId()
         XDataCenter.PracticeManager.ChallengeLose()
@@ -218,6 +244,10 @@ end
 
 function XUiFubenPractice:OpenStageDetail(stageId)
     if XPracticeConfigs.PracticeType.Boss == self.CurrentType then
+        if not XMVCA.XSubPackage:CheckSubpackageByIdAndIntercept(XEnumConst.SUBPACKAGE.TEMP_VIDEO_SUBPACKAGE_ID.GAMEPLAY) then
+            return
+        end
+
         self:OpenOneChildUi(ChildBossDetailUi, self)
         self:FindChildUiObj(ChildBossDetailUi):OpenRefresh(stageId)
     elseif XPracticeConfigs.PracticeType.Character == self.CurrentType then
@@ -297,3 +327,28 @@ function XUiFubenPractice:CheckBossRedPoint()
         parentBtnTab:ShowReddot(isParentShowRed)
     end
 end
+
+function XUiFubenPractice:StartTimer()
+    self:ClearTimer()
+    local isOpen = XMVCA.XSimulateTrain:IsActivityOpen()
+    if not isOpen and self.HasTabBtn then return end
+
+    local activityId = XMVCA.XSimulateTrain:GetActivityId()
+    self.EndTime = XMVCA.XSimulateTrain:GetActivityEndTime(activityId)
+    self.ActivityTimer = XScheduleManager.ScheduleForever(function()
+        local gameTime = self.EndTime - XTime.GetServerNowTimestamp()
+        if gameTime < 1 then
+            XMVCA.XSimulateTrain:HandleActivityEnd()
+        end
+    end, XScheduleManager.SECOND)
+end
+
+function XUiFubenPractice:ClearTimer()
+    if self.ActivityTimer then
+        XScheduleManager.UnSchedule(self.ActivityTimer)
+        self.ActivityTimer = nil
+    end
+end
+
+
+return XUiFubenPractice

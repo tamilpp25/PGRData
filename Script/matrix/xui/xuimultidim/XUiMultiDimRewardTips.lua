@@ -1,3 +1,5 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiMultiDimRewardTips = XLuaUiManager.Register(XLuaUi, "UiMultiDimRewardTips")
 
 function XUiMultiDimRewardTips:OnAwake()

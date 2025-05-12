@@ -1,4 +1,5 @@
-XUiPanelRewardBox = XClass(nil, "XUiPanelRewardBox")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiPanelRewardBox = XClass(nil, "XUiPanelRewardBox")
 
 local RewardBoxState = {
     LOCK = 1,
@@ -80,7 +81,7 @@ function XUiPanelRewardBox:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

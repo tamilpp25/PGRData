@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiTipReward = XLuaUiManager.Register(XLuaUi, "UiTipReward")
 
 function XUiTipReward:OnAwake()
@@ -5,7 +6,7 @@ function XUiTipReward:OnAwake()
     self:InitBtnSound()
 end
 
-function XUiTipReward:OnStart(rewardGoodsList, title, closecallback, surecallback, extraTip)
+function XUiTipReward:OnStart(rewardGoodsList, title, closecallback, surecallback, extraTip, preTitle)
     self.GridBagItemRecycle.gameObject:SetActive(false)
     self.Items = {}
     self.OkCallback = surecallback
@@ -14,11 +15,22 @@ function XUiTipReward:OnStart(rewardGoodsList, title, closecallback, surecallbac
     if title then
         self.RecycleTitle.text = title
     end
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Tip_Big)
+    if preTitle then
+        self.PreRecycleTitle.text = preTitle
+    end
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Tip_Big)
     if extraTip ~= nil and self.TxtExtraTip then
         self.TxtExtraTip.gameObject:SetActiveEx(true)
         self.TxtExtraTip.text = extraTip
     end
+end
+
+function XUiTipReward:OnEnable()
+
+end
+
+function XUiTipReward:OnDisable()
+
 end
 
 -- auto
@@ -34,6 +46,7 @@ function XUiTipReward:AutoInitUi()
     self.BtnDetermine = self.Transform:Find("SafeAreaContentPane/BtnDetermine"):GetComponent("Button")
     self.PanelRecycle = self.Transform:Find("SafeAreaContentPane/ViewRecycle/Viewport/PanelRecycle")
     self.GridBagItemRecycle = self.Transform:Find("SafeAreaContentPane/ViewRecycle/Viewport/PanelRecycle/GridBagItemRecycle")
+    self.PreRecycleTitle = self.Transform:Find("SafeAreaContentPane/RecycleTitle/RecycleTitle"):GetComponent("Text")
     self.RecycleTitle = self.Transform:Find("SafeAreaContentPane/RecycleTitle/RecycleTitle1"):GetComponent("Text")
 end
 
@@ -60,7 +73,7 @@ function XUiTipReward:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -77,8 +90,8 @@ end
 -- auto
 --初始化音效
 function XUiTipReward:InitBtnSound()
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnBg, "onClick")] = XSoundManager.UiBasicsMusic.Return
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnDetermine, "onClick")] = XSoundManager.UiBasicsMusic.Confirm
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnBg, "onClick")] = XLuaAudioManager.UiBasicsMusic.Return
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnDetermine, "onClick")] = XLuaAudioManager.UiBasicsMusic.Confirm
 end
 
 function XUiTipReward:OnBtnBgClick()

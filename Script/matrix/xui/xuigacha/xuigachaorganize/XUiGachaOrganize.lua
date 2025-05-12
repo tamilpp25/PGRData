@@ -1,3 +1,5 @@
+local XDynamicTableCurve = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableCurve")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGachaOrganize = XLuaUiManager.Register(XLuaUi, "UiGachaOrganize")
 
 local XUiGridGacha = require("XUi/XUiGacha/XUiGachaOrganize/XUiGridGacha")
@@ -147,7 +149,7 @@ function XUiGachaOrganize:OnDrawClick(btnIndex)
     end
 
     -- 武器意识的背包容量是否足够
-    if XDataCenter.EquipManager.CheckBoxOverLimitOfDraw() then
+    if XMVCA.XEquip:CheckBoxOverLimitOfDraw() then
         return
     end
 
@@ -156,8 +158,8 @@ function XUiGachaOrganize:OnDrawClick(btnIndex)
     local lackItemCount = self.GachaCfg.ConsumeCount * gachaCount - ownItemCount
 
     -- 剩余次数是否足够
-    local dtCount = XDataCenter.GachaManager.GetMaxCountOfAll() - XDataCenter.GachaManager.GetCurCountOfAll()
-    if dtCount < gachaCount and not XDataCenter.GachaManager.GetIsInfinite() then
+    local dtCount = XDataCenter.GachaManager.GetMaxCountOfAll(self.CurGachaId) - XDataCenter.GachaManager.GetCurCountOfAll(self.CurGachaId)
+    if dtCount < gachaCount and not XDataCenter.GachaManager.GetIsInfinite(self.CurGachaId) then
         XUiManager.TipMsg(CS.XTextManager.GetText("GachaIsNotEnough"))
         return
     end
@@ -379,7 +381,7 @@ function XUiGachaOrganize:GeneratePreview()
 
     -- 刷新次数
     self:RefreshPreviewCount()
-    self.PanelNumber.gameObject:SetActiveEx(not XDataCenter.GachaManager.GetIsInfinite())
+    self.PanelNumber.gameObject:SetActiveEx(not XDataCenter.GachaManager.GetIsInfinite(self.CurGachaId))
 end
 
 ---
@@ -409,8 +411,8 @@ end
 --- 刷新卡池奖励进度
 --- 抽卡、切换卡池时刷新
 function XUiGachaOrganize:RefreshPreviewCount()
-    local curCount = XDataCenter.GachaManager.GetCurCountOfAll()
-    local maxCount = XDataCenter.GachaManager.GetMaxCountOfAll()
+    local curCount = XDataCenter.GachaManager.GetCurCountOfAll(self.CurGachaId)
+    local maxCount = XDataCenter.GachaManager.GetMaxCountOfAll(self.CurGachaId)
     local countStr = CS.XTextManager.GetText("GachaAlreadyobtainedCount", curCount, maxCount)
 
     self.TxtNumber.text = countStr

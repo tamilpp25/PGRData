@@ -96,7 +96,7 @@ function XUiGridAssignBuffPart:OnBtnOccupyClick()
 
     XDataCenter.FubenAssignManager.SelectChapterId = self.ChapterId
     XDataCenter.FubenAssignManager.SelectCharacterId = self.ChapterData:GetCharacterId()
-    XLuaUiManager.Open("UiAssignOccupy")
+    XLuaUiManager.Open("UiAssignOccupy", self.ChapterId)
 end
 
 return XUiGridAssignBuffPart

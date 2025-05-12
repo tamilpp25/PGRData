@@ -1,14 +1,15 @@
-XUiPanelWorldChatMyMsgEmoji = XClass(nil, "XUiPanelWorldChatMyMsgEmoji")
+local XUiPanelWorldChatMyMsgEmoji = XClass(XUiNode, "XUiPanelWorldChatMyMsgEmoji")
 local XUiPanelNameplate = require("XUi/XUiNameplate/XUiPanelNameplate")
-function XUiPanelWorldChatMyMsgEmoji:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+
+function XUiPanelWorldChatMyMsgEmoji:OnStart()
     self:InitAutoScript()
 
     local prefab = self.PanelMsg:Find("PanelName"):LoadPrefab(XMedalConfigs.XNameplatePanelPath)
     self.UiPanelNameplate = XUiPanelNameplate.New(prefab, self)
     -- self.UiPanelNameplate = XUiPanelNameplate.New(self.PanelNameplate, self)
+    if self.PanelBg then
+        self._PanelChatBoard = require('XUi/XUiChatServe/XUiChatBoard').New(self.PanelBg, self)
+    end
 end
 
 -- auto
@@ -37,7 +38,7 @@ function XUiPanelWorldChatMyMsgEmoji:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -53,6 +54,10 @@ end
 -- auto
 function XUiPanelWorldChatMyMsgEmoji:OnBtnViewClick()
     if XDataCenter.RoomManager.RoomData and self.playerId == XPlayer.Id then
+        --在房间中不能在聊天打开自己详情面板
+        return
+    end
+    if XMVCA.XDlcRoom:IsInRoom() and self.playerId == XPlayer.Id then
         --在房间中不能在聊天打开自己详情面板
         return
     end
@@ -96,7 +101,7 @@ end
 function XUiPanelWorldChatMyMsgEmoji:Refresh(chatData)
     self.playerId = chatData.SenderId
     self.TxtName.text = XDataCenter.SocialManager.GetPlayerRemark(chatData.SenderId, chatData.NickName)
-    XUiPLayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
 
     self:RefreshBabelTowerLevel(chatData)
     self:RefreshGuildRankLevel(chatData)
@@ -125,4 +130,13 @@ function XUiPanelWorldChatMyMsgEmoji:Refresh(chatData)
     else
         self.UiPanelNameplate.GameObject:SetActiveEx(false)
     end
+    
+    if self._PanelChatBoard then
+        -- 设置聊天框
+        self._PanelChatBoard:Refresh(chatData.ChatBoardId, chatData.SenderId == XPlayer.Id)
+        --表情Ui翻转
+        self.RImgEmoji.transform.localScale = self._PanelChatBoard._IsMirror and Vector3(-1, 1, 1) or Vector3(1, 1, 1)
+    end
 end
+
+return XUiPanelWorldChatMyMsgEmoji

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --
 local XUiGuildWarStageRankList = XClass(nil, "XUiGuildWarStageRankList")
 local Grid = require("XUi/XUiGuildWar/Ranking/XUiGuildWarStageRankGrid")

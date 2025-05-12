@@ -85,6 +85,7 @@ function XUiRpgMakerGamePanelWinTip:RefreshTxt(stageId)
     for i = #starConditionIdList + 1, XRpgMakerGameConfigs.MaxStarCount do
         self["PanelText" .. i].gameObject:SetActiveEx(false)
     end
+    if self.TxtMiaoSu then self.TxtMiaoSu.gameObject:SetActiveEx(false) end
 end
 
 function XUiRpgMakerGamePanelWinTip:Hide()

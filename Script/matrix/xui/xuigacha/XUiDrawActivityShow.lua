@@ -114,7 +114,7 @@ function XUiDrawActivityShow:ShowResult()
     local quality = self:GetQuality(id, Type)
 
     local showTable = XDataCenter.DrawManager.GetDrawShow(Type)
-    local skipEffect = XDrawConfigs.GetSkipEffect(showTable.DrawEffectGroupId[quality])
+    local skipEffect = XDrawConfigs.GetSkipEffect(showTable.GachaEffectGroupId[quality])
     self.CurPanelOpenUpEffect = self.PanelOpenUp:LoadPrefab(skipEffect)
     self.CurPanelOpenUpEffect.gameObject.name = skipEffect
     self.CurPanelOpenUpEffect.gameObject:SetActiveEx(true)
@@ -151,33 +151,18 @@ function XUiDrawActivityShow:NextPack()
         self.CvInfo:Stop()
         self.CvInfo = nil
     end
-    self.Plane.gameObject:SetActiveEx(false)
     local reward = self.RewardList[self.ShowIndex]
-    local id = reward.Id and reward.Id > 0 and reward.Id or reward.TemplateId
-    if reward.ConvertFrom > 0 then
-        id = reward.ConvertFrom
-    end
-    local Type = XTypeManager.GetTypeById(id)
-    local quality
-    local templateIdData = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(id)
-    if Type == XArrangeConfigs.Types.Wafer then
-        quality = templateIdData.Star
-    elseif Type == XArrangeConfigs.Types.Weapon then
-        quality = templateIdData.Star
-    elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
-    else
-        quality = XTypeManager.GetQualityById(id)
-    end
+    local id = self:GetRewardId(self.ShowIndex)
+    local Type = self:GetRewardType(id)
+    local quality = self:GetQuality(id, Type)
 
-
-    local soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.Normal
+    local soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.Normal
 
     if quality then
         if quality == QualityFive then
-            soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
+            soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
         elseif quality == QualitySix then
-            soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.SixStar
+            soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.SixStar
         end
     end
 
@@ -190,29 +175,27 @@ function XUiDrawActivityShow:NextPack()
         local goodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(id)
         icon = goodsShowParams.BigIcon
 
-        if Type ~= XArrangeConfigs.Types.Weapon then
+        if Type ~= XArrangeConfigs.Types.Weapon and not XDataCenter.ItemManager.IsWeaponFashion(id) then
             self.ImgRewards[Type]:SetRawImage(icon)
             self.BtnClick.gameObject:SetActiveEx(true)
         end
     else
         if Type == XArrangeConfigs.Types.Character then
-            icon = XDataCenter.CharacterManager.GetCharHalfBodyImage(id)
+            icon = XMVCA.XCharacter:GetCharHalfBodyImage(id)
             if quality < 3 then
-                soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
+                soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
             elseif quality > 2 then
-                soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.SixStar
+                soundType = XLuaAudioManager.UiBasicsMusic.UiDrawCard_Type.SixStar
             end
         elseif Type == XArrangeConfigs.Types.Wafer then
-            icon = XDataCenter.EquipManager.GetEquipLiHuiPath(id)
+            icon = XMVCA.XEquip:GetEquipLiHuiPath(id)
         elseif Type == XArrangeConfigs.Types.Item then
             icon = XDataCenter.ItemManager.GetItemBigIcon(id)
-        elseif Type == XArrangeConfigs.Types.Fashion then
-            icon = XDataCenter.FashionManager.GetFashionIcon(id)
         elseif Type == XArrangeConfigs.Types.ChatEmoji then
             icon = XDataCenter.ChatManager.GetEmojiIcon(id)
         end
 
-        if Type ~= XArrangeConfigs.Types.Character then
+        if Type ~= XArrangeConfigs.Types.Character and Type ~= XArrangeConfigs.Types.Fashion then
             self.ImgRewards[Type]:SetRawImage(icon)
             self.BtnClick.gameObject:SetActiveEx(true)
         end
@@ -225,22 +208,24 @@ function XUiDrawActivityShow:NextPack()
         self.PanelCardShowOff.gameObject:SetActiveEx(true)
         if self.GameObject.activeInHierarchy then
             if curShowNum == self.ShowIndex then
-                local effect = XDrawConfigs.GetOpenUpEffect(showTable.DrawEffectGroupId[quality])
+                local effect = XDrawConfigs.GetOpenUpEffect(showTable.GachaEffectGroupId[quality])
                 self.CurPanelOpenUpEffect = self.PanelOpenUp.transform:Find(effect)
                 if self.CurPanelOpenUpEffect then
-                    self.CurPanelOpenUpEffect.gameObject:SetActiveEx(false)
                     self.CurPanelOpenUpEffect.gameObject:SetActiveEx(true)
                 else
                     self.CurPanelOpenUpEffect = self.PanelOpenUp:LoadPrefab(effect)
                     self.CurPanelOpenUpEffect.gameObject.name = effect
-                    self.CurPanelOpenUpEffect.gameObject:SetActiveEx(false)
                     self.CurPanelOpenUpEffect.gameObject:SetActiveEx(true)
                 end
             end
             if Type == XArrangeConfigs.Types.Character then
-                self:ShowCharacterModel(id)
+                self:ShowCharacterModel(id, nil)
+            elseif Type == XArrangeConfigs.Types.Fashion then
+                self:ShowCharacterModel(nil, id)
             elseif Type == XArrangeConfigs.Types.Weapon then
                 self:ShowWeaponModel(id)
+            elseif XDataCenter.ItemManager.IsWeaponFashion(id) then
+                self:ShowWeaponFashionModel(id)
             end
             XUiHelper.PlayAnimation(self, showTable.UiAnim .. "Item", nil, function()
                 if curShowNum == self.ShowIndex then
@@ -250,10 +235,10 @@ function XUiDrawActivityShow:NextPack()
             end)
         end
 
-        CS.XAudioManager.PlaySound(soundType.Show)
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, soundType.Show)
     end)
 
-    CS.XAudioManager.PlaySound(soundType.Start)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, soundType.Start)
 
     local templeid = id
     if XArrangeConfigs.Types.Furniture == reward.RewardType then
@@ -270,7 +255,7 @@ function XUiDrawActivityShow:NextPack()
     self.PanelOpenUp.gameObject:SetActiveEx(true)
     self.PanelOpenDown.gameObject:SetActiveEx(true)
 
-    local effect = XDrawConfigs.GetOpenDownEffect(showTable.DrawEffectGroupId[quality])
+    local effect = XDrawConfigs.GetOpenDownEffect(showTable.GachaEffectGroupId[quality])
     self.CurPanelOpenDownEffect = self.PanelOpenDown.transform:Find(effect)
     if self.CurPanelOpenDownEffect then
         self.CurPanelOpenDownEffect.gameObject:SetActiveEx(true)
@@ -279,10 +264,11 @@ function XUiDrawActivityShow:NextPack()
         self.CurPanelOpenDownEffect.gameObject.name = effect
         self.CurPanelOpenDownEffect.gameObject:SetActiveEx(true)
     end
+
 end
 
 function XUiDrawActivityShow:ShowWeaponModel(templateId)
-    local modelConfig = XDataCenter.EquipManager.GetWeaponModelCfg(templateId, self.Name, 0)
+    local modelConfig = XMVCA.XEquip:GetWeaponModelCfg(templateId, self.Name, 0)
     if modelConfig then
         XModelManager.LoadWeaponModel(modelConfig.ModelId, self.WeaponRoot, modelConfig.TransformConfig, self.Name, function(model)
             model.gameObject:SetActiveEx(true)
@@ -316,11 +302,11 @@ function XUiDrawActivityShow:ShowCharacterModel(templateId, fashtionId)
     end
 
     local curCharacterId = templateId or XDataCenter.FashionManager.GetCharacterId(fashtionId)
-    local curFashtionId = fashtionId or XCharacterConfigs.GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
+    local curFashtionId = fashtionId or XMVCA.XCharacter:GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
     XDataCenter.DisplayManager.UpdateRoleModel(self.RoleModelPanel, curCharacterId, nil, curFashtionId)
 
     self.RoleModelPanel:UpdateCharacterModel(curCharacterId, self.CharacterRoot, XModelManager.MODEL_UINAME.XUiDrawShow, function(model)
-        CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiDrawCard_Chouka_Name)
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiDrawCard_Chouka_Name)
         model.gameObject:SetActiveEx(true)
 
         local animeID = XDataCenter.DrawManager.GetDrawShowCharacter(curCharacterId).AnimeID
@@ -331,7 +317,7 @@ function XUiDrawActivityShow:ShowCharacterModel(templateId, fashtionId)
         end
 
         if voiceId then
-            self.CvInfo = CS.XAudioManager.PlayCv(voiceId)
+            self.CvInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Voice, voiceId)
         end
 
         self.LastCharacterModel = model
@@ -368,14 +354,14 @@ end
 
 function XUiDrawActivityShow:PlayEnd()
     XUiHelper.StopAnimation()
-    self.Plane.gameObject:SetActiveEx(true)
+
     self.BtnClick.gameObject:SetActiveEx(true)
     drawScene.SetActive(drawScene.Types.BOX, true)
-    if self.CurLight.gameObject then
-        self.CurLight.gameObject:SetActiveEx(false)
+    if self.CurStape_1 and not XTool.UObjIsNil(self.CurStape_1.gameObject) then
+        self.CurStape_1.gameObject:SetActiveEx(false)
     end
-    if self.CurLightLock and not XTool.UObjIsNil(self.CurLightLock.gameObject) then
-        self.CurLightLock.gameObject:SetActiveEx(false)
+    if self.CurStape_2 and not XTool.UObjIsNil(self.CurStape_2.gameObject) then
+        self.CurStape_2.gameObject:SetActiveEx(false)
     end
     if self.CvInfo then
         self.CvInfo:Stop()
@@ -408,23 +394,35 @@ function XUiDrawActivityShow:PlayBoxAnimStart()
     self.PanelCardShowOff = self.BackGround.transform:Find("ModelRoot/UiNearRoot/EffectRoot/PanelCardShowOff")
     self.WeaponRoot = self.BackGround.transform:Find("ModelRoot/UiNearRoot/WeaponRoot")
     self.CharacterRoot = self.BackGround.transform:Find("ModelRoot/UiNearRoot/CharacterRoot")
-    self.Plane = self.BackGround.transform:Find("ModelRoot/UiFarRoot/Plane")
 
     local behaviour = self.GameObject:AddComponent(typeof(CS.XLuaBehaviour))
     if self.Update then
         behaviour.LuaUpdate = function() self:Update() end
     end
-    self.PlayableDirector = self.BackGround:GetComponent("PlayableDirector")
-    self.PlayableDirector:Play()
-    self.PlayBoxAnim = true
-    self.PanelBoxLight = self.BackGround.transform:Find("ModelRoot/UiNearRoot/PanelBox/PanelBoxLight")
-    self.PanelBoxLock = self.BackGround.transform:Find("ModelRoot/UiNearRoot/PanelBox/PanelBoxLock")
-    self.CurLight = self.PanelBoxLight:LoadPrefab(self:GetMaxQualityEffectName())
-    self.CurLight.gameObject:SetActiveEx(true)
 
-    if self.PanelBoxLock then
-        self.CurLightLock = self.PanelBoxLock:LoadPrefab(XUiConfigs.GetComponentUrl("UiDrawOpenBoxPre"))
-        self.CurLightLock.gameObject:SetActiveEx(true)
+
+    self.GachaShowStape_1 = self.BackGround.transform:Find("BoxEffect/Stape1")
+    self.GachaShowStape_2 = self.BackGround.transform:Find("BoxEffect/Stape2")
+
+    local effectsName
+    local effectsLevel
+
+    effectsName, effectsLevel = self:GetMaxQualityEffectName()
+
+    if self.GachaShowStape_1 then
+        self.CurStape_1 = self.GachaShowStape_1:LoadPrefab(XUiConfigs.GetComponentUrl("UiGachaSteap1"))
+        self.CurStape_1.gameObject:SetActiveEx(true)
+    end
+    if self.GachaShowStape_2 then
+        self.CurStape_2 = self.GachaShowStape_2:LoadPrefab(effectsName)
+        self.CurStape_2.gameObject:SetActiveEx(true)
+    end
+
+    self.PlayableDirector = XUiHelper.TryGetComponent(self.BackGround.transform, "TimeLine/Level" .. effectsLevel, "PlayableDirector")
+    if self.PlayableDirector then
+        self.PlayableDirector.gameObject:SetActiveEx(true)
+        self.PlayableDirector:Play()
+        self.PlayBoxAnim = true
     end
 end
 
@@ -441,7 +439,7 @@ function XUiDrawActivityShow:GetQuality(id, type)
     elseif type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     else
         quality = XTypeManager.GetQualityById(id)
     end
@@ -487,14 +485,15 @@ function XUiDrawActivityShow:GetMaxQualityEffectName()
     for k, v in pairs(XArrangeConfigs.Types) do
         if maxByType[k] > 0 then
             local showTable = XDataCenter.DrawManager.GetDrawShow(v)
-            local effect = XDrawConfigs.GetOpenBoxEffect(showTable.DrawEffectGroupId[maxByType[k]])
+            local effect = XDrawConfigs.GetOpenBoxEffect(showTable.GachaEffectGroupId[maxByType[k]])
+
             if tonumber(string.sub(effect, -8, -8)) > maxEffectLevel then
                 maxEffectLevel = tonumber(string.sub(effect, -8, -8))
                 maxEffectPath = effect
             end
         end
     end
-    return maxEffectPath
+    return maxEffectPath, maxEffectLevel
 end
 
 function XUiDrawActivityShow:SetWeaponPos(target, config)

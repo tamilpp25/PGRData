@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 -- local XUiGridTRPGTestAction = require("XUi/XUiTRPG/XUiGridTRPGTestAction")
 local tonumber = tonumber
 local CSXTextManagerGetText = CS.XTextManager.GetText
@@ -20,7 +21,12 @@ function XUiTRPGFightTips:OnStart(cardId, cardIndex, stageId, challengeLevel, qu
 end
 
 function XUiTRPGFightTips:OnEnable()
+
     self:UpdateUi()
+end
+
+function XUiTRPGFightTips:OnDisable()
+
 end
 
 function XUiTRPGFightTips:OnDestroy()

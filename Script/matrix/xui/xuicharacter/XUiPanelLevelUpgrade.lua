@@ -1,9 +1,10 @@
-XUiPanelLevelUpgrade = XClass(nil, "XUiPanelLevelUpgrade")
+local XUiPanelLevelUpgrade = XClass(XUiNode, "XUiPanelLevelUpgrade")
 
-function XUiPanelLevelUpgrade:Ctor(ui, parent)
+function XUiPanelLevelUpgrade:Ctor(ui, parent, rootUi)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
-    self.Parent = parent
+    self.RootUi = rootUi
+
     self:InitAutoScript()
 end
 
@@ -33,6 +34,8 @@ function XUiPanelLevelUpgrade:AutoInitUi()
     self.TxtCurLevelA = self.Transform:Find("BtnBg/PanelTxtLevel/TxtCurLevel"):GetComponent("Text")
     self.TxtOldLevel = self.Transform:Find("BtnBg/PanelTxtLevel/TxtOldLevel"):GetComponent("Text")
     self.BtnDarkBg = self.Transform:Find("BtnDarkBg"):GetComponent("Button")
+    self.TxtOldBattlePower = self.Transform:Find("BtnBg/Properties/PanelCharBattlePower/TxtOldBattlePower"):GetComponent("Text") -- fixme 2.5等验收完恢复提交
+    self.TxtCurBattlePower = self.Transform:Find("BtnBg/Properties/PanelCharBattlePower/TxtCurBattlePower"):GetComponent("Text")
 end
 
 function XUiPanelLevelUpgrade:RegisterClickEvent(uiNode, func)
@@ -57,7 +60,7 @@ function XUiPanelLevelUpgrade:AutoAddListener()
 end
 -- auto
 function XUiPanelLevelUpgrade:OnBtnDarkBgClick()
-    self.Parent.LevelUpgradeDisable:PlayTimelineAnimation(function()
+    self.RootUi.LevelUpgradeDisable:PlayTimelineAnimation(function()
         self:HideLevelInfo()
     end)
 end
@@ -66,7 +69,7 @@ function XUiPanelLevelUpgrade:ShowLevelInfo(character)
     self.IsShow = true
     self.GameObject:SetActive(true)
     self:CurCharUpgradeInfo(character)
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Success)   -- 成功
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Success)   -- 成功
 end
 
 function XUiPanelLevelUpgrade:HideLevelInfo()
@@ -76,22 +79,26 @@ function XUiPanelLevelUpgrade:HideLevelInfo()
         self.GameObject:SetActive(false)
     end
 
-   -- XDataCenter.GuideManager.OpenSubPanel(self.Parent.Parent.Parent.Parent.Name, "PanelLevelUpgrade", false)
+   -- XDataCenter.GuideManager.OpenSubPanel(self.RootUi.Parent.Parent.Parent.Name, "PanelLevelUpgrade", false)
 end
 
 function XUiPanelLevelUpgrade:OldCharUpgradeInfo(character)
+    self.TxtOldBattlePower.text = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(character.Id)
     self.TxtOldAttack.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.AttackNormal]) or 0)
     self.TxtOldLife.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.Life]) or 0)
     self.TxtOldDefense.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.DefenseNormal]) or 0)
     self.TxtOldCrit.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.Crit]) or 0)
-    self.TxtOldLevel.text = "LV." .. character.Level
+    self.TxtOldLevel.text = XUiHelper.GetText("LevelChinese", character.Level)
 end
 
 function XUiPanelLevelUpgrade:CurCharUpgradeInfo(character)
+    self.TxtCurBattlePower.text = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(character.Id)
     self.TxtCurAttack.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.AttackNormal]) or 0)
     self.TxtCurLife.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.Life]) or 0)
     self.TxtCurDefense.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.DefenseNormal]) or 0)
     self.TxtCurCrit.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.Crit]) or 0)
-    self.TxtCurLevelA.text = "LV." .. character.Level
-    self.RImgRoleUpgradeMsg:SetRawImage(XDataCenter.CharacterManager.GetCharBigHeadIcon(character.Id))
+    self.TxtCurLevelA.text = XUiHelper.GetText("LevelChinese", character.Level)
+    self.RImgRoleUpgradeMsg:SetRawImage(XMVCA.XCharacter:GetCharBigHeadIcon(character.Id))
 end
+
+return XUiPanelLevelUpgrade

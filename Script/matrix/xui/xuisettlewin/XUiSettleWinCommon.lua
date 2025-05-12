@@ -1,3 +1,6 @@
+local XUiGridCond = require("XUi/XUiSettleWinMainLine/XUiGridCond")
+local XUiGridWinRole = require("XUi/XUiSettleWin/XUiGridWinRole")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelExpBar = require("XUi/XUiSettleWinMainLine/XUiPanelExpBar")
 local XUiSettleWinCommonDefaultProxy = require("XUi/XUiSettleWin/XUiSettleWinCommonDefaultProxy")
 local XUiSettleWinCommon = XLuaUiManager.Register(XLuaUi, "UiSettleWinCommon")
@@ -190,7 +193,8 @@ function XUiSettleWinCommon:RefreshRoleContents()
         XUiHelper.RefreshCustomizedList(self.PanelRoleContent, self.GridRole, #self.CharData
         , function(index, gridGo)
             local grid = XUiGridWinRole.New(self, gridGo)
-            grid:UpdateRoleInfo(self.CharData[index], self.StageConfig.CardExp)
+            local cardExp = XDataCenter.FubenManager.GetCardExp(self.StageConfig.StageId)
+            grid:UpdateRoleInfo(self.CharData[index], cardExp)
         end) 
     end
 end
@@ -199,13 +203,14 @@ function XUiSettleWinCommon:RefreshPlayerExp()
     local currentLevel = XPlayer.GetLevelOrHonorLevel()
     local isHonorLevelOpen = XPlayer.IsHonorLevelOpen()
     local txtName = isHonorLevelOpen and XUiHelper.GetText("HonorLevel") or nil
+    local teamExp = XDataCenter.FubenManager.GetTeamExp(self.StageConfig.StageId)
     self.UiPanelExpBar = XUiPanelExpBar.New(self.PanelPlayerExpBar)
     self.UiPanelExpBar:LetsRoll(self.RoleLevel, self.RoleExp
         , XPlayerManager.GetMaxExp(self.RoleLevel, isHonorLevelOpen)
         , currentLevel
         , XPlayer.Exp
         , XPlayerManager.GetMaxExp(currentLevel, isHonorLevelOpen)
-        , self.StageConfig.TeamExp
+        , teamExp
         , txtName)
 end
 
@@ -293,7 +298,7 @@ function XUiSettleWinCommon:EnableFriendPanel()
     end
     self.TxtAssistName.text = self.CurrentAssistInfo.Name
     self.TxtAssistLevel.text = self.CurrentAssistInfo.Level
-    XUiPLayerHead.InitPortrait(self.CurrentAssistInfo.HeadPortraitId, self.CurrentAssistInfo.HeadFrameId, self.AssistHead)
+    XUiPlayerHead.InitPortrait(self.CurrentAssistInfo.HeadPortraitId, self.CurrentAssistInfo.HeadFrameId, self.AssistHead)
     self.PanelFriend.gameObject:SetActive(true)
     self:PlayAnimation("PanelFriendEnable")
 end

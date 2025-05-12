@@ -28,7 +28,7 @@ function XUiGuildDormPanelGuildInformation:InitEventListeners()
     if self.AddEventFlag then return end
     XEventManager.AddEventListener(XEventId.EVENT_GUILD_MEMBERCOUNT_CHANGED, self.RefreshBtnTabMember, self)
     XEventManager.AddEventListener(XEventId.EVENT_GUILD_DATA_CHANGED, self.Refresh, self)
-    XRedPointManager.AddRedPointEvent(self.BtnAdministration, self.SetBtnAdministrationRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    self.RedPointID = XRedPointManager.AddRedPointEvent(self.BtnAdministration, self.SetBtnAdministrationRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
     self.AddEventFlag = true
 end
 
@@ -36,7 +36,7 @@ function XUiGuildDormPanelGuildInformation:RemoveEventListeners()
     if not self.AddEventFlag then return end
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_MEMBERCOUNT_CHANGED, self.RefreshBtnTabMember, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_DATA_CHANGED, self.Refresh, self)
-    XRedPointManager.RemoveRedPointEvent(self.BtnAdministration, self.SetBtnAdministrationRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    XRedPointManager.RemoveRedPointEvent(self.RedPointID)
     self.AddEventFlag = false
 end
 
@@ -133,6 +133,7 @@ function XUiGuildDormPanelGuildInformation:Show(hideCb)
     self.HideCallback = hideCb
     self.GameObject:SetActiveEx(true)
     self:InitEventListeners()
+    XDataCenter.UiPcManager.OnUiEnable(self, "Hide")
 end
 
 function XUiGuildDormPanelGuildInformation:Hide()
@@ -141,6 +142,7 @@ function XUiGuildDormPanelGuildInformation:Hide()
     if self.HideCallback then
         self.HideCallback()
     end
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
 end
 
 function XUiGuildDormPanelGuildInformation:OnEnable()

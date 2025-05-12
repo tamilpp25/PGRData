@@ -18,6 +18,7 @@ XHeadPortraitManagerCreator = function()
     function XHeadPortraitManager.Init()
         HeadPortraitsTemplates = XHeadPortraitConfigs.GetHeadPortraitsCfg()
         XHeadPortraitManager.InitSameGroupShowId()
+        XEventManager.AddEventListener(XEventId.EVENT_AUTO_WINDOW_STOP,XHeadPortraitManager.DisplayRewardRestock)
     end
 
     function XHeadPortraitManager.InitSameGroupShowId()
@@ -167,7 +168,7 @@ XHeadPortraitManagerCreator = function()
     function XHeadPortraitManager.GetUnlockedHeadPortraitIds(type)
         local list = {}
         for id, v in pairs(HeadPortraitsTemplates) do
-            if not XHeadPortraitManager.CheckIsHideTime(id) then
+            if not XHeadPortraitManager.CheckIsHideTime(id) and not XHeadPortraitManager.CheckIsExpired(id) then
                 if not type or v.Type == type then
                     if v.GroupId == 0 then
                         table.insert(list, v)
@@ -190,6 +191,20 @@ XHeadPortraitManagerCreator = function()
         end)
 
         return list
+    end
+
+    -- 检查是否过期：当Expire配置为1时，先判断物品Type是否为2（头像框），如果是，则将该头像框视为已过期的头像框
+    -- 1.如果玩家已解锁该头像框或者仍有该头像框时长，则可以继续正常使用或换下
+    -- 2.如果玩家没有该头像框，则在界面中隐藏该头像框，不再显示
+    function XHeadPortraitManager.CheckIsExpired(id)
+        local config = HeadPortraitsTemplates[id]
+        if config.Type == XHeadPortraitConfigs.HeadType.HeadFrame then
+            if config.Expire and not XHeadPortraitManager.IsHeadPortraitValid(id) then
+                return true
+            end
+        end
+
+        return false
     end
 
     function XHeadPortraitManager.IsHeadPortraitValid(headId)
@@ -221,10 +236,16 @@ XHeadPortraitManagerCreator = function()
         end
 
         for _, v in pairs(heads or {}) do
+            local oldData = UnlockHeadInfos[v.Id]
+
             XHeadPortraitManager.UpdateSameGroupShowId(v.Id)
+            
             UnlockHeadInfos[v.Id] = v
-            if IsAddNew then
-                XHeadPortraitManager.AddNewHeadPortrait(v.Id)
+
+            if not oldData then
+                if IsAddNew then
+                    XHeadPortraitManager.AddNewHeadPortrait(v.Id)
+                end
             end
         end
     end
@@ -361,6 +382,21 @@ XHeadPortraitManagerCreator = function()
             UnlockHeadInfos[id] = nil
         end
     end
+    
+    --region 2.10
+    local rewardRestockCachce = nil
+    
+    function XHeadPortraitManager.SetRewardRestockCache(data)
+        rewardRestockCachce = data
+    end
+    
+    function XHeadPortraitManager.DisplayRewardRestock()
+        if not XTool.IsTableEmpty(rewardRestockCachce) then
+            XUiManager.OpenUiObtain(rewardRestockCachce)
+            rewardRestockCachce = nil
+        end
+    end
+    --endregion
 
     XHeadPortraitManager.Init()
     return XHeadPortraitManager
@@ -387,3 +423,9 @@ XRpc.NotifyHeadTimeout = function(data)
     XEventManager.DispatchEvent(XEventId.EVENT_HEAD_PORTRAIT_NOTIFY)
     XEventManager.DispatchEvent(XEventId.EVENT_HEAD_PORTRAIT_TIMEOUT)
 end
+
+--region 2.10
+XRpc.FashionLoginGiftNotify = function(data)
+    XDataCenter.HeadPortraitManager.SetRewardRestockCache(data.GoodList)
+end
+--endregion

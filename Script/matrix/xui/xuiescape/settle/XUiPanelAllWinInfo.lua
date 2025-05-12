@@ -1,4 +1,4 @@
---######################## XUiGridCond ########################
+---@class XUiGridCond
 local XUiGridCond = XClass(nil, "XUiGridCond")
 
 function XUiGridCond:Ctor(ui)
@@ -21,6 +21,7 @@ function XUiGridCond:Refresh(condType, desc)
 end
 
 --阶段结算
+local XUiPanelTactics = require("XUi/XUiEscape/Tactics/XUiPanelTactics")
 local XUiGridWinRole = require("XUi/XUiEscape/Settle/XUiGridWinRole")
 local XUiPanelAllWinInfo = XClass(nil, "XUiPanelAllWinInfo")
 
@@ -29,10 +30,17 @@ function XUiPanelAllWinInfo:Ctor(ui, clickLeftCb)
     self.Transform = ui.transform
     XUiHelper.InitUiClass(self, ui)
 
+    ---@type UnityEngine.Transform
+    self.WinEffect = XUiHelper.TryGetComponent(self.RImgScore.transform, "effectWin")
+    if self.WinEffect then
+        self.WinEffect.gameObject:SetActiveEx(false)
+    end
     self.ClickLeftCb = clickLeftCb
+    ---@type XUiGridCond[]
     self.GridCondList = {}
     self.TeamMembers = {}
     self.EscapeData = XDataCenter.EscapeManager.GetEscapeDataCopy()
+    self._PanelTactics = XUiPanelTactics.New(self.PanelTactics, self.EscapeData)
     self:InitClickCallback()
 end
 
@@ -60,18 +68,34 @@ function XUiPanelAllWinInfo:Refresh(isWin)
     end
     local chapterId = self.EscapeData:GetChapterId()
     self.TxtChapterName.text = XEscapeConfigs.GetChapterName(chapterId)
-    self.TxtSettle.text = isWin and XUiHelper.GetText("EscapeSettleWinTitle") or XUiHelper.GetText("EscapeSettleLoseTitle")
-    self.TxtTips.text = isWin and XUiHelper.GetText("EscapeSettleLoseTitle") or XUiHelper.GetText("EscapeSettleLoseDesc")
-    self:UpdateScore()
+    --self.TxtSettle.text = isWin and XUiHelper.GetText("EscapeSettleWinTitle") or XUiHelper.GetText("EscapeSettleLoseTitle")
+    --self.TxtTips.text = isWin and XUiHelper.GetText("EscapeSettleLoseTitle") or XUiHelper.GetText("EscapeSettleLoseDesc")
+    --self:UpdateScore()
     self:UpdateCondContent()
     self:UpdateCharacter()
+    self:UpdateWinTitle(isWin)
+    self._PanelTactics:Refresh()
 end
 
 function XUiPanelAllWinInfo:UpdateScore()
     local score = self.EscapeData:GetScore()
     local gradeImgPath = XEscapeConfigs.GetChapterSettleRemainTimeGradeImgPath(score)
     self.RImgScore:SetRawImage(gradeImgPath)
-end 
+end
+
+function XUiPanelAllWinInfo:UpdateWinTitle(isWin)
+    local icon = XEscapeConfigs.GetSettleTitleIcon(isWin)
+    local text = XEscapeConfigs.GetSettleTitleText(isWin)
+    if self.RImgScore and not string.IsNilOrEmpty(icon) then
+        self.RImgScore:SetRawImage(icon)
+    end
+    if self.TxtScore then
+        self.TxtScore.text = text
+    end
+    if self.WinEffect then
+        self.WinEffect.gameObject:SetActiveEx(isWin)
+    end
+end
 
 function XUiPanelAllWinInfo:UpdateCharacter()
     local team = XDataCenter.EscapeManager.GetTeam()

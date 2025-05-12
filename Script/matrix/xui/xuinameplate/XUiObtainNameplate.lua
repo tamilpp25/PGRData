@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiObtainNameplate = XLuaUiManager.Register(XLuaUi, "UiObtainNameplate")
 local XUiGridNameplate = require("XUi/XUiNameplate/XUiGridNameplate")
 function XUiObtainNameplate:OnAwake()

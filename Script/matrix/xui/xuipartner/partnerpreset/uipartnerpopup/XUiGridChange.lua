@@ -38,14 +38,14 @@ function XUiGridChange:Refresh(pos, prefabTeam)
             self.CurrentHead.PanelEmpty.gameObject:SetActiveEx(not hasCurrent)
             self.CurrentHead.PanelNotEmpty.gameObject:SetActiveEx(hasCurrent)
             if hasCurrent then
-                self.CurrentHead.RImgRoleHead:SetRawImage(XDataCenter.CharacterManager.GetCharBigHeadIcon(currentCarriedChrId))
+                self.CurrentHead.RImgRoleHead:SetRawImage(XMVCA.XCharacter:GetCharBigHeadIcon(currentCarriedChrId))
             end
 
             local hasRole = XTool.IsNumberValid(chrId)
             self.PresetHead.PanelEmpty.gameObject:SetActiveEx(not hasRole)
             self.PresetHead.PanelNotEmpty.gameObject:SetActiveEx(hasRole)
             if hasRole then
-                self.PresetHead.RImgRoleHead:SetRawImage(XDataCenter.CharacterManager.GetCharBigHeadIcon(chrId))
+                self.PresetHead.RImgRoleHead:SetRawImage(XMVCA.XCharacter:GetCharBigHeadIcon(chrId))
             end
         else
             self.GameObject:SetActiveEx(false)

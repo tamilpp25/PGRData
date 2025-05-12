@@ -10,15 +10,16 @@ function XUiGridAreaWarHangUp:Ctor(ui, clickCb)
         self.BtnClick.CallBack = clickCb
     end
 
-    self.ImgJiantou = self.Transform:FindTransform("ImgJiantou")
 end
 
 function XUiGridAreaWarHangUp:Refresh(id, curLevel)
-    self.TxtLevel.text = id
+    local level = string.format("%2d", id)
+    self.TxtLevelN.text = level
+    self.TxtLevelS.text = level
 
     local isReach = curLevel >= id
-    self.PanelReach.gameObject:SetActiveEx(isReach)
-    self.PanelUnReach.gameObject:SetActiveEx(not isReach)
+    self.Normal.gameObject:SetActiveEx(not isReach)
+    self.Select.gameObject:SetActiveEx(isReach)
 
     local amount = XAreaWarConfigs.GetHangUpUnlockAmount(id)
     self.TxtCount.text = amount .. "/h"
@@ -26,8 +27,6 @@ function XUiGridAreaWarHangUp:Refresh(id, curLevel)
     if self.RImgIcon then
         self.RImgIcon:SetRawImage(XDataCenter.AreaWarManager.GetCoinItemIcon())
     end
-
-    self.ImgJiantou.gameObject:SetActiveEx(curLevel == id)
 end
 
 return XUiGridAreaWarHangUp

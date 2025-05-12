@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiArenaOnlineSection = XLuaUiManager.Register(XLuaUi, "UiArenaOnlineSection")
 local XUiSectionPrefab = require("XUi/XUiArenaOnline/XUiSectionPrefab")
 local XUiPanelStageDetail = require("XUi/XUiArenaOnline/XUiPanelStageDetail")
@@ -19,7 +20,8 @@ function XUiArenaOnlineSection:OnStart()
 
     local prefabpath = XDataCenter.ArenaOnlineManager.GetCurSectionPrefabPath()
     if prefabpath then
-        self.Resource = CS.XResourceManager.Load(prefabpath)
+        --self.Resource = CS.XResourceManager.Load(prefabpath)
+        XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
     end
     local prefab = CS.UnityEngine.Object.Instantiate(self.Resource.Asset)
     prefab.transform:SetParent(self.PanelCase, false)

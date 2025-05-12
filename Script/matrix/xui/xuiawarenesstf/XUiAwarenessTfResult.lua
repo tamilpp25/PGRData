@@ -8,7 +8,7 @@ end
 function XUiAwarenessTfResult:OnStart(equipId, cb)
     self.EquipId = equipId
     self.Cb = cb
-    self.TemplateId = XDataCenter.EquipManager.GetEquipTemplateId(self.EquipId)
+    self.TemplateId = XMVCA.XEquip:GetEquipTemplateId(self.EquipId)
     self:UpdateInfo()
 end
 
@@ -94,7 +94,7 @@ end
 --更新属性
 function XUiAwarenessTfResult:UpdateEquipAttr()
     local attrCount = 1
-    local attrMap = XDataCenter.EquipManager.GetEquipAttrMap(self.EquipId)
+    local attrMap = XMVCA.XEquip:GetEquipAttrMap(self.EquipId)
     for _, attrInfo in pairs(attrMap) do
         if attrCount > MAX_AWARENESS_ATTR_COUNT then break end
         self["TxtName" .. attrCount].text = attrInfo.Name
@@ -109,9 +109,9 @@ end
 
 --套装效果
 function XUiAwarenessTfResult:UpdateSuitEffect()
-    local suitId = XDataCenter.EquipManager.GetSuitIdByTemplateId(self.TemplateId)
-    local skillDesList = XDataCenter.EquipManager.GetSuitSkillDesList(suitId)
-    for i = 1, XEquipConfig.MAX_SUIT_SKILL_COUNT do
+    local suitId = XMVCA.XEquip:GetEquipSuitId(self.TemplateId)
+    local skillDesList = XMVCA.XEquip:GetEquipSuitSkillDescription(suitId)
+    for i = 1, XEnumConst.EQUIP.OLD_MAX_SUIT_SKILL_COUNT do
         if skillDesList[i * 2] then
             self["TxtSkillDes" .. i].text = skillDesList[i * 2]
             self["TxtSkillDes" .. i].gameObject:SetActive(true)
@@ -123,8 +123,8 @@ end
 
 --星星
 function XUiAwarenessTfResult:UpdateStar()
-    local star = XDataCenter.EquipManager.GetEquipStar(self.TemplateId)
-    for i = 1, XEquipConfig.MAX_STAR_COUNT do
+    local star = XMVCA.XEquip:GetEquipStar(self.TemplateId)
+    for i = 1, XEnumConst.EQUIP.MAX_STAR_COUNT do
         if self["ImgGirdStar" .. i] then
             if i <= star then
                 self["ImgGirdStar" .. i].gameObject:SetActive(true)
@@ -137,9 +137,9 @@ end
 
 --基础属性(名字，位置，等级，图标)
 function XUiAwarenessTfResult:UpdateBaseInfo()
-    self.TxtAwarenessName.text = XDataCenter.EquipManager.GetEquipName(self.TemplateId)
+    self.TxtAwarenessName.text = XMVCA.XEquip:GetEquipName(self.TemplateId)
     self.TxtPos.text = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(self.TemplateId).Site
-    self.TxtLevel.text = XDataCenter.EquipManager.GetEquip(self.EquipId).Level
-    local icon = XDataCenter.EquipManager.GetEquipLiHuiPath(self.TemplateId)
+    self.TxtLevel.text = XMVCA.XEquip:GetEquip(self.EquipId).Level
+    local icon = XMVCA.XEquip:GetEquipLiHuiPath(self.TemplateId)
     self.RImgIcon:SetRawImage(icon)
 end

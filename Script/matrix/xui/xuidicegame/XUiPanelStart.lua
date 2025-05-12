@@ -19,6 +19,14 @@ function XUiPanelStart:Ctor(ui, root)
 end
 
 function XUiPanelStart:OnBtnStartClick()
+    local itemId = XDataCenter.DiceGameManager.GetCoinItemId()
+    local coinCnt = XDataCenter.ItemManager.GetCount(itemId)
+    if coinCnt < 1 then
+        local tips = XUiHelper.GetText("DiceGameNoEnoughCoinHint", "1")
+        XUiManager.TipError(tips)
+        return
+    end
+
     self.Root:UpdatePanel(2, true, 1) --跳转面板
 end
 

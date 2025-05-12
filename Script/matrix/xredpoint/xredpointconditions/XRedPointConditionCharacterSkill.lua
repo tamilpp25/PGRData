@@ -24,7 +24,10 @@ function XRedPointConditionCharacterSkill.Check(characterId)
         return false
     end
 
-    return XDataCenter.CharacterManager.CanPromoteSkill(characterId)
+    ---@type XCharacterAgency
+    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+
+    return ag:CanPromoteSkill(characterId) or ag:CheckCharacterEnhanceSkillShowRed(characterId)
 end
 
 return XRedPointConditionCharacterSkill

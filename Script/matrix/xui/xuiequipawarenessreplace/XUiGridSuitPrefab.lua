@@ -27,7 +27,7 @@ function XUiGridSuitPrefab:Refresh(suitPrefabInfo, index, isPreafabSaved)
     -- 套装预设图标
     local presentSuitId = suitPrefabInfo:GetPresentSuitId()
     if presentSuitId then
-        self.RImgIcon:SetRawImage(XDataCenter.EquipManager.GetSuitBigIconBagPath(presentSuitId))
+        self.RImgIcon:SetRawImage(XMVCA.XEquip:GetEquipSuitBigIconPath(presentSuitId))
         self.ImgDefaultIcon.gameObject:SetActiveEx(false)
         self.RImgIcon.gameObject:SetActiveEx(true)
     else
@@ -40,7 +40,7 @@ function XUiGridSuitPrefab:Refresh(suitPrefabInfo, index, isPreafabSaved)
 
     -- 套装预设数量
     local equipCount = suitPrefabInfo:GetEquipCount()
-    local maxCount = XEquipConfig.MAX_SUIT_COUNT
+    local maxCount = XEnumConst.EQUIP.MAX_SUIT_COUNT
     if equipCount == maxCount then
         self.TxtNum.text = CSXTextManagerGetText("EquipSuitPrefabCountMax", equipCount, maxCount)
     else

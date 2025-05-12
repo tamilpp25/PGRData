@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridRpgMakerGameMapNode = require("XUi/XUiRpgMakerGame/Hint/XUiGridRpgMakerGameMapNode")
 local XUiGridRpgMakerGameRecord = require("XUi/XUiRpgMakerGame/Hint/XUiGridRpgMakerGameRecord")
 
@@ -42,25 +43,37 @@ function XUiRpgMakerGameMapTip:InitMap()
 end
 
 function XUiRpgMakerGameMapTip:UpdateMap()
-    local mapId = self:GetMapId()
-    local blockIdListTemp = XRpgMakerGameConfigs.GetRpgMakerGameMapIdToBlockIdList(mapId)
-    blockIdListTemp = XTool.Clone(blockIdListTemp)
-    self.BlockIdList = XTool.ReverseList(blockIdListTemp)
-    self.DynamicTable:SetDataSource(self.BlockIdList)
+    self:UpdateData()
+    self.DynamicTable:SetDataSource(self.MapObjList)
     self.DynamicTable:ReloadDataSync()
+    -- 地图展示数量适配
+    local itemCount = #self.MapObjList
+    local scale = 1 - (itemCount - 8) * 0.1
+    local yOffset = (self.SViewStage.rect.height - self.SViewStage.rect.height * scale) / 2
+    self.SViewStage.localScale = Vector3(scale, scale, 1)
+    self.SViewStage.localPosition = Vector3(self.SViewStage.localPosition.x, self.SViewStage.localPosition.y - yOffset, self.SViewStage.localPosition.z)
 end
 
 function XUiRpgMakerGameMapTip:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
         grid:Init(self)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        local blockId = self.BlockIdList[index]
-        grid:Refresh(blockId, self.MapId, self.IsNotShowLine)
+        local mapObjRowData = self.MapObjList[index]
+        grid:Refresh(mapObjRowData, self.MapId, self.IsNotShowLine, index)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_RELOAD_COMPLETED then
         if not self.IsNotShowLine then
             self:StartEffectLineMoveAnima()
         end
     end
+end
+
+function XUiRpgMakerGameMapTip:UpdateData()
+    local mapId = self:GetMapId()
+    -- local blockIdListTemp = XRpgMakerGameConfigs.GetRpgMakerGameMapIdToBlockIdList(mapId)
+    -- blockIdListTemp = XTool.Clone(blockIdListTemp)
+    -- self.MapObjList = XTool.ReverseList(blockIdListTemp)
+    local mapObjDataTemp = XRpgMakerGameConfigs.GetMixBlockDataList(mapId)
+    self.MapObjList = XTool.Clone(mapObjDataTemp)
 end
 
 function XUiRpgMakerGameMapTip:StartEffectLineMoveAnima()

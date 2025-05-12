@@ -12,7 +12,9 @@ end
 --初始化面板
 --================
 function XUiFingerGuessSSTitlePanel:InitPanel()
-    self.TxtTitle.text = self.RootUi.GameController:GetName()
+    if self.TxtTitle then
+        self.TxtTitle.text = self.RootUi.GameController:GetName()
+    end
     self:RefreshTime()
 end
 --================

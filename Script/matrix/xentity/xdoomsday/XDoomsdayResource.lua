@@ -1,7 +1,8 @@
 local Default = {
     _Id = 0,
     _CfgId = 0,
-    _Count = 0
+    _Count = 0,
+    _Consume = 0 --每天消耗
 }
 
 --末日生存玩法-资源

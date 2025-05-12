@@ -43,7 +43,7 @@ function XUiGridAssignFormationMember:Refresh(groupId, teamOrder, teamData, memb
     self.CharacterId = memberData:GetCharacterId()
     if self.CharacterId and self.CharacterId ~= 0 then
         self.RImgRole.gameObject:SetActiveEx(true)
-        self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterId))
+        self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterId))
 
     else
         self.RImgRole.gameObject:SetActiveEx(false)
@@ -69,6 +69,10 @@ function XUiGridAssignFormationMember:OnMemberClick()
     local firstOrder = XDataCenter.FubenAssignManager.OccupyFirstSelectOrder
     if not firstOrder and not self.CharacterId then
         XLog.Debug("请选中角色")
+        return
+    end
+    if XDataCenter.FubenAssignManager.CheckCharacterInMultiTeamLock(self.CharacterId, self.GroupId) then
+        XUiManager.TipError(CS.XTextManager.GetText("StrongholdElectricDeployInTeamLock"))
         return
     end
 

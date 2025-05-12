@@ -18,7 +18,9 @@ function XUiWeekCalendar:OnEnable()
 end
 
 function XUiWeekCalendar:OnDisable()
-
+    for i = 1, #self.ActivityBannerList do
+        self.ActivityBannerList[i]:OnDisable()
+    end
 end
 
 function XUiWeekCalendar:InitUiView()

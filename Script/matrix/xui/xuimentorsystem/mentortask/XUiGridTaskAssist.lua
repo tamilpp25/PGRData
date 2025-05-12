@@ -1,3 +1,5 @@
+local XUiGridTask = require("XUi/XUiTask/XUiGridTask")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridTaskAssist = XClass(nil, "XUiGridTaskAssist")
 local CSTextManagerGetText = CS.XTextManager.GetText
 function XUiGridTaskAssist:Ctor(ui, root)

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 
 --=========================================类分界线=========================================--
 
@@ -87,7 +88,7 @@ function XUiMoeWarShop:OnAwake()
 end
 
 function XUiMoeWarShop:OnStart()
-    XUiHelper.NewPanelActivityAsset( { XDataCenter.ItemManager.ItemId.MoeWarCommemorativeItemId }, self.PanelActivityAsset)
+    XUiHelper.NewPanelActivityAssetSafe( { XDataCenter.ItemManager.ItemId.MoeWarCommemorativeItemId }, self.PanelActivityAsset, self)
 
     self:InitDropDown()
     self:OnDropdownValueChange()

@@ -28,7 +28,7 @@ function XUiInfestorExploreFightResult:OnStart(stageId, result, isNewScore)
     local result = result
     local bossSingleAnimaTime = CS.XGame.ClientConfig:GetFloat("BossSingleAnimaTime")
     -- 播放音效
-    self.AudioInfo = CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiSettle_Win_Number)
+    self.AudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiSettle_Win_Number)
     XUiHelper.Tween(bossSingleAnimaTime, function(f)
         if XTool.UObjIsNil(self.Transform) then
             return
@@ -77,7 +77,7 @@ end
 
 function XUiInfestorExploreFightResult:OnClickBtnReFight()
     self:Close()
-    XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
 end
 
 function XUiInfestorExploreFightResult:OnClickBtnExitFight()

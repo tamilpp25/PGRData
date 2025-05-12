@@ -1,11 +1,12 @@
-local XUiPassportPanelTaskDaily = XClass(nil, "XUiPassportPanelTaskDaily")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+---@field _Control XPassportControl
+---@class XUiPassportPanelTaskDaily:XUiNode
+local XUiPassportPanelTaskDaily = XClass(XUiNode, "XUiPassportPanelTaskDaily")
 
 --每日任务
 function XUiPassportPanelTaskDaily:Ctor(ui, rootUi)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
     self.RootUi = rootUi
-    XTool.InitUiObject(self)
 
     XUiHelper.RegisterClickEvent(self, self.BtnTongBlack, self.OnBtnTongBlackClick)
 
@@ -15,7 +16,7 @@ function XUiPassportPanelTaskDaily:Ctor(ui, rootUi)
 
     self.GridTask.gameObject:SetActive(false)
 
-    XRedPointManager.AddRedPointEvent(self.BtnTongBlack, self.OnCheckTaskRedPoint, self, { XRedPointConditions.Types.CONDITION_PASSPORT_TASK_DAILY_RED })
+    self:AddRedPointEvent(self.BtnTongBlack, self.OnCheckTaskRedPoint, self, { XRedPointConditions.Types.CONDITION_PASSPORT_TASK_DAILY_RED })
 end
 
 function XUiPassportPanelTaskDaily:Refresh()
@@ -23,7 +24,7 @@ function XUiPassportPanelTaskDaily:Refresh()
         return
     end
 
-    self.Tasks = XDataCenter.PassportManager.GetPassportTask(XPassportConfigs.TaskType.Daily)
+    self.Tasks = self._Control:GetPassportTask(XEnumConst.PASSPORT.TASK_TYPE.DAILY)
     self.DynamicTable:SetDataSource(self.Tasks)
     self.DynamicTable:ReloadDataASync()
 end
@@ -38,7 +39,7 @@ end
 
 --一键领取
 function XUiPassportPanelTaskDaily:OnBtnTongBlackClick()
-    XDataCenter.PassportManager.FinishMultiTaskRequest(XPassportConfigs.TaskType.Daily)
+    self._Control:FinishMultiTaskRequest(XEnumConst.PASSPORT.TASK_TYPE.DAILY)
 end
 
 function XUiPassportPanelTaskDaily:OnCheckTaskRedPoint(count)

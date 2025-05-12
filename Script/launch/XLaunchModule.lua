@@ -1,3 +1,4 @@
+print("===这里配合测试加的测试日志, 请无视===")
 local CsApplication = CS.XApplication
 local CsLog = CS.XLog
 local CsInfo = CS.XInfo
@@ -6,6 +7,7 @@ local CsStringEx = CS.XStringEx
 local CsGameEventManager = CS.XGameEventManager.Instance
 local IO = CS.System.IO
 local CsRemoteConfig = CS.XRemoteConfig
+local KeepEverythingGoing = -1
 
 --Test 设置模式
 --CsApplication.Mode = CS.XMode.Debug
@@ -15,6 +17,15 @@ RES_FILE_TYPE = {
     LAUNCH_MODULE = "launch",
     MATRIX_FILE = "matrix",
     CG_FILE = "cg",
+}
+
+DOWNLOAD_SOURCE = {
+    -- 默认下载源
+    DEFAULT = 0,
+    -- 预下载下载源
+    PRELOAD = 1,
+    -- 分包下载源
+    SUBPACKAGE = 2
 }
 
 local APP_PATH_MODULE_NAME = "XLaunchAppPathModule"
@@ -31,7 +42,6 @@ local LaunchFileModule
 local DocFileModule
 
 local IsReloaded = false
-local ResFileUrlTable = {}
 
 -- 游戏内强更
 local DOWNLOAD_APK_VERSION = "download_apk_ver"
@@ -43,7 +53,7 @@ local ApkFileSize = 0
 local APK_TIMEOUT  = 5000 
 -- local IsApkTesting = true -- 调试用
 
---- >>>>>>>>>>>>>>>>>>>>>>>>>> 私有方法 * 声明 >>>>>>>>>>>>>>>>>>>>>>>>>>
+--======= 私有方法 * 声明 =======
 local CheckLaunchModuleUpdate
 local CheckDocUpdate
 local DownloadDlc
@@ -57,20 +67,20 @@ local BeforeDownloadApk
 local StartDownloadApk
 
 local CheckLocalZipFile
---- <<<<<<<<<<<<<<<<<<<<<<<<<< 私有方法 * 声明 <<<<<<<<<<<<<<<<<<<<<<<<<<
+local NeedLaunchTest = CS.XResourceManager.NeedLaunchTest
+---======= 私有方法 * 声明 =======
 
 GetResFileUrl = GetResFileUrl or nil
 
 -- 注意：重载模块需要释放的对象
 ShowStartErrorDialog = function(errorCode, confirmCB, cancelCB, cancelStr)
-    CS.XHeroBdcAgent.BdcStartUpError(errorCode)
     confirmCB = confirmCB or CsApplication.Exit
     CsTool.WaitCoroutine(CsApplication.CoDialog(CsApplication.GetText("Tip"), CsApplication.GetText(errorCode), cancelCB, confirmCB, cancelStr))
 end
 
---- >>>>>>>>>>>>>>>>>>>>>>>>>> 私有方法 * 定义 >>>>>>>>>>>>>>>>>>>>>>>>>>
+--======= 私有方法 * 定义 =======
 CheckLaunchModuleUpdate = function()
-    if not PathModule.IsEditorOrStandalone() or CsApplication.Mode == CS.XMode.Release then
+    if not PathModule.IsEditorOrStandalone() or CsApplication.Mode == CS.XMode.Release or NeedLaunchTest then
         LaunchFileModule = FileModuleCreator()
         LaunchFileModule.Check(RES_FILE_TYPE.LAUNCH_MODULE, PathModule, VersionModule, OnCheckLaunchModuleComplete)
     else
@@ -79,7 +89,7 @@ CheckLaunchModuleUpdate = function()
 end
 
 CheckDocUpdate = function()
-    if not PathModule.IsEditorOrStandalone() or CsApplication.Mode == CS.XMode.Release then
+    if not PathModule.IsEditorOrStandalone() or CsApplication.Mode == CS.XMode.Release or NeedLaunchTest then
         CsLog.Debug("Release 模式运行")
         DocFileModule = FileModuleCreator()
         DocFileModule.Check(RES_FILE_TYPE.MATRIX_FILE, PathModule, VersionModule, InitGame)
@@ -93,43 +103,51 @@ CheckDocUpdate = function()
     end
 end
 
-
-
-
-
-OnCheckLaunchModuleComplete = function(urlTable, needUpdate, hasLocalFiles)
+OnCheckLaunchModuleComplete = function(urlTable, hashTable, needUpdate, hasLocalFiles)
     if not needUpdate or IsReloaded then
-        CheckDocUpdate()
+
         if hasLocalFiles then
             CS.XLaunchManager.SetUrlTable(urlTable)
         end
+        CheckDocUpdate()
         return
     end
 
     CS.XUiManager.Instance:Clear()
-    CS.XResourceManager.Clear()
-    CS.XResourceManager.ClearFileDelegate()
-    CS.XLaunchManager.SetUrlTable(urlTable)
-    CS.XResourceManager.ResolveBundleManifest("launchmanifest")
+    if NeedLaunchTest then
+        print("[LaunchTest] OnCheckLaunchModuleComplete ")
+    else
+        CS.XResourceManager.Clear()
+        CS.XResourceManager.ClearFileDelegate()
+        CS.XLaunchManager.SetUrlTable(urlTable)
+        CS.XResourceManager.ResolveBundleManifest("launchmanifest")
+    end
 
     ShowStartErrorDialog = nil
     CheckUpdate = nil
-    CS.XLaunchManager.GetLaunchUi = nil
+
+    CS.XLaunchManager.InitLuaUIProxy(nil)
 
     CS.XGame.ReloadLaunchModule()
 end
 
 
-InitGame = function(urlTable)
-    urlTable = urlTable or {}
-    for k, v in pairs(urlTable) do
-        local url = ResFileUrlTable[k]
-        if url then
-            CS.XLog.Error("资源文件key重复，key:" .. tostring(k))
-            return
-        end
-        ResFileUrlTable[k] = v
-    end
+InitGame = function(urlTable, hashTable)
+    -- -- for testing
+    -- CsGameEventManager:Notify(CS.XEventId.EVENT_LAUNCH_START_DOWNLOAD, 100)
+    -- local videoUrl = CS.XResourceManager.GetBundleUrl(CS.XAudioManager.LaunchVideoAsset)
+    -- CsGameEventManager:Notify(CS.XEventId.EVENT_LAUNCH_CG, true, false, videoUrl)
+    -- print("for test launch download.")
+    -- do return end
+    --urlTable = urlTable or {}
+    --for k, v in pairs(urlTable) do
+    --    local url = ResFileUrlTable[k]
+    --    if url then
+    --        CS.XLog.Error("资源文件key重复，key:" .. tostring(k))
+    --        return
+    --    end
+    --    ResFileUrlTable[k] = v
+    --end
 
     CsGameEventManager:Notify(CS.XEventId.EVENT_LAUNCH_START_LOADING)
 
@@ -138,32 +156,28 @@ InitGame = function(urlTable)
     import("XLaunchCommon")
     import("XLaunchUi")
 
-    --TODO
-    GetResFileUrl = function(path)
-        if not PathModule.IsEditorOrStandalone() or CsApplication.Mode == CS.XMode.Release then
-            return ResFileUrlTable[path]
-        elseif PathModule.IsEditorOrStandalone() and CsApplication.Mode == CS.XMode.Debug then
-            return PathModule.GetDebugFilePath() .. "/" .. path
-        else
-            return path
-        end
+    urlTable = urlTable or {}
+
+    if CS.XResourceManager.SetFileUrlTable then
+        CS.XResourceManager.SetFileUrlTable(urlTable)
     end
 
-    CS.XLaunchManager.GetPrimaryFileUrl = GetResFileUrl
     if not PathModule.IsEditorOrStandalone() or CsApplication.Mode == CS.XMode.Release then
-        --
-        --CS.XResourceManager.ClearFileDelegate()
-        CS.XResourceManager.AddFileDelegate(GetResFileUrl)
 
+        CS.XResourceManager.SetFileDelegate()
         CS.XResourceManager.ResolveBundleManifest("matrixmanifest")
     end
+
+    --补充做一下GC
+    --collectgarbage("collect")
     CS.XGame.InitGame()
 end
 --- <<<<<<<<<<<<<<<<<<<<<<<<<< 私有方法 * 定义 <<<<<<<<<<<<<<<<<<<<<<<<<<
 
 CheckUpdate = function(isReloaded)
     IsReloaded = isReloaded or false
-    CS.XLaunchManager.GetLaunchUi = XLaunchUiModule.NewLaunchUi
+    CS.XLaunchManager.InitLuaUIProxy(XLaunchUiModule.NewLaunchUi)
+
     if not IsReloaded then
         XLaunchUiModule.RegisterLaunchUi()
     end
@@ -178,25 +192,28 @@ CheckUpdate = function(isReloaded)
     -- 开启Launch模块Ui
     CS.XUiManager.Instance:Open("UiLaunch")
     CS.XRecord.Record("50000", "UiLaunchand")
-
+    
     VersionModule  = require(APP_VERSION_MODULE_NAME)
-    if not PathModule.IsEditorOrStandalone() or CsApplication.Mode == CS.XMode.Release then
-        CS.XHeroBdcAgent.BdcUpdateGame("201", "1", "0")
-    end
 
     if VersionModule.CheckAppUpdate() then
     -- if IsApkTesting or VersionModule.CheckAppUpdate() then
-        local tmpStr = CsStringEx.Format(CsApplication.GetText("UpdateApplication"), CsInfo.Version)
-        CsTool.WaitCoroutine(CsApplication.CoDialog(CsApplication.GetText("Tip"), tmpStr, nil, function()
-            local jumpCB = function()
-                print("[Apk] - Failed to Download Apk.")
-                CsTool.WaitCoroutine(CsApplication.GoToUpdateURL(PathModule.GetAppUpgradeUrl()), nil)
-            end
-            local downloadCB = function(url)
-                BeforeDownloadApk(url)
-            end
-            TryDownloadApk(downloadCB, jumpCB)
-        end))
+        if CS.XUiPc.XUiPcManager.IsPcMode() then
+            CsTool.WaitCoroutine(CsApplication.CoDialog(CsApplication.GetText("Tip"), 
+                CsStringEx.Format(CsApplication.GetText("PCUpdateApplication"), CsInfo.Version), nil, CsApplication.Exit))
+        else
+            CsTool.WaitCoroutine(CsApplication.CoDialog(CsApplication.GetText("Tip"), 
+                CsStringEx.Format(CsApplication.GetText("UpdateApplication"), CsInfo.Version), nil, function()
+                local jumpCB = function()
+                    print("[Apk] - Failed to Download Apk.")
+                    CsTool.WaitCoroutine(CsApplication.GoToUpdateURL(PathModule.GetAppUpgradeUrl()), nil)
+                end
+                local downloadCB = function(url)
+                    BeforeDownloadApk(url)
+                end
+                TryDownloadApk(downloadCB, jumpCB)
+            end))
+        end
+        
     else
         -- 无需更新，并删除本地下载的Apk
         if CheckDownloadChannel() and IO.File.Exists(ApkSavePath) then
@@ -205,9 +222,6 @@ CheckUpdate = function(isReloaded)
         end
 
         local LaunchUpdateFunc = function()
-            if not PathModule.IsEditorOrStandalone() or CsApplication.Mode == CS.XMode.Release then
-                CS.XHeroBdcAgent.BdcUpdateGame("202", "1", "0")
-            end
             CheckLaunchModuleUpdate()
         end
         
@@ -294,7 +308,7 @@ end
 
 --============包内下载apk逻辑=========
 function CheckDownloadChannel()
-    local channelId = CS.XHgSdkAgent.GetChannelId()
+    local channelId = CS.XHeroSdkAgent.GetChannelId()
     return (channelId == OPPO_CHANNEL_ID)
 end
 
@@ -319,7 +333,7 @@ function TryDownloadApk(downloadCB, jumpCB)
     CS.UnityEngine.PlayerPrefs.SetString(DOWNLOAD_APK_VERSION, curVersion)
     CS.UnityEngine.PlayerPrefs.Save()
 
-    local channelId = CS.XHgSdkAgent.GetChannelId()
+    local channelId = CS.XHeroSdkAgent.GetChannelId()
     -- local channelId = IsApkTesting and OPPO_CHANNEL_ID or CS.XHeroSdkAgent.GetChannelId()
 
     local request = CS.XUriPrefixRequest.Get(ApkListUrl, nil, APK_TIMEOUT) 
@@ -375,7 +389,7 @@ function StartDownloadApk(apkUrl)
 
     local cache = true
     local sha1 = nil
-    local downloader = CS.XDownloader(apkUrl, ApkSavePath, cache, sha1, APK_TIMEOUT)
+    local downloader = CS.XDownloader(2, apkUrl, ApkSavePath, cache, sha1, KeepEverythingGoing, APK_TIMEOUT)
 
     local isDownloading = false
     CS.XTool.WaitCoroutinePerFrame(downloader:Send(), function(isComplete)

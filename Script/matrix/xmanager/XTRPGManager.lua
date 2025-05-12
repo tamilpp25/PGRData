@@ -37,7 +37,8 @@ XTRPGManagerCreator = function()
     local OldCurrTargetId = 0
     local NewTargetTime = 0
     local IsCanCheckOpenNewMaze = false
-    local IsNormalPage = false      --当前跑团页面模式，false是探索，true是常规主线
+    -- 默认true
+    local IsNormalPage = true      --当前跑团页面模式，false是探索，true是常规主线
     local StagePassDic = {}            --已完成关卡记录
 
     local BagHideItemIdList = {
@@ -782,8 +783,10 @@ XTRPGManagerCreator = function()
 
         role:UpdateData(data)
 
-        if newRoleId then
-            XLuaUiManager.Open("UiTRPGNewCharacter", newRoleId)
+        if newRoleId and XTRPGConfigs.GetRoleIsShowTip(newRoleId) then
+            if XLuaUiManager.IsUiLoad("UiTRPGMain") then
+                XLuaUiManager.Open("UiTRPGNewCharacter", newRoleId)
+            end
         end
     end
 
@@ -1502,7 +1505,7 @@ XTRPGManagerCreator = function()
 
         local params = XTRPGConfigs.GetFunctionParams(functionId)
         local stageId = tonumber(params[1])
-        XLuaUiManager.Open("UiNewRoomSingle", stageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", stageId)
     end
 
     function XTRPGManager.ReqFinishFunctionAfterFight(thirdAreaId)
@@ -2011,35 +2014,14 @@ XTRPGManagerCreator = function()
             SetIsNormalPage(status)
         end)
     end
+    
+    --更新普通章节关卡通过状态和肉鸽章节目标完成状态
+    function XTRPGManager.NotifyTRPGSyncInfo(data)
+        XTRPGManager.NotifyTRPGTargetFinish(data)
+        UpdateStagePassDic(data.StageList)
+    end
     ---------------------protocol end------------------
     ---------------------FubenManager begin------------------
-    local function InitStageType(stageId)
-        stageId = tonumber(stageId)
-        local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-        if stageInfo then
-            stageInfo.Type = XDataCenter.FubenManager.StageType.TRPG
-        end
-    end
-
-    function XTRPGManager.InitStageInfo()
-        local stageId = XTRPGConfigs.GetBossStageId()
-        InitStageType(stageId)
-
-        local stageIds = XTRPGConfigs.GetFunctionStageIds()
-        for _, stageId in pairs(stageIds) do
-            InitStageType(stageId)
-        end
-
-        local secondMainIdList = XTRPGConfigs.GetSecondMainIdList()
-        for _, secondMainId in ipairs(secondMainIdList) do
-            local secondMainStageIdList = XTRPGConfigs.GetSecondMainStageId(secondMainId)
-            for _, secondMainStageId in ipairs(secondMainStageIdList) do
-                local stageId = XTRPGConfigs.GetSecondMainStageStageId(secondMainStageId)
-                InitStageType(stageId)
-            end
-        end
-    end
-
     function XTRPGManager.ShowReward(winData)
         if XTRPGConfigs.IsBossStage(winData.StageId) then
             XLuaUiManager.Open("UiTRPGWinWorldBoss", winData)
@@ -2073,18 +2055,16 @@ XTRPGManagerCreator = function()
     --------------------首次播放剧情 end--------------------------
     --------------------跳转 start--------------------------
     function XTRPGManager.SkipTRPGMain()
-        local uiName = XTRPGManager.GetMainName()
-
         if XDataCenter.FubenMainLineManager.IsMainLineActivityOpen() then
             local chapterId = XDataCenter.FubenMainLineManager.TRPGChapterId
             local ret, desc = XDataCenter.FubenMainLineManager.CheckActivityCondition(chapterId)
             if ret then
-                XLuaUiManager.OpenWithCallback(uiName, XTRPGManager.UpdateCurrAreaOpenNum)
+                XTRPGManager.PlayStartStory(XTRPGManager.UpdateCurrAreaOpenNum)
             else
                 XUiManager.TipError(desc)
             end
         elseif XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.MainLineTRPG) then
-            XLuaUiManager.OpenWithCallback(uiName, XTRPGManager.UpdateCurrAreaOpenNum)
+            XTRPGManager.PlayStartStory(XTRPGManager.UpdateCurrAreaOpenNum)
         end
     end
 
@@ -2215,6 +2195,44 @@ XTRPGManagerCreator = function()
         end
         return false
     end
+    
+    -- 首次进入播放剧情
+    function XTRPGManager.PlayStartStory(callback)
+        local OpenMainUi = function(uiName)
+            if uiName == nil then
+                uiName = XTRPGManager.GetMainName()
+            end
+            XLuaUiManager.OpenWithCallback(uiName, callback)
+        end
+        
+        local TRPGFirstOpenFunctionGroupId = CS.XGame.ClientConfig:GetInt("TRPGFirstOpenFunctionGroupId")
+        if not XTRPGManager.IsFunctionGroupConditionFinish(TRPGFirstOpenFunctionGroupId) then
+            OpenMainUi()
+            return
+        end
+
+        local functionIds = XTRPGConfigs.GetFunctionGroupFunctionIds(TRPGFirstOpenFunctionGroupId)
+        for _, functionId in ipairs(functionIds) do
+            if not XTRPGManager.IsThirdAreaFunctionFinish(nil, functionId) then
+                if XTRPGConfigs.CheckFunctionType(functionId, XTRPGConfigs.TRPGFunctionType.Story) then
+                    local params = XTRPGConfigs.GetFunctionParams(functionId)
+                    local movieId = params[1]
+                    local cb = function()
+                        XTRPGManager.RequestFunctionFinishSend(nil, functionId)
+                        -- 第一次打开常规模式
+                        if not XTRPGManager.IsNormalPage() then
+                            XTRPGManager.RequestTRPGChangePageStatus(true)
+                        end
+                        OpenMainUi("UiTRPGSecondMain")
+                    end
+                    XDataCenter.MovieManager.PlayMovie(movieId, cb, nil, nil, false)
+                    return
+                end
+            end
+        end
+
+        OpenMainUi()
+    end
     --------------------常规主线 start---------------------
     XTRPGManager.Init()
 
@@ -2267,5 +2285,10 @@ end
 
 XRpc.NotifyTRPGClientBossData = function(data)
     XDataCenter.TRPGManager.NotifyTRPGClientBossData(data)
+end
+
+-- 3.0版本新增协议（用来同步更新探索和普通章节进度）
+XRpc.NotifyTRPGSyncInfo = function(data)
+    XDataCenter.TRPGManager.NotifyTRPGSyncInfo(data)
 end
 ---------------------(服务器推送)end------------------    

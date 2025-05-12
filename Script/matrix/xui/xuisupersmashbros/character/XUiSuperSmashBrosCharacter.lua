@@ -77,9 +77,9 @@ function XUiSuperSmashBrosCharacter:UpdateModel(xRole)
         end
     end
     if xRole:GetIsRobot() then
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(xRole:GetCharacterId())
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(xRole:GetCharacterId())
         if XRobotManager.CheckUseFashion(xRole:GetId()) and isOwn then
-            local character = XDataCenter.CharacterManager.GetCharacter(xRole:GetCharacterId())
+            local character = XMVCA.XCharacter:GetCharacter(xRole:GetCharacterId())
             local robot2CharViewModel = character:GetCharacterViewModel()
             self.RoleModelPanel:UpdateRobotModel(xRole:GetId(), xRole:GetCharacterId(), nil, robot2CharViewModel:GetFashionId(), xRole:GetUsingWeaponId(), cb)
         else

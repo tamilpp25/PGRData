@@ -1,4 +1,4 @@
-XUiPanelRestModel = XClass(nil, "XUiPanelRestModel")
+local XUiPanelRestModel = XClass(nil, "XUiPanelRestModel")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
 function XUiPanelRestModel:Ctor(ui, rawImgRest, rawImgDrag, tScreenPos, refName)
@@ -53,7 +53,7 @@ function XUiPanelRestModel:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -123,3 +123,5 @@ end
 function XUiPanelRestModel:HideDragModel()
     self.RawImgDrag.gameObject:SetActive(false)
 end
+
+return XUiPanelRestModel

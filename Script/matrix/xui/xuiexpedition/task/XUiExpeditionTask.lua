@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiExpeditionTask = XLuaUiManager.Register(XLuaUi, "UiExpeditionTask")
 local XUiGridExpeditionTask = require("XUi/XUiExpedition/Task/XUiGridExpeditionTask")
 

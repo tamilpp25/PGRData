@@ -18,7 +18,7 @@ function XUiGridInfoChallengeItem:Refresh(buffGroupId, itemType)
     self.BuffGroupTemplate = XFubenBabelTowerConfigs.GetBabelTowerBuffGroupTemplate(self.BuffGroupId)
 
     self.TxtChallengeTitle.text = self.BuffGroupConfigs.Name
-    self.TxtChallenge.text = self.BuffGroupConfigs.Desc
+    self.TxtChallenge.text = XFubenBabelTowerConfigs.GetBabelBuffGroupText(self.BuffGroupConfigs.Desc)
     self:RefreshBuffItems()
 end
 

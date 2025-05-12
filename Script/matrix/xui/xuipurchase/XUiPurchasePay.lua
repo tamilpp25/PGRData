@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPurchasePay = XClass(nil, "XUiPurchasePay")
 local TextManager = CS.XTextManager
 local Next = _G.next
@@ -19,8 +20,13 @@ function XUiPurchasePay:Ctor(ui, uiRoot, tab)
 end
 
 -- 更新数据
-function XUiPurchasePay:OnRefresh(uiType)
+function XUiPurchasePay:OnRefresh(uiType, selectIndex)
+    if XDataCenter.UiPcManager.IsPc() then
+        XUiManager.TipText("PcRechargeCloseTip")
+        XLuaUiManager.RunMain();
+    end
     self.CurState = false
+    self.CurrentIndex = selectIndex or self.CurrentIndex
     self.PanelPurchase.gameObject:SetActive(false)
     
     local data = XDataCenter.PurchaseManager.GetDatasByUiType(uiType) or {}
@@ -104,7 +110,7 @@ function XUiPurchasePay:SetListItemActive(index, grid)
     local name = data.Name or ""
     self.BuyKey = data.Key
     self.TxtTips.text = TextManager.GetText("PusrchaseBuyTips",price,name)
-    CS.XAudioManager.PlaySound(1011)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1011)
 end
 
 function XUiPurchasePay:SetListItemState(index)

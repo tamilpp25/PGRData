@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local Panels = {
     PanelTitle = require("XUi/XUiSuperSmashBros/Main/Panels/XUiSSBMainPanelTitle"),
     PanelEntrance = require("XUi/XUiSuperSmashBros/Main/Panels/XUiSSBMainPanelEntrance"),
@@ -51,7 +52,7 @@ function XUiSuperSmashBrosMain:OnEnable()
         panel.OnEnable()
     end
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemId = XDataCenter.SuperSmashBrosManager.GetLevelItem()
     self.AssetActivityPanel:Refresh({ itemId })
     local itemCount = XDataCenter.SuperSmashBrosManager.GetTeamItem()
@@ -85,3 +86,8 @@ function XUiSuperSmashBrosMain:SetActivityTimeLimit()
             end
         end)
 end
+
+function XUiSuperSmashBrosMain:UpdateRewardAndTeamLevel()
+    Panels.PanelReward.UpdateDailyReward()
+    Panels.PanelCore.Refresh()
+end 

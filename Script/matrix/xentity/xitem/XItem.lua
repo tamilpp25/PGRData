@@ -1,3 +1,4 @@
+---@class XItem
 XItem = XClass(nil, "XItem")
 
 local Default = {
@@ -28,16 +29,16 @@ function XItem:RefreshItem(itemData)
         return
     end
 
+    if itemData.RefreshTime then
+        self.RefreshTime = itemData.RefreshTime
+    end
+    
     if itemData.Count then
         self:SetCount(itemData.Count)
     end
 
     if itemData.BuyTimes then
         self:SetBuyTimes(itemData.BuyTimes)
-    end
-
-    if itemData.RefreshTime then
-        self.RefreshTime = itemData.RefreshTime
     end
 
     if itemData.CreateTime then

@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 -- 兵法蓝图出战换人界面
 local XUiRpgTowerRoomCharacter = XLuaUiManager.Register(XLuaUi, "UiRpgTowerRoomCharacter")
 local CharaListPanel = require("XUi/XUiRpgTower/Battle/ChangeMember/XUiRpgTowerRoomCharaListPanel")
@@ -44,6 +45,7 @@ function XUiRpgTowerRoomCharacter:InitButtons()
     self.BtnMainUi.CallBack = function() self:OnClickMainUi() end
     self:RegisterClickEvent(self.BtnJoinTeam, self.OnBtnJoinClick, self)
     self:RegisterClickEvent(self.BtnQuitTeam, self.OnBtnQuitClick, self)
+    self:RegisterClickEvent(self.BtnChange, self.OnBtnChangeClick, self)
 end
 
 function XUiRpgTowerRoomCharacter:OnClickBack()
@@ -83,6 +85,10 @@ function XUiRpgTowerRoomCharacter:OnBtnQuitClick()
     self:Close(isUpdated, id)
 end
 
+function XUiRpgTowerRoomCharacter:OnBtnChangeClick()
+    XLuaUiManager.Open("UiRpgTowerRoleList", self.RCharacter:GetOrder())
+end
+
 function XUiRpgTowerRoomCharacter:Refresh()
     self.CharacterList:UpdateData()
 end
@@ -101,7 +107,9 @@ function XUiRpgTowerRoomCharacter:UpdateModel()
     self.ImgEffectHuanren.gameObject:SetActiveEx(true)
     local robotCfg = XRobotManager.GetRobotTemplate(robotId)
     if not robotCfg then return end
-    self.RoleModelPanel:UpdateRobotModel(robotId, characterId, nil, robotCfg and robotCfg.FashionId, robotCfg and robotCfg.WeaponId)
+    -- 兼容机器人换装
+    local robotCfg = XRobotManager.GetRobotTemplate(self.RCharacter:GetRobotId())
+    self.RoleModelPanel:UpdateRobotModelNew(self.RCharacter:GetRobotId(), self.RCharacter:GetCharacterId(), nil, robotCfg and robotCfg.FashionId, robotCfg and robotCfg.WeaponId)
 end
 
 function XUiRpgTowerRoomCharacter:SetTeamBtns()

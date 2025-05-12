@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridGuildTaskItem = XClass(nil, "XUiGridGuildTaskItem")
 
 function XUiGridGuildTaskItem:Ctor(ui)

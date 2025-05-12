@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelMultiDimRankList = XClass(nil, "XUiPanelMultiDimRankList")
 local XUiGridMultiDimRank = require("XUi/XUiMultiDim/XUiGridMultiDimRank")
 

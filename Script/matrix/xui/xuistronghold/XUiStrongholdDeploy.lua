@@ -14,10 +14,12 @@ function XUiStrongholdDeploy:OnAwake()
     self:AutoAddListener()
 
     self.GridDeployTeam.gameObject:SetActiveEx(false)
+    self.TxtTool1.supportRichText = true
 end
 
 function XUiStrongholdDeploy:OnStart(groupId)
     self.GroupId = groupId
+    ---@type XUiGridStrongholdTeam[]
     self.TeamGrids = {}
 
     if self:IsPrefab() then
@@ -25,7 +27,13 @@ function XUiStrongholdDeploy:OnStart(groupId)
     else
         self.TeamList = XDataCenter.StrongholdManager.GetTeamListTemp()
         XDataCenter.StrongholdManager.KickOutInvalidMembersInTeamList(self.TeamList, groupId)
+
+        local chapterId = XStrongholdConfigs.GetChapterIdByGroupId(groupId)
+        self.TaskLimitElectric = XStrongholdConfigs.GetTaskLimitElectric(chapterId)
     end
+    self.PluginAddPower = XStrongholdConfigs.GetPluginAddAbility(XEnumConst.StrongHold.AttrPluginId)
+    self.MaxPluginCount = XStrongholdConfigs.GetPluginCountLimit(XEnumConst.StrongHold.AttrPluginId)
+    self.PluginUseElectric = XStrongholdConfigs.GetPluginUseElectric(XEnumConst.StrongHold.AttrPluginId)
 
     self:KickOutAssitMemberIfBanAssit()
     self:InitView()
@@ -98,23 +106,24 @@ function XUiStrongholdDeploy:InitView()
     local isPrefab = self:IsPrefab()
     self.TxtTiltlePrefab.gameObject:SetActiveEx(isPrefab)
     self.TxtTiltle.gameObject:SetActiveEx(not isPrefab)
-
+    self.BtnAllocation.gameObject:SetActiveEx(not self:IsPrefab())
     local icon = XStrongholdConfigs.GetElectricIcon()
     self.RImgTool1:SetRawImage(icon)
-
-    if not isPrefab then
-        local limitElectric = XDataCenter.StrongholdManager.GetChapterMaxElectricUseByGroupId(self.GroupId)
-        self.BtnElectricTips.gameObject:SetActiveEx(XTool.IsNumberValid(limitElectric))
-    else
-        self.BtnElectricTips.gameObject:SetActiveEx(false)
-    end
 end
 
 function XUiStrongholdDeploy:UpdateElectric()
-    local useElectric = XDataCenter.StrongholdManager.GetTotalUseElectricEnergy(self.TeamList)
-    local totalElectric = XDataCenter.StrongholdManager.GetTotalCanUseElectricEnergy(self.GroupId)
-    self.TxtTool1.text = useElectric .. "/" .. totalElectric
-    self.TxtTool1.color = CONDITION_COLOR[useElectric > totalElectric]
+    local groupId = self.GroupId
+    local teamList = XDataCenter.StrongholdManager.GetFighterTeamListTemp(self.TeamList, groupId)
+    if not self.UseElectric then
+        self.UseElectric = XDataCenter.StrongholdManager.GetTotalUseElectricEnergy(teamList)
+    end
+    self.TotalElectric = XDataCenter.StrongholdManager.GetTotalCanUseElectricEnergy(groupId)
+    if self.TaskLimitElectric then
+        self.TaskLimitElectric = math.min(self.TaskLimitElectric, self.TotalElectric)
+    end
+    local color = XDataCenter.StrongholdManager.GetSuggestElectricColor(groupId, teamList, self.UseElectric)
+    self.TxtTool1.text = string.format("%s/%s", self.UseElectric, self.TotalElectric)
+    self.TxtTool1.color = color
 end
 
 function XUiStrongholdDeploy:UpdateTeamList()
@@ -122,6 +131,7 @@ function XUiStrongholdDeploy:UpdateTeamList()
     local teamList = self.TeamList
 
     local isPrefab = self:IsPrefab()
+    self.ImgPjzlBg.gameObject:SetActiveEx(not isPrefab)
     self.BtnSupport.gameObject:SetActiveEx(not isPrefab)
     self.BtnFight.gameObject:SetActiveEx(not isPrefab)
     self.BtnAutoTeam.gameObject:SetActiveEx(isPrefab)
@@ -134,26 +144,49 @@ function XUiStrongholdDeploy:UpdateTeamList()
         local isSupportActive = XDataCenter.StrongholdManager.CheckGroupSupportAcitve(groupId, teamList)
         self.TxtOn.gameObject:SetActiveEx(isSupportActive)
         self.TxtOff.gameObject:SetActiveEx(not isSupportActive)
-    end
 
+        --完美战术的平均战力
+        local supportId = XDataCenter.StrongholdManager.GetGroupSupportId(groupId)
+        if XTool.IsNumberValid(supportId) then
+            --活动结束 数据重置 收到EVENT_STRONGHOLD_FINISH_GROUP_CHANGE事件时groupInfo还没更新 supportId会为0
+            local conditionIds = XStrongholdConfigs.GetSupportConditionIds(supportId)
+            local requireAbility = 0
+            for _, conditionId in ipairs(conditionIds) do
+                local config = XConditionManager.GetConditionTemplate(conditionId)
+                if config.Type == 10134 then
+                    requireAbility = config.Params[1]
+                    break
+                end
+            end
+            local isfinished, averageAbility = XDataCenter.StrongholdManager.CheckTeamListAverageAbility(requireAbility, teamList)
+            local color = isfinished and "000000" or "d92f2f"
+            self.TxtPjzl.text = CsXTextManagerGetText("StrongholdDeployTxtPjzl", color, math.floor(averageAbility), requireAbility)
+        end
+    end
+    local teamPropIds = {}
+    if not isPrefab then
+        teamPropIds = XDataCenter.StrongholdManager.GetTeamPropsByGroupId(groupId)
+    end
     local requireTeamIds = XDataCenter.StrongholdManager.GetGroupRequireTeamIds(groupId)
     for index, teamId in ipairs(requireTeamIds) do
-        local team = teamList[teamId]
+        local teamPropId = isPrefab and index or teamPropIds[teamId]
+        local team = teamList[teamPropId]
 
         local grid = self.TeamGrids[index]
         if not grid then
+            local checkCountCb = handler(self, self.OnCheckElectric)
+            local countChangeCb = handler(self, self.OnCountChange)
+            local getMaxCountCb = handler(self, self.GetMaxPluginCount)
+
             local go = CSUnityEngineObjectInstantiate(self.GridDeployTeam, self.PanelTeamContent)
-            grid =
-                XUiGridStrongholdTeam.New(
-                go,
-                function()
-                    self.IsFighting = true
-                end
-            )
+            grid = XUiGridStrongholdTeam.New(go, function()
+                self.IsFighting = true
+            end, checkCountCb, countChangeCb, getMaxCountCb)
+            grid:InitElectric(team:GetUseCount())
             self.TeamGrids[index] = grid
         end
 
-        grid:Refresh(teamList, teamId, groupId, isPrefab)
+        grid:Refresh(teamList, teamId, groupId, isPrefab, teamPropId)
         grid.GameObject:SetActiveEx(true)
     end
     for index = #requireTeamIds + 1, #self.TeamGrids do
@@ -186,18 +219,12 @@ function XUiStrongholdDeploy:AutoAddListener()
     self.BtnAutoTeam.CallBack = function()
         self:OnClickBtnAutoTeam()
     end
-    self.BtnElectricTips.CallBack = function()
-        XUiManager.DialogTip(
-            CsXTextManagerGetText("StrongholdDeployElectricTipsTitle"),
-            CsXTextManagerGetText("StrongholdDeployElectricTipsContent"),
-            XUiManager.DialogType.OnlySure
-        )
-    end
     if self.BtnTool1 then
         self.BtnTool1.CallBack = function()
             self:OnClickBtnTool1()
         end
     end
+    self:RegisterClickEvent(self.BtnAllocation, self.OnClickBtnAllocation)
 end
 
 function XUiStrongholdDeploy:OnClickBtnBack()
@@ -228,7 +255,9 @@ end
 
 function XUiStrongholdDeploy:OnClickBtnFight()
     self.IsFighting = true
-    XDataCenter.StrongholdManager.TryEnterFight(self.GroupId, nil, self.TeamList)
+    XDataCenter.StrongholdManager.TryEnterFight(self.GroupId, nil, self.TeamList, function()
+        self.IsFighting = false
+    end)
 end
 
 function XUiStrongholdDeploy:OnClickBtnRetreat()
@@ -254,14 +283,95 @@ function XUiStrongholdDeploy:OnClickBtnAutoTeam()
     self:UpdateTeamList()
 end
 
+function XUiStrongholdDeploy:OnClickBtnAllocation()
+    -- 先找最低战力的,分到他不是最低为止,递归上面步骤
+    self._Allocate = {}
+    self.UseElectric = 0
+    local teamList = XDataCenter.StrongholdManager.GetFighterTeamListTemp(self.TeamList, self.GroupId)
+    for i, team in ipairs(teamList) do
+        if XDataCenter.StrongholdManager.IsGroupStageFinished(self.GroupId, i) then
+            if self.TeamGrids[i] then
+                self.UseElectric = self.UseElectric + self.TeamGrids[i].Count * self.PluginUseElectric
+            end
+        else
+            local tb = {}
+            tb.Index = i
+            tb.Power = team:GetTeamAbility()
+            tb.Electric = 0
+            table.insert(self._Allocate, tb)
+        end
+    end
+    self:AutoAllocation()
+    for _, v in pairs(self._Allocate) do
+        local team = self.TeamGrids[v.Index]
+        if team then
+            team.Count = v.Electric
+            team:UpdateCount()
+        end
+    end
+    self:UpdateElectric()
+    self:UpdateTeamList()
+end
+
+-- PS：时间复杂度=能配置的电量，如果能配置的电量太多，考虑每次都+2而不是+1
+function XUiStrongholdDeploy:AutoAllocation()
+    table.sort(self._Allocate, function(a, b)
+        return a.Power < b.Power
+    end)
+
+    local min = self._Allocate[1]   -- 战力最小的组
+    local minCount = 0              -- 同战力的有多少组
+    for _, v in ipairs(self._Allocate) do
+        minCount = minCount + 1
+        if v.Power ~= min.Power then
+            break
+        end
+    end
+
+    local secondMin = self._Allocate[minCount + 1]  -- 战力次小的组
+    local residue = math.floor((self.TaskLimitElectric - self.UseElectric) / self.PluginUseElectric)
+    local needElectric
+    if secondMin then
+        local needPower = secondMin.Power - min.Power
+        needElectric = math.ceil(needPower / self.PluginAddPower)
+    else
+        needElectric = residue
+    end
+    local allNeedElectric = needElectric * minCount
+    if residue < allNeedElectric then
+        allNeedElectric = residue
+    end
+    local isLimit = true -- 是否全部队伍都已到装备上限
+    local isError = true -- 以防万一死循环
+    for i = 1, minCount do
+        local data = self._Allocate[i]
+        local canAllcate = math.ceil(allNeedElectric / (minCount - i + 1))-- 能分配的插件数量
+        local canWearLimit = self.MaxPluginCount - data.Electric-- 插件装备上限
+        local real = math.min(canAllcate, canWearLimit)
+        data.Power = data.Power + real * self.PluginAddPower
+        data.Electric = data.Electric + real
+        if canWearLimit > 0 then
+            isLimit = false
+        end
+        if real > 0 then
+            isError = false
+        end
+        allNeedElectric = allNeedElectric - real
+        self.UseElectric = self.UseElectric + real * self.PluginUseElectric
+    end
+
+    if self.TaskLimitElectric > self.UseElectric and not isLimit and not isError then
+        self:AutoAllocation()
+    end
+end
+
 --预设模式
 function XUiStrongholdDeploy:IsPrefab()
     return not XTool.IsNumberValid(self.GroupId)
 end
 
 function XUiStrongholdDeploy:OnClickBtnTool1()
-    local itemId = XDataCenter.StrongholdManager.GetBatteryItemId()
-    XLuaUiManager.Open("UiTip", itemId)
+    XLuaUiManager.Open("UiStrongholdPowerusageTips", self.GroupId, self.TeamList)
 end
 
 -- 在不允许支援的关卡，将支援角色踢出队伍
@@ -288,3 +398,27 @@ function XUiStrongholdDeploy:KickOutAssitMemberIfBanAssit()
         end
     end
 end
+
+--region 电能配置
+
+function XUiStrongholdDeploy:OnCheckElectric(costElectric)
+    costElectric = costElectric or 0
+    local useElectric = self.UseElectric
+    local totalElectric = XDataCenter.StrongholdManager.GetTotalCanUseElectricEnergy(self.GroupId)
+    return useElectric + costElectric <= totalElectric
+end
+
+function XUiStrongholdDeploy:GetMaxPluginCount(costElectric)
+    costElectric = costElectric or 0
+    local useElectric = self.UseElectric
+    local totalElectric = XDataCenter.StrongholdManager.GetTotalCanUseElectricEnergy(self.GroupId)
+    return math.floor((totalElectric - useElectric) / costElectric)
+end
+
+function XUiStrongholdDeploy:OnCountChange(addElectric)
+    self.UseElectric = self.UseElectric + addElectric
+    self:UpdateElectric()
+    self:UpdateTeamList()
+end
+
+--endregion

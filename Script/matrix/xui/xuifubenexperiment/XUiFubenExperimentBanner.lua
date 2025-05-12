@@ -1,3 +1,4 @@
+local XUiBtnTab = require("XUi/XUiBase/XUiBtnTab")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
 local XUiFubenExperimentBanner = XClass(nil, "XUiFubenExperimentBanner")
@@ -17,15 +18,22 @@ function XUiFubenExperimentBanner:Init(index, callback)
     self.TrialLevelInfo = {}
 end
 
+-- 由父界面手动调用
+function XUiFubenExperimentBanner:OnDestroy()
+    self:RemoveRedPoint()
+end
+
 function XUiFubenExperimentBanner:InitUiObjects()
     XTool.InitUiObject(self)
     self.AutoCreateListeners = {}
-    XUiHelper.RegisterClickEvent(self, self.BtnModelSwitch, self.OnBtnModelSwitchClick)
+    --XUiHelper.RegisterClickEvent(self, self.BtnModelSwitch, self.OnBtnModelSwitchClick)
     XUiHelper.RegisterClickEvent(self, self.BtnEnter, self.OnBtnEnter)
 end
 
 function XUiFubenExperimentBanner:RegisterListener(uiNode, eventName, func)
-    if not uiNode then return end
+    if not uiNode then
+        return
+    end
     local key = eventName .. uiNode:GetHashCode()
     local listener = self.AutoCreateListeners[key]
     if listener ~= nil then
@@ -46,22 +54,25 @@ function XUiFubenExperimentBanner:RegisterListener(uiNode, eventName, func)
     end
 end
 
-function XUiFubenExperimentBanner:OnBtnModelSwitchClick()
-    if self.TrialLevelInfo.Type == XDataCenter.FubenExperimentManager.TrialLevelType.Switch then
-        if self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.Signle then
-            self.CurType = XDataCenter.FubenExperimentManager.TrialLevelType.Mult
-        else
-            self.CurType = XDataCenter.FubenExperimentManager.TrialLevelType.Signle
-        end
-        XDataCenter.FubenExperimentManager.RecordMode(self.TrialLevelInfo.MultStageId,self.CurType)
-        self:UpdateType()
-    end
-end
+--function XUiFubenExperimentBanner:OnBtnModelSwitchClick()
+--    if self.TrialLevelInfo.Type == XDataCenter.FubenExperimentManager.TrialLevelType.Switch then
+--        if self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.Signle then
+--            self.CurType = XDataCenter.FubenExperimentManager.TrialLevelType.Mult
+--        else
+--            self.CurType = XDataCenter.FubenExperimentManager.TrialLevelType.Signle
+--        end
+--        XDataCenter.FubenExperimentManager.RecordMode(self.TrialLevelInfo.MultStageId, self.CurType)
+--        self:UpdateType()
+--    end
+--end
 
 function XUiFubenExperimentBanner:OnBtnEnter()
     self:CheckLock()
     if self.IsLock then
         XUiManager.TipError(self.LockText)
+        return
+    end
+    if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Experiment, self.TrialLevelInfo.GroupID) then
         return
     end
     self.Callback(self.Index, self.CurType)
@@ -70,12 +81,12 @@ end
 function XUiFubenExperimentBanner:UpdateBanner(trialLevelInfo)
     self.TrialLevelInfo = trialLevelInfo
     self.CurType = trialLevelInfo.Type
-    if self.TrialLevelInfo.Type ~= XDataCenter.FubenExperimentManager.TrialLevelType.Switch then
-        self.BtnModelSwitch.gameObject:SetActiveEx(false)
-    else
-        self.BtnModelSwitch.gameObject:SetActiveEx(true)
-        self.CurType = XDataCenter.FubenExperimentManager.GetRecordMode(self.TrialLevelInfo.MultStageId)
-    end
+    --if self.TrialLevelInfo.Type ~= XDataCenter.FubenExperimentManager.TrialLevelType.Switch then
+    self.BtnModelSwitch.gameObject:SetActiveEx(false)
+    --else
+    --    self.BtnModelSwitch.gameObject:SetActiveEx(true)
+    --self.CurType = XDataCenter.FubenExperimentManager.GetRecordMode(self.TrialLevelInfo.MultStageId)
+    --end
     self.TxtLevelName.text = trialLevelInfo.Name
     self.Back:SetRawImage(trialLevelInfo.Ico)
     self:UpdateType()
@@ -87,19 +98,19 @@ function XUiFubenExperimentBanner:UpdateBanner(trialLevelInfo)
 end
 
 function XUiFubenExperimentBanner:UpdateType()
-    self.ModelIconSingle.gameObject:SetActiveEx(false)
+    --self.ModelIconSingle.gameObject:SetActiveEx(false)
     self.ModelIconTeam.gameObject:SetActiveEx(false)
-    self.ImageSingle.gameObject:SetActiveEx(false)
+    --self.ImageSingle.gameObject:SetActiveEx(false)
     self.ImageTeam.gameObject:SetActiveEx(false)
     self.PanelImgJindu.gameObject:SetActiveEx(false)
 
-    if self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.Signle or self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.SkinTrial then
-        self.ModelIconSingle.gameObject:SetActiveEx(true)
-        self.ImageSingle.gameObject:SetActiveEx(true)
-    else
-        self.ModelIconTeam.gameObject:SetActiveEx(true)
-        self.ImageTeam.gameObject:SetActiveEx(true)
-    end
+    --if self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.Signle or self.CurType == XDataCenter.FubenExperimentManager.TrialLevelType.SkinTrial then
+    self.ModelIconSingle.gameObject:SetActiveEx(true)
+    self.ImageSingle.gameObject:SetActiveEx(true)
+    --else
+    --    self.ModelIconTeam.gameObject:SetActiveEx(true)
+    --    self.ImageTeam.gameObject:SetActiveEx(true)
+    --end
 
     if self.TrialLevelInfo.StarReward and self.TrialLevelInfo.StarReward > 0 then
         self.PanelImgJindu.gameObject:SetActiveEx(true)
@@ -152,12 +163,10 @@ function XUiFubenExperimentBanner:CheckProgress()
 end
 
 function XUiFubenExperimentBanner:CheckRedPoint()
+    self:RemoveRedPoint()
     if self.RedPoint then
         self.RedPoint.gameObject:SetActiveEx(false)
         if self.TrialLevelInfo then
-            if self.RedPointId then
-                XRedPointManager.RemoveRedPointEvent(self.RedPointId)
-            end
             self.RedPointId = XRedPointManager.AddRedPointEvent(self.RedPoint, self.OnCheckRedPoint, self, { XRedPointConditions.Types.CONDITION_EXPERIMENT_CHAPTER_REWARD }, self.TrialLevelInfo, true)
         end
     end
@@ -178,6 +187,13 @@ function XUiFubenExperimentBanner:UpdateTime()
             local text = CSXTextManagerGetText("ActivityBriefLeftTime", timeStr)
             self.TxtTime.text = text
         end
+    end
+end
+
+function XUiFubenExperimentBanner:RemoveRedPoint()
+    if self.RedPointId then
+        XRedPointManager.RemoveRedPointEvent(self.RedPointId)
+        self.RedPointId = nil
     end
 end
 

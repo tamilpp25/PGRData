@@ -7,18 +7,24 @@ local TABLE_EMOJI_CONFIG_PATH = "Share/Chat/Emoji.tab"
 local TABLE_EMOJI_PACK_PATH = "Share/Chat/EmojiPack.tab"
 local TABLE_EFFECT_CONFIG_PATH = "Client/Chat/KeywordEffect.tab"
 local TABLE_REPEAT_CHAT_FORBID_PATH = "Client/Chat/RepeatChatForbid.tab"
+local TABLE_CHAT_BOARD_PATH = "Share/Chat/ChatBoard.tab"
 
 local EmojiTemplates = {}
 local EmojiPackTemplates = {}
 local EffectTemplates = {}
 local RepeatChatForbidCfg = {}
+local ChatBoard = {}
 XChatConfigs.KEY_LAST_READ_CHAT_TIME = "KEY_LAST_READ_CHAT_TIME_"
+
+XChatConfigs.DefaultChatBoardId = 25000001
 
 function XChatConfigs:Init()
     EmojiTemplates = XTableManager.ReadByIntKey(TABLE_EMOJI_CONFIG_PATH, XTable.XTableEmoji, "Id")
     EmojiPackTemplates = XTableManager.ReadByIntKey(TABLE_EMOJI_PACK_PATH, XTable.XTableEmojiPack, "Id")
     EffectTemplates = XTableManager.ReadByIntKey(TABLE_EFFECT_CONFIG_PATH, XTable.XTableChatEffect, "Id")
     RepeatChatForbidCfg = XTableManager.ReadByIntKey(TABLE_REPEAT_CHAT_FORBID_PATH, XTable.XTableRepeatChatForbid, "Id")
+    ChatBoard = XTableManager.ReadByIntKey(TABLE_CHAT_BOARD_PATH, XTable.XTableChatBoard, "Id")
+
 end
 
 --这里这里用于传出完整配置条目，外部谨允许局部域生命周期内使用，不允许持有！！！！
@@ -120,3 +126,19 @@ function XChatConfigs.GetEmojiPackCfgById(packId, noTips)
     end
     return EmojiPackTemplates[packId]
 end
+
+---@return XTableChatBoard
+function XChatConfigs.GetChatBoardCfgById(id)
+    local cfg = ChatBoard[id]
+
+    if not cfg then
+        XLog.ErrorTableDataNotFound('XChatConfigs.GetChatBoardCfgById', 'ChatBoardCfg', TABLE_CHAT_BOARD_PATH, 'id', id)
+        return nil
+    else
+        return cfg
+    end
+end
+
+function XChatConfigs.GetChatBoardCfg()
+    return ChatBoard
+end 

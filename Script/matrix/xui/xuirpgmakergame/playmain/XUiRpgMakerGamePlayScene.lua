@@ -1,7 +1,6 @@
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 local Vector3 = CS.UnityEngine.Vector3
-local CSXResourceManagerLoad = CS.XResourceManager.Load
-local CSXResourceManagerLoadAsync = CS.XResourceManager.LoadAsync
+local CSXResourceManagerLoadAsync
 
 local XRpgMakerGameBlock = require("XEntity/XRpgMakerGame/Object/XRpgMakerGameBlock")
 local XRpgMakerGameGap = require("XEntity/XRpgMakerGame/Object/XRpgMakerGameGap")
@@ -15,6 +14,7 @@ function XUiRpgMakerGamePlayScene:LoadScene(mapId, sceneLoadCompleteCb)
     self.MapId = mapId
 
     local sceneAssetUrl = XRpgMakerGameConfigs.GetRpgMakerGamePrefab(mapId)
+    XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
     self.Resource = CSXResourceManagerLoadAsync(sceneAssetUrl)
     CS.XTool.WaitCoroutine(self.Resource, function()
         if not self.Resource or not self.Resource.Asset then
@@ -79,7 +79,24 @@ function XUiRpgMakerGamePlayScene:Init()
 end
 
 function XUiRpgMakerGamePlayScene:InitCamera()
-    self.Camera = self.GameObject.transform:Find("Camera"):GetComponent("Camera")
+    --镜头角度与地图适配
+    local row = XRpgMakerGameConfigs.GetRpgMakerGameRow(self:GetMapId())
+    local cameras = {}
+    for i = 8, 10, 1 do
+        local cameraName = "Camera" .. i
+        local camera = self.GameObject.transform:Find(cameraName)
+        if not XTool.UObjIsNil(camera) then
+            table.insert(cameras, camera)
+            if i == row then
+                self.Camera = camera:GetComponent("Camera")
+            end
+            camera.gameObject:SetActiveEx(false)
+        end
+    end
+    if XTool.UObjIsNil(self.Camera) then
+        self.Camera = self.GameObject.transform:Find("Camera"):GetComponent("Camera")
+    end
+    self.Camera.gameObject:SetActiveEx(true)
     self.PhysicsRaycaster = self.Camera.gameObject:AddComponent(typeof(CS.UnityEngine.EventSystems.PhysicsRaycaster))
 end
 

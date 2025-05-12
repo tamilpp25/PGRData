@@ -21,26 +21,28 @@ function XUiGridStrongHoldTeamMember:Ctor(ui)
     self.BtnClick.CallBack = function() self:OnMemberClick() end
 end
 
-function XUiGridStrongHoldTeamMember:Refresh(teamList, teamId, index, groupId)
+function XUiGridStrongHoldTeamMember:Refresh(teamList, teamIndex, memberIndex, groupId, teamPropId)
+    ---@type XStrongholdTeam[]
     self.TeamList = teamList
-    self.TeamId = teamId
-    self.MemberIndex = index
+    self.TeamPropId = teamPropId
+    self.MemberIndex = memberIndex
     self.GroupId = groupId
-    self.Pos = index
+    self.TeamIndex = teamIndex
 
-    local team = teamList[teamId]
+    ---@type XStrongholdTeam
+    local team = teamList[teamPropId]
 
     local leaderIndex = team:GetCaptainPos()
-    self.ImgLeaderTag.gameObject:SetActiveEx(index == leaderIndex)
+    self.ImgLeaderTag.gameObject:SetActiveEx(memberIndex == leaderIndex)
 
     local firstFightIndex = team:GetFirstPos()
-    self.ImgFirstRole.gameObject:SetActiveEx(index == firstFightIndex)
+    self.ImgFirstRole.gameObject:SetActiveEx(memberIndex == firstFightIndex)
 
     for i, goName in pairs(MEMBER_POS_COLOR) do
-        self[goName].gameObject:SetActiveEx(index == i)
+        self[goName].gameObject:SetActiveEx(memberIndex == i)
     end
 
-    local member = team:GetMember(index)
+    local member = team:GetMember(memberIndex)
 
     local isEmpty = member:IsEmpty()
     self.PanelEmpty.gameObject:SetActiveEx(isEmpty)
@@ -52,7 +54,7 @@ function XUiGridStrongHoldTeamMember:Refresh(teamList, teamId, index, groupId)
     local isRobot = member:IsRobot()
     self.PanelTrial.gameObject:SetActiveEx(isRobot)
 
-    local ability = team:GetTeamMemberAbility(self.MemberIndex)
+    local ability = team:GetTeamMemberAbility(self.MemberIndex) + team:GetPluginAddAbility()
     self.TxtAbility.text = ability
     if groupId then
         local requireAbility = XDataCenter.StrongholdManager.GetGroupRequireAbility(groupId)
@@ -62,20 +64,14 @@ function XUiGridStrongHoldTeamMember:Refresh(teamList, teamId, index, groupId)
     if not isEmpty then
         local headIcon = member:GetSmallHeadIcon()
         self.RImgRoleHead:SetRawImage(headIcon)
+        self.RImgType:SetRawImage(member:GetElementIcon())
     end
     self.RImgRoleHead.gameObject:SetActiveEx(not isEmpty)
 end
 
 function XUiGridStrongHoldTeamMember:OnMemberClick()
-    local cb = function()
-        XLuaUiManager.Open("UiStrongholdRoomCharacter", self.TeamList, self.TeamId, self.MemberIndex, self.GroupId, self.Pos)
-    end
-
-    if XDataCenter.StrongholdManager.CheckAssitantListWaitInit() then
-        XDataCenter.StrongholdManager.GetStrongholdAssistCharacterListRequest(cb)
-    else
-        cb()
-    end
+    -- 走矿区自己特殊的BattleRoleRoom
+    XLuaUiManager.Open("UiStrongholdBattleRoleRoom", self.TeamList, self.TeamIndex, self.GroupId, self.MemberIndex, self.TeamPropId)
 end
 
 return XUiGridStrongHoldTeamMember

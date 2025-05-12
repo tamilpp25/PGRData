@@ -16,10 +16,10 @@ function XUiGridUnionShareCharItem:Refresh(shareInfos)
     local character = shareInfos.Character
     local characterId = character.Id
 
-    self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
+    self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(characterId))
     self.TxtLevel.text = character.Level
     self.TxtFight.text = math.floor(character.Ability)
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
 end
 
 return XUiGridUnionShareCharItem

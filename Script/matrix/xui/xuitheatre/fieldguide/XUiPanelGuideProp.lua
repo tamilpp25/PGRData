@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuidePropGrid = require("XUi/XUiTheatre/FieldGuide/XUiGuidePropGrid")
 
 --信物和其他道具布局

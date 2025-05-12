@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiMentorTask = XLuaUiManager.Register(XLuaUi, "UiMentorTask")
 local XUiPanelTeacherTask = require("XUi/XUiMentorSystem/MentorTask/XUiPanelTeacherTask")
 local XUiPanelStudentTask = require("XUi/XUiMentorSystem/MentorTask/XUiPanelStudentTask")

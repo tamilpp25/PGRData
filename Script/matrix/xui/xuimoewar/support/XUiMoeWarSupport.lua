@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMoeWarSupportGrid = require("XUi/XUiMoeWar/Support/XUiMoeWarSupportGrid")
 
 --场外应援
@@ -23,7 +25,7 @@ function XUiMoeWarSupport:AutoAddListener()
 end
 
 function XUiMoeWarSupport:InitAssetPanel()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
 end
 
 function XUiMoeWarSupport:InitDynamicTable()

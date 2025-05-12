@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridPokemonMonster = require("XUi/XUiPokemon/XUiMonster/XUiGridPokemonMonster")
 local XUiGridPokemonStageMonster = require("XUi/XUiPokemon/XUiPokemonFormation/XUiGridPokemonStageMonster")
 local XUiGridPokemonMemberMonster = require("XUi/XUiPokemon/XUiPokemonFormation/XUiGridPokemonMemberMonster")
@@ -117,7 +118,8 @@ function XUiPokemonFormation:InitSuitDrdOptionList()
 
         local careerIcon = XPokemonConfigs.GetCareerIcon(career)
         if careerIcon then
-            local resource = CS.XResourceManager.Load(careerIcon)
+            local resource
+            XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
             local asset = resource.Asset
 
             local sprite

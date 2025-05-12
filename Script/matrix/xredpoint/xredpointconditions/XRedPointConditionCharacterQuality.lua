@@ -18,11 +18,14 @@ function XRedPointConditionCharacterQuality.Check(characterId)
         return false
     end
 
+    ---@type XCharacterAgency
+    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+
     if not XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.CharacterQuality) then
         return false
     end
 
-    local canPromote = XDataCenter.CharacterManager.CanPromoteQuality(characterId)
+    local canPromote = ag:CanPromoteQuality(characterId)
     return canPromote
 end
 

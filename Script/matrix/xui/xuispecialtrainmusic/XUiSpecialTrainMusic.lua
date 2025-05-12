@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableCurve = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableCurve")
 local XUiSpecialTrainMusic = XLuaUiManager.Register(XLuaUi,"UiSpecialTrainMusic")
 local XUiGridMusicPlayer = require("XUi/XUiMusicPlayer/XUiGridMusicPlayer")
 local CSXAudioManager = CS.XAudioManager

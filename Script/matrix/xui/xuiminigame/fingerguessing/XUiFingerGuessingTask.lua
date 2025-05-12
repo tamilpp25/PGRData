@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 -- 猜拳小游戏活动任务界面
 local XUiFingerGuessingTask = XLuaUiManager.Register(XLuaUi, "UiFingerGuessingTask")
 local TaskList = require("XUi/XUiMiniGame/FingerGuessing/XUiFingerGuessingTaskDynamicTable")

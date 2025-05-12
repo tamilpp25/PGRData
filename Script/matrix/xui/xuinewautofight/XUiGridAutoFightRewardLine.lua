@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridAutoFightRewardLine = XClass(nil, "XUiGridAutoFightRewardLine")
 
 function XUiGridAutoFightRewardLine:Ctor(ui)

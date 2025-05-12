@@ -1,3 +1,4 @@
+local XUiFestivalStageItem = require("XUi/XUiFestivalActivity/XUiFestivalStageItem")
 local XUiFubenKoroStageItem = XClass(nil, "XUiFestivalStageItem")
 local XUiPanelStars = require("XUi/XUiFubenMainLineChapter/XUiPanelStars")
 

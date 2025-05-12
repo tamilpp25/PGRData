@@ -1,3 +1,5 @@
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 
 --
 -- Author: wujie
@@ -23,19 +25,19 @@ function XUiArchiveWeaponDetail:OnAwake()
     self.IsSettingOpen = false
 
     self.GridSettingList = {
-        XUiGridArchiveEquipSetting.New(self.GridSetting1),
-        XUiGridArchiveEquipSetting.New(self.GridSetting2),
-        XUiGridArchiveEquipSetting.New(self.GridSetting3),
-        XUiGridArchiveEquipSetting.New(self.GridSetting4),
-        XUiGridArchiveEquipSetting.New(self.GridSetting5),
+        XUiGridArchiveEquipSetting.New(self.GridSetting1,self),
+        XUiGridArchiveEquipSetting.New(self.GridSetting2,self),
+        XUiGridArchiveEquipSetting.New(self.GridSetting3,self),
+        XUiGridArchiveEquipSetting.New(self.GridSetting4,self),
+        XUiGridArchiveEquipSetting.New(self.GridSetting5,self),
     }
 
     self.GridStoryList = {
-        XUiGridArchiveEquipSetting.New(self.GridStory1),
-        XUiGridArchiveEquipSetting.New(self.GridStory2),
-        XUiGridArchiveEquipSetting.New(self.GridStory3),
-        XUiGridArchiveEquipSetting.New(self.GridStory4),
-        XUiGridArchiveEquipSetting.New(self.GridStory5),
+        XUiGridArchiveEquipSetting.New(self.GridStory1,self),
+        XUiGridArchiveEquipSetting.New(self.GridStory2,self),
+        XUiGridArchiveEquipSetting.New(self.GridStory3,self),
+        XUiGridArchiveEquipSetting.New(self.GridStory4,self),
+        XUiGridArchiveEquipSetting.New(self.GridStory5,self),
     }
 
     self:AutoAddListener()
@@ -55,8 +57,8 @@ function XUiArchiveWeaponDetail:Init(templateIdList,index)
     self.TemplateIdList = templateIdList
     self.TemplateIndex = index
 
-    if XDataCenter.ArchiveManager.IsNewWeapon(templateId) then
-        XDataCenter.ArchiveManager.RequestUnlockWeapon({templateId})
+    if XMVCA.XArchive:IsNewWeapon(templateId) then
+        XMVCA.XArchive:RequestUnlockWeapon({templateId})
     end
 
     self:UpdateResume()
@@ -111,53 +113,54 @@ function XUiArchiveWeaponDetail:UpdateWeaponModel(modelConfig)
                     local panelEffect = root.PanelEffect
                     panelEffect.gameObject:SetActiveEx(false)
                     panelEffect.gameObject:SetActiveEx(true)
-                end, {gameObject = self.GameObject, IsDragRotation = true}, self.PanelDrag)
+                end, {gameObject = self.GameObject, IsDragRotation = true, AntiClockwise = true}, self.PanelDrag)
         end, delayTime)
 end
 
 function XUiArchiveWeaponDetail:UpdateResume()
     local templateId = self.TemplateId
-    local weaponName = XDataCenter.EquipManager.GetEquipName(templateId)
+    local weaponName = XMVCA.XEquip:GetEquipName(templateId)
     self.TxtWeaponNameHorizontal.text = weaponName
     self.TxtWeaponNameVertical.text = weaponName
-    self.TxtWeaponMaxLv.text = XDataCenter.EquipManager.GetEquipMaxLevel(templateId)
-    self.TxtWeaponMaxBreakthrough.text = XDataCenter.EquipManager.GetEquipMaxBreakthrough(templateId)
+    local maxBreakthrough, maxLevel = XMVCA:GetAgency(ModuleId.XEquip):GetEquipMaxBreakthrough(templateId)
+    self.TxtWeaponMaxLv.text = tostring(maxLevel)
+    self.TxtWeaponMaxBreakthrough.text = tostring(maxBreakthrough)
 end
 
 function XUiArchiveWeaponDetail:UpdateSetting()
     local templateId = self.TemplateId
     XRedPointManager.CheckOnce(self.OnCheckRedPoint, self, {XRedPointConditions.Types.CONDITION_ARCHIVE_WEAPON_SETTING_RED}, templateId)
-    local newSettingIdList = XDataCenter.ArchiveManager.GetNewWeaponSettingIdList(templateId)
+    local newSettingIdList = self._Control:GetNewWeaponSettingIdList(templateId)
     if newSettingIdList and #newSettingIdList > 0 then
-        XDataCenter.ArchiveManager.RequestUnlockWeaponSetting(newSettingIdList)
+        XMVCA.XArchive:RequestUnlockWeaponSetting(newSettingIdList)
     end
 
-    local settingDataList = XArchiveConfigs.GetWeaponSettingList(templateId)
+    local settingDataList = XMVCA.XArchive:GetWeaponSettingList(templateId)
     local settingType
     local showedSettingCount = 0
     local showedStoryCount = 0
     local grid
     for _, settingData in ipairs(settingDataList) do
         settingType = settingData.Type
-        if settingType == XArchiveConfigs.SettingType.Setting then
+        if settingType == XEnumConst.Archive.SettingType.Setting then
             showedSettingCount = showedSettingCount + 1
             grid = self.GridSettingList[showedSettingCount]
             if grid then
-                grid:Refresh(XArchiveConfigs.SubSystemType.Weapon, settingData)
+                grid:Refresh(XEnumConst.Archive.SubSystemType.Weapon, settingData)
                 grid.GameObject:SetActiveEx(true)
             else
-                local path = XArchiveConfigs.GetWeaponSettingPath()
+                local path = self._Control:GetWeaponSettingPath()
                 local tempStr = "XUiArchiveWeaponDetail:UpdateSetting函数错误，武器数据个数大于显示结点个数, weaponid Id是 "
                 XLog.Error(tempStr .. templateId .. ", settingid is " .. settingData.Id .. "weapon setting表路径是" .. path)
             end
-        elseif settingType == XArchiveConfigs.SettingType.Story then
+        elseif settingType == XEnumConst.Archive.SettingType.Story then
             showedStoryCount = showedStoryCount + 1
             grid = self.GridStoryList[showedStoryCount]
             if grid then
-                grid:Refresh(XArchiveConfigs.SubSystemType.Weapon, settingData)
+                grid:Refresh(XEnumConst.Archive.SubSystemType.Weapon, settingData)
                 grid.GameObject:SetActiveEx(true)
             else
-                local path = XArchiveConfigs.GetWeaponSettingPath()
+                local path = self._Control:GetWeaponSettingPath()
                 local tempStr = "XUiArchiveWeaponDetail:UpdateSetting函数错误，武器数据个数大于显示结点个数, weaponid Id是 "
                 XLog.Error(tempStr .. templateId .. ", settingid is " .. settingData.Id .. "weapon setting表路径是" .. path)
             end
@@ -186,7 +189,7 @@ function XUiArchiveWeaponDetail:UpdateSetting()
 end
 
 function XUiArchiveWeaponDetail:UpdateSkill()
-    local weaponSkillInfo = XDataCenter.EquipManager.GetOriginWeaponSkillInfo(self.TemplateId)
+    local weaponSkillInfo = XMVCA.XEquip:GetEquipWeaponSkillInfo(self.TemplateId)
     if weaponSkillInfo.Name and weaponSkillInfo.Description then
         self.PanelNoSkill.gameObject:SetActiveEx(false)
         self.PanelSkill.gameObject:SetActiveEx(true)
@@ -199,7 +202,7 @@ function XUiArchiveWeaponDetail:UpdateSkill()
 end
 
 function XUiArchiveWeaponDetail:UpdateSwitch()
-    self.ModelCfgList = XEquipConfig.GetWeaponModelCfgList(self.TemplateId, self.Name, 0)
+    self.ModelCfgList = XMVCA.XEquip:GetWeaponModelCfgList(self.TemplateId, self.Name, 0)
     local modelCount = #self.ModelCfgList
 
     self.Scene3DRoot.PanelWeaponPlane.gameObject:SetActiveEx(modelCount == 0)
@@ -266,16 +269,16 @@ function XUiArchiveWeaponDetail:OnCheckRedPoint(count)
         self.PanelSettingRedPoint.gameObject:SetActiveEx(false)
         self.PanelStoryRedPoint.gameObject:SetActiveEx(false)
     else
-        local newSettingIdList = XDataCenter.ArchiveManager.GetNewWeaponSettingIdList(self.TemplateId)
+        local newSettingIdList = self._Control:GetNewWeaponSettingIdList(self.TemplateId)
         if newSettingIdList then
             local type
             local isShowSettingReddot = false
             local isShowStoryReddot = false
             for _, id in ipairs(newSettingIdList) do
-                type = XArchiveConfigs.GetWeaponSettingType(id)
-                if type == XArchiveConfigs.SettingType.Setting then
+                type = self._Control:GetWeaponSettingType(id)
+                if type == XEnumConst.Archive.SettingType.Setting then
                     isShowSettingReddot = true
-                elseif type == XArchiveConfigs.SettingType.Story then
+                elseif type == XEnumConst.Archive.SettingType.Story then
                     isShowStoryReddot = true
                 end
             end

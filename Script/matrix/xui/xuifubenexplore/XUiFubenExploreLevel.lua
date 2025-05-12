@@ -1,3 +1,7 @@
+local XUiFubenExploreBuff = require("XUi/XUiFubenExplore/XUiFubenExploreBuff")
+local XUiFubenExploreQuickJumpBtn = require("XUi/XUiFubenExplore/XUiFubenExploreQuickJumpBtn")
+local XUiFubenExploreLevelNode = require("XUi/XUiFubenExplore/XUiFubenExploreLevelNode")
+local XUiFubenExploreBuffDetail = require("XUi/XUiFubenExplore/XUiFubenExploreBuffDetail")
 local XUiFubenExploreLevel = XLuaUiManager.Register(XLuaUi, "UiFubenExploreLevel")
 function XUiFubenExploreLevel:OnAwake()
     self:AddListener()
@@ -12,7 +16,6 @@ function XUiFubenExploreLevel:OnStart(chapterId)
     self.BtnNormalDot.gameObject:SetActive(false)
     self.ExploreBuff.gameObject:SetActive(false)
     self.ExploreBuffDetail.gameObject:SetActive(false)
-    self.AnimFullExploreEnable = self:FindGameObject("AnimFullExploreEnable")
     self:InitDragPanel()
     self:Init()
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_EXPLORE_UPDATE, self.Init, self)
@@ -27,9 +30,6 @@ function XUiFubenExploreLevel:OnEnable()
 end
 
 function XUiFubenExploreLevel:OnDestroy()
-    if self.LoadResource then
-        self.LoadResource:Release()
-    end
     XEventManager.RemoveEventListener(XEventId.EVENT_FUBEN_EXPLORE_UPDATE, self.Init, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_FUBEN_EXPLORE_UPDATEBUFF, self.UpdateBuffList, self)
 end
@@ -69,12 +69,14 @@ function XUiFubenExploreLevel:OnBtnBackClick()
 end
 
 function XUiFubenExploreLevel:OnBtnBuffClick()
+    XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnCloseClick")
     self.PanelBuffDetail.gameObject:SetActive(true)
     self:PlayAnimation("AnimBuffDetailEnable")
 end
 
 function XUiFubenExploreLevel:OnBtnCloseClick()
     self.PanelBuffDetail.gameObject:SetActive(false)
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
 end
 
 function XUiFubenExploreLevel:OnQuickJumpClick(nodeInfo)
@@ -85,22 +87,18 @@ end
 function XUiFubenExploreLevel:InitDragPanel()
     local chapterData = XFubenExploreConfigs.GetChapterData(self.ChapterId)
     local prefabName = string.format(chapterData.ChapterPrefab)
-    self.LoadResource = CS.XResourceManager.Load(prefabName);
-    self.DragPanel = CS.UnityEngine.Object.Instantiate(self.LoadResource.Asset)
-    self.DragPanel.transform:SetParent(self.FullScreenBackground, false)
+    self.DragPanel = self.FullScreenBackground:LoadPrefab(prefabName)
     self.PanelDragArea = self.DragPanel:GetComponentInChildren(typeof(CS.XDragArea))
     self.LayerLevel = self.PanelDragArea.gameObject.transform:Find("LayerLevel")
 end
 
 function XUiFubenExploreLevel:CompleteInit()
     self.PanelFullExplore.gameObject:SetActive(true)
-    if self.AnimFullExploreEnable and self.AnimFullExploreEnable.activeInHierarchy then
-        self:PlayAnimationWithMask("AnimFullExploreEnable", function()
-                self:Close()
-            end)
-    else
-        self:Close()
-    end
+    self:PlayAnimationWithMask("AnimFullExploreEnable", function()
+        self:PlayAnimationWithMask("AnimFullExploreDisable", function()
+            self:Close()
+        end)
+    end)
 end
 
 function XUiFubenExploreLevel:Init()
@@ -287,13 +285,9 @@ function XUiFubenExploreLevel:OnLevelNodeClick(nodeInfo)
     --战斗节点
     if nodeInfo.tableData.Type == XFubenExploreConfigs.NodeTypeEnum.Stage then
         XLuaUiManager.Open("UiEnterFight", nodeInfo.tableData.Type, nodeInfo.tableData.Title, nodeInfo.tableData.Explain, nodeInfo.tableData.EnterIco, nodeInfo.tableData.RewardId, function()
-            if XTool.USENEWBATTLEROOM then
-                XLuaUiManager.Open("UiBattleRoleRoom", tonumber(nodeInfo.tableData.TypeValue)
-                    , XDataCenter.TeamManager.GetXTeamByTypeId(CS.XGame.Config:GetInt("TypeIdExplore"))
-                    , require("XUi/XUiFubenExplore/XUiExploreBattleRoleRoom"))
-            else
-                XLuaUiManager.Open("UiNewRoomSingle", tonumber(nodeInfo.tableData.TypeValue))
-            end
+            XLuaUiManager.Open("UiBattleRoleRoom", tonumber(nodeInfo.tableData.TypeValue)
+                , XDataCenter.TeamManager.GetXTeamByTypeId(CS.XGame.Config:GetInt("TypeIdExplore"))
+                , require("XUi/XUiFubenExplore/XUiExploreBattleRoleRoom"))
         end)
     end
 end

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiSuperTowerPluginGrid = require("XUi/XUiSuperTower/Plugins/XUiSuperTowerPluginGrid")
 
 local XUiSuperTowerRoleLevelUpPanel = XClass(nil, "XUiSuperTowerRoleLevelUpPanel")

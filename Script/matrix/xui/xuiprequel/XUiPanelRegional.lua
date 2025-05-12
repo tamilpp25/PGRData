@@ -1,4 +1,6 @@
-XUiPanelRegional = XClass(nil, "XUiPanelRegional")
+local XUiPanelPlotTab = require("XUi/XUiPrequel/XUiPanelPlotTab")
+local XUiPanelPrequelChapter = require("XUi/XUiPrequel/XUiPanelPrequelChapter")
+local XUiPanelRegional = XClass(nil, "XUiPanelRegional")
 
 function XUiPanelRegional:Ctor(ui, rootUi)
     self.GameObject = ui.gameObject
@@ -66,7 +68,8 @@ end
 
 function XUiPanelRegional:CheckHaveChallengeMode()
     local cStage = self.CurrentCover.CoverVal.ChallengeStage
-    self.BtnSwitch2Fight.gameObject:SetActiveEx(cStage ~= nil and #cStage > 0)
+    -- self.BtnSwitch2Fight.gameObject:SetActiveEx(cStage ~= nil and #cStage > 0)
+    self.BtnSwitch2Fight.gameObject:SetActiveEx(false) --v1.30 新版入口拆分 不再使用该按钮
 end
 -- auto
 
@@ -84,9 +87,7 @@ function XUiPanelRegional:OnBtnSwitch2FightClick()
             return
         end
     end
-    local keyX = string.format("%s%d%d", "PrequelLastSwitchPanelType", XPlayer.Id, self.CurrentCover.CoverId)
-    local panelType = 2
-    CS.UnityEngine.PlayerPrefs.SetInt(keyX, panelType)
+
     self.RootUi:Switch2Challenge(self.CurrentCover)
 end
 
@@ -116,9 +117,9 @@ function XUiPanelRegional:InitPlotTab()
     local skipIndex = XDataCenter.PrequelManager.GetIndexByChapterId(self.CurrentCover, skipChapter)
     self.CurrentSelectIdx = self.CurrentSelectIdx or defaultIndex
     if isSkipChapterInActivity then
-        local skipDescription = XDataCenter.PrequelManager.GetChapterUnlockDescription(skipChapter)
+        local isLock = XDataCenter.PrequelManager.GetChapterLockStatus(skipChapter)
         -- 活动内、已解锁
-        if skipDescription == nil then
+        if not isLock then
             self.CurrentSelectIdx = skipIndex or self.CurrentSelectIdx
         end
     end

@@ -1,3 +1,7 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XPartnerSort = require("XUi/XUiPartner/PartnerCommon/XPartnerSort")
+local XUiTabBtnGroup = require("XUi/XUiBase/XUiTabBtnGroup")
 local XUiPanelBagItem = require("XUi/XUiBag/XUiPanelBagItem")
 local XUiPanelSidePopUp = require("XUi/XUiBag/XUiPanelSidePopUp")
 local XUiPanelBagRecycle = require("XUi/XUiBag/XUiPanelBagRecycle")
@@ -114,12 +118,20 @@ function XUiBag:OnAwake()
     self.SelectReplicatedGiftPanel = XUiPanelSelectReplicatedGift.New(self, self.PanelSelectReplicatedGift)
 
     self.DynamicTable = XDynamicTableNormal.New(self.PanelDynamicTable)
-    self.DynamicTable:SetProxy(XUiPanelBagItem)
+    self.DynamicTable:SetProxy(XUiPanelBagItem, self)
     self.DynamicTable:SetDelegate(self)
 
     self.PanelBagItem.gameObject:SetActiveEx(false)
     self.GridBagItemRect = self.PanelBagItem.transform:Find("GridEquip"):GetComponent("RectTransform").rect
     self.GridSuitSimpleRect = self.PanelBagItem.transform:Find("GridSuitSimple"):GetComponent("RectTransform").rect
+
+    self:AddRedPointEvent(self.BtnTog2, self.OnCheckBtnItemRed, self, {
+        XRedPointConditions.Types.CONDITION_ITEM_COLLECTION_ENTRANCE,
+    })
+
+    self:AddRedPointEvent(self.BtnCollection, self.OnCheckBtnCollectRed, self, {
+        XRedPointConditions.Types.CONDITION_ITEM_COLLECTION_ENTRANCE,
+    })
 
     self:AutoAddListener()
 end
@@ -129,7 +141,7 @@ function XUiBag:OnStart(record)
     self.MaterailTypeRecord = MaterialTypeCache
     self.IsAscendOrder = false
     self.Operation = XUiBag.OperationType.Common
-    self.SortType = XEquipConfig.PriorSortType.Star
+    self.SortType = XEnumConst.EQUIP.PRIOR_SORT_TYPE.STAR
     self.PartnerSortType = DefaultSortTypeIndex
     self.StarCheckList = {true, true, true, true, true, true }
     self.IsFirstAnimation = true
@@ -144,17 +156,28 @@ function XUiBag:OnStart(record)
     self.SortBtnGroup:SelectIndex(self.SortType + 1, false)
     self.PartnerSortBtnGroup:SelectIndex(self.PartnerSortType + 1, false)
 
-    self:PlayAnimationWithMask("AnimStartEnable")
+    --self:PlayAnimationWithMask("AnimStartEnable")
 end
 
 function XUiBag:OnEnable()
     self.GridCount = 1
     self:Refresh(false)
+    self.SelectGiftPanel:OnEnable()
+    self:PlayAnimationWithMask("AnimStartEnable")
+    self:AddEventListener()
 end
 
 function XUiBag:OnDestroy()
     XDataCenter.ItemManager.SetPageRecordCache(self.PageRecord)
     MaterialTypeCache = self.MaterailTypeRecord
+end
+
+function XUiBag:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_BAG_APPOINT_ITEM_UPMOST, self.OnAppointItemUpmost, self)
+end
+
+function XUiBag:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_BAG_APPOINT_ITEM_UPMOST, self.OnAppointItemUpmost, self)
 end
 
 --注册监听事件
@@ -186,9 +209,9 @@ function XUiBag:Refresh(bReload)
 end
 
 --设置动态列表
-function XUiBag:UpdateDynamicTable(bReload)
+function XUiBag:UpdateDynamicTable(bReload, upmostId)
     --刷新数据
-    self.PageDatas = self:GetDataByPage()
+    self.PageDatas = self:GetDataByPage(upmostId)
     local gridSize
     if self.PageRecord == XItemConfigs.PageType.SuitCover then
         --套装的格子比较大
@@ -196,7 +219,7 @@ function XUiBag:UpdateDynamicTable(bReload)
     else
         gridSize = CS.UnityEngine.Vector2(self.GridBagItemRect.width, self.GridBagItemRect.height)
     end
-
+    
     self.DynamicTable:SetGridSize(gridSize)
     self.DynamicTable:SetDataSource(self.PageDatas)
     self.DynamicTable:ReloadDataASync(bReload and 1 or -1)
@@ -207,7 +230,7 @@ function XUiBag:UpdateDynamicTable(bReload)
     local capacityDes = ""
 
     if self.PageRecord == XItemConfigs.PageType.Equip then
-        maxCount = XEquipConfig.GetMaxWeaponCount()
+        maxCount = XMVCA.XEquip:GetMaxWeaponCount()
         if self.Operation == XUiBag.OperationType.Decomposion then
             capacityDes = CapacityDesStr.EquipDecomposionCapacityDes
         elseif self.Operation == XUiBag.OperationType.Recycle then
@@ -216,7 +239,7 @@ function XUiBag:UpdateDynamicTable(bReload)
             capacityDes = CapacityDesStr.EquipCapacityDes
         end
     elseif self.PageRecord == XItemConfigs.PageType.Awareness then
-        maxCount = XEquipConfig.GetMaxAwarenessCount()
+        maxCount = XMVCA.XEquip:GetMaxAwarenessCount()
         if self.Operation == XUiBag.OperationType.Decomposion then
             capacityDes = CapacityDesStr.AwarenessDecomposionCapacityDes
         elseif self.Operation == XUiBag.OperationType.Recycle then
@@ -225,8 +248,8 @@ function XUiBag:UpdateDynamicTable(bReload)
             capacityDes = CapacityDesStr.AwarenessCapacityDes
         end
     elseif self.PageRecord == XItemConfigs.PageType.SuitCover then
-        curPageCount = curPageCount - XEquipConfig.GetDefaultSuitIdCount() --去掉默认全部套装特殊Id
-        maxCount = XDataCenter.EquipManager.GetMaxSuitCount()
+        curPageCount = curPageCount - XMVCA.XEquip:GetDefaultSuitIdCount() --去掉默认全部套装特殊Id
+        maxCount = XMVCA.XEquip:GetMaxSuitCount()
         capacityDes = CapacityDesStr.SuitCapacityDes
     elseif self.PageRecord == XItemConfigs.PageType.Material then
         capacityDes = CapacityDesStr.MaterialCapacityDes
@@ -280,6 +303,7 @@ function XUiBag:OnDynamicTableEvent(event, index, grid)
         if self.PageRecord == XItemConfigs.PageType.Equip or self.PageRecord == XItemConfigs.PageType.Awareness then
             grid:SetupEquip(data, gridSize)
             grid:SetSelectedEquip(self.SelectList[data])
+            grid:ResetCanvasAlpha()
         elseif self.PageRecord == XItemConfigs.PageType.SuitCover then
             grid:SetupSuit(data, self.PageDatas, gridSize)
         elseif self.PageRecord == XItemConfigs.PageType.Partner then --zhang
@@ -314,10 +338,13 @@ function XUiBag:OnDynamicTableEvent(event, index, grid)
         XScheduleManager.ScheduleOnce(function()
             XLuaUiManager.SetMask(false)
         end, XScheduleManager.SECOND * 0.8)
+    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_RECYCLE then
+        grid:Recycle()
     end
 end
 
 function XUiBag:OnDisable()
+    self:RemoveEventListener()
     self.IsFirstAnimation = nil
     if self.CurAnimationTimerId then
         XScheduleManager.UnSchedule(self.CurAnimationTimerId)
@@ -335,7 +362,7 @@ function XUiBag:UpdatePanels()
     self.PanelFilter2.gameObject:SetActiveEx(self.PageRecord == XItemConfigs.PageType.Material)
     self.PanelEmpty.gameObject:SetActiveEx(isEmpty)
     self.TxtNowCapacity.gameObject:SetActiveEx(self.PageRecord == XItemConfigs.PageType.Equip or self.PageRecord == XItemConfigs.PageType.Awareness or self.PageRecord == XItemConfigs.PageType.SuitCover or self.PageRecord == XItemConfigs.PageType.Partner)
-    self.TxtMaxCapacity.gameObject:SetActiveEx(self.PageRecord == XItemConfigs.PageType.Equip or (self.PageRecord == XItemConfigs.PageType.Awareness and self.SelectSuitId == XEquipConfig.DEFAULT_SUIT_ID) or self.PageRecord == XItemConfigs.PageType.SuitCover or self.PageRecord == XItemConfigs.PageType.Partner)
+    self.TxtMaxCapacity.gameObject:SetActiveEx(self.PageRecord == XItemConfigs.PageType.Equip or (self.PageRecord == XItemConfigs.PageType.Awareness and self.SelectSuitId == XEnumConst.EQUIP.DEFAULT_SUIT_ID) or self.PageRecord == XItemConfigs.PageType.SuitCover or self.PageRecord == XItemConfigs.PageType.Partner)
     self.BtnHelp.gameObject:SetActiveEx(self.Operation == XUiBag.OperationType.Recycle)
     self.SidePopUpPanel:Refresh()
     --操作按钮
@@ -373,24 +400,24 @@ function XUiBag:CheckDecomposeRewardNotOverLimit(equipId, deSelect)
 
     --if self.Operation == XUiBag.OperationType.Decomposion then return true end
     -- local deSelectSymbol = deSelect and -1 or 1
-    -- self.CurDecomposeRewardWeaponCount = self.CurDecomposeRewardWeaponCount or XDataCenter.EquipManager.GetWeaponCount()
-    -- self.CurDecomposeRewardAwarenessCount = self.CurDecomposeRewardAwarenessCount or XDataCenter.EquipManager.GetAwarenessCount()
-    -- local maxWeaponCount = XEquipConfig.GetMaxWeaponCount()
-    -- local maxAwarenessCount = XEquipConfig.GetMaxAwarenessCount()
+    -- self.CurDecomposeRewardWeaponCount = self.CurDecomposeRewardWeaponCount or XMVCA.XEquip:GetWeaponCount()
+    -- self.CurDecomposeRewardAwarenessCount = self.CurDecomposeRewardAwarenessCount or XMVCA.XEquip:GetAwarenessCount()
+    -- local maxWeaponCount = XMVCA.XEquip:GetMaxWeaponCount()
+    -- local maxAwarenessCount = XMVCA.XEquip:GetMaxAwarenessCount()
     -- local curWeaponCount = self.CurDecomposeRewardWeaponCount
     -- local curAwarenessCount = self.CurDecomposeRewardAwarenessCount
-    -- local tryAddWeaponCount, tryAddAwarenessCount = XDataCenter.EquipManager.GetDecomposeRewardEquipCount(equipId)
+    -- local tryAddWeaponCount, tryAddAwarenessCount = XMVCA.XEquip:GetDecomposeRewardEquipCount(equipId)
     -- tryAddWeaponCount = tryAddWeaponCount * deSelectSymbol
     -- tryAddAwarenessCount = tryAddAwarenessCount * deSelectSymbol
     -- curWeaponCount = curWeaponCount + tryAddWeaponCount
     -- if not deSelect and curWeaponCount > maxWeaponCount then
-    --     XUiManager.TipMsg(XEquipConfig.DecomposeRewardOverLimitTip[XEquipConfig.Classify.Weapon])
+    --     XUiManager.TipMsg(XEquipConfig.DecomposeRewardOverLimitTip[XEnumConst.EQUIP.CLASSIFY.WEAPON])
     --     return false
     -- end
     -- self.CurDecomposeRewardWeaponCount = curWeaponCount
     -- curAwarenessCount = curAwarenessCount + tryAddAwarenessCount
     -- if not deSelect and curAwarenessCount > maxAwarenessCount then
-    --     XUiManager.TipMsg(XEquipConfig.DecomposeRewardOverLimitTip[XEquipConfig.Classify.Awareness])
+    --     XUiManager.TipMsg(XEquipConfig.DecomposeRewardOverLimitTip[XEnumConst.EQUIP.CLASSIFY.AWARENESS])
     --     return false
     -- end
     -- self.CurDecomposeRewardAwarenessCount = curAwarenessCount
@@ -398,20 +425,21 @@ function XUiBag:CheckDecomposeRewardNotOverLimit(equipId, deSelect)
 end
 
 --获取数据
-function XUiBag:GetDataByPage()
+---@param upmostId number 要调到第一位置的id（目前仅支持道具）
+function XUiBag:GetDataByPage(upmostId)
     --武器
     if self.PageRecord == XItemConfigs.PageType.Equip then
         local equipIds
 
         if self.Operation == XUiBag.OperationType.Decomposion then
-            equipIds = XDataCenter.EquipManager.GetCanDecomposeWeaponIds()
+            equipIds = XMVCA.XEquip:GetCanDecomposeWeaponIds()
         elseif self.Operation == XUiBag.OperationType.Recycle then
-            equipIds = XDataCenter.EquipManager.GetCanRecycleWeaponIds()
+            equipIds = XMVCA.XEquip:GetCanRecycleWeaponIds()
         else
-            equipIds = XDataCenter.EquipManager.GetWeaponIds()
+            equipIds = XMVCA.XEquip:GetWeaponIds()
         end
 
-        XDataCenter.EquipManager.SortEquipIdListByPriorType(equipIds, self.SortType)
+        XMVCA.XEquip:SortEquipIdListByPriorType(equipIds, self.SortType)
         if self.IsAscendOrder then
             XTool.ReverseList(equipIds)
         end
@@ -421,7 +449,7 @@ function XUiBag:GetDataByPage()
 
     --套装
     if self.PageRecord == XItemConfigs.PageType.SuitCover then
-        local suitIds = XDataCenter.EquipManager.GetSuitIdsByStars(self.StarCheckList)
+        local suitIds = XMVCA.XEquip:GetSuitIdsByStars(self.StarCheckList)
         return suitIds
     end
 
@@ -430,14 +458,14 @@ function XUiBag:GetDataByPage()
         local awarenessIds
 
         if self.Operation == XUiBag.OperationType.Decomposion then
-            awarenessIds = XDataCenter.EquipManager.GetCanDecomposeAwarenessIdsBySuitId(self.SelectSuitId)
+            awarenessIds = XMVCA.XEquip:GetCanDecomposeAwarenessIdsBySuitId(self.SelectSuitId)
         elseif self.Operation == XUiBag.OperationType.Recycle then
-            awarenessIds = XDataCenter.EquipManager.GetCanRecycleAwarenessIdsBySuitId(self.SelectSuitId)
+            awarenessIds = XMVCA.XEquip:GetCanRecycleAwarenessIds(self.SelectSuitId)
         else
-            awarenessIds = XDataCenter.EquipManager.GetEquipIdsBySuitId(self.SelectSuitId)
+            awarenessIds = XMVCA.XEquip:GetEquipIdsBySuitId(self.SelectSuitId)
         end
 
-        XDataCenter.EquipManager.SortEquipIdListByPriorType(awarenessIds, self.SortType)
+        XMVCA.XEquip:SortEquipIdListByPriorType(awarenessIds, self.SortType)
         if self.IsAscendOrder then
             XTool.ReverseList(awarenessIds)
         end
@@ -455,6 +483,13 @@ function XUiBag:GetDataByPage()
         else
             originData = XDataCenter.ItemManager.GetItemsByTypes(types, useConsumableSort)
         end
+
+        if XTool.IsNumberValid(upmostId) then
+            table.sort(originData, function(a, b)
+                return a.Data.Id == upmostId
+            end)
+        end
+        
         return originData
     end
 
@@ -503,7 +538,7 @@ function XUiBag:OpenDetailUi(data, grid)
     if self.PageRecord == XItemConfigs.PageType.Equip or self.PageRecord == XItemConfigs.PageType.Awareness then
         local equipId = data
         local forceShowBindCharacter = true
-        XLuaUiManager.Open("UiEquipDetail", equipId, nil, nil, forceShowBindCharacter)
+        XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipDetail(equipId, nil, nil, forceShowBindCharacter)
     elseif self.PageRecord == XItemConfigs.PageType.SuitCover then
         self.SelectSuitId = data
         self:PageTurn(XItemConfigs.PageType.Awareness)
@@ -521,7 +556,7 @@ function XUiBag:OpenDetailUi(data, grid)
             XLuaUiManager.Open("UiBagItemInfoPanel", data)
         end
     elseif self.PageRecord == XItemConfigs.PageType.Partner then
-        XLuaUiManager.Open("UiPartnerMain", XPartnerConfigs.MainUiState.Overview, data, false, true)
+        XDataCenter.PartnerManager.OpenUiPartnerMain(false, XPartnerConfigs.MainUiState.Overview, data, false, true)
     end
 end
 
@@ -537,9 +572,9 @@ function XUiBag:SelectGrid(data, grid)
             self.SelectList[equipId] = nil
             grid:SetSelected(false)
 
-            if not XDataCenter.EquipManager.IsEquipResonanced(equipId) then--分解时不选中已共鸣过的装备，反选星级也不需要
-                local equip = XDataCenter.EquipManager.GetEquip(equipId)
-                cancelStar = XDataCenter.EquipManager.GetEquipStar(equip.TemplateId)
+            if not XMVCA.XEquip:IsEquipResonanced(equipId) then--分解时不选中已共鸣过的装备，反选星级也不需要
+                local equip = XMVCA.XEquip:GetEquip(equipId)
+                cancelStar = XMVCA.XEquip:GetEquipStar(equip.TemplateId)
             end
         else
             if not self:CheckDecomposeRewardNotOverLimit(equipId) then
@@ -571,8 +606,8 @@ function XUiBag:SelectGrid(data, grid)
             self.SelectList[equipId] = nil
             grid:SetSelected(false)
 
-            local equip = XDataCenter.EquipManager.GetEquip(equipId)
-            cancelStar = XDataCenter.EquipManager.GetEquipStar(equip.TemplateId)
+            local equip = XMVCA.XEquip:GetEquip(equipId)
+            cancelStar = XMVCA.XEquip:GetEquipStar(equip.TemplateId)
         else
 
             self.SelectList[equipId] = equipId
@@ -618,12 +653,12 @@ function XUiBag:SelectByStar(starCheckDic, state, isForDecomposion)
     then return end
 
     for index, equipId in ipairs(self.PageDatas) do
-        local equip = XDataCenter.EquipManager.GetEquip(equipId)
-        local equipStar = XDataCenter.EquipManager.GetEquipStar(equip.TemplateId)
+        local equip = XMVCA.XEquip:GetEquip(equipId)
+        local equipStar = XMVCA.XEquip:GetEquipStar(equip.TemplateId)
         local tmpState = state
 
         if starCheckDic[equipStar] and
-        (not isForDecomposion or not XDataCenter.EquipManager.IsEquipResonanced(equipId))--分解时不选中已共鸣过的装备
+        (not isForDecomposion or not XMVCA.XEquip:IsEquipResonanced(equipId))--分解时不选中已共鸣过的装备
         then
             if tmpState then
                 if not self.SelectList[equipId] then
@@ -671,6 +706,10 @@ function XUiBag:AutoAddListener()
     
     self.PanelPartnerSort:GetObject("BtnPartnerOrder").CallBack = function()
         self:OnBtnOrderClick()
+    end
+    
+    self.BtnCollection.CallBack = function() 
+        self:OnBtnCollectionClick()
     end
 end
 
@@ -734,6 +773,10 @@ function XUiBag:OnTogStar3Click()
     self:StarToggleStateChange(3, self.TogStar3.isOn)
     self:StarToggleStateChange(2, self.TogStar3.isOn)
     self:StarToggleStateChange(1, self.TogStar3.isOn)
+end
+
+function XUiBag:OnBtnCollectionClick()
+    XLuaUiManager.Open("UiItemCollectionMain")
 end
 
 --切换页签
@@ -818,4 +861,17 @@ function XUiBag:SelectMaterialType(index)
     if not self.SidePopUpPanel.CurState and not self.IsFirstAnimation then
         self:PlayAnimationWithMask("AnimNeiRongEnable")
     end
+end
+
+function XUiBag:OnAppointItemUpmost(upmostId)
+    upmostId = tonumber(upmostId)
+    self:UpdateDynamicTable(true, upmostId)
+end
+
+function XUiBag:OnCheckBtnItemRed(count)
+    self.BtnTog2:ShowReddot(count >= 0)
+end
+
+function XUiBag:OnCheckBtnCollectRed(count)
+    self.BtnCollection:ShowReddot(count >= 0)
 end

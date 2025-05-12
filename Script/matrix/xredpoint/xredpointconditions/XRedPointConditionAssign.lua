@@ -12,7 +12,7 @@ function XRedPointConditionAssign.GetSubEvents()
 end
 --检测
 function XRedPointConditionAssign.Check()
-    return XDataCenter.FubenAssignManager.IsRedPoint()
+    return XDataCenter.FubenAssignManager.CheckIsShowRedPoint()
 end
 
 return XRedPointConditionAssign

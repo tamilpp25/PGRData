@@ -11,12 +11,12 @@ function XRedPointConditionPivotCombatAllRedPoint.GetSubConditions()
 end
 
 function XRedPointConditionPivotCombatAllRedPoint.Check()
-    if XRedPointConditionPivotCombatTaskRewardRedPoint.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PIVOTCOMBAT_TASK_REWARD_RED_POINT) then
         return true
     end
     local regionIds = XDataCenter.PivotCombatManager.GetSecondaryRegionIds()
     for _, regionId in ipairs(regionIds) do
-        if XRedPointConditionPivotCombatNewAreaOpenRedPoint.Check(regionId) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PIVOTCOMBAT_NEW_AREA_OPEN_RED_POINT, regionId) then
             return true
         end
     end

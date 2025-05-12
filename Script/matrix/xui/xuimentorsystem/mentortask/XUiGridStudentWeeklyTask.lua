@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridStudentWeeklyTask = XClass(nil, "XUiGridStudentWeeklyTask")
 local CSTextManagerGetText = CS.XTextManager.GetText
 function XUiGridStudentWeeklyTask:Ctor(ui, root)
@@ -16,6 +17,9 @@ function XUiGridStudentWeeklyTask:SetButtonCallBack()
     self.PanelUndone:GetObject("BtnDelect").CallBack = function()
         self:OnBtnDelectClick()
     end
+    self.PanelUndone:GetObject("BtnGo").CallBack = function()
+        self:OnBtnGoClick()
+    end
     self.PanelFinishHasReward:GetObject("BtnGet").CallBack = function()
         self:OnBtnGetClick()
     end
@@ -30,6 +34,7 @@ function XUiGridStudentWeeklyTask:UpdateGrid(index)
     self.StudentData = mentorData:GetNotGraduateStudentDataByIndex(XMentorSystemConfigs.MySelfIndex)
     self.Task = self.StudentData and self.StudentData.WeeklyTask[index]
     if self.Task then
+        self.TaskSkipId = XDataCenter.TaskManager.GetTaskTemplate(self.Task.TaskId).SkipId
         self.PanelUndone.gameObject:SetActiveEx(self:IsUnDone())
         self.PanelFinishNoReward.gameObject:SetActiveEx(self:IsNoReward())
         self.PanelFinishHasReward.gameObject:SetActiveEx(self:IsHasReward() or self:IsGetedReward())
@@ -57,6 +62,7 @@ function XUiGridStudentWeeklyTask:ShowPanelUndone()
     local taskCfg = XDataCenter.TaskManager.GetTaskTemplate(self.Task.TaskId)
     local txtTaskNumQian = self.PanelUndone:GetObject("TxtTaskNumQian")
     local imgProgress = self.PanelUndone:GetObject("ImgProgress")
+    local btnGo = self.PanelUndone:GetObject("BtnGo")
 
     self.PanelUndone:GetObject("TaskText").text = taskCfg.Title
     self.PanelUndone:GetObject("TxtTaskDescribe").text = taskCfg.Desc
@@ -74,6 +80,8 @@ function XUiGridStudentWeeklyTask:ShowPanelUndone()
         imgProgress.transform.parent.gameObject:SetActiveEx(false)
         txtTaskNumQian.gameObject:SetActiveEx(false)
     end
+
+    btnGo.gameObject:SetActiveEx(XTool.IsNumberValid(self.TaskSkipId))
 end
 
 function XUiGridStudentWeeklyTask:ShowPanelFinishNoReward()
@@ -126,8 +134,14 @@ function XUiGridStudentWeeklyTask:OnBtnDelectClick()
     end, "MentorStudentDeleteTaskHint")
 end
 
+function XUiGridStudentWeeklyTask:OnBtnGoClick()
+    if XTool.IsNumberValid(self.TaskSkipId) then
+        XFunctionManager.SkipInterface(self.TaskSkipId)
+    end
+end
+
 function XUiGridStudentWeeklyTask:OnBtnGetClick()
-    --local IsOverLimit = XDataCenter.EquipManager.CheckBoxOverLimitOfGetAwareness()
+    --local IsOverLimit = XMVCA.XEquip:CheckBoxOverLimitOfGetAwareness()
     --if IsOverLimit then
     --    return
     --end
@@ -143,7 +157,7 @@ end
 
 function XUiGridStudentWeeklyTask:IsNoReward()
     return self.Task.Status == XMentorSystemConfigs.TaskStatus.Completed or
-    self.Task.Status == XMentorSystemConfigs.TaskStatus.GetReward
+            self.Task.Status == XMentorSystemConfigs.TaskStatus.GetReward
 end
 
 function XUiGridStudentWeeklyTask:IsHasReward()
@@ -156,7 +170,7 @@ end
 
 function XUiGridStudentWeeklyTask:TipDialog(cancelCb, confirmCb, TextKey)
     XLuaUiManager.Open("UiDialog", CSTextManagerGetText("TipTitle"), CSTextManagerGetText(TextKey),
-    XUiManager.DialogType.Normal, cancelCb, confirmCb)
+            XUiManager.DialogType.Normal, cancelCb, confirmCb)
 end
 
 return XUiGridStudentWeeklyTask

@@ -20,8 +20,8 @@ function XUiDoomsdayPeople:OnEnable()
         stageData,
         function(idleCount, count)
             self.TxtPeopleNum.text =
-                string.format("%d/%d", idleCount, count) ..
-                XDataCenter.DoomsdayManager.GetInhabitantDeadCountText(stageId)
+                string.format("%d/%d", idleCount, count)
+            -- .. XDataCenter.DoomsdayManager.GetInhabitantDeadCountText(stageId)
         end,
         "_IdleInhabitantCount",
         "_InhabitantCount"

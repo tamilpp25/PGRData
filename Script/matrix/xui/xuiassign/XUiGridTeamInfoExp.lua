@@ -1,3 +1,4 @@
+local XUiGridCharacter = require("XUi/XUiCharacter/XUiGridCharacter")
 local XUiGridTeamInfoExp = XClass(nil, "XUiGridTeamInfoExp")
 
 function XUiGridTeamInfoExp:Ctor(rootUi, ui, baseStageId, index, teamInfoId)
@@ -30,8 +31,8 @@ function XUiGridTeamInfoExp:UpdateDataInfo(baseStageId, index, teamInfoId)
 end
 
 function XUiGridTeamInfoExp:UpdateTxtExp()
-    local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.BaseStage)
-    self.TxtExp.text = "+" .. stageCfg.CardExp
+    local cardExp = XDataCenter.FubenManager.GetCardExp(self.BaseStage)
+    self.TxtExp.text = "+" .. cardExp
 end
 
 function XUiGridTeamInfoExp:UpdateTxtEchelonIndex()
@@ -48,7 +49,7 @@ function XUiGridTeamInfoExp:UpdateFightTeamCharacter()
     for _, memberData in ipairs(teamData:GetMemberList()) do
         local charId = memberData:GetCharacterId()
         if charId and charId ~= 0 then
-            local char = XDataCenter.CharacterManager.GetCharacter(charId)
+            local char = XMVCA.XCharacter:GetCharacter(charId)
             local ui = CS.UnityEngine.Object.Instantiate(self.GridCharacter)
             local grid = XUiGridCharacter.New(ui, self, char)
             grid.Transform:SetParent(self.PanelCharacters, false)

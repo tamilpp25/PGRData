@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiFubenNierRepeat = XLuaUiManager.Register(XLuaUi, "UiFubenNierRepeat")
 local XUiNieRLineBanner = require("XUi/XUiNieR/XUiRepeat/XUiNierRepeatLineBanner")
 

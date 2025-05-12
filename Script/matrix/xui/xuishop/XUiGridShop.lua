@@ -1,7 +1,13 @@
-XUiGridShop = XClass(nil, "XUiGridShop")
-local Application = CS.UnityEngine.Application
-local Platform = Application.platform
-local RuntimePlatform = CS.UnityEngine.RuntimePlatform
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local MAX_COUNT = CS.XGame.Config:GetInt("ShopBuyGoodsCountLimit")
+
+local Operate = {
+    OpenShop = 1,
+    OpenItemTip = 2,
+}
+
+---@class XUiGridShop
+local XUiGridShop = XClass(nil, "XUiGridShop")
 function XUiGridShop:Ctor(ui)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
@@ -15,10 +21,12 @@ function XUiGridShop:Ctor(ui)
     self.Timer = nil
 end
 
-function XUiGridShop:Init(parent, rootUi)
+function XUiGridShop:Init(parent, rootUi, uiParams)
+    self.UiParams = uiParams
     self.Parent = parent
     self.RootUi = rootUi or parent
-    self.Grid = XUiGridCommon.New(self.RootUi, self.GridCommon)
+    ---@type XUiGridCommon
+    self.Grid = XUiGridCommon.New(self.RootUi, self.GridCommon, uiParams)
 end
 
 function XUiGridShop:OnRecycle()
@@ -56,7 +64,7 @@ function XUiGridShop:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -89,18 +97,26 @@ function XUiGridShop:GetIsCanBuy()
 end
 
 function XUiGridShop:OnBtnBuyClick()
+    if self.BtnBuyOperate == Operate.OpenItemTip then
+        self.Grid:OnBtnClickClick()
+        return
+    end
+    self:OnBuyGoods()
+end
+
+function XUiGridShop:OnBuyGoods()
     local isCanBuy = self:GetIsCanBuy()
     if not self.IsShopLock and isCanBuy then
         self.Parent:UpdateBuy(
-            self.Data,
-            function()
-                self:RefreshHave()
-                self:RefreshSellOut()
-                self:RefreshCondition()
-                self:RefreshOnSales()
-                self:RefreshPrice()
-                self:RefreshBuyCount()
-            end
+                self.Data,
+                function()
+                    self:RefreshHave()
+                    self:RefreshSellOut()
+                    self:RefreshCondition()
+                    self:RefreshOnSales()
+                    self:RefreshPrice()
+                    self:RefreshBuyCount()
+                end
         )
     else
         if self.ShopLockDecs and self.IsShopLock then
@@ -114,9 +130,11 @@ function XUiGridShop:OnBtnBuyClick()
     end
 end
 
-function XUiGridShop:UpdateData(data, shopItemTextColor)
+function XUiGridShop:UpdateData(data, shopItemTextColor, shopId)
+    self.ShopId = shopId
     self.Data = data
     self.ShopItemTextColor = shopItemTextColor
+    self.BtnBuyOperate = Operate.OpenShop
     self:RefreshHave()
     self:RefreshSellOut()
     self:RefreshCondition()
@@ -126,6 +144,7 @@ function XUiGridShop:UpdateData(data, shopItemTextColor)
     self:RemoveTimer()
     self:RemoveOnSaleTimer()
     self:RefreshBuyCount()
+    self:RefreshAlreadyTip()
     -- 全部隐藏，如果<开售时间显示开售时间，如果>=开售时间，显示结束时间
     self:HideAllTimeGos()
     -- 未到开售时间
@@ -138,6 +157,15 @@ function XUiGridShop:UpdateData(data, shopItemTextColor)
     end
 end
 
+--- 当商品是时装时，在时装详情里显示购买按钮，并且屏蔽外面的购买界面
+function XUiGridShop:BugOnFashionDetail()
+    self.BtnBuyOperate = Operate.OpenItemTip
+    self.Data.RewardGoods.ItemIcon = XDataCenter.ItemManager.GetItemIcon(self.Data.ConsumeList[1].Id)
+    self.Data.RewardGoods.ItemCount = self._NeedCount
+    self.Data.RewardGoods.BuyCallBack = handler(self, self.OnBuyGoods)
+    self:RefreshCommon()
+end
+
 function XUiGridShop:RefreshBuyCount()
     if not self.ImgLimitLable then
         return
@@ -148,8 +176,13 @@ function XUiGridShop:RefreshBuyCount()
     end
 
     if self.Data.BuyTimesLimit <= 0 then
-        self.TxtLimitLable.gameObject:SetActiveEx(false)
-        self.ImgLimitLable.gameObject:SetActiveEx(false)
+        if not self:ShowDiscountCanButAmount() then
+            self.TxtLimitLable.gameObject:SetActiveEx(false)
+            self.ImgLimitLable.gameObject:SetActiveEx(false)
+        else
+            self.TxtLimitLable.gameObject:SetActiveEx(true)
+            self.ImgLimitLable.gameObject:SetActiveEx(true)
+        end
     else
         local buynumber = self.Data.BuyTimesLimit - self.Data.TotalBuyTimes
         local limitLabel = XShopConfigs.GetBuyLimitLabel(self.Data.AutoResetClockId)
@@ -248,23 +281,6 @@ function XUiGridShop:RefreshPrice()
     end
 
     local index = 1
-    if self.Data.PayKeySuffix then
-        if self.PanelCountTxts and self.PanelCountTxts:Exist() then
-            self.PanelCountTxts.gameObject:SetActiveEx(false)
-        end
-        if self.TxtYuan and self.TxtYuan:Exist() then
-            self.TxtYuan.gameObject:SetActiveEx(true)
-            self.TxtYuan.text = self:GetPayAmount()
-        end
-        return
-    else
-        if self.PanelCountTxts and self.PanelCountTxts:Exist() then
-            self.PanelCountTxts.gameObject:SetActiveEx(true)
-        end
-        if self.TxtYuan and self.TxtYuan:Exist() then
-            self.TxtYuan.gameObject:SetActiveEx(false)
-        end
-    end
     for _, count in pairs(self.Data.ConsumeList) do
         if index > panelCount then
             return
@@ -287,10 +303,10 @@ function XUiGridShop:RefreshPrice()
         end
 
         if self["TxtNewPrice" .. index] then
-            local needCount = math.floor(count.Count * self.Sales / 100)
-            self["TxtNewPrice" .. index].text = needCount
+            self._NeedCount = math.floor(count.Count * self.Sales / 100)
+            self["TxtNewPrice" .. index].text = self._NeedCount
             local itemCount = XDataCenter.ItemManager.GetCount(count.Id)
-            if itemCount < needCount then
+            if itemCount < self._NeedCount then
                 if not self.ShopItemTextColor then
                     self["TxtNewPrice" .. index].color = CS.UnityEngine.Color(1, 0, 0)
                 else
@@ -344,7 +360,7 @@ function XUiGridShop:RefreshPanelSale()
     if self.TxtSaleRate then
         if self.Data.Tags == XShopManager.ShopTags.DisCount then
             if self.Sales < 100 then
-                self.TxtSaleRate.text = CS.XTextManager.GetText("Snap", 100 - self.Sales)
+                self.TxtSaleRate.text = self.Sales / 10 .. CS.XTextManager.GetText("Snap")
             else
                 hideSales = true
             end
@@ -374,6 +390,7 @@ function XUiGridShop:RefreshTimer(time)
     end
 
     if XTool.UObjIsNil(self.TxtLeftTime) then
+        self.ImgLeftTime.gameObject:SetActiveEx(false)
         return
     end
 
@@ -389,9 +406,7 @@ function XUiGridShop:RefreshTimer(time)
     local leftTime = XShopManager.GetLeftTime(time)
 
     self.ShopOnSaleLockDecs = CS.XTextManager.GetText("ActivityBriefShopOnSaleLock")
-    if self.ImgLock then
-        self.ImgLock.gameObject:SetActiveEx(true)
-    end
+
     local func = function()
         leftTime = leftTime > 0 and leftTime or 0
         local dataTime = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.SHOP)
@@ -403,9 +418,6 @@ function XUiGridShop:RefreshTimer(time)
             if self.ImgSellOut then
                 self.ImgSellOut.gameObject:SetActiveEx(true)
             end
-            if self.ImgLock then
-                self.ImgLock.gameObject:SetActiveEx(false)
-            end
         --     self.IsShopOnSaleLock = true
         -- else
         --     self.IsShopOnSaleLock = false
@@ -414,6 +426,7 @@ function XUiGridShop:RefreshTimer(time)
 
     func()
 
+    self:RemoveTimer()
     self.Timer =
         XScheduleManager.ScheduleForever(
         function()
@@ -466,6 +479,7 @@ function XUiGridShop:RefreshOnSaleTime(time)
 
     func()
 
+    self:RemoveOnSaleTimer()
     self.OnSaleTimer =
         XScheduleManager.ScheduleForever(
         function()
@@ -493,16 +507,95 @@ function XUiGridShop:RefreshShowLock()
     end
     if self.TxtLock then
         if isLock then
-            self.TxtLock.text = self.ConditionDesc
+            self.TxtLock.text = XUiHelper.ReplaceTextNewLine(self.ConditionDesc)
             self.TxtLock.gameObject:SetActiveEx(true)
         else
             self.TxtLock.gameObject:SetActiveEx(false)
         end
     end
 end
-function XUiGridShop:GetPayAmount()
-    local key = XPayConfigs.GetProductKey(self.Data.PayKeySuffix)
 
-    local payConfig = XPayConfigs.GetPayTemplate(key)
-    return payConfig and payConfig.Amount or 0
+function XUiGridShop:RefreshAlreadyTip()
+    if self.ShopId ~= XShopManager.RechargeShopType.CharacterShop 
+        and self.ShopId ~= XShopManager.RechargeShopType.EquipShop
+        and self.ShopId ~= XShopManager.RechargeShopType.PartnerShop then
+        if self.PanelAlreadyownedRole then
+            self.PanelAlreadyownedRole.gameObject:SetActiveEx(false)
+        end
+
+        return
+    end
+    if not self.PanelAlreadyownedRole or not self.TxtAlready then
+        return
+    end
+    if not self.Data then
+        self.PanelAlreadyownedRole.gameObject:SetActiveEx(false)
+        return
+    end
+
+    local rewardGoods = self.Data.RewardGoods
+    local rewardType = rewardGoods.RewardType
+    local templateId = rewardGoods.TemplateId
+
+    if XRewardManager.IsRewardCharacter(rewardType, templateId) then
+        self.PanelAlreadyownedRole.gameObject:SetActiveEx(true)
+        self.TxtAlready.text = XUiHelper.GetText("ShopAlreadyHasCharacterTip")
+    elseif XRewardManager.IsRewardEquip(rewardType, templateId) then
+        self.PanelAlreadyownedRole.gameObject:SetActiveEx(true)
+        self.TxtAlready.text = XUiHelper.GetText("ShopAlreadyHasEquipTip")
+    elseif rewardType == XRewardManager.XRewardType.Partner then
+        if XDataCenter.PartnerManager.GetPartnerCountByTemplateId(templateId) > 0 then
+            self.PanelAlreadyownedRole.gameObject:SetActiveEx(true)
+            self.TxtAlready.text = XUiHelper.GetText("ShopAlreadyHasPartnerTip")
+        else
+            self.PanelAlreadyownedRole.gameObject:SetActiveEx(false)
+        end
+    else
+        self.PanelAlreadyownedRole.gameObject:SetActiveEx(false)
+    end
 end
+
+-- 这一段复制自  XUiShopItem:GetMaxCount()
+function XUiGridShop:ShowDiscountCanButAmount()
+    if not self.ShopId then
+        return false
+    end
+    local sortedKeys = {}
+    for k, _ in pairs(self.OnSales) do
+        table.insert(sortedKeys, k)
+    end
+    table.sort(sortedKeys)
+
+    local leftSalesGoods = MAX_COUNT
+
+    for i = 1, #sortedKeys do
+        if self.Data.TotalBuyTimes >= sortedKeys[i] - 1 then
+        else
+            leftSalesGoods = sortedKeys[i] - self.Data.TotalBuyTimes - 1
+            break
+        end
+    end
+
+    local leftShopTimes = XShopManager.GetShopLeftBuyTimes(self.ShopId)
+    if not leftShopTimes then
+        leftShopTimes = MAX_COUNT
+    end
+
+    local leftGoodsTimes = MAX_COUNT
+    if self.Data.BuyTimesLimit and self.Data.BuyTimesLimit > 0 then
+        local buyCount = self.Data.TotalBuyTimes and self.Data.TotalBuyTimes or 0
+        leftGoodsTimes = self.Data.BuyTimesLimit - buyCount
+    end
+    local maxCount = math.min(leftGoodsTimes, math.min(leftShopTimes, leftSalesGoods))  
+    if maxCount < MAX_COUNT then
+        local clockId = 0 --self.Data.AutoResetClockId --策划说显示"可购:"
+        local limitLabel = XShopConfigs.GetBuyLimitLabel(clockId)
+        local text = string.format(limitLabel, maxCount)
+        self.TxtLimitLable.text = text
+        return true
+    end
+    return false
+end
+
+
+return XUiGridShop

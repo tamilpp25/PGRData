@@ -1,5 +1,7 @@
+local XExFubenSimulationChallengeManager = require("XEntity/XFuben/XExFubenSimulationChallengeManager")
+
 XFubenExploreManagerCreator = function()
-    local XFubenExploreManager = {}
+    local XFubenExploreManager = XExFubenSimulationChallengeManager.New(XFubenConfigs.ChapterType.Explore)
     --服务器数据
     local ExploreChapterData = {}
     --处理后的关卡数据
@@ -51,22 +53,7 @@ XFubenExploreManagerCreator = function()
             end
         end
     end
-
-    function XFubenExploreManager.InitStageInfo()
-        local battleIdList = {}
-        local allNodeData = XFubenExploreConfigs.GetExploreNodeCfg()
-        for _, v in pairs(allNodeData) do
-            if v.Type == XFubenExploreConfigs.NodeTypeEnum.Stage then
-                table.insert(battleIdList, tonumber(v.TypeValue))
-            end
-        end
-        for _, v in pairs(battleIdList) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(v)
-            stageInfo.Type = XDataCenter.FubenManager.StageType.Explore
-        end
-    end
-
-
+    
     --Get
     --根据原型ID获取对应角色在某一章的已使用的耐力值
     function XFubenExploreManager.GetEndurance(chapterId, characterId)
@@ -348,8 +335,7 @@ XFubenExploreManagerCreator = function()
 
     function XFubenExploreManager.HandlerFightResult(evt)
         if evt ~= nil and evt.IsWin then
-            local stage = XDataCenter.FubenManager.GetStageInfo(evt.StageId)
-            if stage.Type == XDataCenter.FubenManager.StageType.Explore then
+            if XMVCA.XFuben:GetStageType(evt.StageId) == XDataCenter.FubenManager.StageType.Explore then
                 XFubenExploreManager.SetNodeFinish(XFubenExploreManager.GetCurChapterId(), XFubenExploreManager.GetCurNodeId())
             end
         end
@@ -362,6 +348,37 @@ XFubenExploreManagerCreator = function()
     end
 
     --Handle end
+
+    ------------------副本入口扩展 start-------------------------
+    -- 获取进度提示
+    function XFubenExploreManager:ExGetProgressTip() 
+        local str = ""
+        if not self:ExGetIsLocked() then 
+            if XFubenExploreManager.GetCurProgressName() ~= nil then
+                str = CS.XTextManager.GetText("ExploreBannerProgress") .. XFubenExploreManager.GetCurProgressName()
+            else
+                str = CS.XTextManager.GetText("ExploreBannerProgressEnd")
+            end
+        end
+
+        return str
+    end
+
+    function XFubenExploreManager:ExOpenMainUi()
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenExplore) then
+            return
+        end
+
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Explore) then
+            return
+        end
+
+        XLuaUiManager.Open("UiFubenExploreChapter")
+    end
+    
+    ------------------副本入口扩展 end-------------------------
+
     XFubenExploreManager.Init()
     return XFubenExploreManager
 end

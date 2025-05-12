@@ -1,10 +1,11 @@
-XUiPanelShopItem = XClass(nil, "XUiPanelShopItem")
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiPanelShopItem = XClass(nil, "XUiPanelShopItem")
 
 local MAX_COUNT = CS.XGame.Config:GetInt("ShopBuyGoodsCountLimit")
-function XUiPanelShopItem:Ctor(ui, parent, rootUi, isActivityShop)
+function XUiPanelShopItem:Ctor(ui, parent, rootUi)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
-    self.IsActivityShop = isActivityShop
     self.Parent = parent
     self.RootUi = rootUi or parent
     self:InitAutoScript()
@@ -23,10 +24,6 @@ function XUiPanelShopItem:Ctor(ui, parent, rootUi, isActivityShop)
 
     self.MinCount = 1
 end
-
-local Application = CS.UnityEngine.Application
-local Platform = Application.platform
-local RuntimePlatform = CS.UnityEngine.RuntimePlatform
 
 -- auto
 -- Automatic generation of code, forbid to edit
@@ -82,7 +79,7 @@ function XUiPanelShopItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -150,7 +147,7 @@ function XUiPanelShopItem:OnBtnAddSelectClick()
 
 
     if self.Count + 1 > self.MaxCount then
-        XDataCenter.EquipManager.ShowBoxOverLimitText()
+        XMVCA.XEquip:ShowBoxOverLimitText()
         return
     end
     self.Count = self.Count + 1
@@ -173,7 +170,7 @@ end
 
 function XUiPanelShopItem:BtnAddSelectLongClickCallback(time)
     if self.Count + 1 > self.MaxCount then
-        XDataCenter.EquipManager.ShowBoxOverLimitText()
+        XMVCA.XEquip:ShowBoxOverLimitText()
         return
     end
 
@@ -262,40 +259,30 @@ function XUiPanelShopItem:SetCanAddOrMinusBtn()
         self.PanelTxt.gameObject:SetActiveEx(self.MaxCount < MAX_COUNT)
     end
 
-    if self.BuyHintText then
-        self.BuyHintText.gameObject:SetActiveEx(self.MaxCount < MAX_COUNT)
-    end
-
     if self.TxtCanBuy then
-        self.TxtCanBuy.gameObject:SetActiveEx(self.MaxCount < MAX_COUNT)
         self.TxtCanBuy.text = self.MaxCount
     end
 end
 
 function XUiPanelShopItem:OnBtnUseClick()
-    if not XDataCenter.PayManager.CheckCanBuy(self.Data.Id) then
-        return
-    end
     if self.HaveNotBuyCount then
-        if not XDataCenter.EquipManager.ShowBoxOverLimitText() then
+        if not XMVCA.XEquip:ShowBoxOverLimitText() then
             XUiManager.TipText("ShopHaveNotBuyCount")
         end
         return
     end
 
-    if not self.Data.PayKeySuffix then
-        for k,v in pairs(self.NotEnough or {}) do
-            if not XDataCenter.ItemManager.DoNotEnoughBuyAsset(v.ItemId,
-                    v.UseItemCount,
-                    1,
-                    function()
-                        self:OnBtnUseClick()
-                    end,
-                    "BuyNeedItemInsufficient") then
-                return
-            end
-            self.NotEnough[k] = nil
+    for k, v in pairs(self.NotEnough or {}) do
+        if not XDataCenter.ItemManager.DoNotEnoughBuyAsset(v.ItemId,
+        v.UseItemCount,
+        1,
+        function()
+            self:OnBtnUseClick()
+        end,
+        "BuyNeedItemInsufficient") then
+            return
         end
+        self.NotEnough[k] = nil
     end
 
     local func = function()
@@ -304,14 +291,7 @@ function XUiPanelShopItem:OnBtnUseClick()
         self.Parent:RefreshBuy()
         self.GameObject:SetActiveEx(false)
     end
-    if self.Data.PayKeySuffix then
-        local key = XPayConfigs.GetProductKey(self.Data.PayKeySuffix)
-        XDataCenter.PayManager.Pay(key, 2, { self.Parent:GetCurShopId(), self.Data.Id }, self.Data.Id, function()
-                self.GameObject:SetActiveEx(false)
-            end)
-    else
-        XShopManager.BuyShop(self.Parent:GetCurShopId(), self.Data.Id, self.Count, func)
-    end
+    XShopManager.BuyShop(self.Parent:GetCurShopId(), self.Data.Id, self.Count, func)
 end
 
 function XUiPanelShopItem:ShowPanel(data, cb)
@@ -372,39 +352,18 @@ function XUiPanelShopItem:RefreshCommon()
 end
 
 function XUiPanelShopItem:RefreshPrice()
-    if self.TxtYuan then
-        self.TxtYuan.gameObject:SetActiveEx(false)
-    end
-    if self.Data.PayKeySuffix then
-        self.PanelPrice.gameObject:SetActiveEx(false)
-        if self.TxtYuan then
-            self.TxtYuan.gameObject:SetActiveEx(true)
-            self.TxtYuan.text = self:GetPayAmount()
+    if #self.Consumes ~= 0 then
+        self.PanelPrice.gameObject:SetActiveEx(true)
+        for i = 1, #self.Price do
+            if i <= #self.Consumes then
+                self.Price[i].gameObject:SetActiveEx(true)
+            else
+                self.Price[i].gameObject:SetActiveEx(false)
+            end
         end
     else
-        if self.TxtYuan then
-            self.TxtYuan.gameObject:SetActiveEx(false)
-        end
-        if #self.Consumes ~= 0 then
-            self.PanelPrice.gameObject:SetActiveEx(true)
-            for i = 1, #self.Price do
-                if i <= #self.Consumes then
-                    self.Price[i].gameObject:SetActiveEx(true)
-                else
-                    self.Price[i].gameObject:SetActiveEx(false)
-                end
-            end
-        else
-            self.PanelPrice.gameObject:SetActiveEx(false)
-        end
+        self.PanelPrice.gameObject:SetActiveEx(false)
     end
-end
-
-function XUiPanelShopItem:GetPayAmount()
-    local key = XPayConfigs.GetProductKey(self.Data.PayKeySuffix)
-
-    local payConfig = XPayConfigs.GetPayTemplate(key)
-    return payConfig and payConfig.Amount or 0
 end
 
 function XUiPanelShopItem:RefreshOnSales(buyCount)
@@ -485,7 +444,7 @@ function XUiPanelShopItem:GetMaxCount()
     end
     local tmpMaxCount = math.min(leftGoodsTimes, math.min(leftShopTimes, leftSalesGoods))
     self.MaxCount = tmpMaxCount
-    self.MaxCount = XDataCenter.EquipManager.GetMaxCountOfBoxOverLimit(self.Data.RewardGoods.TemplateId, self.MaxCount, self.Data.RewardGoods.Count)
+    self.MaxCount = XMVCA.XEquip:GetMaxCountOfBoxOverLimit(self.Data.RewardGoods.TemplateId, self.MaxCount, self.Data.RewardGoods.Count)
 
     if self.MaxCount < tmpMaxCount then
         self.BuyHintText.text = CS.XTextManager.GetText("MaxCanBuyText")
@@ -541,3 +500,5 @@ function XUiPanelShopItem:ChangeCostColor(bool, index)
         self["TxtCostCount" .. index].color = CS.UnityEngine.Color(1, 0, 0)
     end
 end
+
+return XUiPanelShopItem

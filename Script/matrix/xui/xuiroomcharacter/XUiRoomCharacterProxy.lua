@@ -1,5 +1,5 @@
 -- 通用出战界面代理管理
-XUiRoomCharacterProxy = XUiRoomCharacterProxy or {}
+local XUiRoomCharacterProxy = {}
 
 XUiRoomCharacterProxy.ProxyDic = {}
 --=================
@@ -60,3 +60,5 @@ function ProxyName:GetCharInfo(roomCharacterUi, charId)
 --================
 function ProxyName:RefreshCharacterTypeTips(roomCharacterUi)
 --]]
+
+return XUiRoomCharacterProxy

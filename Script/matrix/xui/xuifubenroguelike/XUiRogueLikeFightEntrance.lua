@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiRogueLikeFightEntrance = XClass(nil, "XUiRogueLikeFightEntrance")
 local STAR_LENGTH = 3
 
@@ -34,7 +35,7 @@ function XUiRogueLikeFightEntrance:UpdateByNode(node, eventNode)
     self.TxtTarget.text = self.NodeConfig.Description
 
     self.RImgFightCost:SetRawImage(XDataCenter.ItemManager.GetItemIcon(XDataCenter.ItemManager.ItemId.ActionPoint))
-    local requireNum = stageCfg.RequireActionPoint
+    local requireNum = XDataCenter.FubenManager.GetRequireActionPoint(self.NormalStageId)
     local ownNum = XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.ActionPoint)
     local color = (requireNum > ownNum) and "#FF0000" or "#0E70BD"
     self.TxtOwn.text = string.format("%d/", ownNum)
@@ -121,7 +122,7 @@ function XUiRogueLikeFightEntrance:OnFightClick(stageId)
 
     self.UiRoot:Close()
     local data = {NodeId = self.Node.Id}
-    XLuaUiManager.Open("UiNewRoomSingle", stageId, data)
+    XLuaUiManager.Open("UiBattleRoleRoom", stageId, data)
 end
 
 

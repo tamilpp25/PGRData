@@ -2,6 +2,7 @@
 --超限乱斗怪物组对象
 --模块负责：吕天元
 --===========================
+---@class XSmashBMonsterGroup
 local XSmashBMonsterGroup = XClass(nil, "XSmashBMonsterGroup")
 
 function XSmashBMonsterGroup:Ctor(cfg)
@@ -169,6 +170,18 @@ end
 function XSmashBMonsterGroup:GetName()
     local mainMonster = self:GetMainMonster()
     return mainMonster and mainMonster:GetName() or "UnNamed"
+end
+
+---@param mode XSmashBMode
+function XSmashBMonsterGroup:IsWinAmountEnoughToChallenge(mode)
+    mode = mode or XDataCenter.SuperSmashBrosManager.GetPlayingMode()
+    local winCount = mode:GetCurrentWinCount()
+    local stageId = mode:GetStageId(self:GetId())
+    if not stageId then
+        return true
+    end
+    local needWinCount = XSuperSmashBrosConfig.GetCfgByIdKey(XSuperSmashBrosConfig.TableKey.SceneConfig, stageId).NeedWinCount
+    return winCount >= needWinCount, needWinCount
 end
 
 return XSmashBMonsterGroup

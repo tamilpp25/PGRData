@@ -29,7 +29,7 @@ function XUiChessPursuitRankGrid:Refresh(rankDataTemplate, rankNum, groupId)
     self.TxtPlayerName.text = rankDataTemplate:GetName()
     local headPortraitId = rankDataTemplate:GetHead()
     local headFrameId = rankDataTemplate:GetFrame()
-    XUiPLayerHead.InitPortrait(headPortraitId, headFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(headPortraitId, headFrameId, self.Head)
 
     self.TxtRankScore.text = rankDataTemplate:GetScore()
 end

@@ -42,10 +42,11 @@ end
 --================
 --显示子页面
 --================
-function XUiRpgTowerRoleListMainPage:ShowPage()
+function XUiRpgTowerRoleListMainPage:ShowPage(index)
     if not self.ChildList[ChildIndex.CharaInfo] then self:CreateChild(ChildIndex.CharaInfo) end
     self.ChildList[ChildIndex.CharaInfo]:ShowPanel()
-    self.CharacterList:ShowPanel()
+    self.CharacterList:ShowPanel(index)
+    self.RootUi.PanelBtn.gameObject:SetActiveEx(true)
     self.TeamBar:RefreshBar()
     self.TeamBar.GameObject:SetActiveEx(true)
     self.RootUi:UpdateCamera(XDataCenter.RpgTowerManager.UiCharacter_Camera.MAIN)
@@ -67,6 +68,7 @@ function XUiRpgTowerRoleListMainPage:HidePage()
         window:HidePanel()
     end
     self.CharacterList:HidePanel()
+    self.RootUi.PanelBtn.gameObject:SetActiveEx(false)
     self.TeamBar.GameObject:SetActiveEx(false)
 end
 --================

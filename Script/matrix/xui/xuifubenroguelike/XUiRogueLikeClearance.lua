@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiRogueLikeClearance = XLuaUiManager.Register(XLuaUi, "UiRogueLikeClearance")
 local XUiRogueLikeClearanceScoreItem = require("XUi/XUiFubenRogueLike/XUiRogueLikeClearanceScoreItem")
 function XUiRogueLikeClearance:OnAwake()

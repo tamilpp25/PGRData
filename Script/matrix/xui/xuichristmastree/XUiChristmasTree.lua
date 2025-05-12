@@ -1,3 +1,8 @@
+local XUiOrnamentGrid = require("XUi/XUiChristmasTree/XUiOrnamentGrid")
+local XUiGridTreasureTask = require("XUi/XUiChristmasTree/XUiGridTreasureTask")
+local XUiPlacedOrnamentGrid = require("XUi/XUiChristmasTree/XUiPlacedOrnamentGrid")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local XUiChristmasTree = XLuaUiManager.Register(XLuaUi, "UiChristmasTreeMain")
 
 local AttrCount = 0
@@ -65,7 +70,7 @@ function XUiChristmasTree:CheckFirstOpen()
     if firstOpen then
         XDataCenter.MovieManager.PlayMovie(storyId, function()
             XDataCenter.ChristmasTreeManager.SetOpen(openIndex)
-            -- XSoundManager.PauseMusic()
+            -- XLuaAudioManager.PauseMusic()
         end)
     end
 end

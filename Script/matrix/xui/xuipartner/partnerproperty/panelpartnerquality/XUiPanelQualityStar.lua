@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XPartnerSort = require("XUi/XUiPartner/PartnerCommon/XPartnerSort")
 local XUiPanelQualityStar = XClass(nil, "XUiPanelQualityStar")
 local XUiGridCanEatPartner = require("XUi/XUiPartner/PartnerProperty/PanelPartnerQuality/XUiGridCanEatPartner")
 local DOFillTime = 0.5
@@ -36,9 +38,9 @@ function XUiPanelQualityStar:InitPanelItems()
     self.PanelItems:GetObject("BtnUpgrade").CallBack = function()
         self:OnBtnUpgradeClick()
     end
-    
-    self.PanelItems:GetObject("BtnSource").CallBack = function()
-        self:OnBtnSourceClick()
+
+    self.PanelItems:GetObject("BtnCompose").CallBack = function()
+        self:OnBtnComposeClick()
     end
 end
 
@@ -80,6 +82,8 @@ function XUiPanelQualityStar:UpdatePanel(data)---刷新掉这个
     self:UpdatePanelGrowUp()
     self:UpdatePanelStarPoint(false)
     self:SetupDynamicTable()
+    self:UpdateBtnComposeRed()
+    self:UpdateBtnUpgrade()
     self.GameObject:SetActiveEx(true)
 end
 
@@ -89,7 +93,7 @@ end
 
 function XUiPanelQualityStar:UpdatePanelGrowUp()
     local nextQuality = self.Data:GetQuality() + 1
-    local icon = XCharacterConfigs.GetCharacterQualityIcon(nextQuality)
+    local icon = XMVCA.XCharacter:GetCharacterQualityIcon(nextQuality)
     self.PanelGrowUp:GetObject("TxtSkill").text = self.Data:GetQualitySkillColumnCount()
     self.PanelGrowUp:GetObject("TxtSkillNext").text = self.Data:GetQualitySkillColumnCount(nextQuality)
     self.PanelGrowUp:GetObject("RawImageQuality"):SetRawImage(icon)
@@ -113,7 +117,7 @@ function XUiPanelQualityStar:UpdatePanelStarPoint(IsAnime)
     local nextStar = self.Data:GetCanActivateStarCount(nil, nextClipCount)
     local maxStarCount = self.Data:GetMaxStarCount()
     local attribList = self.Data:GetQualityStarAttribs()
-    local qualityIcon = XCharacterConfigs.GetCharQualityIcon(self.Data:GetQuality())
+    local qualityIcon = XMVCA.XCharacter:GetCharQualityIcon(self.Data:GetQuality())
     
     self.IsSelectClipFull = nextClipCount >= maxClipCount
     
@@ -162,8 +166,6 @@ function XUiPanelQualityStar:SetupDynamicTable()
     XPartnerSort.EatSortFunction(self.PageDatas)
     
     self.PanelItems:GetObject("PanelNone").gameObject:SetActiveEx(#self.PageDatas <= 0)
-    self.PanelItems:GetObject("BtnSource").gameObject:SetActiveEx(#self.PageDatas <= 0)
-    self.PanelItems:GetObject("BtnUpgrade").gameObject:SetActiveEx(#self.PageDatas > 0)
     
     self.DynamicTable:SetDataSource(self.PageDatas)
     self.DynamicTable:ReloadDataSync(1)
@@ -191,15 +193,30 @@ function XUiPanelQualityStar:SetSelectFood(entity, IsAdd)
         end
     end
     self:UpdatePanelStarPoint(true)
+    self:UpdateBtnUpgrade()
 end
 
 function XUiPanelQualityStar:CheckIsSelectFood(id)
     return self.SelectFoodDic[id] and true or false
 end
 
-function XUiPanelQualityStar:OnBtnSourceClick()
-    local skipIds = self.Data:GetClipSkipIdList()
-    XLuaUiManager.Open("UiPartnerStrengthenSkip", skipIds)
+function XUiPanelQualityStar:OnBtnComposeClick()
+    self.Root.Base:OpenComposePanel(true)
+end
+
+function XUiPanelQualityStar:UpdateBtnComposeRed()
+    local isShowRed = XDataCenter.PartnerManager.CheckComposeRedByTemplateId(self.Data:GetTemplateId())
+    self.PanelItems:GetObject("BtnCompose"):ShowReddot(isShowRed)
+end
+
+function XUiPanelQualityStar:UpdateBtnUpgrade()
+    local cnt = 0
+    for _,food in pairs(self.SelectFoodDic) do
+        cnt = cnt + 1
+    end
+    local isDissable = cnt == 0
+    local needCallBack = not isDissable
+    self.PanelItems:GetObject("BtnUpgrade"):SetDisable(isDissable, needCallBack)
 end
 
 return XUiPanelQualityStar

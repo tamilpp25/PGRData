@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiMentorGraduation = XLuaUiManager.Register(XLuaUi, "UiMentorGraduation")
 local CSTextManagerGetText = CS.XTextManager.GetText
 

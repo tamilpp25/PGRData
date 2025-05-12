@@ -22,6 +22,8 @@ local function updateFunc(newFunc, oldFunc)
     end
 end
 
+XHotReload.ReloadFunc = updateFunc
+
 local updateTable
 function updateTable(newTable, oldTable)
     if "table" ~= type(oldTable) then return end
@@ -50,11 +52,46 @@ local function TryRunInitConfig(fileName)
     local _, endPos = string.find(fileName, "XConfig/")
     if not endPos or endPos < 0 then return end
 
+    --local className = string.sub(fileName, endPos + 1)
+    -- 兼容加了一层文件夹
+    for i = 1, 99 do
+        local nextPos = string.find(fileName, "/", endPos + 1)
+        if nextPos and nextPos > 0 then
+            endPos = nextPos
+        end
+    end
     local className = string.sub(fileName, endPos + 1)
+    
     local class = rawget(_G, className)
     if not class then return end
 
     if class.Init then class.Init() end
+    if class.__Configs then 
+        class.__Configs = nil 
+    end
+end
+
+local function TryReplaceMVCA(filePath, oldModule, newModule)
+    local _, endPos = string.find(filePath, "XModule/") --是新的业务开发框架
+    if not endPos or endPos < 0 then return end
+    local modulePath = string.sub(filePath, endPos + 1)
+    local moduleSplit = string.Split(modulePath, "/")
+    local moduleId = moduleSplit[1]
+    local fileName = moduleSplit[2]
+    --XLog.Error("fileName: ".. fileName)
+    if string.find(fileName, "Agency") then
+        if fileName == moduleId .. "Agency" then --这样可以过滤基类
+            XMVCA:_HotReloadAgency(moduleId)
+        end
+    elseif string.find(fileName, "Control") then
+        if fileName == moduleId .. "Control" then
+            XMVCA:_HotReloadControl(moduleId)
+        else
+            XMVCA:_HotReloadSubControl(moduleId, oldModule, newModule)
+        end
+    elseif string.find(fileName, "Model") then
+        XMVCA:_HotReloadModel(moduleId)
+    end
 end
 
 local function TryReplaceManager(filePath)
@@ -102,7 +139,7 @@ function XHotReload.Reload(fileName)
     if "boolean" == type(newModule) then
         TryReplaceManager(fileName) --改变XDataCenter所指向的Manager
     end
-
+    TryReplaceMVCA(fileName, oldModule, newModule)
     package.loaded[fileName] = oldModule
     XLog.Debug("kkkttt XHotReload.Reload suc, fileName is: ", fileName)
 end
@@ -119,7 +156,6 @@ function XHotReload.InitMgrTab()
     XRobotManager.Init()
     XRoomSingleManager.Init()
 
-    XFunctionManager.Init()
     XModelManager.Init()
     XRewardManager.Init()
     XReadOnlyTable.HotLoad = false

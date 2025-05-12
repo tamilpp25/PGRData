@@ -1,4 +1,5 @@
-XUiPanelRewardGird = XClass(nil, "XUiPanelRewardGird")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiPanelRewardGird = XClass(nil, "XUiPanelRewardGird")
 
 function XUiPanelRewardGird:Ctor(ui)
     self.GameObject = ui.gameObject

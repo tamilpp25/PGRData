@@ -1,3 +1,6 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridShop = require("XUi/XUiShop/XUiGridShop")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local ShopHintText = CS.XTextManager.GetText("ActivityNierShopLock")
 local XUiNierShop = XLuaUiManager.Register(XLuaUi, "UiNierShop")
@@ -7,7 +10,7 @@ function XUiNierShop:OnAwake()
     self.GridShop.gameObject:SetActiveEx(false)
     self.TxtTime.gameObject:SetActiveEx(false)
     self.HintTxt.gameObject:SetActiveEx(false)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self, true)
     self:InitDynamicTable()
     self:InitPanels()
 end

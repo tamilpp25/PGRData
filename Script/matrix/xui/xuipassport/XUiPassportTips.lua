@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPassportTips = XLuaUiManager.Register(XLuaUi, "UiPassportTips")
 
 function XUiPassportTips:OnAwake()
@@ -19,7 +20,7 @@ function XUiPassportTips:OnStart(rewardGoodsList, title, desc, closeCb, sureCb)
 end
 
 function XUiPassportTips:OnEnable()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Common_UiObtain)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Common_UiObtain)
 end
 
 function XUiPassportTips:AutoAddListener()

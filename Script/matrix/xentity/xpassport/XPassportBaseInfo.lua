@@ -1,6 +1,6 @@
 local type = type
 
---通行证基础信息
+---@class XPassportBaseInfo@通行证基础信息
 local XPassportBaseInfo = XClass(nil, "XPassportBaseInfo")
 
 local Default = {

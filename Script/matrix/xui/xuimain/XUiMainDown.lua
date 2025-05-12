@@ -1,10 +1,21 @@
 local XUiMainDown = XClass(nil, "XUiMainDown")
 
-function XUiMainDown:Ctor(rootUi, ui)
+--主界面会频繁打开，采用常量缓存
+local RedPointConditionGroup = {
+    NewRegression = {
+        XRedPointConditions.Types.CONDITION_NEWREGRESSION_All_RED_POINT
+    },
+    Guide = {
+        XRedPointConditions.Types.CONDITION_MAIN_NEWBIE_TASK
+    },
+    
+}
+
+function XUiMainDown:OnStart(rootUi, ui)
     self.RootUi = rootUi
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+    -- self.GameObject = ui.gameObject
+    -- self.Transform = ui.transform
+    -- XTool.InitUiObject(self)
 
     self:InitButton()
 end
@@ -12,13 +23,24 @@ end
 function XUiMainDown:InitButton()
     if self.BtnNewRegression then
         self.BtnNewRegression.CallBack = function() XDataCenter.NewRegressionManager.OpenMainUi() end
-        XRedPointManager.AddRedPointEvent(self.BtnNewRegression.ReddotObj, self.OnCheckNewRegressionRedPoint, self, { XRedPointConditions.Types.CONDITION_NEWREGRESSION_All_RED_POINT })
+        XRedPointManager.AddRedPointEvent(self.BtnNewRegression.ReddotObj, self.OnCheckNewRegressionRedPoint, self, RedPointConditionGroup.NewRegression)
+    end
+    if self.BtnGuide then
+        self.BtnGuide.CallBack = function()
+            XDataCenter.NewbieTaskManager.OpenMainUi()
+        end
+        XRedPointManager.AddRedPointEvent(self.BtnGuide.ReddotObj, self.OnClickNewbieTaskRedPoint, self, RedPointConditionGroup.Guide)
+    end
+    if self.BtnDlcHunt then
+        XUiHelper.RegisterClickEvent(self, self.BtnDlcHunt, self.OnClickDlcHunt)
     end
 end
 
 function XUiMainDown:OnEnable()
     self:StartTimer()
+    self:OnNewbieTaskOpenStatusUpdate()
     self:AddEventListener()
+    self:UpdateBtnDlcHunt()
 end
 
 function XUiMainDown:OnDisable()
@@ -55,7 +77,7 @@ function XUiMainDown:OnNewRegressionOpenStatusUpdate()
         self.NewRegressionTimer = XScheduleManager.ScheduleForever(function()
             self:UpdateNewRegressionLeftTime()
         end, XScheduleManager.SECOND, 0)
-        XRedPointManager.CheckOnceByButton(self.BtnNewRegression, { XRedPointConditions.Types.CONDITION_NEWREGRESSION_All_RED_POINT })
+        XRedPointManager.CheckOnceByButton(self.BtnNewRegression, RedPointConditionGroup.NewRegression)
     end
 end
 
@@ -89,5 +111,32 @@ function XUiMainDown:OnCheckNewRegressionRedPoint(count)
     self.BtnNewRegression:ShowReddot(count >= 0)
 end
 -----------------------新回归活动 end------------------------
+-----------------------新手任务二期 begin------------------------
+
+function XUiMainDown:OnNewbieTaskOpenStatusUpdate()
+    local isOpen = XDataCenter.NewbieTaskManager.GetIsOpen()
+    self.BtnGuide.gameObject:SetActiveEx(isOpen)
+    if isOpen then
+        XRedPointManager.CheckOnceByButton(self.BtnGuide, RedPointConditionGroup.Guide)
+    end
+end
+
+function XUiMainDown:OnClickNewbieTaskRedPoint(count)
+    self.BtnGuide:ShowReddot(count >= 0)
+end
+
+-----------------------新手任务二期 end------------------------
+
+-----------------------DLC begin------------------------
+function XUiMainDown:UpdateBtnDlcHunt()
+    if self.BtnDlcHunt then
+        self.BtnDlcHunt.gameObject:SetActiveEx(XDataCenter.DlcHuntManager.IsOpen())
+    end
+end
+
+function XUiMainDown:OnClickDlcHunt()
+    XDataCenter.DlcHuntManager.OpenMain()
+end
+-----------------------DLC end------------------------
 
 return XUiMainDown

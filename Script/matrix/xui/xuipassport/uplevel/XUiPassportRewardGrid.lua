@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPassportRewardGrid = XClass(nil, "XUiPassportRewardGrid")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText

@@ -1,4 +1,4 @@
-XUiPanelCharGradeOther = XClass(nil, "XUiPanelCharGradeOther")
+local XUiPanelCharGradeOther = XClass(nil, "XUiPanelCharGradeOther")
 
 local Show_Part = {
     [1] = XNpcAttribType.Life,
@@ -116,7 +116,7 @@ function XUiPanelCharGradeOther:HidePanel()
 end
 
 function XUiPanelCharGradeOther:UpdateGradeData(character)
-    local curGradeConfig = XCharacterConfigs.GetGradeTemplates(character.Id, character.Grade)
+    local curGradeConfig = XMVCA.XCharacter:GetGradeTemplates(character.Id, character.Grade)
     local curAttrib = XAttribManager.GetBaseAttribs(curGradeConfig.AttrId)
     self.RImgIconTitle:SetRawImage(curGradeConfig.GradeBigIcon)
     self:UpdateStarSprite(curGradeConfig.NoStar, curGradeConfig.Star)
@@ -188,3 +188,5 @@ function XUiPanelCharGradeOther:UpdateStarInfo(index, onIndex)
         self.OnStar[i].gameObject:SetActiveEx(true)
     end
 end
+
+return XUiPanelCharGradeOther

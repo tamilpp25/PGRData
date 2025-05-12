@@ -355,6 +355,10 @@ function XUiGridExploreChapter:OnQuickJumpClick(index)
 end
 
 function XUiGridExploreChapter:ScaleBack()
+    -- 调用CancelSelect()时，self.CurStageGrid设置为nil
+    if not self.CurStageGrid then
+        return
+    end
     self.PanelDrag:FocusTarget(self.CurStageGrid.Transform, ScaleLevel.Normal, FocusTime, CS.UnityEngine.Vector3.zero, nil)
 end
 

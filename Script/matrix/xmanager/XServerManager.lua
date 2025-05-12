@@ -1,6 +1,3 @@
-local Platform = CS.UnityEngine.Application.platform
-local RuntimePlatform = CS.UnityEngine.RuntimePlatform
-
 XServerManager = XServerManager or {}
 
 local Json = require("XCommon/Json")
@@ -8,6 +5,8 @@ local LoginTimeOutSecond = CS.XGame.Config:GetInt("LoginTimeOutInterval")
 local SERVER_CONNECT_TIME_KEY = "SERVER_CONNECT_TIME_KEY"
 local RECENT_TIME_PERIOD = 3600 * 24 * 7
 local GetTime = os.time
+
+local CsApplication = CS.XApplication
 
 XServerManager.SERVER_STATE = {
     MAINTAIN = 0, -- 维护
@@ -23,24 +22,12 @@ local TempServerDic = {}
 local LastServerCheckTime = {}
 local LastServerConnectTime = {}
 
-local AndroidPayCallList = {}
-local IosPayCallList = {}
-local PcPayCallList = {}
-
-function XServerManager.SplitPayCallList(list, str)
-    if str == "" or str == nil then
-        return
-    end
-    local strs = string.Split(str, '#')
-    local i = 1
-    for _, value in ipairs(strs) do
-        list[i] = value
-        i = i + 1
-    end
-end
+local ChannelServerList = {}
 
 XServerManager.Id = nil
 XServerManager.ServerName = nil
+XServerManager.LastServerId = nil
+XServerManager.RequestIndex = 1 --当前访问的下标
 
 function XServerManager.GetLoginUrl()
     local server = ServerList[XServerManager.Id]
@@ -53,40 +40,99 @@ function XServerManager.GetLoginUrl()
         LastServerConnectTime[server.Name] = server.LastTime
         XSaveTool.SaveData(SERVER_CONNECT_TIME_KEY, LastServerConnectTime)
     end
+    return server.LoginUrls[(XServerManager.RequestIndex - 1) % #server.LoginUrls + 1]
+end
 
-    return server.LoginUrl
+---请求失败, 切换到下一个请求地址
+function XServerManager.NextLoginUrlIndex()
+    XServerManager.RequestIndex = XServerManager.RequestIndex + 1
+end
+
+function XServerManager.SelectChannelServer(notTip)
+    ServerList = {}
+    local channel = XUserManager.LoginChannel and tostring(XUserManager.LoginChannel) or nil--这里调用获取渠道接口
+    local channelServer = nil
+    if channel and ChannelServerList[channel] then
+        channelServer = ChannelServerList[channel]
+    else
+        XLog.Debug("pc channel is ".. tostring(channel) .. " , select default server")
+        channelServer = ChannelServerList["default"]
+    end
+    if channelServer then
+        channelServer.Id = 1 --渠道服务器列表只有1个
+        ServerList[channelServer.Id] = channelServer
+        CS.XLog.Debug("pc channel is " .. tostring(channelServer.Name))
+    end
+
+    if not ServerList or #ServerList <= 0 then
+        if not notTip then
+            XLog.Error("Get ChannelServerList error. content = " .. CS.XRemoteConfig.ChannelServerListStr)
+        end
+        return
+    end
+
+    XServerManager.SelectServerAndSort()
 end
 
 function XServerManager.Init(cb)
     XServerManager.Id = CS.UnityEngine.PlayerPrefs.GetInt(XPrefs.ServerId, 1)
+    XServerManager.LastServerId = XServerManager.Id
+    XServerManager.RequestIndex = 1 --每次初始化重置为1
+
     ServerList = {}
-    local i = 1
-    local strs = string.Split(CS.XRemoteConfig.ServerListStr, "|")
-    for _, value in ipairs(strs) do
-        local item = string.Split(value, "#")
-        if #item >= 2 then
-            local server = {}
-            server.Id = i
-            server.Name = item[1]
-            server.LoginUrl = item[2]
+    ChannelServerList = {}
+    if XDataCenter.UiPcManager.IsPcServer() then
+        if not string.IsNilOrEmpty(CS.XRemoteConfig.ChannelServerListStr) then
+            --CS.XLog.Debug("ChannelServerListStr:" .. CS.XRemoteConfig.ChannelServerListStr)
+            local strs = string.Split(CS.XRemoteConfig.ChannelServerListStr, "|")
+            for _, value in ipairs(strs) do
+                local item = string.Split(value, "#")
+                if #item >= 3 then
+                    local server = {}
+                    --server.Id = i
+                    server.Name = item[2]
+                    local urls = string.Split(item[3], ";")
+                    server.LoginUrls = urls
+                    ChannelServerList[item[1]] = server
+                end
+            end
+            --CS.XLog.Debug("ChannelServerList:" .. XLog.Dump(ChannelServerList))
 
-            ServerList[server.Id] = server
-            i = i + 1
+            XServerManager.SelectChannelServer(true) --先不管三七二十一, 选一个default的, 后续设置渠道id的时候再设置一次
+        else
+            XLog.Error("Get ChannelServerListStr empty.")
+            return
         end
+    else
+        local i = 1
+        local strs = string.Split(CS.XRemoteConfig.ServerListStr, "|")
+        for _, value in ipairs(strs) do
+            local item = string.Split(value, "#")
+            if #item >= 2 then
+                local server = {}
+                server.Id = i
+                server.Name = item[1]
+                local urls = string.Split(item[2], ";")
+                server.LoginUrls = urls
+
+                ServerList[server.Id] = server
+                i = i + 1
+            end
+        end
+        if not ServerList or #ServerList <= 0 then
+            XLog.Error("Get ServerList error. content = " .. CS.XRemoteConfig.ServerListStr)
+            return
+        end
+
+        XServerManager.SelectServerAndSort()
     end
 
-    if not ServerList or #ServerList <= 0 then
-        XLog.Error("Get ServerList error. content = " .. CS.XRemoteConfig.ServerListStr)
-        return
+    if cb then
+        cb()
     end
+end
 
-    local androidCallbackListStr = CS.XRemoteConfig.AndroidPayCallbackList
-    local iosCallbackListStr = CS.XRemoteConfig.IosPayCallbackList
-    local pcCallbackListStr = CS.XRemoteConfig.PcPayCallbackList
-    XServerManager.SplitPayCallList(AndroidPayCallList, androidCallbackListStr)
-    XServerManager.SplitPayCallList(IosPayCallList, iosCallbackListStr)
-    XServerManager.SplitPayCallList(PcPayCallList, pcCallbackListStr)
-
+function XServerManager.SelectServerAndSort()
     if XServerManager.Id and ServerList[XServerManager.Id] then
         XServerManager.Select(ServerList[XServerManager.Id])
     else
@@ -94,10 +140,6 @@ function XServerManager.Init(cb)
     end
 
     XServerManager.UpdateSortedServer()
-
-    if cb then
-        cb()
-    end
 end
 
 function XServerManager.UpdateSortedServer()
@@ -129,7 +171,7 @@ function XServerManager.InsertTempServer(ip)
         Id = #ServerList + 1,
         Name = "临时服: " .. ipStr,
         LastTime = 0,
-        LoginUrl = string.format("http://%s:2333/api/Login/Login", ipStr),
+        LoginUrls = {string.format("http://%s:2333/api/Login/Login", ipStr)},
         IsTempServer = true,
     }
 
@@ -150,30 +192,6 @@ function XServerManager.Select(server)
     XServerManager.Id = server.Id
     XServerManager.ServerName = server.Name
     CS.UnityEngine.PlayerPrefs.SetInt(XPrefs.ServerId, server.Id)
-    if XUserManager.UserId then -- 海外修改
-        XSaveTool.SaveData(XPrefs.User_ServerId..XUserManager.UserId, tostring(server.Id))
-    end
-
-    if Platform == RuntimePlatform.Android then
-        if server.Id > #AndroidPayCallList then
-            XLog.Error("支付服务器地址数量与服务器数量不匹配")
-            return
-        end
-        XHgSdkManager.SetCallBackUrl(AndroidPayCallList[server.Id])
-    elseif Platform == RuntimePlatform.IPhonePlayer then
-        if server.Id > #IosPayCallList then
-            XLog.Error("支付服务器地址数量与服务器数量不匹配")
-            return
-        end
-        XHgSdkManager.SetCallBackUrl(IosPayCallList[server.Id])
-    elseif Platform == RuntimePlatform.WindowsPlayer then
-        if server.Id > #PcPayCallList then
-            XLog.Error("支付服务器地址数量与服务器数量不匹配")
-        end
-        XHgSdkManager.SetCallBackUrl(PcPayCallList[server.Id])
-    else
-        XLog.Debug("其他平台无需设置支付回调地址")
-    end
 end
 
 function XServerManager.CheckOpenSelect()
@@ -218,18 +236,21 @@ function XServerManager.TestConnectivity(server, gridCb)
     LastServerCheckTime[id] = GetTime()
     gridCb()
 
-    local loginUrl = server.LoginUrl
+    local loginUrl = server.LoginUrls[1] --默认取第一个
     if not XUserManager.IsNeedLogin() then
-        loginUrl = server.LoginUrl ..
+        loginUrl = server.LoginUrls[1] ..
         "?loginType=" .. XUserManager.Channel ..
         "&userId=" .. XUserManager.UserId ..
-        "&projectId=" .. CS.XHgSdkAgent.GetAppProjectId() ..
+        "&projectId=" .. CS.XHeroSdkAgent.GetAppProjectId() ..
         "&token=" .. (XUserManager.Token or "")
     end
 
     local request = CS.UnityEngine.Networking.UnityWebRequest.Get(loginUrl)
     request.timeout = LoginTimeOutSecond
     CS.XTool.WaitNativeCoroutine(request:SendWebRequest(), function()
+        if not ServerList[id] then
+            return
+        end
         LastServerCheckTime[id] = GetTime()
         if request.isDone and not string.IsNilOrEmpty(request.error) then
             ServerList[id].State = XServerManager.SERVER_STATE.FAIL
@@ -251,4 +272,38 @@ function XServerManager.TestConnectivity(server, gridCb)
         ServerList[id].State = XServerManager.SERVER_STATE.LOW
         gridCb()
     end)
+end
+
+function XServerManager.SetAndSelectServerByIp(ip)
+    local index = #ServerList + 1
+    for i = 1, #ServerList do
+        local name = ServerList[i].Name
+        if string.match(name, ip) then
+            index = i
+            break
+        else
+            local matchUrl = false
+            for _, url in ipairs(ServerList[i].LoginUrls) do
+                if string.match(url, ip) ~= nil then
+                    matchUrl = true
+                    break
+                end
+            end
+            if matchUrl then
+                index = i
+                break
+            end
+        end
+    end
+
+    if index == #ServerList + 1 then
+        local ipValid, ipStr = string.IsIp(ip)
+        if not ipValid then
+            return false
+        end
+        XServerManager.InsertTempServer(ip)
+    end
+
+    XServerManager.Select(ServerList[index])
+    return true
 end

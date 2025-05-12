@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 -- 兵法蓝图任务页面任务列表控件
 local XUiRpgTowerTaskList = XClass(nil, "XUiRpgTowerTaskList")
 

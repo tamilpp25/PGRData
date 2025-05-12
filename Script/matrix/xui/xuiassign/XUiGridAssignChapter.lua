@@ -35,7 +35,7 @@ function XUiGridAssignChapter:OnBtnOccupyClick()
     end
     XDataCenter.FubenAssignManager.SelectChapterId = self.ChapterData:GetId()
     XDataCenter.FubenAssignManager.SelectCharacterId = self.ChapterData:GetCharacterId()
-    XLuaUiManager.Open("UiAssignOccupy")
+    XLuaUiManager.Open("UiAssignOccupy", self.ChapterData:GetId())
 end
 
 function XUiGridAssignChapter:Refresh(chapterId)
@@ -65,10 +65,11 @@ function XUiGridAssignChapter:Refresh(chapterId)
     self.PressRed.gameObject:SetActiveEx(isCurrentChapter)
     self.PressBlue.gameObject:SetActiveEx(not isCurrentChapter)
 
+    self.BtnOccupy:SetDisable(false)
     local isCanAssign = data:CanAssign()
+    local isOccupy = data:IsOccupy()
     if isCanAssign then
         self.BtnOccupy.gameObject:SetActiveEx(true)
-        local isOccupy = data:IsOccupy()
         local occupyState = isOccupy and CS.UiButtonState.Select or CS.UiButtonState.Normal
         self.BtnOccupy:SetButtonState(occupyState)
         if isOccupy then
@@ -80,9 +81,14 @@ function XUiGridAssignChapter:Refresh(chapterId)
         end
     else
         self.BtnOccupy.gameObject:SetActiveEx(false)
+
+        if chapterId == XDataCenter.FubenAssignManager.GetChapterIdList()[1] then
+            self.BtnOccupy.gameObject:SetActiveEx(true)
+            self.BtnOccupy:SetDisable(true)
+        end
     end
 
-    self.Red.gameObject:SetActiveEx(data:CanReward())
+    self.Red.gameObject:SetActiveEx(data:IsRed())
 end
 
 return XUiGridAssignChapter

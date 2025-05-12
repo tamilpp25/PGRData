@@ -39,6 +39,12 @@ function XUiGridFashion:SetSelect(isSelect)
     end
 end
 
+function XUiGridFashion:SetRedPoint(isSelect)
+    if self.ImgRedPoint then
+        self.ImgRedPoint.gameObject:SetActiveEx(isSelect)
+    end
+end
+
 function XUiGridFashion:UpdateStatus()
     local status = XDataCenter.FashionManager.GetFashionStatus(self.FashionId)
     
@@ -54,24 +60,21 @@ function XUiGridFashion:UpdateStatus()
     if status == XDataCenter.FashionManager.FashionStatus.UnOwned then -- 未获得
         self.ImgLock.gameObject:SetActiveEx(true)
         self.ImgUse.gameObject:SetActiveEx(false)
-        self.ImgRedPoint.gameObject:SetActiveEx(false)
         self.RImgIcon.color = CSUnityEngineColor(1, 1, 1, 0.6)
     elseif status == XDataCenter.FashionManager.FashionStatus.Dressed then --已穿戴
         self.ImgLock.gameObject:SetActiveEx(false)
         self.ImgUse.gameObject:SetActiveEx(true)
-        self.ImgRedPoint.gameObject:SetActiveEx(false)
         self.RImgIcon.color = CSUnityEngineColor(1, 1, 1, 1)
     elseif status == XDataCenter.FashionManager.FashionStatus.Lock then --已获得，未解锁
         self.ImgLock.gameObject:SetActiveEx(false)
         self.ImgUse.gameObject:SetActiveEx(false)
-        self.ImgRedPoint.gameObject:SetActiveEx(true)
         self.RImgIcon.color = CSUnityEngineColor(1, 1, 1, 0.6)
     elseif status == XDataCenter.FashionManager.FashionStatus.UnLock then --已解锁
         self.ImgLock.gameObject:SetActiveEx(false)
         self.ImgUse.gameObject:SetActiveEx(false)
-        self.ImgRedPoint.gameObject:SetActiveEx(false)
         self.RImgIcon.color = CSUnityEngineColor(1, 1, 1, 1)
     end
+    self:SetRedPoint(XDataCenter.FashionManager.GetAllFashionIsOwnDic(self.FashionId).IsNew)
 end
 
 function XUiGridFashion:Refresh(fashionId, characterId, rootUi)

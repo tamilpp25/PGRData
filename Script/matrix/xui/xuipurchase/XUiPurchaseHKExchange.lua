@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPurchaseHKExchange = XClass(nil, "XUiPurchaseHKExchange")
 local Next = _G.next
 local XUiPurchaseHKExchangeListItem = require("XUi/XUiPurchase/XUiPurchaseHKExchangeListItem")
@@ -73,7 +74,7 @@ function XUiPurchaseHKExchange:OnDynamicTableEvent(event, index, grid)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         local data = self.ListData[index]
         self.HKExchangeUi:OnRefresh(data)
-        CS.XAudioManager.PlaySound(1011)
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1011)
     end
 end
 

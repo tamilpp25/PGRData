@@ -2,7 +2,9 @@ local XUiRpgMakerGameStage = require("XUi/XUiRpgMakerGame/Main/XUiRpgMakerGameSt
 
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 
---路线
+---推箱子选关面板
+---@class XUiRpgMakerGameStages
+---@field StageTemplateDic table<integer, XUiRpgMakerGameStage> 关卡ui字典
 local XUiRpgMakerGameStages = XClass(nil, "XUiRpgMakerGameStages")
 
 function XUiRpgMakerGameStages:Ctor(ui, chapterId, cb)

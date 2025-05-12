@@ -45,7 +45,7 @@ function XUiPanelMyRank:Refresh(rankMyData, rankType)
                     num = 99
                 end
 
-                text = CS.XTextManager.GetText("BossSinglePrecentDesc", num)
+                text = CS.XTextManager.GetText("BossSinglePercentDesc", num)
             end
         else
             text = CS.XTextManager.GetText("None")
@@ -63,7 +63,7 @@ function XUiPanelMyRank:Refresh(rankMyData, rankType)
     local name = XPlayer.Name
     self.TxtPlayerName.text = name
 
-    XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
 end
 
 function XUiPanelMyRank:HidePanel()

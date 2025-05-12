@@ -1,5 +1,5 @@
+---@class XUiSameColorGameSettlement:XLuaUi
 local XUiSameColorGameSettlement = XLuaUiManager.Register(XLuaUi, "UiSameColorGameSettlement")
-local CSTextManagerGetText = CS.XTextManager.GetText
 function XUiSameColorGameSettlement:OnStart(boss, rePlayCb, backCb)
     self.Boss = boss
     self.RePlayCb = rePlayCb
@@ -9,27 +9,25 @@ function XUiSameColorGameSettlement:OnStart(boss, rePlayCb, backCb)
 end
 
 function XUiSameColorGameSettlement:OnEnable()
-    self:UpdateSkill()
+    self:UpdatePanel()
 end
 
-function XUiSameColorGameSettlement:UpdateSkill()
+function XUiSameColorGameSettlement:UpdatePanel()
     local damage = self.BattleManager:GetDamageCount()
-    local nextRank, needDamage = self.Boss:GetScoreNextGradeNameAndDamageGap(damage)
-    
+    self.DamageText.text = XUiHelper.GetText("SCWinDamageText", damage)
     self.NewRecord.gameObject:SetActiveEx( damage > self.Boss:GetMaxScore())
     
-    self.DamageText.text = CSTextManagerGetText("SCWinDamageText", damage)
-    
-    self.RankText.text = CSTextManagerGetText("SCWinRankText", nextRank, needDamage)
-    
-    self.RankText.gameObject:SetActiveEx(needDamage > 0)
-    
+    local maxComboCount = self.BattleManager:GetMaxComboCount()
+    self.ComboText.text = XUiHelper.GetText("SCWinComboText", maxComboCount)
+    self.NewRecord2.gameObject:SetActiveEx(maxComboCount > self.Boss:GetMaxCombo())
+
     self.RankIcon:SetRawImage(self.Boss:GetCurGradeIcon(damage))
 end
 
 function XUiSameColorGameSettlement:SetButtonCallBack()
     self.BtnRePlay.CallBack = function() self:OnBtnRePlayClick() end
     self.BtnBack.CallBack = function() self:OnBtnBackClick() end
+    self.BtnClose.CallBack = function() self:OnBtnBackClick() end
 end
 
 function XUiSameColorGameSettlement:OnBtnRePlayClick()

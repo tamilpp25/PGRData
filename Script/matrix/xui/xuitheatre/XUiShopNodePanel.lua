@@ -1,12 +1,14 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --######################## XUiShopItem ########################
-local XUiShopItem = XClass(nil, "XUiShopItem")
+local XUiShopItem = XClass(XUiNode, "XUiShopItem")
 
-function XUiShopItem:Ctor(ui, rootUi)
-    self.RootUi = rootUi
-    XUiHelper.InitUiClass(self, ui)
-    -- XAShopItem
-    self.Data = nil
-end
+--function XUiShopItem:Ctor(ui, rootUi)
+--    self.RootUi = rootUi
+--    XUiHelper.InitUiClass(self, ui)
+--    -- XAShopItem
+--    self.Data = nil
+--end
 
 -- data : XAShopItem
 function XUiShopItem:SetData(data, isLock)
@@ -27,7 +29,7 @@ function XUiShopItem:SetData(data, isLock)
     self.ImgHave.gameObject:SetActiveEx(not data:GetIsCanBuy())
     local itemId = data:GetItemId()
     if itemId then
-        XUiGridCommon.New(self.RootUi, self.ItemGrid):Refresh({
+        XUiGridCommon.New(self.Parent, self.ItemGrid):Refresh({
             TemplateId = itemId,
             Count = data:GetCount(),
         })
@@ -62,21 +64,22 @@ function XUiShopItem:OnBtnClicked()
 end
 
 --######################## XUiShopNodePanel ########################
-local XUiShopNodePanel = XClass(nil, "XUiShopNodePanel")
+---@class XUiShopNodePanel:XUiNode
+local XUiShopNodePanel = XClass(XUiNode, "XUiShopNodePanel")
 
-function XUiShopNodePanel:Ctor(ui, rootUi)
-    XUiHelper.InitUiClass(self, ui)
-    self.RootUi = rootUi
+function XUiShopNodePanel:OnStart(ui, rootUi)
+    --XUiHelper.InitUiClass(self, ui)
+    --self.RootUi = rootUi
     self.Node = nil
     -- 商店列表
     self.DynamicTable = XDynamicTableNormal.New(self.PanelShopList)
-    self.DynamicTable:SetProxy(XUiShopItem, self.RootUi)
+    self.DynamicTable:SetProxy(XUiShopItem, self.Parent)
     self.DynamicTable:SetDelegate(self)
     self.ShopGrid.gameObject:SetActiveEx(false)
     XUiHelper.RegisterClickEvent(self, self.BtnBackOut, self.OnBtnBackOutClicked)
     XUiHelper.RegisterClickEvent(self, self.BtnEnd, self.OnBtnEndClicked)
     -- 注册资源面板
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAdventureAssetItemIds(), self.PanelAssetitems)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAdventureAssetItemIds(), self.PanelAssetitems, self)
 end
 
 -- node : XAShopNode
@@ -124,15 +127,15 @@ function XUiShopNodePanel:OnDynamicTableEvent(event, index, grid)
 end
 
 function XUiShopNodePanel:OnBtnBackOutClicked()
-    self.RootUi:Close()
+    self.Parent:Close()
 end
 
 function XUiShopNodePanel:OnBtnEndClicked()
     XLuaUiManager.Open("UiDialog", nil, XUiHelper.GetText("TheatreEndShopTip"), XUiManager.DialogType.Normal, nil
     , function()
         self.Node:RequestEndBuy(function()
-            self.RootUi:SwitchComfirmPanel(self.Node:GetEndDesc(), self.Node:GetEndComfirmText()
-                , function() self.RootUi:Close() end)
+            self.Parent:SwitchComfirmPanel(self.Node:GetEndDesc(), self.Node:GetEndComfirmText()
+                , function() self.Parent:Close() end)
         end)
     end)
 end

@@ -6,8 +6,9 @@ end
 
 function XUiMoneyRewardFightTips:OnStart(stageId)
 
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-    local bountyInfo = XDataCenter.BountyTaskManager.GetBountyTaskConfig(stageInfo.BountyId)
+    --local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    local bountyId = XDataCenter.BountyTaskManager.GetBountyId(stageId)
+    local bountyInfo = XDataCenter.BountyTaskManager.GetBountyTaskConfig(bountyId)
 
     local rand = math.random(1, #bountyInfo.EnterAnimation)
     local animationName = ""
@@ -56,7 +57,7 @@ function XUiMoneyRewardFightTips:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

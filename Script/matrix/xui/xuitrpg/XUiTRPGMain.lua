@@ -2,7 +2,6 @@ local XUiTRPGPanelPlotTab = require("XUi/XUiTRPG/XUiTRPGPanel/XUiTRPGPanelPlotTa
 local XUiTRPGPanelLevel = require("XUi/XUiTRPG/XUiTRPGPanel/XUiTRPGPanelLevel")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText
-local TRPGFirstOpenFunctionGroupId = CS.XGame.ClientConfig:GetInt("TRPGFirstOpenFunctionGroupId")
 local ButtonStateDisable = CS.UiButtonState.Disable
 
 --主界面
@@ -19,7 +18,6 @@ end
 
 function XUiTRPGMain:OnStart(isSwitchStatusOpenView)
     self.IsSwitchStatusOpenView = isSwitchStatusOpenView
-    self:PlayStartStory()
 end
 
 function XUiTRPGMain:OnEnable()
@@ -45,6 +43,7 @@ end
 
 function XUiTRPGMain:OnDestroy()
     self.LevelPanel:Delete()
+    self.PanelPlotTab:OnDestroy()
 end
 
 function XUiTRPGMain:Init()
@@ -172,26 +171,6 @@ end
 
 function XUiTRPGMain:OnBtnMainUiClick()
     XLuaUiManager.RunMain()
-end
-
-function XUiTRPGMain:PlayStartStory()
-    if not XDataCenter.TRPGManager.IsFunctionGroupConditionFinish(TRPGFirstOpenFunctionGroupId) then
-        return
-    end
-
-    local functionIds = XTRPGConfigs.GetFunctionGroupFunctionIds(TRPGFirstOpenFunctionGroupId)
-    for _, functionId in ipairs(functionIds) do
-        if not XDataCenter.TRPGManager.IsThirdAreaFunctionFinish(nil, functionId) then
-            if XTRPGConfigs.CheckFunctionType(functionId, XTRPGConfigs.TRPGFunctionType.Story) then
-                local params = XTRPGConfigs.GetFunctionParams(functionId)
-                local movieId = params[1]
-                local cb = function()
-                    XDataCenter.TRPGManager.RequestFunctionFinishSend(nil, functionId)
-                end
-                XDataCenter.MovieManager.PlayMovie(movieId, cb)
-            end
-        end
-    end
 end
 
 function XUiTRPGMain:OnCheckGridPanelChapterRedPoint()

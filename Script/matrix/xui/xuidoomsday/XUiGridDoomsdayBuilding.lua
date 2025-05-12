@@ -36,19 +36,26 @@ function XUiGridDoomsdayBuilding:Refresh(buildingIndex)
         building,
         function(state)
             if
-                (state == XDoomsdayConfigs.BUILDING_STATE.WAITING and
-                    XDoomsdayConfigs.IsBuildingInOperable(building:GetProperty("_CfgId")))
+            ((state == XDoomsdayConfigs.BUILDING_STATE.WORKING and XDoomsdayConfigs.IsBuildingInOperable(building:GetProperty("_CfgId"))) 
+                    or state == XDoomsdayConfigs.BUILDING_STATE.EMPTY )
              then
                 --不可操作类型建筑处于等待状态时隐藏建筑状态图标
                 self.ImgState.gameObject:SetActiveEx(false)
             else
                 self.ImgState:SetSprite(XDoomsdayConfigs.BuildingTypeIcon[state])
                 self.ImgState.gameObject:SetActiveEx(true)
+
+                if state == XDoomsdayConfigs.BUILDING_STATE.WORKING then
+                    self.ImgStateLoop:Play()
+                else
+                    self.ImgStateLoop:Stop()
+                    --暂停时，恢复动画产生的旋转
+                    self.ImgState.transform.localRotation = CS.UnityEngine.Quaternion.Euler(0, 0, 0)
+                end
             end
         end,
         "_State"
     )
-
     self:UpdateEvent()
 end
 

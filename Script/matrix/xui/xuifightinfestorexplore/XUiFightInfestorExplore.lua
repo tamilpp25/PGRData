@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFightInfestorExplore = XLuaUiManager.Register(XLuaUi, "UiFightInfestorExplore")
 local XUiGridFightInfestorRuler = require("XUi/XUiFightInfestorExplore/XUiGridFightInfestorRuler")
 local XUiGridFightInfestorPlayer = require("XUi/XUiFightInfestorExplore/XUiGridFightInfestorPlayer")

@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiDormWork = XLuaUiManager.Register(XLuaUi, "UiDormWork")
 local XUiDormWorkListItem = require("XUi/XUiDormWork/XUiDormWorkListItem")
 local XUiDormWorkMember = require("XUi/XUiDormWork/XUiDormWorkMember")
@@ -81,7 +83,7 @@ function XUiDormWork:SetListData()
             self.WorkTimer = XScheduleManager.ScheduleForever(self.UpdateWorkTimerCb, 1000)
         end
     end
-
+    
     self.DynamicTable:SetDataSource(self.ListData)
     self.DynamicTable:ReloadDataASync(1)
     self.RefreshTime = XDataCenter.DormManager.GetDormWorkRefreshTime()
@@ -259,6 +261,7 @@ function XUiDormWork:OpenMemeberList()
         self.InitMember = true
         self.MemberUI = XUiDormWorkMember.New(self.PanelMember, self)
     end
+    self.MemberUI:OnEnable()
     self.MemberUI:OnRefresh(self.CurWorkCount)
 end
 
@@ -268,6 +271,9 @@ end
 
 function XUiDormWork:OnEnable()
     self:DormWorkRefresh()
+    if self.MemberUI then
+        self.MemberUI:OnRefresh(self.CurWorkCount)
+    end
     XEventManager.AddEventListener(XEventId.EVENT_DORM_WORK_RESET, self.DormWorkRefreshReq, self)
     XEventManager.AddEventListener(XEventId.EVENT_DORM_DAI_GONE_REWARD, self.UpdateDaiGong, self)
     -- XEventManager.AddEventListener(XEventId.EVENT_DORM_SKIP, self.SkipFun, self)
@@ -295,6 +301,7 @@ function XUiDormWork:InitUI()
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.DormCoin, XDataCenter.ItemManager.ItemId.FurnitureCoin)
     self.TxtDaigong.text = TextManager.GetText("DormTxtDaigongDes")
     self:Initfun()
+    self.PanelMember.gameObject:SetActiveEx(false)
 end
 
 function XUiDormWork:Initfun()
@@ -375,7 +382,7 @@ function XUiDormWork:OnBtnTotalGet()
 end
 
 function XUiDormWork:OnBtnMainUIClick()
-    XLuaUiManager.RunMain()
+    XDataCenter.DormManager.ExitDormitoryBackToMain()
 end
 
 function XUiDormWork:OnBtnReturnClick()

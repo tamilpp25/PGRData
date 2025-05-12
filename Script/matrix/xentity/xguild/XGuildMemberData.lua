@@ -12,7 +12,6 @@ local Default = {
     ContributeIn7Days = 0,
     ContributeAct = 0,
     ContributeHistory = 0,
-    Popularity = 0,
     LastLoginTime = 0,
     OnlineFlag = 0,
 }
@@ -39,7 +38,6 @@ function XGuildMemberData:UpdateMemberData(guildMemberData)
     self.ContributeIn7Days = guildMemberData.ContributeIn7Days
     self.ContributeAct = guildMemberData.ContributeAct
     self.ContributeHistory = guildMemberData.ContributeHistory
-    self.Popularity = guildMemberData.Popularity
     self.LastLoginTime = guildMemberData.LastLoginTime
     self.OnlineFlag = guildMemberData.OnlineFlag
 end

@@ -1,29 +1,47 @@
-local XUiReplaceGrid = XClass(nil, "XUiReplaceGrid")
+---@class XUiReplaceGrid : XUiNode
+---@field _Control XGoldenMinerControl
+local XUiReplaceGrid = XClass(XUiNode, "XUiReplaceGrid")
 
-function XUiReplaceGrid:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-    self.DataDb = XDataCenter.GoldenMinerManager.GetGoldenMinerDataDb()
+function XUiReplaceGrid:OnStart()
+    self._DataDb = self._Control:GetMainDb()
 end
 
 function XUiReplaceGrid:Refresh(characterId)
     self.CharacterId = characterId
-    self.TxtName.text = XGoldenMinerConfigs.GetCharacterName(characterId)
-    self.TxtDes.text = XGoldenMinerConfigs.GetCharacterInfo(characterId)
-
-    local headPath = XGoldenMinerConfigs.GetCharacterHeadPath(characterId)
+    --Name
+    self.TxtName.text = self._Control:GetCfgCharacterName(characterId)
+    self.TxtDes.text = self._Control:GetCfgCharacterInfo(characterId)
+    --Icon
+    local headPath = self._Control:GetCfgCharacterHeadIcon(characterId)
     self.ImgIcon:SetRawImage(headPath)
+    --Lock
+    local isLock = self._Control:IsCharacterUnLock(characterId)
+    self.ImgLock.gameObject:SetActiveEx(not isLock)
+    self.TxtDes.gameObject:SetActiveEx(isLock)
+    if isLock then
+        local conditionId = self._Control:GetCfgCharacterCondition(characterId)
+        local redEnvelopeNpcId, needCount = XConditionManager.GetConditionParams(conditionId)
+        self.TextLockDesc.text = XConditionManager.GetConditionDescById(conditionId)
+        if XTool.IsNumberValid(needCount) then  -- 一期红包解锁文本
+            self:SetConditionCountActive(true)
+            self.TxtNeedCount.text = "/" .. (needCount or 0)
+            self.TxtCurCount.text = self._DataDb:GetRedEnvelopeProgress(redEnvelopeNpcId)
+        elseif XTool.IsNumberValid(redEnvelopeNpcId) then   -- 二期游玩次数解锁文本
+            self:SetConditionCountActive(true)
+            self.TxtNeedCount.text = "/" .. (redEnvelopeNpcId or 0)
+            self.TxtCurCount.text = self._DataDb:GeTotalPlayCount()
+        else
+            self:SetConditionCountActive(false)
+        end
+    end
+    --IsUsed 需求:没进入过关卡的角色要显示猫猫标签
+    local isUsed = self._Control:IsCharacterUsed(characterId)
+    self.ImgUsedTag.gameObject:SetActiveEx(not isUsed)
+end
 
-    local conditionId = XGoldenMinerConfigs.GetCharacterCondition(characterId)
-    local redEnvelopeNpcId, needCount = XConditionManager.GetConditionParams(conditionId)
-    self.TextLockDesc.text = XConditionManager.GetConditionDescById(conditionId)
-    self.TxtNeedCount.text = "/" .. (needCount or 0)
-    self.TxtCurCount.text = self.DataDb:GetRedEnvelopeProgress(redEnvelopeNpcId)
-
-    local isActive = XDataCenter.GoldenMinerManager.IsCharacterUnLock(characterId)
-    self.ImgLock.gameObject:SetActiveEx(not isActive)
-    self.TxtDes.gameObject:SetActiveEx(isActive)
+function XUiReplaceGrid:SetConditionCountActive(active)
+    self.TxtNeedCount.gameObject:SetActiveEx(active)
+    self.TxtCurCount.gameObject:SetActiveEx(active)
 end
 
 function XUiReplaceGrid:SetSelectActive(isSelect)

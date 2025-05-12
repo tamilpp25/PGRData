@@ -97,10 +97,10 @@ function XUiInfestorExploreOutpost:OnSelectMember(pos)
     local characterId = self.CharacterIds[pos]
     self.SelectCharacterId = characterId
 
-    local icon = XDataCenter.CharacterManager.GetCharHalfBodyBigImage(characterId)
+    local icon = XMVCA.XCharacter:GetCharHalfBodyBigImage(characterId)
     self.RImgRole:SetRawImage(icon)
 
-    local fullName = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
     self.TxtName.text = fullName
 
     self:UpdateCharacterHp()
@@ -135,7 +135,7 @@ function XUiInfestorExploreOutpost:OnFightStory()
     local nodeId = self.NodeId
 
     local characterId = self.SelectCharacterId
-    local characterName = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    local characterName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
 
     local gridIndex = 1
     local option = self.SelectOption

@@ -3,11 +3,9 @@ local TimestampToGameDateTimeString = XTime.TimestampToGameDateTimeString
 
 local TABLE_ACTIVITY_PATH = "Client/Activity/Activity.tab"
 local TABLE_ACTIVITY_GROUP_PATH = "Client/Activity/ActivityGroup.tab"
-local TABLE_ACTIVITY_LINK_PATH = "Client/Activity/ActivityLink.tab"
 
 local ActivityTemplates = {}
 local ActivityGroupTemplates = {}
-local ActivityLinkTemplates = {}
 
 XActivityConfigs = XActivityConfigs or {}
 
@@ -23,6 +21,10 @@ XActivityConfigs.ActivityType = {
     ConsumeReward = 8, -- 累消奖励
     ScratchTicket = 9, -- 普通刮刮乐
     ScratchTicketGolden = 10, -- 黄金刮刮乐
+    BackFlowLink = 11, -- 回流问卷
+    RepeatChallengeReward = 12, --复刷关，跳转类型派生
+    WheelChairManual = 13, --轮椅手册
+    GachaCanLiver = 14, -- 可肝卡池
 }
 
 -- 活动背景类型
@@ -48,7 +50,6 @@ XActivityConfigs.TaskPanelSkipType = {
 function XActivityConfigs.Init()
     ActivityTemplates = XTableManager.ReadByIntKey(TABLE_ACTIVITY_PATH, XTable.XTableActivity, "Id")
     ActivityGroupTemplates = XTableManager.ReadByIntKey(TABLE_ACTIVITY_GROUP_PATH, XTable.XTableActivityGroup, "Id")
-    ActivityLinkTemplates = XTableManager.ReadByIntKey(TABLE_ACTIVITY_LINK_PATH, XTable.XTableActivityLink, "Id")
 end
 
 function XActivityConfigs.GetActivityTemplates()
@@ -69,6 +70,11 @@ function XActivityConfigs.GetActivityTimeStr(activityId, beginTime, endTime)
     local format = "yyyy-MM-dd HH:mm"
     local beginTimeStr = ""
     local endTimeStr = ""
+
+    if not string.IsNilOrEmpty(activityCfg.ShowAllTime) then
+        return activityCfg.ShowAllTime
+    end
+    
     if not string.IsNilOrEmpty(activityCfg.ShowBeginTime) then
         beginTimeStr = activityCfg.ShowBeginTime
     else
@@ -102,11 +108,9 @@ function XActivityConfigs.GetActivityTimeStr(activityId, beginTime, endTime)
     end
 end
 
-function XActivityConfigs.GetActivityLinkCfg(id)
-    return ActivityLinkTemplates[id]
-end
-
-function XActivityConfigs.GetActivityLinkTemplate()
-    return ActivityLinkTemplates
-end
-
+function XAchievementConfigs.GetActivityGroupIsOnlyGroup(groupId)
+    if groupId and ActivityGroupTemplates[groupId] then
+        return ActivityGroupTemplates[groupId].IsOnlyGroup
+    end
+    return -1
+end 

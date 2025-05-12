@@ -1,31 +1,31 @@
-XUiPLayerHead = XUiPLayerHead or {}
+local XUiPlayerHead = {}
 
-XUiPLayerHead.InitPortrait = function(HeadPortraitId, HeadFrameId, Object)--为通用头像组件调用这个接口
+XUiPlayerHead.InitPortrait = function(HeadPortraitId, HeadFrameId, Object)--为通用头像组件调用这个接口
     if XTool.UObjIsNil(Object) then return end
     
-    local uiObject,imgColor = XUiPLayerHead.Create(Object, false)
+    local uiObject,imgColor = XUiPlayerHead.Create(Object, false)
     if not uiObject then return end
     
     uiObject.gameObject:SetActiveEx(true)
     
     if HeadPortraitId then
-        XUiPLayerHead.SetHeadPortrait(HeadPortraitId, uiObject:GetObject("ImgIcon"), uiObject:GetObject("EffectIcon"),imgColor)
+        XUiPlayerHead.SetHeadPortrait(HeadPortraitId, uiObject:GetObject("ImgIcon"), uiObject:GetObject("EffectIcon"),imgColor)
     end
     if HeadFrameId then
-        XUiPLayerHead.SetHeadFrame(HeadFrameId, uiObject:GetObject("ImgIconKuang"), uiObject:GetObject("EffectKuang"),imgColor)
+        XUiPlayerHead.SetHeadFrame(HeadFrameId, uiObject:GetObject("ImgIconKuang"), uiObject:GetObject("EffectKuang"),imgColor)
     end
 end
 
-XUiPLayerHead.Hide = function(Object)
+XUiPlayerHead.Hide = function(Object)
     if XTool.UObjIsNil(Object) then return end
     
-    local uiObject,_ = XUiPLayerHead.Create(Object, true)
+    local uiObject,_ = XUiPlayerHead.Create(Object, true)
     if not uiObject then return end
     
     uiObject.gameObject:SetActiveEx(false)
 end
 
-XUiPLayerHead.Create = function(Object, IsHide)
+XUiPlayerHead.Create = function(Object, IsHide)
     local uiObject = Object.transform:GetComponent("UiObject")
     if not uiObject then return end
     
@@ -43,7 +43,7 @@ XUiPLayerHead.Create = function(Object, IsHide)
     return ((not XTool.UObjIsNil(headObject)) and headObject.transform:GetComponent("UiObject") or nil) , standIcon.color
 end
 
-XUiPLayerHead.SetHeadPortrait = function(HeadPortraitId,iconRawImageNode,effectNode,imgColor)
+XUiPlayerHead.SetHeadPortrait = function(HeadPortraitId, iconRawImageNode, effectNode, imgColor)
    local headPortraitInfo = XPlayerManager.GetHeadPortraitInfoById(HeadPortraitId)
     if headPortraitInfo ~= nil then
         if iconRawImageNode then
@@ -75,7 +75,7 @@ XUiPLayerHead.SetHeadPortrait = function(HeadPortraitId,iconRawImageNode,effectN
     end
 end
 
-XUiPLayerHead.SetHeadFrame = function(HeadFrameId,iconRawImageNode,effectNode,imgColor)
+XUiPlayerHead.SetHeadFrame = function(HeadFrameId, iconRawImageNode, effectNode, imgColor)
     local headPortraitInfo = XPlayerManager.GetHeadPortraitInfoById(HeadFrameId)
     if headPortraitInfo ~= nil then
         if iconRawImageNode then
@@ -106,3 +106,30 @@ XUiPLayerHead.SetHeadFrame = function(HeadFrameId,iconRawImageNode,effectNode,im
         end
     end
 end
+
+XUiPlayerHead.InitPortraitWithoutStandIcon = function(headPortraitId, headFrameId, headObject)
+    if XTool.UObjIsNil(headObject) then
+        return
+    end
+
+    local uiObject = headObject.transform:GetComponent("UiObject") or nil
+
+    if not uiObject then
+        headObject.gameObject:SetActiveEx(false)
+        return
+    end
+
+    headObject.gameObject:SetActiveEx(true)
+    if headPortraitId then
+        local headIcon = uiObject:GetObject("ImgIcon")
+
+        XUiPlayerHead.SetHeadPortrait(headPortraitId, headIcon, uiObject:GetObject("EffectIcon"), headIcon.color)
+    end
+    if headFrameId then
+        local frameIcon = uiObject:GetObject("ImgIconKuang")
+
+        XUiPlayerHead.SetHeadFrame(headFrameId, frameIcon, uiObject:GetObject("EffectKuang"), frameIcon.color)
+    end
+end
+
+return XUiPlayerHead

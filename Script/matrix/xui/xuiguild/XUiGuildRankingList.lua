@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 -- 公会详情界面
 local XUiGuildRankingList = XLuaUiManager.Register(XLuaUi, "UiGuildRankingList")
 local XUiGridRankItem = require("XUi/XUiGuild/XUiChildItem/XUiGridRankItem")
@@ -5,11 +7,21 @@ local TextManager = CS.XTextManager
 
 function XUiGuildRankingList:OnAwake()
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-    self.BtnBack.CallBack = function() self:OnBtnBackClick() end
-    self.BtnMainUi.CallBack = function() self:OnBtnMainUiClick() end
-    self.BtnHelp.CallBack = function() self:OnBtnHelpClick() end
-    self.BtnGuildRankYouku.CallBack = function() self:OnBtnGuildRankYoukuClick() end
-    self.BtnGuildRankShenqing.CallBack = function() self:OnBtnGuildRankShenqingClick() end
+    self.BtnBack.CallBack = function()
+        self:OnBtnBackClick()
+    end
+    self.BtnMainUi.CallBack = function()
+        self:OnBtnMainUiClick()
+    end
+    self.BtnHelp.CallBack = function()
+        self:OnBtnHelpClick()
+    end
+    self.BtnGuildRankYouku.CallBack = function()
+        self:OnBtnGuildRankYoukuClick()
+    end
+    self.BtnGuildRankShenqing.CallBack = function()
+        self:OnBtnGuildRankShenqingClick()
+    end
     self:InitList()
 end
 
@@ -43,7 +55,7 @@ end
 function XUiGuildRankingList:SetVistorCount()
     local cur = self.GuildInfo.GuildTouristCount
     local total = self.GuildInfo.GuildTouristMaxCount
-    local str = CS.XTextManager.GetText("GuildVistorModeDes", cur,total)
+    local str = CS.XTextManager.GetText("GuildVistorModeDes", cur, total)
     self.BtnGuildRankYouku:SetNameByGroup(0, str)
 end
 
@@ -56,21 +68,32 @@ end
 -- 更新数据
 function XUiGuildRankingList:OnRefresh()
     self.GuildInfo = XDataCenter.GuildManager.GetVistorGuildDetailsById(self.CurGuild)
-    local path = XGuildConfig.GetGuildHeadPortraitIconById(self.GuildInfo.GuildIconId)
-    self.RImgGuildIcon:SetRawImage(path)
+    local config = XGuildConfig.GetGuildHeadPortraitById(self.GuildInfo.GuildIconId)
+    if config then
+        local isHasGuildMessageBgIcon = not string.IsNilOrEmpty(config.GuildMessageBgIcon)
+        self.HeadBgNormal.gameObject:SetActiveEx(not isHasGuildMessageBgIcon)
+        self.HeadBgSpecific.gameObject:SetActiveEx(isHasGuildMessageBgIcon)
+        if isHasGuildMessageBgIcon then
+            self.HeadBgSpecific:SetSprite(config.GuildMessageBgIcon)
+        end
+        self.RImgGuildIcon:SetRawImage(config.Icon)
+    end
     self.TxtGuildName.text = self.GuildInfo.GuildName
     self.TxtGuildLevel.text = self.GuildInfo.GuildLevel
     self.TxtGuildLeaderName.text = self.GuildInfo.GuildLeaderName
     self.TxtContributionNumber.text = self.GuildInfo.GuildContributeIn7Days
     self.TxtNoticeText.text = self.GuildInfo.GuildDeclaration
+    self.TxtID.text = string.format("%08d", self.CurGuild)
     --人数
-    self.TxtGuildNumber.text = CS.XTextManager.GetText("GuildPersonCountDes", self.GuildInfo.GuildMemberCount,self.GuildInfo.GuildMemberMaxCount)
+    self.TxtGuildNumber.text = CS.XTextManager.GetText("GuildPersonCountDes", self.GuildInfo.GuildMemberCount, self.GuildInfo.GuildMemberMaxCount)
     self:SetVistorCount()
     self:OnRefreshList()
 end
 
 function XUiGuildRankingList:GetRankName(rankLevel)
-    if not self.GuildInfo or not self.GuildInfo.DecodeRankNames then return "" end
+    if not self.GuildInfo or not self.GuildInfo.DecodeRankNames then
+        return ""
+    end
     local rankName = self.GuildInfo.DecodeRankNames[rankLevel]
     if rankName == nil or rankName == "" then
         local rankTemplate = XGuildConfig.GetGuildPositionById(rankLevel)
@@ -88,16 +111,16 @@ function XUiGuildRankingList:OnRefreshList()
     local data = XDataCenter.GuildManager.GetVistorMemberList(self.CurGuild) or {}
     self.ListData = {}
     if next(data) then
-        for _,v in pairs(data) do
+        for _, v in pairs(data) do
             table.insert(self.ListData, v)
         end
         self:SortMemberList()
         self.DynamicTable:SetDataSource(self.ListData)
         self.DynamicTable:ReloadDataASync()
     else
-        XDataCenter.GuildManager.GetVistorGuildMembers(self.CurGuild,function()
+        XDataCenter.GuildManager.GetVistorGuildMembers(self.CurGuild, function()
             data = XDataCenter.GuildManager.GetVistorMemberList(self.CurGuild) or {}
-            for _,v in pairs(data) do
+            for _, v in pairs(data) do
                 table.insert(self.ListData, v)
             end
             self:SortMemberList()
@@ -146,8 +169,7 @@ function XUiGuildRankingList:OnBtnGuildRankYoukuClick()
         return
     end
 
-
-    XDataCenter.GuildManager.GuildTouristRequest(self.CurGuild,function ()
+    XDataCenter.GuildManager.GuildTouristRequest(self.CurGuild, function()
         XLuaUiManager.Open("UiGuildVistor")
         self:Close()
     end)
@@ -165,7 +187,8 @@ function XUiGuildRankingList:OnBtnGuildRankShenqingClick()
         return
     end
 
-    XDataCenter.GuildManager.ApplyToJoinGuildRequest(guidId,function()
+    XDataCenter.GuildManager.ApplyToJoinGuildRequest(guidId, function()
+        self:Close()
         XUiManager.TipText("GuildApplyRequestSuccess")
     end)
 end
@@ -186,7 +209,9 @@ end
 
 function XUiGuildRankingList:OnMemberItemClick(index)
     local data = self.ListData[index]
-    if not data then return end
+    if not data then
+        return
+    end
 
     if data.Id ~= XPlayer.Id then
         XDataCenter.PersonalInfoManager.ReqShowInfoPanel(data.Id)

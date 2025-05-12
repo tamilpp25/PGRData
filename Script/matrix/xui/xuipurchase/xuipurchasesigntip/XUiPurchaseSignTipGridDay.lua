@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPurchaseSignTipGridDay = XClass(nil, "XUiPurchaseSignTipGridDay")
 
 function XUiPurchaseSignTipGridDay:Ctor(ui, rootUi)

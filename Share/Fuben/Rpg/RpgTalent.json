@@ -1,7 +1,7 @@
 [
     {
         "TalentId": 101,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 1,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -9,16 +9,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110441
+            110701
         ],
-        "Name": "Crimson Abyss - Blade Will - Core",
-        "Description": "The Core Passive [Blade Will] lasts for [infinite] time instead. The Blade Will only ends when the [Character leaves the field].",
+        "Name": "Lightning Blast",
+        "Description": "Enters the Core Passive state after pinging any Blue Orb.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3luxiyahexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankahexin1.png"
     },
     {
         "TalentId": 102,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 2,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -26,16 +26,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110119
+            110142
         ],
-        "Name": "Frederick",
-        "Description": "Gains 15% movement speed and 5% Extra DMG Bonus for 5s after every dodge. Can be stacked up to 3 times. Triggering this effect again will renew its duration. The next successful dodge will reduce the attacker's speed by 20% and Extra DMG Reduction by 15% for 4s. 8s cooldown.",
+        "Name": "Heisen",
+        "Description": "ATK +3%, Lightning DMG +7%. Attacks have a 25% chance to trigger Thunderstorm to Electrocute the enemy, reducing their Lightning Resistance by 8% for 5s. Attacking Electrocuted enemies has a 20% chance to deal 250% Lightning DMG.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3A2A1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2NuoanA1.png"
     },
     {
         "TalentId": 103,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 2,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -43,16 +43,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110106
+            110117
         ],
-        "Name": "Patton",
-        "Description": "CRIT Rate increases by 5%. Physical DMG increases by 5%. Non-CRIT Physical DMG gains 2% CRIT Rate, up to 20%. The effect will reset upon CRIT DMG. Upon CRIT DMG, Physical DMG will increase by 5%. The effect lasts 3s and can be stacked up to 3 times. Triggering this effect again will renew its duration.",
+        "Name": "Darwin",
+        "Description": "Extra DMG Bonus increases by 3% for 4s for each Orb pinged, stacking up to 5 times. When Signal Orbs are pinged, their colors will be marked. Once all 3 colors have been marked, unleashes a shockwave that deals 600% Physical DMG and resets the marks.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2QuS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/DlcFightXiaoqiu.png"
     },
     {
         "TalentId": 104,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 2,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -60,16 +60,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110117
+            110128
         ],
-        "Name": "Darwin",
-        "Description": "Every 1 orb pinged makes Extra DMG Bonus increase by 3% for 4s, stacking up to 5 times. Mark a color after pinging orbs of this particular color. When all 3 colors have been marked, unleash a Shockwave dealing 600% Physical DMG and reset the marks.",
+        "Name": "Condelina",
+        "Description": "Basic Attacks deal 15% more damage, and have a 25% chance to go berserk, increasing the Extra DMG Bonus of Basic Attack by 15% and CRIT Rate by 5% for 5s.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/luxiyapugong1.png"
     },
     {
         "TalentId": 105,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 3,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -77,16 +77,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110471
+            110702
         ],
-        "Name": "Final Radiance",
-        "Description": "Upon receiving [lethal damage], becomes immune to the damage and [restore all HP]. After that, loses 10% max HP every second and gains 10% DMG Bonus. Will not lose HP when leaving the field.",
+        "Name": "Arbalest",
+        "Description": "Each time the Core Passive status is triggered, only one attack can be launched but deals +200% DMG.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaA1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankaS1.png"
     },
     {
         "TalentId": 106,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 3,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -94,16 +94,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110472
+            110703
         ],
-        "Name": "Life Drain",
-        "Description": "Restores HP equal to 1% of DMG dealt.",
+        "Name": "Electro Charge",
+        "Description": "After entering battle, the characters no longer get Red Orbs. Red Orbs are replaced by an equal number of Blue Orbs.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankalan1.png"
     },
     {
         "TalentId": 107,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 4,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -111,16 +111,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110442
+            110704
         ],
-        "Name": "Crimson Abyss - Blade Will - Overclock 1",
-        "Description": "Swordwave Orbs can trigger QTEs.",
+        "Name": "Volley",
+        "Description": "The effect of \"Arbalest\" is enhanced: Attacks made in Sniping Form will shoot 2 additional arrows. The damage of each arrow is calculated individually.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3luxiyahexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3DubianExlanqiu1.png"
     },
     {
         "TalentId": 108,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 4,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -128,16 +128,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110443
+            110705
         ],
-        "Name": "Crimson Abyss - Blade Will - Overclock 2",
-        "Description": "Automatically recovers one Swordwave Orb every [2]s.",
+        "Name": "Sudden Rain",
+        "Description": "Recovery speed of Signal Orbs by Basic Attack +100%.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3luxiyahexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankaSS1.png"
     },
     {
         "TalentId": 109,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 5,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -145,16 +145,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110444
+            110706
         ],
-        "Name": "Crimson Abyss - Blade Will - Evolve",
-        "Description": "When Swordwave Orbs are pinged, 2 extra swordwaves will be cast on the sides that deal the same DMG as the original swordwave does.",
+        "Name": "Annihilation",
+        "Description": "When Blue Orbs are pinged: Pulls in all enemies within a large area to the front of the character and summons a lightning strike that damages them for 20% of max HP, or 10% of current HP if the target is a Boss. 30s cooldown.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3luxiyahexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankalan1.png"
     },
     {
         "TalentId": 110,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 6,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -164,14 +164,14 @@
         "EventIds": [
             110475
         ],
-        "Name": "Open Fire - Attacker",
-        "Description": "Deals [10% more DMG] for [every] available Signal Orb.",
+        "Name": "Signal Amplifier",
+        "Description": "Attack +5% permanently for every Signal Orb pinged, up to +100%. Extra DMG Reduction +50% permanently.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankaA1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2QuS1.png"
     },
     {
         "TalentId": 111,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 1,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -179,16 +179,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110445
+            110707
         ],
-        "Name": "Crimson Abyss - Entrance Skill",
-        "Description": "Enters [Matrix] without triggering its cooldown upon being deployed on the field.",
+        "Name": "Lightning Rebuke",
+        "Description": "Casts a Signature Move of even larger range at the starting location and leaves behind a Lightning Field that lasts 7s.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3luxiyaS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankadazhao1.png"
     },
     {
         "TalentId": 112,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 2,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -196,16 +196,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110119
+            110142
         ],
-        "Name": "Frederick",
-        "Description": "Gains 15% movement speed and 5% Extra DMG Bonus for 5s after every dodge. Can be stacked up to 3 times. Triggering this effect again will renew its duration. The next successful dodge will reduce the attacker's speed by 20% and Extra DMG Reduction by 15% for 4s. 8s cooldown.",
+        "Name": "Heisen",
+        "Description": "ATK +3%, Lightning DMG +7%. Attacks have a 25% chance to trigger Thunderstorm to Electrocute the enemy, reducing their Lightning Resistance by 8% for 5s. Attacking Electrocuted enemies has a 20% chance to deal 250% Lightning DMG.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3A2A1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2NuoanA1.png"
     },
     {
         "TalentId": 113,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 2,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -213,16 +213,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110106
+            110117
         ],
-        "Name": "Patton",
-        "Description": "CRIT Rate increases by 5%. Physical DMG increases by 5%. Non-CRIT Physical DMG gains 2% CRIT Rate, up to 20%. The effect will reset upon CRIT DMG. Upon CRIT DMG, Physical DMG will increase by 5%. The effect lasts 3s and can be stacked up to 3 times. Triggering this effect again will renew its duration.",
+        "Name": "Darwin",
+        "Description": "Extra DMG Bonus increases by 3% for 4s for each Orb pinged, stacking up to 5 times. When Signal Orbs are pinged, their colors will be marked. Once all 3 colors have been marked, unleashes a shockwave that deals 600% Physical DMG and resets the marks.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2QuS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/DlcFightXiaoqiu.png"
     },
     {
         "TalentId": 114,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 2,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -230,16 +230,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110117
+            110128
         ],
-        "Name": "Darwin",
-        "Description": "Every 1 orb pinged makes Extra DMG Bonus increase by 3% for 4s, stacking up to 5 times. Mark a color after pinging orbs of this particular color. When all 3 colors have been marked, unleash a Shockwave dealing 600% Physical DMG and reset the marks.",
+        "Name": "Condelina",
+        "Description": "Basic Attacks deal 15% more damage, and have a 25% chance to go berserk, increasing the Extra DMG Bonus of Basic Attack by 15% and CRIT Rate by 5% for 5s.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/luxiyapugong1.png"
     },
     {
         "TalentId": 115,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 3,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -247,16 +247,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110471
+            110708
         ],
-        "Name": "Final Radiance",
-        "Description": "Upon receiving lethal damage, becomes immune to the damage and restore all HP. After that, loses 10% max HP every second and gains 10% DMG Bonus, during which time becomes immune to damage and healing.",
+        "Name": "Lightning Control",
+        "Description": "Within the Lightning Field, allies gain +100% Dodge Recovery and 30% Extra DMG Reduction.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaA1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuchuShanbifanji.png"
     },
     {
         "TalentId": 116,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 3,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -264,16 +264,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110472
+            110473
         ],
-        "Name": "Life Drain",
-        "Description": "Restores HP equal to 1% of DMG dealt.",
+        "Name": "Attack Order",
+        "Description": "All members get +50% Extra DMG Bonus for 10s when switched into battle. (Effects of the same name can be triggered once only and cannot be stacked.)",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2PulaoSS1.png"
     },
     {
         "TalentId": 117,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 4,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -281,16 +281,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110473
+            110709
         ],
-        "Name": "Signal Echoes",
-        "Description": "All team members randomly gain 3 Signal Orbs of the same color upon entering the field. (This effect can be triggered once only and cannot be stacked.)",
+        "Name": "Thunder Fury",
+        "Description": "Allies gain Super Armor and +20% Extra DMG Bonus within the Lightning Field.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3luxiyaSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingChuliqiangji.png"
     },
     {
         "TalentId": 118,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 4,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -300,14 +300,14 @@
         "EventIds": [
             110474
         ],
-        "Name": "Overload",
-        "Description": "All team members gain 50% DMG Bonus for 10s upon entering the field. (This effect can be triggered once only and cannot be stacked.)",
+        "Name": "Signal Charge",
+        "Description": "All members gain 3 Signal Orbs of a random color when switched into battle. (Effects of the same name can be triggered once only and cannot be stacked.)",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3luxiyaA1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2NuoanSS1.png"
     },
     {
         "TalentId": 119,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 5,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -315,16 +315,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110446
+            110710
         ],
-        "Name": "Crimson Abyss - Departure Skill",
-        "Description": "Upon leaving the field, summons Unknown Construct \u03b1 to cast Swordwave(s). [Each summon will increase the number of Swordwaves cast.]",
+        "Name": "Echo",
+        "Description": "Lightning Rebuke is also triggered when leaving battle: Casts a Signature Move of even larger range at the leaving location and leaves behind a Lightning Field that lasts 7s.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3luxiyaSSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankadazhao1.png"
     },
     {
         "TalentId": 120,
-        "CharacterId": 1021003,
+        "CharacterId": 1041003,
         "LayerId": 6,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -334,560 +334,50 @@
         "EventIds": [
             110475
         ],
-        "Name": "Open Fire - Attacker",
-        "Description": "Deals [10% more DMG] for [every] available Signal Orb.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankaA1.png"
-    },
-    {
-        "TalentId": 201,
-        "CharacterId": 1081003,
-        "LayerId": 1,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110421
-        ],
-        "Name": "Cosmos Shock - Core",
-        "Description": "Upon triggering the Core Passive [Cosmos Shock], damaging enemies will also mark them. When marked enemies are damaged by 3-Ping skills, their marks will be consumed to spawn a shade that casts the same skill.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3dubianhexin1.png"
-    },
-    {
-        "TalentId": 202,
-        "CharacterId": 1081003,
-        "LayerId": 2,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110126
-        ],
-        "Name": "Bathlon",
-        "Description": "ATK increases by 3%. Dark DMG increases by 7%. Attacks have a 20% chance to summon a Dark Area for 5s. Attacks on targets within the area have a 20% chance to grant 1 Signal Orb and have a 12-second cooldown. Meanwhile, reduces Corrupted targets' Dark DMG Resistance by 8%.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaSS1.png"
-    },
-    {
-        "TalentId": 203,
-        "CharacterId": 1081003,
-        "LayerId": 2,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110117
-        ],
-        "Name": "Darwin",
-        "Description": "Every 1 orb pinged makes Extra DMG Bonus increase by 3% for 4s, stacking up to 5 times. Mark a color after pinging orbs of this particular color. When all 3 colors have been marked, unleash a Shockwave dealing 600% Physical DMG and reset the marks.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SS1.png"
-    },
-    {
-        "TalentId": 204,
-        "CharacterId": 1081003,
-        "LayerId": 2,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110112
-        ],
-        "Name": "Kuriko",
-        "Description": "Pings grant 20% more Energy. The Signature Move consumes 20% less Energy. Upon casting the Signature Move, increases Extra DMG Bonus by 15% for 10s. Meanwhile, gains Super Armor and 20% Extra DMG Reduction for 5s. Triggering this effect again will renew its duration.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3A2dazhao1.png"
-    },
-    {
-        "TalentId": 205,
-        "CharacterId": 1081003,
-        "LayerId": 3,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110471
-        ],
-        "Name": "Final Radiance",
-        "Description": "Upon receiving lethal damage, becomes immune to the damage and restore all HP. After that, loses 10% max HP every second and gains 10% DMG Bonus, during which time becomes immune to damage and healing.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaA1.png"
-    },
-    {
-        "TalentId": 206,
-        "CharacterId": 1081003,
-        "LayerId": 3,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110472
-        ],
-        "Name": "Life Drain",
-        "Description": "Restores HP equal to 1% of DMG dealt.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaS1.png"
-    },
-    {
-        "TalentId": 207,
-        "CharacterId": 1081003,
-        "LayerId": 4,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110422
-        ],
-        "Name": "Cosmos Shock - Overclock 1",
-        "Description": "Gains two Red Orbs upon casting any 3-Ping.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3dubianhexin1.png"
-    },
-    {
-        "TalentId": 208,
-        "CharacterId": 1081003,
-        "LayerId": 4,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110423
-        ],
-        "Name": "Cosmos Shock - Overclock 2",
-        "Description": "Upon casting the Core Passive [Cosmos Shock], rearranges all Signal Orbs and gains one Red Orb",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3dubianhexin1.png"
-    },
-    {
-        "TalentId": 209,
-        "CharacterId": 1081003,
-        "LayerId": 5,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110424
-        ],
-        "Name": "Cosmos Shock - Evolve",
-        "Description": "The Core Passive [Cosmos Shock] will blind the enemies upon dealing damage to them, making their attacks have a 50% chance to miss and making them receive 20% more Dark DMG for 5s. Cooldown: 10s.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3dubianhexin1.png"
-    },
-    {
-        "TalentId": 210,
-        "CharacterId": 1081003,
-        "LayerId": 6,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110475
-        ],
-        "Name": "Open Fire - Attacker",
-        "Description": "Deals 10% more DMG for every available Signal Orb.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankaA1.png"
-    },
-    {
-        "TalentId": 211,
-        "CharacterId": 1081003,
-        "LayerId": 1,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110425
-        ],
-        "Name": "Astral - Entrance Skill",
-        "Description": "Every time upon entering the field, summons one Construct Soldier to assist your team, up to 3 Construct Soldiers in total.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3liSSS1.png"
-    },
-    {
-        "TalentId": 212,
-        "CharacterId": 1081003,
-        "LayerId": 2,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110126
-        ],
-        "Name": "Bathlon",
-        "Description": "ATK increases by 3%. Dark DMG increases by 7%. Attacks have a 20% chance to summon a Dark Area for 5s. Attacks on targets within the area have a 20% chance to grant 1 Signal Orb and have a 12-second cooldown. Meanwhile, reduces Corrupted targets' Dark DMG Resistance by 8%.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaSS1.png"
-    },
-    {
-        "TalentId": 213,
-        "CharacterId": 1081003,
-        "LayerId": 2,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110117
-        ],
-        "Name": "Darwin",
-        "Description": "Every 1 orb pinged makes Extra DMG Bonus increase by 3% for 4s, stacking up to 5 times. Mark a color after pinging orbs of this particular color. When all 3 colors have been marked, unleash a Shockwave dealing 600% Physical DMG and reset the marks.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SS1.png"
-    },
-    {
-        "TalentId": 214,
-        "CharacterId": 1081003,
-        "LayerId": 2,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110112
-        ],
-        "Name": "Kuriko",
-        "Description": "Pings grant 20% more Energy. The Signature Move consumes 20% less Energy. Upon casting the Signature Move, increases Extra DMG Bonus by 15% for 10s. Meanwhile, gains Super Armor and 20% Extra DMG Reduction for 5s. Triggering this effect again will renew its duration.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3A2dazhao1.png"
-    },
-    {
-        "TalentId": 215,
-        "CharacterId": 1081003,
-        "LayerId": 3,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110471
-        ],
-        "Name": "Final Radiance",
-        "Description": "Upon receiving lethal damage, becomes immune to the damage and restore all HP. After that, loses 10% max HP every second and gains 10% DMG Bonus, during which time becomes immune to damage and healing.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaA1.png"
-    },
-    {
-        "TalentId": 216,
-        "CharacterId": 1081003,
-        "LayerId": 3,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110472
-        ],
-        "Name": "Life Drain",
-        "Description": "Restores HP equal to 1% of DMG dealt.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaS1.png"
-    },
-    {
-        "TalentId": 217,
-        "CharacterId": 1081003,
-        "LayerId": 4,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110473
-        ],
-        "Name": "Signal Echoes",
-        "Description": "All team members randomly gain 3 Signal Orbs of the same color upon entering the field. (This effect can be triggered once only and cannot be stacked.)",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3luxiyaSS1.png"
-    },
-    {
-        "TalentId": 218,
-        "CharacterId": 1081003,
-        "LayerId": 4,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110474
-        ],
-        "Name": "Overload",
-        "Description": "All team members gain 50% DMG Bonus for 10s upon entering the field. (This effect can be triggered once only and cannot be stacked.)",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3luxiyaA1.png"
-    },
-    {
-        "TalentId": 219,
-        "CharacterId": 1081003,
-        "LayerId": 5,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110426
-        ],
-        "Name": "Astral - Departure Skill",
-        "Description": "Upon leaving the field, summons a shade to cast the Signature - Supernova Burst.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3dubiandazhao1.png"
-    },
-    {
-        "TalentId": 220,
-        "CharacterId": 1081003,
-        "LayerId": 6,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110475
-        ],
-        "Name": "Open Fire - Attacker",
-        "Description": "Deals 10% more DMG for every available Signal Orb.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3biankaA1.png"
-    },
-    {
-        "TalentId": 301,
-        "CharacterId": 1051001,
-        "LayerId": 1,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110431
-        ],
-        "Name": "EX - Slash Storm - Core",
-        "Description": "Upon casting the Core Passive [EX - Slash Storm], Nanami will automatically cast the Core Passive Skill again. The effect lasts up to 10s. When the skill is active, Nanami will slow down by 70%. Dodging or casting the Signature Move will interrupt the skill.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2yongyechaohexin1.png"
-    },
-    {
-        "TalentId": 302,
-        "CharacterId": 1051001,
-        "LayerId": 2,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110106
-        ],
-        "Name": "Patton",
-        "Description": "CRIT Rate increases by 5%. Physical DMG increases by 5%. Non-CRIT Physical DMG gains 2% CRIT Rate, up to 20%. The effect will reset upon CRIT DMG. Upon CRIT DMG, Physical DMG will increase by 5%. The effect lasts 3s and can be stacked up to 3 times. Triggering this effect again will renew its duration.",
+        "Name": "Signal Amplifier",
+        "Description": "Attack +5% permanently for every Signal Orb pinged, up to +100%. Extra DMG Reduction +50% permanently.",
         "SpecialAbility": 200,
         "Icon": "Assets/Product/Texture/Image/IconSkill/R2QuS1.png"
     },
     {
-        "TalentId": 303,
-        "CharacterId": 1051001,
-        "LayerId": 2,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110111
-        ],
-        "Name": "Hanna",
-        "Description": "Extra DMG Bonus of 3-Pings increases by 25%. For every 30s, enters Matrix upon a 3-Ping and gains 1 random Signal Orb.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SSS1.png"
-    },
-    {
-        "TalentId": 304,
-        "CharacterId": 1051001,
-        "LayerId": 2,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110140
-        ],
-        "Name": "Catherine",
-        "Description": "QTE and 3-Ping skills decrease target's Physical DEF by 20% for 8s, 10s Cooldown. When damaged, gain a Shield with HP equivalent to 20% of own DEF and increase own Physical DMG by 15% for 5s, 8s Cooldown.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2ailaSS1.png"
-    },
-    {
-        "TalentId": 305,
-        "CharacterId": 1051001,
-        "LayerId": 3,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110481
-        ],
-        "Name": "Phase Shift",
-        "Description": "Upon taking damage from an enemy, becomes immune to damage from the enemy for 2s. Cooldown: 5s.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweiSS1.png"
-    },
-    {
-        "TalentId": 306,
-        "CharacterId": 1051001,
-        "LayerId": 3,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110482
-        ],
-        "Name": "Barrier",
-        "Description": "Every 10s, gains a Shield equal to 20% of max HP if doesn't have one.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweihexin1.png"
-    },
-    {
-        "TalentId": 307,
-        "CharacterId": 1051001,
-        "LayerId": 4,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110432
-        ],
-        "Name": "EX - Slash Storm - Overclock 1",
-        "Description": "Upon casting the Core Passive [EX - Slash Storm], gains 80% Extra DMG Reduction.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2yongyechaohexin1.png"
-    },
-    {
-        "TalentId": 308,
-        "CharacterId": 1051001,
-        "LayerId": 4,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110433
-        ],
-        "Name": "EX - Slash Storm - Overclock 2",
-        "Description": "When casting the Core Passive [EX - Slash Storm], gains 10% Extra DMG Bonus every second, up to 100%. Removes the Extra DMG Bonus at the end of the skill duration.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2yongyechaohexin1.png"
-    },
-    {
-        "TalentId": 309,
-        "CharacterId": 1051001,
-        "LayerId": 5,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110434
-        ],
-        "Name": "EX - Slash Storm - Evolve",
-        "Description": "When casting the Core Passive [EX - Slash Storm], summons one Tornado every 2s. Each Tornado deals Physical DMG equal to 100% ATK every second.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2yongyechaohexin1.png"
-    },
-    {
-        "TalentId": 310,
-        "CharacterId": 1051001,
-        "LayerId": 6,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110485
-        ],
-        "Name": "Open Fire - Tank",
-        "Description": "Deals 2% more DMG for every 1% Dodge value.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3ShenweiS1.png"
-    },
-    {
-        "TalentId": 311,
-        "CharacterId": 1051001,
+        "TalentId": 201,
+        "CharacterId": 1531004,
         "LayerId": 1,
-        "TalentType": 2,
+        "TalentType": 1,
         "ConsumeCount": 1,
         "AttribPoolGroupId": null,
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110435
+            110711
         ],
-        "Name": "Storm - Entrance Skill",
-        "Description": "Upon entering the field, summons Polar Bear - Martin to assist, freezing all enemies on the field and deals damage equal to 7% max HP.",
+        "Name": "Starry Sky",
+        "Description": "The final DMG caused by Shooting Star Orb +50%.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2yongyechaoSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4Sailinnapugong1.png"
     },
     {
-        "TalentId": 312,
-        "CharacterId": 1051001,
+        "TalentId": 202,
+        "CharacterId": 1531004,
         "LayerId": 2,
-        "TalentType": 2,
+        "TalentType": 1,
         "ConsumeCount": 1,
         "AttribPoolGroupId": null,
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110111
+            110183
         ],
-        "Name": "Hanna",
-        "Description": "Extra DMG Bonus of 3-Pings increases by 25%. For every 30s, enters Matrix upon a 3-Ping and gains 1 random Signal Orb.",
+        "Name": "Seraphine",
+        "Description": "ATK +5%, Dark DMG +5%. Base DMG of Reprise +100%. Ally units healed by Capriccio gain +10% Dark DMG for 8s.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4SailinnaS1.png"
     },
     {
-        "TalentId": 313,
-        "CharacterId": 1051001,
+        "TalentId": 203,
+        "CharacterId": 1531004,
         "LayerId": 2,
-        "TalentType": 2,
+        "TalentType": 1,
         "ConsumeCount": 1,
         "AttribPoolGroupId": null,
         "SkillIds": [],
@@ -898,11 +388,147 @@
         "Name": "Kuriko",
         "Description": "Pings grant 20% more Energy. The Signature Move consumes 20% less Energy. Upon casting the Signature Move, increases Extra DMG Bonus by 15% for 10s. Meanwhile, gains Super Armor and 20% Extra DMG Reduction for 5s. Triggering this effect again will renew its duration.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3A2dazhao1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool16.png"
     },
     {
-        "TalentId": 314,
-        "CharacterId": 1051001,
+        "TalentId": 204,
+        "CharacterId": 1531004,
+        "LayerId": 2,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110141
+        ],
+        "Name": "Einsteina",
+        "Description": "QTE and 3-Pings decrease the related Stats Resistance of the target by 15% for 8s, 10s Cooldown. When attacked, unfolds stats aura, gaining Stats Resistance and increasing the Stats DMG dealt by 15% for 5s, 8s Cooldown.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool15.png"
+    },
+    {
+        "TalentId": 205,
+        "CharacterId": 1531004,
+        "LayerId": 3,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110712
+        ],
+        "Name": "Nebula",
+        "Description": "Hitting an enemy with Shooting Star Orb will increase the damage of Reprise: Twin Stars during Signature by 50%.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4SailinnaA1.png"
+    },
+    {
+        "TalentId": 206,
+        "CharacterId": 1531004,
+        "LayerId": 3,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110713
+        ],
+        "Name": "Realm of Capriccio",
+        "Description": "While Signature is active, the Extra DMG Reduction within Realm of Capriccio increases to 80% and will last 5s more after the realm disappears.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4luxiyaS1.png"
+    },
+    {
+        "TalentId": 207,
+        "CharacterId": 1531004,
+        "LayerId": 4,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110714
+        ],
+        "Name": "Charged Shooting Star",
+        "Description": "Gains bonus 4 Signature Energy when pinging Shooting Star Orbs.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4luxiyaSS1.png"
+    },
+    {
+        "TalentId": 208,
+        "CharacterId": 1531004,
+        "LayerId": 4,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110715
+        ],
+        "Name": "Restructured Shooting Star",
+        "Description": "For every Shooting Star Orb pinged, gains a random set of 3-Ping Orbs when casting Reprise: Twin Stars after all Shooting Star Orbs are consumed.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4luxiyahexin1.png"
+    },
+    {
+        "TalentId": 209,
+        "CharacterId": 1531004,
+        "LayerId": 5,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110716
+        ],
+        "Name": "Cosmos Suite",
+        "Description": "Each time Reprise: Twin Stars is cast, the final damage of Signature +30% permanently, up to +150%.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4Sailinnadazhao1.png"
+    },
+    {
+        "TalentId": 210,
+        "CharacterId": 1531004,
+        "LayerId": 6,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110495
+        ],
+        "Name": "Health Boost",
+        "Description": "For every 1% HP left, ATK +1%, up to +100%. Extra DMG Reduction +50% permanently.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipFuzhuKuaisuxiufu.png"
+    },
+    {
+        "TalentId": 211,
+        "CharacterId": 1531004,
+        "LayerId": 1,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110717
+        ],
+        "Name": "Phantasia",
+        "Description": "Within 8s after leaving battle: When an ally character casts a 3-Ping, Selena will also cast a 3-Ping Combo Strike of the same color. This effect has a 2s cooldown.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4Sailinnahexin1.png"
+    },
+    {
+        "TalentId": 212,
+        "CharacterId": 1531004,
         "LayerId": 2,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -910,16 +536,50 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110140
+            110183
         ],
-        "Name": "Catherine",
-        "Description": "QTE and 3-Ping skills decrease target's Physical DEF by 20% for 8s, 10s Cooldown. When damaged, gain a Shield with HP equivalent to 20% of own DEF and increase own Physical DMG by 15% for 5s, 8s Cooldown.",
+        "Name": "Seraphine",
+        "Description": "ATK +5%, Dark DMG +5%. Base DMG of Reprise +100%. Ally units healed by Capriccio gain +10% Dark DMG for 8s.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2ailaSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4SailinnaS1.png"
     },
     {
-        "TalentId": 315,
-        "CharacterId": 1051001,
+        "TalentId": 213,
+        "CharacterId": 1531004,
+        "LayerId": 2,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110126
+        ],
+        "Name": "Bathlon",
+        "Description": "ATK increases by 3%. Dark DMG increases by 7%. Attacks have a 20% chance to summon a Dark Area for 5s. Attacks on targets within the area have a 20% chance to grant 1 Signal Orb and have a 12s cooldown. Meanwhile, reduces Corrupted targets' Dark DMG Resistance by 8%.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4SailinnaSS1.png"
+    },
+    {
+        "TalentId": 214,
+        "CharacterId": 1531004,
+        "LayerId": 2,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110141
+        ],
+        "Name": "Einsteina",
+        "Description": "QTE and 3-Pings decrease the related Stats Resistance of the target by 15% for 8s, 10s Cooldown. When attacked, unfolds stats aura, gaining Stats Resistance and increasing the Stats DMG dealt by 15% for 5s, 8s Cooldown.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool15.png"
+    },
+    {
+        "TalentId": 215,
+        "CharacterId": 1531004,
         "LayerId": 3,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -927,16 +587,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110481
+            110718
         ],
-        "Name": "Phase Shift",
-        "Description": "Upon taking damage from an enemy, becomes immune to damage from the enemy for 2s. Cooldown: 5s.",
+        "Name": "Immortal Song",
+        "Description": "After Capriccio leaves battle and a Combo Strike is triggered, the character currently in battle will be healed for 50% of Capriccio's ATK and get +30% Extra DMG Bonus for 3s.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweiSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool4.png"
     },
     {
-        "TalentId": 316,
-        "CharacterId": 1051001,
+        "TalentId": 216,
+        "CharacterId": 1531004,
         "LayerId": 3,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -944,16 +604,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110482
+            110494
         ],
-        "Name": "Barrier",
-        "Description": "Every 10s, gains a Shield equal to 20% of max HP if doesn't have one.",
+        "Name": "Coordination Order",
+        "Description": "When a member triggers a QTE, activates a QTE of another character. (Effects of the same name can be triggered once only and cannot be stacked.)",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweihexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/QTE1.png"
     },
     {
-        "TalentId": 317,
-        "CharacterId": 1051001,
+        "TalentId": 217,
+        "CharacterId": 1531004,
         "LayerId": 4,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -961,16 +621,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110483
+            110719
         ],
-        "Name": "Wartime Maintenance",
-        "Description": "Upon entering the field, all team members gain a Shield equal to 20% max HP and gain Super Armor during the duration of the Shield.",
+        "Name": "Encore",
+        "Description": "When ally character pings orbs, there is a 20% chance to refund the Signal Orbs consumed.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2kuluomuhexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4SailinnaSSS1.png"
     },
     {
-        "TalentId": 318,
-        "CharacterId": 1051001,
+        "TalentId": 218,
+        "CharacterId": 1531004,
         "LayerId": 4,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -980,14 +640,14 @@
         "EventIds": [
             110484
         ],
-        "Name": "Frame Recharge",
-        "Description": "Upon entering the field, all teammates gain 50 Energy.",
+        "Name": "Signature Charge",
+        "Description": "All members get 50 Signature Energy when switched into battle. (Effects of the same name can be triggered once only and cannot be stacked.)",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2kuluomuSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Sufeiyadazhao1.png"
     },
     {
-        "TalentId": 319,
-        "CharacterId": 1051001,
+        "TalentId": 219,
+        "CharacterId": 1531004,
         "LayerId": 5,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -995,16 +655,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110436
+            110720
         ],
-        "Name": "Storm - Departure Skill",
-        "Description": "Upon leaving the field, summons one Tornado that deals damage over time and reduces the enemy's Physical Resistance. The effect lasts 7s.",
+        "Name": "Famed Concertmaster",
+        "Description": "The effects of \"Phantasia\"\" and \"\"Immortal Song\" are enhanced: Within 15s after Selena leaves battle, when an ally character makes a 3-Ping, Selena will also cast a 3-Ping Combo Strike of the same color. This effect has an 1s cooldown. When a Combo Strike is triggered, the Extra DMG Bonus for the character currently in battle increases to +60%.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2yongyechaoSSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4Sailinnahexin1.png"
     },
     {
-        "TalentId": 320,
-        "CharacterId": 1051001,
+        "TalentId": 220,
+        "CharacterId": 1531004,
         "LayerId": 6,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1012,16 +672,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110485
+            110495
         ],
-        "Name": "Open Fire - Tank",
-        "Description": "Deals 2% more DMG for every 1% Dodge value.",
+        "Name": "Health Boost",
+        "Description": "For every 1% HP left, ATK +1%, up to +100%. Extra DMG Reduction +50% permanently.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3ShenweiS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipFuzhuKuaisuxiufu.png"
     },
     {
-        "TalentId": 401,
-        "CharacterId": 1061003,
+        "TalentId": 301,
+        "CharacterId": 1231002,
         "LayerId": 1,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1029,16 +689,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110451
+            110721
         ],
-        "Name": "Fighting Will - Core",
-        "Description": "Upon casting a 3-Ping, additionally clears up to 3 Signal Orbs of the same color among the orbs owned. Each Signal Orb cleared will increase the damage of this 3-Ping by 40% and grant 5 more Energy.",
+        "Name": "Strings On Me",
+        "Description": "Any Ping will immediately grant full Jete Points and restore Energy equal to that of a 3-Ping.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3Shenweihexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bangbinatahexin1.png"
     },
     {
-        "TalentId": 402,
-        "CharacterId": 1061003,
+        "TalentId": 302,
+        "CharacterId": 1231002,
         "LayerId": 2,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1046,33 +706,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110126
+            110182
         ],
-        "Name": "Bathlon",
-        "Description": "ATK increases by 3%. Dark DMG increases by 7%. Attacks have a 20% chance to summon a Dark Area for 5s. Attacks on targets within the area have a 20% chance to grant 1 Signal Orb and have a 12-second cooldown. Meanwhile, reduces Corrupted targets' Dark DMG Resistance by 8%.",
+        "Name": "Chen Jiyuan",
+        "Description": "ATK +3%, Ice DMG +7%. Attacks have a 30% chance to trigger Frost, reducing the enemy's Ice Resistance by 8% and Movement Speed by 20% for 5s. Attacking enemies inflicted with Frost has a 20% chance to deal 420% Ice DMG.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2ChangyuSS1.png"
     },
     {
-        "TalentId": 403,
-        "CharacterId": 1061003,
-        "LayerId": 2,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110117
-        ],
-        "Name": "Darwin",
-        "Description": "Every 1 orb pinged makes Extra DMG Bonus increase by 3% for 4s, stacking up to 5 times. Mark a color after pinging orbs of this particular color. When all 3 colors have been marked, unleash a Shockwave dealing 600% Physical DMG and reset the marks.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SS1.png"
-    },
-    {
-        "TalentId": 404,
-        "CharacterId": 1061003,
+        "TalentId": 303,
+        "CharacterId": 1231002,
         "LayerId": 2,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1083,13 +726,30 @@
             110111
         ],
         "Name": "Hanna",
-        "Description": "Extra DMG Bonus of 3-Pings increase by 25%. For every 30s, enters Matrix upon a 3-Ping and gains 1 random Signal Orb.",
+        "Description": "Extra DMG Bonus of 3-Pings increases by 25%. For every 30s, enters Matrix upon a 3-Ping and gains 1 random Signal Orb.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool19.png"
     },
     {
-        "TalentId": 405,
-        "CharacterId": 1061003,
+        "TalentId": 304,
+        "CharacterId": 1231002,
+        "LayerId": 2,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110117
+        ],
+        "Name": "Darwin",
+        "Description": "Extra DMG Bonus increases by 3% for 4s for each Orb pinged, stacking up to 5 times. When Signal Orbs are pinged, their colors will be marked. Once all 3 colors have been marked, unleashes a shockwave that deals 600% Physical DMG and resets the marks.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/DlcFightXiaoqiu.png"
+    },
+    {
+        "TalentId": 305,
+        "CharacterId": 1231002,
         "LayerId": 3,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1097,16 +757,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110481
+            110722
         ],
-        "Name": "Phase Shift",
-        "Description": "Upon taking damage from an enemy, becomes immune to damage from the enemy for 2s. Cooldown: 5s.",
+        "Name": "Memory Pact",
+        "Description": "Permanently gains +25% Extra DMG Bonus each time a Signal Orb color is forgotten, up to 225%.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweiSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2ailaS1.png"
     },
     {
-        "TalentId": 406,
-        "CharacterId": 1061003,
+        "TalentId": 306,
+        "CharacterId": 1231002,
         "LayerId": 3,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1114,16 +774,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110482
+            110723
         ],
-        "Name": "Barrier",
-        "Description": "Every 10s, gains a Shield equal to 20% of max HP if doesn't have one.",
+        "Name": "Puppet's Dance",
+        "Description": "Recovers 20% max HP each time upon entering Matrix.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweihexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BangbinataA1.png"
     },
     {
-        "TalentId": 407,
-        "CharacterId": 1061003,
+        "TalentId": 307,
+        "CharacterId": 1231002,
         "LayerId": 4,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1131,16 +791,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110452
+            110724
         ],
-        "Name": "Fighting Will - Overclock 1",
-        "Description": "Gains 100 Energy every time upon entering the field.",
+        "Name": "Forgotten Pact",
+        "Description": "Gains a set of random Signal Orbs each time a color of Signal Orb is forgotten.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3Shenweihexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Luolanhexin1.png"
     },
     {
-        "TalentId": 408,
-        "CharacterId": 1061003,
+        "TalentId": 308,
+        "CharacterId": 1231002,
         "LayerId": 4,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1148,16 +808,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110453
+            110725
         ],
-        "Name": "Fighting Will - Overclock 2",
-        "Description": "When in the Dark Form, loses 4 Energy instead of 8 Energy per second.",
+        "Name": "Puppet Theater",
+        "Description": "Enters Matrix after casting Signature Move.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3Shenweihexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bangbinatadazhao1.png"
     },
     {
-        "TalentId": 409,
-        "CharacterId": 1061003,
+        "TalentId": 309,
+        "CharacterId": 1231002,
         "LayerId": 5,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1165,16 +825,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110454
+            110726
         ],
-        "Name": "Fighting Will - Evolve",
-        "Description": "When there are less than 6 Signal Orbs, gains random Signal Orbs to make up the number.",
+        "Name": "Law of Sequence",
+        "Description": "Successfully dodging an enemy attack while Core Passive is active will immediately activate Matrix and reset its cooldown.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3Shenweihexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BangbinataSSS1.png"
     },
     {
-        "TalentId": 410,
-        "CharacterId": 1061003,
+        "TalentId": 310,
+        "CharacterId": 1231002,
         "LayerId": 6,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1182,16 +842,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110485
+            110475
         ],
-        "Name": "Open Fire - Tank",
-        "Description": "Deals 2% more DMG for every 1% Dodge value.",
+        "Name": "Signal Amplifier",
+        "Description": "Attack +5% permanently for every Signal Orb pinged, up to +100%. Extra DMG Reduction +50% permanently.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3ShenweiS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2QuS1.png"
     },
     {
-        "TalentId": 411,
-        "CharacterId": 1061003,
+        "TalentId": 311,
+        "CharacterId": 1231002,
         "LayerId": 1,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1199,33 +859,356 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110455
+            110727
         ],
-        "Name": "Tenebrion - Entrance Skill",
-        "Description": "Upon entering the field, casts a Shockwave, dealing 500% Dark DMG to all enemies and repel them. Casts it once every time upon entering the field, up to 5 times in total.",
+        "Name": "Folded Memory",
+        "Description": "When switched into battle, forgets a Signal Orb color to gain 60 Signature Energy and a large number of Signal Orbs.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BangbinataSS1.png"
+    },
+    {
+        "TalentId": 312,
+        "CharacterId": 1231002,
+        "LayerId": 2,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110182
+        ],
+        "Name": "Chen Jiyuan",
+        "Description": "ATK +3%, Ice DMG +7%. Attacks have a 30% chance to trigger Frost, reducing the enemy's Ice Resistance by 8% and Movement Speed by 20% for 5s. Attacking enemies inflicted with Frost has a 20% chance to deal 420% Ice DMG.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2ChangyuSS1.png"
+    },
+    {
+        "TalentId": 313,
+        "CharacterId": 1231002,
+        "LayerId": 2,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110111
+        ],
+        "Name": "Hanna",
+        "Description": "Extra DMG Bonus of 3-Pings increases by 25%. For every 30s, enters Matrix upon a 3-Ping and gains a random Signal Orb.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool19.png"
+    },
+    {
+        "TalentId": 314,
+        "CharacterId": 1231002,
+        "LayerId": 2,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110117
+        ],
+        "Name": "Darwin",
+        "Description": "Extra DMG Bonus increases by 3% for 4s for each Orb pinged, stacking up to 5 times. When Signal Orbs are pinged, their colors will be marked. Once all 3 colors have been marked, unleashes a shockwave that deals 600% Physical DMG and resets the marks.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/DlcFightXiaoqiu.png"
+    },
+    {
+        "TalentId": 315,
+        "CharacterId": 1231002,
+        "LayerId": 3,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110728
+        ],
+        "Name": "Stage Beats",
+        "Description": "Pinging Signal Orbs of the same color consecutively will grant +20% Extra DMG Bonus for 10s, up to 200%.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2biankaS1.png"
+    },
+    {
+        "TalentId": 316,
+        "CharacterId": 1231002,
+        "LayerId": 3,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110473
+        ],
+        "Name": "Attack Order",
+        "Description": "All members get +50% Extra DMG Bonus for 10s when switched into battle. (Effects of the same name can be triggered once only and cannot be stacked.)",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2PulaoSS1.png"
+    },
+    {
+        "TalentId": 317,
+        "CharacterId": 1231002,
+        "LayerId": 4,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110729
+        ],
+        "Name": "Frost Threads",
+        "Description": "The effect of \"Folded Memory\" is enhanced: When switched into battle, forgets Yellow and Blue Orbs but keeps Red Orbs.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bangbinatahong1.png"
+    },
+    {
+        "TalentId": 318,
+        "CharacterId": 1231002,
+        "LayerId": 4,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110474
+        ],
+        "Name": "Signal Charge",
+        "Description": "All members gain 3 Signal Orbs of a random color when switched into battle. (Effects of the same name can be triggered once only and cannot be stacked.)",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2NuoanSS1.png"
+    },
+    {
+        "TalentId": 319,
+        "CharacterId": 1231002,
+        "LayerId": 5,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110730
+        ],
+        "Name": "Transform Tracker",
+        "Description": "Within 4s after switched into battle, immediately gains the same number of Signal Orbs after pinging Signal Orbs.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2biankaSS1.png"
+    },
+    {
+        "TalentId": 320,
+        "CharacterId": 1231002,
+        "LayerId": 6,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110475
+        ],
+        "Name": "Signal Amplifier",
+        "Description": "Attack +5% permanently for every Signal Orb pinged, up to +100%. Extra DMG Reduction +50% permanently.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2QuS1.png"
+    },
+    {
+        "TalentId": 401,
+        "CharacterId": 1221002,
+        "LayerId": 1,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110731
+        ],
+        "Name": "21",
+        "Description": "For every 21 combos landed, gains 2% Extra DMG Bonus permanently, up to 200%.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2KamuA1.png"
+    },
+    {
+        "TalentId": 402,
+        "CharacterId": 1221002,
+        "LayerId": 2,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110126
+        ],
+        "Name": "Bathlon",
+        "Description": "ATK increases by 3%. Dark DMG increases by 7%. Attacks have a 20% chance to summon a Dark Area for 5s. Attacks on targets within the area have a 20% chance to grant 1 Signal Orb and have a 12s cooldown. Meanwhile, reduces Corrupted targets' Dark DMG Resistance by 8%.",
+        "SpecialAbility": 50,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4SailinnaSS1.png"
+    },
+    {
+        "TalentId": 403,
+        "CharacterId": 1221002,
+        "LayerId": 2,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110141
+        ],
+        "Name": "Einsteina",
+        "Description": "QTE and 3-Pings decrease the related Stats Resistance of the target by 15% for 8s, 10s Cooldown. When attacked, unfolds stats aura, gaining Stats Resistance and increasing the Stats DMG dealt by 15% for 5s, 8s Cooldown.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool15.png"
+    },
+    {
+        "TalentId": 404,
+        "CharacterId": 1221002,
+        "LayerId": 2,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110117
+        ],
+        "Name": "Darwin",
+        "Description": "Extra DMG Bonus increases by 3% for 4s for each orb pinged, stacking up to 5 times. When Signal Orbs are pinged, their colors will be marked. Once all 3 colors have been marked, unleashes a shockwave that deals 600% Physical DMG and resets the marks.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/DlcFightXiaoqiu.png"
+    },
+    {
+        "TalentId": 405,
+        "CharacterId": 1221002,
+        "LayerId": 3,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110732
+        ],
+        "Name": "Noctis",
+        "Description": "Summons an additional \"Noctis\" in battle that acts as the target for No. 21 and Buddy.",
         "SpecialAbility": 200,
         "Icon": "Assets/Product/Texture/Image/IconSkill/R3ShenweiSSS1.png"
     },
     {
-        "TalentId": 412,
-        "CharacterId": 1061003,
-        "LayerId": 2,
+        "TalentId": 406,
+        "CharacterId": 1221002,
+        "LayerId": 3,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110733
+        ],
+        "Name": "210",
+        "Description": "For every 210 combos landed, Vera will heal and enhance No. 21, immediately restoring 20% HP and grant +30% Dark DMG Bonus for 8s.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2KamuSSS1.png"
+    },
+    {
+        "TalentId": 407,
+        "CharacterId": 1221002,
+        "LayerId": 4,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110734
+        ],
+        "Name": "42",
+        "Description": "Gains 1 Signal Orb for every 42 combos landed.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2KamuZhongjieji1.png"
+    },
+    {
+        "TalentId": 408,
+        "CharacterId": 1221002,
+        "LayerId": 4,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110735
+        ],
+        "Name": "2100",
+        "Description": "For every 2,100 combos landed, Vera will assist No. 21 to instantly eliminate all enemies, or damage the enemy for 40% of max HP if the target is a Boss.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2dubianSSS1.png"
+    },
+    {
+        "TalentId": 409,
+        "CharacterId": 1221002,
+        "LayerId": 5,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110736
+        ],
+        "Name": "Jubilance",
+        "Description": "Upon dealing damage, also launches a strike that deals True DMG equal to 50% of the damage dealt. This bonus attack is also counted toward the combo number.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3Twentyone1.png"
+    },
+    {
+        "TalentId": 410,
+        "CharacterId": 1221002,
+        "LayerId": 6,
+        "TalentType": 1,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110485
+        ],
+        "Name": "Enhanced Mobility",
+        "Description": "For every 1% Dodge Gauge left, ATK +1%, up to +100%. Extra DMG Reduction +50% permanently.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipTongyongGandianshanbi.png"
+    },
+    {
+        "TalentId": 411,
+        "CharacterId": 1221002,
+        "LayerId": 1,
         "TalentType": 2,
         "ConsumeCount": 1,
         "AttribPoolGroupId": null,
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110111
+            110737
         ],
-        "Name": "Hanna",
-        "Description": "Extra DMG Bonus of 3-Pings increase by 25%. For every 30s, enters Matrix upon a 3-Ping and gains 1 random Signal Orb.",
+        "Name": "Boom",
+        "Description": "When switched into battle, Noctis will launch a bombardment that deals 2200% True DMG to enemies within a large area.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipTongyongShezhiyoubao.png"
     },
     {
-        "TalentId": 413,
-        "CharacterId": 1061003,
+        "TalentId": 412,
+        "CharacterId": 1221002,
         "LayerId": 2,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1236,13 +1219,13 @@
             110126
         ],
         "Name": "Bathlon",
-        "Description": "ATK increases by 3%. Dark DMG increases by 7%. Attacks have a 20% chance to summon a Dark Area for 5s. Attacks on targets within the area have a 20% chance to grant 1 Signal Orb and have a 12-second cooldown. Meanwhile, reduces Corrupted targets' Dark DMG Resistance by 8%.",
+        "Description": "ATK increases by 3%. Dark DMG increases by 7%. Attacks have a 20% chance to summon a Dark Area for 5s. Attacks on targets within the area have a 20% chance to grant 1 Signal Orb and have a 12s cooldown. Meanwhile, reduces Corrupted targets' Dark DMG Resistance by 8%.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4SailinnaSS1.png"
     },
     {
-        "TalentId": 414,
-        "CharacterId": 1061003,
+        "TalentId": 413,
+        "CharacterId": 1221002,
         "LayerId": 2,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1253,13 +1236,30 @@
             110141
         ],
         "Name": "Einsteina",
-        "Description": "QTEs and 3-Pings reduce the target's corresponding Elemental DMG Resistance by 15% for 8s. Cooldown: 10s. Upon taking damage, casts an Elemental Halo, during which time gains Elemental DMG Resistance and deals 15% more Elemental DMG. The effect lasts 5s and has a 8-second cooldown.",
+        "Description": "QTE and 3-Pings decrease the related Stats Resistance of the target by 15% for 8s, 10s Cooldown. When attacked, unfolds stats aura, gaining Stats Resistance and increasing the Stats DMG dealt by 15% for 5s, 8s Cooldown.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3Kuluomudazhao1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool15.png"
+    },
+    {
+        "TalentId": 414,
+        "CharacterId": 1221002,
+        "LayerId": 2,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110117
+        ],
+        "Name": "Darwin",
+        "Description": "Extra DMG Bonus increases by 3% for 4s for each orb pinged, stacking up to 5 times. When Signal Orbs are pinged, their colors will be marked. Once all 3 colors have been marked, unleashes a shockwave that deals 600% Physical DMG and resets the marks.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/DlcFightXiaoqiu.png"
     },
     {
         "TalentId": 415,
-        "CharacterId": 1061003,
+        "CharacterId": 1221002,
         "LayerId": 3,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1267,16 +1267,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110481
+            110738
         ],
-        "Name": "Phase Shift",
-        "Description": "Upon taking damage from an enemy, becomes immune to damage from the enemy for 2s. Cooldown: 5s.",
+        "Name": "Phobia",
+        "Description": "After bombardment, leaves an area behind for 3s that reduces the Movement Speed of enemies within by 30%.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweiSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingJingmixingdong.png"
     },
     {
         "TalentId": 416,
-        "CharacterId": 1061003,
+        "CharacterId": 1221002,
         "LayerId": 3,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1284,16 +1284,33 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110482
+            110486
         ],
-        "Name": "Barrier",
-        "Description": "Every 10s, gains a Shield equal to 20% of max HP if doesn't have one.",
+        "Name": "Defense Order",
+        "Description": "All members get 30% Extra DMG Reduction for 10s when switched into battle. (Effects of the same name can be triggered once only and cannot be stacked.)",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweihexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingJiegoujiagu.png"
     },
     {
         "TalentId": 417,
-        "CharacterId": 1061003,
+        "CharacterId": 1221002,
+        "LayerId": 4,
+        "TalentType": 2,
+        "ConsumeCount": 1,
+        "AttribPoolGroupId": null,
+        "SkillIds": [],
+        "SkillLevels": [],
+        "EventIds": [
+            110739
+        ],
+        "Name": "Boom \"Boom\"",
+        "Description": "The number of bombardments after switching into battle +2.",
+        "SpecialAbility": 200,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipTongyongShezhiyoubao.png"
+    },
+    {
+        "TalentId": 418,
+        "CharacterId": 1221002,
         "LayerId": 4,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1303,31 +1320,14 @@
         "EventIds": [
             110483
         ],
-        "Name": "Wartime Maintenance",
-        "Description": "Upon entering the field, all team members gain a Shield equal to 20% max HP and gain Super Armor during the duration of the Shield.",
+        "Name": "Shield Charge",
+        "Description": "All members get a Shield of 20% max HP when switched into battle. When the Shield is active, they also gain Super Armor. (Effects of the same name can be triggered once only and cannot be stacked.)",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2kuluomuhexin1.png"
-    },
-    {
-        "TalentId": 418,
-        "CharacterId": 1061003,
-        "LayerId": 4,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110484
-        ],
-        "Name": "Frame Recharge",
-        "Description": "Upon entering the field, all teammates gain 50 Energy.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2kuluomuSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweihexin1.png"
     },
     {
         "TalentId": 419,
-        "CharacterId": 1061003,
+        "CharacterId": 1221002,
         "LayerId": 5,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1335,16 +1335,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110456
+            110740
         ],
-        "Name": "Tenebrion - Departure Skill",
-        "Description": "Upon leaving the field, clears all Energy owned and deals Dark DMG up to 1500% of the Energy cleared. Casts it again if it has killed any enemy.",
+        "Name": "Boom \"Boom\"\" \"\"Boom\"",
+        "Description": "Each explosion has a 50% chance to increase its damage by 100%. If the damage is successfully increased, this probability will be calculated repeatedly, increasing the Explosion DMG up to 400%. Each explosion is calculated individually.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3ShenweiSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipTongyongZhongliyindao.png"
     },
     {
         "TalentId": 420,
-        "CharacterId": 1061003,
+        "CharacterId": 1221002,
         "LayerId": 6,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1354,14 +1354,14 @@
         "EventIds": [
             110485
         ],
-        "Name": "Open Fire - Tank",
-        "Description": "Deals 2% more DMG for every 1% Dodge value.",
+        "Name": "Enhanced Mobility",
+        "Description": "For every 1% Dodge Gauge left, ATK +1%, up to +100%. Extra DMG Reduction +50% permanently.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3ShenweiS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipTongyongGandianshanbi.png"
     },
     {
         "TalentId": 501,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 1,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1369,16 +1369,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110461
+            110741
         ],
-        "Name": "Laser Cluster - Core",
-        "Description": "Upon casting the Core Passive [Laser Cluster], replacing all the Signal Orbs with Red Orbs. The effect lasts 8s. At the end of the effect, replaces all the Signal Orbs with random orbs.",
+        "Name": "Divine Judgment",
+        "Description": "When Ex - Lightning Lure is triggered: Strikes all enemies damaged by Ex - Lightning Lure again for 1700% Lightning DMG.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3kalieninahexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2luxiyaS1.png"
     },
     {
         "TalentId": 502,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 2,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1386,16 +1386,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110106
+            110142
         ],
-        "Name": "Patton",
-        "Description": "CRIT Rate increases by 5%. Physical DMG increases by 5%. Non-CRIT Physical DMG gains 2% CRIT Rate, up to 20%. The effect will reset upon CRIT DMG. Upon CRIT DMG, Physical DMG will increase by 5%. The effect lasts 3s and can be stacked up to 3 times. Triggering this effect again will renew its duration.",
+        "Name": "Heisen",
+        "Description": "ATK +3%, Lightning DMG +7%. Attacks have a 25% chance to trigger Thunderstorm to Electrocute the enemy, reducing their Lightning Resistance by 8% for 5s. Attacking Electrocuted enemies has a 20% chance to deal 250% Lightning DMG.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2QuS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2NuoanA1.png"
     },
     {
         "TalentId": 503,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 2,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1403,16 +1403,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110117
+            110179
         ],
-        "Name": "Darwin",
-        "Description": "Every 1 orb pinged makes Extra DMG Bonus increase by 3% for 4s, stacking up to 5 times. Mark a color after pinging orbs of this particular color. When all 3 colors have been marked, unleash a Shockwave dealing 600% Physical DMG and reset the marks.",
+        "Name": "Guinevere",
+        "Description": "Healing effect increases by 10%. Healed target has Elemental DMG and Resistance increased by 10% for 5s. 8s cooldown. Every healing will charge up the drone. Once fully charged, a drone will be summoned at the cost of all charge upon next healing cast. The drone automatically follows the character, recovering 2% of max HP per second and increasing Elemental Attack by 15% for 5s in the area. 12s cooldown.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipFuzhuZidongxiufu.png"
     },
     {
         "TalentId": 504,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 2,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1420,16 +1420,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110140
+            110112
         ],
-        "Name": "Catherine",
-        "Description": "QTE and 3-Ping skills decrease target's Physical DEF by 20% for 8s, 10s Cooldown. When damaged, gain a Shield with HP equivalent to 20% of own DEF and increase own Physical DMG by 15% for 5s, 8s Cooldown.",
+        "Name": "Kuriko",
+        "Description": "Pings grant 20% more Energy. The Signature Move consumes 20% less Energy. Upon casting the Signature Move, increases Extra DMG Bonus by 15% for 10s. Meanwhile, gains Super Armor and 20% Extra DMG Reduction for 5s. Triggering this effect again will renew its duration.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2ailaSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool16.png"
     },
     {
         "TalentId": 505,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 3,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1437,16 +1437,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110491
+            110742
         ],
-        "Name": "Backtrack",
-        "Description": "Upon receiving lethal damage, enters the Matrix, becomes immune to the damage, and restores all HP. Can be triggered only 1 time per battle.",
+        "Name": "Sanctum",
+        "Description": "Duration of Yellow Orb increases by 100%.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaSSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2lifuhuang1.png"
     },
     {
         "TalentId": 506,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 3,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1454,16 +1454,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110492
+            110743
         ],
-        "Name": "Endurance Module",
-        "Description": "When HP drops below 70%, gains 30% DMG Reduction and restores 5% max HP every second.",
+        "Name": "Virtual Barrier",
+        "Description": "Duration of Blue Orb increases by 100%.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3lifuS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2lifulan1.png"
     },
     {
         "TalentId": 507,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 4,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1471,16 +1471,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110462
+            110744
         ],
-        "Name": "Laser Cluster - Overclock 1",
-        "Description": "Upon casting the Core Passive [Laser Cluster], gains one Signal Orb of each of the three colors.",
+        "Name": "Lightning Charge",
+        "Description": "Gains 1 random Signal Orb when triggering Ex - Lightning Lure",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3kalieninahexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2kuluomuS1.png"
     },
     {
         "TalentId": 508,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 4,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1488,16 +1488,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110463
+            110745
         ],
-        "Name": "Laser Cluster - Overclock 2",
-        "Description": "After the Core Passive [Laser Cluster] deals damage to the enemy, each attack will increase the damage of the subsequent Laser Cluster to the enemy by 2%, up to 200%.",
+        "Name": "Electricity Loop",
+        "Description": "Gains 1 random Signal Orb after pinging a total of 15 Orbs.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3kalieninahexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2lifuhexin1.png"
     },
     {
         "TalentId": 509,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 5,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1505,16 +1505,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110464
+            110746
         ],
-        "Name": "Laser Cluster - Evolve",
-        "Description": "Upon casting the Core Passive [Laser Cluster] the 3rd time, casts the Advanced Laser to deal 2000% True DMG to all enemies hit.",
+        "Name": "Electricity Surge",
+        "Description": "Any Ping is regarded as a 3-Ping",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3kalieninahexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2lifuS1.png"
     },
     {
         "TalentId": 510,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 6,
         "TalentType": 1,
         "ConsumeCount": 1,
@@ -1524,14 +1524,14 @@
         "EventIds": [
             110495
         ],
-        "Name": "Open Fire - Support",
-        "Description": "Deals 2% more DMG for every 1% max HP.",
+        "Name": "Health Boost",
+        "Description": "For every 1% HP left, ATK +1%, up to +100%. Extra DMG Reduction +50% permanently.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R1lifuhexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipFuzhuKuaisuxiufu.png"
     },
     {
         "TalentId": 511,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 1,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1539,16 +1539,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110465
+            110747
         ],
-        "Name": "Eclipse - Entrance Skill",
-        "Description": "Every time upon entering the field, summons [Lee: Palefire] and [Lucia: Lotus] to assist for 10s.",
+        "Name": "Energization",
+        "Description": "After Liv heals another character, their Basic Attacks can also inflict the target with Lightning Marks and trigger Lightning Lure.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweiA1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2lifuSSS1.png"
     },
     {
         "TalentId": 512,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 2,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1556,16 +1556,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110106
+            110142
         ],
-        "Name": "Patton",
-        "Description": "CRIT Rate increases by 5%. Physical DMG increases by 5%. Non-CRIT Physical DMG gains 2% CRIT Rate, up to 20%. The effect will reset upon CRIT DMG. Upon CRIT DMG, Physical DMG will increase by 5%. The effect lasts 3s and can be stacked up to 3 times. Triggering this effect again will renew its duration.",
+        "Name": "Heisen",
+        "Description": "ATK +3%, Lightning DMG +7%. Attacks have a 25% chance to trigger Thunderstorm to Electrocute the enemy, reducing their Lightning Resistance by 8% for 5s. Attacking Electrocuted enemies has a 20% chance to deal 250% Lightning DMG.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2QuS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2NuoanA1.png"
     },
     {
         "TalentId": 513,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 2,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1573,16 +1573,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110117
+            110179
         ],
-        "Name": "Darwin",
-        "Description": "Every 1 orb pinged makes Extra DMG Bonus increase by 3% for 4s, stacking up to 5 times. Mark a color after pinging orbs of this particular color. When all 3 colors have been marked, unleash a Shockwave dealing 600% Physical DMG and reset the marks.",
+        "Name": "Guinevere",
+        "Description": "Healing effect increases by 10%. Healed target has Elemental DMG and Resistance increased by 10% for 5s. 8s cooldown. Every healing will charge up the drone. Once fully charged, a drone will be summoned at the cost of all charge upon next healing cast. The drone automatically follows the character, recovering 2% of max HP per second and increasing Elemental Attack by 15% for 5s in the area. 12s cooldown.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipFuzhuZidongxiufu.png"
     },
     {
         "TalentId": 514,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 2,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1590,16 +1590,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110140
+            110112
         ],
-        "Name": "Catherine",
-        "Description": "QTE and 3-Ping skills decrease target's Physical DEF by 20% for 8s, 10s Cooldown. When damaged, gain a Shield with HP equivalent to 20% of own DEF and increase own Physical DMG by 15% for 5s, 8s Cooldown.",
+        "Name": "Kuriko",
+        "Description": "Pings grant 20% more Energy. The Signature Move consumes 20% less Energy. Upon casting the Signature Move, increases Extra DMG Bonus by 15% for 10s. Meanwhile, gains Super Armor and 20% Extra DMG Reduction for 5s. Triggering this effect again will renew its duration.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2ailaSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool16.png"
     },
     {
         "TalentId": 515,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 3,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1607,16 +1607,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110491
+            110748
         ],
-        "Name": "Backtrack",
-        "Description": "Upon receiving lethal damage, enters the Matrix, becomes immune to the damage, and restores all HP. Can be triggered only 1 time per battle.",
+        "Name": "Domain Control",
+        "Description": "When any member triggers Lightning Lure, all members gain 30% Extra DMG Bonus for 3s.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaSSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2lifuA1.png"
     },
     {
         "TalentId": 516,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 3,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1624,16 +1624,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110492
+            110494
         ],
-        "Name": "Endurance Module",
-        "Description": "When HP drops below 70%, gains 30% DMG Reduction and restores 5% max HP every second.",
+        "Name": "Coordination Order",
+        "Description": "When a member triggers a QTE, activates a QTE of another character. (Effects of the same name can be triggered once only and cannot be stacked.)",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3lifuS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/QTE1.png"
     },
     {
         "TalentId": 517,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 4,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1641,16 +1641,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110493
+            110749
         ],
-        "Name": "Tactical Optimization",
-        "Description": "Switch cooldown decreases by 20%. (This effect can be triggered once only and cannot be stacked.)",
+        "Name": "Oversupply",
+        "Description": "Restores 10 Signature Energy when Core Passive Lightning Lure is triggered regardless whether Liv is in battle or not.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R4Sailinnahexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2lifuSS1.png"
     },
     {
         "TalentId": 518,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 4,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1658,16 +1658,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110494
+            110484
         ],
-        "Name": "Tactical Synergy",
-        "Description": "When a member triggers a QTE, activates a QTE of another character. (This effect can be triggered once only and cannot be stacked.)",
+        "Name": "Signature Charge",
+        "Description": "All members get 50 Signature Energy when switched into battle. (Effects of the same name can be triggered once only and cannot be stacked.)",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/QTE1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Sufeiyadazhao1.png"
     },
     {
         "TalentId": 519,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 5,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1675,16 +1675,16 @@
         "SkillIds": [],
         "SkillLevels": [],
         "EventIds": [
-            110466
+            110749
         ],
-        "Name": "Eclipse - Entrance Skill Enhance",
-        "Description": "Every time upon entering the field, summons [Lee: Entropy] and [Lucia: Plume] to assist for 10s.",
+        "Name": "Lightning Domain",
+        "Description": "Casting Lux's QTE will also cast Signature if there is sufficient Energy.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3lifuSSS1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2lifudazhao1.png"
     },
     {
         "TalentId": 520,
-        "CharacterId": 1031001,
+        "CharacterId": 1031002,
         "LayerId": 6,
         "TalentType": 2,
         "ConsumeCount": 1,
@@ -1694,349 +1694,9 @@
         "EventIds": [
             110495
         ],
-        "Name": "Open Fire - Support",
-        "Description": "Deals 2% more DMG for every 1% max HP.",
+        "Name": "Health Boost",
+        "Description": "For every 1% HP left, ATK +1%, up to +100%. Extra DMG Reduction +50% permanently.",
         "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R1lifuhexin1.png"
-    },
-    {
-        "TalentId": 601,
-        "CharacterId": 1211002,
-        "LayerId": 1,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110411
-        ],
-        "Name": "Blooming Shot - Core",
-        "Description": "Upon casting the Core Passive [Blooming Shot], clears all the Red Orbs. Each Red Orb cleared will increase the damage of this Core Passive by 30%.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Wanshihexin1.png"
-    },
-    {
-        "TalentId": 602,
-        "CharacterId": 1211002,
-        "LayerId": 2,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110182
-        ],
-        "Name": "Chen Jiyuan",
-        "Description": "ATK increases by 3%. Ice DMG increases by 7%. Attacks have a 30% chance to inflict Frost for 5s. Attacks on Frost targets have a 20% chance to trigger an Ice Blast, dealing 420% Ice DMG and reducing movement speed by 20% and 8% Ice Resistance. Cooldown: 8s.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WanshiSS1.png"
-    },
-    {
-        "TalentId": 603,
-        "CharacterId": 1211002,
-        "LayerId": 2,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110117
-        ],
-        "Name": "Darwin",
-        "Description": "Every 1 orb pinged makes Extra DMG Bonus increase by 3% for 4s, stacking up to 5 times. Mark a color after pinging orbs of this particular color. When all 3 colors have been marked, unleash a Shockwave dealing 600% Physical DMG and reset the marks.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SS1.png"
-    },
-    {
-        "TalentId": 604,
-        "CharacterId": 1211002,
-        "LayerId": 2,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110141
-        ],
-        "Name": "Einsteina",
-        "Description": "QTEs and 3-Pings reduce the target's corresponding Elemental DMG Resistance by 15% for 8s. Cooldown: 10s. Upon taking damage, casts an Elemental Halo, during which time gains Elemental DMG Resistance and deals 15% more Elemental DMG. The effect lasts 5s and has a 8-second cooldown.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3Kuluomudazhao1.png"
-    },
-    {
-        "TalentId": 605,
-        "CharacterId": 1211002,
-        "LayerId": 3,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110491
-        ],
-        "Name": "Backtrack",
-        "Description": "Upon receiving lethal damage, enters the Matrix, becomes immune to the damage, and restores all HP. Can be triggered only 1 time per battle.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaSSS1.png"
-    },
-    {
-        "TalentId": 606,
-        "CharacterId": 1211002,
-        "LayerId": 3,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110492
-        ],
-        "Name": "Endurance Module",
-        "Description": "When HP drops below 70%, gains 30% DMG Reduction and restores 5% max HP every second.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3lifuS1.png"
-    },
-    {
-        "TalentId": 607,
-        "CharacterId": 1211002,
-        "LayerId": 4,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110412
-        ],
-        "Name": "Blooming Shot - Overclock 1",
-        "Description": "When casting the Core Passive [Blooming Shot], deals 100% more firing damage if fails to dodge.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Wanshihexin1.png"
-    },
-    {
-        "TalentId": 608,
-        "CharacterId": 1211002,
-        "LayerId": 4,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110413
-        ],
-        "Name": "Blooming Shot - Overclock 2",
-        "Description": "When casting the Core Passive [Blooming Shot], permanently increases Ice DMG by 10% every time successfully dodges, up to 100%.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Wanshihexin1.png"
-    },
-    {
-        "TalentId": 609,
-        "CharacterId": 1211002,
-        "LayerId": 5,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110414
-        ],
-        "Name": "Blooming Shot - Evolve",
-        "Description": "When casting the Core Passive [Blooming Shot], enters the Matrix and resets the Matrix cooldown if successfully dodges the enemy's attack.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Wanshihexin1.png"
-    },
-    {
-        "TalentId": 610,
-        "CharacterId": 1211002,
-        "LayerId": 6,
-        "TalentType": 1,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110495
-        ],
-        "Name": "Open Fire - Support",
-        "Description": "Deals 2% more DMG for every 1% max HP.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R1lifuhexin1.png"
-    },
-    {
-        "TalentId": 611,
-        "CharacterId": 1211002,
-        "LayerId": 1,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110415
-        ],
-        "Name": "Hypnos - Entrance Skill",
-        "Description": "Upon entering the field, slows all enemies on the field down by 10%, up to 50%.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WanshiA1.png"
-    },
-    {
-        "TalentId": 612,
-        "CharacterId": 1211002,
-        "LayerId": 2,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110182
-        ],
-        "Name": "Chen Jiyuan",
-        "Description": "ATK increases by 3%. Ice DMG increases by 7%. Attacks have a 30% chance to inflict Frost for 5s. Attacks on Frost targets have a 20% chance to trigger an Ice Blast, dealing 420% Ice DMG and reducing movement speed by 20% and 8% Ice Resistance. Cooldown: 8s.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WanshiSS1.png"
-    },
-    {
-        "TalentId": 613,
-        "CharacterId": 1211002,
-        "LayerId": 2,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110111
-        ],
-        "Name": "Hanna",
-        "Description": "Extra DMG Bonus of 3-Pings increase by 25%. For every 30s, enters Matrix upon a 3-Ping and gains 1 random Signal Orb.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R39SSS1.png"
-    },
-    {
-        "TalentId": 614,
-        "CharacterId": 1211002,
-        "LayerId": 2,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110141
-        ],
-        "Name": "Einsteina",
-        "Description": "QTEs and 3-Pings reduce the target's corresponding Elemental DMG Resistance by 15% for 8s. Cooldown: 10s. Upon taking damage, casts an Elemental Halo, during which time gains Elemental DMG Resistance and deals 15% more Elemental DMG. The effect lasts 5s and has a 8-second cooldown.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3Kuluomudazhao1.png"
-    },
-    {
-        "TalentId": 615,
-        "CharacterId": 1211002,
-        "LayerId": 3,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110491
-        ],
-        "Name": "Backtrack",
-        "Description": "Upon receiving lethal damage, enters the Matrix, becomes immune to the damage, and restores all HP. Can be triggered only 1 time per battle.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2WeilaSSS1.png"
-    },
-    {
-        "TalentId": 616,
-        "CharacterId": 1211002,
-        "LayerId": 3,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110492
-        ],
-        "Name": "Endurance Module",
-        "Description": "When HP drops below 70%, gains 30% DMG Reduction and restores 5% max HP every second.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R3lifuS1.png"
-    },
-    {
-        "TalentId": 617,
-        "CharacterId": 1211002,
-        "LayerId": 4,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110493
-        ],
-        "Name": "Tactical Optimization",
-        "Description": "Switch cooldown decreases by 20%. (This effect can be triggered once only and cannot be stacked.)",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R4Sailinnahexin1.png"
-    },
-    {
-        "TalentId": 618,
-        "CharacterId": 1211002,
-        "LayerId": 4,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110494
-        ],
-        "Name": "Tactical Synergy",
-        "Description": "When a member triggers a QTE, activates a QTE of another character. (This effect can be triggered once only and cannot be stacked.)",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/QTE1.png"
-    },
-    {
-        "TalentId": 619,
-        "CharacterId": 1211002,
-        "LayerId": 5,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110416
-        ],
-        "Name": "Hypnos - Departure Skill",
-        "Description": "Upon leaving the field, summons an air strike to deal multiple area damage, up to 900% ATK and seckills enemies with HP below 10%.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Wanshidazhao1.png"
-    },
-    {
-        "TalentId": 620,
-        "CharacterId": 1211002,
-        "LayerId": 6,
-        "TalentType": 2,
-        "ConsumeCount": 1,
-        "AttribPoolGroupId": null,
-        "SkillIds": [],
-        "SkillLevels": [],
-        "EventIds": [
-            110495
-        ],
-        "Name": "Open Fire - Support",
-        "Description": "Deals 2% more DMG for every 1% max HP.",
-        "SpecialAbility": 200,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/R1lifuhexin1.png"
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipFuzhuKuaisuxiufu.png"
     }
 ]

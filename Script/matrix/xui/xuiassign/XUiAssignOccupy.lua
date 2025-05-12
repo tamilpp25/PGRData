@@ -4,16 +4,23 @@ local XUiGridAssignBuffText = require("XUi/XUiAssign/XUiGridAssignBuffText")
 
 function XUiAssignOccupy:OnAwake()
     self:InitComponent()
+    self.ConditionGrids = {}
+    self.BuffGrids = {}
 end
 
-function XUiAssignOccupy:OnStart()
+function XUiAssignOccupy:OnStart(chapterId)
+    self.ChapterId = chapterId
 end
 
 function XUiAssignOccupy:OnEnable()
-    self.ChapterId = XDataCenter.FubenAssignManager.SelectChapterId
+
+    -- self.ChapterId = XDataCenter.FubenAssignManager.SelectChapterId
     self:Refresh()
 end
 
+function XUiAssignOccupy:OnDisable()
+
+end
 
 function XUiAssignOccupy:OnGetEvents()
     return { XEventId.EVENT_ASSIGN_SELECT_OCCUPY_END }
@@ -31,11 +38,6 @@ function XUiAssignOccupy:InitComponent()
 
     self.ConditionTxtList = {}
     self.TxtCondition.gameObject:SetActiveEx(false)
-    for i = 1, XDataCenter.FubenAssignManager.MaxSelectConditionNum do
-        local txt = CS.UnityEngine.Object.Instantiate(self.TxtCondition)
-        txt.transform:SetParent(self.PanelCondition, false)
-        self.ConditionTxtList[i] = txt
-    end
 
     self.RawImage.gameObject:SetActiveEx(false)
     self.Image_Add.gameObject:SetActiveEx(false)
@@ -80,23 +82,30 @@ function XUiAssignOccupy:Refresh()
     end
 
     local selectConditions = chapterData:GetSelectCharCondition()
-    for i, txt in ipairs(self.ConditionTxtList) do
-        local conditionId = selectConditions[i]
-        if conditionId then
-            txt.gameObject:SetActiveEx(true)
-            -- txt.color = XDataCenter.FubenAssignManager.SelectConditionColor[(XConditionManager.CheckCondition(conditionId))]
-            txt.text = XConditionManager.GetConditionTemplate(conditionId).Desc
-        else
-            txt.gameObject:SetActiveEx(false)
+    for i = 1, #selectConditions, 1 do
+        local grid = self.ConditionGrids[i]
+        if not grid then
+            local obj = CS.UnityEngine.Object.Instantiate(self.GridOccupyBuff, self.PanelOccupyCondition)
+            grid = XUiGridAssignBuffText.New(obj)
+            self.ConditionGrids[i] = grid
         end
+        local str = XConditionManager.GetConditionTemplate(selectConditions[i]).Desc
+        grid:Refresh(str, true)
+        grid.GameObject:SetActiveEx(true)
     end
 
     local buffList = chapterData:GetBuffDescList()
-    self:ResetBuffTextList(#buffList)
-    for i, buffDesc in ipairs(buffList) do
-        local grid = self:GetBuffTextGrid(i)
+    for i = 1, #buffList, 1 do
+        local grid = self.BuffGrids[i]
+        if not grid then
+            local obj = CS.UnityEngine.Object.Instantiate(self.GridOccupyBuff2, self.PanelOccupyBuff)
+            grid = XUiGridAssignBuffText.New(obj)
+            self.BuffGrids[i] = grid
+        end
+        local str = buffList[i]
+        grid:Refresh(str, true)
+        grid.ImgSkill:SetRawImage(chapterData:GetSkillIcon())
         grid.GameObject:SetActiveEx(true)
-        grid:Refresh(buffDesc, isOccupy)
     end
 end
 
@@ -109,5 +118,10 @@ function XUiAssignOccupy:OnBtnCloseClick()
 end
 
 function XUiAssignOccupy:OnBtnOccupyClick()
-    XLuaUiManager.Open("UiAssignSelectOccupy")
+    local chapterData = XDataCenter.FubenAssignManager.GetChapterDataById(self.ChapterId)
+    local characterId = chapterData:GetCharacterId()
+    -- XLuaUiManager.Open("UiAssignSelectOccupy")
+    -- XLuaUiManager.Open("UiAssignSelectCharacter", self.ChapterId, characterId)
+    XLuaUiManager.Open("UiSelectCharacterAssignOccupy", characterId, self.ChapterId)
+    self:Close()
 end

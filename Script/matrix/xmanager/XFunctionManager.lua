@@ -1,20 +1,19 @@
 local XFunctionTime = require("XEntity/XFunctional/XFunctionTime")
-local tableSort = table.sort
 local tableInsert = table.insert
 
-local TABLE_SECONDARY_FUNCTIONAL_PATH = "Client/Functional/SecondaryFunctional.tab"
-local TABLE_SKIP_FUNCTIONAL_PATH = "Client/Functional/SkipFunctional.tab"
-local TABLE_FUNCTIONAL_OPEN = "Share/Functional/FunctionalOpen.tab"
---local TABLE_MAIN_AD = "Client/Functional/MainAd.tab"
-local TABLE_MAIN_ACTIVITY_SKIP_PATH = "Client/Functional/MainActivitySkip.tab"
-local SecondaryFunctionalTemplates = {}  --二级功能配置
-local SkipFunctionalTemplates = {}  --跳转功能表
-local FunctionalOpenTemplates = {}  --功能开启表
--- local MainAdTemplates = {}          --广告栏
-local MainActivitySkipTemplates = {} --活动便捷入口
 local ShieldFuncDic = {}    -- 功能过滤
 local ShieldUiNameDic = {}    -- 功能对应的界面过滤
 local FunctionTimeData = {} --功能开启时间
+
+local ResultIdPool = 1 -- 跳转结果的等待Id
+local ResultWaitingDict = {} -- 等待异步跳转结果的缓存字典
+---@type XPool
+local AsyncSkipDataPool = XPool.New(function()  -- 异步跳转信息对象池
+    return {}
+end, function(data)
+    data.SkipId = nil
+    data.FromMsg = nil
+end)
 
 XFunctionManager = XFunctionManager or {}
 
@@ -27,20 +26,9 @@ XFunctionManager.SkipOrigin = {
     SystemWithArgs = 6, -- 跳转特定标签页的系统
     Custom = 7, -- 跳转自定义系统（大部分副本）
     Dormitory = 8, -- 跳转宿舍
+    ActivityUrl = 9, --活动链接
+    MVCAModule = 10, -- 跳转模块为MVCA
 }
-XFunctionManager.OpenCondition = {
-    Default = 0, -- 默认
-    TeamLevel = 1, -- 战队等级
-    FinishSection = 2, -- 通关副本
-    FinishTask = 3, -- 完成任务
-    FinishNoob = 4, -- 完成新手
-    Main = 5, -- 掉线返回主界面
-}
--- XFunctionManager.OpenHint = {
---     TeamLevelToOpen,
---     CopyToOpen,
---     FinishToOpen
--- }
 
 --这个枚举由服务端制定
 XFunctionManager.FunctionName = {
@@ -52,6 +40,7 @@ XFunctionManager.FunctionName = {
     Feedback = 6, --反馈
     Welfare = 7, --福利
     ExchangeCode = 8, --兑换码
+    ICPFiling = 9, --备案号
 
     Character = 101, --构造体
     CharacterGrade = 102, --构造体晋升
@@ -68,11 +57,16 @@ XFunctionManager.FunctionName = {
     EquipStrengthenAutoSelect = 204, --装备一键强化
     EquipAwake = 205, --装备觉醒
     EquipQuick = 206, --一键培养
+    EquipGuideRecommend = 207, --装备目标-推荐
+    EquipGuideSetTarget = 208, --装备目标-设定
+    EquipOverrun = 209, --装备超限
 
     Bag = 301, --背包
     DrawCard = 401, --研发
     DrawCardEquip = 402, --研发装备
     ActivityDrawCard = 403, --活动研发
+    Lotto = 10432,--皮肤抽卡
+
     Task = 501, --任务
     TaskDay = 503, --任务每日
     TaskActivity = 504, --任务活动
@@ -84,11 +78,14 @@ XFunctionManager.FunctionName = {
     Mail = 701, --邮件
     SocialFriend = 801, --好友
     SocialChat = 802, --聊天
+    SocialChatWorld = 803, --聊天 - 世界
     Domitory = 901, --基建（弃用）
     Dorm = 902, --宿舍
+    DormQuest = 903, -- 宿舍委托
     ShopCommon = 1001, --普通商店
     ShopActive = 1002, --活动商店
     ShopPoints = 1003, --积分商店
+    ShopRecharge = 1004, --累充商店
     Dispatch = 1201, --派遣
     BountyTask = 1301, --赏金
     MaintainerAction = 1302, --维持者行动（大富翁）
@@ -112,6 +109,7 @@ XFunctionManager.FunctionName = {
     Prequel = 1701, --断章
     Practice = 1800, --教学
     PartnerTeaching = 1801, -- 宠物教学
+    Course = 1802,  --考级系统
 
     Guild = 1901, --指挥部
     GuildBoss = 1904, --工会boss
@@ -123,9 +121,6 @@ XFunctionManager.FunctionName = {
     SubMenu = 2300, -- 主界面二级菜单
     Photograph = 2400, -- 拍照模式
     PurchaseAdd = 3000, --累计充值
-
-    PicComposition = 4000, --看图作文
-    WindowsInlay = 4001, --外站活动
 
     Partner = 5001, --伙伴系统
 
@@ -147,7 +142,7 @@ XFunctionManager.FunctionName = {
     FubenActivityBranch = 10303, --活动支线
     FubenActivitySingleBoss = 10304, --活动单挑boss
     FubenActivityTrial = 10305, --试验区
-    FestivalActivity = 10306, --节日活动
+    FestivalActivity = 10306, --节日活动(活动记录)
     FubenActivityFestival = 10306, --节日活动
     BabelTower = 10307, --巴别塔计划
     FubenActivityMainLine = 10308, --活动主线
@@ -156,8 +151,8 @@ XFunctionManager.FunctionName = {
     FubenAssign = 10311, --占领玩法
     ArenaOnline = 10312, --区域联机玩法
     FubenUnionKill = 10313, --狙击战
-    Extra = 10314, -- 外章
-    ShortStory = 10352, --故事集
+    Extra = 10314, -- 外篇旧闻
+    ShortStory = 10352, --浮点纪实
     FubenInfesotorExplore = 10315, --感染体玩法
     SpecialTrain = 10316, -- 特训关
     EliminateGame = 10317, -- 特训关小游戏
@@ -219,7 +214,50 @@ XFunctionManager.FunctionName = {
     GoldenMiner = 10426, --黄金矿工活动
     WeekChallenge = 10428, --周挑战
     MultiDim = 10427, -- 多维挑战
-    TaikoMaster = 10430, --音游
+    TaikoMaster = 10430, --舞乐晨星
+    TwoSideTower = 10431, --正逆塔
+    BiancaTheatre = 10433,  --肉鸽2.0
+    SummerSignIn = 10434, --夏日签到
+    NewbieTask = 10435, -- 新手任务二期
+    CharacterTower = 10436, --本我回廊（角色塔）
+    Rift = 10437, -- 大秘境
+    ColorTable = 10438, -- 调色板战争
+    FubenBrilliantWalk = 10439, -- 光辉同行
+    FubenAwareness = 10440, -- 意识公约副本
+    SkinVote = 10442, -- 皮肤投票
+    Restaurant = 10443, -- 餐厅玩法
+    Maverick2 = 10444, -- 异构阵线2.0
+    MonsterCombat = 10447, -- 战双BVB
+    CerberusGame = 10448, -- 三头犬小队
+    SlotMachines = 10449, -- 老虎机
+    Transfinite = 10451, -- 超限连战
+    NewActivityCalendar = 10452, -- 新活动周历
+    Theatre3 = 10453, -- 肉鸽3.0
+    BlackRockChess = 10455, -- 国际战棋
+    Turntable = 10454, -- 夏日幸运星
+    RogueSim = 10457, -- 肉鸽模拟经营
+    Kotodama = 10459, -- 言灵
+    FangKuai = 10461, -- 大方块
+    Temple = 10463, -- 庙会
+    LinkCraftActivity = 10465, -- 战双工艺
+    BossInshot = 10467, -- Boss跃升
+    LineArithmetic = 10468, -- 大连线
+    MechanismActivity = 10469, -- 机制玩法
+    Theatre4 = 10470, -- 肉鸽4.0
+    SimulateTrain = 10474, -- 数据演习
+    BagOrganizeActivity = 10473, -- 背包整理玩法
+    Temple2 = 10472, -- 庙会2
+    Game2048 = 10475, -- 2048玩法
+    FpsGame = 10477, -- 首席打枪
+    WheelchairManual = 10478, --轮椅手册
+    ReCallActivity = 10479, -- 拉人回流
+    Maverick3 = 10482, -- 孤胆枪手
+    GachaCanLiver = 10484, --3.1可肝卡池（常驻+限时组合）
+    LuckyTenant = 10481, -- 幸运租客
+    Pcg = 10485, -- 打牌
+    PokerGuessing2 = 10486,
+    VersionGift = 10487, -- 合版本活动
+    ScoreTower = 10488, -- 新矿区
 }
 
 XFunctionManager.FunctionType = {
@@ -232,38 +270,13 @@ XFunctionManager.TimeState = {
     End = 2,
 }
 
-function XFunctionManager.Init()
-    FunctionalOpenTemplates = {}
-    SecondaryFunctionalTemplates = XTableManager.ReadByIntKey(TABLE_SECONDARY_FUNCTIONAL_PATH, XTable.XTableSecondaryFunctional, "Id")
-    SkipFunctionalTemplates = XTableManager.ReadByIntKey(TABLE_SKIP_FUNCTIONAL_PATH, XTable.XTableSkipFunctional, "SkipId")
-    MainActivitySkipTemplates = XTableManager.ReadByIntKey(TABLE_MAIN_ACTIVITY_SKIP_PATH, XTable.XTableMainActivitySkip, "Id")
+--- 对于埋点记录，跳转类型
+XFunctionManager.SkipTypeForRecord = {
+    CommonSkip = 1, -- 通用跳转，id指向SkipFunctional.tab
+    FubenActivitySkip = 2, -- 战斗面板跳转, id指向FubenActivity.tab
+}
 
-    --local mainAdTemplates = XTableManager.ReadByIntKey(TABLE_MAIN_AD, XTable.XTableMainAd, "Id")
-    --for _, v in pairs(mainAdTemplates) do
-    --    if not MainAdTemplates[v.ChannelId] then
-    --        MainAdTemplates[v.ChannelId] = {}
-    --    end
-    --
-    --    tableInsert(MainAdTemplates[v.ChannelId], v)
-    --end
-    --MainAdTemplates = XReadOnlyTable.Create(MainAdTemplates)
-    local listOpenFunctional = XTableManager.ReadByIntKey(TABLE_FUNCTIONAL_OPEN, XTable.XTableFunctionalOpen, "Id")
-    for k, v in pairs(listOpenFunctional) do
-        local IsHasCondition = false
-
-        for _, id in pairs(v.Condition) do
-            if id ~= 0 then
-                IsHasCondition = true
-            end
-        end
-
-        if IsHasCondition then
-            FunctionalOpenTemplates[k] = v
-        end
-    end
-
-    XFunctionManager.IsOpen = false
-end
+XFunctionManager.__RecordTestEnable = false -- 是否开启埋点输出测试
 
 function XFunctionManager.FilterUi(evt, args, ...)
     local uiName = args[0].UiData.UiName
@@ -307,10 +320,12 @@ end
 --检测是否可以过滤该功能
 function XFunctionManager.CheckFunctionFitter(id)
     return ShieldFuncDic[id]
-    end
+end
 
 --界面跳转
-function XFunctionManager.SkipInterface(id)
+---@param id @SkipFunctional.tab 的 SkipId
+---@param fromMsg @来源描述（界面/系统)，用于埋点，可选参数
+function XFunctionManager.SkipInterface(id, fromMsg, ...)
     if id == 0 then
         return
     end
@@ -336,19 +351,21 @@ function XFunctionManager.SkipInterface(id)
 
     -- 提审包屏蔽，跳转到主线页面
     if XUiManager.IsHideFunc and list.IsHideFunc then
-        XLuaUiManager.Open("UiFuben", XDataCenter.FubenManager.StageType.Mainline, nil, 1)
+        -- XLuaUiManager.Open("UiFuben", XDataCenter.FubenManager.StageType.Mainline, nil, 1)
+        XLuaUiManager.Open("UiNewFuben", XFubenConfigs.ChapterType.MainLine)
         return
     end
-
+    
+    
+    -- 直接指定界面跳转
     if list.Origin == XFunctionManager.SkipOrigin.System then
         if XLuaUiManager.IsUiShow(list.UiName) then
             return
         end
-
         XLuaUiManager.Open(list.UiName)
-    end
-
-    if list.Origin == XFunctionManager.SkipOrigin.SonSystem then
+        XFunctionManager.RecordSkip(id, nil, fromMsg)
+        return
+    elseif list.Origin == XFunctionManager.SkipOrigin.SonSystem then
         if XLuaUiManager.IsUiShow(list.UiName) then
             return
         end
@@ -357,49 +374,50 @@ function XFunctionManager.SkipInterface(id)
             XLuaUiManager.Open(list.UiName, list.ParamId, nil, nil, nil, true)
         elseif list.UiName == "UiActivityBase" then
             XLuaUiManager.Open(list.UiName, list.ParamId, list.CustomParams[1], list.CustomParams[2])
-        elseif list.UiName == "UiSet" then
-            XLuaUiManager.Open(list.UiName, false, list.ParamId or 4)
-        elseif list.UiName == "UiActivityBase" then
-            XLuaUiManager.Open(list.UiName, list.ParamId, list.CustomParams[1], list.CustomParams[2])
-        elseif list.UiName == "UiPurchase" and id == 50024 then -- 海外修改，修复快捷礼包数据清空问题#99703
-            XLuaUiManager.Open(list.UiName, list.ParamId, false);
         else
             XLuaUiManager.Open(list.UiName, list.ParamId)
         end
-    end
 
-    if list.Origin == XFunctionManager.SkipOrigin.Section then
-        XDataCenter.FubenManager.GoToFuben(list.ParamId)
-    end
-
-    if list.Origin == XFunctionManager.SkipOrigin.Main then
+        XFunctionManager.RecordSkip(id, nil, fromMsg)
+        return
+    elseif list.Origin == XFunctionManager.SkipOrigin.Main then
         if XLuaUiManager.IsUiShow("UiMain") then
             return
         end
 
+        CS.XResourceRecord.Stop()
         XLuaUiManager.RunMain()
-    end
-
-    if list.Origin == XFunctionManager.SkipOrigin.SystemWithArgs then
-        XDataCenter.FunctionalSkipManager.SkipSystemWidthArgs(list)
+        XFunctionManager.RecordSkip(id, nil, fromMsg)
         return
     end
 
-    if list.Origin == XFunctionManager.SkipOrigin.Custom then
-        XDataCenter.FunctionalSkipManager.SkipCustom(list)
-        return
+    -- 其他模块接口调用
+    local result = nil
+    
+    if list.Origin == XFunctionManager.SkipOrigin.Section then
+        result = XDataCenter.FubenManager.GoToFuben(list.ParamId)
+    elseif list.Origin == XFunctionManager.SkipOrigin.SystemWithArgs then
+        CS.XResourceRecord.FunctionEnter(id)
+        
+        result = XDataCenter.FunctionalSkipManager.SkipSystemWidthArgs(list)
+    elseif list.Origin == XFunctionManager.SkipOrigin.Custom then
+        CS.XResourceRecord.FunctionEnter(id)
+
+        result = XDataCenter.FunctionalSkipManager.SkipCustom(list, ...)
+    elseif list.Origin == XFunctionManager.SkipOrigin.Dormitory then
+        result = XDataCenter.FunctionalSkipManager.SkipDormitory(list)
+    elseif list.Origin == XFunctionManager.SkipOrigin.ActivityUrl then --活动跳转链接
+        result = XMVCA.XUrl:SkipByUrlId(list.ParamId)
+    elseif list.Origin == XFunctionManager.SkipOrigin.MVCAModule then
+        result = XDataCenter.FunctionalSkipManager.SkipMVCAModule(list, ...)
     end
 
-    if list.Origin == XFunctionManager.SkipOrigin.Dormitory then
-        XDataCenter.FunctionalSkipManager.SkipDormitory(list)
-        return
+    if list.IsRecord then
+        XFunctionManager._DealWithSkipResult(result, list.SkipId, fromMsg)
     end
-
-    -- if list.Origin == XFunctionManager.SkipOrigin.Webpage then
-    -- end
 end
 
-function XFunctionManager.CheckSkipInDuration(id)
+function XFunctionManager.CheckSkipInDuration(id, defaultClose)
     local cfg = XFunctionConfig.GetSkipFuncCfg(id)
     if not cfg then
         return false
@@ -425,15 +443,12 @@ function XFunctionManager.CheckSkipInDuration(id)
         end
     end
 
+    if defaultClose then
+        return false
+    end
+    
     return true
 end
-
-function XFunctionManager.GetSkipList(id)
-    if SkipFunctionalTemplates[id] then
-        return SkipFunctionalTemplates[id]
-    end
-end
-
 
 function XFunctionManager.IsCanSkip(skipId)
     local list = XFunctionConfig.GetSkipList(skipId)
@@ -564,8 +579,8 @@ function XFunctionManager.CheckSkipActivityOpen()
 
     if stageType == stageTypes.Mainline then
         return XDataCenter.FubenMainLineManager.IsMainLineActivityOpen()
-    elseif stageType == stageTypes.ActivtityBranch then
-        return XDataCenter.FubenActivityBranchManager.IsOpen()
+    --elseif stageType == stageTypes.ActivtityBranch then
+    --    return XDataCenter.FubenActivityBranchManager.IsOpen()
     elseif stageType == stageTypes.ActivityBossSingle then
         return XDataCenter.FubenActivityBossSingleManager.IsOpen()
     end
@@ -652,20 +667,6 @@ function XFunctionManager.BindTimeId(timeId)
     end
 end
 
---AFDeepLink特定需求
-function XFunctionManager.IsAFDeepLinkCanSkipByShowTips(skipId)
-    local list = XFunctionConfig.GetSkipList(skipId)
-    if not list then 
-        return false 
-    end
-    local isCanSkip = XFunctionManager.DetectionFunction(list.FunctionalId)
-    if isCanSkip and not XFunctionManager.CheckSkipInDuration(skipId) then
-        XUiManager.TipError(CS.XTextManager.GetText("AFDeepLinkNotTime"))
-        return false
-    end
-    return isCanSkip
-end
-
 local function UpdateFunctionTimeData(dataList)
     if not dataList then return end
     for _, data in pairs(dataList) do
@@ -684,6 +685,150 @@ end
 function XFunctionManager.InitFuncOpenTime(data)
     UpdateFunctionTimeData(data)
 end
+
+--2.8
+function XFunctionManager.CheckSkipPanelIsLoad(skipId)
+    local list = XFunctionConfig.GetSkipList(skipId)
+    if list.NotShowUI then
+        for i, v in pairs(list.NotShowUI) do
+            if XLuaUiManager.IsUiLoad(v) then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+--region 通用埋点相关接口
+
+--- 记录成功跳转的埋点信息
+function XFunctionManager.RecordSkip(skipId, skipType, fromMsg)
+    skipType = skipType or XFunctionManager.SkipTypeForRecord.CommonSkip
+
+    if skipType == XFunctionManager.SkipTypeForRecord.CommonSkip then
+        ---@type XTableSkipFunctional
+        local skipCfg = XFunctionConfig.GetSkipFuncCfg(skipId)
+
+        if not skipCfg or not skipCfg.IsRecord then
+            return
+        end
+    end
+
+
+    local dict = {}
+    dict["skip_id"] = skipId
+    dict["role_level"] = XPlayer.GetLevel()
+    dict["skip_type"] = skipType
+    dict["from_msg"] = fromMsg
+
+    if XMain.IsEditorDebug then
+        if XFunctionManager.__RecordTestEnable then
+            CS.XRecord.RecordTest(dict, "200019", "SkipFunc")
+        else
+            CS.XRecord.Record(dict, "200019", "SkipFunc")
+        end
+    else
+        CS.XRecord.Record(dict, "200019", "SkipFunc")
+    end
+    
+end
+
+--- 从池子中获取结果Id
+function XFunctionManager.GetNewResultId()
+    local resultId = ResultIdPool
+    ResultIdPool = ResultIdPool + 1
+    
+    -- 溢出处理，Id不包括负数范围
+    if ResultIdPool <= 0 then
+        ResultIdPool = 1
+    end
+    
+    -- 标记该Id被使用
+    if ResultWaitingDict[resultId] then
+        XLog.Error('异步跳转, 获取新Id时，等待结果字典中已存在缓存滞留，数据为：', ResultWaitingDict[resultId])
+
+        -- 回收滞留对象
+        local timeOutData = ResultWaitingDict[resultId]
+        ResultWaitingDict[resultId] = nil
+
+        if type(timeOutData) == 'table' then
+            AsyncSkipDataPool:ReturnItemToPool(timeOutData)
+        end
+    end
+
+    ResultWaitingDict[resultId] = true
+    
+    return resultId
+end
+
+--- 接收跳转结果
+function XFunctionManager.AcceptResult(resultId, isSuccess)
+    if not XTool.IsNumberValid(resultId) then
+        XLog.Error('无效的结果Id: '..tostring(resultId))
+        return
+    end
+    
+    if ResultWaitingDict[resultId] then
+        if ResultWaitingDict[resultId] == true then
+            -- 埋点Id请求了，但因为没有开启埋点或非通过SkipInterface，并没有执行完整，这边默认丢弃此次埋点处理
+            ResultWaitingDict[resultId] = nil
+            return
+        end
+        
+        
+        if isSuccess then
+            local data = ResultWaitingDict[resultId]
+            XFunctionManager.RecordSkip(data.SkipId, nil, data.FromMsg)
+        end
+        
+        -- 回收对象
+        AsyncSkipDataPool:ReturnItemToPool(ResultWaitingDict[resultId])
+        ResultWaitingDict[resultId] = nil
+    else
+        XLog.Error('接收的结果等待Id在缓存中不存在:'..tostring(resultId))
+    end
+end
+
+--- 处理跳转结果，这里主要是针对内部执行返回值情况的处理，只用于内部
+function XFunctionManager._DealWithSkipResult(result, skipId, fromMsg)
+    if result == true then
+        XFunctionManager.RecordSkip(skipId)
+    elseif result == false then
+        return
+    elseif XTool.IsNumberValid(result) then
+        if ResultWaitingDict[result] == nil then
+            XLog.Error('异步跳转，返回的等待Id与请求的Id不一致')
+            return
+        end
+        
+        if ResultWaitingDict[result] ~= true then
+            XLog.Error('异步跳转等待结果字典中已存在缓存滞留，数据为：', ResultWaitingDict[result])
+            
+            -- 回收滞留对象
+            local timeOutData = ResultWaitingDict[result]
+            ResultWaitingDict[result] = nil
+            
+            AsyncSkipDataPool:ReturnItemToPool(timeOutData)
+        end
+        
+        local data = AsyncSkipDataPool:GetItemFromPool()
+        data.SkipId = skipId
+        data.FromMsg = fromMsg
+        
+        ResultWaitingDict[result] = data
+    else
+        ---@type XTableSkipFunctional
+        local skipCfg = XFunctionConfig.GetSkipFuncCfg(skipId)
+
+        if skipCfg then
+            XLog.Error('跳转开启了埋点功能，但对应跳转接口返回值不正确，SkipId:'..tostring(skipId)..' Origin: '..tostring(skipCfg.Origin)..' UiName: '..tostring(skipCfg.UiName))
+        else
+            XLog.Error('跳转开启了埋点功能，但对应跳转接口返回值不正确，SkipId:'..tostring(skipId))
+        end
+    end
+end
+
+--endregion
 
 XRpc.NotifyTimeLimitCtrlConfigList = function(data)
     UpdateFunctionTimeData(data.TimeLimitCtrlConfigList)

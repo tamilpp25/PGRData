@@ -69,10 +69,10 @@ function XUiGridDoomsdayTeam:UpdateTeamBtn()
     local unlock = stageData:CanCreateTeam(teamId)
     local teamExist = stageData:CheckTeamExist(teamId)
 
-    --未解锁/已选择/事件中, 按钮均不可点击
-    local btnDisable = self.IsSelected or isBusy or not unlock
+    --未解锁/事件中, 按钮均不可点击
+    local btnDisable = isBusy or not unlock
     self.BtnTeam:SetDisable(btnDisable, not btnDisable)
-    self.BtnTeam.gameObject:SetActiveEx(not self.Selected and (unlock or teamExist))
+    self.BtnTeam.gameObject:SetActiveEx(unlock or teamExist)
 end
 
 function XUiGridDoomsdayTeam:SetSelect(value)
@@ -94,7 +94,9 @@ function XUiGridDoomsdayTeam:OnClickBtnTeam()
         self.CreateTeamCb()
         XLuaUiManager.Open("UiDoomsdayTeamTip", self.StageId, teamId)
     else
-        self.SelectCb(self.TeamId)
+        self.Selected = not self.Selected
+        local tmpId = self.Selected and self.TeamId or nil
+        self.SelectCb(tmpId)
     end
 end
 

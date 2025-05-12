@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local CsXTextManager = CS.XTextManager
 
 local XUiGridActivityBranchReward = XClass(nil, "XUiGridActivityBranchReward")

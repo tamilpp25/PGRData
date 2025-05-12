@@ -46,16 +46,14 @@ function XUiGridDormCharacter:Refresh(characterId)
     self.TxtCharacterName.text = charStyleConfig.Name
     local loveTypeConfig = XFurnitureConfigs.GetDormFurnitureType(charStyleConfig.LoveType)
     local likeTypeConfig = XFurnitureConfigs.GetDormFurnitureType(charStyleConfig.LikeType)
-
-    self.RootUi:SetUiSprite(self.ImgLove, loveTypeConfig.TypeIcon)
-    self.RootUi:SetUiSprite(self.ImgLike, likeTypeConfig.TypeIcon)
+    
+    self.ImgLove:SetSprite(loveTypeConfig.TypeIcon)
+    self.ImgLike:SetSprite(likeTypeConfig.TypeIcon)
 
     local showNew = XDataCenter.FurnitureManager.CheckNewHint(characterId)
     self.ImgNew.gameObject:SetActiveEx(showNew)
     if showNew then
-        local ids = {}
-        table.insert(ids, characterId)
-        XDataCenter.FurnitureManager.AddNewHint(ids)
+        XDataCenter.FurnitureManager.AddNewHint({characterId})
     end
 
     self.TxtLove.text = CS.XTextManager.GetText("DormHightDescription")

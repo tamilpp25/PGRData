@@ -10,7 +10,7 @@ function XRedPointConditionPracticeAllRedPoint.GetSubConditions()
 end
 
 function XRedPointConditionPracticeAllRedPoint.Check()
-    if XRedPointConditionPracticeBossChallengeNew.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PRACTICE_BOSS_CHALLENGE_NEW) then
         return true
     end
     return false

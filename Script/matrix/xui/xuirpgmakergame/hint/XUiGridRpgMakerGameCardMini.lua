@@ -17,20 +17,34 @@ function XUiGridRpgMakerGameCardMini:Ctor(ui, uiRoot)
     self.ImageFirstLineBg.gameObject:SetActiveEx(false)
 end
 
-function XUiGridRpgMakerGameCardMini:Refresh(blockId, colIndex, blockStatus, mapId, isNotShowLine)
-    local isBlock = blockStatus == XRpgMakerGameConfigs.XRpgMakerGameBlockStatus.Block
-    local row = XRpgMakerGameConfigs.GetRpgMakerGameBlockRow(blockId)
-    local monsterId = XRpgMakerGameConfigs.GetRpgMakerGameMonsterId(mapId, colIndex, row)
-    local isStartPoint = XRpgMakerGameConfigs.IsRpgMakerGameStartPoint(mapId, colIndex, row)
-    local isEndPoint = XRpgMakerGameConfigs.IsRpgMakerGameEndPoint(mapId, colIndex, row)
-    local triggerId = XRpgMakerGameConfigs.GetRpgMakerGameTriggerId(mapId, colIndex, row)
-    local shadowId = XRpgMakerGameConfigs.GetRpgMakerGameShadowId(mapId, colIndex, row)
-    local trapId = XRpgMakerGameConfigs.GetRpgMakerGameTrapId(mapId, colIndex, row)
-    local transferPointId = XRpgMakerGameConfigs.GetRpgMakerGameTransferPointId(mapId, colIndex, row)
-    local entityTypeList = XRpgMakerGameConfigs.GetRpgMakerGameEntityTypeListByXY(mapId, colIndex, row)
+function XUiGridRpgMakerGameCardMini:Refresh(row, colIndex, colDataList, mapId, isNotShowLine)
+    -- local row = XRpgMakerGameConfigs.GetRpgMakerGameBlockRow(blockId)
+    -- local isBlock = blockStatus == XRpgMakerGameConfigs.XRpgMakerGameBlockStatus.Block
+    -- local monsterId = XRpgMakerGameConfigs.GetRpgMakerGameMonsterId(mapId, colIndex, row)
+    -- local isStartPoint = XRpgMakerGameConfigs.IsRpgMakerGameStartPoint(mapId, colIndex, row)
+    -- local isEndPoint = XRpgMakerGameConfigs.IsRpgMakerGameEndPoint(mapId, colIndex, row)
+    -- local triggerId = XRpgMakerGameConfigs.GetRpgMakerGameTriggerId(mapId, colIndex, row)
+    -- local shadowId = XRpgMakerGameConfigs.GetRpgMakerGameShadowId(mapId, colIndex, row)
+    -- local trapId = XRpgMakerGameConfigs.GetRpgMakerGameTrapId(mapId, colIndex, row)
+    -- local transferPointId = XRpgMakerGameConfigs.GetRpgMakerGameTransferPointId(mapId, colIndex, row)
+    -- local entityTypeList = XRpgMakerGameConfigs.GetRpgMakerGameEntityTypeListByXY(mapId, colIndex, row)
 
-    local sameXYGapIdList = XRpgMakerGameConfigs.GetRpgMakerGameSameXYGapIdIdList(mapId, colIndex, row)
-    local sameXYElectricFenceIdList = XRpgMakerGameConfigs.GetRpgMakerGameSameXYElectricFenceIdList(mapId, colIndex, row)
+    local isBlock = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.BlockType)
+    local monsterId = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.Moster)
+    local isStartPoint = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.StartPoint)
+    local isEndPoint = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.EndPoint)
+    local triggerId = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.Trigger)
+    local shadowId = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.Shadow)
+    local trapId = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.Trap)
+    local transferPointId = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.TransferPoint)
+
+    local bubble = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.Bubble)
+    local drop = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.Drop)
+    local magic = XRpgMakerGameConfigs.GetMixBlockInPositionByType(mapId, colIndex, row, XRpgMakerGameConfigs.XRpgMakeBlockMetaType.Magic)
+
+    local entityTypeList = XRpgMakerGameConfigs.GetEntityInPositionByType(mapId, colIndex, row)
+    local sameXYGapIdList = XRpgMakerGameConfigs.GetGapInPositionByType(mapId, colIndex, row)
+    local sameXYElectricFenceIdList = XRpgMakerGameConfigs.GetElectricFenceInPositionByType(mapId, colIndex, row)
 
     --设置移动路线
     if not isNotShowLine then
@@ -87,8 +101,9 @@ function XUiGridRpgMakerGameCardMini:Refresh(blockId, colIndex, blockStatus, map
     if isBlock then
         table.insert(coverIconKeyList, XRpgMakerGameConfigs.RpgMakerGameHintIconKeyMaps.BlockIcon)
     elseif monsterId then
-        local monsterType = XRpgMakerGameConfigs.GetRpgMakerGameMonsterType(monsterId)
-        local skillType = XRpgMakerGameConfigs.GetRpgMakerGameMonsterSkillType(monsterId)
+        local id = monsterId:GetParams()[1]
+        local monsterType = XRpgMakerGameConfigs.GetRpgMakerGameMonsterType(id)
+        local skillType = XRpgMakerGameConfigs.GetRpgMakerGameMonsterSkillType(id)
         table.insert(coverIconKeyList, XRpgMakerGameConfigs.GetMonsterIconKey(monsterType, skillType))
     elseif isStartPoint then
         table.insert(coverIconKeyList, XRpgMakerGameConfigs.RpgMakerGameHintIconKeyMaps.StartPointIcon)
@@ -97,30 +112,50 @@ function XUiGridRpgMakerGameCardMini:Refresh(blockId, colIndex, blockStatus, map
     elseif shadowId then
         table.insert(coverIconKeyList, XRpgMakerGameConfigs.RpgMakerGameHintIconKeyMaps.ShadowIcon)
     elseif transferPointId then
-        local transferPointColor = XRpgMakerGameConfigs.GetTransferPointColor(transferPointId)
+        local transferPointColor = XRpgMakerGameConfigs.GetTransferPointColor(transferPointId:GetParams()[1])
         table.insert(coverIconKeyList, XRpgMakerGameConfigs.GetTransferPointIconKey(transferPointColor))
-    end
-    if not XTool.IsTableEmpty(entityTypeList) then
-        for _, entityType in ipairs(entityTypeList) do
-            table.insert(coverIconKeyList, XRpgMakerGameConfigs.GetEntityIconKey(entityType))
-        end
     end
     if trapId then
         table.insert(coverIconKeyList, XRpgMakerGameConfigs.RpgMakerGameHintIconKeyMaps.TrapIcon)
     end
     if triggerId then
-        local triggerType = XRpgMakerGameConfigs.GetRpgMakerGameTriggerType(triggerId)
+        local triggerType = XRpgMakerGameConfigs.GetRpgMakerGameTriggerType(triggerId:GetParams()[1])
         table.insert(coverIconKeyList, XRpgMakerGameConfigs.GetTriggerIconKey(triggerType))
+    end
+
+    if bubble then
+        table.insert(coverIconKeyList, XRpgMakerGameConfigs.RpgMakerGameHintIconKeyMaps.Bubble)
+    end
+    if drop then
+        table.insert(coverIconKeyList, XRpgMakerGameConfigs.GetDropIconKey(drop:GetParams()[2]))
+    end
+    if magic then
+        table.insert(coverIconKeyList, XRpgMakerGameConfigs.RpgMakerGameHintIconKeyMaps.Magic)
+    end
+
+
+    if not XTool.IsTableEmpty(entityTypeList) then
+        for _, data in ipairs(entityTypeList) do
+            if data:GetType() == XRpgMakerGameConfigs.XRpgMakeBlockMetaType.Water then
+                table.insert(coverIconKeyList, XRpgMakerGameConfigs.GetEntityIconKey(XRpgMakerGameConfigs.XRpgMakerGameEntityType.Water))
+            elseif data:GetType() == XRpgMakerGameConfigs.XRpgMakeBlockMetaType.Ice then
+                table.insert(coverIconKeyList, XRpgMakerGameConfigs.GetEntityIconKey(XRpgMakerGameConfigs.XRpgMakerGameEntityType.Ice))
+            elseif data:GetType() == XRpgMakerGameConfigs.XRpgMakeBlockMetaType.Grass then
+                table.insert(coverIconKeyList, XRpgMakerGameConfigs.GetEntityIconKey(XRpgMakerGameConfigs.XRpgMakerGameEntityType.Grass))
+            else
+                table.insert(coverIconKeyList, XRpgMakerGameConfigs.GetEntityIconKey(XRpgMakerGameConfigs.XRpgMakerGameEntityType.Steel))
+            end
+        end
     end
 
     --设置缝隙图标列表
     if not XTool.IsTableEmpty(sameXYGapIdList) then
-        self:SetGapIcon(sameXYGapIdList, XRpgMakerGameConfigs.RpgMakerGameHintIconKeyMaps.GapIcon, XRpgMakerGameConfigs.GetRpgMakerGameGapDirection)
+        self:SetGapIcon(sameXYGapIdList, XRpgMakerGameConfigs.RpgMakerGameHintIconKeyMaps.GapIcon, XRpgMakerGameConfigs.GetGapDirection)
     end
 
     --设置电墙图标列表
     if not XTool.IsTableEmpty(sameXYElectricFenceIdList) then
-        self:SetGapIcon(sameXYElectricFenceIdList, XRpgMakerGameConfigs.RpgMakerGameHintIconKeyMaps.ElectricFenceIcon, XRpgMakerGameConfigs.GetRpgMakerGameElectricDirection)
+        self:SetGapIcon(sameXYElectricFenceIdList, XRpgMakerGameConfigs.RpgMakerGameHintIconKeyMaps.ElectricFenceIcon, XRpgMakerGameConfigs.GetElectricFenceDirection)
     end
 
     if not XTool.IsTableEmpty(coverIconKeyList) then

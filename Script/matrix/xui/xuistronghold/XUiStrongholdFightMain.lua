@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiPanelStrongholdChapter = require("XUi/XUiStronghold/XUiPanelStrongholdChapter")
 
 local handler = handler
@@ -8,7 +9,7 @@ local XUiStrongholdFightMain = XLuaUiManager.Register(XLuaUi, "UiStrongholdFight
 function XUiStrongholdFightMain:OnAwake()
     self:AutoAddListener()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemId = XDataCenter.StrongholdManager.GetMineralItemId()
     XDataCenter.ItemManager.AddCountUpdateListener(
         itemId,
@@ -21,10 +22,15 @@ function XUiStrongholdFightMain:OnAwake()
     self.RImgBg = self:FindComponent("BgCommonBai", "RawImage")
 end
 
-function XUiStrongholdFightMain:OnStart(chapterId)
+function XUiStrongholdFightMain:OnStart(chapterId, jumpToGroupId)
     self.ChapterId = chapterId
-
+    self.JumpToGroupId = jumpToGroupId --跳转至关卡组Id
+    XDataCenter.StrongholdManager:RecordCurChapterId(chapterId)
     self:InitView()
+end
+
+function XUiStrongholdFightMain:OnDestroy()
+    XDataCenter.StrongholdManager:RecordCurChapterId(nil)
 end
 
 function XUiStrongholdFightMain:OnEnable()
@@ -39,8 +45,8 @@ function XUiStrongholdFightMain:OnEnable()
 
     self.AssetActivityPanel:Refresh({XDataCenter.StrongholdManager.GetMineralItemId()})
 
-    self:UpdateEndurance()
     self:UpdateChapter()
+    self:UpdateTask()
 
     XDataCenter.StrongholdManager.CheckNewFinishGroupIds()
 end
@@ -50,7 +56,8 @@ function XUiStrongholdFightMain:OnGetEvents()
         XEventId.EVENT_STRONGHOLD_FINISH_GROUP_CHANGE,
         XEventId.EVENT_STRONGHOLD_ENDURANCE_CHANGE,
         XEventId.EVENT_STRONGHOLD_ACTIVITY_END,
-        XEventId.EVENT_STRONGHOLD_FINISH_GROUP_USE_ELECTRIC_CHANGE
+        XEventId.EVENT_STRONGHOLD_FINISH_GROUP_USE_ELECTRIC_CHANGE,
+        XEventId.EVENT_STRONGHOLD_FINISH_REWARDS_CHANGE,
     }
 end
 
@@ -64,13 +71,13 @@ function XUiStrongholdFightMain:OnNotify(evt, ...)
         XDataCenter.StrongholdManager.CheckNewFinishGroupIds()
     elseif evt == XEventId.EVENT_STRONGHOLD_ENDURANCE_CHANGE then
         XDataCenter.StrongholdManager.CheckNewFinishGroupIds()
-    elseif evt == XEventId.EVENT_STRONGHOLD_ENDURANCE_CHANGE then
-        self:UpdateEndurance()
     elseif evt == XEventId.EVENT_STRONGHOLD_ACTIVITY_END then
         if XDataCenter.StrongholdManager.OnActivityEnd() then
             self.IsEnd = true
             return
         end
+    elseif evt == XEventId.EVENT_STRONGHOLD_FINISH_REWARDS_CHANGE then
+        self:UpdateTask()
     end
 end
 
@@ -80,15 +87,10 @@ function XUiStrongholdFightMain:InitView()
     local name = XStrongholdConfigs.GetChapterName(chapterId)
     self.TxtChapterName.text = name
 
-    local bg = XStrongholdConfigs.GetChapterBg(chapterId)
+    local bg = XStrongholdConfigs.GetBg(chapterId)
     if not string.IsNilOrEmpty(bg) then
         self.RImgBg:SetRawImage(bg)
     end
-end
-
-function XUiStrongholdFightMain:UpdateEndurance()
-    local curEndurance = XDataCenter.StrongholdManager.GetCurEndurance()
-    self.TxtEndurance.text = curEndurance
 end
 
 function XUiStrongholdFightMain:UpdateChapter()
@@ -106,6 +108,11 @@ function XUiStrongholdFightMain:UpdateChapter()
     end
 
     self.ChapterPanel:Refresh(chapterId)
+
+    if self.JumpToGroupId then
+        self:OnSkipStage(self.JumpToGroupId)
+        self.JumpToGroupId = nil
+    end
 end
 
 function XUiStrongholdFightMain:AutoAddListener()
@@ -118,10 +125,8 @@ function XUiStrongholdFightMain:AutoAddListener()
     self.BtnToEnd.CallBack = function()
         self:OnClickBtnToEnd()
     end
-    self.BtnActDesc.CallBack = function()
-        self:OnClickBtnActDesc()
-    end
     self:BindHelpBtn(self.BtnHelp, "StrongholdFight")
+    self:RegisterClickEvent(self.BtnReward, self.OnClickBtnReward)
 end
 
 function XUiStrongholdFightMain:OnClickBtnBack()
@@ -136,11 +141,6 @@ function XUiStrongholdFightMain:OnClickBtnToEnd()
     if self.ChapterPanel then
         self.ChapterPanel:CenterToLastGrid()
     end
-end
-
-function XUiStrongholdFightMain:OnClickBtnActDesc()
-    local description = XUiHelper.ConvertLineBreakSymbol(CsXTextManagerGetText("StrongholdUiFightMainActDes"))
-    XUiManager.UiFubenDialogTip("", description)
 end
 
 function XUiStrongholdFightMain:OnClickStage(groupId)
@@ -164,3 +164,14 @@ function XUiStrongholdFightMain:OnSkipStage(skipGroupId)
     end
     self.ChapterPanel:OnSkipStage(skipGroupId)
 end
+
+function XUiStrongholdFightMain:OnClickBtnReward()
+    XLuaUiManager.Open("UiStrongholdRewardTip")
+end
+
+function XUiStrongholdFightMain:UpdateTask()
+    local rewardIds = XDataCenter.StrongholdManager.GetCanReceiveReward()
+    self.BtnReward:ShowReddot(#rewardIds > 0)
+end
+
+return XUiStrongholdFightMain

@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiRogueLikeShop = XLuaUiManager.Register(XLuaUi, "UiRogueLikeShop")
 local XUiGridNodeShopItem = require("XUi/XUiFubenRogueLike/XUiGridNodeShopItem")
 local XUiNodeShopBuyDetails = require("XUi/XUiFubenRogueLike/XUiNodeShopBuyDetails")

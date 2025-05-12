@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --######################## XUiRuleProbabilityText ########################
 local XUiRuleProbabilityText = XClass(nil, "XUiRuleProbabilityText")
 
@@ -23,8 +24,6 @@ function XUiRuleDropItemPanel:Ctor(ui, rootUi)
     -- XRuleDropItemViewModel
     self.RuleDropItemViewModel = nil
     self.RootUi = rootUi
-    self.ItemTextNew.HrefUnderLineColor = CS.UnityEngine.Color(1, 45 / 255, 45 / 255, 1)
-    self.PanelProbabilityTextNew.HrefUnderLineColor = CS.UnityEngine.Color(1, 45 / 255, 45 / 255, 1)
     self:RegisterUiEvents()
 end
 
@@ -37,15 +36,6 @@ function XUiRuleDropItemPanel:SetData(ruleDropItemViewModel)
     self.BtnSwitch2:SetNameByGroup(0, ruleDropItemViewModel:GetGoodSwitchBtnName())
     -- 默认打开商品信息
     self:OnBtnSwitchGoodClicked()
-    local content = CS.XGame.ClientConfig:GetString("HeroOffcialGachaWebsite")
-    self.ItemTextNew.text = content
-    self.PanelProbabilityTextNew.text = content
-    self.ItemTextNew.HrefListener = function(link)
-        self:ClickLink(link)
-    end
-    self.PanelProbabilityTextNew.HrefListener = function(link)
-        self:ClickLink(link)
-    end
 end
 
 --######################## 私有方法 ########################
@@ -126,10 +116,6 @@ function XUiRuleDropItemPanel:SwitchChildType(childType)
     self.BtnSwitch2.gameObject:SetActiveEx(childType == ChildType.Probability)
     self.PanelItemList.gameObject:SetActiveEx(childType == ChildType.Good)
     self.PanelProbabilityList.gameObject:SetActiveEx(childType == ChildType.Probability)
-end
-
-function XUiRuleDropItemPanel:ClickLink(url)
-    CS.UnityEngine.Application.OpenURL(url)
 end
 
 return XUiRuleDropItemPanel

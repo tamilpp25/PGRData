@@ -1,528 +1,36 @@
 [
     {
-        "Id": 101,
-        "PreId": null,
-        "Order": "NA-01",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Redstone Entrance",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406201,
-            406101,
-            406003
-        ],
-        "TeamMember": [
-            3
-        ],
-        "DistributionGroup": 1,
-        "BuffGroup": [
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202001|30202002"
-        ],
-        "BaseBuffId": [
-            "56|56|56"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ],
-        "SweepCondition": [
-            95421.0,
-            95411.0,
-            95401.0
-        ]
-    },
-    {
-        "Id": 102,
-        "PreId": null,
-        "Order": "NA-02",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Redstone Surface",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406202,
-            406102,
-            406002
-        ],
-        "TeamMember": [
-            3
-        ],
-        "DistributionGroup": 1,
-        "BuffGroup": [
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202003|30202004"
-        ],
-        "BaseBuffId": [
-            "56|56|56"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ],
-        "SweepCondition": [
-            95421.0,
-            95411.0,
-            95401.0
-        ]
-    },
-    {
-        "Id": 103,
-        "PreId": null,
-        "Order": "NA-03",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Redstone Terrace",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406203,
-            406103,
-            406003
-        ],
-        "TeamMember": [
-            3
-        ],
-        "DistributionGroup": 1,
-        "BuffGroup": [
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202005|30202006"
-        ],
-        "BaseBuffId": [
-            "56|56|56"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ],
-        "SweepCondition": [
-            95421.0,
-            95411.0,
-            95401.0
-        ]
-    },
-    {
-        "Id": 104,
-        "PreId": null,
-        "Order": "SP-01",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-01",
-        "Name": "Redstone Cave",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage020.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406204,
-            406104,
-            406004
-        ],
-        "TeamMember": [
-            3
-        ],
-        "DistributionGroup": 1,
-        "BuffGroup": [
-            "76|76"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202007|30202008"
-        ],
-        "BaseBuffId": [
-            "24|24|24"
-        ],
-        "StageBuffId": [
-            "53|53|53"
-        ],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ],
-        "SweepCondition": [
-            95421.0,
-            95411.0,
-            95401.0
-        ]
-    },
-    {
-        "Id": 105,
-        "PreId": null,
-        "Order": "SP-02",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-01",
-        "Name": "Redstone Passage",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage021.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406205,
-            406105,
-            406005
-        ],
-        "TeamMember": [
-            3
-        ],
-        "DistributionGroup": 1,
-        "BuffGroup": [
-            "76|76"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202009|30202010"
-        ],
-        "BaseBuffId": [
-            "24|24|24"
-        ],
-        "StageBuffId": [
-            "54|54|54"
-        ],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ],
-        "SweepCondition": [
-            95421.0,
-            95411.0,
-            95401.0
-        ]
-    },
-    {
-        "Id": 106,
-        "PreId": null,
-        "Order": "EX-01",
-        "DetailDesc": "Complete the operation to eliminate all the enemies in the mine",
-        "Name": "Redstone Deep Hive",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss01.png",
-        "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
-        "FinishRelatedId": [
-            101.0,
-            102.0,
-            103.0,
-            104.0,
-            105.0
-        ],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406206,
-            406106,
-            406006
-        ],
-        "TeamMember": [
-            3
-        ],
-        "DistributionGroup": 1,
-        "BuffGroup": [
-            "76|76"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202011|30202012"
-        ],
-        "BaseBuffId": [
-            "58|58|58"
-        ],
-        "StageBuffId": [
-            "53|53|53",
-            "54|54|54"
-        ],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ],
-        "SweepCondition": [
-            95421.0,
-            95411.0,
-            95401.0
-        ]
-    },
-    {
-        "Id": 107,
-        "PreId": 106.0,
-        "Order": "NA-04",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Southern Entrance",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406207,
-            406107,
-            406007
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 2,
-        "BuffGroup": [
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202013|30202014",
-            "30202015|30202315",
-            "30202016|30202316",
-            "30202017|30202317",
-            "30202018|30202318",
-            "30202019|30202319"
-        ],
-        "BaseBuffId": [
-            "56|56|56"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ],
-        "SweepCondition": [
-            95422.0,
-            95412.0,
-            95402.0
-        ]
-    },
-    {
-        "Id": 108,
-        "PreId": null,
-        "Order": "NA-05",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Southern Surface",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406208,
-            406108,
-            406008
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 2,
-        "BuffGroup": [
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202020|30202021",
-            "30202022|30202322",
-            "30202023|30202323",
-            "30202024|30202324",
-            "30202025|30202325",
-            "30202026|30202326"
-        ],
-        "BaseBuffId": [
-            "56|56|56"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ],
-        "SweepCondition": [
-            95422.0,
-            95412.0,
-            95402.0
-        ]
-    },
-    {
-        "Id": 109,
-        "PreId": null,
-        "Order": "NA-06",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Southern Terrace",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406209,
-            406109,
-            406009
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 2,
-        "BuffGroup": [
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202027|30202028",
-            "30202029|30202329",
-            "30202030|30202330",
-            "30202031|30202331",
-            "30202032|30202332",
-            "30202033|30202333"
-        ],
-        "BaseBuffId": [
-            "56|56|56"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ],
-        "SweepCondition": [
-            95422.0,
-            95412.0,
-            95402.0
-        ]
-    },
-    {
         "Id": 110,
         "PreId": null,
-        "Order": "SP-03",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-02",
+        "Order": "SP-01",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
         "Name": "Southern Cave",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage020.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406210,
-            406110,
-            406010
+            5002205,
+            5002205,
+            5002205
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 2,
+        "DistributionGroup": 1,
         "BuffGroup": [
             "81|81",
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -534,8 +42,7 @@
             "30202036|30202336",
             "30202037|30202337",
             "30202038|30202338",
-            "30202039|30202339",
-            "30202040|30202340"
+            "30202039|30202339"
         ],
         "BaseBuffId": [
             "73|73|73"
@@ -545,49 +52,46 @@
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
+            2.0
         ],
         "SweepCondition": [
-            95422.0,
-            95412.0,
-            95402.0
-        ]
+            95402.0,
+            95406.0
+        ],
+        "SupportId": "133|134|135"
     },
     {
         "Id": 111,
         "PreId": null,
-        "Order": "SP-04",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-02",
+        "Order": "SP-02",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
         "Name": "Southern Passage",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage021.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406211,
-            406111,
-            406011
+            5002206,
+            5002206,
+            5002206
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 2,
+        "DistributionGroup": 1,
         "BuffGroup": [
             "81|81",
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -599,8 +103,7 @@
             "30202043|30202343",
             "30202044|30202344",
             "30202045|30202345",
-            "30202046|30202346",
-            "30202047|30202347"
+            "30202046|30202346"
         ],
         "BaseBuffId": [
             "73|73|73"
@@ -610,55 +113,55 @@
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
+            2.0
         ],
         "SweepCondition": [
-            95422.0,
-            95412.0,
-            95402.0
-        ]
+            95402.0,
+            95406.0
+        ],
+        "SupportId": "133|134|135"
     },
     {
         "Id": 112,
         "PreId": null,
-        "Order": "EX-02",
+        "Order": "Southern Mine",
         "DetailDesc": "Complete the operation to eliminate all the enemies in the mine",
         "Name": "Southern Deep Hive",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss01.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster90620.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster90650.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster90340.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster90810.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster90630.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
-            107.0,
-            108.0,
-            109.0,
             110.0,
             111.0
         ],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406212,
-            406112,
-            406012
+            5002207,
+            5002207,
+            5002207
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 2,
+        "DistributionGroup": 1,
         "BuffGroup": [
             "81|81",
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -670,8 +173,7 @@
             "30202050|30202350",
             "30202051|30202351",
             "30202052|30202352",
-            "30202053|30202353",
-            "30202054|30202354"
+            "30202053|30202353"
         ],
         "BaseBuffId": [
             "21|21|21"
@@ -682,228 +184,46 @@
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
+            2.0
         ],
         "SweepCondition": [
-            95422.0,
-            95412.0,
-            95402.0
-        ]
-    },
-    {
-        "Id": 113,
-        "PreId": 112.0,
-        "Order": "NA-07",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Groening Entrance",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406213,
-            406113,
-            406013
+            95402.0,
+            95406.0
         ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 3,
-        "BuffGroup": [
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202055|30202056",
-            "30202057|30202357",
-            "30202058|30202358",
-            "30202059|30202359",
-            "30202060|30202360",
-            "30202061|30202361"
-        ],
-        "BaseBuffId": [
-            "56|56|56"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [
-            3.0
-        ],
-        "SweepCondition": [
-            95403.0
-        ]
-    },
-    {
-        "Id": 114,
-        "PreId": null,
-        "Order": "NA-08",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Groening Surface",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406214,
-            406114,
-            406014
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 3,
-        "BuffGroup": [
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202062|30202063",
-            "30202064|30202364",
-            "30202065|30202365",
-            "30202066|30202366",
-            "30202067|30202367",
-            "30202068|30202368"
-        ],
-        "BaseBuffId": [
-            "56|56|56"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [
-            3.0
-        ],
-        "SweepCondition": [
-            95403.0
-        ]
-    },
-    {
-        "Id": 115,
-        "PreId": null,
-        "Order": "SP-05",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-03",
-        "Name": "Groening Cave",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage022.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406215,
-            406115,
-            406015
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 3,
-        "BuffGroup": [
-            "81|81",
-            "82|82",
-            "83|83",
-            "84|84",
-            "85|85",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202069|30202070",
-            "30202071|30202371",
-            "30202072|30202372",
-            "30202073|30202373",
-            "30202074|30202374",
-            "30202075|30202375"
-        ],
-        "BaseBuffId": [
-            "58|58|58"
-        ],
-        "StageBuffId": [
-            "29|29|29"
-        ],
-        "SweepLevelId": [
-            3.0
-        ],
-        "SweepCondition": [
-            95403.0
-        ]
+        "SupportId": "133|134|135"
     },
     {
         "Id": 116,
-        "PreId": null,
-        "Order": "SP-06",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-03",
+        "PreId": 112.0,
+        "Order": "SP-01",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
         "Name": "Groening Passage",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406216,
-            406116,
-            406016
+            5002208,
+            5002208,
+            5002208
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 3,
+        "DistributionGroup": 2,
         "BuffGroup": [
             "81|81",
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -915,56 +235,56 @@
             "30202078|30202378",
             "30202079|30202379",
             "30202080|30202380",
-            "30202081|30202381",
-            "30202082|30202382"
+            "30202081|30202381"
         ],
         "BaseBuffId": [
             "58|58|58"
         ],
         "StageBuffId": [
-            "47|47|47"
+            "29|29|29"
         ],
         "SweepLevelId": [
-            3.0
+            1.0,
+            2.0
         ],
         "SweepCondition": [
-            95403.0
-        ]
+            95403.0,
+            95407.0
+        ],
+        "SupportId": "130|131|132"
     },
     {
         "Id": 117,
         "PreId": null,
-        "Order": "SP-07",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-03",
+        "Order": "SP-02",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
         "Name": "Groening Cliff",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406217,
-            406117,
-            406017
+            5002209,
+            5002209,
+            5002209
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 3,
+        "DistributionGroup": 2,
         "BuffGroup": [
             "81|81",
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -976,62 +296,65 @@
             "30202085|30202385",
             "30202086|30202386",
             "30202087|30202387",
-            "30202088|30202388",
-            "30202089|30202389"
+            "30202088|30202388"
         ],
         "BaseBuffId": [
             "58|58|58"
         ],
         "StageBuffId": [
-            "33|33|33"
+            "47|47|47"
         ],
         "SweepLevelId": [
-            3.0
+            1.0,
+            2.0
         ],
         "SweepCondition": [
-            95403.0
-        ]
+            95403.0,
+            95407.0
+        ],
+        "SupportId": "130|131|132"
     },
     {
         "Id": 118,
         "PreId": null,
-        "Order": "EX-03",
+        "Order": "Groening Mine",
         "DetailDesc": "Complete the operation to eliminate all the enemies in the mine",
         "Name": "Groening Deep Hive",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss05.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster837000.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster81500.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster81700.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster81700.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster81300.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
-            113.0,
-            114.0,
-            115.0,
             116.0,
             117.0
         ],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406218,
-            406118,
-            406018
+            5002210,
+            5002210,
+            5002210
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 3,
+        "DistributionGroup": 2,
         "BuffGroup": [
             "81|81",
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -1043,8 +366,7 @@
             "30202092|30202392",
             "30202093|30202393",
             "30202094|30202394",
-            "30202095|30202395",
-            "30202096|30202396"
+            "30202095|30202395"
         ],
         "BaseBuffId": [
             "41|41|41",
@@ -1052,221 +374,50 @@
         ],
         "StageBuffId": [
             "29|29|29",
-            "47|47|47",
-            "33|33|33"
+            "47|47|47"
         ],
         "SweepLevelId": [
-            3.0
+            1.0,
+            2.0
         ],
         "SweepCondition": [
-            95403.0
-        ]
-    },
-    {
-        "Id": 119,
-        "PreId": 118.0,
-        "Order": "NA-09",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Stratum Entrance",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406219,
-            406119,
-            406019
+            95403.0,
+            95407.0
         ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 4,
-        "BuffGroup": [
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202097|30202098",
-            "30202099|30202399",
-            "30202100|30202400",
-            "30202101|30202401",
-            "30202102|30202402",
-            "30202103|30202403"
-        ],
-        "BaseBuffId": [
-            "58|58|58",
-            "0|160|0"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 120,
-        "PreId": null,
-        "Order": "NA-10",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Stratum Surface",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406220,
-            406120,
-            406020
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 4,
-        "BuffGroup": [
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202104|30202105",
-            "30202106|30202406",
-            "30202107|30202407",
-            "30202108|30202408",
-            "30202109|30202409",
-            "30202110|30202410"
-        ],
-        "BaseBuffId": [
-            "58|58|58",
-            "0|160|0"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 121,
-        "PreId": null,
-        "Order": "SP-08",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-04",
-        "Name": "Stratum Cave",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage022.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406221,
-            406121,
-            406021
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 4,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202111|30202112",
-            "30202113|30202413",
-            "30202114|30202414",
-            "30202115|30202415",
-            "30202116|30202416",
-            "30202117|30202417"
-        ],
-        "BaseBuffId": [
-            "21|21|21",
-            "39|39|39",
-            "0|160|0"
-        ],
-        "StageBuffId": [
-            "27|162|156"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SupportId": "130|131|132"
     },
     {
         "Id": 122,
-        "PreId": null,
-        "Order": "SP-09",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-04",
+        "PreId": 118.0,
+        "Order": "SP-01",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
         "Name": "Stratum Passage",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406222,
-            406122,
-            406022
+            5002211,
+            5002211,
+            5002211
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 4,
+        "DistributionGroup": 3,
         "BuffGroup": [
             "86|86",
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -1278,8 +429,7 @@
             "30202120|30202420",
             "30202121|30202421",
             "30202122|30202422",
-            "30202123|30202423",
-            "30202124|30202424"
+            "30202123|30202423"
         ],
         "BaseBuffId": [
             "21|21|21",
@@ -1287,45 +437,50 @@
             "0|160|0"
         ],
         "StageBuffId": [
-            "155|161|155"
+            "27|162|156"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepLevelId": [
+            1.0,
+            2.0
+        ],
+        "SweepCondition": [
+            95404.0,
+            95408.0
+        ],
+        "SupportId": "127|128|129"
     },
     {
         "Id": 123,
         "PreId": null,
-        "Order": "SP-10",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-04",
+        "Order": "SP-02",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
         "Name": "Stratum Cliff",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406223,
-            406123,
-            406023
+            5002212,
+            5002212,
+            5002212
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 4,
+        "DistributionGroup": 3,
         "BuffGroup": [
             "86|86",
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -1337,8 +492,7 @@
             "30202127|30202427",
             "30202128|30202428",
             "30202129|30202429",
-            "30202130|30202430",
-            "30202131|30202431"
+            "30202130|30202430"
         ],
         "BaseBuffId": [
             "21|21|21",
@@ -1348,49 +502,57 @@
         "StageBuffId": [
             "34|163|157"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepLevelId": [
+            1.0,
+            2.0
+        ],
+        "SweepCondition": [
+            95404.0,
+            95408.0
+        ],
+        "SupportId": "127|128|129"
     },
     {
         "Id": 124,
         "PreId": null,
-        "Order": "EX-04",
+        "Order": "Stratum Mine",
         "DetailDesc": "Complete the operation to eliminate all the enemies in the mine",
         "Name": "Stratum Deep Hive",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss07.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster83500.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster93600.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster81900.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster83800.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster83220.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
-            119.0,
-            120.0,
-            121.0,
             122.0,
             123.0
         ],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406224,
-            406124,
-            406024
+            5002213,
+            5002213,
+            5002213
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 4,
+        "DistributionGroup": 3,
         "BuffGroup": [
             "86|86",
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -1402,227 +564,59 @@
             "30202134|30202434",
             "30202135|30202435",
             "30202136|30202436",
-            "30202137|30202437",
-            "30202138|30202438"
+            "30202137|30202437"
         ],
         "BaseBuffId": [
             "22|22|22",
-            "67|67|56",
+            "67|67|67",
             "0|160|0"
         ],
         "StageBuffId": [
             "27|162|156",
-            "155|161|155",
             "34|163|157"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 125,
-        "PreId": 124.0,
-        "Order": "NA-11",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Bollie Entrance",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406125,
-            406125,
-            406025
+        "SweepLevelId": [
+            1.0,
+            2.0
         ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+        "SweepCondition": [
+            95404.0,
+            95408.0
         ],
-        "DistributionGroup": 5,
-        "BuffGroup": [
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202139|30202140",
-            "30202141|30202441",
-            "30202142|30202442",
-            "30202143|30202443",
-            "30202144|30202444",
-            "30202145|30202445"
-        ],
-        "BaseBuffId": [
-            "26|26|26",
-            "0|164|236"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 126,
-        "PreId": null,
-        "Order": "NA-12",
-        "DetailDesc": "Clear to get Miners as reward",
-        "Name": "Bollie Surface",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage03.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage03.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406126,
-            406126,
-            406026
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 5,
-        "BuffGroup": [
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0",
-            "0|0"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202146|30202147",
-            "30202148|30202448",
-            "30202149|30202449",
-            "30202150|30202450",
-            "30202151|30202451",
-            "30202152|30202452"
-        ],
-        "BaseBuffId": [
-            "26|26|26",
-            "0|164|236"
-        ],
-        "StageBuffId": [],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 127,
-        "PreId": null,
-        "Order": "SP-11",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-05",
-        "Name": "Bollie Cave",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage022.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 1,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406127,
-            406127,
-            406027
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 5,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202153|30202154",
-            "30202155|30202455",
-            "30202156|30202456",
-            "30202157|30202457",
-            "30202158|30202458",
-            "30202159|30202459"
-        ],
-        "BaseBuffId": [
-            "22|22|22",
-            "57|57|57",
-            "0|164|236"
-        ],
-        "StageBuffId": [
-            "31|166|237"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SupportId": "127|128|129"
     },
     {
         "Id": 128,
-        "PreId": null,
-        "Order": "SP-12",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-05",
+        "PreId": 124.0,
+        "Order": "SP-01",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
         "Name": "Bollie Passage",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406128,
-            406128,
-            406028
+            5002214,
+            5002214,
+            5002214
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 5,
+        "DistributionGroup": 4,
         "BuffGroup": [
             "86|86",
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -1634,8 +628,7 @@
             "30202162|30202462",
             "30202163|30202463",
             "30202164|30202464",
-            "30202165|30202465",
-            "30202166|30202466"
+            "30202165|30202465"
         ],
         "BaseBuffId": [
             "22|22|22",
@@ -1643,45 +636,48 @@
             "0|164|236"
         ],
         "StageBuffId": [
-            "238|165|238"
+            "42|166|237"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepLevelId": [
+            2.0
+        ],
+        "SweepCondition": [
+            95405.0
+        ],
+        "SupportId": "118|121|124"
     },
     {
         "Id": 129,
         "PreId": null,
-        "Order": "SP-13",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-05",
+        "Order": "SP-02",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
         "Name": "Bollie Cliff",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406129,
-            406129,
-            406029
+            5002215,
+            5002215,
+            5002215
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 5,
+        "DistributionGroup": 4,
         "BuffGroup": [
             "86|86",
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -1693,8 +689,7 @@
             "30202169|30202469",
             "30202170|30202470",
             "30202171|30202471",
-            "30202172|30202472",
-            "30202173|30202473"
+            "30202172|30202472"
         ],
         "BaseBuffId": [
             "22|22|22",
@@ -1702,51 +697,57 @@
             "0|164|236"
         ],
         "StageBuffId": [
-            "42|167|239"
+            "238|165|239"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepLevelId": [
+            2.0
+        ],
+        "SweepCondition": [
+            95405.0
+        ],
+        "SupportId": "118|121|124"
     },
     {
         "Id": 130,
         "PreId": null,
-        "Order": "EX-05",
+        "Order": "Bollie Mine",
         "DetailDesc": "Complete the operation to eliminate all the enemies in the mine",
         "Name": "Bollie Deep Hive",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss08.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster837100.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster841000.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster83100.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster93600.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster84300.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
-            125.0,
-            126.0,
-            127.0,
             128.0,
             129.0
         ],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406130,
-            406130,
-            406030
+            5002216,
+            5002216,
+            5002216
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 5,
+        "DistributionGroup": 4,
         "BuffGroup": [
             "86|86",
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -1758,1014 +759,57 @@
             "30202176|30202476",
             "30202177|30202477",
             "30202178|30202478",
-            "30202179|30202479",
-            "30202180|30202480"
-        ],
-        "BaseBuffId": [
-            "23|23|23",
-            "56|56|168",
-            "0|164|236"
-        ],
-        "StageBuffId": [
-            "31|166|237",
-            "238|165|238",
-            "42|167|239"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 131,
-        "PreId": 118.0,
-        "Order": "DF-01",
-        "DetailDesc": "Complete the operation to reduce the difficulty of DS-01",
-        "Name": "Energy Surface",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage020.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406300,
-            406301,
-            406302
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 6,
-        "BuffGroup": [
-            "81|81",
-            "82|82",
-            "83|83",
-            "84|84",
-            "85|85",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202482",
-            "30202483",
-            "30202484",
-            "30202485",
-            "30202486",
-            "30202487"
-        ],
-        "BaseBuffId": [
-            "202|202|202",
-            "203|203|203"
-        ],
-        "StageBuffId": [
-            "204|204|204"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 132,
-        "PreId": null,
-        "Order": "DF-02",
-        "DetailDesc": "Complete the operation to reduce the difficulty of DS-01",
-        "Name": "Energy Passage",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage021.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406303,
-            406304,
-            406305
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 6,
-        "BuffGroup": [
-            "81|81",
-            "82|82",
-            "83|83",
-            "84|84",
-            "85|85",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202488",
-            "30202489",
-            "30202490",
-            "30202491",
-            "30202492",
-            "30202493"
-        ],
-        "BaseBuffId": [
-            "202|202|202",
-            "203|203|203"
-        ],
-        "StageBuffId": [
-            "205|205|205"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 133,
-        "PreId": null,
-        "Order": "DS-01",
-        "DetailDesc": "Clear to gain Electricity and other item rewards",
-        "Name": "Energy Deep Hive",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss01.png",
-        "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
-        "FinishRelatedId": [
-            131.0,
-            132.0
-        ],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406306,
-            406307,
-            406308
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 6,
-        "BuffGroup": [
-            "81|81",
-            "82|82",
-            "83|83",
-            "84|84",
-            "85|85",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202494",
-            "30202495",
-            "30202496",
-            "30202497",
-            "30202498",
-            "30202499"
-        ],
-        "BaseBuffId": [
-            "202|202|202",
-            "203|203|203"
-        ],
-        "StageBuffId": [
-            "204|204|204",
-            "205|205|205"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 134,
-        "PreId": 133.0,
-        "Order": "DF-03",
-        "DetailDesc": "Complete the operation to reduce the difficulty of DS-02",
-        "Name": "Mountain Surface",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage020.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406309,
-            406310,
-            406311
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 7,
-        "BuffGroup": [
-            "81|81",
-            "82|82",
-            "83|83",
-            "84|84",
-            "85|85",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202500",
-            "30202501",
-            "30202502",
-            "30202503",
-            "30202504",
-            "30202505"
-        ],
-        "BaseBuffId": [
-            "206|206|206",
-            "207|207|207"
-        ],
-        "StageBuffId": [
-            "208|208|208"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 135,
-        "PreId": null,
-        "Order": "DF-04",
-        "DetailDesc": "Complete the operation to reduce the difficulty of DS-02",
-        "Name": "Mountain Passage",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage021.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406312,
-            406313,
-            406314
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 7,
-        "BuffGroup": [
-            "81|81",
-            "82|82",
-            "83|83",
-            "84|84",
-            "85|85",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202506",
-            "30202507",
-            "30202508",
-            "30202509",
-            "30202510",
-            "30202511"
-        ],
-        "BaseBuffId": [
-            "206|206|206",
-            "207|207|207"
-        ],
-        "StageBuffId": [
-            "209|209|209"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 136,
-        "PreId": null,
-        "Order": "DS-02",
-        "DetailDesc": "Clear to gain Electricity and other item rewards",
-        "Name": "Mountain Deep Hive",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss05.png",
-        "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
-        "FinishRelatedId": [
-            134.0,
-            135.0
-        ],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406315,
-            406316,
-            406317
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 7,
-        "BuffGroup": [
-            "81|81",
-            "82|82",
-            "83|83",
-            "84|84",
-            "85|85",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202512",
-            "30202513",
-            "30202514",
-            "30202515",
-            "30202516",
-            "30202517"
-        ],
-        "BaseBuffId": [
-            "206|206|206",
-            "207|207|207"
-        ],
-        "StageBuffId": [
-            "208|208|208",
-            "209|209|209"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 137,
-        "PreId": 136.0,
-        "Order": "DF-05",
-        "DetailDesc": "Complete the operation to reduce the difficulty of DS-03",
-        "Name": "Wamba Surface",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage022.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406318,
-            406319,
-            406320
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 8,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202518",
-            "30202519",
-            "30202520",
-            "30202521",
-            "30202522",
-            "30202523"
-        ],
-        "BaseBuffId": [
-            "22|22|22",
-            "39|39|39",
-            "210|210|210"
-        ],
-        "StageBuffId": [
-            "211|211|211"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 138,
-        "PreId": null,
-        "Order": "DF-06",
-        "DetailDesc": "Complete the operation to reduce the difficulty of DS-03",
-        "Name": "Wamba Cave",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406321,
-            406322,
-            406323
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 8,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202524",
-            "30202525",
-            "30202526",
-            "30202527",
-            "30202528",
-            "30202529"
-        ],
-        "BaseBuffId": [
-            "22|22|22",
-            "35|35|35",
-            "210|210|210"
-        ],
-        "StageBuffId": [
-            "213|213|213"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 139,
-        "PreId": null,
-        "Order": "DF-07",
-        "DetailDesc": "Complete the operation to reduce the difficulty of DS-03",
-        "Name": "Wamba Passage",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406324,
-            406325,
-            406326
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 8,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202530",
-            "30202531",
-            "30202532",
-            "30202533",
-            "30202534",
-            "30202535"
-        ],
-        "BaseBuffId": [
-            "22|22|22",
-            "28|28|28",
-            "210|210|210"
-        ],
-        "StageBuffId": [
-            "212|212|212"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 140,
-        "PreId": null,
-        "Order": "DS-03",
-        "DetailDesc": "Clear to gain Electricity and other item rewards",
-        "Name": "Wamba Deep Hive",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss07.png",
-        "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
-        "FinishRelatedId": [
-            137.0,
-            138.0,
-            139.0
-        ],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406327,
-            406328,
-            406329
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 8,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202536",
-            "30202537",
-            "30202538",
-            "30202539",
-            "30202540",
-            "30202541"
-        ],
-        "BaseBuffId": [
-            "22|22|22",
-            "67|67|56",
-            "210|210|210"
-        ],
-        "StageBuffId": [
-            "211|211|211",
-            "213|213|213",
-            "212|212|212"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 141,
-        "PreId": 140.0,
-        "Order": "DF-08",
-        "DetailDesc": "Complete the operation to reduce the difficulty of DS-04",
-        "Name": "Midland Surface",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage022.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406330,
-            406331,
-            406332
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 9,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202542",
-            "30202543",
-            "30202544",
-            "30202545",
-            "30202546",
-            "30202547"
-        ],
-        "BaseBuffId": [
-            "23|23|23",
-            "57|57|57",
-            "214|214|214"
-        ],
-        "StageBuffId": [
-            "215|215|215"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 142,
-        "PreId": null,
-        "Order": "DF-09",
-        "DetailDesc": "Complete the operation to reduce the difficulty of DS-04",
-        "Name": "Midland Cave",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406333,
-            406334,
-            406335
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 9,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202548",
-            "30202549",
-            "30202550",
-            "30202551",
-            "30202552",
-            "30202553"
-        ],
-        "BaseBuffId": [
-            "23|23|23",
-            "55|55|55",
-            "214|214|214"
-        ],
-        "StageBuffId": [
-            "217|217|217"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 143,
-        "PreId": null,
-        "Order": "DF-10",
-        "DetailDesc": "Complete the operation to reduce the difficulty of DS-04",
-        "Name": "Midland Passage",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406336,
-            406337,
-            406338
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 9,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202554",
-            "30202555",
-            "30202556",
-            "30202557",
-            "30202558",
-            "30202559"
-        ],
-        "BaseBuffId": [
-            "23|23|23",
-            "51|51|51",
-            "214|214|214"
-        ],
-        "StageBuffId": [
-            "216|216|216"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 144,
-        "PreId": null,
-        "Order": "DS-04",
-        "DetailDesc": "Clear to gain Electricity and other item rewards",
-        "Name": "Midland Deep Hive",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss07.png",
-        "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
-        "FinishRelatedId": [
-            141.0,
-            142.0,
-            143.0
-        ],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406339,
-            406340,
-            406341
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 9,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202560",
-            "30202561",
-            "30202562",
-            "30202563",
-            "30202564",
-            "30202565"
+            "30202179|30202479"
         ],
         "BaseBuffId": [
             "23|23|23",
             "56|56|56",
-            "214|214|214"
+            "0|164|236"
         ],
         "StageBuffId": [
-            "215|215|215",
-            "217|217|217",
-            "216|216|216"
+            "42|166|237",
+            "238|165|239"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 145,
-        "PreId": 130.0,
-        "Order": "SP-14",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-06",
-        "Name": "Western Cloud Island",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage021.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406356,
-            406356,
-            406356
+        "SweepLevelId": [
+            2.0
         ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+        "SweepCondition": [
+            95405.0
         ],
-        "DistributionGroup": 10,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202600|30202601",
-            "30202602|30202603",
-            "30202604|30202605",
-            "30202606|30202607",
-            "30202608|30202609",
-            "30202610|30202611"
-        ],
-        "BaseBuffId": [
-            "23|23|23",
-            "63|63|63",
-            "218|223|228"
-        ],
-        "StageBuffId": [
-            "219|224|229"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
-    },
-    {
-        "Id": 146,
-        "PreId": null,
-        "Order": "SP-15",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-06",
-        "Name": "Southern Cloud Island",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage022.png",
-        "IconBoss": null,
-        "DetailBg": null,
-        "FinishRelatedId": [],
-        "Endurance": 0,
-        "AddElectricEnergy": 0,
-        "RewardId": [
-            406357,
-            406357,
-            406357
-        ],
-        "TeamMember": [
-            3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
-        ],
-        "DistributionGroup": 10,
-        "BuffGroup": [
-            "86|86",
-            "87|87",
-            "88|88",
-            "89|89",
-            "90|90",
-            "201|201"
-        ],
-        "RobotGroup": [
-            2,
-            1,
-            1
-        ],
-        "StageIdGroup": [
-            "30202612|30202613",
-            "30202614|30202615",
-            "30202616|30202617",
-            "30202618|30202619",
-            "30202620|30202621",
-            "30202622|30202623"
-        ],
-        "BaseBuffId": [
-            "23|23|23",
-            "38|38|38",
-            "218|223|228"
-        ],
-        "StageBuffId": [
-            "220|225|230"
-        ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SupportId": "118|121|124"
     },
     {
         "Id": 147,
-        "PreId": null,
-        "Order": "SP-16",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-06",
+        "PreId": 130.0,
+        "Order": "SP-01",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
         "Name": "Eastern Cloud Island",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 0,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406358,
-            406358,
-            406358
+            5002217,
+            5002217,
+            5002217
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 10,
+        "DistributionGroup": 5,
         "BuffGroup": [
             "86|86",
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -2777,8 +821,7 @@
             "30202626|30202627",
             "30202628|30202629",
             "30202630|30202631",
-            "30202632|30202633",
-            "30202634|30202635"
+            "30202632|30202633"
         ],
         "BaseBuffId": [
             "23|23|23",
@@ -2786,45 +829,44 @@
             "218|223|228"
         ],
         "StageBuffId": [
-            "221|226|231"
+            "221|224|231"
         ],
         "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepCondition": [],
+        "SupportId": "109|112|115"
     },
     {
         "Id": 148,
         "PreId": null,
-        "Order": "SP-17",
-        "DetailDesc": "Complete the operation to reduce the difficulty of EX-06",
+        "Order": "SP-02",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
         "Name": "Northern Cloud Island",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 0,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406359,
-            406359,
-            406359
+            5002218,
+            5002218,
+            5002218
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 10,
+        "DistributionGroup": 5,
         "BuffGroup": [
             "86|86",
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -2836,8 +878,7 @@
             "30202638|30202639",
             "30202640|30202641",
             "30202642|30202643",
-            "30202644|30202645",
-            "30202646|30202647"
+            "30202644|30202645"
         ],
         "BaseBuffId": [
             "23|23|23",
@@ -2845,50 +886,53 @@
             "218|223|228"
         ],
         "StageBuffId": [
-            "222|227|232"
+            "219|225|232"
         ],
         "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepCondition": [],
+        "SupportId": "109|112|115"
     },
     {
         "Id": 149,
         "PreId": null,
-        "Order": "EX-06",
+        "Order": "Cloud Island Mine",
         "DetailDesc": "Complete the operation to eliminate all the enemies in the mine",
         "Name": "Cloud Island Deep Hive",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss11.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster845000.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster84300.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster93600.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster846000.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster85300.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
-            145.0,
-            146.0,
             147.0,
             148.0
         ],
         "Endurance": 0,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406355,
-            406355,
-            406355
+            5002219,
+            5002219,
+            5002219
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
-        "DistributionGroup": 10,
+        "DistributionGroup": 5,
         "BuffGroup": [
             "86|86",
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -2900,8 +944,7 @@
             "30202650|30202651",
             "30202652|30202653",
             "30202654|30202655",
-            "30202656|30202657",
-            "30202658|30202659"
+            "30202676|30202683"
         ],
         "BaseBuffId": [
             "23|23|23",
@@ -2909,12 +952,192 @@
             "218|223|228"
         ],
         "StageBuffId": [
-            "219|224|229",
-            "220|225|230",
-            "221|226|231",
-            "222|227|232"
+            "221|224|231",
+            "219|225|232"
         ],
         "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepCondition": [],
+        "SupportId": "109|112|115"
+    },
+    {
+        "Id": 150,
+        "PreId": 149.0,
+        "Order": "SP-01",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
+        "Name": "Abyssal Mountain Cave",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
+        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
+        "IconBoss": [],
+        "DetailBg": null,
+        "FinishRelatedId": [],
+        "Endurance": 0,
+        "AddElectricEnergy": 0,
+        "RewardId": [
+            5002220,
+            5002220,
+            5002220
+        ],
+        "TeamMember": [
+            3,
+            3,
+            3,
+            3,
+            3
+        ],
+        "DistributionGroup": 6,
+        "BuffGroup": [
+            "86|86",
+            "87|87",
+            "88|88",
+            "89|89",
+            "90|90"
+        ],
+        "RobotGroup": [
+            2,
+            1,
+            1
+        ],
+        "StageIdGroup": [
+            "30202660|30202661",
+            "30202662|30202663",
+            "30202664|30202665",
+            "30202666|30202667",
+            "30202668|30202669"
+        ],
+        "BaseBuffId": [
+            "23|23|23",
+            "51|270|51",
+            "246|269|265"
+        ],
+        "StageBuffId": [
+            "247|271|268"
+        ],
+        "SweepLevelId": [],
+        "SweepCondition": [],
+        "SupportId": "106|100|136"
+    },
+    {
+        "Id": 151,
+        "PreId": null,
+        "Order": "SP-02",
+        "DetailDesc": "Complete the operation to reduce the difficulty of the Deep Hive stage.",
+        "Name": "Abyssal Mountain Passage",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
+        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
+        "IconBoss": [],
+        "DetailBg": null,
+        "FinishRelatedId": [],
+        "Endurance": 0,
+        "AddElectricEnergy": 0,
+        "RewardId": [
+            5002221,
+            5002221,
+            5002221
+        ],
+        "TeamMember": [
+            3,
+            3,
+            3,
+            3,
+            3
+        ],
+        "DistributionGroup": 6,
+        "BuffGroup": [
+            "86|86",
+            "87|87",
+            "88|88",
+            "89|89",
+            "90|90"
+        ],
+        "RobotGroup": [
+            2,
+            1,
+            1
+        ],
+        "StageIdGroup": [
+            "30202685|30202686",
+            "30202687|30202688",
+            "30202689|30202690",
+            "30202691|30202692",
+            "30202693|30202694"
+        ],
+        "BaseBuffId": [
+            "23|23|23",
+            "28|270|28",
+            "246|269|265"
+        ],
+        "StageBuffId": [
+            "248|272|266"
+        ],
+        "SweepLevelId": [],
+        "SweepCondition": [],
+        "SupportId": "106|100|136"
+    },
+    {
+        "Id": 152,
+        "PreId": null,
+        "Order": "Abyssal Mountain Mine",
+        "DetailDesc": "Complete the operation to eliminate all the enemies in the mine",
+        "Name": "Abyssal Mountain Deep Hive",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
+        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster85100.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster85350.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster85620.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster85570.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster82300.png"
+        ],
+        "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
+        "FinishRelatedId": [
+            150.0,
+            151.0
+        ],
+        "Endurance": 0,
+        "AddElectricEnergy": 0,
+        "RewardId": [
+            5002222,
+            5002222,
+            5002222
+        ],
+        "TeamMember": [
+            3,
+            3,
+            3,
+            3,
+            3
+        ],
+        "DistributionGroup": 6,
+        "BuffGroup": [
+            "86|86",
+            "87|87",
+            "88|88",
+            "89|89",
+            "90|90"
+        ],
+        "RobotGroup": [
+            2,
+            1,
+            1
+        ],
+        "StageIdGroup": [
+            "30202675|30202682",
+            "30202674|30202681",
+            "30202673|30202680",
+            "30202672|30202679",
+            "30202671|30202678"
+        ],
+        "BaseBuffId": [
+            "23|23|23",
+            "67|270|67",
+            "246|269|265"
+        ],
+        "StageBuffId": [
+            "247|271|268",
+            "248|272|266"
+        ],
+        "SweepLevelId": [],
+        "SweepCondition": [],
+        "SupportId": "106|100|136"
     }
 ]

@@ -17,7 +17,7 @@ end
 
 function XMovieActionVideoPlay:OnRunning()
     self.UiRoot:Hide()
-    XDataCenter.VideoManager.PlayMovie(self.VideoId, function()
+    XDataCenter.VideoManager.PlayUiVideo(self.VideoId, function()
         if self.UiRoot and self.UiRoot.Show then
             self.UiRoot:Show()
         end

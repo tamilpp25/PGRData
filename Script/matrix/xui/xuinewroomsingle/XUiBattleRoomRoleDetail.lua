@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local CsXTextManager = CS.XTextManager
 local Vector2 = CS.UnityEngine.Vector2
 local XUiBattleRoomRoleGrid = require("XUi/XUiNewRoomSingle/XUiBattleRoomRoleGrid")
@@ -27,7 +29,8 @@ function XUiBattleRoomRoleDetail:OnAwake()
     self.StageId = nil
     self.Pos = nil
     self.CurrentEntityId = nil
-    self.CurrentCharacterType = XCharacterConfigs.CharacterType.Normal
+    self.CurrentCharacterType = XEnumConst.CHARACTER.CharacterType.Normal
+    self.FiltSortListTypeDic = {} -- 缓存筛选列表
     --[[        
         {
             assetPath : 子面板资源路径，
@@ -38,20 +41,19 @@ function XUiBattleRoomRoleDetail:OnAwake()
     self.ChildPanelData = nil
     self.RoleDynamicGrid = self.GridCharacter
     self.CurrentSelectTagGroup = {
-        [XCharacterConfigs.CharacterType.Normal] = {},
-        [XCharacterConfigs.CharacterType.Isomer] = {}
+        [XEnumConst.CHARACTER.CharacterType.Normal] = {},
+        [XEnumConst.CHARACTER.CharacterType.Isomer] = {}
     }
     -- 角色列表
-    self.DynamicTable = XDynamicTableNormal.New(self.SViewCharacterList)
-    self.DynamicTable:SetProxy(XUiBattleRoomRoleGrid)
-    self.DynamicTable:SetDelegate(self)
+    -- self.DynamicTable = XDynamicTableNormal.New(self.SViewCharacterList)
+    -- self.DynamicTable:SetProxy(XUiBattleRoomRoleGrid)
+    -- self.DynamicTable:SetDelegate(self)
     self:RegisterUiEvents()
     self.BtnTabShougezhe:SetDisable(not XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.Isomer))
     -- 模型初始化
     self.PanelRoleModelGo = self.UiModelGo.transform:FindTransform("PanelRoleModel")
     self.ImgEffectHuanren = self.UiModelGo.transform:FindTransform("ImgEffectHuanren")
     self.ImgEffectHuanren1 = self.UiModelGo.transform:FindTransform("ImgEffectHuanren1")
-    self.ImgEffectHuanren1.gameObject:SetActiveEx(false)
     self.UiPanelRoleModel = XUiPanelRoleModel.New(self.PanelRoleModelGo, self.Name, nil, true)
     XUiPanelAsset.New(
     self,
@@ -60,6 +62,12 @@ function XUiBattleRoomRoleDetail:OnAwake()
     XDataCenter.ItemManager.ItemId.ActionPoint,
     XDataCenter.ItemManager.ItemId.Coin
     )
+
+    self.BtnFashion.gameObject:SetActiveEx(not XUiManager.IsHideFunc)
+    self.BtnPartner.gameObject:SetActiveEx(not XUiManager.IsHideFunc)
+    self.BtnConsciousness.gameObject:SetActiveEx(not XUiManager.IsHideFunc)
+    self.BtnWeapon.gameObject:SetActiveEx(not XUiManager.IsHideFunc)
+    self.BtnFilter.gameObject:SetActiveEx(not XUiManager.IsHideFunc)
 end
 
 -- team : XTeam 如果是旧系统改过来，可以参考下XTeamManager后面新加的接口去处理旧队伍数据
@@ -75,23 +83,32 @@ function XUiBattleRoomRoleDetail:OnStart(stageId, team, pos, proxy)
     else -- 使用自定义类
         proxyInstance = proxy.New(stageId, team, pos)
     end
+
+    -- 判断是否走特殊编队规则
+    ---@type XTableStageLineupType
+    self._CanStageRobotBlendUse, self._StageLineupConfig = XMVCA.XFuben:GetConfigStageLineupType(self.StageId)
+    
+    ---@type XUiBattleRoomRoleDetailDefaultProxy
     self.Proxy = proxyInstance
-    -- 避免其他系统队伍数据错乱，预先清除
-    XEntityHelper.ClearErrorTeamEntityId(team, function(entityId)
-        return self.Proxy:GetCharacterViewModelByEntityId(entityId) ~= nil
-    end)
+    if team then
+        -- 避免其他系统队伍数据错乱，预先清除
+        XEntityHelper.ClearErrorTeamEntityId(team, function(entityId)
+            return self.Proxy:GetCharacterViewModelByEntityId(entityId) ~= nil
+        end)
+    end
     local isStop = self.Proxy:AOPOnStartBefore(self)
     if isStop then
         return
     end
-    self:UpdateCurrentEntityId(self.Team:GetEntityIdByTeamPos(self.Pos))
-    local gridProxy = self.Proxy:GetGridProxy() or XUiBattleRoomRoleGrid
+    if self.Team then
+        self:UpdateCurrentEntityId(self.Team:GetEntityIdByTeamPos(self.Pos))
+    else
+        self.CurrentEntityId = 0
+    end
+    -- local gridProxy = self.Proxy:GetGridProxy() or XUiBattleRoomRoleGrid
     self.RoleDynamicGrid = self.Proxy:GetRoleDynamicGrid(self) or self.GridCharacter
-    self.DynamicTable:SetProxy(gridProxy)
-    self.DynamicTable:SetGrid(self.RoleDynamicGrid)
-    self.DynamicTable:SetGridSize(
-    Vector2(self.RoleDynamicGrid.transform.rect.width, self.RoleDynamicGrid.transform.rect.height)
-    )
+    self:InitFilter()
+
     self.CurrentCharacterType = self.CurrentEntityId > 0
     and self.Proxy:GetCharacterType(self.CurrentEntityId)
     or self.Proxy:GetDefaultCharacterType() --self.Team:GetCharacterType()
@@ -115,56 +132,125 @@ function XUiBattleRoomRoleDetail:OnEnable()
     -- 设置子面板配置
     self.ChildPanelData = self.Proxy:GetChildPanelData()
     self:LoadChildPanelInfo()
-    self.BtnGroupCharacterType:SelectIndex(self.CurrentCharacterType)
+    -- self.BtnGroupCharacterType:SelectIndex(self.CurrentCharacterType)
+    if XUiManager.IsHideFunc then
+        self.BtnTeaching.gameObject:SetActiveEx(false)
+    end
     -- -- 更新教学功能是否已开启
     -- self.BtnTeaching.gameObject:SetActiveEx(XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Practice))
+    
+    -- 刷新数据
+    self.PanelFilter:RefreshList()
 end
 
 function XUiBattleRoomRoleDetail:OnDisable()
     XUiBattleRoomRoleDetail.Super.OnDisable(self)
 end
 
-function XUiBattleRoomRoleDetail:Filter(selectTagGroupDic, sortTagId, isThereFilterDataCb)
-    if self.TagCacheDic == nil then
-        self.TagCacheDic = {}
-    end
-    XDataCenter.RoomCharFilterTipsManager.Filter(
-    self.TagCacheDic,
-    selectTagGroupDic,
-    self.Proxy:GetEntities(self.CurrentCharacterType),
-    self.Proxy:GetFilterJudge(),
-    function(filteredData)
-        self.CurrentSelectTagGroup[self.CurrentCharacterType].TagGroupDic = selectTagGroupDic
-        self.CurrentSelectTagGroup[self.CurrentCharacterType].SortType = sortTagId
-        self:FilterRefresh(filteredData, sortTagId)
-    end,
-    isThereFilterDataCb
-    )
+function XUiBattleRoomRoleDetail:OnDestroy()
+    XDataCenter.CommonCharacterFiltManager.ClearCacheData() --清除筛选缓存数据
 end
 
-function XUiBattleRoomRoleDetail:FilterRefresh(filteredData, sortTagType)
-    filteredData = self.Proxy:SortEntitiesWithTeam(self.Team, filteredData, sortTagType)
-    self:RefreshRoleList(filteredData)
+function XUiBattleRoomRoleDetail:InitFilter()
+    ---@type XCommonCharacterFilterAgency
+    local ag = XMVCA:GetAgency(ModuleId.XCommonCharacterFilter)
+    local forceConfig = self.Proxy:GetFilterControllerConfig()
+    self.PanelFilter = ag:InitFilter(self.PanelCharacterFilter, self, forceConfig)
+    -- 是否屏蔽效应筛选
+    self.PanelFilter:SetHideGeneralSkill(self:IsHideGeneralSkill())
+    -- 选中角色回调
+    local onSeleCb = function (entity)
+        self:UpdateCurrentEntityId(entity:GetId())
+        self:RefreshEntityInfo()
+    end
+
+    local onSeleTagCb = function (tagBtn)
+        local isEmpty = self.PanelFilter:IsCurListEmpty()
+        self.CharList.gameObject:SetActiveEx(not isEmpty)
+        self.BtnTeaching.gameObject:SetActiveEx(not isEmpty)
+    end
+
+    -- 刷新格子回调
+    ---@param grid XUiBattleRoomRoleGrid 或继承了XUiBattleRoomRoleGrid的Grid
+    local refreshGridsFun = function (index, grid, data)
+        if self.Team then
+            local isInTeam = self.Team:GetEntityIdIsInTeam(data:GetId())
+            local isSameRole = self.Proxy:CheckTeamHasSameCharacterId(self.Team, data:GetId())
+            grid:SetData(data, self.Team, self.StageId, index, table.unpack(self.Proxy:GetGridExParams()))
+            grid:UpdateFight()
+            grid:SetInTeamStatus(isInTeam)
+            if self._CanStageRobotBlendUse then
+                grid:SetInSameStatus(isSameRole and not isInTeam and self._StageLineupConfig.Type[self.Pos] ~= XEnumConst.FuBen.StageLineupType.CharacterOnly)
+            else
+                grid:SetInSameStatus(isSameRole and not isInTeam)
+            end
+        else
+            grid:SetData(data, self.Team, self.StageId, index, table.unpack(self.Proxy:GetGridExParams()))
+        end
+    end
+
+    -- 自定义格子proxy
+    local gridProxy = self.Proxy:GetGridProxy() or XUiBattleRoomRoleGrid
+    local checkInTeam = function (id)
+        if self.Proxy.CheckInTeam then
+            return self.Proxy:CheckInTeam(self.Team, id)
+        end
+        if not self.Team then
+            return false
+        end
+        return self.Team:GetEntityIdIsInTeam(id)
+    end
+    -- 覆写排序算法
+    local sortOverrideFunTable = self.Proxy:GetFilterSortOverrideFunTable()
+    self.PanelFilter:InitData(onSeleCb, onSeleTagCb, self.StageId, refreshGridsFun, gridProxy, checkInTeam, sortOverrideFunTable)
+    self.PanelFilter:SetGetCharIdFun(
+    function (entity)
+            return self.Proxy:GetFilterCharIdFun(entity)
+    end)
+    self.DynamicTable = self.PanelFilter.DynamicTable
+    self.PanelCharacterFilter.gameObject:SetActiveEx(true)
+    self.Transform:FindTransform("CharInfo").gameObject:SetActiveEx(false)
+    self.Transform:FindTransform("BtnFilter").gameObject:SetActiveEx(false)
+    local list = self.Proxy:GetEntities()
+    list = self:FilterEntitiesWithRobotBlendRule(list)
+    local currentEntityId = self.Proxy.GetCurrentEntityId and self.Proxy:GetCurrentEntityId(self.CurrentEntityId) or self.CurrentEntityId
+    self.PanelFilter:ImportList(list, currentEntityId) -- 自动选择点进来的角色
+end
+
+function XUiBattleRoomRoleDetail:RefreshEntityInfo()
+    if not XTool.IsNumberValid(self.CurrentEntityId) then
+        return
+    end
+
+    if self.Team then
+        -- 当启用机器人队伍混编时，锁角色位不能下阵当前角色
+        local curEntityInTeam = self.Team:GetEntityIdIsInTeam(self.CurrentEntityId)
+
+        if self._CanStageRobotBlendUse then
+            self:SetLockBtnIsActiveInBlendMode(curEntityInTeam)
+        else
+            self:SetJoinBtnIsActive(not curEntityInTeam)
+        end
+    else
+        self.BtnJoinTeam.gameObject:SetActiveEx(false)
+        self.BtnQuitTeam.gameObject:SetActiveEx(false)
+    end
+    self:RefreshRoleDetail()
+    self:RefreshModel()
+    self:RefreshOperationBtns()
+    self:RefreshChildPanel()
 end
 
 --######################## 私有方法 ########################
 function XUiBattleRoomRoleDetail:RegisterUiEvents()
     self.BtnBack.CallBack = function()
+        if self.Proxy:AOPOnClickBtnBack(self) then return end
         self:Close()
     end
     self.BtnMainUi.CallBack = function()
         XLuaUiManager.RunMain()
     end
-    -- 角色类型按钮组
-    self.BtnGroupCharacterType:Init(
-    {
-        [XCharacterConfigs.CharacterType.Normal] = self.BtnTabGouzaoti,
-        [XCharacterConfigs.CharacterType.Isomer] = self.BtnTabShougezhe
-    },
-    function(tabIndex)
-        self:OnBtnGroupCharacterTypeClicked(tabIndex)
-    end
-    )
+    -- 角色类型按钮组 屏蔽旧筛选器相关
     self.BtnJoinTeam.CallBack = function()
         self:OnBtnJoinTeamClicked()
     end
@@ -189,18 +275,26 @@ function XUiBattleRoomRoleDetail:RegisterUiEvents()
     self.BtnTeaching.CallBack = function()
         self:OnBtnTeachingClicked()
     end
+    
     XUiHelper.RegisterClickEvent(self, self.BtnElementDetail, self.OnBtnElementDetailClicked)
-    XUiHelper.RegisterClickEvent(self, self.BtnCareerTips, self.OnBtnCareerTipsClicked)
+    XUiHelper.RegisterClickEvent(self, self.BtnUniframeTip, self.OnBtnUniframeTipClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnType, self.OnBtnCareerTipsClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill1, function ()
+        self:OnBtnGeneralSkillClick(1)
+    end)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill2, function ()
+        self:OnBtnGeneralSkillClick(2)
+    end)
 end
 
-function XUiBattleRoomRoleDetail:OnBtnElementDetailClicked()
-    XLuaUiManager.Open("UiCharacterElementDetail"
-    , self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetId())
-end
+function XUiBattleRoomRoleDetail:OnBtnGeneralSkillClick(index)
+    local characterId = self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetSourceEntityId()
 
-function XUiBattleRoomRoleDetail:OnBtnCareerTipsClicked()
-    XLuaUiManager.Open("UiCharacterCarerrTips"
-    , self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetId())
+    local activeGeneralSkillIds = XMVCA.XCharacter:GetCharactersActiveGeneralSkillIdList(characterId)
+    local curId = activeGeneralSkillIds[index]
+    local realIndex = XMVCA.XCharacter:GetIndexInCharacterGeneralSkillIdsById(characterId, curId)
+
+    XLuaUiManager.Open("UiCharacterAttributeDetail", characterId, XEnumConst.UiCharacterAttributeDetail.BtnTab.GeneralSkill, realIndex)
 end
 
 function XUiBattleRoomRoleDetail:OnBtnTeachingClicked()
@@ -208,19 +302,20 @@ function XUiBattleRoomRoleDetail:OnBtnTeachingClicked()
     self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetSourceEntityId(), true)
 end
 
+function XUiBattleRoomRoleDetail:OnBtnUniframeTipClick()
+    XLuaUiManager.Open("UiCharacterUniframeBubbleV2P6")
+end
+
+function XUiBattleRoomRoleDetail:OnBtnElementDetailClicked()
+    XLuaUiManager.Open("UiCharacterAttributeDetail"
+    , self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
+end
+
+function XUiBattleRoomRoleDetail:OnBtnCareerTipsClick()
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetId())
+end
+
 function XUiBattleRoomRoleDetail:OnBtnFilterClicked()
-    local enumFilterType, sortType = self.Proxy:GetFilterTypeAndSortType()
-    XLuaUiManager.Open(
-    "UiRoomCharacterFilterTips",
-    self,
-    enumFilterType,
-    sortType,
-    self.CurrentCharacterType,
-    nil,
-    nil,
-    self.Proxy:GetHideSortTagDic(),
-    false
-    )
 end
 
 function XUiBattleRoomRoleDetail:OnBtnJoinTeamClicked()
@@ -246,11 +341,15 @@ function XUiBattleRoomRoleDetail:OnBtnJoinTeamClicked()
 end
 
 function XUiBattleRoomRoleDetail:CheckCanJoin(entityId, finishedCallback)
-    -- 检查队伍里是否拥有同样的角色（同时兼容机器人）
-    if self.Proxy:CheckTeamHasSameCharacterId(self.Team, entityId) then
-        XUiManager.TipError(XUiHelper.GetText("SameCharacterInTeamTip"))
-        return false
+    -- 机器人混编锁角色位的变更可以直接换
+    if not self._CanStageRobotBlendUse or self._StageLineupConfig.Type[self.Pos] ~= XEnumConst.FuBen.StageLineupType.CharacterOnly then
+        -- 检查队伍里是否拥有同样的角色（同时兼容机器人）
+        if self.Proxy:CheckTeamHasSameCharacterId(self.Team, entityId) then
+            XUiManager.TipError(XUiHelper.GetText("SameCharacterInTeamTip"))
+            return false
+        end
     end
+    
     local limitType = XFubenConfigs.GetStageCharacterLimitType(self.StageId)
     if limitType == XFubenConfigs.CharacterLimitType.Isomer or
     limitType == XFubenConfigs.CharacterLimitType.Normal then
@@ -295,7 +394,7 @@ function XUiBattleRoomRoleDetail:OnBtnFashionClicked()
     if isRobot then
         local sourceEntityId = self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetSourceEntityId()
         local characterId = XRobotManager.GetCharacterId(sourceEntityId)
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
         if not isOwn then
             XUiManager.TipText("CharacterLock")
             return
@@ -308,111 +407,54 @@ function XUiBattleRoomRoleDetail:OnBtnFashionClicked()
 end
 
 function XUiBattleRoomRoleDetail:OnBtnConsciousnessClicked()
-    XLuaUiManager.Open("UiEquipAwarenessReplace", self.CurrentEntityId, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipAwareness(self.CurrentEntityId)
 end
 
 function XUiBattleRoomRoleDetail:OnBtnWeaponClicked()
-    XLuaUiManager.Open("UiEquipReplaceNew", self.CurrentEntityId, nil, true)
-end
-
--- characterType : XCharacterConfigs.CharacterType
-function XUiBattleRoomRoleDetail:OnBtnGroupCharacterTypeClicked(characterType)
-    -- 检查角色限制
-    local limitType = self:GetCharacterLimitType()
-    if limitType == XFubenConfigs.CharacterLimitType.Normal
-    and characterType == XCharacterConfigs.CharacterType.Isomer then
-        XUiManager.TipText("TeamSelectCharacterTypeLimitTipNormal")
-        self.BtnGroupCharacterType:SelectIndex(XCharacterConfigs.CharacterType.Normal)
-        return
-    elseif limitType == XFubenConfigs.CharacterLimitType.Isomer
-    and characterType == XCharacterConfigs.CharacterType.Normal then
-        XUiManager.TipText("TeamSelectCharacterTypeLimitTipIsomer")
-        self.BtnGroupCharacterType:SelectIndex(XCharacterConfigs.CharacterType.Isomer)
-        return
-    end
-    -- 检查功能是否开启
-    if characterType == XCharacterConfigs.CharacterType.Isomer and
-    not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer)
-    then
-        return
-    end
-    self.CurrentCharacterType = characterType
-    local selectTagGroupDic = self.CurrentSelectTagGroup[characterType].TagGroupDic or {}
-    local sortTagId =    self.CurrentSelectTagGroup[characterType].SortType or XRoomCharFilterTipsConfigs.EnumSortTag.Default
-    local roles = self.Proxy:GetEntities(self.CurrentCharacterType)
-    if characterType == XCharacterConfigs.CharacterType.Normal and #roles <= 0 then
-        return
-    end
-    if #roles <= 0 then
-        XUiManager.TipError(XUiHelper.GetText("IsomerLimitTip"))
-        self.BtnGroupCharacterType:SelectIndex(XCharacterConfigs.CharacterType.Normal)
-        return
-    end
-    self:Filter(
-    selectTagGroupDic,
-    sortTagId,
-    function(roles)
-        if #roles <= 0 then
-            XUiManager.TipError(XUiHelper.GetText("IsomerLimitTip"))
-            self.BtnGroupCharacterType:SelectIndex(XCharacterConfigs.CharacterType.Normal)
-            return false
-        end
-        return true
-    end
-    )
-end
-
--- characterType : XCharacterConfigs.CharacterType
-function XUiBattleRoomRoleDetail:RefreshRoleList(roleEntities)
-    local searchEntityId = self.CurrentEntityId
-    local index = 1
-    if searchEntityId ~= nil or searchEntityId ~= 0 then
-        for i, v in ipairs(roleEntities) do
-            if v:GetId() == searchEntityId then
-                index = i
-                break
-            end
-        end
-    end
-    self:UpdateCurrentEntityId(roleEntities[index]:GetId())
-    self:SetJoinBtnIsActive(not self.Team:GetEntityIdIsInTeam(self.CurrentEntityId))
-    self.DynamicTable:SetDataSource(roleEntities)
-    self.DynamicTable:ReloadDataSync(index)
-    self:RefreshModel()
-    self:RefreshOperationBtns()
-    self:RefreshChildPanel()
-end
-
-function XUiBattleRoomRoleDetail:OnDynamicTableEvent(event, index, grid)
-    if index <= 0 or index > #self.DynamicTable.DataSource then
-        return
-    end
-    local entity = self.DynamicTable.DataSource[index]
-    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        grid:SetAbility(self.Proxy:GetRoleAbility(entity:GetId()))
-        grid:SetData(entity, self.Team, self.StageId)
-        local isInTeam = self.Team:GetEntityIdIsInTeam(entity:GetId())
-        local isSameRole = self.Proxy:CheckTeamHasSameCharacterId(self.Team, entity:GetId())
-        grid:SetSelectStatus(self.CurrentEntityId == entity:GetId())
-        grid:SetInTeamStatus(isInTeam)
-        grid:SetInSameStatus(isSameRole and not isInTeam)
-    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
-        self:UpdateCurrentEntityId(entity:GetId())
-        for _, tmpGrid in pairs(self.DynamicTable:GetGrids()) do
-            tmpGrid:SetSelectStatus(false)
-        end
-        grid:SetSelectStatus(true)
-        self:SetJoinBtnIsActive(not self.Team:GetEntityIdIsInTeam(self.CurrentEntityId))
-        self:RefreshModel()
-        self:RefreshOperationBtns()
-        self:RefreshChildPanel()
-    end
-    self.Proxy:AOPOnDynamicTableEventAfter(self, event, index, grid)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipReplace(self.CurrentEntityId, nil, true)
 end
 
 function XUiBattleRoomRoleDetail:SetJoinBtnIsActive(value)
+    if self.Proxy:AOPSetJoinBtnIsActiveBefore(self) then
+        return
+    end
     self.BtnJoinTeam.gameObject:SetActiveEx(value)
     self.BtnQuitTeam.gameObject:SetActiveEx(not value)
+    self.Proxy:AOPSetJoinBtnIsActiveAfter(self)
+end
+
+--- 机器人混编模式下按钮显隐情况
+function XUiBattleRoomRoleDetail:SetLockBtnIsActiveInBlendMode(inTeam)
+    if self.Proxy:AOPSetJoinBtnIsActiveBefore(self) then
+        return
+    end
+    
+    local freeAndSame = false
+    --检查是不是其他坑位非自由编辑的角色
+    if self._StageLineupConfig.Type[self.Pos] == XEnumConst.FuBen.StageLineupType.Free then
+        freeAndSame = self.Team:GetEntityIdByTeamPos(self.Pos) == self.CurrentEntityId
+        -- 移除该位置配置角色以外的实体
+        for i, v in pairs(self.Team:GetEntityIds()) do
+            if i ~= self.Pos then
+                local characterId = XRobotManager.GetCharacterId(v)
+                local curCharacterId = XRobotManager.GetCharacterId(self.CurrentEntityId)
+                if self._StageLineupConfig.Type[i] == XEnumConst.FuBen.StageLineupType.Free then
+                    -- 如果该角色所在的是自由位，那么该角色是可以随意上下阵的
+                    if characterId == curCharacterId then
+                        freeAndSame = true
+                    end
+                end
+                if characterId == curCharacterId then
+                    inTeam = true
+                    break
+                end
+            end
+        end
+    end
+    
+    self.BtnJoinTeam.gameObject:SetActiveEx(not inTeam)
+    self.BtnQuitTeam.gameObject:SetActiveEx(freeAndSame)
+    self.BtnLock.gameObject:SetActiveEx(inTeam and not freeAndSame)
     self.Proxy:AOPSetJoinBtnIsActiveAfter(self)
 end
 
@@ -420,24 +462,33 @@ function XUiBattleRoomRoleDetail:RefreshModel(entityId)
     if entityId == nil then
         entityId = self.CurrentEntityId
     end
-    self.ImgEffectHuanren.gameObject:SetActiveEx(false)
+    if not XTool.IsNumberValid(entityId) then
+        return
+    end
     self.ImgEffectHuanren1.gameObject:SetActiveEx(false)
+    self.ImgEffectHuanren.gameObject:SetActiveEx(false)
     local finishedCallback = function(model)
-        self.PanelDrag.Target = model.transform
-        self.ImgEffectHuanren.gameObject:SetActiveEx(
-        self.CurrentCharacterType == XCharacterConfigs.CharacterType.Normal
-        )
-        self.ImgEffectHuanren1.gameObject:SetActiveEx(
-        self.CurrentCharacterType == XCharacterConfigs.CharacterType.Isomer
-        )
+        local isSomer = self.Proxy:CheckEntityIdIsIsomer(entityId)
+        if isSomer then
+            self.ImgEffectHuanren1.gameObject:SetActiveEx(true)
+            self.ImgEffectHuanren:GetComponent("XPrefabLoader").Delay = 0  -- 因为开屏黑幕太久了 所以首次特效延后加载
+        else
+            self.ImgEffectHuanren.gameObject:SetActiveEx(true)
+            self.ImgEffectHuanren1:GetComponent("XPrefabLoader").Delay = 0
+        end
     end
     local characterViewModel = self.Proxy:GetCharacterViewModelByEntityId(entityId)
     local sourceEntityId = characterViewModel:GetSourceEntityId()
+
+    if self.Proxy:AOPRefreshModelBefore(self,characterViewModel,sourceEntityId,finishedCallback) then
+        return
+    end
+    
     if XRobotManager.CheckIsRobotId(sourceEntityId) then
         local robot2CharEntityId = XRobotManager.GetCharacterId(sourceEntityId)
-        local isOwen = XDataCenter.CharacterManager.IsOwnCharacter(robot2CharEntityId)
+        local isOwen = XMVCA.XCharacter:IsOwnCharacter(robot2CharEntityId)
         if XRobotManager.CheckUseFashion(sourceEntityId) and isOwen then
-            local character = XDataCenter.CharacterManager.GetCharacter(robot2CharEntityId)
+            local character = XMVCA.XCharacter:GetCharacter(robot2CharEntityId)
             local robot2CharViewModel = character:GetCharacterViewModel()
             self.UiPanelRoleModel:UpdateCharacterModel(robot2CharEntityId
             , self.PanelRoleModelGo
@@ -483,6 +534,9 @@ function XUiBattleRoomRoleDetail:RefreshOperationBtns()
     self.BtnFashion:SetDisable(not useFashion, useFashion)
     self.BtnConsciousness:SetDisable(isRobot, not isRobot)
     self.BtnWeapon:SetDisable(isRobot, not isRobot)
+
+    local isSomer = self.Proxy:CheckEntityIdIsIsomer(self.CurrentEntityId)
+    self.BtnUniframeTip.gameObject:SetActiveEx(isSomer)
 end
 
 function XUiBattleRoomRoleDetail:LoadChildPanelInfo()
@@ -533,55 +587,65 @@ function XUiBattleRoomRoleDetail:RefreshTipGrids()
     self.PanelCharacterLimit.gameObject:SetActiveEx(false)
     self.PanelCharacterCareer.gameObject:SetActiveEx(false)
     local viewModels = { }
-    for pos, entityId in ipairs(self.Team:GetEntityIds()) do
-        if entityId > 0 and pos ~= self.Pos and self.CurrentEntityId ~= entityId then -- 排除当前的打开位置+选中的在队伍里的
-            table.insert(viewModels, self.Proxy:GetCharacterViewModelByEntityId(entityId))
+    if self.Team then
+        for pos, entityId in ipairs(self.Team:GetEntityIds()) do
+            if entityId > 0 and pos ~= self.Pos and self.CurrentEntityId ~= entityId then -- 排除当前的打开位置+选中的在队伍里的
+                table.insert(viewModels, self.Proxy:GetCharacterViewModelByEntityId(entityId))
+            end
         end
-    end
-    local currentInTeam = self.Team:GetEntityIdIsInTeam(self.CurrentEntityId)
-    if not currentInTeam then -- 如果不在里面，直接加入检查
-        table.insert(viewModels, self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId))
-    else
-        local currentPosEntityId = self.Team:GetEntityIdByTeamPos(self.Pos)
-        if currentPosEntityId > 0 
-            and self.Team:GetEntityIdIsInTeam(currentPosEntityId) 
-            and currentPosEntityId ~= self.CurrentEntityId then  -- 在里面并选中的位置也在里面，加入原本位置的
-            table.insert(viewModels, self.Proxy:GetCharacterViewModelByEntityId(currentPosEntityId))
+        local currentInTeam = self.Team:GetEntityIdIsInTeam(self.CurrentEntityId)
+        if not currentInTeam then -- 如果不在里面，直接加入检查
+            table.insert(viewModels, self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId))
+        else
+            local currentPosEntityId = self.Team:GetEntityIdByTeamPos(self.Pos)
+            if currentPosEntityId > 0
+                    and self.Team:GetEntityIdIsInTeam(currentPosEntityId)
+                    and currentPosEntityId ~= self.CurrentEntityId then  -- 在里面并选中的位置也在里面，加入原本位置的
+                table.insert(viewModels, self.Proxy:GetCharacterViewModelByEntityId(currentPosEntityId))
+            end
         end
     end
     -- 检查是否满足角色限制条件
-    if #viewModels > 0 and XEntityHelper.CheckIsNeedRoleLimit(self.StageId, viewModels) then
-        self:RefreshRoleLimitTip()
-        return
+    if self.StageId then
+        if #viewModels > 0 and XEntityHelper.CheckIsNeedRoleLimit(self.StageId, viewModels) then
+            self:RefreshRoleLimitTip()
+            return
+        end
     end
     -- 检查职业推荐
-    local needCareerTip, types, indexDic = XEntityHelper.CheckIsNeedCareerLimit(self.StageId, viewModels)
-    if needCareerTip then
-        self.PanelCharacterCareer.gameObject:SetActiveEx(true)
-        XUiHelper.RefreshCustomizedList(self.PanelCharacterCareer, self.GridCareer, #types + 1, function(index, grid)
-            if index <= 1 then return end
-            index = index - 1
-            local uiObject = grid.transform:GetComponent("UiObject")
-            local isActive = indexDic[index] or false
-            local professionIcon = XCharacterConfigs.GetNpcTypeIcon(types[index])
-            uiObject:GetObject("RImgNormalIcon").gameObject:SetActiveEx(isActive)
-            uiObject:GetObject("RImgDisableIcon").gameObject:SetActiveEx(not isActive)
-            uiObject:GetObject("RImgNormalIcon"):SetRawImage(professionIcon)
-            uiObject:GetObject("RImgDisableIcon"):SetRawImage(professionIcon)
-        end)
-        XUiHelper.MarkLayoutForRebuild(self.PanelCharacterCareer.transform)
-        return
+    if self.StageId then
+        local needCareerTip, types, indexDic = XEntityHelper.CheckIsNeedCareerLimit(self.StageId, viewModels)
+        if needCareerTip then
+            self.PanelCharacterCareer.gameObject:SetActiveEx(true)
+            XUiHelper.RefreshCustomizedList(self.PanelCharacterCareer, self.GridCareer, #types + 1, function(index, grid)
+                if index <= 1 then return end
+                index = index - 1
+                local uiObject = grid.transform:GetComponent("UiObject")
+                local isActive = indexDic[index] or false
+                local professionIcon = XMVCA.XCharacter:GetNpcTypeIcon(types[index])
+                uiObject:GetObject("RImgNormalIcon").gameObject:SetActiveEx(isActive)
+                uiObject:GetObject("RImgDisableIcon").gameObject:SetActiveEx(not isActive)
+                uiObject:GetObject("RImgNormalIcon"):SetRawImage(professionIcon)
+                uiObject:GetObject("RImgDisableIcon"):SetRawImage(professionIcon)
+            end)
+            XUiHelper.MarkLayoutForRebuild(self.PanelCharacterCareer.transform)
+            return
+        end
     end
     -- 检查试用角色
-    if XFubenConfigs.GetStageAISuggestType(self.StageId) ~= XFubenConfigs.AISuggestType.Robot then
-        return
+    if self.StageId then
+        if XFubenConfigs.GetStageAISuggestType(self.StageId) ~= XFubenConfigs.AISuggestType.Robot then
+            return
+        end
     end
     local compareAbility = false
     -- 拿到相同角色的战力字典
     local currentCharacterId = self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetId()
     local currentAbility = self.Proxy:GetRoleAbility(self.CurrentEntityId)
     local viewModel
-    for _, entity in ipairs(self.Proxy:GetEntities()) do
+    local list = self.Proxy:GetEntities()
+    list = self:FilterEntitiesWithRobotBlendRule(list)
+    for _, entity in ipairs(list) do
         viewModel = self.Proxy:GetCharacterViewModelByEntityId(entity:GetId())
         if XEntityHelper.GetIsRobot(viewModel:GetSourceEntityId()) -- 机器人
             and viewModel:GetId() == currentCharacterId  -- 相同角色id
@@ -613,26 +677,31 @@ function XUiBattleRoomRoleDetail:RefreshRoleLimitTip()
         return
     end
     local limitBuffId = XFubenConfigs.GetStageCharacterLimitBuffId(self.StageId)
+    if not self.StageId then
+        limitBuffId = 0
+    end
     self.TxtCharacterLimit.text = XFubenConfigs.GetStageCharacterLimitTextSelectCharacter(limitType
     , self.Proxy:GetCharacterType(self.CurrentEntityId), limitBuffId)
 end
 
 function XUiBattleRoomRoleDetail:GetTeamDynamicCharacterTypes()
     local result = { }
-    for pos, entityId in ipairs(self.Team:GetEntityIds()) do
-        if entityId > 0 and pos ~= self.Pos and self.CurrentEntityId ~= entityId then
-            table.insert(result, self.Proxy:GetCharacterViewModelByEntityId(entityId):GetCharacterType())
+    if self.Team then
+        for pos, entityId in ipairs(self.Team:GetEntityIds()) do
+            if entityId > 0 and pos ~= self.Pos and self.CurrentEntityId ~= entityId then
+                table.insert(result, self.Proxy:GetCharacterViewModelByEntityId(entityId):GetCharacterType())
+            end
         end
-    end
-    local currentInTeam = self.Team:GetEntityIdIsInTeam(self.CurrentEntityId)
-    if not currentInTeam then -- 如果不在里面，直接加入检查
-        table.insert(result, self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetCharacterType())
-    else
-        local currentPosEntityId = self.Team:GetEntityIdByTeamPos(self.Pos)
-        if currentPosEntityId > 0 
-            and self.Team:GetEntityIdIsInTeam(currentPosEntityId) 
-            and currentPosEntityId ~= self.CurrentEntityId then  -- 在里面并选中的位置也在里面，加入原本位置的
-            table.insert(result, self.Proxy:GetCharacterViewModelByEntityId(currentPosEntityId):GetCharacterType())
+        local currentInTeam = self.Team:GetEntityIdIsInTeam(self.CurrentEntityId)
+        if not currentInTeam then -- 如果不在里面，直接加入检查
+            table.insert(result, self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetCharacterType())
+        else
+            local currentPosEntityId = self.Team:GetEntityIdByTeamPos(self.Pos)
+            if currentPosEntityId > 0
+                    and self.Team:GetEntityIdIsInTeam(currentPosEntityId)
+                    and currentPosEntityId ~= self.CurrentEntityId then  -- 在里面并选中的位置也在里面，加入原本位置的
+                table.insert(result, self.Proxy:GetCharacterViewModelByEntityId(currentPosEntityId):GetCharacterType())
+            end
         end
     end
     return result
@@ -646,7 +715,6 @@ function XUiBattleRoomRoleDetail:UpdateCurrentEntityId(value)
     self.CurrentEntityId = value
     if self.CurrentEntityId > 0 then
         self:RefreshTipGrids()
-        self:RefreshRoleDetail()
         -- 检查教学功能按钮红点
         XRedPointManager.CheckOnceByButton(self.BtnTeaching, { XRedPointConditions.Types.CONDITION_CELICA_TEACH }
         , self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId):GetSourceEntityId())
@@ -657,17 +725,58 @@ function XUiBattleRoomRoleDetail:RefreshRoleDetail()
     local isShow = self.Proxy:GetIsShowRoleDetail()
     self.PanelRoleDetail.gameObject:SetActiveEx(isShow)
     if not isShow then return end
+    ---@type XCharacterViewModel
     local viewModel = self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId)
     self.PanelRoleDetail.gameObject:SetActiveEx(viewModel ~= nil)
     if viewModel == nil then return end
-    self.RImgTypeIcon:SetRawImage(viewModel:GetProfessionIcon())
+    local viewModelId = viewModel:GetSourceEntityId()
+    local charId = XRobotManager.GetCharacterId(viewModelId)
+    local careerId = XMVCA.XCharacter:GetCharacterCareer(charId)
+    self.BtnType:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(careerId))
     self.TxtName.text = viewModel:GetName()
     self.TxtTradeName.text = viewModel:GetTradeName()
     self.TxtAbility.text = self.Proxy:GetRoleAbility(self.CurrentEntityId)
-    local elementIcons = viewModel:GetObtainElementIcons()
-    XUiHelper.RefreshCustomizedList(self.BtnElementDetail.transform, self.RImgCharElement, #elementIcons, function(index, grid)
-        grid:GetComponent("RawImage"):SetRawImage(elementIcons[index])
-    end)
+    -- 初始品质
+    local initQuality = XMVCA.XCharacter:GetCharacterInitialQuality(charId)
+    local initColor = XMVCA.XCharacter:GetModelCharacterQualityIcon(initQuality).InitColor
+    self.QualityRail.color = XUiHelper.Hexcolor2Color(initColor)
+
+    -- 元素
+    local isHide = self:IsHideGeneralSkill()
+    local elementList = isHide and XMVCA.XCharacter:GetCharDetailObtainElementList(viewModelId) or XMVCA.XCharacter:GetCharacterAllElement(viewModelId, true)
+    for i = 1, 3 do
+        local rImg = self["RImgCharElement" .. i]
+        if elementList[i] then
+            rImg.gameObject:SetActiveEx(true)
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
+            rImg:SetRawImage(elementConfig.Icon)
+        else
+            rImg.gameObject:SetActiveEx(false)
+        end
+    end
+
+    -- 机制
+    if isHide then
+        self.ListGeneralSkillDetail.gameObject:SetActiveEx(false)
+    else
+        self.ListGeneralSkillDetail.gameObject:SetActiveEx(true)
+        local generalSkillIds = XMVCA.XCharacter:GetCharactersActiveGeneralSkillIdList(viewModelId)
+        for i = 1, self.ListGeneralSkillDetail.childCount, 1 do
+            local id = generalSkillIds[i]
+            self["BtnGeneralSkill" .. i].gameObject:SetActiveEx(id)
+            if id then
+                local generalSkillConfig = XMVCA.XCharacter:GetModelCharacterGeneralSkill()[id]
+                self["BtnGeneralSkill" .. i]:SetRawImage(generalSkillConfig.Icon)
+            end
+        end
+    end
+end
+
+function XUiBattleRoomRoleDetail:IsHideGeneralSkill()
+    if self.Proxy.IsHideGeneralSkill then
+        return self.Proxy:IsHideGeneralSkill()
+    end
+    return false
 end
 
 function XUiBattleRoomRoleDetail:Close(updated)
@@ -677,6 +786,59 @@ function XUiBattleRoomRoleDetail:Close(updated)
         self:EmitSignal("UpdateEntityId", self.CurrentEntityId)
     end
     self.Super.Close(self)
+end
+
+--- 根据关卡机器人混用功能剔除角色
+function XUiBattleRoomRoleDetail:FilterEntitiesWithRobotBlendRule(list)
+    local isUseBlendRule, config = XMVCA.XFuben:GetConfigStageLineupType(self.StageId)
+
+    if isUseBlendRule then
+        local type = config.Type[self.Pos]
+        if type ~= XEnumConst.FuBen.StageLineupType.Free then
+            -- 移除该位置配置角色以外的实体
+            local stageCfg = XMVCA.XFuben:GetStageCfg(self.StageId)
+            local robotId = stageCfg.RobotId[self.Pos]
+
+            if XTool.IsNumberValid(robotId) then
+                -- 获取对应角色Id
+                local characterId = XRobotManager.GetCharacterId(robotId)
+                if XTool.IsNumberValid(characterId) then
+                    local newlist = {}
+                    --判断有没相同的机器人，一般关卡配置的机器人不会出现在代理获取的列表里，但可能存在例外
+                    local hasSameRobot = false
+                    for i, v in pairs(list) do
+                        local entityId = v.Id
+                        if XRobotManager.CheckIsRobotId(entityId) then
+                            if entityId == robotId then
+                                hasSameRobot = true
+                            end
+                            entityId = XRobotManager.GetCharacterId(entityId)
+                        end
+
+                        if entityId == characterId then
+                            table.insert(newlist, v)
+                        end
+                    end
+
+                    if not hasSameRobot then
+                        table.insert(newlist, XRobotManager.GetRobotById(robotId))
+                    end
+
+                    return newlist
+                end
+            end
+        else
+            -- 自由坑位的关卡机器人也加上
+            local stageCfg = XMVCA.XFuben:GetStageCfg(self.StageId)
+            if not XTool.IsTableEmpty(stageCfg.RobotId) then
+                for i, v in pairs(stageCfg.RobotId) do
+                    table.insert(list, XRobotManager.GetRobotById(v))
+                end
+            end
+        end
+    end
+    
+    return list
 end
 
 return XUiBattleRoomRoleDetail

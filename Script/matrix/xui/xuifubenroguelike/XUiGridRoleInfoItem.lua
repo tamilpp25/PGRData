@@ -8,8 +8,8 @@ function XUiGridRoleInfoItem:Ctor(ui)
 end
 
 function XUiGridRoleInfoItem:SetRoleInfo(characterId)
-    self.RImgRoleIcon:SetRawImage(XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(characterId))
-    self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    self.RImgRoleIcon:SetRawImage(XMVCA.XCharacter:GetCharRoundnessHeadIcon(characterId))
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
 end
 
 function XUiGridRoleInfoItem:SetRandomRoleInfo()

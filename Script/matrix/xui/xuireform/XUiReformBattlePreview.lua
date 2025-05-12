@@ -133,16 +133,21 @@ end
 
 function XUiReformBattlePreview:RefreshEnemies()
     local evolvableStage = self.ReformManager.GetBaseStage(self.StageId):GetCurrentEvolvableStage()
-    local enemyGroup = evolvableStage:GetEvolvableGroupByType(XReformConfigs.EvolvableGroupType.Enemy)
-    local enemies = enemyGroup:GetSourcesWithEntity(false)
-    self.GridEnemy.gameObject:SetActiveEx(false)
-    local go, grid
-    for i = 1, #enemies do
-        go = CS.UnityEngine.Object.Instantiate(self.GridEnemy, self.PanelEnemy)
-        go.gameObject:SetActiveEx(true)
-        grid = XUiEnemyGrid.New(go, self)
-        grid:SetData(enemies[i])
-    end
+    local enemyGroups = evolvableStage:GetEvolvableGroupByType(XReformConfigs.EvolvableGroupType.Enemy)
+    XUiHelper.RefreshCustomizedList(self.PanelEnmyContent, self.PanelEnmyGroup, #enemyGroups, function(index, go)
+        local group = enemyGroups[index]
+        if not group:GetIsActive() then
+            go.gameObject:SetActiveEx(false)
+            return
+        end
+        local uiObj = go.transform:GetComponent("UiObject")
+        uiObj:GetObject("TxtGroup").text = XUiHelper.GetText("ReformEnemyGroupName" .. index)
+        local enemies = group:GetSourcesWithEntity(false)
+        XUiHelper.RefreshCustomizedList(uiObj:GetObject("PanelContent"), uiObj:GetObject("GridEnemy")
+            , #enemies, function(enemyIndex, enemyGridGo)
+                XUiEnemyGrid.New(enemyGridGo, self):SetData(enemies[enemyIndex])
+            end)
+    end)
 end
 
 function XUiReformBattlePreview:RefreshEnvironments()

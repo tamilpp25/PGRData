@@ -1,3 +1,4 @@
+---@class XUiEscapeLayerGrid
 local XUiEscapeLayerGrid = XClass(nil, "XUiEscapeLayerGrid")
 
 function XUiEscapeLayerGrid:Ctor(ui)
@@ -12,7 +13,8 @@ end
 
 function XUiEscapeLayerGrid:InitUi()
     self.Clear = XUiHelper.TryGetComponent(self.Transform, "Clear")
-    self.Restart = XUiHelper.TryGetComponent(self.Transform, "Restart")
+    --self.Restart = XUiHelper.TryGetComponent(self.Transform, "Restart")
+    self.Restart = XUiHelper.TryGetComponent(self.Transform, "BtnRestart")
     self.Btn = self.Transform:GetComponent("XUiButton")
     self.CanvasGroup = self.Transform:GetComponent("CanvasGroup")
     self.Lock = XUiHelper.TryGetComponent(self.Transform, "Lock")
@@ -33,9 +35,15 @@ function XUiEscapeLayerGrid:Refresh(chapterId, layerId, stageId)
     self.LayerId = layerId
     self.StageId = stageId
 
+    local stageColor = XEscapeConfigs.GetStageColor(self.StageId)
     --关卡名
-    local stageName = XDataCenter.FubenManager.GetStageName(stageId)
+    local stageName = XUiHelper.GetText("EscapeStageTitleTxt", XEscapeConfigs.GetStageTitleColor(stageColor), XDataCenter.FubenManager.GetStageName(stageId))
     self.Btn:SetNameByGroup(0, stageName)
+    --背景图
+    local bgIcon = XEscapeConfigs.GetStageTitleBg(stageColor)
+    if self.Btn.RawImageList.Count > 0 and not string.IsNilOrEmpty(bgIcon) then
+        self.Btn:SetRawImage(bgIcon)
+    end
     --奖励时间
     local awardTime = XEscapeConfigs.GetStageAwardTime(stageId)
     self.Btn:SetNameByGroup(1, awardTime)
@@ -58,6 +66,10 @@ function XUiEscapeLayerGrid:SetCanvasGroupAlpha(alpha)
     end
 end
 
+function XUiEscapeLayerGrid:SetActive(active)
+    self.GameObject:SetActiveEx(active)
+end
+
 function XUiEscapeLayerGrid:OnBtnFightClick()
     local chapterId = self.ChapterId
     local layerId = self.LayerId
@@ -73,7 +85,8 @@ function XUiEscapeLayerGrid:OnBtnFightClick()
         return
     end
 
-    XLuaUiManager.Open("UiEscapeTeamTips", chapterId, layerId, stageId)
+    --XLuaUiManager.Open("UiEscapeTeamTips", chapterId, layerId, stageId)
+    XLuaUiManager.Open("UiEscape2EnterFight", chapterId, layerId, stageId)
 end
 
 function XUiEscapeLayerGrid:OnBtnResetClick()

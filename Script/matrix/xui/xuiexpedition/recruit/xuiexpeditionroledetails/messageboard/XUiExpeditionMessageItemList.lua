@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --虚像地平线角色留言板留言列表
 local XUiExpeditionMessageItemList = XClass(nil, "XUiExpeditionMessageItemList")
 local XUiExpeditionMessageItem = require("XUi/XUiExpedition/Recruit/XUiExpeditionRoleDetails/MessageBoard/XUiExpeditionMessageItem")

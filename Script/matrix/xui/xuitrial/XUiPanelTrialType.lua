@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelTrialType = XClass(nil, "XUiPanelTrialType")
 local XUiGridTrialTypeItem = require("XUi/XUiTrial/XUiGridTrialTypeItem")
 local TrialTypeCfg = {

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMentorApplication = XLuaUiManager.Register(XLuaUi, "UiMentorApplication")
 local XUiGridGotManifesto = require("XUi/XUiMentorSystem/MentorRecommendation/MentorApplication/XUiGridGotManifesto")
 local CSTextManagerGetText = CS.XTextManager.GetText
@@ -13,16 +14,13 @@ end
 
 function XUiMentorApplication:OnEnable()
     self:UpdatePanel()
-    self:ShowRefreshRedPoint(false)
     XDataCenter.MentorSystemManager.ShowMentorShipComplete()
-    XEventManager.AddEventListener(XEventId.EVENT_MENTOR_GET_APPLY, self.ShowRefreshRedPoint, self)
     XEventManager.AddEventListener(XEventId.EVENT_MENTOR_GET_STUDENT, self.UpdateHintText, self)
     XEventManager.AddEventListener(XEventId.EVENT_MENTOR_LOSE_STUDENT, self.UpdateHintText, self)
     XEventManager.AddEventListener(XEventId.EVENT_BLACK_DATA_CHANGE, self.OnBtnRefreshClick, self)
 end
 
 function XUiMentorApplication:OnDisable()
-    XEventManager.RemoveEventListener(XEventId.EVENT_MENTOR_GET_APPLY, self.ShowRefreshRedPoint, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_MENTOR_GET_STUDENT, self.UpdateHintText, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_MENTOR_LOSE_STUDENT, self.UpdateHintText, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_BLACK_DATA_CHANGE, self.OnBtnRefreshClick, self)
@@ -52,9 +50,6 @@ function XUiMentorApplication:SetButtonCallBack()
     self.BtnClose.CallBack = function()
         self:OnBtnCloseClick()
     end
-    self.BtnRefresh.CallBack = function()
-        self:OnBtnRefreshClick()
-    end
     self.BtnApply.CallBack = function()
         self:OnBtnApplyClick()
     end
@@ -82,7 +77,6 @@ function XUiMentorApplication:OnBtnRefreshClick()
     XDataCenter.MentorSystemManager.GetMentorPlayerInfoListRequest(mentorData:GetApplyIdList(), function ()
             self:UpdatePanel()
         end)
-    self:ShowRefreshRedPoint(false)
 end
 
 function XUiMentorApplication:OnBtnApplyClick()
@@ -90,8 +84,4 @@ function XUiMentorApplication:OnBtnApplyClick()
     XDataCenter.MentorSystemManager.OperationApplyMentorRequest(mentorData:GetApplyIdList(), false, true, function ()
             self:UpdatePanel()
         end)
-end
-
-function XUiMentorApplication:ShowRefreshRedPoint(IsShow)
-    self.BtnRefresh:ShowReddot(IsShow)
 end

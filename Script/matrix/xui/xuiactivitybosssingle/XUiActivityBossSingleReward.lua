@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiBossSingleTreasureGrid = require("XUi/XUiActivityBossSingle/XUiBossSingleTreasureGrid")
 local XUiActivityBossSingleReward = XLuaUiManager.Register(XLuaUi, "UiActivityBossSingleReward")
 

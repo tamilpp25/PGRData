@@ -1,5 +1,6 @@
 local XGuildDormHelper = CS.XGuildDormHelper
 local Vector2 = CS.UnityEngine.Vector2
+---@class XUiJoystick
 local XUiJoystick = XClass(nil, "XUiJoystick")
 
 function XUiJoystick:Ctor(gameObject)
@@ -87,10 +88,14 @@ function XUiJoystick:OnDestroy()
     CS.XCommonGenericEventManager.RemoveLuaEvent(XEventId.EVENT_ALTER_LEFT_STICK_EVENT, self.EvtIndex)
 end
 
-
 -- ###################################### XUiGuildDormPanelOperation ######################################
 local UiButtonState = CS.UiButtonState
 local XUiCommonJoystick = require("XUi/XUiCommon/XUiCommonJoystick")
+---@class XUiGuildDormPanelOperation
+---@field BtnInteract XUiComponent.XUiButton
+---@field Role XGuildDormRole
+---@field Room XGuildDormRoom
+---@field UiJoystick XUiJoystick
 local XUiGuildDormPanelOperation = XClass(nil, "XUiGuildDormPanelOperation")
 
 function XUiGuildDormPanelOperation:Ctor(ui)
@@ -109,6 +114,9 @@ function XUiGuildDormPanelOperation:SetData()
     local interactCheckComponent = self.Role:GetComponent("XGDInteractCheckComponent")
     local signalData = interactCheckComponent:GetSignalData()
     signalData:ConnectSignal("InteractChanged", self, self.OnInteractChanged)
+    local furnitureSpecialInteractComponent = self.Role:GetComponent("XGDFurnitureSpecialInteractComponent")
+    signalData = furnitureSpecialInteractComponent:GetSignalData()
+    signalData:ConnectSignal("UpdateBtnInteractName", self, self.UpdateBtnInteractName)
     self.UiJoystick:SetData(handler(self, self.HandleMoveDirection))
 end
 
@@ -120,10 +128,25 @@ function XUiGuildDormPanelOperation:SetIsCanMove(value)
     self.InputComponent:SetIsCanMove(value)
 end
 
+-- 设置拍照模式
+function XUiGuildDormPanelOperation:SetPhotographModel(value)
+    self.IsPhotographModel = value
+    if not self.Role then
+        return
+    end
+    self.BtnInteract.gameObject:SetActiveEx(true)
+    local currentInteractInfo = self.Role:GetCurrentInteractInfo()
+    if currentInteractInfo == nil or (currentInteractInfo.ButtonType == XGuildDormConfig.FurnitureButtonType.Npc and self.IsPhotographModel) then
+        self.BtnInteract.gameObject:SetActiveEx(false)
+    end
+end
+
 function XUiGuildDormPanelOperation:OnStart()
     XEventManager.AddEventListener(XEventId.EVENT_GUILD_DORM_CANCEL_INTERACT_BTN_SHOW, self.OnCancelInteractBtnShow, self)
     XEventManager.AddEventListener(XEventId.EVENT_GUILD_DORM_ROLE_INTERACT_BEGIN, self.OnRoleBeginInteract, self)
     XEventManager.AddEventListener(XEventId.EVENT_GUILD_DORM_ROLE_INTERACT_STOP, self.OnRoleStopInteract, self)
+    XEventManager.AddEventListener(XEventId.EVENT_GUILD_DORM_ROLE_INTERACT_SHOW, self.ShowPanel, self)
+    XEventManager.AddEventListener(XEventId.EVENT_INSTRUMENT_SIMULATOR_DO_CLICK_BTNBACK, self.OnBtnCancelInteractClicked, self)
 end
 
 function XUiGuildDormPanelOperation:OnEnable()
@@ -133,12 +156,15 @@ end
 
 function XUiGuildDormPanelOperation:OnDisable()
     self:SetIsCanMove(false)
+    self.IsPhotographModel = false
 end
 
 function XUiGuildDormPanelOperation:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_DORM_CANCEL_INTERACT_BTN_SHOW, self.OnCancelInteractBtnShow, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_DORM_ROLE_INTERACT_BEGIN, self.OnRoleBeginInteract, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_DORM_ROLE_INTERACT_STOP, self.OnRoleStopInteract, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_DORM_ROLE_INTERACT_SHOW, self.ShowPanel, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_INSTRUMENT_SIMULATOR_DO_CLICK_BTNBACK, self.OnBtnCancelInteractClicked, self)
     self.UiJoystick:OnDestroy()
 end
 
@@ -151,6 +177,8 @@ function XUiGuildDormPanelOperation:OnRoleBeginInteract(playerId)
     if playerId ~= XPlayer.Id then return end
     self.PanelJoystick.gameObject:SetActiveEx(false)
     self:OnInteractChanged(false, playerId)
+    -- 重置摇杆
+    self.UiJoystick:Reset()
 end
 
 function XUiGuildDormPanelOperation:OnRoleStopInteract(playerId)
@@ -165,13 +193,52 @@ function XUiGuildDormPanelOperation:OnCancelInteractBtnShow(value, playerId)
     self.BtnCancelInteract.gameObject:SetActiveEx(value)
 end
 
+function XUiGuildDormPanelOperation:ShowPanel(isShow)
+    self.BtnInteract.gameObject:SetActiveEx(isShow)
+    self:SetIsCanMove(isShow)
+    local currentInteractInfo = self.Role:GetCurrentInteractInfo()
+    if currentInteractInfo == nil then
+        self.BtnInteract.gameObject:SetActiveEx(false)
+    end
+end
+
 function XUiGuildDormPanelOperation:OnBtnInteractClicked()
+    ---@type XTableGuildDormFurnitureInteractBtn
     local currentInteractInfo = self.Role:GetCurrentInteractInfo()
     if currentInteractInfo == nil then return end
     if currentInteractInfo.ButtonType == XGuildDormConfig.FurnitureButtonType.SkipFunction then
         XFunctionManager.SkipInterface(tonumber(currentInteractInfo.ButtonArg))
         return
     end
+    if currentInteractInfo.ButtonType == XGuildDormConfig.FurnitureButtonType.Npc then
+        local themeId=XDataCenter.GuildDormManager.GetThemeId()
+        local npcId=string.Split(currentInteractInfo.Id,'_')[1]
+        local npcRefreshId=XDataCenter.GuildDormManager.GetNpcRefreshIdByThemeAndNpcId(tonumber(npcId),themeId)
+        local npcDormData=XDataCenter.GuildDormManager.GetNpcDataFromDormData(npcRefreshId)
+        if npcDormData then
+            if not XDataCenter.GuildDormManager.CheckIfCanInteract(npcRefreshId) then return end
+            if npcDormData.State==XGuildDormConfig.NpcState.Static then --Static
+                self.Role:BeginNpcInteract(currentInteractInfo)
+            else
+                XDataCenter.GuildDormManager.RequestInteractWithDynamicNpc(npcRefreshId,function(complete)
+                    if complete then
+                        self.Role:BeginNpcInteract(currentInteractInfo)
+                    end
+                end)
+            end
+        end
+        
+        return
+    end
+
+    if currentInteractInfo.ButtonType == XGuildDormConfig.FurnitureButtonType.FurnitureMovie then
+        self.Role:BeginSpecialFurnitureInteract(currentInteractInfo)
+        return
+    elseif currentInteractInfo.ButtonType == XGuildDormConfig.FurnitureButtonType.JuiceMechine then
+        self.Role:BeginFurnitureRandomBoxInteract(currentInteractInfo)
+        return
+    end
+    
     -- 该家具已经被占用
     if self.Room:GetRoleByFurnitureId(currentInteractInfo.Id) then
         return
@@ -191,29 +258,59 @@ function XUiGuildDormPanelOperation:OnInteractChanged(value, playerId)
     if playerId ~= XPlayer.Id then return end
     if XTool.UObjIsNil(self.GameObject) then return end
     -- 禁止重复设置，避免lua gc
+    ---@type XGuildDormInteractInfo
     local currentInteractInfo = self.Role:GetCurrentInteractInfo()
     if self.__LastInteractValue == nil or self.__LastInteractValue ~= value then
         self.__LastInteractValue = value
         self.BtnInteract.gameObject:SetActiveEx(value)
-        if currentInteractInfo == nil then
+        if currentInteractInfo == nil or (currentInteractInfo.ButtonType == XGuildDormConfig.FurnitureButtonType.Npc and self.IsPhotographModel) then
             self.BtnInteract.gameObject:SetActiveEx(false)
             return
         end
     end
     if value and currentInteractInfo then
+        self:UpdateImgInteractIon(currentInteractInfo.ButtonType == XGuildDormConfig.FurnitureButtonType.Npc)
         self.__CurrentDiableValue = self.Room:GetRoleByFurnitureId(currentInteractInfo.Id) ~= nil
         if self.__LastIsDiableValue == nil or self.__LastIsDiableValue ~= self.__CurrentDiableValue then
             self.__LastIsDiableValue = self.__CurrentDiableValue
             self.BtnInteract:SetDisable(self.__CurrentDiableValue)
         end
-        self.__CurrentInteractInfoId = currentInteractInfo.Id
-        if self.__LastInteractInfoId == nil or self.__LastInteractInfoId ~= self.__CurrentInteractInfoId then
-            self.__LastInteractInfoId = self.__CurrentInteractInfoId
-            if string.IsNilOrEmpty(currentInteractInfo.ShowButtonName) then
+        self.__CurrentInteractButtonId = currentInteractInfo.ButtonId
+        if self.__LastInteractButtonId == nil or self.__LastInteractButtonId ~= self.__CurrentInteractButtonId then
+            self.__LastInteractButtonId = self.__CurrentInteractButtonId
+            if not currentInteractInfo:HasCustomButtonName() then
                 self.BtnInteract:SetNameByGroup(0, XUiHelper.GetText("GuildDormDefaultInteractButtonText"))
             else
-                self.BtnInteract:SetNameByGroup(0, currentInteractInfo.ShowButtonName)
+                self.BtnInteract:SetNameByGroup(0, currentInteractInfo:GetShowBtnName())
             end
+            -- 红点显示
+            self.BtnInteract:ShowReddot(false)
+            if currentInteractInfo.ConditionType == XGuildDormConfig.FurnitureConditionType.RedPointCondition then
+                local redPointCondition = currentInteractInfo.ConditionArg
+                local redCheck =  not string.IsNilOrEmpty(redPointCondition) and XRedPointManager.CheckConditions({redPointCondition})
+                self.BtnInteract:ShowReddot(redCheck)
+            end
+        end
+    end
+end
+
+function XUiGuildDormPanelOperation:UpdateBtnInteractName()
+    if XTool.UObjIsNil(self.GameObject) then return end
+    local currentInteractInfo = self.Role:GetCurrentInteractInfo()
+
+    if currentInteractInfo then
+        if not currentInteractInfo:HasCustomButtonName() then
+            self.BtnInteract:SetNameByGroup(0, XUiHelper.GetText("GuildDormDefaultInteractButtonText"))
+        else
+            self.BtnInteract:SetNameByGroup(0, currentInteractInfo:GetShowBtnName())
+        end
+    end
+end
+
+function XUiGuildDormPanelOperation:UpdateImgInteractIon(value)
+    for i = 1, 3 do
+        if self["ImgInteractIon" .. i] then -- 防打包
+            self["ImgInteractIon" .. i].gameObject:SetActiveEx(value)
         end
     end
 end

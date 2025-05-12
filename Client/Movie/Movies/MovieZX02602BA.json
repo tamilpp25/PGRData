@@ -297,7 +297,8 @@
         "Params": [
             "1",
             "500482",
-            "800"
+            "800",
+            1.0
         ]
     },
     {
@@ -313,8 +314,8 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "??",
-            "Awoooo\u2014!",
+            "\uff1f\uff1f",
+            "\u55f7\u545c~~\uff01\uff01",
             "1"
         ]
     },
@@ -330,7 +331,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "??",
+            "\uff1f\uff1f",
             "The inspectors are here to catch naughty kids!",
             "1"
         ]
@@ -4645,6 +4646,21 @@
         "EndDelay": null,
         "Params": [
             "Are there... still humans on this planet?"
+        ]
+    },
+    {
+        "Id": 280,
+        "ActionId": 280,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u3053\u306e\u661f\u2026\u2026\u672c\u5f53\u306b\u307e\u3060\u4eba\u9593\u304c\u5b58\u5728\u3057\u3066\u3044\u308b\u306e\u3060\u308d\u3046\u304b?"
         ]
     }
 ]

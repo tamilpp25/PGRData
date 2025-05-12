@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local stringGsub = string.gsub
 
 local XUiInfestorExploreStageDetailFight = XLuaUiManager.Register(XLuaUi, "UiInfestorExploreStageDetailFight")

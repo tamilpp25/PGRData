@@ -61,9 +61,11 @@ function XUiGridCard:ShowTag(IsShow)
 end
 
 function XUiGridCard:UseCard()
+    XLuaUiManager.SetMask(true)
     local IsOver = XDataCenter.MaintainerActionManager.CheckIsActionPointOver()
     if IsOver then
         XUiManager.TipText("MaintainerActionPowerOver")
+        XLuaUiManager.SetMask(false)
         return
     end
     

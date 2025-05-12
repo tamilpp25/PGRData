@@ -15,7 +15,11 @@ local Default = {
     _ChapterEventInfos = {},
 }
 
-local XShortStoryData = XClass(nil,"XShortStoryData")
+---@class XShortStoryData
+---@field _PlayerTreasureData table<number, boolean>
+---@field _LastPassStage table<number, number>
+---@field _ChapterEventInfos table<number, boolean>
+local XShortStoryData = XClass(nil, "XShortStoryData")
 
 function XShortStoryData:Ctor()
     for key, value in pairs(Default) do
@@ -35,8 +39,8 @@ function XShortStoryData:UpdateData(data)
         end
     end
     if data.LastPassStage then
-        for k, v in pairs(data.LastPassStage) do
-            self._LastPassStage[k] = v
+        for _, v in pairs(data.LastPassStage) do
+            self._LastPassStage[v.ChapterId] = v.StageId
         end
     end
     if data.ChapterEventInfos then
@@ -58,13 +62,22 @@ function XShortStoryData:SyncTreasureStage(treasureId)
 end
 
 function XShortStoryData:OnSyncStageData(stageId)
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-    if stageInfo.Type ~= XDataCenter.FubenManager.StageType.ShortStory then return end
-    self._LastPassStage[stageInfo.ChapterId] = stageId
+    local stageType = XMVCA.XFuben:GetStageType(stageId)
+    if stageType ~= XEnumConst.FuBen.StageType.ShortStory then
+        return
+    end
+    local chapterId = XFubenShortStoryChapterConfigs.GetShortStoryChapterIdByStageId(stageId)
+    self:SetLastPassStage(chapterId, stageId)
+end
+
+function XShortStoryData:SetLastPassStage(chapterId, stageId)
+    if XTool.IsNumberValid(chapterId) then
+        self._LastPassStage[chapterId] = stageId
+    end
 end
 
 function XShortStoryData:GetLastPassStage(chapterId)
-    return self._LastPassStage[chapterId]
+    return self._LastPassStage[chapterId] or 0
 end
 
 function XShortStoryData:AddChapterEventState(chapterEventData)

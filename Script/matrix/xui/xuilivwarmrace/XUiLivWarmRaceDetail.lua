@@ -1,3 +1,5 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --关卡详情
 local XUiLivWarmRaceDetail = XLuaUiManager.Register(XLuaUi, "UiLivWarmRaceDetail")
 
@@ -98,8 +100,9 @@ function XUiLivWarmRaceDetail:OnBtnEnterStoryClick()
     local stageId = self.StageId
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    local beginStoryId = XMVCA.XFuben:GetBeginStoryId(stageId)
     if stageInfo.Passed then
-        XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId)
+        XDataCenter.MovieManager.PlayMovie(beginStoryId)
     else
         XDataCenter.FubenManager.FinishStoryRequest(stageId)
     end
@@ -112,5 +115,5 @@ function XUiLivWarmRaceDetail:OnBtnEnterFightClick()
             ["StageGroupId"] = self.GroupId
         }
     }
-    XLuaUiManager.PopThenOpen("UiNewRoomSingle", self.StageId, data)
+    XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.StageId)
 end

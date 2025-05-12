@@ -4,6 +4,11 @@ local CSTextManagerGetText = CS.XTextManager.GetText
 local DOFillTime = 0.5
 local DefaultIndex = 1
 
+function XUiPartnerCompose:Ctor()
+    ---@type XPartner
+    self.Data = nil
+end
+
 function XUiPartnerCompose:OnStart(base)
     self.Base = base
     self:SetButtonCallBack()
@@ -14,11 +19,11 @@ function XUiPartnerCompose:OnDestroy()
 end
 
 function XUiPartnerCompose:OnEnable()
-    XEventManager.AddEventListener(XEventId.EVENT_PARTNER_OBTAIN, self.GoPartnerMain, self)
+    XEventManager.AddEventListener(XEventId.EVENT_PARTNER_OBTAIN, self.OnComposeSuccess, self)
 end
 
 function XUiPartnerCompose:OnDisable()
-    XEventManager.RemoveEventListener(XEventId.EVENT_PARTNER_OBTAIN, self.GoPartnerMain, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_PARTNER_OBTAIN, self.OnComposeSuccess, self)
 end
 
 function XUiPartnerCompose:SetButtonCallBack()
@@ -27,6 +32,14 @@ function XUiPartnerCompose:SetButtonCallBack()
     end
     self.BtnGet.CallBack = function()
         self:OnBtnGetClick()
+    end
+    if self.BtnActive then
+        self.BtnActive.CallBack = function()
+            self:OnBtnSkillActivateClick()
+        end
+        self.BtnPassive.CallBack = function()
+            self:OnBtnSkillPassiveClick()
+        end
     end
 end
 
@@ -39,20 +52,29 @@ function XUiPartnerCompose:OnBtnComposeClick()
 end
 
 function XUiPartnerCompose:OnBtnGetClick()
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
-        return
-    end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    return
+    --end
 
     local useItemId = self.Data:GetChipItemId()
     XLuaUiManager.Open("UiTip", XDataCenter.ItemManager.GetItem(useItemId))
 end
 
+---@param data XPartner
 function XUiPartnerCompose:UpdatePanel(data)
     self.Data = data
     if data then
         local IsShowRed = XDataCenter.PartnerManager.CheckComposeRedByTemplateId(self.Data:GetTemplateId())
         self.BtnCompose:ShowReddot(IsShowRed)
+    end
+end
+
+function XUiPartnerCompose:OnComposeSuccess(partnerList)
+    if self.Base.isComposePanelOpenByStar then
+        self.Base:BackFromComposePanel()
+    else
+        self:GoPartnerMain(partnerList)
     end
 end
 
@@ -63,5 +85,13 @@ function XUiPartnerCompose:GoPartnerMain(partnerList)
             selectPartner = partner
         end
     end
-    XLuaUiManager.PopThenOpen("UiPartnerMain", nil, selectPartner)
+    XDataCenter.PartnerManager.OpenUiPartnerMain(true, nil, selectPartner)
+end
+
+function XUiPartnerCompose:OnBtnSkillActivateClick()
+    XLuaUiManager.Open("UiPartnerActivateMainSkill", self.Data)
+end
+
+function XUiPartnerCompose:OnBtnSkillPassiveClick()
+    XLuaUiManager.Open("UiPartnerActivatePassiveSkill", self.Data)
 end

@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiPanelStart = require("XUi/XUiDiceGame/XUiPanelStart")
 local XUiPanelOperation = require("XUi/XUiDiceGame/XUiPanelOperation")
 local XUiPanelEasterEgg = require("XUi/XUiDiceGame/XUiPanelEasterEgg")
@@ -21,7 +22,7 @@ function XUiDiceGame:InitTopView()
 	self:RegisterClickEvent(self.BtnHelp, self.OnBtnHelpClick)
 
 	--代币面板
-	self.AssetPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset)
+	self.AssetPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self)
 	local itemId = XDataCenter.DiceGameManager.GetCoinItemId()
 	XDataCenter.ItemManager.AddCountUpdateListener({ itemId }, function(id, count)
 		self.AssetPanel:Refresh({ itemId })

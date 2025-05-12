@@ -23,16 +23,18 @@ function XUiGuildBossSkill:OnStart()
                 self.Buffs[i].Transform:SetParent(self.SkillGroup2)
             end
             
-            self.Buffs[i]:Init(XGuildBossConfig.GetBossStageInfo(self.LevelData[i].StageId), self.LevelData[i].BuffNeed, self.LevelData[i].NameOrder)
+            self.Buffs[i]:Init(XGuildBossConfig.GetBossStageInfo(self.LevelData[i].StageId), self.LevelData[i], self.LevelData[i].NameOrder)
             self.Buffs[i].Transform.localScale = self.VectorOne
             self.Buffs[i].Transform.localPosition = self.VectorZero
             self.Buffs[i].GameObject:SetActiveEx(true)
         end
     end
+
 end
 
 function XUiGuildBossSkill:OnDestroy()
     self.Buffs = {}
+
 end
 
 function XUiGuildBossSkill:OnBtnCloseClick()

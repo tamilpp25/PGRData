@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridToken = require("XUi/XUiTheatre/PowerFavor/XUiGridToken")
 
 local FavorCoin = XTheatreConfigs.TheatreFavorCoin

@@ -1,33 +1,40 @@
-XUiGridArchive = XClass(nil, "XUiGridArchive")
+---@class XUiArchive.XUiGridArchive: XUiNode
+---@field private _Control XArchiveControl
+local XUiGridArchive = XClass(XUiNode, "XUiGridArchive")
 
-function XUiGridArchive:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchive:OnStart(type)
     self:SetButtonCallBack()
+    self:InitPointEvent(type)
 end
 
-function XUiGridArchive:AddRedPointEvent(type)
-    if type == XArchiveConfigs.SubSystemType.Monster then
-        XRedPointManager.AddRedPointEvent(self.ArchiveBtn,
+function XUiGridArchive:InitPointEvent(type)
+    self.ArchiveBtn:ShowReddot(false)
+    
+    if type == XEnumConst.Archive.SubSystemType.Monster then
+        self:AddRedPointEvent(self.ArchiveBtn,
             self.OnCheckArchiveRedPoint,
             self,
             { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_ALL })
-    elseif type == XArchiveConfigs.SubSystemType.Weapon then
-        XRedPointManager.AddRedPointEvent(self.ArchiveBtn,
+    elseif type == XEnumConst.Archive.SubSystemType.Weapon then
+        self:AddRedPointEvent(self.ArchiveBtn,
             self.OnCheckArchiveRedPoint,
             self,
             { XRedPointConditions.Types.CONDITION_ARCHIVE_WEAPON })
-    elseif type == XArchiveConfigs.SubSystemType.Awareness then
-        XRedPointManager.AddRedPointEvent(self.ArchiveBtn,
+    elseif type == XEnumConst.Archive.SubSystemType.Awareness then
+        self:AddRedPointEvent(self.ArchiveBtn,
             self.OnCheckArchiveRedPoint,
             self,
             { XRedPointConditions.Types.CONDITION_ARCHIVE_AWARENESS })
-    elseif type == XArchiveConfigs.SubSystemType.CG then
-        XRedPointManager.AddRedPointEvent(self.ArchiveBtn,
+    elseif type == XEnumConst.Archive.SubSystemType.CG then
+        self:AddRedPointEvent(self.ArchiveBtn,
             self.OnCheckArchiveRedPoint,
             self,
             { XRedPointConditions.Types.CONDITION_ARCHIVE_CG_ALL })
+    elseif type == XEnumConst.Archive.SubSystemType.Comic then
+        self:AddRedPointEvent(self.ArchiveBtn, 
+            self.OnCheckArchiveRedPoint,
+            self,
+            { XRedPointConditions.Types.CONDITION_ARCHIVE_COMIC_GROUP_RED }) 
     end
 
 end
@@ -70,6 +77,10 @@ function XUiGridArchive:OnCheckArchiveRedPoint(count)
 end
 
 function XUiGridArchive:SetArchiveData(chapter)
+    if not chapter then
+        return
+    end
+    
     self.SkipId = chapter.SkipId
     self.ArchiveTitle.text = chapter.Name
     self.ProgressText.text = chapter.TagText
@@ -86,23 +97,27 @@ end
 
 function XUiGridArchive:SetCompletionRate(type)
     local rate = 0
-    if type == XArchiveConfigs.SubSystemType.Monster then
-        rate = XDataCenter.ArchiveManager.GetMonsterCompletionRate()
-    elseif type == XArchiveConfigs.SubSystemType.Weapon then
-        rate = XDataCenter.ArchiveManager.GetWeaponCollectRate()
-    elseif type == XArchiveConfigs.SubSystemType.Awareness then
-        rate = XDataCenter.ArchiveManager.GetAwarenessCollectRate()
-    elseif type == XArchiveConfigs.SubSystemType.Story then
-        rate = XDataCenter.ArchiveManager.GetStoryCollectRate()
-    elseif type == XArchiveConfigs.SubSystemType.CG then
-        rate = XDataCenter.ArchiveManager.GetCGCompletionRate()
-    elseif type == XArchiveConfigs.SubSystemType.NPC then
-        rate = XDataCenter.ArchiveManager.GetNPCCompletionRate()
-    elseif type == XArchiveConfigs.SubSystemType.Partner then
-        rate = XDataCenter.ArchiveManager.GetPartnerCompletionRate()
-    elseif type == XArchiveConfigs.SubSystemType.PV then
-        rate = XDataCenter.ArchiveManager.GetPVCompletionRate()
+    if type == XEnumConst.Archive.SubSystemType.Monster then
+        rate = self._Control:GetMonsterCompletionRate()
+    elseif type == XEnumConst.Archive.SubSystemType.Weapon then
+        rate = self._Control:GetWeaponCollectRate()
+    elseif type == XEnumConst.Archive.SubSystemType.Awareness then
+        rate = self._Control.AwarenessControl:GetAwarenessCollectRate()
+    elseif type == XEnumConst.Archive.SubSystemType.Story then
+        rate = self._Control:GetStoryCollectRate()
+    elseif type == XEnumConst.Archive.SubSystemType.CG then
+        rate = self._Control:GetCGCompletionRate()
+    elseif type == XEnumConst.Archive.SubSystemType.NPC then
+        rate = self._Control:GetNPCCompletionRate()
+    elseif type == XEnumConst.Archive.SubSystemType.Partner then
+        rate = self._Control:GetPartnerCompletionRate()
+    elseif type == XEnumConst.Archive.SubSystemType.PV then
+        rate = self._Control:GetPVCompletionRate()
+    elseif type == XEnumConst.Archive.SubSystemType.Comic then
+        rate = self._Control.ComicControl:GetComicCompletionRate()
     end
     self.ProgressNub.text = string.format("%d%s", rate, "%")
     self.ProgressSlider.value = rate / 100
 end
+
+return XUiGridArchive

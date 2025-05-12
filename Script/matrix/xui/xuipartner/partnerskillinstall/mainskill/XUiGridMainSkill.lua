@@ -7,7 +7,6 @@ function XUiGridMainSkill:Ctor(ui)
     self.Transform = ui.transform
     self.GridState = State.Normal
     XTool.InitUiObject(self)
-    self:AutoInitUi()   --海外修改，辅助机描述文字过长改为滑动显示
     self:SetButtonCallBack()
 end
 
@@ -25,6 +24,10 @@ function XUiGridMainSkill:SetButtonCallBack()
 end
 
 function XUiGridMainSkill:OnBtnSelectClick()
+    if self.Root.Partner:GetIsComposePreview() then
+        return
+    end
+    
     if self.SkillGroup:GetIsLock() then
         XUiManager.TipMsg(self.SkillGroup:GetConditionDesc())
         return
@@ -36,6 +39,8 @@ function XUiGridMainSkill:OnBtnSelectClick()
     for _,grid in pairs(grids) do
         grid:ShowGrid()
     end
+
+    self:ShowSelectEffect()
 
     --self:ChangeState(State.Select)
 end
@@ -53,6 +58,12 @@ function XUiGridMainSkill:UpdateGrid(skillGroup, base, root)
 end
 
 function XUiGridMainSkill:ShowGrid()
+    if self.Root.Partner:GetIsComposePreview() then
+        self.BtnSelect2.gameObject:SetActiveEx(false)
+        self:ChangeState(State.Normal)
+        return
+    end
+    
     if self.SkillGroup then
         local selectSkillId = self.Root.CurSkillGroup:GetId()
         local IsSelect = self.SkillGroup:GetId() == selectSkillId
@@ -106,44 +117,8 @@ function XUiGridMainSkill:ShowNormal(IsNormal)
     self.Normal.gameObject:SetActiveEx(IsNormal)
 end
 
-function XUiGridMainSkill:AutoInitUi()
-    local normalSelect = self.Transform:Find("Normal/BtnSelect")
-    if (normalSelect) then
-        self.normalSelectBtn = normalSelect:GetComponent("XUiButton")
-        self.normalSelectBtn.CallBack = function()
-            self:OnBtnSelectClick()
-        end
-    end
-
-    local temp = self.Transform:Find("Normal/BgKuang")
-    if (temp) then
-        temp:GetComponent("Image").raycastTarget = false
-    end
-
-    temp = self.Transform:Find("Normal/BgKuang2")
-    if (temp) then
-        temp:GetComponent("Image").raycastTarget = false
-    end
-
-    temp = self.Transform:Find("Select/BgKuang")
-    if (temp) then
-        temp:GetComponent("Image").raycastTarget = false
-    end
-
-    temp = self.Transform:Find("Select/BgKuang2")
-    if (temp) then
-        temp:GetComponent("Image").raycastTarget = false
-    end
-
-    temp = self.Transform:Find("Lock/BgKuang")
-    if (temp) then
-        temp:GetComponent("Image").raycastTarget = false
-    end
-
-    temp = self.Transform:Find("BtnSelect")
-    if (temp) then
-        temp.gameObject:SetActiveEx(false)
-    end
+function XUiGridMainSkill:ShowSelectEffect()
+    self.Select:GetObject("SelectEffect").gameObject:SetActiveEx(true)
 end
 
 return XUiGridMainSkill

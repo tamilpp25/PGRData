@@ -42,13 +42,17 @@ local function GetDefaultTeam(modeId)
                 end
             end
         end
+        if not data.Assistance then
+            data.Assistance = {}
+        end
         return data 
     end
     local newData = {
         FirstFightPos = 1,
         CaptainPos = 1,
         Color = {},
-        RoleIds = {}
+        RoleIds = {},
+        Assistance = {},-- 支援角色位
     }
     local mode = XDataCenter.SuperSmashBrosManager.GetModeByModeType(modeId)
     local roleMax = mode:GetRoleMaxPosition()
@@ -56,6 +60,7 @@ local function GetDefaultTeam(modeId)
     local roleMin = mode:GetRoleMinPosition()
     local maxPosition = mode:GetTeamMaxPosition() --我方队伍位置数
     local forceRandomIndex = mode:GetRoleRandomStartIndex( ) --我方可强制随机的开始下标
+    local roleForceAssistIndex = mode:GetRoleForceAssistIndex()  -- 我方支援的开始下标
     for index = 1, maxPosition do
         if index > roleMax then
             newData.RoleIds[index] = XSuperSmashBrosConfig.PosState.Ban
@@ -70,6 +75,13 @@ local function GetDefaultTeam(modeId)
         if forceRandomIndex and index >= forceRandomIndex then
             newData.RoleIds[index] = XSuperSmashBrosConfig.PosState.Random
             newData.Color[index] = XSuperSmashBrosConfig.ColorTypeEnum.None
+        end
+        -- 支援角色 颜色 代码1
+        if XSmashBTeamManager.IsAssistance(index, roleForceAssistIndex) then
+            newData.Color[index] = XSuperSmashBrosConfig.ColorTypeEnum.Purple
+            newData.Assistance[index] = true
+        else
+            newData.Assistance[index] = false
         end
     end
     return newData
@@ -140,16 +152,27 @@ function XSmashBTeamManager.CreateTeam(modeId)
         FirstFightPos = 1,
         CaptainPos = 1,
         RoleIds = {},
-        Color = {}
+        Color = {},
+        Assistance = {}, -- 支援角色位
     }
+    ---@type XSmashBMode
     local mode = XDataCenter.SuperSmashBrosManager.GetModeByModeType(modeId)
     local roleMax = mode:GetRoleMaxPosition()
     local battleNum = mode:GetRoleBattleNum()
+    local roleForceAssistIndex = mode:GetRoleForceAssistIndex()
     for index = 1, roleMax do
         OwnTeamDic[modeId].RoleIds[index] = 0
         --当上场人数大于1时为组队战，需要有排位颜色按默认顺序排列(红蓝黄)，否则排位颜色时为None
         local colorTypeIndex = ((battleNum == 1) and XSuperSmashBrosConfig.ColorTypeEnum.None) or index
         OwnTeamDic[modeId].Color[index] = colorTypeIndex == 0 and XSuperSmashBrosConfig.ColorTypeEnum.Red or colorTypeIndex
+
+        -- 支援角色 颜色 代码2
+        if XSmashBTeamManager.IsAssistance(index, roleForceAssistIndex) then
+            OwnTeamDic[modeId].Color[index] = XSuperSmashBrosConfig.ColorTypeEnum.Purple
+            OwnTeamDic[modeId].Assistance[index] = true
+        else
+            OwnTeamDic[modeId].Assistance[index] = false
+        end
     end
 end
 --=============
@@ -170,6 +193,7 @@ function XSmashBTeamManager.ResetTeamByModeId(modeId)
     --设置默认值
     teamData.FirstFightPos = DefaultTeamInfo[modeId].FirstFightPos
     teamData.CaptainPos = DefaultTeamInfo[modeId].CaptainPos
+    
     for index = 1, #DefaultTeamInfo[modeId].Color do
         teamData.Color[index] = DefaultTeamInfo[modeId].Color[index]
     end
@@ -233,6 +257,78 @@ end
 function XSmashBTeamManager.GetRoleIdsByModeId(modeId)
     local teamData = XSmashBTeamManager.GetTeamByModeId(modeId)
     return teamData.RoleIds or {}
+end
+--=============
+--清空本地保存的队伍数据，debug用
+--=============
+function XSmashBTeamManager.ClearSavedTeamData(mode)
+    XSaveTool.RemoveData(GetSaveKey(mode or 6))
+end
+
+--参考自:XUiSSBPickCharaHeadList:OnGridSelect(grid)
+---@param mode XSmashBMode
+---@param roleId number
+---@param pos number
+function XSmashBTeamManager.SetTeamAssistanceMember(mode, roleId, changePos)
+    local teamData = XSmashBTeamManager.GetDefaultTeamInfoByModeId(mode:GetId())
+    local teamIds = teamData.RoleIds
+    local characterIdSelected = XSmashBTeamManager.GetCharacterId(roleId)
+    if roleId == XSuperSmashBrosConfig.PosState.Random then
+        --若选的是随机，则直接赋值
+        teamIds[changePos] = roleId
+    elseif teamIds[changePos] == XSuperSmashBrosConfig.PosState.Empty or teamIds[changePos] == XSuperSmashBrosConfig.PosState.Random then
+        --若替换位是空位或随机,则直接把选中的Id赋值
+        for pos, teamRoleId in pairs(teamIds) do
+            local characterIdInTeam = XRobotManager.GetCharacterId(teamRoleId)
+            if characterIdInTeam > 0 and characterIdInTeam == characterIdSelected then --若跟其他位置相同且不为随机，则交换位置
+                teamIds[pos] = XSuperSmashBrosConfig.PosState.Empty
+                break
+            end
+        end
+        teamIds[changePos] = roleId
+    elseif teamIds[changePos] == roleId then --若重复选中，则表示取消选中
+        teamIds[changePos] = XSuperSmashBrosConfig.PosState.Empty
+    else
+        local roleForceAssistIndex = mode:GetRoleForceAssistIndex()  -- 我方支援的开始下标
+        local switch = false
+        for pos, teamRoleId in pairs(teamIds) do
+            local characterIdInTeam = XSmashBTeamManager.GetCharacterId(teamRoleId)
+            if characterIdInTeam == characterIdSelected and characterIdSelected ~= 0 then --若跟其他位置相同,则交换位置
+                -- 要交换的位置是援助位，拒绝
+                if XSmashBTeamManager.IsAssistance(pos, roleForceAssistIndex) then
+                    XUiManager.TipMsg(XUiHelper.GetText("SuperSmashRoleHasSelected", pos))
+                    return false
+                end
+                -- 我是援助位，拒绝
+                if XSmashBTeamManager.IsAssistance(changePos, roleForceAssistIndex) then
+                    XUiManager.TipMsg(XUiHelper.GetText("SuperSmashRoleHasSelected", pos))
+                    return false
+                end
+                teamIds[pos] = teamIds[changePos]
+                teamIds[changePos] = teamRoleId
+                switch = true
+                break
+            end
+        end
+        if not switch then
+            teamIds[changePos] = roleId
+        end
+    end
+    XDataCenter.SuperSmashBrosManager.SaveDefaultTeamByModeId(mode:GetId())
+    return true
+end
+
+function XSmashBTeamManager.IsAssistance(index, roleForceAssistIndex)
+    return roleForceAssistIndex > 0 and index >= roleForceAssistIndex
+end
+
+function XSmashBTeamManager.GetCharacterId(id)
+    local characterId = XRobotManager.GetCharacterId(id)
+    -- 支援id 无法转换
+    if characterId == 0 then
+        characterId = id
+    end
+    return characterId
 end
 
 return XSmashBTeamManager

@@ -8,7 +8,7 @@ local XUiSSBPickGridPickOwn = XClass(nil, "XUiSSBPickGridPickOwn")
 local PanelStatusDic
 local LONG_TIMER = 1
 
-function XUiSSBPickGridPickOwn:Ctor(grid, pos, rootPanel, grids)
+function XUiSSBPickGridPickOwn:Ctor(grid, pos, rootPanel, grids, hideTextOrder)
     self.RootPanel = rootPanel --XUiSSBPickPanelPick
     self.Pos = pos
     self.Mode = self.RootPanel.Mode
@@ -21,7 +21,12 @@ function XUiSSBPickGridPickOwn:Ctor(grid, pos, rootPanel, grids)
     self:InitStatusDic()
     self:InitColorPanel()
     self:InitClickEvents()
-    self.TxtPlayOrder.text = "P" .. self.Pos
+    if hideTextOrder then
+        self.TxtPlayOrder.gameObject:SetActiveEx(false)
+    else
+        self.TxtPlayOrder.gameObject:SetActiveEx(true)
+        self.TxtPlayOrder.text = "P" .. self.Pos
+    end
 end
 --==============
 --初始化面板状态字典
@@ -50,6 +55,9 @@ function XUiSSBPickGridPickOwn:InitClickEvents()
     XUiHelper.RegisterClickEvent(self, self.RImgRole, function() self:OnClickRole() end)
     XUiHelper.RegisterClickEvent(self, self.RImgRoleRandom, function() self:OnClickRole() end)
     XUiHelper.RegisterClickEvent(self, self.ImgBanClick, function() self:OnClickBan() end)
+    XUiHelper.RegisterClickEvent(self, self.PanelCoreIn, function() self:OnClickCore() end)
+    XUiHelper.RegisterClickEvent(self, self.PanelCoreOut, function() self:OnClickCore() end)
+    
     -- 长按拖拽相关 cxldV2
     self.UiWidgetRImgRole = self.RImgRole.gameObject:GetComponent(typeof(CS.XUiWidget))
     self.UiWidgetRImgRole:AddBeginDragListener(function(eventData)
@@ -106,17 +114,22 @@ end
 --@params
 --xRole: 选中角色对象
 --==============
-function XUiSSBPickGridPickOwn:SetSelected(role)
+function XUiSSBPickGridPickOwn:SetSelected(role, teamData)
     if not role then return end
     self.Status = XSuperSmashBrosConfig.RoleGridStatus.Selected
     self:SetPanelActive()
     local same = self.Role == role
     self.Role = role
     self.TxtAbility.text = XUiHelper.GetText("SSBBattleAbility", self.Role:GetAbility())
-    local core = self.Role:GetCore()
-    self.PanelCoreIn.gameObject:SetActiveEx(core ~= nil)
-    self.PanelCoreOut.gameObject:SetActiveEx(core == nil)
-    if core then self.RImgCoreIcon:SetRawImage(core:GetIcon()) end
+    if teamData.Assistance[self.Pos] then
+        self.PanelCoreIn.gameObject:SetActiveEx(false)
+        self.PanelCoreOut.gameObject:SetActiveEx(false)
+    else
+        local core = self.Role:GetCore()
+        self.PanelCoreIn.gameObject:SetActiveEx(core ~= nil)
+        self.PanelCoreOut.gameObject:SetActiveEx(core == nil)
+        if core then self.RImgCoreIcon:SetRawImage(core:GetIcon()) end
+    end
     if self.RoleEnable and not same then
         self.RImgRoleRandom.gameObject:SetActiveEx(false)
         self.RImgRole.gameObject:SetActiveEx(true)
@@ -199,7 +212,7 @@ function XUiSSBPickGridPickOwn:Refresh(teamData)
     elseif roleId == XSuperSmashBrosConfig.PosState.Ban then
         self:SetBan()
     else
-        self:SetSelected(XDataCenter.SuperSmashBrosManager.GetRoleById(roleId))
+        self:SetSelected(XDataCenter.SuperSmashBrosManager.GetRoleById(roleId), teamData)
     end
 end
 
@@ -241,6 +254,20 @@ function XUiSSBPickGridPickOwn:OnClickRole()
         XUiManager.TipText("SSBLockPos")
         return
     end
+    -- 支援角色
+    local teamData = XDataCenter.SuperSmashBrosManager.GetDefaultTeamInfoByModeId(self.Mode:GetId())
+    if teamData.Assistance[self.Pos] then
+        XLuaUiManager.Open("UiSuperSmashBrosRoleSelection", teamData.RoleIds[self.Pos], function(roleSelected)
+            local roleId = roleSelected and roleSelected:GetId() or XSuperSmashBrosConfig.PosState.Empty
+            if roleId == teamData.RoleIds[self.Pos] then
+                self.RootPanel.RootUi:SwitchPage(XSuperSmashBrosConfig.PickPage.Pick)
+                return
+            end
+            XDataCenter.SuperSmashBrosManager.SetTeamAssistanceMember(self.Mode, roleId, self.Pos)
+            self.RootPanel.RootUi:SwitchPage(XSuperSmashBrosConfig.PickPage.Pick)
+        end)
+        return
+    end
     self.RootPanel:SwitchToSelect(self.Pos, XSuperSmashBrosConfig.RoleType.Chara)
 end
 
@@ -256,6 +283,10 @@ function XUiSSBPickGridPickOwn:PlayEnableAnim()
     if self.GridPickOwnEnable then
         self.GridPickOwnEnable:Play()
     end
+end
+
+function XUiSSBPickGridPickOwn:OnClickCore()
+    XLuaUiManager.Open("UiSuperSmashBrosCharacter", XDataCenter.SuperSmashBrosManager.GetDefaultTeamInfoByModeId(self.Mode:GetId()).RoleIds, true)
 end
 
 return XUiSSBPickGridPickOwn

@@ -45,8 +45,8 @@ function XUiGridSpringFestivalGiveFriend:Refresh(friendInfo, wordId)
         self.TxtNewMessage.text = CS.XTextManager.GetText("SpringFestivalSendWordTip", itemName)
     end
 
-    XUiPLayerHead.InitPortrait(friendInfo.Icon, friendInfo.HeadFrameId, self.PanelRoleOnLine)
-    XUiPLayerHead.InitPortrait(friendInfo.Icon, friendInfo.HeadFrameId, self.PanelRoleOffLine)
+    XUiPlayerHead.InitPortrait(friendInfo.Icon, friendInfo.HeadFrameId, self.PanelRoleOnLine)
+    XUiPlayerHead.InitPortrait(friendInfo.Icon, friendInfo.HeadFrameId, self.PanelRoleOffLine)
 end
 
 function XUiGridSpringFestivalGiveFriend:OnClickBtnGive()

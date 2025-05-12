@@ -349,7 +349,7 @@ function XUiUnionKillRoom:OnPlayerKickOut()
     XLuaUiManager.Remove("UiCharacter")
     XLuaUiManager.Remove("UiPlayerInfo")
     XLuaUiManager.Remove("UiPurchase")
-    XUiHelper.RemoveUiChatServeMain()
+    XLuaUiManager.Remove("UiChatServeMain")
     XLuaUiManager.Remove("UiMultiplayerInviteFriend")
 
     if XUiManager.CheckTopUi(CsXUiType.Normal, "UiUnionKillRoom") then

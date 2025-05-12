@@ -1,11 +1,10 @@
-local XUiPassportPanelGrid = XClass(nil, "XUiPassportPanelGrid")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+---@field _Control XPassportControl
+---@class XUiPassportPanelGrid:XUiNode
+local XUiPassportPanelGrid = XClass(XUiNode, "XUiPassportPanelGrid")
 
 --通行证面板中间一列的格子
 function XUiPassportPanelGrid:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-
     self.GridObjs = {}
     self:AutoAddListener()
 end
@@ -30,8 +29,8 @@ end
 --当前等级没到显示黑色遮罩
 function XUiPassportPanelGrid:UpdateRImgLock()
     local levelId = self:GetLevelId()
-    local level = XPassportConfigs.GetPassportLevel(levelId)
-    local baseInfo = XDataCenter.PassportManager.GetPassportBaseInfo()
+    local level = self._Control:GetPassportLevel(levelId)
+    local baseInfo = self._Control:GetPassportBaseInfo()
     local currLevel = baseInfo:GetLevel()
     self.RImgLock.gameObject:SetActiveEx(currLevel < level)
 end
@@ -39,10 +38,10 @@ end
 --刷新物品格子
 function XUiPassportPanelGrid:UpdatePermitPanel()
     local levelId = self:GetLevelId()
-    local typeInfoIdList = XPassportConfigs.GetPassportActivityIdToTypeInfoIdList()
+    local typeInfoIdList = self._Control:GetPassportActivityIdToTypeInfoIdList()
     local rewardData
     local grid
-    local level = XPassportConfigs.GetPassportLevel(levelId)
+    local level = self._Control:GetPassportLevel(levelId)
     local isReceiveReward       --是否已领取奖励
     local isCanReceiveReward    --是否可领取奖励
     local passportInfo
@@ -56,11 +55,11 @@ function XUiPassportPanelGrid:UpdatePermitPanel()
             self.GridObjs[i] = grid
         end
 
-        local passportRewardId = XPassportConfigs.GetRewardIdByPassportIdAndLevel(typeInfoId, level)
-        rewardData = passportRewardId and XPassportConfigs.GetPassportRewardData(passportRewardId)
+        local passportRewardId = self._Control:GetRewardIdByPassportIdAndLevel(typeInfoId, level)
+        rewardData = passportRewardId and self._Control:GetPassportRewardData(passportRewardId)
         if XTool.IsNumberValid(rewardData) then
-            isReceiveReward = XDataCenter.PassportManager.IsReceiveReward(typeInfoId, passportRewardId)
-            isCanReceiveReward = XDataCenter.PassportManager.IsCanReceiveReward(typeInfoId, passportRewardId)
+            isReceiveReward = self._Control:IsReceiveReward(typeInfoId, passportRewardId)
+             isCanReceiveReward = self._Control:IsCanReceiveReward(typeInfoId, passportRewardId)
             if not isReceiveReward and isCanReceiveReward then
                 grid:SetClickCallback(function() self:GridOnClick(passportRewardId) end)
                 self:SetGridCommonPermitEffectActive(i, true)
@@ -84,7 +83,7 @@ function XUiPassportPanelGrid:UpdatePermitPanel()
 
         --未解锁标志
         if self["ImgLockingPermit" .. i] then
-            passportInfo = XDataCenter.PassportManager.GetPassportInfos(typeInfoId)
+            passportInfo = self._Control:GetPassportInfos(typeInfoId)
             isUnLock = passportInfo and true or false
             self["ImgLockingPermit" .. i].gameObject:SetActiveEx(not isUnLock)
 
@@ -94,7 +93,7 @@ function XUiPassportPanelGrid:UpdatePermitPanel()
         end
 
         --贵重奖励
-        isPrimeReward = XPassportConfigs.IsPassportPrimeReward(passportRewardId)
+        isPrimeReward = self._Control:IsPassportPrimeReward(passportRewardId)
         if self["RImgIsPrimeReward" .. i] then
             self["RImgIsPrimeReward" .. i].gameObject:SetActiveEx(isPrimeReward)
         end
@@ -109,13 +108,13 @@ function XUiPassportPanelGrid:SetGridCommonPermitEffectActive(index, isActive)
 end
 
 function XUiPassportPanelGrid:GridOnClick(passportRewardId)
-    XDataCenter.PassportManager.RequestPassportRecvReward(passportRewardId, handler(self, self.UpdatePermitPanel))
+    self._Control:RequestPassportRecvReward(passportRewardId, handler(self, self.UpdatePermitPanel))
 end
 
 function XUiPassportPanelGrid:UpdateLevelPanel()
     local levelId = self:GetLevelId()
-    local level = XPassportConfigs.GetPassportLevel(levelId)
-    local baseInfo = XDataCenter.PassportManager.GetPassportBaseInfo()
+    local level = self._Control:GetPassportLevel(levelId)
+    local baseInfo = self._Control:GetPassportBaseInfo()
     local currLevel = baseInfo:GetLevel()
     local levelDesc = CS.XTextManager.GetText("PassportLevelDesc", level)
 

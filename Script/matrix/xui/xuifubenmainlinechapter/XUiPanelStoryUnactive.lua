@@ -1,3 +1,4 @@
+local XUiPanelStory = require("XUi/XUiActivityBrief/XUiPanelStory")
 local XUiPanelStoryUnactive = XClass(nil, "XUiPanelStoryUnactive")
 
 function XUiPanelStoryUnactive:Ctor(ui, stageId, chapterOrderId)

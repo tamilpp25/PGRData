@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridInfestorShopReward = require("XUi/XUiFubenInfestorExplore/XUiGridInfestorShopReward")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText

@@ -12,6 +12,7 @@ local TABLE_PARTNER_SKILLINFO = "Client/Partner/PartnerSkillInfo.tab"
 local TABLE_PARTNER_MODEL = "Client/Partner/PartnerModel.tab"
 local TABLE_PARTNER_MODELCONTROL = "Client/Partner/PartnerModelControl.tab"
 local TABLE_PARTNER_ITEM_SKIP = "Client/Partner/PartnerItemSkipId.tab"
+local TABLE_PARTNER_UI_EFFECT = "Client/Partner/PartnerUiEffect.tab"
 
 local PartnerTemplateCfg = {}
 local PartnerBreakthroughCfg = {}
@@ -24,6 +25,7 @@ local PartnerSkillInfoCfg = {}
 local PartnerModelCfg = {}
 local PartnerModelControlCfg = {}
 local PartnerItemSkipIdCfg = {}
+local PartnerUiEffectCfg = nil
 
 local PartnerBreakthroughDic = {}
 local PartnerQualityDic = {}
@@ -32,7 +34,8 @@ local PartnerSkillInfoDic = {}
 local PartnerMainSkillGroupDic = {}
 local PartnerPassiveSkillGroupDic = {}
 local LevelUpTemplates = {}
-local PartnerModelControlDic = {}
+--local PartnerModelControlDic = {}
+local PartnerUiEffectDic = nil
 
 XPartnerConfigs.SkillType = {
     MainSkill = 1,
@@ -72,10 +75,16 @@ XPartnerConfigs.PartnerState = {
     Combat = 2,--战斗模式
 }
 
-XPartnerConfigs.PartnerType = {
+XPartnerConfigs.PartnerCharacterType = {
     All = 0,
     Normal = 1,
     Isomer = 2,
+}
+
+XPartnerConfigs.PartnerType = {
+    All = 0,
+    Normal = 1,
+    Link = 2,
 }
 
 XPartnerConfigs.CameraType = {
@@ -114,13 +123,24 @@ XPartnerConfigs.BagSortType = {
     [2] = XPartnerConfigs.SortType.Level,
 }
 
-XPartnerConfigs.QualityString = {
-    [1] = "B",
-    [2] = "A",
-    [3] = "S",
-    [4] = "SS",
-    [5] = "SSS",
-    [6] = "SSS+",
+--XPartnerConfigs.QualityString = {
+--    [1] = "B",
+--    [2] = "A",
+--    [3] = "S",
+--    [4] = "SS",
+--    [5] = "SSS",
+--    [6] = "SSS+",
+--}
+
+function XPartnerConfigs.GetQualityString(quality)
+    return XMVCA.XCharacter:GetCharacterQualityDesc(quality)
+end
+
+XPartnerConfigs.PriorityTabType = {
+    Level = 1,
+    Quality = 2,
+    Skill = 3,
+    Story = 4,
 }
 
 local PartnerBreakThroughIcon = {
@@ -171,7 +191,7 @@ function XPartnerConfigs.Init()
     XPartnerConfigs.CreatePartnerSkillInfoDic()
     XPartnerConfigs.CreateMainSkillGroupDic()
     XPartnerConfigs.CreatePassiveSkillGroupDic()
-    XPartnerConfigs.CreatePartnerModelControlDic()
+    --XPartnerConfigs.CreatePartnerModelControlDic()
 end
 
 function XPartnerConfigs.CreatePartnerBreakthroughDic()
@@ -244,18 +264,18 @@ function XPartnerConfigs.CreatePassiveSkillGroupDic()
     end
 end
 
-function XPartnerConfigs.CreatePartnerModelControlDic()
-    PartnerModelControlDic = {}
-    for _,modelControl in pairs(PartnerModelControlCfg) do
-        PartnerModelControlDic[modelControl.Model] = PartnerModelControlDic[modelControl.Model] or {}
-        if string.IsNilOrEmpty(modelControl.NodeName) then
-            PartnerModelControlDic[modelControl.Model][XPartnerConfigs.DefaultNodeName] = modelControl
-        else
-            PartnerModelControlDic[modelControl.Model][modelControl.NodeName] = modelControl
-        end
-        
-    end
-end
+--function XPartnerConfigs.CreatePartnerModelControlDic()
+--    PartnerModelControlDic = {}
+--    for _,modelControl in pairs(PartnerModelControlCfg) do
+--        PartnerModelControlDic[modelControl.Model] = PartnerModelControlDic[modelControl.Model] or {}
+--        if string.IsNilOrEmpty(modelControl.NodeName) then
+--            PartnerModelControlDic[modelControl.Model][XPartnerConfigs.DefaultNodeName] = modelControl
+--        else
+--            PartnerModelControlDic[modelControl.Model][modelControl.NodeName] = modelControl
+--        end
+--        
+--    end
+--end
 
 function XPartnerConfigs.GetPartnerTemplateCfg()
     return PartnerTemplateCfg
@@ -271,11 +291,23 @@ end
 
 function XPartnerConfigs.GetPartnerTemplateById(id)
     if not PartnerTemplateCfg[id] then
-        XLog.Error("id is not exist in "..TABLE_PARTNER.." id = " .. id)
+        XLog.Error("id is not exist in "..TABLE_PARTNER.." id = " .. tostring(id))
         return
     end
     return PartnerTemplateCfg[id]
 end
+
+function XPartnerConfigs.GetPartnerRecommendCharacterId(id)
+    local partnerCfg = XPartnerConfigs.GetPartnerTemplateById(id)
+    return partnerCfg.RecommendCharacterId
+end
+
+--- 获取 partner 的类型
+function XPartnerConfigs.GetPartnerType(id)
+    local config = XPartnerConfigs.GetPartnerTemplateById(id)
+    return config.PartnerType
+end
+
 
 function XPartnerConfigs.GeQualityBgPath(quality)
     if not quality then
@@ -291,6 +323,10 @@ end
 
 function XPartnerConfigs.GetPartnerTemplateIcon(id)
     return XPartnerConfigs.GetPartnerTemplateById(id).Icon
+end
+
+function XPartnerConfigs.GetPartnerTemplateLiHuiPath(id)
+    return XPartnerConfigs.GetPartnerTemplateById(id).LiHuiPath
 end
 
 function XPartnerConfigs.GetPartnerTemplateQuality(id)
@@ -436,13 +472,16 @@ function XPartnerConfigs.GetPartnerSkillLevelLimit(skillId)
     return tmpMax
 end
 
-function XPartnerConfigs.GetPartnerModelControlsByModel(model)
-    if not PartnerModelControlDic[model] then
-        return 
-    end
-    return PartnerModelControlDic[model]
-end
+--function XPartnerConfigs.GetPartnerModelControlsByModel(model)
+--    if not PartnerModelControlDic[model] then
+--        return 
+--    end
+--    return PartnerModelControlDic[model]
+--end
 
+---@param id number 辅助机Id
+---@alias XPartnerModelConfig { CToSAnime:string, CToSEffect:string, CToSVoice:number, CombatBornAnime:string, CombatBornAnime:string, CombatModel:string, Id:number, Name:string, SToCAnime:string, SToCVoice:number, StandbyBornAnime:string, StandbyModel:string }
+---@return XPartnerModelConfig 辅助机配置
 function XPartnerConfigs.GetPartnerModelById(id)
     if not PartnerModelCfg[id] then
         XLog.Error("id is not exist in "..TABLE_PARTNER_MODEL.." id = " .. id)
@@ -490,18 +529,6 @@ function XPartnerConfigs.GetPartnerModelSToCVoice(id)
     return XPartnerConfigs.GetPartnerModelById(id).SToCVoice
 end
 
----
---- 获取'id'伙伴的 待机->战斗 变形特效
-function XPartnerConfigs.GetPartnerModelSToCEffect(id)
-    return XPartnerConfigs.GetPartnerModelById(id).SToCEffect
-end
-
----
---- 获取'id'伙伴的 待机->战斗 出生特效
-function XPartnerConfigs.GetPartnerModelCombatBornEffect(id)
-    return XPartnerConfigs.GetPartnerModelById(id).CombatBornEffect
-end
-
 function XPartnerConfigs.GetPartnerLevelUpTemplateByIdAndLevel(id,level)
     if not LevelUpTemplates[id] then
         XLog.Error("id is not exist in "..TABLE_PARTNER_LEVELUP_PATH.." id = " .. id)
@@ -521,3 +548,125 @@ function XPartnerConfigs.GetPartnerItemSkipById(id)
     end
     return PartnerItemSkipIdCfg[id]
 end
+
+--region PartnerUiEffect相关
+---@class ModeTypeEnum
+---@field StandbyModel string
+---@field CombatModel string
+local ModeTypeEnum = enum({
+    StandbyModel = "StandbyModel",
+    CombatModel = "CombatModel"
+})
+
+---@class EffectTypeEnum
+---@field Disappear string
+---@field Appear string
+---@field Loop string
+---@field ControlByAnimationEvent string
+local EffectTypeEnum = enum({
+    Disappear = "Disappear",
+    Appear = "Appear",
+    Loop = "Loop",
+    ControlByAnimationEvent = "ControlByAnimationEvent",
+})
+
+---@class EffectParentNameEnum
+---@field ModelOnEffect string
+---@field ModelOffEffect string
+---@field ModelLoopEffect string
+---@field ControlByAnimationEvent string
+local EffectParentNameEnum = enum({
+    ModelOnEffect = "ModelOnEffect",
+    ModelOffEffect = "ModelOffEffect",
+    ModelLoopEffect = "ModelLoopEffect",
+    ControlByAnimationEvent = "ControlByAnimationEvent",
+})
+
+local function GetPartnerUiEffectCfgs()
+    if not PartnerUiEffectCfg then
+        PartnerUiEffectCfg = XTableManager.ReadByIntKey(TABLE_PARTNER_UI_EFFECT, XTable.XTablePartnerUiEffect, "Id")
+    end
+    
+    return PartnerUiEffectCfg
+end
+
+local function GetPartnerUiEffectDic()
+    if not PartnerUiEffectDic then
+        PartnerUiEffectDic = {}
+        local configs = GetPartnerUiEffectCfgs()
+
+        for _, config in pairs(configs) do
+            local modelId = nil
+            local effectRoot = {
+                BoneRootName = config.EffectRootName,
+                EffectPath = config.EffectPath,
+                Id = config.Id,
+            }
+
+            if config.ModelType == ModeTypeEnum.StandbyModel then
+                modelId = PartnerModelCfg[config.PartnerId].StandbyModel
+            elseif config.ModelType == ModeTypeEnum.CombatModel then
+                modelId = PartnerModelCfg[config.PartnerId].CombatModel
+            end
+            
+            PartnerUiEffectDic[modelId] = PartnerUiEffectDic[modelId] or {}
+
+            if config.EffectType == EffectTypeEnum.Disappear then
+                if not PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOffEffect] then
+                    PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOffEffect] = {}
+                end
+                table.insert(PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOffEffect], effectRoot)
+            elseif config.EffectType == EffectTypeEnum.Appear then
+                if not PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOnEffect] then
+                    PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOnEffect] = {}
+                end
+                table.insert(PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOnEffect], effectRoot)
+            elseif config.EffectType == EffectTypeEnum.Loop then
+                if not PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelLoopEffect] then
+                    PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelLoopEffect] = {}
+                end
+                table.insert(PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelLoopEffect], effectRoot)
+
+            elseif config.EffectType == EffectTypeEnum.ControlByAnimationEvent then
+                if not PartnerUiEffectDic[modelId][EffectParentNameEnum.ControlByAnimationEvent] then
+                    PartnerUiEffectDic[modelId][EffectParentNameEnum.ControlByAnimationEvent] = {}
+                end
+                table.insert(PartnerUiEffectDic[modelId][EffectParentNameEnum.ControlByAnimationEvent], effectRoot)
+            end
+        end
+    end
+    
+    return PartnerUiEffectDic
+end
+
+---@type EffectParentNameEnum
+XPartnerConfigs.EffectParentName = EffectParentNameEnum
+
+---获取辅助机特效
+---@param modelName string 辅助机模型(来自【PartnerModel.tab】StandbyModel/CombatModel字段)
+---@param effectType string XPartnerConfigs.EffectParentName枚举  
+---@alias XEffectData { BoneRootName:string, EffectPath:string[] }
+---@return XEffectData
+function XPartnerConfigs.GetPartnerUiEffect(modelName, effectType)
+    local partnerUiEffectDic = GetPartnerUiEffectDic()
+
+    if not partnerUiEffectDic then
+        XLog.Error("PartnerUiEffectDic为空！请检查配置表PartnerUiEffect.tab是否为空。（配置表路径：" .. TABLE_PARTNER_UI_EFFECT .. ")")
+        return
+    end
+    
+    local effectTypeDic = partnerUiEffectDic[modelName]
+
+    if not effectTypeDic then
+        return
+    end
+    
+    local effectData = effectTypeDic[effectType]
+
+    if not effectData then
+        return
+    end
+    
+    return effectData
+end
+--endregion

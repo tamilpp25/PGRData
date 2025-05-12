@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiInvertCardRewardItem = XClass(nil, "XUiInvertCardRewardItem")
 
 function XUiInvertCardRewardItem:Ctor(rootUi, ui)

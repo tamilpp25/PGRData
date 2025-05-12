@@ -1,4 +1,6 @@
-XUiPanelFashionPlayerInfo = XClass(nil, "XUiPanelFashionPlayerInfo")
+local XUiPlayerInfoClothGrid = require("XUi/XUiPlayerInfo/XUiPlayerInfoClothGrid")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiPanelFashionPlayerInfo = XClass(nil, "XUiPanelFashionPlayerInfo")
 
 local FASHION_QUALITY_LIMIT = 2
 
@@ -203,3 +205,6 @@ function XUiPanelFashionPlayerInfo:Close()
     self.GameObject:SetActiveEx(false)
 end
 
+
+
+return XUiPanelFashionPlayerInfo

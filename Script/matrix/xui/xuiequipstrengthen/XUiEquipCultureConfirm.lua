@@ -7,12 +7,13 @@ function XUiEquipCultureConfirm:OnAwake()
     self.GridAttackChange.gameObject:SetActiveEx(false)
 end
 
-function XUiEquipCultureConfirm:OnStart(templateId, originLevelUnit, targetLevelUnit, realTargetLevel, confirmCb)
-    self.TemplateId = templateId
+function XUiEquipCultureConfirm:OnStart(equipId, originLevelUnit, targetLevelUnit, realTargetLevel, operations)
+    self.EquipId = equipId
+    self.TemplateId = XMVCA:GetAgency(ModuleId.XEquip):GetEquipTemplateId(self.EquipId)
     self.OriginLevelUnit = originLevelUnit
     self.TargetLevelUnit = targetLevelUnit
     self.RealTargetLevel = realTargetLevel
-    self.ConfirmCb = confirmCb
+    self.Operations = operations
     self.GridCostItems = {}
 
     self:InitView()
@@ -22,9 +23,9 @@ function XUiEquipCultureConfirm:InitView()
     self.TxtTips.text = CsXTextManagerGetText("EquipMultiStrengthenTips")
 
     local templateId = self.TemplateId
-    local breakthrough, level = XDataCenter.EquipManager.ConvertToBreakThroughAndLevel(templateId, self.OriginLevelUnit)
+    local breakthrough, level = self._Control:ConvertToBreakThroughAndLevel(templateId, self.OriginLevelUnit)
     local targetBreakthrough, targetLevel =
-        XDataCenter.EquipManager.ConvertToBreakThroughAndLevel(templateId, self.TargetLevelUnit)
+        self._Control:ConvertToBreakThroughAndLevel(templateId, self.TargetLevelUnit)
     local realTargetLevel = self.RealTargetLevel
     if not XTool.IsNumberValid(realTargetLevel) then
         realTargetLevel = targetLevel
@@ -36,16 +37,16 @@ function XUiEquipCultureConfirm:InitView()
     self.ImgTips.gameObject:SetActiveEx(isOver)
 
     --等级，突破显示
-    self.ImgBreachBefore:SetSprite(XEquipConfig.GetEquipBreakThroughIcon(breakthrough))
-    self.ImgBreachAfter:SetSprite(XEquipConfig.GetEquipBreakThroughIcon(targetBreakthrough))
+    self.ImgBreachBefore:SetSprite(self._Control:GetEquipBreakThroughIcon(breakthrough))
+    self.ImgBreachAfter:SetSprite(self._Control:GetEquipBreakThroughIcon(targetBreakthrough))
     self.TxtLv1.text = level
     self.TxtLv2.text = realTargetLevel
 
     local gridCount = 1
 
     --属性展示
-    local attrMap = XDataCenter.EquipManager.ConstructTemplateEquipAttrMap(templateId, breakthrough, level)
-    local newAttrMap = XDataCenter.EquipManager.ConstructTemplateEquipAttrMap(templateId, targetBreakthrough, realTargetLevel)
+    local attrMap = XMVCA.XEquip:ConstructTemplateEquipAttrMap(templateId, breakthrough, level)
+    local newAttrMap = XMVCA.XEquip:ConstructTemplateEquipAttrMap(templateId, targetBreakthrough, realTargetLevel)
     for attrCount, attrInfo in pairs(attrMap) do
         local grid = self.GridCostItems[gridCount]
         if not grid then
@@ -64,8 +65,8 @@ function XUiEquipCultureConfirm:InitView()
     end
 
     --成长属性展示
-    local promotedAttrMap = XDataCenter.EquipManager.ConstructTemplateEquipPromotedAttrMap(templateId, breakthrough)
-    local newPromotedAttrMap = XDataCenter.EquipManager.ConstructTemplateEquipPromotedAttrMap(templateId, targetBreakthrough)
+    local promotedAttrMap = XMVCA.XEquip:ConstructTemplateEquipPromotedAttrMap(templateId, breakthrough)
+    local newPromotedAttrMap = XMVCA.XEquip:ConstructTemplateEquipPromotedAttrMap(templateId, targetBreakthrough)
     for attrCount, attrInfo in pairs(promotedAttrMap) do
         local grid = self.GridCostItems[gridCount]
         if not grid then
@@ -91,12 +92,11 @@ function XUiEquipCultureConfirm:AutoAddListener()
     self.BtnClose.CallBack = handler(self, self.Close)
     self.BtnCloseMask.CallBack = handler(self, self.Close)
     self.BtnCancel.CallBack = handler(self, self.Close)
-    self.BtnDetermine.CallBack = handler(self, self.OnClickBtnEvoConfirm)
+    self.BtnDetermine.CallBack = handler(self, self.OnClickBtnConfirm)
 end
 
-function XUiEquipCultureConfirm:OnClickBtnEvoConfirm()
-    if self.ConfirmCb then 
-        self.ConfirmCb()
-    end
+function XUiEquipCultureConfirm:OnClickBtnConfirm()
+    local targetBreakthrough, targetLevelUnit = self._Control:ConvertToBreakThroughAndLevel(self.TemplateId, self.TargetLevelUnit)
+    XMVCA:GetAgency(ModuleId.XEquip):EquipOneKeyFeedRequest(self.EquipId, targetBreakthrough, targetLevelUnit, self.Operations)
     self:Close()
 end

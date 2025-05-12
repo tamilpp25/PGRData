@@ -11,10 +11,6 @@ function XClass(super, className)
         local fullClassName = className .. getinfo(2, "S").source
         class = _classNameDic[fullClassName]
         if class then
-            class.Super = super
-            if _class[class] then
-                _class[class].Super = super
-            end
             return class
         end
 
@@ -60,32 +56,49 @@ function XClass(super, className)
     })
 
     if super then
-        vtbl.Super = super  
-        setmetatable(vtbl, {
-            __index = function(_, k)
-                local ret = _class[super][k]
-                vtbl[k] = ret
-                return ret
-            end
-        })
+        vtbl.Super = super
+        if XMain.IsEditorDebug then
+            setmetatable(vtbl, {
+                __index = function(_, k)
+                    local ret = _class[super][k]
+                    return ret
+                end
+            })
+        else
+            setmetatable(vtbl, {
+                __index = function(_, k)
+                    local ret = _class[super][k]
+                    vtbl[k] = ret
+                    return ret
+                end
+            })
+        end
     end
 
     return class
 end
 
-function GetClassVituralTable(class)
+function GetClassVirtualTable(class)
     return _class[class]
 end
 
 function UpdateClassType(newClass, oldClass)
-    if "table" ~= type(newClass) then return end
-    if "table" ~= type(oldClass) then return end
+    if "table" ~= type(newClass) then
+        return
+    end
+    if "table" ~= type(oldClass) then
+        return
+    end
 
-    if oldClass == newClass then return end
+    if oldClass == newClass then
+        return
+    end
 
     local new_vtbl = _class[newClass]
     local old_vtbl = _class[oldClass]
-    if not new_vtbl or not old_vtbl then return end
+    if not new_vtbl or not old_vtbl then
+        return
+    end
 
     _class[oldClass] = new_vtbl
     _class[newClass] = nil
@@ -106,7 +119,8 @@ function CheckClassSuper(obj, super)
     return false
 end
 
-function CheckIsClass(obj) -- hack
+function CheckIsClass(obj)
+    -- hack
     return obj.Ctor ~= nil and obj.New ~= nil
 end
 
@@ -129,16 +143,16 @@ function become_const(const_table, tipsError)
                 elseif tipsError then
                     XLog.Error(string.format("const or enum key = %s is nil", k))
                 end
-            end,  
-            __newindex = function (t,k,v)  
-                XLog.Error("can't set " .. tostring(const_table) .."." .. tostring(k) .." to " .. tostring(v))
-            end  
+            end,
+            __newindex = function(t, k, v)
+                XLog.Error("can't set " .. tostring(const_table) .. "." .. tostring(k) .. " to " .. tostring(v))
+            end
         }
-        return mt  
-    end  
-  
-    local t = {}  
-    setmetatable(t, Const(const_table))  
+        return mt
+    end
+
+    local t = {}
+    setmetatable(t, Const(const_table))
     return t
 end
 

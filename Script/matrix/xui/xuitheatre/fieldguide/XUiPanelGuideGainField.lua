@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuideGainNowGrid = require("XUi/XUiTheatre/FieldGuide/XUiGuideGainNowGrid")
 
 --增益图鉴布局

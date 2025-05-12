@@ -1,4 +1,5 @@
 -- 庆典类活动关卡对象
+---@class XFestivalStage
 local XFestivalStage = XClass(nil, "XFestivalStage")
 --====================
 --构造函数
@@ -18,14 +19,10 @@ end
 function XFestivalStage:InitStage()
     self.FestivalStageCfg = XFestivalActivityConfig.GetFestivalStageCfgByStageId(self.StageId)
     self.StageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageId)
-    self.StageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
-    self.StageInfo.Type = XDataCenter.FubenManager.StageType.Festival
     self.PassCount = 0
 end
 
 function XFestivalStage:RefreshStage()
-    self.StageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
-    self.StageInfo.Type = XDataCenter.FubenManager.StageType.Festival
     self:RefreshStageInfo()
 end
 --====================
@@ -71,10 +68,23 @@ function XFestivalStage:GetOpenConditionId()
     return self.FestivalStageCfg and self.FestivalStageCfg.OpenConditionId or {}
 end
 --====================
+--获取解锁类型，默认是0：未解锁整个节点不显示  1：未解锁显示上锁
+--====================
+function XFestivalStage:GetUnlockType()
+    return self.FestivalStageCfg and self.FestivalStageCfg.UnlockType or 0
+end
+--====================
+--上锁的时候是否显示
+--====================
+function XFestivalStage:IsLockShow()
+    return self:GetUnlockType() == 1
+end
+--====================
 --获取关卡是否开启
 --====================
 function XFestivalStage:GetCanOpen()
-    if not self.StageInfo.Unlock then return false, CS.XTextManager.GetText("FubenNotUnlock") end
+    local stageInfo = self:_GetStageInfo()
+    if not stageInfo.Unlock then return false, CS.XTextManager.GetText("FubenNotUnlock") end
     if self.StageCfg.RequireLevel > 0 and XPlayer.Level < self.StageCfg.RequireLevel then
         return false, CS.XTextManager.GetText("TeamLevelToOpen", self.StageCfg.RequireLevel)
     end
@@ -86,7 +96,7 @@ function XFestivalStage:GetCanOpen()
     end
     -- 如果是彩蛋关
     if self:GetIsEggStage() then
-        if self.StageInfo.Unlock and XDataCenter.FubenManager.GetUnlockHideStageById(self.StageId) then
+        if stageInfo.Unlock and XDataCenter.FubenManager.GetUnlockHideStageById(self.StageId) then
             -- 彩蛋已经解锁
             return true, ""
         else
@@ -142,20 +152,33 @@ end
 --@param isPass:要设置的关卡通过状态
 --====================
 function XFestivalStage:SetIsPass(isPass)
-    self.StageInfo.Passed = isPass
     self.Passed = isPass
 end
 --====================
 --获取关卡是否通过
 --====================
 function XFestivalStage:GetIsPass()
-    return self.Passed or self.StageInfo.Passed or false
+    return self.Passed or false
 end
 --====================
 --获取关卡是否开放
 --====================
 function XFestivalStage:GetIsOpen()
-    return self.StageInfo.IsOpen or false
+    local stageInfo = self:_GetStageInfo()
+    return stageInfo.IsOpen or false
+end
+--====================
+--获取关卡是否显示
+--====================
+function XFestivalStage:GetIsShow()
+    -- 已解锁
+    local stageInfo = self:_GetStageInfo()
+    if stageInfo.IsOpen then 
+        return true
+    elseif self:IsLockShow() and self:_IsAllPreStagePassed() then
+        return true
+    end
+    return false
 end
 --====================
 --设置关卡通关次数
@@ -202,7 +225,8 @@ end
 --获取关卡通关星数字典
 --====================
 function XFestivalStage:GetStarMaps()
-    return self.StageInfo and self.StageInfo.StarMaps
+    local stageInfo = self:_GetStageInfo()
+    return stageInfo and stageInfo.StarMaps
 end
 --====================
 --根据序号获取该项通关星数是否通过
@@ -222,13 +246,19 @@ end
 --获取关卡挑战所需体力
 --====================
 function XFestivalStage:GetRequireActionPoint()
-    return self.StageCfg and self.StageCfg.RequireActionPoint or 0
+    return XDataCenter.FubenManager.GetRequireActionPoint(self.StageId)
 end
 --====================
 --获取关卡图标
 --====================
 function XFestivalStage:GetIcon()
     return self.StageCfg and self.StageCfg.Icon
+end
+--====================
+--获取剧情关卡图标
+--====================
+function XFestivalStage:GetStoryIcon()
+    return self.StageCfg and self.StageCfg.StoryIcon
 end
 --====================
 --获取关卡首通奖励
@@ -246,13 +276,25 @@ end
 --刷新关卡信息
 --====================
 function XFestivalStage:RefreshStageInfo()
-    self.StageInfo.Unlock = true
-    for _, prestageId in pairs(self:GetPreStageId()) do
-        if not self.Chapter:GetChapterStageIsPass(prestageId) then
-            self.StageInfo.Unlock = false
-            break
+end
+
+function XFestivalStage:_GetStageInfo()
+    return XMVCA.XFuben:GetStageInfo(self.StageId)
+end
+
+--====================
+--是否所有前置关卡都通过
+--====================
+function XFestivalStage:_IsAllPreStagePassed()
+    local preStageIds = self:GetPreStageId()
+    if not XTool.IsTableEmpty(preStageIds) then
+        for _, stageId in pairs(preStageIds) do
+            local isPass = XMVCA.XFuben:CheckStageIsPass(stageId)
+            if not isPass then
+                return false
+            end
         end
     end
-    self.StageInfo.IsOpen = self:GetCanOpen()
+    return true
 end
 return XFestivalStage

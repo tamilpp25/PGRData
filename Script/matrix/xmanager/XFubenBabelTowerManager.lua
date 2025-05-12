@@ -3,6 +3,7 @@ local XBabelTowerStageData = require("XEntity/XBabelTower/XBabelTowerStageData")
 local XBabelTowerReproduceManager = require("XEntity/XBabelTower/XBabelTowerReproduceManager")
 
 XFubenBabelTowerManagerCreator = function()
+    ---@class XFubenBabelTowerManager
     local XFubenBabelTowerManager = {}
 
     local RequestRpc = {
@@ -16,8 +17,10 @@ XFubenBabelTowerManagerCreator = function()
     local CurrentActivityMaxScore = 0   --当前活动最高等级
     local CurrentRankLevel = 0          --当前排行榜等级
     local BabelActivityStatus = {}      --{活动id = 活动状态}
+    local BabelTowerUnLockedBuffId = {} --已解锁的buffIds
+    ---@type table<number, XBabelTowerStageData[]>
     local BabelActivityStages = {}      --{活动id = 活动Stage列表}
-    local Stage2ActivityMap = {}        --{stageId = activityId}
+    --local Stage2ActivityMap = {}        --{stageId = activityId}
 
     local StageSupportDefaultBuffList = {}
 
@@ -37,19 +40,24 @@ XFubenBabelTowerManagerCreator = function()
     local CurScore = 0
     local CurRank = 0
     local TotalRank = 0
+    local MinTime = 0
+    local RankUpdateTime = 0
     local RankInfos = {}
 
     -- 最后打开的关卡id
     local LastOpenStageId = nil
     -- 当前最大选择入队人数
     local CurrentTeamMaxMemberCount = 3
+    -- 巴别塔收藏品类型
+    local BabelScoreTitleType = 2
 
     -- 复刻活动管理
-    -- XBabelTowerReproduceManager
+    ---@type XBabelTowerReproduceManager
     local ReproduceManager = nil
 
     local CurrentMainUiType = XFubenBabelTowerConfigs.ActivityType.Normal
 
+    ---@return XBabelTowerStageData[]
     local function GetStageDatas()
         local stageDatas = BabelActivityStages[CurrentActivityNo]
         if not stageDatas then
@@ -58,6 +66,7 @@ XFubenBabelTowerManagerCreator = function()
         return stageDatas
     end
 
+    ---@return XBabelTowerStageData
     local function GetStageData(stageId)
         local stageDatas = GetStageDatas()
         local stageData = stageDatas and stageDatas[stageId]
@@ -67,6 +76,7 @@ XFubenBabelTowerManagerCreator = function()
         return stageData
     end
 
+    ---@return XBabelTowerTeamData
     local function GetTeamData(stageId, teamId)
         local stageData = GetStageData(stageId)
         local teamData = stageData and stageData:GetTeamData(teamId)
@@ -76,21 +86,21 @@ XFubenBabelTowerManagerCreator = function()
         return teamData
     end
 
-    function XFubenBabelTowerManager.InitStageInfo()
-        local allBabelActivityTemplates = XFubenBabelTowerConfigs.GetAllBabelTowerActivityTemplate()
-        if allBabelActivityTemplates then
-            for _, activityTemplate in pairs(allBabelActivityTemplates) do
-                for _, stageId in pairs(activityTemplate.StageId or {}) do
-                    Stage2ActivityMap[stageId] = activityTemplate.Id
-                    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                    if stageInfo then
-                        stageInfo.Type = XDataCenter.FubenManager.StageType.BabelTower
-                    end
-                end
-            end
-            XFubenBabelTowerManager.RefreshStagePassed()
-        end
-    end
+    --function XFubenBabelTowerManager.InitStageInfo()
+    --    local allBabelActivityTemplates = XFubenBabelTowerConfigs.GetAllBabelTowerActivityTemplate()
+    --    if allBabelActivityTemplates then
+    --        for _, activityTemplate in pairs(allBabelActivityTemplates) do
+    --            for _, stageId in pairs(activityTemplate.StageId or {}) do
+    --                Stage2ActivityMap[stageId] = activityTemplate.Id
+    --                --local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    --                --if stageInfo then
+    --                --    stageInfo.Type = XDataCenter.FubenManager.StageType.BabelTower
+    --                --end
+    --            end
+    --        end
+    --        XFubenBabelTowerManager.RefreshStagePassed()
+    --    end
+    --end
 
     function XFubenBabelTowerManager.OpenFightLoading(stageId)
         XDataCenter.FubenManager.OpenFightLoading(stageId)
@@ -108,22 +118,8 @@ XFubenBabelTowerManagerCreator = function()
             return
         end
 
-        XFubenBabelTowerManager.RefreshStagePassed()
-        XLuaUiManager.Open("UiFightBabelTower", winData.SettleData.StageId, XFubenBabelTowerConfigs.BattleEnd)
-    end
-
-    function XFubenBabelTowerManager.FinishFight(settle)
-        XFubenBabelTowerManager.SetNeedShowUiDifficult(true)
-        XDataCenter.FubenManager.FinishFight(settle)
-    end
-
-    local __IsNeedShowUiDifficult = false
-    function XFubenBabelTowerManager.IsNeedShowUiDifficult()
-        return __IsNeedShowUiDifficult
-    end
-
-    function XFubenBabelTowerManager.SetNeedShowUiDifficult(value)
-        __IsNeedShowUiDifficult = value and true or false
+        --XFubenBabelTowerManager.RefreshStagePassed()
+        XLuaUiManager.Open("UiFightBabelTower", winData.SettleData.StageId, XFubenBabelTowerConfigs.BattleEnd, winData.SettleData.BabelTowerSettleResult)
     end
 
     -- stageInfo刷新
@@ -313,6 +309,10 @@ XFubenBabelTowerManagerCreator = function()
 
     -- 当前角色是否被锁定
     function XFubenBabelTowerManager.IsCharacterLockByStageId(cid, curStageId, curTeamId)
+        -- 机器人id转换为角色id
+        if XEntityHelper.GetIsRobot(cid) then
+            cid = XRobotManager.GetCharacterId(cid)
+        end
         local currentStageData = GetStageData(curStageId)
         local currentActivityType = currentStageData:GetActivityType()
         local stageDatas = GetStageDatas()
@@ -414,10 +414,23 @@ XFubenBabelTowerManagerCreator = function()
         end
     end
 
+    function XFubenBabelTowerManager.GetActivityByStageId(stageIdToFind)
+        local allBabelActivityTemplates = XFubenBabelTowerConfigs.GetAllBabelTowerActivityTemplate()
+        if allBabelActivityTemplates then
+            for _, activityTemplate in pairs(allBabelActivityTemplates) do
+                for _, stageId in pairs(activityTemplate.StageId or {}) do
+                    if stageId == stageIdToFind then
+                        return activityTemplate.Id
+                    end
+                end
+            end
+        end
+    end
+    
     -- stageId是否开启
     function XFubenBabelTowerManager.IsBabelStageUnlock(stageId)
         -- 未到开启时间
-        local activityNo = Stage2ActivityMap[stageId]
+        local activityNo = XFubenBabelTowerManager.GetActivityByStageId(stageId)
         if not XFubenBabelTowerManager.IsInActivityFightTime(activityNo) then
             return false, CS.XTextManager.GetText("BabelTowerNoneFight")
         end
@@ -429,8 +442,11 @@ XFubenBabelTowerManagerCreator = function()
         if not beginTime or not endTime then
             return false, ""
         end
-        if now < beginTime or now > endTime then
-            return false, CS.XTextManager.GetText("BabelTowerNoneOpen")
+        if beginTime > 0 and now < beginTime then
+            return false, XUiHelper.GetText("BabelTowerStageNotOpen", XUiHelper.GetTime(beginTime - now, XUiHelper.TimeFormatType.PASSPORT))
+        end
+        if endTime > 0 and now >= endTime then
+            return false, XUiHelper.GetText("BabelTowerStageEnd")
         end
 
         -- 上一个stage是否开启
@@ -479,11 +495,8 @@ XFubenBabelTowerManagerCreator = function()
         if not beginTime or not endTime then return false end
         return now >= beginTime and now <= endTime
     end
-
-    -- StageInfo相关
-    -- 刷新通过的StageInfo
-    -- 登录同步数据之后,刷新setWinDatas之后,InitStageInfo之后
-    function XFubenBabelTowerManager.RefreshStagePassed()
+    
+    function XFubenBabelTowerManager.CheckPassedByStageId(stageIdToCheck)
         local allBabelActivityTemplates = XFubenBabelTowerConfigs.GetAllBabelTowerActivityTemplate()
         if allBabelActivityTemplates then
             for _, activityTemplate in pairs(allBabelActivityTemplates) do
@@ -492,27 +505,11 @@ XFubenBabelTowerManagerCreator = function()
                     return
                 end
                 for _, stageId in pairs(activityTemplate.StageId or {}) do
-                    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                    local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-                    if stageInfo then
-                        stageInfo.Passed = activityStageList[stageId] ~= nil
-                        stageInfo.Unlock = true
-                        stageInfo.IsOpen = true
-
-                        if stageCfg.RequireLevel > 0 and XPlayer.Level < stageCfg.RequireLevel then
-                            stageInfo.Unlock = false
-                            stageInfo.IsOpen = false
-                        end
-
-                        for _, prestageId in pairs(stageCfg.PreStageId or {}) do
-                            if prestageId > 0 then
-                                local needScore = XFubenBabelTowerConfigs.GetBabelTowerStageTemplate(stageId).PreStageScore or 0
-                                local preScore = (activityStageList[prestageId] ~= nil) and activityStageList[prestageId].MaxScore or 0
-                                if needScore > preScore then
-                                    stageInfo.Unlock = false
-                                    stageInfo.IsOpen = false
-                                    break
-                                end
+                    if stageId == stageIdToCheck then
+                        local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
+                        if stageCfg then
+                            if activityStageList[stageId] ~= nil then
+                                return true
                             end
                         end
                     end
@@ -520,6 +517,89 @@ XFubenBabelTowerManagerCreator = function()
             end
         end
     end
+
+    function XFubenBabelTowerManager.CheckUnlockByStageId(stageIdToCheck)
+        return XFubenBabelTowerManager.CheckIsOpen(stageIdToCheck)
+    end
+    
+    function XFubenBabelTowerManager.CheckIsOpen(stageIdToCheck)
+        local result
+        local allBabelActivityTemplates = XFubenBabelTowerConfigs.GetAllBabelTowerActivityTemplate()
+        if allBabelActivityTemplates then
+            for _, activityTemplate in pairs(allBabelActivityTemplates) do
+                local activityStageList = BabelActivityStages[activityTemplate.Id]
+                if not activityStageList then
+                    return
+                end
+                for _, stageId in pairs(activityTemplate.StageId or {}) do
+                    if stageId == stageIdToCheck then
+                    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+                    local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
+                        if stageInfo then
+                            result = true
+
+                            if stageCfg.RequireLevel > 0 and XPlayer.Level < stageCfg.RequireLevel then
+                                result = false
+                            end
+
+                            for _, prestageId in pairs(stageCfg.PreStageId or {}) do
+                                if prestageId > 0 then
+                                    local needScore = XFubenBabelTowerConfigs.GetBabelTowerStageTemplate(stageId).PreStageScore or 0
+                                    local preScore = (activityStageList[prestageId] ~= nil) and activityStageList[prestageId].MaxScore or 0
+                                    if needScore > preScore then
+                                        result = false
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        return result
+    end
+
+    -- StageInfo相关
+    -- 刷新通过的StageInfo
+    -- 登录同步数据之后,刷新setWinDatas之后,InitStageInfo之后
+    --function XFubenBabelTowerManager.RefreshStagePassed()
+    --    local allBabelActivityTemplates = XFubenBabelTowerConfigs.GetAllBabelTowerActivityTemplate()
+    --    if allBabelActivityTemplates then
+    --        for _, activityTemplate in pairs(allBabelActivityTemplates) do
+    --            local activityStageList = BabelActivityStages[activityTemplate.Id]
+    --            if not activityStageList then
+    --                return
+    --            end
+    --            for _, stageId in pairs(activityTemplate.StageId or {}) do
+    --                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    --                local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
+    --                if stageInfo then
+    --                    stageInfo.Passed = activityStageList[stageId] ~= nil
+    --                    stageInfo.Unlock = true
+    --                    stageInfo.IsOpen = true
+    --
+    --                    if stageCfg.RequireLevel > 0 and XPlayer.Level < stageCfg.RequireLevel then
+    --                        stageInfo.Unlock = false
+    --                        stageInfo.IsOpen = false
+    --                    end
+    --
+    --                    for _, prestageId in pairs(stageCfg.PreStageId or {}) do
+    --                        if prestageId > 0 then
+    --                            local needScore = XFubenBabelTowerConfigs.GetBabelTowerStageTemplate(stageId).PreStageScore or 0
+    --                            local preScore = (activityStageList[prestageId] ~= nil) and activityStageList[prestageId].MaxScore or 0
+    --                            if needScore > preScore then
+    --                                stageInfo.Unlock = false
+    --                                stageInfo.IsOpen = false
+    --                                break
+    --                            end
+    --                        end
+    --                    end
+    --                end
+    --            end
+    --        end
+    --    end
+    --end
 
     -- 是否在显示等级的时间段
     function XFubenBabelTowerManager.IsBabelTowerInShowTime()
@@ -537,10 +617,19 @@ XFubenBabelTowerManagerCreator = function()
     -- RPC
     -- 选择关卡
     function XFubenBabelTowerManager.SelectBabelTowerStage(stageId, guideId, teamList, challengeBuffInfos, supportBuffInfos, func, stageLevel, teamId)
+        local cardIds = {}
+        local robotIds = {}
+        for i, v in pairs(teamList) do
+            local isRobot = XEntityHelper.GetIsRobot(v)
+            cardIds[i] = isRobot and 0 or v
+            robotIds[i] = isRobot and v or 0
+        end
+        
         local req = {
             StageId = stageId,
             GuideId = guideId,
-            TeamList = teamList,
+            TeamList = cardIds,
+            TeamRobotList = robotIds,
             ChallengeBuffInfos = challengeBuffInfos,
             SupportBuffInfos = supportBuffInfos,
             StageLevel = stageLevel,
@@ -596,9 +685,12 @@ XFubenBabelTowerManagerCreator = function()
         end)
     end
 
-
-    function XFubenBabelTowerManager.GetRank(activityId, func)
-        XNetwork.Call(RequestRpc.BabelTowerGetRank, { ActivityId = activityId }, function(res)
+    --- 获取排名
+    ---@param activityId number 活动id
+    ---@param stageId number 关卡id 获取总榜StageId是0
+    ---@param func function 回调
+    function XFubenBabelTowerManager.GetRank(activityId, stageId, func)
+        XNetwork.Call(RequestRpc.BabelTowerGetRank, { ActivityId = activityId, StageId = stageId }, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
                 return
@@ -607,6 +699,8 @@ XFubenBabelTowerManagerCreator = function()
             CurScore = res.Score
             CurRank = res.Rank
             TotalRank = res.TotalRank
+            MinTime = res.MinTime
+            RankUpdateTime = res.RankUpdateTme
             RankInfos = res.RankInfos
 
             if func then
@@ -617,7 +711,12 @@ XFubenBabelTowerManagerCreator = function()
 
     -- 获取排名信息
     function XFubenBabelTowerManager.GetScoreInfos()
-        return CurScore, CurRank, TotalRank
+        return CurScore, CurRank, TotalRank, MinTime
+    end
+
+    --- 获取排行榜刷新时间
+    function XFubenBabelTowerManager.GetRankUpdateTime()
+        return RankUpdateTime or 0
     end
 
     -- 获取排名信息
@@ -686,6 +785,11 @@ XFubenBabelTowerManagerCreator = function()
         return teamData and teamData:GetMaxScore() or 0
     end
 
+    function XFubenBabelTowerManager.GetTeamCurTime(stageId, teamId)
+        local teamData = GetTeamData(stageId, teamId)
+        return teamData and teamData:GetCurTime() or 0
+    end
+
     function XFubenBabelTowerManager.GetTeamCaptainPos(stageId, teamId)
         local teamData = GetTeamData(stageId, teamId)
         return teamData:GetCaptainPos()
@@ -717,12 +821,12 @@ XFubenBabelTowerManagerCreator = function()
 
     function XFubenBabelTowerManager.GetTeamSelectDifficult(stageId, teamId)
         local teamData = GetTeamData(stageId, teamId)
-        return teamData:GetSelectDiffcult()
+        return teamData:GetSelectDifficult()
     end
 
     function XFubenBabelTowerManager.UpdateTeamSelectDifficult(stageId, teamId, difficult)
         local teamData = GetTeamData(stageId, teamId)
-        teamData:SelectDiffcult(difficult)
+        teamData:SelectDifficult(difficult)
     end
 
     -- 打开巴贝塔之前检查是否需要播剧情
@@ -795,7 +899,7 @@ XFubenBabelTowerManagerCreator = function()
         UpdateBabelActivityStages(CurrentActivityNo
             , appendArray(notifyData.StageDatas, notifyData.ExtraData.StageDatas))
 
-        XFubenBabelTowerManager.RefreshStagePassed()
+        --XFubenBabelTowerManager.RefreshStagePassed()
     end
 
     -- 同步活动状态
@@ -824,9 +928,28 @@ XFubenBabelTowerManagerCreator = function()
         local clientTeamData = GetTeamData(stageId, teamData.Id)
         clientTeamData:UpdateData(teamData)
 
-        XFubenBabelTowerManager.RefreshStagePassed()
+        --XFubenBabelTowerManager.RefreshStagePassed()
 
         XEventManager.DispatchEvent(XEventId.EVENT_BABEL_STAGE_INFO_ASYNC)
+    end
+
+    -- 同步关卡词缀积分
+    function XFubenBabelTowerManager.AsyncStageBuffScore(notifyData)
+        if not notifyData then 
+            return 
+        end
+        local stageId = notifyData.StageId
+        local clientStageData = GetStageData(stageId)
+        clientStageData:UpdateBuffInfoList(notifyData.BuffInfoList)
+    end
+
+    -- 更新活动已经解锁的词缀ID
+    function XFubenBabelTowerManager.AsyncUnLockedBuffId(notifyData)
+        if not notifyData then
+            BabelTowerUnLockedBuffId = {}
+            return
+        end
+        BabelTowerUnLockedBuffId = notifyData.BuffIdSet or {}
     end
 
     function XFubenBabelTowerManager.GetBabelTowerSection()
@@ -1083,7 +1206,49 @@ XFubenBabelTowerManagerCreator = function()
         end)
         return not XTool.IsTableEmpty(resultList) and resultList[1] or nil
     end
+
+    function XFubenBabelTowerManager.GetProgressTips()
+        return XUiHelper.GetText("BabelTowerStageShowDesc", XFubenBabelTowerManager.GetCurrentActivityMaxScore())
+    end
+
+    --- 检查buffId是否解锁
+    function XFubenBabelTowerManager.CheckBuffIdIsUnlock(buffId)
+        -- 已经解锁的词缀id列表
+        local unLockedBuffIdList = BabelTowerUnLockedBuffId or {}
+        for _, unLockedBuffId in pairs(unLockedBuffIdList) do
+            if unLockedBuffId == buffId then
+                return true
+            end
+        end
+        --曾经最高达到的层数
+        local collectionInfo = XFubenBabelTowerManager.GetBabelTowerInfo(XFubenBabelTowerConfigs.COLLECTION_ITEM_QUALITY, nil)
+        local level = collectionInfo and collectionInfo.Level or 0
+        if XFubenBabelTowerConfigs.CheckIsHaveBuffIdByLevel(level, buffId) then
+            return true
+        end
+        return false
+    end
     
+    --- 检查关卡是否未通关并且没有收藏品
+    function XFubenBabelTowerManager.CheckStageIsNotPassAndNotCollection(stageId)
+        local isPass = XFubenBabelTowerManager.IsStagePassed(stageId)
+        local scoreTitleInfos = XDataCenter.MedalManager.GetScoreTitle(BabelScoreTitleType)
+        return not isPass and XTool.IsTableEmpty(scoreTitleInfos)
+    end
+
+    --- 获取当前开放的藏品配置
+    ---@return XTableScoreTitle
+    function XFubenBabelTowerManager.GetCurBableScoreTitleCfg()
+        local cfgs = XDataCenter.MedalManager.GetScoreTitle(XMedalConfigs.MedalType.Babel)
+        if not XTool.IsTableEmpty(cfgs) then
+            for i, cfg in ipairs(cfgs) do
+                if XFunctionManager.CheckInTimeByTimeId(cfg.TimeId, false) then
+                    return cfg
+                end
+            end
+        end
+    end
+
     return XFubenBabelTowerManager
 end
 
@@ -1100,4 +1265,14 @@ end
 --更新单个关卡数据
 XRpc.NotifyBabelTowerTeamData = function(notifyData)
     XDataCenter.FubenBabelTowerManager.AsyncActivityStageInfo(notifyData)
+end
+
+-- 更新关卡词缀积分
+XRpc.NotifyBabelTowerStageBuffScore = function(notifyData)
+    XDataCenter.FubenBabelTowerManager.AsyncStageBuffScore(notifyData)
+end
+
+-- 更新活动已经解锁的词缀ID
+XRpc.NotifyBabelTowerUnLockedBuffId = function(notifyData)
+    XDataCenter.FubenBabelTowerManager.AsyncUnLockedBuffId(notifyData)
 end

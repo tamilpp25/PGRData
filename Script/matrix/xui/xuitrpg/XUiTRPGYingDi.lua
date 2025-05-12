@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiGridTRPGRoleDetail = require("XUi/XUiTRPG/XUiGridTRPGRoleDetail")
 local XUiGridTRPGBuff = require("XUi/XUiTRPG/XUiGridTRPGBuff")
 local XUiTRPGPanelLevel = require("XUi/XUiTRPG/XUiTRPGPanel/XUiTRPGPanelLevel")
@@ -21,7 +22,7 @@ function XUiTRPGYingDi:OnAwake()
     self.GridBuff.gameObject:SetActiveEx(false)
     self.LevelPanel = XUiTRPGPanelLevel.New(self.PanelLevel)
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.TRPGMoney, function()
         self.AssetActivityPanel:Refresh({ XDataCenter.ItemManager.ItemId.TRPGMoney })
     end, self.AssetActivityPanel)
@@ -47,6 +48,8 @@ end
 
 function XUiTRPGYingDi:OnDestroy()
     self.LevelPanel:Delete()
+    XRedPointManager.RemoveRedPointEvent(self.RedCollection)
+    XRedPointManager.RemoveRedPointEvent(self.RedTalent)
 end
 
 function XUiTRPGYingDi:OnGetEvents()
@@ -289,8 +292,8 @@ function XUiTRPGYingDi:OnClickBtnTalent()
 end
 
 function XUiTRPGYingDi:RegisterRedPointEvent()
-    XRedPointManager.AddRedPointEvent(self.BtnBlackCollection, self.OnCheckBtnBlackCollectionRedPoint, self, { XRedPointConditions.Types.CONDITION_TRPG_COLLECTION_MEMOIR })
-    XRedPointManager.AddRedPointEvent(self.BtnTalent, self.OnCheckBtnTalentRedPoint, self, { XRedPointConditions.Types.CONDITION_TRPG_ROLE_TALENT })
+    self.RedCollection = XRedPointManager.AddRedPointEvent(self.BtnBlackCollection, self.OnCheckBtnBlackCollectionRedPoint, self, { XRedPointConditions.Types.CONDITION_TRPG_COLLECTION_MEMOIR })
+    self.RedTalent = XRedPointManager.AddRedPointEvent(self.BtnTalent, self.OnCheckBtnTalentRedPoint, self, { XRedPointConditions.Types.CONDITION_TRPG_ROLE_TALENT })
 end
 
 function XUiTRPGYingDi:OnCheckBtnBlackCollectionRedPoint(count)

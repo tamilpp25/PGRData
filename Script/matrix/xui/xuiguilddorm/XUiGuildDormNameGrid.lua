@@ -3,30 +3,37 @@ local XUiGuildDormNameGrid = XClass(nil, "XUiGuildDormNameGrid")
 function XUiGuildDormNameGrid:Ctor(ui)
     XUiHelper.InitUiClass(self, ui)
     self.CurrentRoom = XDataCenter.GuildDormManager.GetCurrentRoom()
-    self.RLRole = nil
-    self.PlayerId = nil
+    self.RLEntity = nil
+    self.EntityId = nil
+    self.ShowDistance = 0
 end
 
-function XUiGuildDormNameGrid:SetData(rlRole, offsetHeight, playerId)
-    self.RLRole = rlRole
+function XUiGuildDormNameGrid:SetData(rlEntity, offsetHeight)
+    self.RLEntity = rlEntity
     self.Offset = CS.UnityEngine.Vector3(0, offsetHeight, 0)
-    if playerId == XPlayer.Id then
-        self.TxtName.text = XPlayer.Name
-    else
-        local playerName = XDataCenter.GuildDormManager.GetPlayerName(playerId)
-        if playerName then
-            self.TxtName.text = playerName
-        else
-            self.TxtName.text = "unknow"
-        end
+end
+
+function XUiGuildDormNameGrid:SetName(value)
+    if XTool.UObjIsNil(self.TxtName) then return end
+    self.TxtName.text = value or "unknow"
+end
+
+function XUiGuildDormNameGrid:SetTriangle(value)
+    for i = 1, 2 do
+        self["Triangle" .. i].gameObject:SetActiveEx(value == i)
     end
 end
 
+function XUiGuildDormNameGrid:SetShowDistance(value)
+    self.ShowDistance = value
+end
+
 function XUiGuildDormNameGrid:UpdateTransform()
-    self.CurrentRoom:SetViewPosToTransformLocalPosition(self.Transform, self.RLRole:GetTransform(), self.Offset)
+    self.CurrentRoom:SetViewPosToTransformLocalPosition(self.Transform, self.RLEntity:GetTransform(), self.Offset)
 end
 
 function XUiGuildDormNameGrid:Hide()
+    if XTool.UObjIsNil(self.GameObject) then return end
     self.GameObject:SetActiveEx(false)
 end
 
@@ -35,14 +42,20 @@ function XUiGuildDormNameGrid:Show(parent)
     if parent then
         self.Transform:SetParent(parent, false)
     end
+    -- 小于等于0默认显示
+    if self.ShowDistance <= 0 then return end
+    -- 判断一下与主要玩家的距离
+    local role = self.CurrentRoom:GetRoleByPlayerId(XPlayer.Id)
+    local distance = CS.XGuildDormHelper.GetDistance(self.RLEntity:GetTransform(), role:GetRLEntity():GetTransform())
+    self.GameObject:SetActiveEx(distance <= self.ShowDistance)
 end
 
-function XUiGuildDormNameGrid:SetPlayerId(value)
-    self.PlayerId = value
+function XUiGuildDormNameGrid:SetEntityId(value)
+    self.EntityId = value
 end
 
-function XUiGuildDormNameGrid:GetPlayerId()
-    return self.PlayerId
+function XUiGuildDormNameGrid:GetEntityId()
+    return self.EntityId
 end
 
 return XUiGuildDormNameGrid

@@ -1,3 +1,5 @@
+local XUiGridMisssionTeam = require("XUi/XUiMission/XUiGridMisssionTeam")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiMissionTeamSelect = XLuaUiManager.Register(XLuaUi, "UiMissionTeamSelect")
 
 function XUiMissionTeamSelect:OnAwake()
@@ -130,7 +132,7 @@ function XUiMissionTeamSelect:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

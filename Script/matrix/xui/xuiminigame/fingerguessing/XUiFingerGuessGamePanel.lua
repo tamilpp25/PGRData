@@ -1,8 +1,10 @@
 -- 猜拳小游戏游戏进行面板控件
+---@class XUiFingerGuessGamePanel
 local XUiFingerGuessGamePanel = XClass(nil, "XUiFingerGuessGamePanel")
 --================
 --构造函数
 --================
+---@param rootUi XUiFingerGuessingGame
 function XUiFingerGuessGamePanel:Ctor(uiGameObject, rootUi)
     self.RootUi = rootUi
     XTool.InitUiObjectByUi(self, uiGameObject)
@@ -81,6 +83,7 @@ end
 
 function XUiFingerGuessGamePanel:HideSelectFinger()
     self.ObjSelectRule.gameObject:SetActiveEx(false)
+    self.TxtTurn.gameObject:SetActiveEx(false)
     self.PanelSelectFinger.gameObject:SetActiveEx(false)
 end
 
@@ -108,7 +111,17 @@ function XUiFingerGuessGamePanel:RefreshSelectFinger()
 end
 
 function XUiFingerGuessGamePanel:OnShowResultEnd(result)
-    XLuaUiManager.PopThenOpen("UiFingerGuessingSelectStage", result)
+    local callBack = function()
+        XLuaUiManager.PopThenOpen("UiFingerGuessingSelectStage", result)
+    end
+    if result and XDataCenter.FingerGuessingManager.GetIsFirstEndInStage(self.RootUi.Stage:GetStageId()) then
+        local movieId = self.RootUi.Stage:GetEndMovieId()
+        if not string.IsNilOrEmpty(movieId) then 
+            XDataCenter.MovieManager.PlayMovie(movieId, callBack, nil, nil, false)
+            return
+        end
+    end
+    callBack()
 end
 
 function XUiFingerGuessGamePanel:OnEnable()

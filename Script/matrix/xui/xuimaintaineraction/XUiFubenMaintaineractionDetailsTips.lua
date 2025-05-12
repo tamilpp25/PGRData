@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenMaintaineractionDetailsTips = XLuaUiManager.Register(XLuaUi, "UiFubenMaintaineractionDetailsTips")
 local CSTextManagerGetText = CS.XTextManager.GetText
 

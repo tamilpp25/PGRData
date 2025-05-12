@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiSummerOnlineSection = XLuaUiManager.Register(XLuaUi, "UiSummerOnlineSection")
 
 function XUiSummerOnlineSection:OnAwake()
@@ -57,7 +59,7 @@ function XUiSummerOnlineSection:Refresh()
     self.TxtPeople.text = leastPlayer
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
     --  local atNums = stageInfo.Passed and 0 or
-    self.TxtATNums.text = self.StageCfg.RequireActionPoint
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(self.StageId)
     self.PanelMatching.gameObject:SetActiveEx(false)
 
     for i = 1, #self.TxtDesc do

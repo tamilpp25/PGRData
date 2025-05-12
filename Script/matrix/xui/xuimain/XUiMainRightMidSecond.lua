@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridSubMenuItem = require("XUi/XUiMain/XUiChildItem/XUiGridSubMenuItem")
 local XUiMainRightMidSecond = XClass(nil, "XUiMainRightMidSecond")
 
@@ -14,7 +15,7 @@ end
 
 function XUiMainRightMidSecond:OnEnable()
     -- 主页相关红点
-    self.MainRedId = XRedPointManager.AddRedPointEvent(self.ImgRedTargetMain, self.OnCheckMainRedPoint, self,
+    self.MainRedId = self:AddRedPointEvent(self.ImgRedTargetMain, self.OnCheckMainRedPoint, self,
     {
         ---- 公会相关 ----
         XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST,

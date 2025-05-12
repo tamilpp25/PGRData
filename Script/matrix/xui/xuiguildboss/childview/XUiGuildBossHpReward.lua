@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildBossHpReward = XClass(nil, "XUiGuildBossHpReward")
 local XUiGuildBossHpRewardItem = require("XUi/XUiGuildBoss/Component/XUiGuildBossHpRewardItem")
 
@@ -21,10 +22,13 @@ end
 function XUiGuildBossHpReward:Show()
     self.GameObject:SetActiveEx(true)
     self:Refresh()
+    XDataCenter.UiPcManager.OnUiEnable(self)
 end
 
 function XUiGuildBossHpReward:Close()
     self.GameObject:SetActiveEx(false)
+    self.RootUi.Effect.gameObject:SetActiveEx(self.RootUi.IsShowEffect)
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
 end
 
 

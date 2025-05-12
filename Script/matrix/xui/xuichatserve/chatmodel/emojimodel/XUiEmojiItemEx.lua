@@ -21,11 +21,21 @@ function XUiEmojiItemEx:Refresh(emoji)
         self:SetTimeText()
         self:SetCountDownTimer()
     end
+    self:RefreshRedPoint()
+end
+
+function XUiEmojiItemEx:RefreshRedPoint()
+    self.PanelNew.gameObject:SetActiveEx(self.EmojiData:GetIsNew())
 end
 
 function XUiEmojiItemEx:SetCountDownTimer()
     if self.TimeLimitId then return end
     self.TimeLimitId = XScheduleManager.ScheduleForever(function()
+            if not self.Transform or XTool.UObjIsNil(self.Transform) then
+                self:StopCountDownTimer()
+                return
+            end
+ 
             self:SetTimeText()
         end, 1)
 end
@@ -56,6 +66,11 @@ function XUiEmojiItemEx:OnClickBtnEmoji()
         return
     end
     if self.OnClickEmojiCb then self.OnClickEmojiCb(self.EmojiData) end
+    -- 点击后关闭新标签蓝点
+    self.EmojiData:SetNotNew()
+    self:RefreshRedPoint()
+    XEventManager.DispatchEvent(XEventId.EVENT_CHAT_EMOJI_REFRESH_RED)
+    CsXGameEventManager.Instance:Notify(XEventId.EVENT_CHAT_EMOJI_REFRESH_RED)
 end
 
 function XUiEmojiItemEx:Reset()

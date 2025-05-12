@@ -1,19 +1,30 @@
 XHomeCharManager = XHomeCharManager or {}
 
 local XHomeCharObj = require("XHome/XDorm/XHomeCharObj")
+local XHomePetObj = require("XHome/XDorm/XHomePetObj")
 
+---@type table<number, XHomeCharObj>
 local ActiveCharacter = {}
+---@type XHomeCharObj
 local CurrentSelected = {}
+
+---@type table<number, XHomePetObj>
+local ActivePet = {}
 
 local EventRewards = {}
 
 local FURNITURE_INTERACT_CD = CS.XGame.ClientConfig:GetInt("DormFurnitureInteractCD")
 local FURNITURE_INTERACT_DISTANCE = CS.XGame.ClientConfig:GetInt("DormFurnitureInteractDistance")
+local PET_INTERACT_CD = CS.XGame.ClientConfig:GetInt("DormPetInteractCD")
+
 
 local CHARACTER_INTERACT_CD = CS.XGame.ClientConfig:GetInt("DormCharacterInteractCD")
 
 local FurnitureLastInteractTime = {}
 local CharacterLastInteractTime = {}
+
+---@type XObjectPool
+local DormPetObjPool = XObjectPool.New(XHomePetObj.New)
 
 --初始化
 function XHomeCharManager.Init()
@@ -39,6 +50,11 @@ function XHomeCharManager.Init()
 
 end
 
+function XHomeCharManager.LeaveScene()
+    DormPetObjPool:Clear()
+    XHomeCharManager.HandleSignOut()
+end
+
 --事件
 function XHomeCharManager.OnEvent(evt, ...)
 
@@ -55,7 +71,7 @@ function XHomeCharManager.OnEvent(evt, ...)
         if not charObj or not charObj.IsSelf then
             return
         end
-
+ 
         local event = XHomeCharManager.GetCharacterEvent(charId, true)
         if event == nil then
             XLog.Error("找不到事件", charId)
@@ -69,7 +85,11 @@ end
 
 function XHomeCharManager.HandleSignOut()
     ActiveCharacter = {}
+    ActivePet = {}
     CurrentSelected = {}
+
+    FurnitureLastInteractTime = {}
+    CharacterLastInteractTime = {}
 
     EventRewards = {}
 end
@@ -100,12 +120,16 @@ function XHomeCharManager.OnHomeCharChangeStatus()
 
 end
 
---设置当前选中角色
+--- 设置当前选中角色
+---@param homeChar XHomeCharObj
+--------------------------
 function XHomeCharManager.SetSelectCharacter(homeChar)
     CurrentSelected = homeChar
 end
 
---获取当前选中角色
+--- 获取当前选中角色
+---@return XHomeCharObj
+--------------------------
 function XHomeCharManager.GetSelectCharacter()
     return CurrentSelected
 end
@@ -115,7 +139,11 @@ function XHomeCharManager.PreLoadHomeCharacterById()
     -- XHomeCharManager.CreateHomeCharacter(charId)
 end
 
---创建构造体
+--- 创建构造体
+---@param charId number 角色id
+---@param root UnityEngine.Transform 绑定角色根节点
+---@return XHomeCharObj
+--------------------------
 function XHomeCharManager.CreateHomeCharacter(charId, root)
     local charStyleConfig = XDormConfig.GetCharacterStyleConfigById(charId)
 
@@ -125,7 +153,11 @@ function XHomeCharManager.CreateHomeCharacter(charId, root)
     return homeChar
 end
 
---从池里面获取构造体模型
+--- 从池里面获取构造体模型
+---@param charId number 角色id
+---@param root UnityEngine.Transform 绑定角色根节点
+---@return XHomeCharObj
+--------------------------
 function XHomeCharManager.SpawnHomeCharacter(charId, root)
     local charObj = XHomeCharManager.CreateHomeCharacter(charId, root)
     ActiveCharacter[charId] = charObj
@@ -142,7 +174,10 @@ function XHomeCharManager.DespawnHomeCharacter(charId, charObj)
     ActiveCharacter[charId] = nil
 end
 
---获取活跃中的角色
+--- 获取活跃中的角色
+---@param charId number 角色id
+---@return XHomeCharObj
+--------------------------
 function XHomeCharManager.GetActiveCharacter(charId)
     if not ActiveCharacter[charId] then
         XLog.Warning("ActiveCharacter not exist ", charId)
@@ -152,7 +187,11 @@ function XHomeCharManager.GetActiveCharacter(charId)
     return ActiveCharacter[charId]
 end
 
---获取事件
+--- 获取事件
+---@param charId number 角色id
+---@param isSelf boolean 是否是自己的角色
+---@return XTable.XTableDormCharacterEvent
+--------------------------
 function XHomeCharManager.GetCharacterEvent(charId, isSelf)
     local charData
     if isSelf then
@@ -209,7 +248,11 @@ function XHomeCharManager.CheckCharacterEventExist(charId, eventId, isSelf)
     return false
 end
 
----检测事件是否能完成
+--- 检测事件是否能完成
+---@param charId number 角色id
+---@param completeType number 类型
+---@return XTable.XTableDormCharacterEvent
+--------------------------
 function XHomeCharManager.CheckCharacterEventCompleted(charId, completeType, isSelf)
     local charData
 
@@ -241,8 +284,6 @@ function XHomeCharManager.CheckCharacterEventCompleted(charId, completeType, isS
 
     return EventTemp
 end
-
-
 
 --检测人物交互
 function XHomeCharManager.CheckCharacterInteracter(charId)
@@ -299,7 +340,6 @@ function XHomeCharManager.CheckCharacterInteracter(charId)
     return false
 end
 
-
 --检测家具交互
 function XHomeCharManager.CheckFurnitureInteract(charId)
     local charObj = XHomeCharManager.GetActiveCharacter(charId)
@@ -310,27 +350,89 @@ function XHomeCharManager.CheckFurnitureInteract(charId)
     local time = XTime.GetServerNowTimestamp()
     local lastTime = FurnitureLastInteractTime[charId]
     if lastTime and lastTime + FURNITURE_INTERACT_CD > time then
-        return
+        return false
     end
+    
+    local interactList = charObj.Room.InteractList
 
+    if XTool.IsTableEmpty(interactList) then
+        return false
+    end
     local interactFurniture = nil
     local interactPos = nil
     local lastDistance = 0
 
-    local interactList = charObj.Room.InteractList
     for _, v in ipairs(interactList) do
         if v.Furniture:CheckCanInteract(v.GridPos.x, v.GridPos.y, charId) then
             local pos = XHomeDormManager.GetLocalPosByGrid(v.GridPos.x, v.GridPos.y, CS.XHomePlatType.Ground, 0)
             pos = charObj.Room.Transform.localToWorldMatrix:MultiplyPoint(pos)
             local distance = CS.UnityEngine.Vector3.Distance(charObj.Transform.position, pos)
 
-            local tempInteracPos = v.InteractPosGo.transform.position
+            local tempInteractPos = v.InteractPosGo.transform.position
 
-            if distance < XHomeDormManager.GetCeilSize() * FURNITURE_INTERACT_DISTANCE and (lastDistance <= 0 or distance < lastDistance) and CS.XNavMeshUtility.CheckCanReachNavMeshSamplePosition(tempInteracPos, CS.XHomeMapManager.Inst.CeilSize * 0.5) then
+            if distance < XHomeDormManager.GetCeilSize() * FURNITURE_INTERACT_DISTANCE
+                    and (lastDistance <= 0 or distance < lastDistance)
+                    and CS.XNavMeshUtility.CheckCanReachNavMeshSamplePosition(tempInteractPos,
+                    CS.XHomeMapManager.Inst.CeilSize * 0.5)
+            then
                 interactFurniture = v
                 lastDistance = distance
-                interactPos = v.InteractPosGo.transform.position
+                interactPos = tempInteractPos
             end
+        end
+    end
+
+    if interactFurniture then
+        return true, interactPos, interactFurniture
+    end
+
+    return false
+end
+
+function XHomeCharManager.CreateNewIdWithCharAndFurniture(charId, furnitureId)
+    return charId * 100 + furnitureId
+end
+
+--- 检查角色跟宠物交互
+---@param charId number
+---@param petObj XHomePetObj
+---@return boolean, UnityEngine.GameObject, table
+--------------------------
+function XHomeCharManager.CheckCharInteractPet(charId, petObj)
+    if not petObj or not petObj:IsCharInteract() then
+        return false
+    end
+    local charObj = XHomeCharManager.GetActiveCharacter(charId)
+    if not charObj then
+        return false
+    end
+
+    local time = XTime.GetServerNowTimestamp()
+    local newId = XHomeCharManager.CreateNewIdWithCharAndFurniture(charId, petObj:GetBindFurnitureId())
+    local lastTime = FurnitureLastInteractTime[newId]
+    if lastTime and lastTime + PET_INTERACT_CD > time then
+        return false
+    end
+    
+    local interactList = petObj:GetInteractInfoList()
+    if XTool.IsTableEmpty(interactList) then
+        return false
+    end
+    local interactFurniture = nil
+    local interactPos = nil
+    local lastDistance = 0
+
+    for _, v in ipairs(interactList) do
+        local pos = v.InteractPos.transform.localPosition
+        pos = charObj.Room.Transform.localToWorldMatrix:MultiplyPoint(pos)
+        local distance = CS.UnityEngine.Vector3.Distance(charObj.Transform.position, pos)
+
+        local tempInteractPos = v.InteractPos.transform.position
+        if lastDistance <= 0 or distance < lastDistance
+        then
+            interactFurniture = v
+            lastDistance = distance
+            interactPos = tempInteractPos
         end
     end
 
@@ -352,7 +454,6 @@ function XHomeCharManager.ShowEventReward(charId)
     EventRewards[charId] = nil
 end
 
-
 --设置奖励
 function XHomeCharManager.SetEventReward(charId, rewards)
     EventRewards[charId] = rewards
@@ -360,7 +461,7 @@ end
 
 --隐藏所有
 function XHomeCharManager.HideAllCharacter()
-    if not ActiveCharacter then
+    if XTool.IsTableEmpty(ActiveCharacter) then
         return
     end
 
@@ -372,10 +473,20 @@ function XHomeCharManager.HideAllCharacter()
     end
 end
 
+function XHomeCharManager.ReleaseAllCharLongPressTrigger()
+    if XTool.IsTableEmpty(ActiveCharacter) then
+        return
+    end
+    for _, v in pairs(ActiveCharacter) do
+        if not XTool.UObjIsNil(v.GameObject) then
+            v:SetCharLongPressTrigger(true)
+        end
+    end
+end
 
 --隐藏所有
 function XHomeCharManager.ShowAllCharacter(isResetPosition)
-    if not ActiveCharacter then
+    if XTool.IsTableEmpty(ActiveCharacter) then
         return
     end
 
@@ -387,10 +498,9 @@ function XHomeCharManager.ShowAllCharacter(isResetPosition)
     end
 end
 
-
 --隐藏所有除了
 function XHomeCharManager.HideAllCharacterBut(charId)
-    if not ActiveCharacter then
+    if XTool.IsTableEmpty(ActiveCharacter) then
         return
     end
 
@@ -403,10 +513,9 @@ function XHomeCharManager.HideAllCharacterBut(charId)
     end
 end
 
-
 --显示
 function XHomeCharManager.ShowCharacter(charId)
-    if not ActiveCharacter then
+    if XTool.IsTableEmpty(ActiveCharacter) then
         return
     end
 
@@ -423,10 +532,181 @@ function XHomeCharManager.SetFurnitureInteractTime(charId)
     FurnitureLastInteractTime[charId] = time
 end
 
-
 --设置上任务交互时间
 function XHomeCharManager.SetCharacterInteractTime(charId1, charId2)
     local time = XTime.GetServerNowTimestamp()
     CharacterLastInteractTime[charId1] = time
     CharacterLastInteractTime[charId2] = time
+end
+
+function XHomeCharManager.CreateHomePet(furnitureId, petId, root)
+    local template = XDormConfig.GetDormPetTemplate(petId)
+    if not template then
+        return
+    end
+    ---@type XHomePetObj
+    local homePet = DormPetObjPool:Create()
+    homePet:LoadModel(template.Model, root)
+    homePet.GameObject:SetActive(false)
+    ActivePet[furnitureId] = homePet
+    return homePet
+end
+
+--- 回池
+---@param furnitureId number
+---@param petId number
+---@param petObj XHomePetObj
+---@return
+--------------------------
+function XHomeCharManager.RecycleHomePet(furnitureId, petId, petObj)
+    if ActivePet[furnitureId] then
+        ActivePet[furnitureId]:Dispose()
+        
+        DormPetObjPool:Recycle(petObj)
+        petObj:Dispose()
+    end
+    ActivePet[furnitureId] = nil
+end
+
+function XHomeCharManager.GetActivePet(furnitureId, petId)
+    return ActivePet[furnitureId]
+end
+
+function XHomeCharManager.CheckIsCharacter(id)
+    return XTool.IsNumberValid(id) and id > 10000
+end
+
+function XHomeCharManager.CheckPetFurnitureInteract(furnitureId, petId)
+    local petObj = XHomeCharManager.GetActivePet(furnitureId, petId)
+    if not petObj then
+        return false
+    end
+
+    local time = XTime.GetServerNowTimestamp()
+    local lastTime = FurnitureLastInteractTime[furnitureId]
+    if lastTime and lastTime + PET_INTERACT_CD > time then
+        return false
+    end
+    
+    local interactFurniture = nil
+    local interactPos = nil
+    local lastDistance = 0
+    
+    local interactList = petObj.Room.InteractList
+    if XTool.IsTableEmpty(interactList) then
+        return false
+    end
+
+    for _, v in ipairs(interactList) do
+        if v.Furniture:CheckCanInteract(v.GridPos.x, v.GridPos.y, petId) then
+            local pos = XHomeDormManager.GetLocalPosByGrid(v.GridPos.x, v.GridPos.y, CS.XHomePlatType.Ground, 0)
+            pos = petObj.Room.Transform.localToWorldMatrix:MultiplyPoint(pos)
+            local distance = CS.UnityEngine.Vector3.Distance(petObj.Transform.position, pos)
+
+            local go = v.PetInteractPointGo
+            
+            if XTool.UObjIsNil(go) then
+                goto continue
+            end
+            
+            local tempInteractPos = go.transform.position
+            
+            if distance < XHomeDormManager.GetCeilSize() * FURNITURE_INTERACT_DISTANCE 
+                    and (lastDistance <= 0 or distance < lastDistance) 
+                    and CS.XNavMeshUtility.CheckCanReachNavMeshSamplePosition(tempInteractPos, CS.XHomeMapManager.Inst.CeilSize * 0.5) 
+            then
+                interactFurniture = v
+                lastDistance = distance
+                interactPos = tempInteractPos
+            end
+            
+            ::continue::
+        end
+    end
+
+    if interactFurniture then
+        return true, interactPos, interactFurniture
+    end
+    return false
+end
+
+--检测人物交互
+function XHomeCharManager.CheckPetCharacterInteracter(furnitureId, petId)
+    local petObj = XHomeCharManager.GetActivePet(furnitureId, petId)
+    if not petObj then
+        return false
+    end
+
+    if XTool.UObjIsNil(petObj.GameObject) then
+        return false
+    end
+
+    if XTool.UObjIsNil(petObj.Transform) then
+        return false
+    end
+
+    local time = XTime.GetServerNowTimestamp()
+    local lastTime = CharacterLastInteractTime[petId]
+    if lastTime and lastTime + CHARACTER_INTERACT_CD > time then
+        return
+    end
+
+    for _, v in pairs(ActiveCharacter) do
+        if v and not XTool.UObjIsNil(v.GameObject) and not XTool.UObjIsNil(v.Transform) and v.CharInteractTrigger then
+            local distance = CS.UnityEngine.Vector3.Distance(petObj.Transform.position, v.Transform.position)
+
+            lastTime = CharacterLastInteractTime[v.Id]
+            local bInteract = lastTime and lastTime + CHARACTER_INTERACT_CD > time
+            if not bInteract then
+                local result, temp, state1, state2 = XDormConfig.GetCharacterInteractiveIndex(v.Id, petObj.Id)
+                if result then
+                    local minDis = XHomeDormManager.GetCeilSize() * temp.MinDis
+                    local maxDis = XHomeDormManager.GetCeilSize() * temp.MaxDis
+                    if distance > minDis and distance < maxDis then
+                        petObj.InteractiveCharacter = v
+                        v.InteractiveCharacter = petObj
+
+                        petObj:InteractWith(v)
+                        v:InteractWith(petObj)
+
+                        petObj:ChangeStatus(state1)
+                        v:ChangeStatus(state2)
+
+                        CharacterLastInteractTime[petObj.Id] = time
+                        CharacterLastInteractTime[v.Id] = time
+
+                        return true
+                    end
+                end
+            end
+        end
+    end
+
+    return false
+end
+
+function XHomeCharManager.HideAllPet()
+    if XTool.IsTableEmpty(ActivePet) then
+        return
+    end
+
+    for _, pet in pairs(ActivePet) do
+        if not XTool.UObjIsNil(pet.GameObject) then
+            pet.GameObject:SetActiveEx(false)
+            pet:OnHide()
+        end
+    end
+end
+
+function XHomeCharManager.ShowAllPet(isResetPosition)
+    if XTool.IsTableEmpty(ActivePet) then
+        return
+    end
+
+    for _, pet in pairs(ActivePet) do
+        if not XTool.UObjIsNil(pet.GameObject) then
+            pet.GameObject:SetActiveEx(true)
+            pet:OnShow(isResetPosition)
+        end
+    end
 end

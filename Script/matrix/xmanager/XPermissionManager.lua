@@ -1,5 +1,9 @@
 XPermissionManager = XPermissionManager or {}
 
+local Application = CS.UnityEngine.Application
+local Platform = Application.platform
+local RuntimePlatform = CS.UnityEngine.RuntimePlatform
+
 -- 权限授权状态
 local PERMISSION_DENIED = -1
 local PERMISSION_GRANTED = 0
@@ -52,15 +56,18 @@ end
 function XPermissionManager.TryGetPermission(permissionEnum, description, cb)
     local code = permissionEnum:GetHashCode()
 
-    if PermissionStateMap[code] == PERMISSION_CUSTOMER_DENIED and 
-        (CS.XTool.CheckPermission == nil or CS.XTool.CheckPermission(permissionEnum) ~= PERMISSION_GRANTED) then
-        local text = PermissionTextMap[code]
-        if not PermissionTextMap[code] then
-            XLog.Error("获取权限错误，在PermissionEnumMap中缺少处理代码")
+    -- 兼容安卓13的情况提示，小于安卓13的版本申请写入权限时才走客户端拦截判断
+    if not (Platform == RuntimePlatform.Android and permissionEnum == CS.XPermissionEnum.WRITE_EXTERNAL_STORAGE and CS.XPlugin.OsVersion >= 130000 ) then
+        if PermissionStateMap[code] == PERMISSION_CUSTOMER_DENIED and 
+            (CS.XTool.CheckPermission == nil or CS.XTool.CheckPermission(permissionEnum) ~= PERMISSION_GRANTED) then
+            local text = PermissionTextMap[code]
+            if not PermissionTextMap[code] then
+                XLog.Error("获取权限错误，在PermissionEnumMap中缺少处理代码")
+            end
+            text = text or CS.XTextManager.GetText("PremissionDesc")
+            XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)
+            return
         end
-        text = text or CS.XTextManager.GetText("PremissionDesc")
-        XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)
-        return
     end
 
     local resultCB = function(isGranted, dontTip)
@@ -80,3 +87,8 @@ function XPermissionManager.GetPermissionStateMap()
     return PermissionStateMap
 end
 
+--- 检查是否有权限
+function XPermissionManager.CheckPermission(permissionEnum)
+    local code = permissionEnum:GetHashCode()
+    return PermissionStateMap[code] == PERMISSION_GRANTED
+end

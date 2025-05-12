@@ -9,7 +9,7 @@ function XPartnerSkillGroupBase:GetLevel()
 end
 
 function XPartnerSkillGroupBase:GetLevelStr()
-    return self.Level < self.LevelLimit and self.Level or "MAX"
+    return self:GetIsMaxLevel() and XUiHelper.GetText("PartnerMaxLevel") or self.Level
 end
 
 function XPartnerSkillGroupBase:GetActiveSkillId()
@@ -26,6 +26,10 @@ end
 
 function XPartnerSkillGroupBase:GetIsCarry()
     return self.IsCarry
+end
+
+function XPartnerSkillGroupBase:GetIsMaxLevel()
+    return self.Level >= self.LevelLimit
 end
 
 --------------------------------------------SkillInfo---------------------------------------------------

@@ -1,5 +1,7 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridChapterBfrt = require("XUi/XUiFubenMainLineBanner/XUiGridChapterBfrt")
 
+---@class XUiPanelChapterBfrt
 local XUiPanelChapterBfrt = XClass(nil, "XUiPanelChapterBfrt")
 
 function XUiPanelChapterBfrt:Ctor(ui, rootUi)
@@ -32,13 +34,10 @@ end
 
 -- 章节点击事件
 function XUiPanelChapterBfrt:OnChapterCoverClick(chapterId)
-    local doneCb = function()
-        local chapterCfg = XDataCenter.BfrtManager.GetChapterCfg(chapterId)
-        self.RootUi:PushUi(function()
-            XLuaUiManager.Open("UiFubenMainLineChapter", chapterCfg, nil, true)
-        end)
-    end -- doneCb
-    XDataCenter.DlcManager.CheckDownloadForEntry(XDlcConfig.EntryType.Bfrt, chapterId, doneCb)
+    local chapterCfg = XDataCenter.BfrtManager.GetChapterCfg(chapterId)
+    self.RootUi:PushUi(function()
+        XLuaUiManager.Open("UiFubenMainLineChapter", chapterCfg, nil, true)
+    end)
 end
 
 -- 设置数据

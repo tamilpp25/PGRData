@@ -1,4 +1,6 @@
-XUiPanelDormTaskStory = XClass(nil, "XUiPanelDormTaskStory")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiPanelDormTaskStory = XClass(nil, "XUiPanelDormTaskStory")
 
 function XUiPanelDormTaskStory:Ctor(ui, parent)
     self.GameObject = ui.gameObject
@@ -23,11 +25,7 @@ function XUiPanelDormTaskStory:ShowPanel()
     self.GameObject:SetActive(true)
     self.PanelTaskStoryList.gameObject:SetActive(true)
 
-    self.StoryTasks = XDataCenter.TaskManager.GetDormTaskStoryListData()
-    local len = #self.StoryTasks
-    self.PanelNoneStoryTask.gameObject:SetActive(len <= 0)
-    self.DynamicTable:SetDataSource(self.StoryTasks)
-    self.DynamicTable:ReloadDataSync()
+    self:Refresh()
 end
 
 function XUiPanelDormTaskStory:HidePanel()
@@ -35,9 +33,11 @@ function XUiPanelDormTaskStory:HidePanel()
 end
 
 function XUiPanelDormTaskStory:Refresh()
-    self.StoryTasks = XDataCenter.TaskManager.GetDormTaskStoryListData()
+    self.StoryTasks = XDataCenter.TaskManager.GetDormStoryTasksAllReceiveData()
     local len = #self.StoryTasks
     self.PanelNoneStoryTask.gameObject:SetActive(len <= 0)
     self.DynamicTable:SetDataSource(self.StoryTasks)
     self.DynamicTable:ReloadDataSync()
 end
+
+return XUiPanelDormTaskStory

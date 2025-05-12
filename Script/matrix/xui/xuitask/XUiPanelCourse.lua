@@ -1,4 +1,6 @@
-XUiPanelCourse = XClass(nil, "XUiPanelCourse")
+local XUiGridCourse = require("XUi/XUiTask/XUiGridCourse")
+---@class XUiPanelCourse
+local XUiPanelCourse = XClass(nil, "XUiPanelCourse")
 local Vector2 = CS.UnityEngine.Vector2
 local V3Z = CS.UnityEngine.Vector3.zero
 local ProTime = 2
@@ -19,18 +21,32 @@ end
 function XUiPanelCourse:RefreshCourse()
     self:RefreshCourseList(self.ChapterId)
 end
+
 function XUiPanelCourse:RefreshCourseList(chapterId)
     if not chapterId then return end
-    local nextCourseInfo = XDataCenter.TaskManager.GetCourseInfo(chapterId) -- 海外修改
-    if nextCourseInfo then
-        self.CourseInfo = nextCourseInfo
-        self.ChapterId = chapterId
+    self.CourseInfo = XDataCenter.TaskManager.GetCourseInfo(chapterId)
+    if not self.CourseInfo then
+        return
     end
+    self.ChapterId = chapterId
     self.SViewCourse.horizontalNormalizedPosition = 0
 
     self.CurPrIndex = 0
     local index = 0
-    local list = self.CourseInfo.Courses
+
+    -- 过滤重复数据。排查bug单#139385，出现重复关卡奖励
+    local list = {}
+    local stageIdDic = {}
+    for _, course in pairs(self.CourseInfo.Courses) do
+        local stageId = course.StageId
+        if stageIdDic[stageId] then
+            XLog.Error(string.format( "TaskManager.GetCourseInfo获取chapterId = %s对应的Courses出现重复关卡数据，stageId = %s", chapterId, stageId))
+        else
+            table.insert(list, course)
+            stageIdDic[stageId] = true
+        end
+    end
+
     for i = 1, #list do
         local grid = self.GridCourseList[i]
         if not grid then
@@ -76,7 +92,7 @@ function XUiPanelCourse:IsPass(id)
         return false
     end
 
-    local result = XDataCenter.FubenManager.FubenSettleResult
+    local result = XMVCA.XFuben:GetFubenSettleResult()
     return result and result.IsWin and result.StageId == id
 end
 
@@ -119,3 +135,5 @@ function XUiPanelCourse:PlayImgFill()
     self:FillPro()
     self.ImgProgress:DOFillAmount(r, ProTime)
 end
+
+return XUiPanelCourse

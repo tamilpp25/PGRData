@@ -5,7 +5,7 @@ local XUiTheatreRecruitRolePanel = require("XUi/XUiTheatre/Recruit/XUiTheatreRec
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
 function XUiTheatreRecruit:OnAwake()
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool, self)
     self:AddListener()
 end
 

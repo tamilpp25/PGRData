@@ -1,7 +1,7 @@
----@class XUiBattleRoomRoleGrid
-local XUiBattleRoomRoleGrid = XClass(nil, "XUiBattleRoomRoleGrid")
+---@class XUiBattleRoomRoleGridCuteCute
+local XUiBattleRoomRoleGridCute = XClass(nil, "XUiBattleRoomRoleGridCute")
 
-function XUiBattleRoomRoleGrid:Ctor(ui)
+function XUiBattleRoomRoleGridCute:Ctor(ui)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     XTool.InitUiObject(self)
@@ -9,9 +9,9 @@ end
 
 ---@param team XTeam
 ---@param entity XRobot
-function XUiBattleRoomRoleGrid:SetData(entity, team, stageId, pos)
+function XUiBattleRoomRoleGridCute:SetData(entity, team, stageId, pos)
     local characterId = entity:GetCharacterId()
-    self.RImgHeadIcon:SetRawImage(XFubenSpecialTrainConfig.GetCuteModelSmallHeadIcon(characterId))
+    self.RImgHeadIcon:SetRawImage(XCharacterCuteConfig.GetCuteModelSmallHeadIcon(characterId))
 
     self.TextName1.text = XEntityHelper.GetCharacterName(characterId)
     self.TextName2.text = XEntityHelper.GetCharacterTradeName(characterId)
@@ -20,16 +20,16 @@ function XUiBattleRoomRoleGrid:SetData(entity, team, stageId, pos)
     self:SetCurrentStatus(currentEntityId == entity:GetId())
 end
 
-function XUiBattleRoomRoleGrid:SetSelectStatus(value)
+function XUiBattleRoomRoleGridCute:SetSelectStatus(value)
     self.PanelSelected.gameObject:SetActiveEx(value)
 end
 
-function XUiBattleRoomRoleGrid:SetInSameStatus(value)
+function XUiBattleRoomRoleGridCute:SetInSameStatus(value)
     -- self.PanelSameRole.gameObject:SetActiveEx(value)
 end
 
-function XUiBattleRoomRoleGrid:SetCurrentStatus(value)
+function XUiBattleRoomRoleGridCute:SetCurrentStatus(value)
     self.ImgSpecify.gameObject:SetActiveEx(value)
 end
 
-return XUiBattleRoomRoleGrid
+return XUiBattleRoomRoleGridCute

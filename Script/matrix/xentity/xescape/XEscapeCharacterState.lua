@@ -1,6 +1,7 @@
 local type = type
 
 --大逃杀角色/机器人状态
+---@class XEscapeCharacterState
 local XEscapeCharacterState = XClass(nil, "XEscapeCharacterState")
 
 local Default = {

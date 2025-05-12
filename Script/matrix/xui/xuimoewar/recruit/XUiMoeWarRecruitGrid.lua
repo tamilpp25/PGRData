@@ -143,7 +143,7 @@ end
 function XUiMoeWarRecruitGrid:RefreshRoleInfo(helperId)
     local robotId = XMoeWarConfig.GetMoeWarPreparationHelperRobotId(helperId)
     local characterId = XRobotManager.GetCharacterId(robotId)
-    local roleName = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    local roleName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
     self.BtnBackground:SetNameByGroup(TEXT_GROUP["Name"], roleName)
 
     local headIcon = XMoeWarConfig.GetMoeWarPreparationHelperCirleIcon(helperId)

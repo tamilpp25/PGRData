@@ -2,6 +2,7 @@
 --公会宿舍场景对象
 --一个场景包含多个房间
 --=============
+---@class XGuildDormScene
 local XGuildDormScene = XClass(nil, "XGuildDormScene")
 local SCENE_FAR_CLIP_PLANE = 350
 --==================Get/Set方法===================
@@ -9,24 +10,28 @@ local SCENE_FAR_CLIP_PLANE = 350
 --根据房间配置表Id获取房间
 --XGuildDormRoom的Id
 --===========
+---@return XGuildDormRoom
 function XGuildDormScene:GetRoomById(roomId)
     return self.Rooms[roomId]
 end
 --===========
 --获取当前房间
 --===========
+---@return XGuildDormRoom
 function XGuildDormScene:GetCurrentRoom()
     return self.CurrentRoom
 end
 --===========
 --获取场景相机
 --===========
+---@return UnityEngine.Camera
 function XGuildDormScene:GetCamera()
     return self.Camera
 end
 --===========
 --获取场景相机控制器
 --===========
+---@return XGuildDormCameraController
 function XGuildDormScene:GetCameraController()
     return self.CameraController
 end
@@ -42,20 +47,17 @@ end
 function XGuildDormScene:GetSkyBox()
     return self.SkyBox
 end
+
 --==============
---设置全局光照
+--设置全局光照（没有使用）
 --==============
 function XGuildDormScene:SetGlobalIllumSO(soPath)
     if not soPath or string.len(soPath) <= 0 then
         soPath = CS.XGame.ClientConfig:GetString("HomeSceneSoAssetUrl")
     end
     self.CurrentGlobalIllumSoPath = soPath
-    local resource = self.GlobalIllumSOResourceMap[soPath]
-    if not resource then
-        resource = CS.XResourceManager.Load(soPath)
-        self.GlobalIllumSOResourceMap[soPath] = resource
-    end
-    CS.XGlobalIllumination.SetGlobalIllumSO(resource.Asset)
+    local asset = self:GetLoaderUtil():Load(soPath)
+    CS.XGlobalIllumination.SetGlobalIllumSO(asset)
 end
 --=================================================
 
@@ -75,7 +77,17 @@ function XGuildDormScene:Ctor(sceneName, sceneAssetUrl, roomId, onLoadCompleteCb
     self.PhysicsRaycaster = nil
     -- 光照信息相关变量
     self.CurrentGlobalIllumSoPath = nil
-    self.GlobalIllumSOResourceMap = {}
+    ---@type XLoaderUtil
+    self.LoaderUtil = false
+    self.ModuleName = "XGuildDormScene"
+end
+
+---@return XLoaderUtil
+function XGuildDormScene:GetLoaderUtil()
+    if not self.LoaderUtil then
+        self.LoaderUtil = CS.XLoaderUtil.GetModuleLoader(self.ModuleName)
+    end
+    return self.LoaderUtil
 end
 
 --===================================场景操作相关方法 Start==================================
@@ -95,14 +107,17 @@ end
 --=============
 --场景资源加载完时
 --=============
+---@param scene XGuildDormScene
 local function OnLoadComplete(scene, onFinishLoadScene)
     scene:InitCamera()
     scene.GameObject:SetActiveEx(true)
     --XLuaUiManager.Open("UiBlackScreen", scene.CurCameraFollowTarget, false, scene.CurName, function()
     scene:InitScene(XDataCenter.GuildDormManager.GetSceneName2RoomDataDic(scene.Name), XDormConfig.DormDataType.Self)
     XCameraHelper.SetCameraTarget(scene.CameraController, scene.CurCameraFollowTarget)
+    CS.XAudioManager.ListenerSetParent(scene.CameraController.transform)
+    CS.UnityEngine.Physics.simulationMode = CS.UnityEngine.SimulationMode.FixedUpdate
     scene:EnterRoom(scene.CurrentRoomIndex)
-    scene:SetRaycasterMask(HomeSceneViewType.RoomView)
+    --scene:SetRaycasterMask(HomeSceneViewType.RoomView)
     if scene.OnLoadCompleteCb then
         scene.OnLoadCompleteCb(scene.GameObject)
         XLuaUiManager.Close("UiLoading")
@@ -119,37 +134,32 @@ end
 --进入场景
 --================
 function XGuildDormScene:OnEnterScene()
+    XLuaBehaviorManager.LoadBehaviorTree(CS.BehaviorTree.XGamePlayType.DormOrGuild)
     --异步加载场景
-    self.Resource = CS.XResourceManager.LoadAsync(self.SceneAssetUrl)
-    CS.XTool.WaitCoroutine(self.Resource, function()
-            if not self.Resource.Asset then
-                XLog.Error("XGuildDormScene LoadScene error, instantiate error, name: " .. self.SceneAssetUrl)
-                return
-            end
-            self.GameObject = CS.UnityEngine.Object.Instantiate(self.Resource.Asset)
-            OnLoadComplete(self)
-        end)
+    self:GetLoaderUtil():LoadAsync(self.SceneAssetUrl, function(asset)
+        if not asset then
+            XLog.Error("XGuildDormScene LoadScene error, instantiate error, name: " .. self.SceneAssetUrl)
+            return
+        end
+        self.GameObject = CS.UnityEngine.Object.Instantiate(asset)
+        OnLoadComplete(self)
+    end)
 end
 --=============
 --退出场景
 --=============
 function XGuildDormScene:OnExitScene()
+    CS.XAudioManager.ListenerSetParent()
+    CS.UnityEngine.Physics.simulationMode = CS.UnityEngine.SimulationMode.Script
     if self.OnLeaveCb then
         self.OnLeaveCb()
     end
     self:Collect()
+    XLuaBehaviorManager.UnloadBehaviorTree(CS.BehaviorTree.XGamePlayType.DormOrGuild)
 end
 --=============
 --场景回收
 --=============
-local function ClearGlobalIllumSOResourceMap(scene)
-    for _, v in pairs(scene.GlobalIllumSOResourceMap) do
-        if v then
-            v:Release()
-        end
-    end
-    scene.GlobalIllumSOResourceMap = nil
-end
 function XGuildDormScene:Collect()
     for _, room in pairs(self.Rooms or {}) do
         room:Dispose()
@@ -157,9 +167,8 @@ function XGuildDormScene:Collect()
     CS.UnityEngine.GameObject.Destroy(self.GameObject)
     self.GameObject = nil
     self.CurrentGlobalIllumSoPath = nil
-    ClearGlobalIllumSOResourceMap(self)
-    if self.Resource then
-        self.Resource:Release()
+    if self.LoaderUtil then
+        CS.XLoaderUtil.ClearModuleLoader(self.ModuleName)
     end
 end
 --=============
@@ -181,17 +190,20 @@ end
 --=================
 function XGuildDormScene:InitRooms(roomIndex)
     --所有房间的配置
+    --ToDo aafasou 添加根据主题读取相应的房间配置
     local rooms = XGuildDormConfig.GetAllConfigs(XGuildDormConfig.TableKey.Room)
+    local themeCfg = XDataCenter.GuildDormManager.GetThemeCfg()
     self.RoomId2Cfg = {} --RoomId -> 房间Cfg
     self.RoomIndex2Id = {} --房间场景内序号Cfg.Index -> RoomId
+    ---@type table<number, XGuildDormRoom>
     self.Rooms = {}
     for id, roomCfg in pairs(rooms or {}) do
         --判断是否本场景的房间
         if roomCfg.SceneName == self.Name then
             self.RoomId2Cfg[id] = roomCfg
             self.RoomIndex2Id[roomCfg.Index] = id
-            if roomIndex and roomCfg.Index == roomIndex then
-                self.CurName = roomCfg.PrefabName
+            if roomIndex and themeCfg.Index == roomIndex then
+                self.CurName = themeCfg.PrefabName
                 self.CurrentRoomIndex = roomIndex
             end
         end
@@ -252,7 +264,8 @@ end
 --=======================照相机操作 Start========================
 function XGuildDormScene:InitCamera()
     self.Camera = self.GameObject.transform:Find("Camera"):GetComponent("Camera")
-    self.PhysicsRaycaster = self.Camera.gameObject:AddComponent(typeof(CS.UnityEngine.EventSystems.PhysicsRaycaster))
+    -- 公告宿舍暂时没有拖拽物体功能，由于影响到相机的拖拽功能先注释掉 后续有需求在处理
+    --self.PhysicsRaycaster = self.Camera.gameObject:AddComponent(typeof(CS.UnityEngine.EventSystems.PhysicsRaycaster))
 
     CS.XGraphicManager.BindCamera(self.Camera)
     local cameraTargetIndex = 1
@@ -266,7 +279,7 @@ function XGuildDormScene:InitCamera()
         cameraTargetIndex = cameraTargetIndex + 1
         cameraTarget = CS.UnityEngine.GameObject.Find("@Room_" .. cameraTargetIndex)
     end
-    self.CameraController = self.Camera.gameObject:GetComponent(typeof(CS.XCameraController))
+    self.CameraController = self.Camera.gameObject:GetComponent(typeof(CS.XGuildDormCameraController))
 end
 
 function XGuildDormScene:ChangeCameraToRoom(roomId, cb)
@@ -278,12 +291,13 @@ function XGuildDormScene:ChangeCameraToRoom(roomId, cb)
         XLog.Error("找不到房间Id，场景名：" .. self.Name .. " 房间Id：" .. tostring(roomId))
         return
     end
+    local themeCfg = XDataCenter.GuildDormManager.GetThemeCfg()
     self.CurCameraFollowTarget = self["CameraFollowTarget" .. roomCfg.Index]
-    self.CurName = roomCfg.PrefabName
+    self.CurName = themeCfg.PrefabName
 
-    XLuaUiManager.Open("UiBlackScreen", self.CurCameraFollowTarget, false, self.CurName, function()
-            if cb then cb() end
-        end)
+    XHomeSceneManager.SafeOpenBlack(self.CurCameraFollowTarget, false, self.CurName, function()
+        if cb then cb() end
+    end)
 end
 --=======================照相机操作 End========================
 return XGuildDormScene

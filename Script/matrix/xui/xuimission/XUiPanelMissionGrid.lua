@@ -1,4 +1,5 @@
-XUiPanelMissionGrid = XClass(nil, "XUiPanelMissionGrid")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiPanelMissionGrid = XClass(nil, "XUiPanelMissionGrid")
 
 function XUiPanelMissionGrid:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -211,7 +212,7 @@ function XUiPanelMissionGrid:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

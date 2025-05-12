@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildDonation = XLuaUiManager.Register(XLuaUi, "UiGuildDonation")
 local XUiGuildDonationItem = require("XUi/XUiGuild/XUiChildItem/XUiGuildDonationItem")
 

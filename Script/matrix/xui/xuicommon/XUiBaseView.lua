@@ -1,4 +1,6 @@
-XUiBaseView = XClass(XUiBaseComponent, "XUiBaseView")
+local XUiBaseComponent = require("XUi/XUiCommon/XUiBaseComponent")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiBaseView = XClass(XUiBaseComponent, "XUiBaseView")
 
 -- function XUiBaseView:Ctor(rootUi, ui)
 -- end
@@ -84,3 +86,5 @@ function XUiBaseComponent:_GetTemplateComponent(templateGO, index)
     return comp
 end
 --==== 创建模板列表 end
+
+return XUiBaseView

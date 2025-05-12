@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local handler = handler
 local CsXTextManagerGetText = CsXTextManagerGetText
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
@@ -10,8 +11,9 @@ function XUiGridRewardTip:Ctor(ui)
 
     XTool.InitUiObject(self)
 
-    self.BtnFinish.CallBack = handler(self, self.OnClickBtnFinish)
+    XUiHelper.RegisterClickEvent(self, self.BtnFinish, self.OnClickBtnFinish, nil, true)
     self.BtnGo.CallBack = handler(self, self.OnClickBtnGo)
+    XUiHelper.RegisterClickEvent(self, self.BtnReceiveBlueLight, self.OnClickReceiveAll, nil, true)
 
     self.GridCommon.gameObject:SetActiveEx(false)
 
@@ -24,12 +26,20 @@ end
 
 function XUiGridRewardTip:Refresh(rewardId, levelId)
     self.RewardId = rewardId
+    self.ReceiveAll = rewardId == -1
+    self.PanelAnimation.gameObject:SetActiveEx(not self.ReceiveAll)
+    self.TaskReceive.gameObject:SetActiveEx(self.ReceiveAll)
 
-    local name = XStrongholdConfigs.GetRewardDesc(rewardId)
+    if self.ReceiveAll then
+        return
+    end
+
+    local name = XStrongholdConfigs.GetRewardTitle(rewardId)
     self.TxtTaskName.text = name
 
     local conditionId = XStrongholdConfigs.GetRewardConditionId(rewardId)
     local ret, des, haveCount, requireCount = XConditionManager.CheckCondition(conditionId)
+    self.TxtTaskDescribe.text = des
 
     if haveCount and XTool.IsNumberValid(requireCount) then
         self.TxtTaskNumQian.text = CsXTextManagerGetText("StrongholdRewardProgress", haveCount, requireCount)
@@ -47,14 +57,14 @@ function XUiGridRewardTip:Refresh(rewardId, levelId)
     self.BtnFinish.gameObject:SetActiveEx(not isFinished)
     local skipId = XStrongholdConfigs.GetRewardSkipId(rewardId)
     self.BtnGo.gameObject:SetActiveEx(not isFinished and not ret and XTool.IsNumberValid(skipId))
-    self.ImgAlreadyFinish.gameObject:SetActiveEx(isFinished)
+    self.BtnReceiveHave.gameObject:SetActiveEx(isFinished)
 
     local rewardGoodsId = XStrongholdConfigs.GetRewardGoodsId(rewardId)
     local rewards = XRewardManager.GetRewardList(rewardGoodsId) or {}
     for index, reward in ipairs(rewards or {}) do
         local grid = self.RewardGrids[index]
         if not grid then
-            local ui = index == 1 and self.GridCommon or CSUnityEngineObjectInstantiate(self.GridCommon, self.PanelRewardContent)
+            local ui = index == 1 and self.GridCommon or CSUnityEngineObjectInstantiate(self.GridCommon, self.GridCommon.parent)
             grid = XUiGridCommon.New(self.RootUi, ui)
             self.RewardGrids[index] = grid
         end
@@ -69,14 +79,14 @@ function XUiGridRewardTip:Refresh(rewardId, levelId)
         end
     end
 
-    local isShow = XRedPointConditionStrongholdMineralLeft.Check(self.RewardId)
+    local isShow = XRedPointConditions.Check(XRedPointConditions.Types.XRedPointConditionStrongholdMineralLeft, self.RewardId)
     self.BtnFinish:ShowReddot(isShow)
 
     --预览模式不显示按钮
     if XTool.IsNumberValid(levelId) then
         self.BtnFinish.gameObject:SetActiveEx(false)
         self.BtnGo.gameObject:SetActiveEx(false)
-        self.ImgAlreadyFinish.gameObject:SetActiveEx(false)
+        self.BtnReceiveHave.gameObject:SetActiveEx(false)
     end
 end
 
@@ -92,12 +102,21 @@ function XUiGridRewardTip:OnClickBtnFinish()
             XUiManager.OpenUiObtain(rewardGoods)
         end
     end
-    XDataCenter.StrongholdManager.GetStrongholdRewardRequest(rewardId, cb)
+    XDataCenter.StrongholdManager.GetStrongholdRewardRequest({ rewardId }, cb)
 end
 
 function XUiGridRewardTip:OnClickBtnGo()
     local skipId = XStrongholdConfigs.GetRewardSkipId(self.RewardId)
     XFunctionManager.SkipInterface(skipId)
+end
+
+function XUiGridRewardTip:OnClickReceiveAll()
+    local rewardIds = XDataCenter.StrongholdManager.GetCanReceiveReward()
+    XDataCenter.StrongholdManager.GetStrongholdRewardRequest(rewardIds, function(rewardGoods)
+        if not XTool.IsTableEmpty(rewardGoods) then
+            XUiManager.OpenUiObtain(rewardGoods)
+        end
+    end)
 end
 
 return XUiGridRewardTip

@@ -1,3 +1,5 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local tableInsert = table.insert
 
 local XUiFubenActivityPuzzleRewardPanel = XClass(nil, "XUiFubenActivityPuzzleRewardPanel")

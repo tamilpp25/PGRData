@@ -1,4 +1,5 @@
 --从服务器接收的格式
+---@class XChatData 聊天数据
 XChatData = XClass(nil, "XChatData")
 
 local Default = {
@@ -22,6 +23,7 @@ local Default = {
     GuildName = "",
     CollectWordId = 0,
     NameplateId = 0,
+    ChatBoardId = 0,
 }
 
 function XChatData:Ctor(chatData)
@@ -55,6 +57,7 @@ function XChatData:Ctor(chatData)
     self.CollectWordId = chatData.CollectWordId
     self.IsRead = false
     self.NameplateId = chatData.NameplateId or 0
+    self.ChatBoardId = chatData.ChatBoardId
 end
 
 function XChatData:GetSendTime()
@@ -95,7 +98,7 @@ function XChatData:GetRoomMsgContent()
 
     if contentId == RoomMsgContentId.FrinedInvite then
         -- 普通联机
-        if MultipleRoomType.Normal == roomType or MultipleRoomType.ArenaOnline == roomType then
+        if MultipleRoomType.Normal == roomType or MultipleRoomType.ArenaOnline == roomType or MultipleRoomType.FubenPhoto == roomType then
             local playerName
             if playerId == XPlayer.Id then
                 playerName = XPlayer.Name
@@ -117,25 +120,40 @@ function XChatData:GetRoomMsgContent()
             return CS.XTextManager.GetText("OnlineInviteFriend", playerName, stageName, inviteWords)
         end
         -- 狙击战联机
-        if MultipleRoomType.UnionKill == roomType then
+        --if MultipleRoomType.UnionKill == roomType then
+        --    local playerName
+        --    if playerId == XPlayer.Id then
+        --        playerName = XPlayer.Name
+        --    else
+        --        playerName = XDataCenter.SocialManager.GetPlayerRemark(playerId, "")
+        --    end
+        --
+        --    local unionInfo = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
+        --    local activityName
+        --    if not unionInfo then
+        --        activityName = ""
+        --    else
+        --        local currentUnionActivityConfig = XFubenUnionKillConfigs.GetUnionActivityConfigById(unionInfo.Id)
+        --        activityName = currentUnionActivityConfig.Name
+        --    end
+        --
+        --    local inviteWords = CS.XTextManager.GetText("OnlineInviteLink", string.format("%s|%s|%s|%s", roomId, tostring(stageId), tostring(roomType), tostring(stageLevel)))
+        --    return CS.XTextManager.GetText("OnlineInviteFriend", playerName, activityName, inviteWords)
+        --end
+        -- Dlc
+        if MultipleRoomType.DlcWorld == roomType then
+            local worldId = stageId
             local playerName
+            local nodeId = contentData[7] or ""
             if playerId == XPlayer.Id then
                 playerName = XPlayer.Name
             else
                 playerName = XDataCenter.SocialManager.GetPlayerRemark(playerId, "")
             end
-
-            local unionInfo = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
-            local activityName
-            if not unionInfo then
-                activityName = ""
-            else
-                local currentUnionActivityConfig = XFubenUnionKillConfigs.GetUnionActivityConfigById(unionInfo.Id)
-                activityName = currentUnionActivityConfig.Name
-            end
-
-            local inviteWords = CS.XTextManager.GetText("OnlineInviteLink", string.format("%s|%s|%s|%s", roomId, tostring(stageId), tostring(roomType), tostring(stageLevel)))
-            return CS.XTextManager.GetText("OnlineInviteFriend", playerName, activityName, inviteWords)
+            -- local stageName = XDlcHuntWorldConfig.GetWorldName(worldId)
+            local stageName = XMVCA.XDlcWorld:GetWorldNameById(worldId)
+            local inviteWords = CS.XTextManager.GetText("OnlineInviteLink", string.format("%s|%s|%s|%s|%s", roomId, tostring(worldId), tostring(roomType), tostring(stageLevel), tostring(nodeId)))
+            return CS.XTextManager.GetText("OnlineInviteFriend", playerName, stageName, inviteWords)
         end
     end
 
@@ -194,6 +212,7 @@ ChatMsgType = {
     RoomMsg = 5, -- 联机房间消息
     System = 6, --公会系统消息
     SpringFestival = 7, --春节集字活动消息
+    DlcRoomMsg = 8, --Dlc房间邀请消息
 }
 
 -- PrivateChatPrefabType = {
@@ -226,4 +245,6 @@ MultipleRoomType = {
     UnionKill = 2,
     ArenaOnline = 3,
     MultiDimOnline = 4,
+    DlcWorld = 5,
+    FubenPhoto=6,
 }

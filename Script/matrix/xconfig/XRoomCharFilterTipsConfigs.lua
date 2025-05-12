@@ -1,6 +1,7 @@
 XRoomCharFilterTipsConfigs = XRoomCharFilterTipsConfigs or {}
 
 local TABLE_CHARACTER_FILTER = "Client/Character/CharacterFilter.tab"
+local TABLE_CHARACTER_FILTER_COMMON_GROUP = "Client/Character/CharacterFilterCommonGroup.tab"
 local TABLE_CHARACTER_FILTER_TAG_GROUP = "Client/Character/CharacterFilterTagGroup.tab"
 local TABLE_CHARACTER_FILTER_TAG = "Client/Character/CharacterFilterTag.tab"
 
@@ -9,6 +10,7 @@ local TABLE_CHARACTER_SORT_TAG = "Client/Character/CharacterSortTag.tab"
 
 
 local CharacterFilterConfig             -- 筛选配置项，包含标签组
+local CharacterFilterCommonGroupConfig        -- 筛选配置项
 local CharacterFilterTagGroupConfig     -- 筛选标签组，包含标签
 local CharacterFilterTagConfig          -- 筛选标签
 
@@ -62,10 +64,12 @@ XRoomCharFilterTipsConfigs.EnumSortTag = {
     SuperLevel = 5, -- 超限等级，超级爬塔活动
     SSBMonster = 6, -- 怪物阶级，超限乱斗活动
     SSBMonsterDefault = 7, -- 怪物阶级+战力，超限乱斗活动
+    EquipGuide = 8, -- 装备引导
 }
 
 function XRoomCharFilterTipsConfigs.Init()
     CharacterFilterConfig = XTableManager.ReadByIntKey(TABLE_CHARACTER_FILTER, XTable.XTableCharacterFilter, "Id")
+    CharacterFilterCommonGroupConfig = XTableManager.ReadByIntKey(TABLE_CHARACTER_FILTER_COMMON_GROUP, XTable.XTableCharacterFilterCommonGroup, "Id")
     CharacterFilterTagGroupConfig = XTableManager.ReadByIntKey(TABLE_CHARACTER_FILTER_TAG_GROUP, XTable.XTableCharacterFilterTagGroup, "Id")
     CharacterFilterTagConfig = XTableManager.ReadByIntKey(TABLE_CHARACTER_FILTER_TAG, XTable.XTableCharacterFilterTag, "Id")
 
@@ -78,6 +82,18 @@ end
 
 local GetCharacterFilterCfg = function(id)
     local config = CharacterFilterConfig[id]
+
+    if not config then
+        XLog.ErrorTableDataNotFound("XRoomCharFilterTipsConfigs.GetCharacterFilterCfg",
+                "编队角色筛选", TABLE_CHARACTER_FILTER, "Id", tostring(id))
+        return {}
+    end
+
+    return config
+end
+
+local GetCharacterFilterCommonGroupCfg = function(id)
+    local config = CharacterFilterCommonGroupConfig[id]
 
     if not config then
         XLog.ErrorTableDataNotFound("XRoomCharFilterTipsConfigs.GetCharacterFilterCfg",
@@ -147,7 +163,14 @@ function XRoomCharFilterTipsConfigs.GetFilterTagGroups(id)
     return cfg.TagGroups
 end
 
-
+------------------------------------------------------------------ CharacterFilterCommonGroup.tab -------------------------------------------------------
+---
+--- 根据'id'获取筛选显示的标签配置
+---@return table
+function XRoomCharFilterTipsConfigs.GetFilterTagCommonGroupTags(id)
+    local cfg = GetCharacterFilterCommonGroupCfg(id)
+    return cfg.Tags
+end
 ------------------------------------------------------------------ CharacterFilterTagGroup.tab -------------------------------------------------------
 
 ---
@@ -164,6 +187,21 @@ end
 function XRoomCharFilterTipsConfigs.GetFilterTagGroupTags(id)
     local cfg = GetCharacterFilterTagGroupCfg(id)
     return cfg.Tags
+end
+
+---
+--- 根据'id'获取筛选组包含的顺序
+---@return table
+function XRoomCharFilterTipsConfigs.GetFilterTagGroupOrder(id)
+    local cfg = GetCharacterFilterTagGroupCfg(id)
+    return cfg.Order
+end
+
+---
+--- 根据'id'获取筛选组包含的筛选标签
+---@return table
+function XRoomCharFilterTipsConfigs.GetFilterTagGroup()
+    return CharacterFilterTagGroupConfig
 end
 
 
@@ -193,6 +231,21 @@ function XRoomCharFilterTipsConfigs.GetFilterTagValue(id)
     return cfg.Value
 end
 
+---
+--- 根据'id'获取筛选标签的图标
+---@return number
+function XRoomCharFilterTipsConfigs.GetFilterTagSelectedIcon(id)
+    local cfg = GetCharacterFilterTagCfg(id)
+    return cfg.SelectedIcon
+end
+
+---
+--- 根据'id'获取筛选标签的图标
+---@return number
+function XRoomCharFilterTipsConfigs.GetFilterTagUnSelectedIcon(id)
+    local cfg = GetCharacterFilterTagCfg(id)
+    return cfg.UnSelectedIcon
+end
 
 ------------------------------------------------------------------ CharacterSort.tab -------------------------------------------------------
 

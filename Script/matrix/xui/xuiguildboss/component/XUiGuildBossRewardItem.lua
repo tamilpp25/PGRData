@@ -19,19 +19,11 @@ function XUiGuildBossRewardItem:Ctor(ui, parentUi)
     self.MyRewardType = GuildBossRewardType.Disable
 end
 
---self.ScoreBoxGot 已领取的id list
 function XUiGuildBossRewardItem:Init(data, lastScore)
     self.Data = data
     self.MyTotalScore = XDataCenter.GuildBossManager.GetMyTotalScore()
-    self.ScoreBoxGot = XDataCenter.GuildBossManager.GetScoreBoxGot()
     --是否已领取
-    self.IsGet = false
-    for _,val in pairs(self.ScoreBoxGot) do
-        if val == self.Data.Id then
-            self.IsGet = true
-            break
-        end
-    end
+    self.IsGet = XDataCenter.GuildBossManager.IsScoreRewardReceive(self.Data.Id)
     self.TxtScore.text = XUiHelper.GetLargeIntNumText(self.Data.Score)
     --三种情况
     --未达到分数要求不能领取

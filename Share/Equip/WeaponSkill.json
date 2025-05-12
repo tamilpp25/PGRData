@@ -21,7 +21,7 @@
         "Ability": 100,
         "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool17.png",
         "Name": "Dead Line Timing",
-        "Description": "Gain 2 extra random Signal Orbs when deployed, and 3 Signal Orbs of the same color every 45s (also gain Signal Orbs on standby).",
+        "Description": "Gains 2 extra random Signal Orbs when deployed, and 3 Signal Orbs of the same color every 45s (also gains Signal Orbs on standby).",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -253,9 +253,9 @@
         ],
         "SubSkillId": [],
         "Ability": 100,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool8.png",
-        "Name": "Polymerization Collapse",
-        "Description": "Inflicts <color=#FF6347>Smash</color> effect upon dealing Physical DMG. <color=#FF6347>Smash</color>: reduces the target's Physical Resistance by 8% for 8s. Repeated triggering refreshes the duration.",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool12.png",
+        "Name": "Domain Deconstruction",
+        "Description": "Inflicts <color=#D91414>Corrosion</color> effect upon dealing damage. <color=#D91414>Corrosion</color>: reduces the target's All Resistances by 8% for 8s. Triggering this effect again will renew its duration.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -266,9 +266,9 @@
         ],
         "SubSkillId": [],
         "Ability": 100,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool9.png",
-        "Name": "Diode Torch",
-        "Description": "Inflicts <color=#FF6347>Embers</color> effect upon dealing Fire DMG. <color=#FF6347>Embers</color>: reduces the target's Fire Resistance by 8% for 8s. Repeated triggering refreshes the duration.",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool12.png",
+        "Name": "Domain Deconstruction",
+        "Description": "Inflicts <color=#D91414>Corrosion</color> effect upon dealing damage. <color=#D91414>Corrosion</color>: reduces the target's All Resistances by 8% for 8s. Triggering this effect again will renew its duration.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -279,9 +279,9 @@
         ],
         "SubSkillId": [],
         "Ability": 100,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool10.png",
-        "Name": "Bose Hyperflow",
-        "Description": "Inflicts <color=#FF6347>Chilly</color> effect upon dealing Ice DMG. <color=#FF6347>Chilly</color>: reduces the target's Ice Resistance by 8% for 8s. Repeated triggering refreshes the duration.",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool12.png",
+        "Name": "Domain Deconstruction",
+        "Description": "Inflicts <color=#D91414>Corrosion</color> effect upon dealing damage. <color=#D91414>Corrosion</color>: reduces the target's All Resistances by 8% for 8s. Triggering this effect again will renew its duration.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -292,9 +292,9 @@
         ],
         "SubSkillId": [],
         "Ability": 100,
-        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool11.png",
-        "Name": "Thunder Shake",
-        "Description": "Inflicts <color=#FF6347>Thunder</color> effect upon dealing Lightning DMG. <color=#FF6347>Thunder</color>: reduces the target's Lightning Resistance by 8% for 8s. Repeated triggering refreshes the duration.",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool12.png",
+        "Name": "Domain Deconstruction",
+        "Description": "Inflicts <color=#D91414>Corrosion</color> effect upon dealing damage. <color=#D91414>Corrosion</color>: reduces the target's All Resistances by 8% for 8s. Triggering this effect again will renew its duration.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -306,8 +306,8 @@
         "SubSkillId": [],
         "Ability": 100,
         "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool12.png",
-        "Name": "Tenebrion Shock",
-        "Description": "Inflicts <color=#FF6347>Dark Wave</color> effect upon dealing Dark DMG. <color=#FF6347>Dark Wave</color>: reduces the target's Dark Resistance by 8% for 8s. Repeated triggering refreshes the duration.",
+        "Name": "Domain Deconstruction",
+        "Description": "Inflicts <color=#D91414>Corrosion</color> effect upon dealing damage. <color=#D91414>Corrosion</color>: reduces the target's All Resistances by 8% for 8s. Triggering this effect again will renew its duration.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -580,7 +580,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Energy Incarnate",
-        "Description": "Extra DMG Bonus increases by 5%. Pinging orbs will accumulate energy based on the number of orbs pinged. Consumes 50 energy to summon Sirius for 45s. 60s cooldown.          Its power as a weapon is nothing to write home about, but it is much sought after for its attractive appearance.",
+        "Description": "Extra DMG Bonus increases by 5%. Pinging orbs will accumulate energy based on the number of orbs pinged. Consumes 50 energy to summon Sirius for 45s. 60s cooldown.",
         "DesLinkCharacterSkillId": null,
         "Account": "Support Battle"
     },
@@ -806,6 +806,20 @@
         "Description": "Lightning DMG is increased by 15%. When dealing Lightning DMG caused by skills to the same target 5 times, calls down a lightning strike that deals 150% Lightning DMG. 2s cooldown.",
         "DesLinkCharacterSkillId": null,
         "Account": "Lightning Boost"
+    },
+    {
+        "Id": 2046003,
+        "BornMagic": [
+            522035.0,
+            522037.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Paradise Regained",
+        "Description": "ATK increases by 10%. Base DMG of <color=#D91414>Signature - Celestial Edge</color> increases by <color=#D91414>15%</color>. Each time <color=#D91414>Splendor Points</color> are full, one random Signal Orb and one <color=#D91414>Cipher Orb</color> of the same color will be generated. <color=#D91414>Ultralimit Torque</color> now increases Physical DMG by 20%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
     },
     {
         "Id": 2053001,
@@ -1257,7 +1271,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "White Sculpture",
-        "Description": "<color=#FF6347>Bitter Frost</color> deals 20% more Base DMG. <color=#FF6347>Bitterfrost Level's</color> Energy acquisition speed increases by 100%.",
+        "Description": "<color=#D91414>Bitter Frost</color> deals 20% more Base DMG. <color=#D91414>Bitterfrost Level's</color> Energy acquisition speed increases by 100%.",
         "DesLinkCharacterSkillId": null,
         "Account": "Core Boost"
     },
@@ -1388,7 +1402,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Contract",
-        "Description": "Physical DMG in <color=#FF6347>Battle Stance</color> increases by <color=#FF6347>10%</color>.",
+        "Description": "Physical DMG in <color=#D91414>Battle Stance</color> increases by <color=#D91414>10%</color>.",
         "DesLinkCharacterSkillId": null,
         "Account": "Beginner Transition"
     },
@@ -1401,7 +1415,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Contract",
-        "Description": "Physical DMG in <color=#FF6347>Battle Stance</color> increases by <color=#FF6347>10%</color>.",
+        "Description": "Physical DMG in <color=#D91414>Battle Stance</color> increases by <color=#D91414>10%</color>.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -1414,7 +1428,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Contract - Mod",
-        "Description": "Increases Physical DMG by <color=#FF6347>15%</color> and doubles the effects of Leader Skill. Upon entering combat, gains <color=#FF6347>160</color> <color=#FF6347>Stability</color> and switching to <color=#FF6347>Battle Stance</color> gives <color=#FF6347>2</color> stacks of <color=#FF6347>Data Correction</color>.",
+        "Description": "Increases Physical DMG by <color=#D91414>15%</color> and doubles the effects of Leader Skill. Upon entering combat, gains <color=#D91414>160</color> <color=#D91414>Stability</color> and switching to <color=#D91414>Battle Stance</color> gives <color=#D91414>2</color> stacks of <color=#D91414>Data Correction</color>.",
         "DesLinkCharacterSkillId": null,
         "Account": "Physical Boost"
     },
@@ -1427,7 +1441,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Contract - Mod",
-        "Description": "Increases Physical DMG by <color=#FF6347>15%</color> and doubles the effects of Leader Skill. Upon entering combat, gains <color=#FF6347>160</color> <color=#FF6347>Stability</color> and switching to <color=#FF6347>Battle Stance</color> gives <color=#FF6347>2</color> stacks of <color=#FF6347>Data Correction</color>.",
+        "Description": "Increases Physical DMG by <color=#D91414>15%</color> and doubles the effects of Leader Skill. Upon entering combat, gains <color=#D91414>160</color> <color=#D91414>Stability</color> and switching to <color=#D91414>Battle Stance</color> gives <color=#D91414>2</color> stacks of <color=#D91414>Data Correction</color>.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -1466,7 +1480,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Marvel",
-        "Description": null,
+        "Description": "When equipped by Qu: Pavo, increases her Physical DMG by <color=#D91414>20%</color> and Huiyu's attack frequency by <color=#D91414>50%</color>. Huiyu gains a new skill: Curse Incarnate. <color=#D91414>Curse Incarnate</color>: Huiyu becomes a curse attached to the target, dealing Physical DMG, then explodes after a short while to deal Physical DMG. The DMG varies based on Qu's Signature Move level.",
         "DesLinkCharacterSkillId": 152317.0,
         "Account": "Physical Boost"
     },
@@ -1518,7 +1532,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Rebel",
-        "Description": "Upon deploying <color=#FF6347>POD: Shield</color>, A2 gains a 10% Physical DMG boost. Slide for 1s to increase the boost from <color=#FF6347>POD: Shield</color> by an extra 5%.",
+        "Description": "Upon deploying <color=#D91414>POD: Shield</color>, A2 gains a 10% Physical DMG boost. Slide for 1s to increase the boost from <color=#D91414>POD: Shield</color> by an extra 5%.",
         "DesLinkCharacterSkillId": null,
         "Account": "Beginner Transition"
     },
@@ -1531,7 +1545,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Rebel - Mod",
-        "Description": "While A2 is in <color=#FF6347>Berserk</color> mode, gains a <color=#FF6347>10%</color> ATK boost. Within <color=#FF6347>2</color> seconds of entering Matrix or evading, hold the Attack Button to launch an enhanced attack dealing * Physical DMG. If the attack hits the enemy, deals * follow-up Physical DMG (DMG varies depending on the Basic Attack and skill level). <color=#FF6347>Spend Yellow Orbs</color> to charge Type 4O Lance's ability, increasing the value of POD: Shield by <color=#FF6347>3%</color> for each orb. Additionally, increases Physical DMG for any amount of Yellow Orbs spent by <color=#FF6347>10%</color> for 15s.",
+        "Description": "While A2 is in <color=#D91414>Berserk Mode</color>, she gains <color=#D91414>10%</color> Extra DMG Bonus. Within <color=#D91414>2</color>s after entering Matrix or dodging, hold the Attack button to launch an enhanced attack dealing * Physical DMG. If this attack hits the enemy, press the Attack button again to launch a follow-up attack, dealing * Physical DMG (DMG varies depending on the Basic Attack level). Press charge to <color=#D91414>consume all Yellow Orbs</color> to charge up Type-4O Lance, with each Yellow Orb consumed providing <color=#D91414>3%</color> POD: Shield. Additionally, whenever Yellow Orbs of any number are consumed, A2 gains <color=#D91414>10%</color> Extra Physical DMG Bonus for 15s.",
         "DesLinkCharacterSkillId": 120316.0,
         "Account": "Physical Boost"
     },
@@ -1544,7 +1558,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Oath",
-        "Description": "DMG for <color=#FF6347>Overclock Indicator</color> increases by <color=#FF6347>10%</color>.",
+        "Description": "DMG for <color=#D91414>Overclock Indicator</color> increases by <color=#D91414>10%</color>.",
         "DesLinkCharacterSkillId": null,
         "Account": "Beginner Transition"
     },
@@ -1557,7 +1571,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Oath - Mod",
-        "Description": "Increases Physical DMG and Healing effects by <color=#FF6347>15%</color>, also doubles the effects of Leader Skill. After triggering <color=#FF6347>Overclock Indicator</color>, swapping cooldown for 2B and A2 decreases by <color=#FF6347>1s</color> and they gain 1 random Signal Orb.",
+        "Description": "Increases Physical DMG and Healing effects by <color=#D91414>15%</color>, also doubles the effects of Leader Skill. After triggering <color=#D91414>Overclock Indicator</color>, swapping cooldown for 2B and A2 decreases by <color=#D91414>1s</color> and they gain 1 random Signal Orb.",
         "DesLinkCharacterSkillId": null,
         "Account": "Healing Boost"
     },
@@ -1609,7 +1623,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Heavy Barrel",
-        "Description": "Extra DMG Bonus of <color=#FF6347>Frost Spin</color> increases by 10%.",
+        "Description": "Extra DMG Bonus of <color=#D91414>Frost Spin</color> increases by 10%.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -1635,7 +1649,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Judgement",
-        "Description": "Ice DMG increases by 15%. Gain <color=#FF6347>Frost Crystal</color> for 8s when the backstep of <color=#FF6347>Blooming Shot</color> successfully dodges an attack.",
+        "Description": "Ice DMG increases by 15%. Gain <color=#D91414>Frost Crystal</color> for 8s when the backstep of <color=#D91414>Blooming Shot</color> successfully dodges an attack.",
         "DesLinkCharacterSkillId": null,
         "Account": "Ice Boost"
     },
@@ -1674,7 +1688,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Serenade",
-        "Description": "Lightning DMG increases by 20%. <color=#FF6347>Roaring Thunder</color> and <color=#FF6347>Sonic Vortex</color> can now be cast during the action of other Signal Orb skills, but cannot be cast consecutively. Leaving Chaotic M.I.N.D. will return Orbs based on the number of Orbs before entering Chaotic M.I.N.D. and rearrange them for 3-Ping.",
+        "Description": "Lightning DMG increases by 20%. <color=#D91414>Roaring Thunder</color> and <color=#D91414>Sonic Vortex</color> can now be cast during the action of other Signal Orb skills, but cannot be cast consecutively. Leaving Chaotic M.I.N.D. will return Orbs based on the number of Orbs before entering Chaotic M.I.N.D. and rearrange them for 3-Ping.",
         "DesLinkCharacterSkillId": null,
         "Account": "Lightning Boost"
     },
@@ -1687,7 +1701,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Ice Modification",
-        "Description": "Extra DMG Bonus of <color=#FF6347>Glacial Slash</color> increases by 15%.",
+        "Description": "Extra DMG Bonus of <color=#D91414>Glacial Slash</color> increases by 15%.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -1714,7 +1728,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Apollo's Glory",
-        "Description": "Ice DMG increases by 15%, QTE and any 3-Ping skill can trigger <color=#FF6347>Frost Corrosion</color>.",
+        "Description": "Ice DMG increases by 15%, QTE and any 3-Ping skill can trigger <color=#D91414>Frost Corrosion</color>.",
         "DesLinkCharacterSkillId": null,
         "Account": "Ice Boost"
     },
@@ -1727,7 +1741,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Magnetic Wave Field",
-        "Description": "Temporary Core: Whenever No. 21: XXI performs Shadow Prism attacks, the Co-Bot unleashes a <color=#FF6347>Force Wave</color> that deals <color=#FF6347>50%</color> AOE Dark DMG to enemies (only triggers once per second).",
+        "Description": "Temporary Core: Whenever No. 21: XXI performs Shadow Prism attacks, the Co-Bot unleashes a <color=#D91414>Force Wave</color> that deals <color=#D91414>50%</color> AOE Dark DMG to enemies (only triggers once per second).",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -1740,7 +1754,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Memories Resonance",
-        "Description": "Experimental Core: Whenever No. 21: XXI performs Shadow Prism attacks or disrupts incoming enemy attacks, the Co-Bot unleashes a <color=#FF6347>Force Wave</color> that deals <color=#FF6347>50%</color> AOE Dark DMG to enemies (only triggers once per second). This effect can only be triggered once per second. Inver-Resonance Unit: Increases the Extra DMG Bonus of No.21: XXI's Twilight Matrix and <color=#FF6347>Resonance Pulse</color> by <color=#FF6347>10%</color>.",
+        "Description": "Experimental Core: Whenever No. 21: XXI performs Shadow Prism attacks or disrupts incoming enemy attacks, the Co-Bot unleashes a <color=#D91414>Force Wave</color> that deals <color=#D91414>50%</color> AOE Dark DMG to enemies (only triggers once per second). This effect can only be triggered once per second. Inver-Resonance Unit: Increases the Extra DMG Bonus of No. 21: XXI's Twilight Matrix and <color=#D91414>Resonance Pulse</color> by <color=#D91414>10%</color>.",
         "DesLinkCharacterSkillId": null,
         "Account": "Beginner Transition"
     },
@@ -1753,7 +1767,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Wide Energy Pressure",
-        "Description": null,
+        "Description": "When equipped by No. 21: XXI, she gains Wide-Energy Pressure Core: Whenever No. 21: XXI performs Shadow Prism attacks, a QTE, or recovers from hit, the Co-Bot unleashes a <color=#D91414>Force Wave</color> that deals <color=#D91414>50%</color> AOE Dark DMG to enemies within (this effect can only be triggered once per second). Energy Suppression Unit: Hitting allies with Force Wave will grant them <color=#D91414>Energy Suppression</color> for 3s. Energy Suppression: Dealing Dark DMG reduces the enemy's healing received by <color=#D91414>100%</color> for 3s. Impulse Fort Module: When the Force Wave detonates <color=#D91414>6</color> Twilight Matrices at once, the Co-Bot enters Fortification mode, unleashing a hyper-pulse that deals Dark DMG equal to * of No. 21: XXI's ATK (DMG scales with Core Passive level). Inver-Resonance Unit 2.0: Increases the Extra DMG Bonus of No. 21: XXI's Twilight Matrix and <color=#D91414>Resonance Pulse</color> by <color=#D91414>15%</color>.",
         "DesLinkCharacterSkillId": 122221.0,
         "Account": "Support Battle"
     },
@@ -1766,7 +1780,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Sharp Cut",
-        "Description": "DMG from Red Orbs <color=#FF6347>Reaper Sweep</color> increases by 10%",
+        "Description": "DMG from Red Orbs <color=#D91414>Reaper Sweep</color> increases by 10%",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -1792,7 +1806,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Eternal Hymn",
-        "Description": "Lightning DMG increases by 15%. <color=#FF6347>Victorious War Flag</color> and Signature Move <color=#FF6347>Shining Piercer</color> can create another stack of <color=#FF6347>Electric Charge</color>. When <color=#FF6347>Victorious War Flag</color> is on the field, deploying Vera: Garnet will consume all of <color=#FF6347>Electric Charge</color> to cast <color=#FF6347>Lightning Fall</color>. Create another stack of <color=#FF6347>Electric Charge</color> afterward.",
+        "Description": "Lightning DMG increases by 15%. <color=#D91414>Victorious War Flag</color> and Signature Move <color=#D91414>Shining Piercer</color> can create another stack of <color=#D91414>Electric Charge</color>. When <color=#D91414>Victorious War Flag</color> is on the field, deploying Vera: Garnet will consume all of <color=#D91414>Electric Charge</color> to cast <color=#D91414>Lightning Fall</color>. Create another stack of <color=#D91414>Electric Charge</color> afterward.",
         "DesLinkCharacterSkillId": null,
         "Account": "Lightning Boost"
     },
@@ -1831,7 +1845,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Immortality",
-        "Description": "Fire DMG increases by 10%. The cooldown of consecutive dodge is removed. After dodging a damage, accumulates 1 Combo 2 - Dazzling Blade, which can be cast directly toward the direction of the joystick by tapping the White Orb. Also increases Extra DMG Bonus by 10% for 8s. During <color=#FF6347>Apex of Trickery</color>, the Deception Points generated from this combo are converted into 10 <color=#FF6347>Trickery Points</color> instead.",
+        "Description": "Fire DMG increases by 10%. The cooldown between consecutive dodging is removed. After dodging a damage, accumulates 1 Combo 2 - Dazzling Blade, which can be cast directly toward the direction of the joystick by tapping the White Orb. Also increases Extra DMG Bonus by 10% for 8s. During <color=#D91414>Apex of Trickery</color>, the Deception Points generated from this combo are converted into 10 <color=#D91414>Trickery Points</color> instead.",
         "DesLinkCharacterSkillId": null,
         "Account": "Fire Boost"
     },
@@ -1844,7 +1858,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Mediation Melody",
-        "Description": "Extra DMG Bonus of pings increases by <color=#FF6347>10%</color>.",
+        "Description": "Extra DMG Bonus of pings increases by <color=#D91414>10%</color>.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -1857,7 +1871,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Faithful Oath",
-        "Description": "Upon making a Prayer, gains <color=#FF6347>15%</color> Extra DMG Bonus for <color=#FF6347>10</color>s.",
+        "Description": "Upon making a Prayer, gains <color=#D91414>15%</color> Extra DMG Bonus for <color=#D91414>10</color>s.",
         "DesLinkCharacterSkillId": null,
         "Account": "Beginner Transition"
     },
@@ -1870,7 +1884,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Sacred Flame Ripples",
-        "Description": "Liv: Empyrea gains <color=#FF6347>10%</color> more ATK. Every time she enters the battlefield, she gains <color=#FF6347>50%</color> Prayer. Fire DMG Bonus of <color=#FF6347>Purity Oath</color> against enemies affected by <color=#FF6347>White Oracle</color> increases by <color=#FF6347>20%</color> (up to <color=#FF6347>100%</color>).",
+        "Description": "Liv: Empyrea gains <color=#D91414>10%</color> more ATK. Every time she enters the battlefield, she gains <color=#D91414>50%</color> Prayer. Fire DMG Bonus of <color=#D91414>Purity Oath</color> against enemies affected by <color=#D91414>White Oracle</color> increases by <color=#D91414>20%</color> (up to <color=#D91414>100%</color>).",
         "DesLinkCharacterSkillId": null,
         "Account": "Fire Boost"
     },
@@ -1883,7 +1897,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Minuet Variation",
-        "Description": "<color=#FF6347>Red Orbs</color> deal 15% more damage.",
+        "Description": "<color=#D91414>Red Orbs</color> deal 15% more damage.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -1909,7 +1923,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Mirage Light Concerto",
-        "Description": "Each phantom unleashed by Selena: Capriccio on the field will make Selena: Capriccio deal 5% more Extra DMG. This effect can be stacked up to 6 times. Upon casting a <color=#FF6347>Reprise: Echo</color>, Selena: Capriccio gains 12 additional Signature Energy.",
+        "Description": "Each phantom unleashed by Selena: Capriccio on the field will make Selena: Capriccio deal 5% more Extra DMG. This effect can be stacked up to 6 times. Upon casting a <color=#D91414>Reprise: Echo</color>, Selena: Capriccio gains 12 additional Signature Energy.",
         "DesLinkCharacterSkillId": null,
         "Account": "Signature Move Boost"
     },
@@ -1935,7 +1949,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Falling Moon",
-        "Description": "The Base DMG of <color=#FF6347>Signature - Spirit Blade Dance</color> increases by 20%.",
+        "Description": "The Base DMG of <color=#D91414>Signature - Spirit Blade Dance</color> increases by 20%.",
         "DesLinkCharacterSkillId": null,
         "Account": "Beginner Transition"
     },
@@ -1948,7 +1962,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Dragon Boost",
-        "Description": "Increases Physical DMG dealt by 15% and Base DMG of <color=#FF6347>Signature - Spirit Blade Dance</color> by 25%. CRIT Rate of <color=#FF6347>Spirit Blade: Falling Stars</color> increases by 30% for every <color=#FF6347>Dragon Force Combo</color> cast. (Can be stacked up to 2 times)",
+        "Description": "Increases Physical DMG dealt by 15% and Base DMG of <color=#D91414>Signature - Spirit Blade Dance</color> by 25%. CRIT Rate of <color=#D91414>Spirit Blade: Falling Stars</color> increases by 30% for every <color=#D91414>Dragon Force Combo</color> cast. (Can be stacked up to 2 times)",
         "DesLinkCharacterSkillId": null,
         "Account": "Physical Boost"
     },
@@ -1961,7 +1975,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Overload Muzzle",
-        "Description": "Fire DMG increases by 5%. <color=#FF6347>\"Perfect!\"</color> deals 10% more damage.",
+        "Description": "Fire DMG increases by 5%. <color=#D91414>\"Perfect!\"</color> deals 10% more damage.",
         "DesLinkCharacterSkillId": null,
         "Account": null
     },
@@ -1987,7 +2001,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Helium Flash",
-        "Description": "Fire DMG increases by 15%. When Nanami: Starfarer is on standby, her teammates' every 3-Ping will restore 12 Signature Energy for her. Missiles will inflict <color=#FF6347>Scorching Invasion</color> upon hitting the target: reduces 15% Fire Resistance for 8s. When Nanami: Starfarer triggers the QTE, if there is <color=#FF6347>Missile Support</color> on the field, the duration of <color=#FF6347>Missile Support</color> will be refreshed.",
+        "Description": "Fire DMG increases by 15%. When Nanami: Starfarer is on standby, her teammates' every 3-Ping will restore 12 Signature Energy for her. Missiles will inflict <color=#D91414>Scorching Invasion</color> upon hitting the target: reduces 15% Fire Resistance for 8s. When Nanami: Starfarer triggers the QTE, if there is <color=#D91414>Missile Support</color> on the field, the duration of <color=#D91414>Missile Support</color> will be refreshed.",
         "DesLinkCharacterSkillId": null,
         "Account": "Fire Boost"
     },
@@ -2026,7 +2040,7 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Big Bang",
-        "Description": "The <color=#FF6347>Chain Fusion</color> effect applied by Karenina: Scire increases by <color=#FF6347>10%</color>. Each time Karenina casts <color=#FF6347>Radiant Whirlwind</color>, she recovers <color=#FF6347>1</color> Energy. The Extra DMG Bonus of Leap Attack increases by <color=#FF6347>20%</color>.",
+        "Description": "The <color=#D91414>Chain Fusion</color> effect applied by Karenina: Scire increases by <color=#D91414>10%</color>. Each time Karenina casts <color=#D91414>Radiant Whirlwind</color>, she recovers <color=#D91414>1</color> Energy. The Extra DMG Bonus of Leap Attack increases by <color=#D91414>20%</color>.",
         "DesLinkCharacterSkillId": null,
         "Account": "Signature Boost"
     },
@@ -2104,7 +2118,735 @@
         "Ability": 0,
         "Icon": null,
         "Name": "Deep Scar",
-        "Description": "CRIT DMG increases by 30%. Upon entering the <color=#FF6347>Sword Form</color>, immediately gains 20 stacks of <color=#FF6347>Stigmata Will</color> and activates the <color=#FF6347>Resolution</color> status.",
+        "Description": "CRIT DMG increases by 30%. Upon entering the <color=#D91414>Sword Form</color>, immediately gains 20 stacks of <color=#D91414>Stigmata Will</color> and activates the <color=#D91414>Resolution</color> status.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2314001,
+        "BornMagic": [
+            512168.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Overlaid Bladedge",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2315001,
+        "BornMagic": [
+            512166.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Chilling Evisceration",
+        "Description": "Ice DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2316001,
+        "BornMagic": [
+            512162.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Stark Perseverance",
+        "Description": "ATK increases by 10%. Bambinata: Vitrum's <color=#D91414>Pas De Chat</color> deals 15% more Ice DMG. Every time Bambinata: Vitrum is deployed, she will forget a random color of Signal Orbs for 1 <color=#D91414>Pact of Memory</color>.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2324001,
+        "BornMagic": [
+            512187.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Kinetic Bonus",
+        "Description": "Fire DMG increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2325001,
+        "BornMagic": [
+            512184.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Critical Fusion",
+        "Description": "Fire DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2326001,
+        "BornMagic": [
+            512180.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Reverse Dimension",
+        "Description": "ATK increases by 10%. Casting <color=#D91414>Realm Travel</color> will trigger Matrix if it is not on cooldown. The first <color=#D91414>Hypermatrix Strike</color> launched upon entering battle will generate 1 extra <color=#D91414>Sight Point</color>.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2334001,
+        "BornMagic": [
+            512200.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Heart of Kaleidoscope",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2335001,
+        "BornMagic": [
+            512202.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Parhelion Halo",
+        "Description": "Ice DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2336001,
+        "BornMagic": [
+            512204.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "All of Nature",
+        "Description": "ATK increases by 10%. Doubles the Base DMG increase effect of Ayla: Kaleido's <color=#D91414>Vibrant Brushstroke</color> for <color=#D91414>Signature - Finishing Touch</color>. The Ice DMG Bonus of <color=#D91414>Frost Crystal</color> increases to 20%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2344001,
+        "BornMagic": [
+            512227.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Bladevore",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2345001,
+        "BornMagic": [
+            512224.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Thundict",
+        "Description": "Lightning DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2346001,
+        "BornMagic": [
+            512220.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Shadebloom",
+        "Description": "Increases ATK by 10%. When Lucia: Crimson Weave <color=#D91414>holds the odachi</color>, her Extra DMG Bonus increases by 15%. The efficiency of acquiring <color=#D91414>Aphotic Points</color> increases by 40%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2354001,
+        "BornMagic": [
+            512242.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Lone Light",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2355001,
+        "BornMagic": [
+            512241.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Greening Zephyr",
+        "Description": "Physical DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2356001,
+        "BornMagic": [
+            512240.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Full Moon",
+        "Description": "ATK increases by 10%. During the action of pinging any orb, Hanying: Zitherwoe is able to immediately cast another ping for once only. The Base DMG Increase effect of each stack of <color=#D91414>Emerald Flow</color> increases to 40%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2364001,
+        "BornMagic": [
+            512243.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Scorching Lightning",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2365001,
+        "BornMagic": [
+            512245.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Hunting Instinct",
+        "Description": "Lightning DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2366001,
+        "BornMagic": [
+            512247.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Night Hound",
+        "Description": "ATK increases by 10%. Restores 1 set of random 3-Ping Orbs each time No. 21: Feral enters the battle. The Lightning DMG Bonus from <color=#D91414>Lightning Surge</color> increases to 20%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2374001,
+        "BornMagic": [
+            512266.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Infinite Impossibility",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2375001,
+        "BornMagic": [
+            512264.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Turbocharged",
+        "Description": "Lightning DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2376001,
+        "BornMagic": [
+            512260.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Baryon Combustion",
+        "Description": "ATK increases by 10%. Noctis: Indomitus gains 120 Energy each time upon entering battle. Immediately gains a <color=#D91414>Blast Orb</color> after casting <color=#D91414>Signature - Magnetic Blast</color>.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2384001,
+        "BornMagic": [
+            522053.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Ebbing Tide",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2385001,
+        "BornMagic": [
+            522055.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Raging Tide",
+        "Description": "Dark DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2386001,
+        "BornMagic": [
+            522045.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Hidden Current",
+        "Description": "ATK increases by 10%. The amount of Abyssal Points earned increases by 100%. Pinging a Tidal Orb will trigger Matrix if it is not in cooldown.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2395001,
+        "BornMagic": [
+            122245.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Leaping Stars",
+        "Description": "Fire DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2396001,
+        "BornMagic": [
+            122242.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Leaping Stars\u2605",
+        "Description": "ATK increases by 10%. Base DMG of Flare Strike, Starry Bayonet, Basic Attack - Skycrushing Blade, and Core Passive - Limit Released increases by 100%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2404001,
+        "BornMagic": [
+            522068.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Resonance Heating",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2405001,
+        "BornMagic": [
+            522070.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Blade Surge",
+        "Description": "Fire DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2406001,
+        "BornMagic": [
+            522064.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Polymorphic Awakening",
+        "Description": "ATK increases by 10%. Upon entering the <color=#D91414>Assault Mode</color>, gains 3 Red Orbs, up to 6 orbs each time when entering the battlefield. Can quickly cast <color=#D91414>Scorching Torrent</color> after pinging Red Orbs.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2414001,
+        "BornMagic": [
+            512270.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Night Surge",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2415001,
+        "BornMagic": [
+            512268.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Light Ranger",
+        "Description": "Ice DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2416001,
+        "BornMagic": [
+            512272.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Grand Wonder",
+        "Description": "ATK increases by 10%. Upon activating Into the Fray, triggers Matrix if it is not in cooldown and grants a bonus Inscription. When casting Mountain Caller, each attack grants 3 extra Signature Energy.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2424001,
+        "BornMagic": [
+            512278.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Forced Encapsulation",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2425001,
+        "BornMagic": [
+            512277.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Mimic Interference",
+        "Description": "Dark DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2426001,
+        "BornMagic": [
+            512275.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Soundwave Penetration",
+        "Description": "ATK increases by 10%. Base DMG of Signal Orbs and Stress Orbs increases by 30%. When Teddy: Decryptor enters the battlefield while she is not in Analysis Mode, she will enter Analysis Mode automatically and gain 40 Analysis Points if she has full Signature Energy. Otherwise, she gains 100 Signature Energy.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2434001,
+        "BornMagic": [
+            512286.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Crimson Tide",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2435001,
+        "BornMagic": [
+            512283.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Deconstruction",
+        "Description": "Nihil DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2436001,
+        "BornMagic": [
+            512279.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Obliteration",
+        "Description": "ATK increases by 10%. After a 3-Ping or casting Shattering Moon with maximum Crescent Points, the next ping is regarded as a 3-Ping. Gains Crescent Points 50% faster.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2444001,
+        "BornMagic": [
+            512297.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Gravity Surge",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2445001,
+        "BornMagic": [
+            512298.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Defying Obstacles",
+        "Description": "Fire DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2446001,
+        "BornMagic": [
+            512299.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Radiant Barrier",
+        "Description": "ATK increases by 10%. Base DMG of Steel Charge increases by 60%. When Red Orbs are depleted, casting Steel Charge or performing a precise block immediately restores 1 Red Orb. The Combustible Charges produced by Prairie Fire increase by 40%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2454001,
+        "BornMagic": [
+            522076.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Mellow Cadence",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2455001,
+        "BornMagic": [
+            522077.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Faerie Melisma",
+        "Description": "Physical DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2456001,
+        "BornMagic": [
+            522075.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Ephemeral Dream",
+        "Description": "ATK increases by 10%. The effect of Piercing Blow launched by Hanying: Solacetune increases by 20%. Casting Jade Bloom continuously will stack damage up to 3 times instead. Triggering Ethereal Symphony grants additional 50 Sharp Reserve.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2464001,
+        "BornMagic": [
+            512305.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Bite the Dust",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2465001,
+        "BornMagic": [
+            512304.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Eye of Horus",
+        "Description": "Ice DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2466001,
+        "BornMagic": [
+            512303.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Twilight Dreams",
+        "Description": "ATK increases by 10%. Doubles the Base DMG of Flurry Blitz, Frosty Barrage, and Snow Storm.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2474001,
+        "BornMagic": [
+            512309.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Shattering the Chains",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2475001,
+        "BornMagic": [
+            512308.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Haunting Abyss Spirit",
+        "Description": "Increases Fire DMG by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2476001,
+        "BornMagic": [
+            512306.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "The Vow of Eternal Flame",
+        "Description": "ATK +10%. Recover 3 Signal Orbs after casting Signature - Crowd Slash. Entering Fire Thunder Form will trigger Matrix if it is not on cooldown.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2484001,
+        "BornMagic": [
+            512315.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Rapid Radiance",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2485001,
+        "BornMagic": [
+            512316.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Thunderous Purge",
+        "Description": "Lightning DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2486001,
+        "BornMagic": [
+            512317.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Thunderbow's Return",
+        "Description": "ATK increases by 10%. While in Void and Sanctuary Realm, casting Night Raid - Halt grants 30 Heartflow. In Epiphany Realm, Base DMG of Thunder Outflux - Night Raid and Thunder Outflux - Mirror Return increases by 50%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "ATK Boost"
+    },
+    {
+        "Id": 2494001,
+        "BornMagic": [
+            512322.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Night Wandering",
+        "Description": "ATK increases by 5%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": null
+    },
+    {
+        "Id": 2495001,
+        "BornMagic": [
+            512321.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Guiding Light",
+        "Description": "Lightning DMG increases by 10%.",
+        "DesLinkCharacterSkillId": null,
+        "Account": "Beginner Transition"
+    },
+    {
+        "Id": 2496001,
+        "BornMagic": [
+            512319.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Transcendent Omni Slash",
+        "Description": "Increases ATK by 10%. Overload doubles Base DMG effect of Meteoric Doom. Base DMG of Blazing Rift doubles.",
         "DesLinkCharacterSkillId": null,
         "Account": "ATK Boost"
     }

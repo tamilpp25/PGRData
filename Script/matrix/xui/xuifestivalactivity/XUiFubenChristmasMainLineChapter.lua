@@ -1,3 +1,5 @@
+local XUiFestivalStageItem = require("XUi/XUiFestivalActivity/XUiFestivalStageItem")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiFubenChristmasMainLineChapter = XLuaUiManager.Register(XLuaUi, "UiFubenChristmasMainLineChapter")
 local FESTIVAL_FIGHT_DETAIL = "UiFubenChristmasStageDetail"
 local FESTIVAL_STORY_DETAIL = "UiStoryChristmasStageDetail"
@@ -21,8 +23,6 @@ function XUiFubenChristmasMainLineChapter:OnAwake()
     self.LastOpenStage = nil
     self.StageGroup = {}
     XEventManager.AddEventListener(XEventId.EVENT_ON_FESTIVAL_CHANGED, self.RefreshFestivalNodes, self)
-    XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.Festival,
-        require("XUi/XUiFestivalActivity/XUiFestivalActivityNewRoomSingle"))
 end
 
 function XUiFubenChristmasMainLineChapter:OnEnable()
@@ -38,8 +38,8 @@ function XUiFubenChristmasMainLineChapter:OnEnable()
     if not XDataCenter.MovieManager.IsPlayingMovie() then
         local festivalConfig = XFestivalActivityConfig.GetFestivalById(self.ChapterId)
         if festivalConfig and festivalConfig.ChapterBgm > 0 then
-            -- CS.XAudioManager.PlayMusic(festivalConfig.ChapterBgm)
-            XSoundManager.PlaySoundDoNotInterrupt(festivalConfig.ChapterBgm)
+            -- XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Music, festivalConfig.ChapterBgm)
+            XLuaAudioManager.PlaySoundDoNotInterrupt(festivalConfig.ChapterBgm)
         end
     end
 
@@ -90,6 +90,8 @@ function XUiFubenChristmasMainLineChapter:OnStart(chapterId, defaultStageId)
     if defaultStageId then
         self:OpenDefaultStage(defaultStageId)
     end
+    -- 保存点击
+    XDataCenter.FubenFestivalActivityManager.SaveFestivalActivityIsOpen(chapterId)
 end
 
 function XUiFubenChristmasMainLineChapter:InitProxy()
@@ -129,6 +131,11 @@ function XUiFubenChristmasMainLineChapter:SetUiData(chapterTemplate)
     end
     self:InitSkipBtn()
     if self.PaneStageList then
+        local listCanvas = self.PaneStageList.gameObject:GetComponent(typeof(CS.UnityEngine.Canvas))
+        local rootCanvas = self.GameObject:GetComponent(typeof(CS.UnityEngine.Canvas))
+        if not XTool.UObjIsNil(listCanvas) and not XTool.UObjIsNil(rootCanvas) then
+            listCanvas.sortingOrder = rootCanvas.sortingOrder + listCanvas.sortingOrder
+        end
         local dragProxy = self.PaneStageList:GetComponent(typeof(XUguiDragProxy))
         if not dragProxy then
             dragProxy = self.PaneStageList.gameObject:AddComponent(typeof(XUguiDragProxy))
@@ -148,7 +155,9 @@ function XUiFubenChristmasMainLineChapter:SetUiData(chapterTemplate)
     self:LoadEffect(chapterTemplate.EffectUrl)
     local now = XTime.GetServerNowTimestamp()
     local startTime, endTimeSecond = XFunctionManager.GetTimeByTimeId(self.Chapter:GetTimeId())
-    if endTimeSecond then
+    local isShowTime = endTimeSecond and endTimeSecond ~= 0
+    self.TxtDay.gameObject:SetActiveEx(isShowTime)
+    if isShowTime then
         self.TxtDay.text = XUiHelper.GetTime(endTimeSecond - now, self._Proxy:GetTimeFormatType())
         self:CreateActivityTimer(now, endTimeSecond)
     end
@@ -212,7 +221,7 @@ end
 -- 更新刷新
 function XUiFubenChristmasMainLineChapter:RefreshFestivalNodes()
     if not self.Chapter or not self.FestivalStageIds then return end
-    for i = 1, #self.FestivalStageIds do
+        for i = 1, #self.FestivalStageIds do
         self.FestivalStages[i]:UpdateNode(self.Chapter:GetChapterId(), self.FestivalStageIds[i])
     end
     self:UpdateNodeLines()
@@ -402,7 +411,7 @@ function XUiFubenChristmasMainLineChapter:ReopenAssetPanel()
     if self.IsOpenDetails then
         return
     end
-    if self.AssetPanel then
+    if self.AssetPanel and self.AssetPanel.GameObject and self.AssetPanel.GameObject:Exist() then
         self.AssetPanel.GameObject:SetActiveEx(true)
     end
 end
@@ -478,9 +487,22 @@ function XUiFubenChristmasMainLineChapter:InitSkipBtn()
                 self.RedPointId = XRedPointManager.AddRedPointEvent(self.BtnSkip, self.OnCheckBtnGameRedPoint, self, SkipBtnRedPointCondition[self.Chapter:GetChapterId()], nil, false)
             end
         end
+        local skipId2 = skipIds[2]
+        if self.BtnSkip2 and XTool.IsNumberValid(skipId2) then
+            self.BtnSkip2.CallBack = function()
+                XFunctionManager.SkipInterface(skipId2)
+            end
+            if SkipBtnRedPointCondition[self.Chapter:GetChapterId()] then
+                self.RedPointId = XRedPointManager.AddRedPointEvent(self.BtnSkip2, self.OnCheckBtnSkip2RedPoint, self, SkipBtnRedPointCondition[self.Chapter:GetChapterId()], nil, false)
+            end
+        end
     end
 end
 
 function XUiFubenChristmasMainLineChapter:OnCheckBtnGameRedPoint(count)
     self.BtnSkip:ShowReddot(count>=0)
+end
+
+function XUiFubenChristmasMainLineChapter:OnCheckBtnSkip2RedPoint(count)
+    self.BtnSkip2:ShowReddot(count>=0)
 end

@@ -17,7 +17,7 @@ function XUiGridWorldBossAreaRankItem:Init(data)
         if self.Team == nil then
             self.Team = XUiGridWorldBossTeamList.New(self.TeamObj)
         end
-        XUiPLayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.UObjHead)
+        XUiPlayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.UObjHead)
         self.Team:Init(data.CharacterInfos) 
     end
 end

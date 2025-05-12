@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiLoadingSet = XLuaUiManager.Register(XLuaUi, "UiLoadingSet")
 local XUiGridCG = require("XUi/UiLoading/ChildItem/XUiGridCG")
 
@@ -30,7 +32,7 @@ function XUiLoadingSet:Refresh()
     self.SelectCount = 0
 
     for _, v in ipairs(self.LoadingList) do
-        table.insert(self.EntityList, XDataCenter.ArchiveManager.GetArchiveCgEntity(v))
+        table.insert(self.EntityList, XMVCA.XArchive:GetArchiveCgEntity(v))
         self.SelectionDic[v] = false
     end
 

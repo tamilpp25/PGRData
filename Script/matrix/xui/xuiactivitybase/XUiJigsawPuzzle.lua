@@ -1,3 +1,5 @@
+local XUiGridPuzzlePiece = require("XUi/XUiActivityBase/XUiGridPuzzlePiece")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiJigsawPuzzle = XClass(nil, "XUiJigsawPuzzle")
 
 function XUiJigsawPuzzle:Ctor(ui, rootUi)

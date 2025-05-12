@@ -1,4 +1,5 @@
-XUiPanelTask = XClass(nil, "XUiPanelTask")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiPanelTask = XClass(nil, "XUiPanelTask")
 
 function XUiPanelTask:Ctor(ui, parent, index)
     self.GameObject = ui.gameObject

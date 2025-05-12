@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridGuildGiftItem = XClass(nil, "XUiGridGuildGiftItem")
 local GuildWillRequestTips
 local GuildWillRequestDesTips

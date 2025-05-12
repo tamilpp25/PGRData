@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiPanelFubenTab = require("XUi/XUiFubenCoinSkill/XUiPanelFubenTab")
 
 local XUiFubenCoinSkill = XLuaUiManager.Register(XLuaUi, "UiFubenCoinSkill")
 
@@ -84,7 +86,7 @@ function XUiFubenCoinSkill:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -187,7 +189,7 @@ function XUiFubenCoinSkill:OnFubenSelected(typeId)
     self:SetActive(false)
 
     local fightCb = function(stage)
-        XDataCenter.FubenManager.OpenRoomSingle(stage)
+        XDataCenter.FubenManager.OpenBattleRoom(stage)
         XDataCenter.FubenResourceManager.UpdateRewardFromTemp()
         self:SetActive(true)
     end

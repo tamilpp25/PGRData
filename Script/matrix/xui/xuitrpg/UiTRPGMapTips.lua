@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridTRPGMapNode = require("XUi/XUiTRPG/XUiGridTRPGMapNode")
 local XUiGridTRPGCardRecord = require("XUi/XUiTRPG/XUiGridTRPGCardRecord")
 
@@ -23,8 +24,13 @@ function XUiTRPGMapTips:OnStart(mazeId)
 end
 
 function XUiTRPGMapTips:OnEnable()
+
     self.PanelLayer:SelectIndex(self:GetLayerIndex(self.LayerId))
     self:UpdateCardRecords()
+end
+
+function XUiTRPGMapTips:OnDisable()
+
 end
 
 function XUiTRPGMapTips:OnGetEvents()

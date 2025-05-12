@@ -26,6 +26,8 @@ function XUiSTFunctionButton:InitFunction(functionKey)
         self.Function = funcManager:GetFunctionByKey(functionKey)
     end
     self:RefreshFunction()
+    
+    self.RefreshFunctionCb = handler(self, self.RefreshFunction)
 end
 --==================
 --刷新特权按钮状态
@@ -104,7 +106,7 @@ end
 function XUiSTFunctionButton:AddEventListener()
     if self.EventAdded then return end
     self.EventAdded = true
-    XEventManager.AddEventListener(XEventId.EVENT_ST_FUNCTION_UNLOCK, function() self:RefreshFunction() end)
+    XEventManager.AddEventListener(XEventId.EVENT_ST_FUNCTION_UNLOCK, self.RefreshFunctionCb)
     if self.ReddotEventId then
         self.RedId = XRedPointManager.AddRedPointEvent(self.UiButton, self.OnCheckBtnTaskRedPoint, self, self.ReddotEventId)
     end
@@ -114,7 +116,7 @@ end
 --==================
 function XUiSTFunctionButton:RemoveEventListener()
     if not self.EventAdded then return end
-    XEventManager.RemoveEventListener(XEventId.EVENT_ST_FUNCTION_UNLOCK, function() self:RefreshFunction() end)
+    XEventManager.RemoveEventListener(XEventId.EVENT_ST_FUNCTION_UNLOCK, self.RefreshFunctionCb)
     self.EventAdded = false
     if self.ReddotEventId then
         XRedPointManager.RemoveRedPointEvent(self.RedId)

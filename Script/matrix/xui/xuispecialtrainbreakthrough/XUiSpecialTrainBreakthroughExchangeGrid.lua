@@ -21,7 +21,7 @@ end
 
 function XUiSpecialTrainBreakthroughExchangeGrid:UpdateGrid(robotId)
     local characterId = XEntityHelper.GetCharacterIdByEntityId(robotId)
-    self.RImgHeadIcon:SetRawImage(XFubenSpecialTrainConfig.GetCuteModelSmallHeadIcon(characterId))
+    self.RImgHeadIcon:SetRawImage(XCharacterCuteConfig.GetCuteModelSmallHeadIcon(characterId))
     self.Txt1.text = XEntityHelper.GetCharacterName(robotId)
     self.Txt2.text = XEntityHelper.GetCharacterTradeName(robotId)
 end

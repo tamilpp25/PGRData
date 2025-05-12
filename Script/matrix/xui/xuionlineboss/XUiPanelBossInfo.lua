@@ -1,4 +1,5 @@
-XUiPanelBossInfo = XClass(nil, "XUiPanelBossInfo")
+local XUiPanelSkillBox = require("XUi/XUiOnlineBoss/XUiPanelSkillBox")
+local XUiPanelBossInfo = XClass(nil, "XUiPanelBossInfo")
 local PrePageSkillCount = 5
 
 function XUiPanelBossInfo:Ctor(ui)

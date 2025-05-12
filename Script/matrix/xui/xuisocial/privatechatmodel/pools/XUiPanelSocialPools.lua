@@ -1,4 +1,4 @@
-XUiPanelSocialPools = XClass(nil, "XUiPanelSocialPools")
+local XUiPanelSocialPools = XClass(nil, "XUiPanelSocialPools")
 
 function XUiPanelSocialPools:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -42,7 +42,7 @@ function XUiPanelSocialPools:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -65,3 +65,5 @@ function XUiPanelSocialPools:InitData(dynamicList)
     dynamicList:AddObjectPools("otherGift", self.PanelOtherMsgGiftItem.gameObject)
     dynamicList:AddObjectPools("tips", self.PanelTipsItem.gameObject)
 end
+
+return XUiPanelSocialPools

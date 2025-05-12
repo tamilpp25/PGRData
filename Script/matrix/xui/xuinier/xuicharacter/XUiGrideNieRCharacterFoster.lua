@@ -54,7 +54,7 @@ function XUiGrideNieRCharacterFoster:CreateSkill(skillId, skillLevel, isActive)
         self.ImgQuality.gameObject:SetActiveEx(false)
         self.PanelSite.gameObject:SetActiveEx(false) 
         -- self.ItemBg.gameObject:SetActiveEx(false) 
-        local skillInfo = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillLevel)
+        local skillInfo = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillLevel)
         self.RImgIcon:SetRawImage(skillInfo.Icon)
         
         self.LevelLable.text = skillLevel
@@ -66,7 +66,7 @@ function XUiGrideNieRCharacterFoster:CreateSkill(skillId, skillLevel, isActive)
         self.ImgQualityAc.gameObject:SetActiveEx(false)
         self.PanelSiteAc.gameObject:SetActiveEx(false) 
         -- self.ItemBg.gameObject:SetActiveEx(false) 
-        local skillInfo = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillLevel)
+        local skillInfo = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillLevel)
         self.RImgIconAc:SetRawImage(skillInfo.Icon)
         
         self.LevelLableAc.text = skillLevel
@@ -126,7 +126,7 @@ function XUiGrideNieRCharacterFoster:CreateEquip(euipId, level, breakthrough, is
             self.ImgQuality:SetSprite(spriteName)
         end
 
-        local showSite = self.GoodsShowParams.Site ~= XEquipConfig.EquipSite.Weapon
+        local showSite = self.GoodsShowParams.Site ~= XEnumConst.EQUIP.EQUIP_SITE.WEAPON
         self.PanelSite.gameObject:SetActiveEx(showSite) 
         self.TxtSite.text = "0" .. self.GoodsShowParams.Site
         self.LevelLable.text = level 
@@ -154,7 +154,7 @@ function XUiGrideNieRCharacterFoster:CreateEquip(euipId, level, breakthrough, is
             self.ImgQualityAc:SetSprite(spriteName)
         end
 
-        local showSite = self.GoodsShowParams.Site ~= XEquipConfig.EquipSite.Weapon
+        local showSite = self.GoodsShowParams.Site ~= XEnumConst.EQUIP.EQUIP_SITE.WEAPON
         self.PanelSiteAc.gameObject:SetActiveEx(showSite) 
         self.TxtSiteAc.text = "0" .. self.GoodsShowParams.Site
         self.LevelLableAc.text = level 

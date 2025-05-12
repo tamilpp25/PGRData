@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 ---@class XUiWhiteValenTaskDynamicTable
 local XUiWhiteValenTaskDynamicTable = XClass(nil, "XUiWhiteValenTaskDynamicTable")
 

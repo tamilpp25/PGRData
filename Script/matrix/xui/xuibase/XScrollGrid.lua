@@ -1,4 +1,4 @@
-XScrollGrid = XClass(nil, "XScrollGrid")
+local XScrollGrid = XClass(nil, "XScrollGrid")
 
 --==============================--
 --desc: 活动列表节点
@@ -29,3 +29,5 @@ end
 function XScrollGrid:OnDrag()
     -- Override this function
 end
+
+return XScrollGrid

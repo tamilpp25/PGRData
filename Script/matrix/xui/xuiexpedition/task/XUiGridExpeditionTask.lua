@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridExpeditionTask = XClass(nil, "XUiGridExpeditionTask")
 
 function XUiGridExpeditionTask:Ctor(ui, rootUi)
@@ -25,7 +26,9 @@ function XUiGridExpeditionTask:UpdateRewards()
     if not rewards then
         return
     end
-
+    for _, panel in pairs(self.RewardGrids) do
+        panel.GameObject:SetActiveEx(false)
+    end
     for i = 1, #rewards do
         local panel = self.RewardGrids[i]
         if not panel then
@@ -33,6 +36,7 @@ function XUiGridExpeditionTask:UpdateRewards()
             panel = XUiGridCommon.New(self.RootUi, ui)
             self.RewardGrids[i] = panel
         end
+        panel.GameObject:SetActiveEx(true)
         panel:Refresh(rewards[i])
     end
 end

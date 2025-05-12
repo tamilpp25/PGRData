@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiGridRankItem = XClass(nil, "XUiGridRankItem")
 
 function XUiGridRankItem:Ctor(ui)
@@ -28,7 +29,7 @@ function XUiGridRankItem:OnRefresh(itemdata)
     self.TxtPlayerName.text = itemdata.Name
     self.TxtSevenDay.text = itemdata.ContributeIn7Days
     
-    XUiPLayerHead.InitPortrait(itemdata.HeadPortraitId, itemdata.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(itemdata.HeadPortraitId, itemdata.HeadFrameId, self.Head)
     
 end
 

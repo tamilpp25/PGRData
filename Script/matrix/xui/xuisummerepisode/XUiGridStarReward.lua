@@ -1,4 +1,5 @@
-XUiGridStarReward = XClass(nil, "XUiGridStarReward")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiGridStarReward = XClass(nil, "XUiGridStarReward")
 
 function XUiGridStarReward:Ctor(ui)
     self.GameObject = ui.gameObject

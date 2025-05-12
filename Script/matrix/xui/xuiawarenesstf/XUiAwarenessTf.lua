@@ -15,8 +15,8 @@ function XUiAwarenessTf:OnStart(targetTemplateId)
     self.CurMaterialEquipId = { 0, 0, 0 }
     self.MaterialGrid = {}
     self.AwarenessTfBagList = {}
-    self.SuitId = XEquipConfig.GetEquipCfg(self.TemplateId).SuitId
-    self.EquipIds = XDataCenter.EquipManager.GetEquipIdsBySuitId(self.SuitId)
+    self.SuitId = XMVCA.XEquip:GetConfigEquip(self.TemplateId).SuitId
+    self.EquipIds = XMVCA.XEquip:GetEquipIdsBySuitId(self.SuitId)
     self.UpSort = true
     self:InitTargetInfo()
     self:UpdateConformBtn()
@@ -128,15 +128,15 @@ function XUiAwarenessTf:OnBtnStartTfClick()
     end
     local okCb = function()
         local site = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(self.TemplateId).Site
-        XDataCenter.EquipManager.AwarenessTransform(self.SuitId, site, self.CurMaterialEquipId, tfCb)
+        XMVCA.XEquip:AwarenessTransform(self.SuitId, site, self.CurMaterialEquipId, tfCb)
     end
 
     local title = CS.XTextManager.GetText("AwarenessTfConfirmTitle")
     local hasResonanced = false
     for i = 1, MAX_MATERIAL_SLOT do
-        local resonanceSkillNum = XDataCenter.EquipManager.GetResonanceSkillNum(self.CurMaterialEquipId[i])
+        local resonanceSkillNum = XMVCA.XEquip:GetResonanceSkillNum(self.CurMaterialEquipId[i])
         for j = 1, resonanceSkillNum do
-            if XDataCenter.EquipManager.CheckEquipPosResonanced(self.CurMaterialEquipId[i], j) then
+            if XMVCA.XEquip:CheckEquipPosResonanced(self.CurMaterialEquipId[i], j) then
                 hasResonanced = true
             end
         end
@@ -198,8 +198,8 @@ end
 
 --星星
 function XUiAwarenessTf:UpdateStar()
-    local star = XDataCenter.EquipManager.GetEquipStar(self.TemplateId)
-    for i = 1, XEquipConfig.MAX_STAR_COUNT do
+    local star = XMVCA.XEquip:GetEquipStar(self.TemplateId)
+    for i = 1, XEnumConst.EQUIP.MAX_STAR_COUNT do
         if self["ImgGirdStar" .. i] then
             if i <= star then
                 self["ImgGirdStar" .. i].gameObject:SetActive(true)
@@ -212,17 +212,17 @@ end
 
 --基础属性(名字，位置，等级，图标),等级默认1级，有继承在更新
 function XUiAwarenessTf:UpdateBaseInfo()
-    self.TxtResultName.text = XDataCenter.EquipManager.GetEquipName(self.TemplateId)
+    self.TxtResultName.text = XMVCA.XEquip:GetEquipName(self.TemplateId)
     self.TxtResultPos.text = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(self.TemplateId).Site
     self.TxtResultLevel.text = 1
-    local icon = XDataCenter.EquipManager.GetEquipLiHuiPath(self.TemplateId)
+    local icon = XMVCA.XEquip:GetEquipLiHuiPath(self.TemplateId)
     self.RImgResultIcon:SetRawImage(icon)
 end
 
 --放入主材料后更新等级显示
 function XUiAwarenessTf:UpdateTargetLevel()
     if self.CurMaterialEquipId[1] > 0 then
-        self.TxtResultLevel.text = XDataCenter.EquipManager.GetEquip(self.CurMaterialEquipId[1]).Level
+        self.TxtResultLevel.text = XMVCA.XEquip:GetEquip(self.CurMaterialEquipId[1]).Level
     else
         self.TxtResultLevel.text = 1
     end
@@ -257,13 +257,13 @@ function XUiAwarenessTf:InitMaterialBag()
     self.GridAwarenessTfSelect.gameObject:SetActive(false)
 
     --筛选：去除已穿戴的，锁定的，主材料，与目标同位置的
-    self.EquipIds = XDataCenter.EquipManager.GetEquipIdsBySuitId(self.SuitId)
+    self.EquipIds = XMVCA.XEquip:GetEquipIdsBySuitId(self.SuitId)
     self:FilterMaterial()
     --sort(默认升序)
     self.UpSort = true
     self.BtnSortDown.gameObject:SetActive(false)
     self.BtnSortUp.gameObject:SetActive(true)
-    XDataCenter.EquipManager.SortEquipIdListByPriorType(self.EquipIds)
+    XMVCA.XEquip:SortEquipIdListByPriorType(self.EquipIds)
     self:SortMaterial()
     --生成Grid
     self:UpdateBagItem()
@@ -338,7 +338,7 @@ function XUiAwarenessTf:UpdateBagItem()
         if not self.AwarenessTfBagList[i] then
             local tempGo = CS.UnityEngine.Object.Instantiate(self.GridAwarenessTfSelect.gameObject)
             tempGo.transform:SetParent(self.PanelContent, false)
-            self.AwarenessTfBagList[i] = XUiGridEquip.New(tempGo, clickCb, self)
+            self.AwarenessTfBagList[i] = XUiGridEquip.New(tempGo, self, clickCb, true)
         end
         self.AwarenessTfBagList[i]:Refresh(self.EquipIds[i])
         self.AwarenessTfBagList[i].GameObject:SetActive(true)
@@ -410,9 +410,9 @@ function XUiAwarenessTf:SortMaterial(upSort)
 
 --[[    table.sort(self.EquipIds, function(a, b)
         if self.UpSort then
-            return XDataCenter.EquipManager.GetEquip(a).Level < XDataCenter.EquipManager.GetEquip(b).Level
+            return XMVCA.XEquip:GetEquip(a).Level < XMVCA.XEquip:GetEquip(b).Level
         else
-            return XDataCenter.EquipManager.GetEquip(a).Level > XDataCenter.EquipManager.GetEquip(b).Level
+            return XMVCA.XEquip:GetEquip(a).Level > XMVCA.XEquip:GetEquip(b).Level
         end
     end)
     --]]
@@ -422,11 +422,11 @@ function XUiAwarenessTf:FilterMaterial()
     local removeIds = {}
     for k, v in pairs(self.EquipIds) do
         --已穿戴的
-        if XDataCenter.EquipManager.IsWearing(v) then
+        if XMVCA.XEquip:IsWearing(v) then
             removeIds[k] = true
         end
         --锁定的
-        if XDataCenter.EquipManager.IsLock(v) then
+        if XMVCA.XEquip:IsLock(v) then
             removeIds[k] = true
         end
         --主材料
@@ -435,7 +435,7 @@ function XUiAwarenessTf:FilterMaterial()
         end
         --同位置的
         local targetPos = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(self.TemplateId).Site
-        local tempPos = XDataCenter.EquipManager.GetEquipSite(v)
+        local tempPos = XMVCA.XEquip:GetEquipSiteByEquipId(v)
         if targetPos == tempPos then
             removeIds[k] = true
         end
@@ -457,7 +457,7 @@ function XUiAwarenessTf:UpdateMaterialGrid()
     end
     for i = 1, MAX_MATERIAL_SLOT do
         if not self.MaterialGrid[i] then
-            self.MaterialGrid[i] = XUiGridEquip.New(self["GridMaterial" .. i], clickCb, self)
+            self.MaterialGrid[i] = XUiGridEquip.New(self["GridMaterial" .. i], self, clickCb, true)
         end
         if self.CurMaterialEquipId[i] > 0 then
             self.MaterialGrid[i]:Refresh(self.CurMaterialEquipId[i])

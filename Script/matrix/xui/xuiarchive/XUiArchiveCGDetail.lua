@@ -1,3 +1,5 @@
+---@class XUiArchiveCGDetail:XLuaUi
+---@field private _Control XArchiveControl
 local XUiArchiveCGDetail = XLuaUiManager.Register(XLuaUi, "UiArchiveCGDetail")
 local FirstIndex = 1
 
@@ -19,7 +21,7 @@ function XUiArchiveCGDetail:Init(dataList, index)
         self.DataIndex = index
         self:SetMonsterData()
         self:CheckNextMonsterAndPreMonster()
-        XDataCenter.ArchiveManager.ClearCGRedPointById(data:GetId())
+        self._Control.CGControl:ClearCGRedPointById(data:GetId())
     end
     self.BtnShowUI.gameObject:SetActiveEx(false)
     self.BtnHideUI.gameObject:SetActiveEx(true)

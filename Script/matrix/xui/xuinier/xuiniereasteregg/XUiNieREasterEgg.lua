@@ -231,8 +231,8 @@ function XUiNieREasterEgg:RealNieREasterEggStoryClick(nextStoryId)
         if self.IsWin then
         else
             if CS.XFight.Instance ~= nil then
-                CS.XFight.Instance.InputControl:OnClick(CS.XNpcOperationClickKey.NieREasterLeave, CS.XNpcOperationClickType.KeyDown)
-                CS.XFight.Instance.InputControl:OnClick(CS.XNpcOperationClickKey.NieREasterLeave, CS.XNpcOperationClickType.KeyUp)
+                CS.XFight.Instance.InputControl:OnClick(CS.XNpcOperationClickKey.NieREasterLeave, CS.XOperationClickType.KeyDown)
+                CS.XFight.Instance.InputControl:OnClick(CS.XNpcOperationClickKey.NieREasterLeave, CS.XOperationClickType.KeyUp)
             end
         end
         self:Close()
@@ -248,8 +248,8 @@ function XUiNieREasterEgg:RealNieREasterEggStoryClick(nextStoryId)
             self.PlayerInput = true
         else
             if  CS.XFight.Instance ~= nil then
-                CS.XFight.Instance.InputControl:OnClick(CS.XNpcOperationClickKey.NieREasterRevive, CS.XNpcOperationClickType.KeyDown)
-                CS.XFight.Instance.InputControl:OnClick(CS.XNpcOperationClickKey.NieREasterRevive, CS.XNpcOperationClickType.KeyUp)
+                CS.XFight.Instance.InputControl:OnClick(CS.XNpcOperationClickKey.NieREasterRevive, CS.XOperationClickType.KeyDown)
+                CS.XFight.Instance.InputControl:OnClick(CS.XNpcOperationClickKey.NieREasterRevive, CS.XOperationClickType.KeyUp)
             end
             self:Close()
         end

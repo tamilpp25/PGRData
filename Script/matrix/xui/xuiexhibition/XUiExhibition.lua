@@ -1,3 +1,4 @@
+local XUiGridCharacter = require("XUi/XUiCharacter/XUiGridCharacter")
 local XUiExhibition = XLuaUiManager.Register(XLuaUi, "UiExhibition")
 
 local XUiGridCharacterIcon = require("XUi/XUiExhibition/XUiGridCharacterIcon")

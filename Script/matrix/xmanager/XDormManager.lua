@@ -2,9 +2,12 @@
 --- 宿舍业务管理器
 ---
 XDormManagerCreator = function()
+    ---@class XDormManager 宿舍业务管理器
     local XDormManager = {}
+    XDormManager.IsDormDataNotify = false
 
     local CharacterData = {}  -- 构造体数据
+    ---@type table<number, XHomeRoomData>
     local DormitoryData = {}  -- 宿舍数据
     -- local VisitorData = {}  -- 宿舍访客数据
     local WorkListData = {} --打工数据(正在打工或者打完工但是奖励没有领)
@@ -12,6 +15,7 @@ XDormManagerCreator = function()
     local RecommVisData = {} --推荐访问数据
     local RecommVisIds = {}
     local RecommVisFriendData = {}
+    local CharacterMoodCache = {} -- 构造体心情临时缓存(用于一键处理事件，缓存处理前心情)
 
     local LastSyncServerTime = 0 -- 爱抚水枪上一次请求时间
     local DormShowEventList = {}  -- 构造体客户端展示事件效果列表
@@ -19,11 +23,15 @@ XDormManagerCreator = function()
     local IsInTouch = false  -- 是否再爱抚中
     local SYNC_PUTFURNITURE_SECOND = 5       --摆放家具保护护时间
     local LastPutFurnitureTime = 0 --大厅个人玩家列表最后刷新时间
+    local VisitRequestTimeLimit = 10 --宿舍访问列表请求保护时间
+    local LastRequestUnknownVisitor = 0 --上次请求未知访客宿舍时间
 
+    ---@type table<number, XHomeRoomData>
     local TargetDormitoryData = {}  --别人宿舍数据
     local TargetCharacterData = {} -- 构造体数据(访问其他人时)
     -- local TargetVisitorData = {} -- 宿舍访问数据(访问其他人时)
 
+    ---@type table<number, XHomeRoomData>
     local TempDormitoryData = {} -- 模板宿舍数据(包括收藏宿舍)
     local ProvisionalDormData = {} -- 导入的宿舍数据
     local LocalCaptureCache = {}    -- 本地截图缓存
@@ -60,6 +68,8 @@ XDormManagerCreator = function()
         DormBindLayoutReq = "DormBindLayoutRequest", -- 模板绑定宿舍
         DormUnBindLayoutReq = "DormUnBindLayoutRequest", -- 解除模板绑定宿舍
         DormCollectLayoutReq = "DormCollectLayoutRequest", -- 收藏宿舍请求
+
+        DormCharacterFinishAllEventReq = "DormCharacterFinishAllEventRequest", -- 一键完成全部构造体事件
     }
 
     function XDormManager.InitOnlyOnce()
@@ -76,6 +86,7 @@ XDormManagerCreator = function()
             DormitoryData[id]:SetPlayerId(XPlayer.Id)
         end
 
+        TempDormitoryData = {}
         local templateData = XDormConfig.GetDormTemplateData()
         for k, v in pairs(templateData) do
             TempDormitoryData[k] = v
@@ -93,8 +104,9 @@ XDormManagerCreator = function()
             local roomData = DormitoryData[data.DormitoryId]
             if not roomData then
                 local path = XDormConfig.GetDormitoryTablePath()
-                XLog.Error("XDormManager.InitDormitoryData 错误:" .. path .. " 表中不存在DormitoryId: " .. data.DormitoryId .."检查配置表或者参数dormitoryList")
+                XLog.Error("XDormManager.InitDormitoryData 错误:" .. path .. " 表中不存在DormitoryId: " .. data.DormitoryId .. "检查配置表或者参数dormitoryList")
             else
+                roomData:Init()
                 roomData:SetRoomUnlock(true)
                 roomData:SetRoomName(data.DormitoryName)
             end
@@ -131,7 +143,7 @@ XDormManagerCreator = function()
         end
     end
 
-    function XDormManager.InitdormCollectData(dormCollectList)
+    function XDormManager.InitDormCollectData(dormCollectList)
         if dormCollectList and next(dormCollectList) then
             for _, v in ipairs(dormCollectList) do
                 TempDormitoryData[v.LayoutId] = XHomeRoomData.New(v.LayoutId)
@@ -149,7 +161,7 @@ XDormManagerCreator = function()
         end
     end
 
-    function XDormManager.InitbindRelationData(bindRelations)
+    function XDormManager.InitBindRelationData(bindRelations)
         if bindRelations and next(bindRelations) then
             for _, bindRelation in ipairs(bindRelations) do
                 if TempDormitoryData[bindRelation.LayoutId] then
@@ -208,7 +220,7 @@ XDormManagerCreator = function()
     end
 
     -- 加载收藏宿舍的入口图片
-    function XDormManager.LoacdCollectTxture()
+    function XDormManager.LoadCollectTexture()
         local datas = XDormManager.GetTemplateDormitoryData(XDormConfig.DormDataType.Collect)
         for _, v in ipairs(datas) do
             v:GetRoomPicture()
@@ -216,6 +228,7 @@ XDormManagerCreator = function()
     end
 
     -- 获取模板宿舍数据
+    ---@return XHomeRoomData[]
     function XDormManager.GetTemplateDormitoryData(dormDataType, idList)
         if dormDataType == XDormConfig.DormDataType.Collect then
             local datas = {}
@@ -235,12 +248,18 @@ XDormManagerCreator = function()
 
         if dormDataType == XDormConfig.DormDataType.Template then
             local datas = {}
+            local now = XTime.GetServerNowTimestamp()
+            
             if idList and #idList > 0 then
                 for _, id in ipairs(idList) do
                     local data = TempDormitoryData[id]
                     local isShow = XDormConfig.GetDormTemplateIsSwhoById(data:GetRoomId())
                     if isShow then
-                        table.insert(datas, data)
+                        local showTimeStr = XDormConfig.GetDormTemplateShowTimeStrById(data:GetRoomId())
+
+                        if string.IsNilOrEmpty(showTimeStr) or now >= XTime.ParseToTimestamp(showTimeStr) then
+                            table.insert(datas, data)
+                        end
                     end
                 end
             else
@@ -248,7 +267,11 @@ XDormManagerCreator = function()
                     if v:GetRoomDataType() == XDormConfig.DormDataType.Template then
                         local isShow = XDormConfig.GetDormTemplateIsSwhoById(v:GetRoomId())
                         if isShow then
-                            table.insert(datas, v)
+                            local showTimeStr = XDormConfig.GetDormTemplateShowTimeStrById(v:GetRoomId())
+
+                            if string.IsNilOrEmpty(showTimeStr) or now >= XTime.ParseToTimestamp(showTimeStr) then
+                                table.insert(datas, v)
+                            end
                         end
                     end
                 end
@@ -264,17 +287,157 @@ XDormManagerCreator = function()
         return nil
     end
 
-    --获取所有宿舍数据
-    function XDormManager.GetDormitoryData(dormDataType, senceId)
+    --- 获取模板宿舍数量 不带参数时获取所有模板数量
+    ---@param templateDormType number 宿舍模板类型固定模板/玩家收藏
+    ---@return number
+    --------------------------
+    function XDormManager.GetTemplateDormitoryCount(templateDormType)
+        local count = 0
+        local now = XTime.GetServerNowTimestamp()
+        
+        if not XTool.IsNumberValid(templateDormType) then
+            for _, template in pairs(TempDormitoryData) do
+                local roomType = template:GetRoomDataType()
+                if roomType == XDormConfig.DormDataType.Collect then
+                    count = count + 1
+                elseif roomType == XDormConfig.DormDataType.Template then
+                    local isShow = XDormConfig.GetDormTemplateIsSwhoById(template:GetRoomId())
+                    if isShow then
+                        local showTimeStr = XDormConfig.GetDormTemplateShowTimeStrById(template:GetRoomId())
+
+                        if string.IsNilOrEmpty(showTimeStr) or now >= XTime.ParseToTimestamp(showTimeStr) then
+                            count = count + 1
+                        end
+                    end
+                end
+            end
+        else
+            for _, template in pairs(TempDormitoryData) do
+                local roomType = template:GetRoomDataType()
+                if roomType ~= templateDormType then
+                    goto continue
+                end
+                if roomType == XDormConfig.DormDataType.Collect then
+                    count = count + 1
+                elseif roomType == XDormConfig.DormDataType.Template then
+                    local isShow = XDormConfig.GetDormTemplateIsSwhoById(template:GetRoomId())
+                    if isShow then
+                        local showTimeStr = XDormConfig.GetDormTemplateShowTimeStrById(template:GetRoomId())
+
+                        if string.IsNilOrEmpty(showTimeStr) or now >= XTime.ParseToTimestamp(showTimeStr) then
+                            count = count + 1
+                        end
+                    end
+                end
+
+                :: continue ::
+            end
+        end
+        return count
+    end
+
+    local function SortTemplateTabConfig(a, b)
+        local templateA = XDormConfig.GetDormTemplateGroupCfg(a.Id)
+        local templateB = XDormConfig.GetDormTemplateGroupCfg(b.Id)
+        return templateA.DormType < templateB.DormType
+    end
+
+    local function SortFurnitureTabConfig(a, b)
+        local templateA = XFurnitureConfigs.GetFurnitureTypeById(a.Id)
+        local templateB = XFurnitureConfigs.GetFurnitureTypeById(b.Id)
+
+        if templateA.Priority ~= templateB.Priority then
+            return templateA.Priority < templateB.Priority
+        end
+
+        return a.Id < b.Id
+    end
+
+    --- 获取装修界面页签配置
+    --------------------------
+    function XDormManager.GetReformTabConfig()
+        local config = {}
+        local create = function(tabIndex, name, hasChild, param, children, icon, id)
+            return {
+                TabIndex = tabIndex,
+                HasChild = hasChild,
+                Name = name,
+                Param = param,
+                Icon = icon,
+                Children = children,
+                Id = id
+            }
+        end
+
+        local templateGroupList = XDormConfig.GetDormTemplateGroupList()
+        for _, data in pairs(templateGroupList) do
+            table.insert(config, create(XDormConfig.ReformPanelIndex.Template,
+                    data.Name, false, data.Id, nil, data.BtnIcon, data.Id))
+        end
+
+        local furnitureTypeList = XFurnitureConfigs.GetFurnitureTemplateTypeList()
+        local map = {}
+        for _, data in pairs(furnitureTypeList) do
+            local minorType = data.MinorType
+            map[minorType] = map[minorType] or {}
+            table.insert(map[minorType], data)
+        end
+
+        for _, data in pairs(map) do
+            local hasChild = #data > 1
+            if hasChild then
+                local template = data and data[1] or {}
+                local children = {}
+                local param = {}
+                for _, childData in ipairs(data) do
+                    table.insert(children, create(XDormConfig.ReformPanelIndex.Furniture,
+                            childData.CategoryName, false, childData.Id, nil, nil, childData.Id))
+                    table.insert(param, childData.Id)
+                end
+                table.insert(config, create(XDormConfig.ReformPanelIndex.Furniture,
+                        template.MinorName, true, param, children, template.BtnIcon, template.Id))
+            else
+                local template = data and data[1] or {}
+                table.insert(config, create(XDormConfig.ReformPanelIndex.Furniture,
+                        template.CategoryName, false, template.Id, nil, template.BtnIcon, template.Id))
+            end
+        end
+
+        table.sort(config, function(a, b)
+            if a.TabIndex ~= b.TabIndex then
+                return a.TabIndex < b.TabIndex
+            end
+            if a.TabIndex == XDormConfig.ReformPanelIndex.Template then
+                return SortTemplateTabConfig(a, b)
+            else
+                return SortFurnitureTabConfig(a, b)
+            end
+        end)
+
+        for index, cfg in pairs(config) do
+            if cfg.HasChild then
+                local sort = cfg.TabIndex == XDormConfig.ReformPanelIndex.Template and SortTemplateTabConfig or SortFurnitureTabConfig
+                table.sort(config[index].Children, sort)
+            end
+        end
+        return config
+    end
+
+    --- 获取所有宿舍数据
+    ---@param dormDataType number 宿舍类型
+    ---@param sceneId number 场景Id
+    ---@return table<number,XHomeRoomData>
+    --------------------------
+    function XDormManager.GetDormitoryData(dormDataType, sceneId)
         if dormDataType == XDormConfig.DormDataType.Target then
             return TargetDormitoryData
         end
 
-        if senceId then
+        if sceneId then
             local data = {}
             for id, room in pairs(DormitoryData) do
-                local cfgId = XDormConfig.GetDormitorySenceById(id)
-                if cfgId == senceId then
+                local cfgId = XDormConfig.GetDormitorySceneById(id)
+                if cfgId == sceneId then
                     data[id] = room
                 end
             end
@@ -285,6 +448,7 @@ XDormManagerCreator = function()
     end
 
     -- 获取指定宿舍数据
+    ---@return XHomeRoomData
     function XDormManager.GetRoomDataByRoomId(roomId, dormDataType)
         local data, roomData
         if dormDataType == XDormConfig.DormDataType.Target then
@@ -391,12 +555,12 @@ XDormManagerCreator = function()
 
     -- 根据宿舍人员id---->CharacterId,获得角色大头像
     function XDormManager.GetCharBigHeadIcon(id)
-        return XDataCenter.CharacterManager.GetCharBigHeadIcon(id)
+        return XMVCA.XCharacter:GetCharBigHeadIcon(id)
     end
 
     -- 根据宿舍人员id---->CharacterId,获得角色小头像
     function XDormManager.GetCharSmallHeadIcon(id)
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(id)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(id)
     end
 
     -- 根据宿舍人员id---->CharacterId和类型,取回角色喜好Icon
@@ -470,7 +634,7 @@ XDormManagerCreator = function()
         local characterList = d:GetCharacter()
         for k, v in pairs(characterList) do
             --获得角色圆头像
-            local icon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(v.CharacterId)
+            local icon = XMVCA.XCharacter:GetCharRoundnessHeadIcon(v.CharacterId)
             icons[k] = icon
         end
         return icons
@@ -499,6 +663,18 @@ XDormManagerCreator = function()
             local eventtemp = XHomeCharManager.GetCharacterEvent(v.CharacterId, true)
             if eventtemp then
                 return true
+            end
+        end
+        return false
+    end
+
+    -- 判断全部宿舍是否存在事件
+    function XDormManager.IsHaveAllDormCharactersEvent()
+        for _, v in pairs(DormitoryData) do
+            if v:WhetherRoomUnlock() then
+                if XDormManager.IsHaveDormCharactersEvent(v:GetRoomId()) then
+                    return true
+                end
             end
         end
         return false
@@ -583,7 +759,7 @@ XDormManagerCreator = function()
                 end
             end
         else
-            local characters = XDataCenter.CharacterManager.GetOwnCharacterList()
+            local characters = XMVCA.XCharacter:GetOwnCharacterList()
             for _, v in pairs(characters) do
                 table.insert(characterIds, v.Id)
             end
@@ -597,7 +773,7 @@ XDormManagerCreator = function()
             return charactersIds
         end
 
-        local conditions = {...}
+        local conditions = { ... }
         for _, v in pairs(CharacterData) do
             local t = XDormConfig.GetCharacterStyleConfigById(v.CharacterId)
             if t then
@@ -607,9 +783,13 @@ XDormManagerCreator = function()
                         goto GET_CHAR_IDS_BREAK
                     end
                 end
-                ::GET_CHAR_IDS_BREAK::
+                :: GET_CHAR_IDS_BREAK ::
             end
         end
+
+        table.sort(charactersIds, function(a, b)
+            return a < b
+        end)
 
         return charactersIds
     end
@@ -650,32 +830,32 @@ XDormManagerCreator = function()
         local indexB = XFurnitureConfigs.AttrType.AttrB - 1
         local indexC = XFurnitureConfigs.AttrType.AttrC - 1
 
-        local allFurnitureAttrs = XHomeDormManager.GetFurnitureScoresByUnsaveRoom(charData.DormitoryId)
+        local allFurnitureAttrs = XHomeDormManager.GetFurnitureScoresByUnSaveRoom(charData.DormitoryId)
         local allScores = allFurnitureAttrs.TotalScore
 
         local recoveryConfigs = XDormConfig.GetCharRecoveryConfig(charId)
         for index, recoveryConfig in pairs(recoveryConfigs) do
             if recoveryConfig.CompareType == XDormConfig.CompareType.Less then
                 if scoreA <= (recoveryConfig.AttrCondition[indexA] or 0) and
-                scoreB <= (recoveryConfig.AttrCondition[indexB] or 0) and
-                scoreC <= (recoveryConfig.AttrCondition[indexC] or 0) and
-                allScores <= recoveryConfig.AttrTotal then
+                        scoreB <= (recoveryConfig.AttrCondition[indexB] or 0) and
+                        scoreC <= (recoveryConfig.AttrCondition[indexC] or 0) and
+                        allScores <= recoveryConfig.AttrTotal then
                     curLevelConfig = recoveryConfig
                     curIndex = index
                 end
             elseif recoveryConfig.CompareType == XDormConfig.CompareType.Equal then
                 if scoreA == (recoveryConfig.AttrCondition[indexA] or 0) and
-                scoreB == (recoveryConfig.AttrCondition[indexB] or 0) and
-                scoreC == (recoveryConfig.AttrCondition[indexC] or 0) and
-                allScores == recoveryConfig.AttrTotal then
+                        scoreB == (recoveryConfig.AttrCondition[indexB] or 0) and
+                        scoreC == (recoveryConfig.AttrCondition[indexC] or 0) and
+                        allScores == recoveryConfig.AttrTotal then
                     curLevelConfig = recoveryConfig
                     curIndex = index
                 end
             elseif recoveryConfig.CompareType == XDormConfig.CompareType.Greater then
                 if scoreA >= (recoveryConfig.AttrCondition[indexA] or 0) and
-                scoreB >= (recoveryConfig.AttrCondition[indexB] or 0) and
-                scoreC >= (recoveryConfig.AttrCondition[indexC] or 0) and
-                allScores >= recoveryConfig.AttrTotal then
+                        scoreB >= (recoveryConfig.AttrCondition[indexB] or 0) and
+                        scoreC >= (recoveryConfig.AttrCondition[indexC] or 0) and
+                        allScores >= recoveryConfig.AttrTotal then
                     curLevelConfig = recoveryConfig
                     curIndex = index
                 end
@@ -856,7 +1036,7 @@ XDormManagerCreator = function()
 
                 local moodEventId = moodChangeValue > 0 and XDormConfig.ShowEventId.MoodSpeedAdd or XDormConfig.ShowEventId.MoodSpeedCut
                 local vitalityEventId = vitalityChangeValue > 0 and XDormConfig.ShowEventId.VitalitySpeedAdd
-                or XDormConfig.ShowEventId.VitalitySpeedCut
+                        or XDormConfig.ShowEventId.VitalitySpeedCut
 
                 if moodChangeValue ~= 0 then
                     XDormManager.DormShowEventShowAdd(v.CharacterId, moodChangeValue, moodEventId)
@@ -1052,7 +1232,9 @@ XDormManagerCreator = function()
     -- 检查某个宿舍是否激活
     function XDormManager.IsDormitoryActive(dormitoryId)
         local room = DormitoryData[dormitoryId]
-        if not room then return false end
+        if not room then
+            return false
+        end
         return room:WhetherRoomUnlock()
     end
 
@@ -1097,42 +1279,57 @@ XDormManagerCreator = function()
         return data
     end
 
-    -- 获取宿舍与模板宿舍之间的达成百分比
-    function XDormManager.GetDormTemplatePercent(tmeplateDormId, dormId)
-        local templateData = TempDormitoryData[tmeplateDormId]
+    --- 获取宿舍与模板宿舍家具数
+    ---@param dormId number @宿舍Id
+    ---@param templateDormId number @模板宿舍Id
+    ---@param templateDormType number @模板宿舍类型
+    ---@return number,number
+    --------------------------
+    function XDormManager.GetRoomAndTemplateFurnitureCount(dormId, templateDormId, templateDormType)
+        templateDormType = templateDormType or XDormConfig.DormDataType.Template
+        local templateData = XDormManager.GetRoomDataByRoomId(templateDormId, templateDormType)
         local dormData = DormitoryData[dormId]
 
         if not templateData or not dormData then
+            return 0, 0
+        end
+        --宿舍
+        local dormFurniture = dormData:GetFurnitureConfigDic()
+        --背包
+        local bagFurniture = XDataCenter.FurnitureManager.GetUnUseFurniture()
+        --模板宿舍
+        local tempFurniture = templateData:GetFurnitureDic()
+
+        local map = {}
+        for _, furniture in pairs(tempFurniture) do
+            local id = furniture.ConfigId
+            map[id] = map[id] or 0
+            map[id] = map[id] + 1
+        end
+
+        local tempCount, ownCount = 0, 0
+        for configId, count in pairs(map) do
+            local dormList = dormFurniture[configId] or {}
+            local bagList = bagFurniture[configId] or {}
+            tempCount = tempCount + count
+            ownCount = ownCount + math.min(count, #dormList + #bagList)
+        end
+
+        return math.min(ownCount, tempCount), tempCount
+    end
+
+    --- 获取宿舍与模板宿舍之间的达成百分比
+    ---@param dormId number @宿舍Id
+    ---@param templateDormId number @模板宿舍Id
+    ---@param templateDormType number @模板宿舍类型
+    ---@return number
+    --------------------------
+    function XDormManager.GetDormTemplatePercent(dormId, templateDormId, templateDormType)
+        local ownCount, tempCount = XDormManager.GetRoomAndTemplateFurnitureCount(dormId, templateDormId, templateDormType)
+        if not XTool.IsNumberValid(tempCount) or not XTool.IsNumberValid(ownCount) then
             return 0
         end
-
-        local dormFurnitureCount = 0
-        local dormFurnitureConfigDic = dormData:GetFurnitureConfigDic()
-
-        local templateFurnitureCount = 0
-        local templateFurnitureConfigDic = templateData:GetFurnitureConfigDic()
-
-        -- 模板宿舍家具数量
-        for _, v in pairs(templateFurnitureConfigDic) do
-            templateFurnitureCount = templateFurnitureCount + #v
-        end
-
-        -- 自己宿舍加家具达成数量
-        for k, v in pairs(dormFurnitureConfigDic) do
-            if templateFurnitureConfigDic[k] then
-                if #v >= #templateFurnitureConfigDic[k] then
-                    dormFurnitureCount = dormFurnitureCount + #templateFurnitureConfigDic[k]
-                else
-                    dormFurnitureCount = dormFurnitureCount + #v
-                end
-            end
-        end
-
-        if templateFurnitureCount <= 0 then
-            return 0
-        end
-
-        return math.floor((dormFurnitureCount / templateFurnitureCount) * 100)
+        return math.floor(math.min(ownCount / tempCount, 1) * 100)
     end
 
     --==============================--
@@ -1142,20 +1339,40 @@ XDormManagerCreator = function()
     --@isIncludeUnUse: 是否加上背包未使用的家具
     --@return 数量
     --==============================--
-    function XDormManager.GetFunritureCountInDorm(roomId, dormDataType, configId, isIncludeUnUse)
+    function XDormManager.GetFurnitureCountInDorm(roomId, dormDataType, configId, isIncludeUnUse)
         local roomData = XDormManager.GetRoomDataByRoomId(roomId, dormDataType)
         local furnitureCount = #roomData:GetFurnitureConfigByConfigId(configId)
         if isIncludeUnUse then
-            local unUseCount = #XDataCenter.FurnitureManager.GetUnuseFurnitueById(configId)
+            local unUseCount = #XDataCenter.FurnitureManager.GetUnUseFurnitureById(configId)
             furnitureCount = furnitureCount + unUseCount
         end
 
         return furnitureCount
     end
 
+    --- 获取玩家拥有的家具数量
+    ---@param configId number 家具配置Id
+    ---@param isIncludeUnUse boolean 是否包含玩家背包里未使用的
+    ---@return number
+    --------------------------
+    function XDormManager.GetOwnFurnitureCount(configId, isIncludeUnUse)
+        local count = 0
+        for _, roomData in pairs(DormitoryData) do
+            if roomData:WhetherRoomUnlock() then
+                count = count + #roomData:GetFurnitureConfigByConfigId(configId)
+            end
+        end
+
+        if isIncludeUnUse then
+            count = count + #XDataCenter.FurnitureManager.GetUnUseFurnitureById(configId)
+        end
+
+        return count
+    end
+
     function XDormManager.GetLocalCaptureCache(id)
         local texture = LocalCaptureCache[id]
-        return texture or nil
+        return texture
     end
 
     function XDormManager.SetLocalCaptureCache(id, texture)
@@ -1208,9 +1425,14 @@ XDormManagerCreator = function()
             LastPutFurnitureTime = now
         end
 
-        if not room then return end
+        if not room then
+            return
+        end
+        room:RejectUnOwn()
         local roomData = room:GetData()
-        if not roomData then return end
+        if not roomData then
+            return
+        end
 
         local furnitureList = {}
         local furnitures = roomData:GetFurnitureDic()
@@ -1299,18 +1521,18 @@ XDormManagerCreator = function()
 
                 if item1.Y == nil or item2.Y == nil then
                     return false
-                elseif  item1.Y ~= item2.Y then
+                elseif item1.Y ~= item2.Y then
                     return item1.Y < item2.Y
                 end
 
-                if item1.Angle == nil or item2.Angle ==nil then
+                if item1.Angle == nil or item2.Angle == nil then
                     return false
                 else
                     return item1.Angle < item2.Angle
                 end
             end)
 
-            local req = { FurnitureList = furnitureList}
+            local req = { FurnitureList = furnitureList }
             XNetwork.Call(DormitoryRequest.DormSnapshotLayoutReq, req, function(res)
                 if res.Code ~= XCode.Success then
                     XUiManager.TipCode(res.Code)
@@ -1346,7 +1568,6 @@ XDormManagerCreator = function()
         if vitalitySpeed * 10 % 10 == 0 then
             vitalitySpeed = string.format("%d", vitalitySpeed)
         end
-
 
         if cb then
             cb(moodSpeed, vitalitySpeed, t)
@@ -1387,13 +1608,22 @@ XDormManagerCreator = function()
         end
 
         local room = XHomeDormManager.GetSingleDormByRoomId(dormitoryId)
-        room:SetData(roomData)
+        room:SetData(roomData, roomData:GetRoomDataType())
+    end
+
+    --返回自己宿舍-主界面
+    function XDormManager.BackToDormitoryMain(dormitoryId)
+        if not XTool.IsNumberValid(dormitoryId) then
+            dormitoryId = CurrentDormId
+        end
+        XHomeDormManager.LoadRooms(XDataCenter.DormManager.GetDormitoryData(), XDormConfig.DormDataType.Self, true)
+        XHomeDormManager.SetSelectedRoom(dormitoryId, false, false)
     end
 
     -- 访问宿舍(包括自己和他人的)
     function XDormManager.VisitDormitory(displayState, dormitoryId)
         local f = displayState == XDormConfig.VisitDisplaySetType.MySelf
-        local isvistor = false
+        local isVisitor = false
         local ids = XDormManager.GetDormitoryActiveIds()
         for _, dormId in pairs(ids) do
             XHomeDormManager.RevertOnWall(dormId)
@@ -1405,14 +1635,14 @@ XDormManagerCreator = function()
         else
             local data = XDataCenter.DormManager.GetDormitoryData(XDormConfig.DormDataType.Target)
             XHomeDormManager.LoadRooms(data, XDormConfig.DormDataType.Target)
-            isvistor = true
+            isVisitor = true
         end
 
-        XHomeDormManager.SetSelectedRoom(dormitoryId, true, isvistor)
+        XHomeDormManager.SetSelectedRoom(dormitoryId, true, isVisitor)
     end
 
     -- 进入模板宿舍(包括临时模板)
-    function XDormManager.EnterTeamplateDormitory(dormitoryId, roomDataType)
+    function XDormManager.EnterTemplateDormitory(dormitoryId, roomDataType, fromRoomId)
         local roomType = roomDataType
         local isCollectNone = roomType == XDormConfig.DormDataType.CollectNone
         if isCollectNone then
@@ -1421,16 +1651,85 @@ XDormManagerCreator = function()
 
         local data = XDormManager.GetRoomDataByRoomId(dormitoryId, roomType)
         if isCollectNone then
-            local defluatFurnitrue = XDataCenter.FurnitureManager.GetCollectNoneFurnitrue(dormitoryId)
-            if defluatFurnitrue then
-                data:SetFurnitureDic(defluatFurnitrue)
+            local defaultFurniture = XDataCenter.FurnitureManager.GetCollectNoneFurniture(dormitoryId)
+            if defaultFurniture then
+                data:SetFurnitureDic(defaultFurniture)
             end
         end
 
-        local datas = { data }
-        XHomeDormManager.LoadRooms(datas, roomType)
-        XLuaUiManager.Open("UiDormTemplateScene", dormitoryId, roomDataType)
+        XHomeDormManager.LoadRooms({ data }, roomType)
+        XLuaUiManager.Open("UiDormTemplateScene", dormitoryId, roomDataType, nil, fromRoomId)
         XHomeDormManager.SetSelectedRoom(dormitoryId, true)
+    end
+
+    function XDormManager.OpenNotification(title, content, positiveCb, negativeCb, positiveTxt, negativeTxt, ignoreClose)
+        local uiName = "UiDormNotification"
+        if XLuaUiManager.IsUiLoad(uiName) or XLuaUiManager.IsUiShow(uiName) then
+            XLuaUiManager.SafeClose(uiName)
+        end
+        XLuaUiManager.Open(uiName, title, content, positiveCb, negativeCb, positiveTxt, negativeTxt, ignoreClose)
+    end
+
+    --- 获取该宿舍以及背包未拥有的家具
+    ---@param roomId number @宿舍Id
+    ---@param templateId number @模板宿舍Id
+    ---@param templateDataType number @模板宿舍Id
+    ---@return table
+    --------------------------
+    function XDormManager.GetNotOwnedFurniture(roomId, templateId, templateDataType)
+        if not XTool.IsNumberValid(roomId) or not XTool.IsNumberValid(templateId) then
+            return
+        end
+
+        local currentRoom = XDormManager.GetRoomDataByRoomId(roomId, XDormConfig.DormDataType.Self)
+        local tempRoom = XDormManager.GetRoomDataByRoomId(templateId, templateDataType)
+        if not currentRoom or not tempRoom then
+            return
+        end
+
+        --模板宿舍家具
+        local targetFurnitureMap = tempRoom:GetFurnitureDic()
+        --宿舍内家具
+        local currentRoomFurnitureMap = currentRoom:GetFurnitureConfigDic()
+        --背包内家具
+        local bagFurnitureMap = XDataCenter.FurnitureManager.GetUnUseFurniture()
+        --目标家具
+        local map = {}
+
+        for _, furniture in pairs(targetFurnitureMap) do
+            local configId = furniture.ConfigId
+            map[configId] = map[configId] or 0
+            map[configId] = map[configId] + 1
+        end
+
+        local notUnOwn = {}
+        for configId, count in pairs(map) do
+            local roomList = currentRoomFurnitureMap[configId] or {}
+            local bagList = bagFurnitureMap[configId] or {}
+
+            local ownCount = #roomList + #bagList
+            if ownCount < count then
+                table.insert(notUnOwn, {
+                    ConfigId = configId,
+                    Count = count - ownCount,
+                })
+            end
+        end
+
+        table.sort(notUnOwn, function(a, b)
+            local typeIdA = XFurnitureConfigs.GetFurnitureTemplateById(a.ConfigId).TypeId
+            local typeIdB = XFurnitureConfigs.GetFurnitureTemplateById(b.ConfigId).TypeId
+
+            if typeIdA ~= typeIdB then
+                local templateA = XFurnitureConfigs.GetFurnitureTypeById(typeIdA)
+                local templateB = XFurnitureConfigs.GetFurnitureTypeById(typeIdB)
+                return templateA.Priority < templateB.Priority
+            end
+
+            return a.ConfigId < b.ConfigId
+        end)
+
+        return notUnOwn
     end
 
     -- 房间改名
@@ -1495,6 +1794,29 @@ XDormManagerCreator = function()
         end)
     end
 
+    -- 本地方法 根据服务器发回的心情百分值更新成员心情并返回心情改变值和加之前的值
+    local function UpdateCharacterMoodByChangeValuePercent(character, changeMoodValue)
+        local changeValue = XDormManager.GetCharacterMoodByChangeValuePercent(character, changeMoodValue)
+        character.Mood = character.Mood + changeValue
+        return changeValue
+    end
+    
+    -- 只获取变化值，不更新数据
+    function XDormManager.GetCharacterMoodByChangeValuePercent(character, changeMoodValue)
+        local changeValue = XDormManager.GetCharacterChangeMoodByChangeValuePercent(character.Mood, changeMoodValue)
+        return changeValue
+    end
+    
+    -- 根据传的Mood值获取变化值
+    function XDormManager.GetCharacterChangeMoodByChangeValuePercent(characterMood, changeMoodValue)
+        local changeValue = math.floor(changeMoodValue / 100)
+        if characterMood + changeValue > XDormConfig.DORM_MOOD_MAX_VALUE then
+            changeValue = XDormConfig.DORM_MOOD_MAX_VALUE - characterMood
+        end
+
+        return changeValue
+    end
+
     -- 构造体处理事件反馈
     function XDormManager.RequestDormitoryCharacterOperate(charId, dormitoryId, eventId, operateType, cb)
         XNetwork.Call(DormitoryRequest.DormCharacterOperateReq, { CharacterId = charId, EventId = eventId, OperateType = operateType }, function(res)
@@ -1522,12 +1844,7 @@ XDormManagerCreator = function()
             XHomeCharManager.SetEventReward(charId, res.RewardGoods)
 
             -- 处理回复弹条
-            local changeValue = math.floor(res.MoodValue / 100)
-            if character.Mood + changeValue > XDormConfig.DORM_MOOD_MAX_VALUE then
-                changeValue = XDormConfig.DORM_MOOD_MAX_VALUE - character.Mood
-            end
-
-            character.Mood = character.Mood + changeValue
+            local changeValue = UpdateCharacterMoodByChangeValuePercent(character, res.MoodValue)
             local showEventId = changeValue > 0 and XDormConfig.ShowEventId.MoodAdd or XDormConfig.ShowEventId.MoodCut
             XDormManager.DormShowEventShowAdd(charId, changeValue, showEventId)
 
@@ -1723,41 +2040,26 @@ XDormManagerCreator = function()
 
     -- 推荐访问
     function XDormManager.RequestDormitoryRecommend(cb)
+        local timeOfNow = XTime.GetServerNowTimestamp()
+        if timeOfNow - LastRequestUnknownVisitor < VisitRequestTimeLimit then
+            if cb then
+                cb(RecommVisData)
+            end
+            XUiManager.TipText("RecommendFriendError")
+            return
+        end
         XNetwork.Call(DormitoryRequest.DormRecommendReq, nil, function(res)
+            LastRequestUnknownVisitor = timeOfNow
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
                 return
             end
 
-            XDormManager.RecordDormitoryRecommend(res)
+            RecommVisData = res
             if cb then
                 cb(res)
             end
         end)
-    end
-
-    -- 记录推荐访问数据
-    function XDormManager.RecordDormitoryRecommend(data)
-        RecommVisData = {}
-        local d = data.Details or {}
-        for _, v in pairs(d) do
-            RecommVisIds[v.DormitoryId] = v.DormitoryId
-            RecommVisData[v.PlayerId] = v
-        end
-    end
-
-    -- 取总的推荐访问数据
-    function XDormManager.GetDormitoryRecommendTotalData()
-        return RecommVisData
-    end
-
-    -- 取总的推荐访问数据
-    function XDormManager.GetDormitoryRecommendScore(id)
-        if not id then
-            return
-        end
-
-        return RecommVisData[id]
     end
 
     function XDormManager.GetDormitoryTargetScore(roomId)
@@ -2003,9 +2305,11 @@ XDormManagerCreator = function()
     function XDormManager.SetCurrentDormId(dormId)
         CurrentDormId = dormId
     end
-	--一键代工后回调（因为点返回不会重新读取小人状态，临时把角色小人加回宿舍）
+    --一键代工后回调（因为点返回不会重新读取小人状态，临时把角色小人加回宿舍）
     function XDormManager.QuickDormDoneCallBack(workposList)
-        if CurrentDormId == -1 then return end --若记录停留的宿舍为空说明没有进入宿舍页面，不用重新放入小人
+        if CurrentDormId == -1 then
+            return
+        end --若记录停留的宿舍为空说明没有进入宿舍页面，不用重新放入小人
         local checkDic = {} --检查同一个宿舍不用重复Reset
         for _, pos in pairs(workposList) do
             local data = WorkListData[pos]
@@ -2080,6 +2384,7 @@ XDormManagerCreator = function()
 
     -- 打工数据
     function XDormManager.NotifyDormWork(data)
+        WorkListData = {}
         if data and data.WorkList then
             for _, tmpData in pairs(data.WorkList) do
                 WorkListData[tmpData.WorkPos] = tmpData
@@ -2144,8 +2449,11 @@ XDormManagerCreator = function()
     end
 
     function XDormManager.UpdateDormRed()
+        if not XDormManager.DormWorkRedFun() then
+            return
+        end
         XEventManager.DispatchEvent(XEventId.EVENT_DORM_WORK_REDARD)
-        XEventManager.DispatchEvent(XEventId.EVENT_FURNITURE_CREATE_CHANGED)
+        --XEventManager.DispatchEvent(XEventId.EVENT_FURNITURE_CREATE_CHANGED)
     end
 
     -- 宿舍性别
@@ -2180,7 +2488,6 @@ XDormManagerCreator = function()
                 return
             end
 
-
             XDormManager.SetDormProvisionalData(shareId, res.FurnitureList)
             if cb then
                 cb()
@@ -2208,12 +2515,12 @@ XDormManagerCreator = function()
     end
 
     -- 解除绑定模板宿舍
-    function XDormManager.DormUnBindLayoutReq(templateId, cb)
-        if not templateId then
+    function XDormManager.DormUnBindLayoutReq(dormId, cb)
+        if not XTool.IsNumberValid(dormId) then
             return
         end
 
-        local req = { LayoutId = templateId }
+        local req = { DormitoryId = dormId }
         XNetwork.Call(DormitoryRequest.DormUnBindLayoutReq, req, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
@@ -2240,7 +2547,8 @@ XDormManagerCreator = function()
             end
 
             local collectDorm = TempDormitoryData[id]
-            if not collectDorm then  -- 普通存储
+            if not collectDorm then
+                -- 普通存储
                 local newId = res.NewLayoutId
                 TempDormitoryData[newId] = XHomeRoomData.New(newId)
                 TempDormitoryData[newId]:SetPlayerId(XPlayer.Id)
@@ -2253,7 +2561,8 @@ XDormManagerCreator = function()
                     local incId = XGlobalVar.GetIncId()
                     TempDormitoryData[newId]:AddFurniture(incId, furniture.ConfigId, furniture.X, furniture.Y, furniture.Angle)
                 end
-            else -- 覆盖存储
+            else
+                -- 覆盖存储
                 collectDorm:SetRoomName(name)
                 collectDorm:ClearFruniture()
                 for i, furniture in ipairs(furnitureList) do
@@ -2287,7 +2596,12 @@ XDormManagerCreator = function()
         end)
     end
 
-    -- 一键摆放模板宿舍
+    --- 一键摆放模板宿舍
+    ---@param roomId number 宿舍ID
+    ---@param templateDormId number 模板宿舍Id
+    ---@param roomType number 模板宿舍类型
+    ---@param cb function 设置完成回调
+    --------------------------
     function XDormManager.CopyTemplateDorm(roomId, templateDormId, roomType, cb)
         local room = XDataCenter.DormManager.GetRoomDataByRoomId(roomId, XDormConfig.DormDataType.Self)
         local templateRoom = XDataCenter.DormManager.GetRoomDataByRoomId(templateDormId, roomType)
@@ -2299,7 +2613,7 @@ XDormManagerCreator = function()
         local templateFurnitures = templateRoom:GetFurnitureDic()
 
         -- 未使用背包家具
-        local caheBagConfigs = XTool.Clone(XDataCenter.FurnitureManager.GetUnuseFurnitue())
+        local caheBagConfigs = XTool.Clone(XDataCenter.FurnitureManager.GetUnUseFurniture())
         -- 临时缓存宿舍数据
         local cacheRoom = XHomeRoomData.New(roomId)
 
@@ -2374,7 +2688,69 @@ XDormManagerCreator = function()
     --================
     function XDormManager.NotifyDormName(data)
         local dorm = DormitoryData[data.DormId]
-        if dorm then dorm:SetRoomName(data.DormName) end
+        if dorm then
+            dorm:SetRoomName(data.DormName)
+        end
+    end
+
+    --================
+    --一键完成全部构造体事件
+    --================
+    function XDormManager.DormCharacterFinishAllEventReq()
+        if not XDataCenter.DormManager.IsHaveAllDormCharactersEvent() then
+            XUiManager.TipText("DormEventAutoHasNotDormEvent")
+            return
+        end
+
+        -- 请求前先缓存构造体心情值
+        for charId, data in pairs(CharacterData) do
+            CharacterMoodCache[charId] = data.Mood
+        end
+        
+        XNetwork.Call(DormitoryRequest.DormCharacterFinishAllEventReq, {}, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                CharacterMoodCache = {}
+                return
+            end
+
+            local moodChangeDic = res.MoodChange
+            local rewardGoodsList = res.RewardGoods
+
+            local characterMoodsChangeList = {}
+            for characterId, moodChangeData in pairs(moodChangeDic) do
+                local character = XDataCenter.DormManager.GetCharacterDataByCharId(characterId)
+                local characterAfterMood = CharacterMoodCache[characterId]
+                if character then
+                    character.EventList = {}
+                end
+
+                if characterAfterMood then
+                    if moodChangeData > 0 then
+                        local moodChangeValue = XDormManager.GetCharacterChangeMoodByChangeValuePercent(characterAfterMood, moodChangeData)
+                        table.insert(characterMoodsChangeList, { CharacterId = character.CharacterId, MoodChangeValue = moodChangeValue, AfterMoodValue = characterAfterMood })
+                    end
+                end
+            end
+            CharacterMoodCache = {}
+            
+            local rewardGoodsMergeDic = {}
+            for _, rewardGood in ipairs(rewardGoodsList) do
+                local rewardInfo = {
+                    Id = rewardGood.Id,
+                    TemplateId = rewardGood.TemplateId,
+                    Count = rewardGood.Count,
+                    Quality = rewardGood.Quality
+                }
+                if not rewardGoodsMergeDic[rewardGood.Id] then
+                    rewardGoodsMergeDic[rewardGood.Id] = rewardInfo
+                else
+                    rewardGoodsMergeDic[rewardGood.Id].Count = rewardGoodsMergeDic[rewardGood.Id].Count + rewardGood.Count
+                end
+            end
+
+            XEventManager.DispatchEvent(XEventId.EVENT_DORM_CHARACTER_FINISH_ALL_EVENT, characterMoodsChangeList, rewardGoodsMergeDic)
+        end)
     end
     ---------------------end net---------------------
 
@@ -2405,9 +2781,26 @@ XDormManagerCreator = function()
         end
     end
 
+    -- 退出宿舍回到主界面
+    function XDormManager.ExitDormitoryBackToMain()
+        XDormManager.RequestDormitoryExit()
+        XEventManager.DispatchEvent(XEventId.EVENT_DORM_CLOSE_COMPONET)
+        XLuaUiManager.RunMain()
+    end
+
     function XDormManager.GetCharacterData()
         return CharacterData
     end
+
+    function XDormManager.SetIsDormDataNotifyFalse()
+        XDormManager.IsDormDataNotify = false
+    end
+
+    function XDormManager.Init()
+        XEventManager.AddEventListener(XEventId.EVENT_USER_LOGOUT, XDormManager.SetIsDormDataNotifyFalse)
+    end
+
+    XDormManager.Init()
 
     return XDormManager
 end
@@ -2463,9 +2856,13 @@ XRpc.NotifyDormitoryData = function(data)
     XDataCenter.DormManager.InitDormitoryData(data.DormitoryList)
     XDataCenter.DormManager.InitFurnitureData(data.FurnitureList)
     XDataCenter.DormManager.InitCharacterData(data.CharacterList)
-    XDataCenter.DormManager.InitdormCollectData(data.Layouts)
-    XDataCenter.DormManager.InitbindRelationData(data.BindRelations)
+    XDataCenter.DormManager.InitDormCollectData(data.Layouts)
+    XDataCenter.DormManager.InitBindRelationData(data.BindRelations)
     XDataCenter.FurnitureManager.InitData(data.FurnitureList)
+    XDataCenter.DormQuestManager.InitQuestData(data.DormQuestData)
+
+    XDataCenter.DormManager.IsDormDataNotify = true
+    XEventManager.DispatchEvent(XEventId.EVENT_DORM_NOTIFY_DORMITORY_DATA)
 end
 
 XRpc.NotifyAddDormCharacter = function(data)
@@ -2476,6 +2873,6 @@ XRpc.NotifyDormExceptionItem = function(data)
     XUiManager.TipMsg(CS.XTextManager.GetText("DormExceptionItemConvert"))
 end
 
-XRpc.NotifyDormDailyReset = function (data)
+XRpc.NotifyDormDailyReset = function(data)
     XDataCenter.DormManager.NotifySnapshotTimes(data)
 end

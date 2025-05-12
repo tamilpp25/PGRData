@@ -207,9 +207,13 @@ XWeekChallengeManagerCreator = function()
         return true
     end
 
-    function XWeekChallengeManager.OnAutoWindowOpen()
+    ---@param noReceivedCheck @是否忽略奖励领取完成判断
+    function XWeekChallengeManager.OnAutoWindowOpen(noReceivedCheck)
         -- 在任务完成时不跳转
-        if XWeekChallengeManager.IsAllRewardReceived() then
+        if not noReceivedCheck and XWeekChallengeManager.IsAllRewardReceived() then
+            -- 如果直接return会导致打脸数据不会被清除
+            -- 规定周任务为最后一个打脸
+            XDataCenter.AutoWindowManager.NextAutoWindow()
             return
         end
         -- 自动弹窗 会被返回主界面重复触发
@@ -220,10 +224,16 @@ XWeekChallengeManagerCreator = function()
             XLuaUiManager.Open("UiSignBanner", XWeekChallengeConfigs.SignId)
         end
     end
+    
+    function XWeekChallengeManager.JumpToPanel()
+        if XWeekChallengeManager.IsOpen() then
+            XLuaUiManager.Open("UiSignBanner", XWeekChallengeConfigs.SignId)
+        end
+    end
 
     --region request
     -- 领取奖品
-    XWeekChallengeManager.RequestReceiveReward = function(taskCount)
+    XWeekChallengeManager.RequestReceiveReward = function(taskCount, cb)
         if XWeekChallengeManager.IsRewardReceived(taskCount) then
             return false
         end
@@ -243,6 +253,10 @@ XWeekChallengeManagerCreator = function()
                 XUiManager.OpenUiObtain(res.ProgressRewardList)
                 XEventManager.DispatchEvent(XEventId.EVENT_WEEK_CHALLENGE_UPDATE_REWARD)
                 XEventManager.DispatchEvent(XEventId.EVENT_CARD_REFRESH_WELFARE_BTN)
+
+                if cb then
+                    cb()
+                end
             end
         )
         return true

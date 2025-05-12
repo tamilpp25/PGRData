@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenMaverickCharacterTalent = XClass(nil, "XUiFubenMaverickCharacterTalent")
 local XUiFubenMaverickTalentGrid = require("XUi/XUiFubenMaverick/XUiGrid/XUiFubenMaverickTalentGrid")
 

@@ -43,7 +43,7 @@ function XEquipSuitPrefab:UpdateData(equipGroupData)
     self.SiteToEquipIdDic = {}
     self.EquipIdCheckTable = {}
     for _, equipId in pairs(self.ChipIdList) do
-        local equipSite = XDataCenter.EquipManager.GetEquipSite(equipId)
+        local equipSite = XMVCA.XEquip:GetEquipSiteByEquipId(equipId)
         self.SiteToEquipIdDic[equipSite] = equipId
         self.EquipIdCheckTable[equipId] = true
     end
@@ -56,12 +56,12 @@ function XEquipSuitPrefab:UpdateData(equipGroupData)
 
     local presentEquipId = nil
     local suitIdCountDic = {}
-    for site = XEquipConfig.EquipSite.Awareness.One, XEquipConfig.EquipSite.Awareness.Six do
+    for site = XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.ONE, XEnumConst.EQUIP.EQUIP_SITE.AWARENESS.SIX do
         local equipId = self.SiteToEquipIdDic[site]
         if equipId then
             presentEquipId = presentEquipId or equipId
 
-            local suitId = XDataCenter.EquipManager.GetSuitId(equipId)
+            local suitId = XMVCA.XEquip:GetEquipSuitIdByEquipId(equipId)
             local tmpCount = suitIdCountDic[suitId] or 0
             tmpCount = tmpCount + 1
             if tmpCount == PresentSuitEquipsCount then
@@ -71,7 +71,7 @@ function XEquipSuitPrefab:UpdateData(equipGroupData)
             suitIdCountDic[suitId] = tmpCount
         end
     end
-    self.PresentSuitId = presentEquipId and XDataCenter.EquipManager.GetSuitId(presentEquipId)
+    self.PresentSuitId = presentEquipId and XMVCA.XEquip:GetEquipSuitIdByEquipId(presentEquipId)
 end
 
 function XEquipSuitPrefab:GetGroupId()
@@ -113,10 +113,10 @@ end
 
 function XEquipSuitPrefab:GetCharacterType()
     for _, equipId in pairs(self.ChipIdList) do
-        local templateId = XDataCenter.EquipManager.GetEquipTemplateId(equipId)
-        return XEquipConfig.GetEquipCharacterType(templateId)
+        local templateId = XMVCA.XEquip:GetEquipTemplateId(equipId)
+        return XMVCA.XEquip:GetEquipCharacterType(templateId)
     end
-    return XEquipConfig.UserType.All
+    return XEnumConst.EQUIP.USER_TYPE.ALL
 end
 
 return XEquipSuitPrefab

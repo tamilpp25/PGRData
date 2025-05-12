@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+---@class XUiPanelFashionList
 local XUiPanelFashionList = XClass(nil, "XUiPanelFashionList")
 
 XUiPanelFashionList.GridType = {
@@ -31,7 +33,7 @@ function XUiPanelFashionList:UpdateViewList(fashionList, defualtSelectId, charac
     self.CharacterId = characterId
     self.FashionList = fashionList
     self.LastSelectId = defualtSelectId or self.LastSelectId
-    self.GridTouchCb(self.LastSelectId)
+    self.GridTouchCb(self.LastSelectId, self.LastSelectGrid)
     self.DynamicTable:SetDataSource(fashionList)
     self.DynamicTable:ReloadDataSync()
 end
@@ -42,7 +44,7 @@ function XUiPanelFashionList:OnDynamicTableEvent(event, index, grid)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local fashionId = self.FashionList[index]
         grid:Refresh(fashionId, self.CharacterId, self.RootUi)
-        grid:PlayAnimation()
+
         if fashionId == self.LastSelectId then
             grid:SetSelect(true)
             self.LastSelectGrid = grid
@@ -59,7 +61,7 @@ function XUiPanelFashionList:OnDynamicTableEvent(event, index, grid)
         self.LastSelectGrid = grid
         self.LastSelectGrid:SetSelect(true)
 
-        self.GridTouchCb(fashionId)
+        self.GridTouchCb(fashionId, grid)
     end
 end
 

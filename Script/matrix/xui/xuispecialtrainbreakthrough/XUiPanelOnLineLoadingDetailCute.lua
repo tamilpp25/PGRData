@@ -1,3 +1,4 @@
+local XUiPanelOnLineLoadingDetailItem = require("XUi/XUiOnlineLoading/XUiPanelOnLineLoadingDetailItem")
 local XUiPanelOnLineLoadingDetail = require("XUi/XUiOnlineLoading/XUiPanelOnLineLoadingDetail")
 
 ---@class XUiPanelOnLineLoadingDetailCute

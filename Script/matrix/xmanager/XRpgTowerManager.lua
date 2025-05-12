@@ -1,6 +1,8 @@
+local XExRpgTowerManager = require("XEntity/XFuben/XExRpgTowerManager")
+
 --兵法蓝图玩法管理器
 XRpgTowerManagerCreator = function()
-    local XRpgTowerManager = {}
+    local XRpgTowerManager = XExRpgTowerManager.New(XFubenConfigs.ChapterType.RpgTower, "RpgTowerManager")
     local RpgTowerConfig = XRpgTowerConfig
     local RpgTowerCharacter = require("XEntity/XRpgTower/XRpgTowerCharacter")
     local RpgTowerStage = require("XEntity/XRpgTower/XRpgTowerStage")
@@ -79,6 +81,24 @@ XRpgTowerManagerCreator = function()
             IconPath = CS.XGame.ClientConfig:GetString("RpgTowerStageIconChallenge")
         }
     }
+
+    XRpgTowerManager.StageDifficultyNewData = {
+        [1] = { -- easy
+            Normal = CS.XGame.ClientConfig:GetString("UiRpgTowerEasy"),
+            Select = CS.XGame.ClientConfig:GetString("UiRpgTowerEasySelect"),
+            Disable = CS.XGame.ClientConfig:GetString("UiRpgTowerEasyDisable"),
+        },
+        [2] = { -- normal
+            Normal = CS.XGame.ClientConfig:GetString("UiRpgTowerNormal"),
+            Select = CS.XGame.ClientConfig:GetString("UiRpgTowerNormalSelect"),
+            Disable = CS.XGame.ClientConfig:GetString("UiRpgTowerNormalDisable"),
+        },
+        [3] = { -- hard
+            Normal = CS.XGame.ClientConfig:GetString("UiRpgTowerHard"),
+            Select = CS.XGame.ClientConfig:GetString("UiRpgTowerHardSelect"),
+            Disable = CS.XGame.ClientConfig:GetString("UiRpgTowerHardDisable"),
+        }
+    }
     --================
     --玩法养成界面的3D镜头枚举
     --================
@@ -142,16 +162,6 @@ XRpgTowerManagerCreator = function()
     end
 
     --[[    ================
-    注册出战界面代理
-    ================
-    ]]
-    function XRpgTowerManager.RegisterEditBattleProxy()
-        if IsRegisterEditBattleProxy then return end
-        IsRegisterEditBattleProxy = true
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.RpgTower,
-            require("XUi/XUiRpgTower/Battle/EditBattleUi/XUiRpgTowerNewRoomSingle"))
-    end
-    --[[    ================
     初始化/重置玩法数据
     @param:notifyRpgData 后端推送的初始化数据
     ================
@@ -211,11 +221,6 @@ XRpgTowerManagerCreator = function()
         --if StageInit then return end
         local stageList = RpgTowerConfig.GetRStageList()
         if StageInit then
-            for activityId, list in pairs(ChapterNOrderId2RStageDic) do
-                for order, rStage in pairs(list) do
-                    rStage:InitStageInfo()
-                end
-            end
         else
             RStageList = {}
             ChapterNOrderId2RStageDic = {}
@@ -228,6 +233,11 @@ XRpgTowerManagerCreator = function()
             end
             StageInit = true
         end
+    end
+
+    function XRpgTowerManager.CheckUnlockByStageId(stageId)
+        local rStage = XDataCenter.RpgTowerManager.GetRStageByStageId(stageId)
+        return rStage:GetIsUnlock()
     end
     --================
     --刷新关卡信息
@@ -269,6 +279,15 @@ XRpgTowerManagerCreator = function()
     --===================
     function XRpgTowerManager.ShowReward(winData)
         XLuaUiManager.Open("UiRpgTowerSettleWin", winData)
+    end
+
+    function XRpgTowerManager.FinishFight(settle)
+        local stageId = settle.StageId
+        local rStage = XRpgTowerManager.GetRStageByStageId(stageId)
+        if rStage and settle.RpgSettleResult and settle.IsWin then
+            rStage:RefreshData(settle.RpgSettleResult)
+        end
+        XDataCenter.FubenManager.FinishFight(settle)
     end
     -- =========           =========
     -- =========角色管理方法=========
@@ -453,6 +472,24 @@ XRpgTowerManagerCreator = function()
     function XRpgTowerManager.GetChapterProgressStr()
         return CurrentChapter:GetPassProgressStr()
     end
+    -- 获取全局进度，显示在入口的
+    function XRpgTowerManager.GetWholeProgressStr()
+        local stageList = {}
+        for id, v in pairs(XRpgTowerConfig.GetRTagConfigs()) do
+            stageList = appendArray(stageList, XDataCenter.RpgTowerManager.GetCurrActivityStageListByTagId(id))
+        end
+        if XTool.IsTableEmpty(stageList) then
+            return
+        end 
+        local currProgress = 0
+        for k, stageCfg in pairs(stageList) do -- 只要该标签下有解锁的stage就解锁
+            local rStage = XDataCenter.RpgTowerManager.GetRStageByStageId(stageCfg.StageId)
+            if rStage:GetIsPass() then
+                currProgress = currProgress + 1
+            end
+        end
+        return CS.XTextManager.GetText("RpgTowerChapterProgressStr",currProgress, #stageList)
+    end
     --[[    ================
     获取玩法是否关闭(用于判断玩法入口，进入活动条件等)
     @return param1:玩法是否关闭
@@ -485,6 +522,15 @@ XRpgTowerManagerCreator = function()
             CurrentConfig = RpgTowerConfig.GetLatestConfig()
         end
         return XFunctionManager.GetEndTimeByTimeId(CurrentConfig.TimeId) or 0
+    end
+    -- 获取现在是活动第几天
+    function XRpgTowerManager.GetDayCount()
+        local startTime =  XRpgTowerManager.GetStartTime()
+        local now = XTime.GetServerNowTimestamp()
+        local Timeoffset = now - startTime
+        local dayPass = math.floor( Timeoffset/ (3600 * 24)) + 1 -- + 1 因为第0天也算第一天，偏移后才能匹配配置表下标
+
+        return dayPass
     end
     --[[    ================
     获取现在的章节对象
@@ -522,6 +568,10 @@ XRpgTowerManagerCreator = function()
     ]]
     function XRpgTowerManager.GetTalentItemId()
         return CurrentConfig.TalentItemId
+    end
+
+    function XRpgTowerManager.GetDailyRewards()
+        return CurrentConfig.DailyRewards
     end
     --[[    ================
     获取本轮的升级道具ID
@@ -610,7 +660,7 @@ XRpgTowerManagerCreator = function()
         if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.RpgTower) then
             local canGoTo, notStart = XRpgTowerManager.CheckCanGoTo()
             if canGoTo then
-                XLuaUiManager.Open("UiRpgTowerMain")
+                XLuaUiManager.Open("UiRpgTowerNewMain")
             elseif notStart then
                 XUiManager.TipMsg(CS.XTextManager.GetText("RpgTowerNotStart"))
             else
@@ -731,7 +781,7 @@ XRpgTowerManagerCreator = function()
     --================
     --请求：获取今日补给
     --================
-    function XRpgTowerManager.ReceiveSupply()
+    function XRpgTowerManager.ReceiveSupply(cb)
         if not XRpgTowerManager.GetCanReceiveSupply() then
             XUiManager.TipMsg(CS.XTextManager.GetText("RpgTowerCantGetSupply"))
             return
@@ -744,6 +794,7 @@ XRpgTowerManagerCreator = function()
                 XUiManager.OpenUiObtain(reply.RewardGoodsList)
                 HadGetDailyReward = true
                 CsXGameEventManager.Instance:Notify(XEventId.EVENT_RPGTOWER_REFRESH_DAILYREWARD)
+                XEventManager.DispatchEvent(XEventId.EVENT_RPGTOWER_REFRESH_DAILYREWARD)
             end)
     end
     --================
@@ -751,18 +802,8 @@ XRpgTowerManagerCreator = function()
     --================
     function XRpgTowerManager.SetTalentType(rChara, talentTypeId, cb)
         local tipTitle = CS.XTextManager.GetText("RpgTowerSetTalentTypeTitle")
-        local content
-        if talentTypeId == XRpgTowerManager.TALENT_TYPE.SINGLE then
-            content = XUiHelper.GetText("RpgTowerChangeTalentTypeTips",
-                XRpgTowerConfig.GetTalentTypeNameById(XRpgTowerManager.TALENT_TYPE.TEAM),
-                XRpgTowerConfig.GetTalentTypeNameById(talentTypeId),
-                XRpgTowerConfig.GetTalentTypeNameById(talentTypeId))
-        else
-            content = XUiHelper.GetText("RpgTowerChangeTalentTypeTips",
-                XRpgTowerConfig.GetTalentTypeNameById(XRpgTowerManager.TALENT_TYPE.SINGLE),
-                XRpgTowerConfig.GetTalentTypeNameById(talentTypeId),
-                XRpgTowerConfig.GetTalentTypeNameById(talentTypeId))
-        end
+        local targetTalentName = XRpgTowerConfig.GetTalentTypeConfigByCharacterId(rChara:GetCharacterId(), talentTypeId).Name
+        local content = XUiHelper.GetText("RpgTowerChangeTalentTypeTips", rChara:GetCharaTalentTypeName(), targetTalentName, targetTalentName)
         local confirmCb = function()
             XNetwork.Call(REQUEST_NAMES.CharaSetTalentType, {CharacterId = rChara:GetCharacterId(), TalentType = talentTypeId}, function(reply)
                     if reply.Code ~= XCode.Success then
@@ -789,7 +830,6 @@ XRpgTowerManagerCreator = function()
             TeamExp = data.TeamExp
             HadGetDailyReward = data.HadGetDailyReward
             XRpgTowerManager.Reset(data)
-            XRpgTowerManager.RegisterEditBattleProxy()
         else
             IsActivityEnd = false
             TeamLevel = data.TeamLevel
@@ -797,7 +837,6 @@ XRpgTowerManagerCreator = function()
             HadGetDailyReward = data.HadGetDailyReward
             XRpgTowerManager.SetTeam(data.Characters) -- List<XRpgCharacter>
             XRpgTowerManager.RefreshStageInfo(data.Stages)
-            XRpgTowerManager.RegisterEditBattleProxy()
         end
     end
     --[[    ================
@@ -826,6 +865,24 @@ XRpgTowerManagerCreator = function()
         ChangeExp = data.AddExp
         TeamExpNewChange = true
         XRpgTowerManager.SetTeam(data.Characters)
+        XEventManager.DispatchEvent(XEventId.EVENT_RPGTOWER_TEAM_LV_REFRESH, data.TeamLevel, data.TeamExp)
+    end
+
+    -- 根据TagId获取本期的stage
+    function XRpgTowerManager.GetCurrActivityStageListByTagId(tagId)
+        if not CurrentConfig then
+            return
+        end
+
+        local list = XRpgTowerConfig.GetStageListByTagId(tagId)
+        local result = {}
+        for k, stageCfg in pairs(list) do
+            if CurrentConfig.Id == stageCfg.ActivityId then
+                table.insert(result, stageCfg)
+            end
+        end
+
+        return result
     end
 
     XRpgTowerManager.Init()
@@ -843,7 +900,7 @@ XRpc.NotifyRpgData = function(data)
 end
 
 XRpc.NotifyRpgStageData = function(data)
-    XDataCenter.RpgTowerManager.RefreshStageInfo(data.RpgStages)
+    -- XDataCenter.RpgTowerManager.RefreshStageInfo(data.RpgStages)
 end
 
 --================

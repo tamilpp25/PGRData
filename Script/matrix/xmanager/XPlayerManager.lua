@@ -93,6 +93,7 @@ function XPlayerManager.GetRewardId(level)
     return RewardId
 end
 
+---@return XTableHeadPortrait
 function XPlayerManager.GetHeadPortraitInfoById(id)
     return XDataCenter.HeadPortraitManager.GetHeadPortraitInfoById(id)
 end
@@ -115,4 +116,48 @@ function XPlayerManager.GetPlayerInfos(id, cb)
         end
     end
     )
+end
+
+function XPlayerManager.IsGetGenderReward()
+    return XPlayer.IsGetGenderReward
+end
+
+function XPlayerManager.GetPlayerGenderChangeTime()
+    return XPlayer.ChangeGenderTime
+end
+
+function XPlayerManager:CheckGenderCd()
+    -- 上次修改时间<=全局重置时间时无视个人cd，可修改
+    local lastChangedTime = XPlayerManager.GetPlayerGenderChangeTime()
+    local changeGenderInterval = CS.XGame.Config:GetInt('PlayerChangeGenderInterval')
+
+    if XTool.IsNumberValid(lastChangedTime) then
+        -- 检测Cd
+        local leftTime = lastChangedTime + changeGenderInterval - XTime.GetServerNowTimestamp()
+        local isInCd = leftTime > 0
+
+        return isInCd, leftTime
+    else
+        return false
+    end
+end
+
+function XPlayerManager.RequestChangePlayerGender(gender, cb)
+    XNetwork.Call('ChangePlayerGenderRequest', {Gender = gender}, function(res)
+        if res.Code ~= XCode.Success then
+            XUiManager.TipCode(res.Code)
+            return
+        end
+
+        XPlayer.UpdatePlayerGenderData(res)
+
+        if not XTool.IsTableEmpty(res.RewardGoodsList) then
+            XUiManager.OpenUiObtain(res.RewardGoodsList, nil, cb, cb)
+            return
+        end
+
+        if cb then
+            cb()
+        end
+    end)
 end

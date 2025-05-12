@@ -1,3 +1,4 @@
+---@class XLottoGroupEntity
 local XLottoGroupEntity = XClass(nil, "XLottoGroupEntity")
 local XLottoDrawEntity = require("XEntity/XLotto/XLottoDrawEntity")
 
@@ -5,6 +6,7 @@ function XLottoGroupEntity:Ctor(id)
     self.Id = id
     self.CurIndex = 1 --当前逻辑下只可能每一个group中有且仅有一个draw
     self.DrawInfoList = {}
+    ---@type XLottoDrawEntity[]
     self.DrawDataDic = {}
 end
 
@@ -32,6 +34,7 @@ function XLottoGroupEntity:GetId()
     return self.Id
 end
 
+---@return XLottoDrawEntity
 function XLottoGroupEntity:GetDrawData()--当前逻辑下只可能每一个group中有且仅有一个draw
     local id = self.DrawInfoList[self.CurIndex].Id
     return self.DrawDataDic[id]

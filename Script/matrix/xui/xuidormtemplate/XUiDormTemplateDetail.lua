@@ -1,19 +1,21 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiDormTemplateDetail = XLuaUiManager.Register(XLuaUi, "UiDormTemplateDetail")
 local XUiGridTemplateDetail = require("XUi/XUiDormTemplate/XUiGridTemplateDetail")
 local XUiPanelTemlateSelectRoom = require("XUi/XUiDormTemplate/XUiPanelTemlateSelectRoom")
 local XUiPanelRefitQuick = require("XUi/XUiDormTemplate/XUiPanelRefitQuick")
 
 local SELECT_TYPE = {
-    All = 0, -- 全选
-    Enought = 1, -- 已经达成
-    NotEnought = 2 -- 未达成
+    All         = 0, -- 全选
+    Enough      = 1, -- 已经达成
+    NotEnough   = 2 -- 未达成
 }
 
 function XUiDormTemplateDetail:OnAwake()
     self:AddListener()
 end
 
-function XUiDormTemplateDetail:OnStart(homeRoomData, enterSenceCb, curDormId)
+function XUiDormTemplateDetail:OnStart(homeRoomData, enterSceneCb)
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset,
     XDataCenter.ItemManager.ItemId.DormCoin,
     XDataCenter.ItemManager.ItemId.FurnitureCoin,
@@ -22,17 +24,16 @@ function XUiDormTemplateDetail:OnStart(homeRoomData, enterSenceCb, curDormId)
         self:Refresh(freshHomeRoomData)
     end)
     self.RefitPanel = XUiPanelRefitQuick.New(self.PanelRefitQuick, self)
-    self.EnterSenceCb = enterSenceCb
+    self.EnterSceneCb = enterSceneCb
     self.PageDatas = {}
     self.SortType = SELECT_TYPE.All
-    self.CurDormId = curDormId
     self:InitDynamicTable()
     self:Refresh(homeRoomData)
 end
 
 function XUiDormTemplateDetail:OnEnable()
     XEventManager.AddEventListener(XEventId.EVENT_ITEM_BUYASSET, self.RefitPanel.UpdateTxtDrawingCount, self.RefitPanel)
-    XEventManager.AddEventListener(XEventId.EVENT_FURNITURE_Get_Furniture, self.RefitPanel.OnGetFurniture, self.RefitPanel)
+    XEventManager.AddEventListener(XEventId.EVENT_FURNITURE_GET_FURNITURE, self.RefitPanel.OnGetFurniture, self.RefitPanel)
     self:Refresh()
 end
 
@@ -57,11 +58,11 @@ function XUiDormTemplateDetail:OnBtnBackClick()
 end
 
 function XUiDormTemplateDetail:OnBtnPreviewClick()
-    if self.EnterSenceCb then
-        self.EnterSenceCb()
+    if self.EnterSceneCb then
+        self.EnterSceneCb()
     end
 
-    XDataCenter.DormManager.EnterTeamplateDormitory(self.RoomId, self.RoomType)
+    XDataCenter.DormManager.EnterTemplateDormitory(self.RoomId, self.RoomType)
 end
 
 -- 选择宿舍
@@ -79,14 +80,14 @@ end
 -- 一键摆放
 function XUiDormTemplateDetail:OnBtnPutClick()
     local connectRoom = XDataCenter.DormManager.GetRoomDataByRoomId(self.ConnectId)
-    local titletext = CS.XTextManager.GetText("TipTitle")
-    local contenttext = CS.XTextManager.GetText("DormTemplateOneKeyTip", connectRoom:GetRoomName())
+    local title = CS.XTextManager.GetText("TipTitle")
+    local content = CS.XTextManager.GetText("DormTemplateOneKeyTip", connectRoom:GetRoomName())
 
-    XUiManager.DialogTip(titletext, contenttext, XUiManager.DialogType.Normal, nil, function()
+    XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, function()
         XDataCenter.DormManager.CopyTemplateDorm(self.ConnectId, self.RoomId, self.RoomType, function()
             XUiManager.TipSuccess(CS.XTextManager.GetText("DormTemplateOneKeySuccesss"))
             self:Refresh()
-            if self.EnterSenceCb then
+            if self.EnterSceneCb then
                 local roomData = XDataCenter.DormManager.GetRoomDataByRoomId(self.ConnectId)
                 local characterIds = roomData:GetCharacterIds()
                 XDataCenter.DormManager.ResetPutCharacter(self.ConnectId, characterIds)
@@ -111,7 +112,7 @@ end
 
 function XUiDormTemplateDetail:RefreshTitle()
     if self.IsConnect then
-        local prrcent = XDataCenter.DormManager.GetDormTemplatePercent(self.RoomId, self.ConnectId)
+        local prrcent = XDataCenter.DormManager.GetDormTemplatePercent(self.ConnectId, self.RoomId)
         self.TextTitle.text = CS.XTextManager.GetText("DormTemplateTitlePrecnt", prrcent)
         return
     end
@@ -132,9 +133,9 @@ end
 function XUiDormTemplateDetail:RefreshSelectedPanel()
     if self.SortType == SELECT_TYPE.All then
         self.PageDatas = self.HomeRoomData:GetAllFurnitures()
-    elseif self.SortType == SELECT_TYPE.Enought then
+    elseif self.SortType == SELECT_TYPE.Enough then
         self.PageDatas = self.HomeRoomData:GetEnoughFurnitures()
-    elseif self.SortType == SELECT_TYPE.NotEnought then
+    elseif self.SortType == SELECT_TYPE.NotEnough then
         self.PageDatas = self.HomeRoomData:GetNotEnoughFurnitures()
     end
 
@@ -165,5 +166,5 @@ end
 
 function XUiDormTemplateDetail:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_ITEM_BUYASSET, self.RefitPanel.UpdateTxtDrawingCount, self.RefitPanel)
-    XEventManager.RemoveEventListener(XEventId.EVENT_FURNITURE_Get_Furniture, self.RefitPanel.OnGetFurniture, self.RefitPanel)
+    XEventManager.RemoveEventListener(XEventId.EVENT_FURNITURE_GET_FURNITURE, self.RefitPanel.OnGetFurniture, self.RefitPanel)
 end

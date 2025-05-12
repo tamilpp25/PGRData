@@ -1,6 +1,10 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XPartnerSort = require("XUi/XUiPartner/PartnerCommon/XPartnerSort")
 local XUiPartnerMain = XLuaUiManager.Register(XLuaUi, "UiPartnerMain")
 local XUiGridPartner = require("XUi/XUiPartner/PartnerMain/XUiGridPartner")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
+local XUiPartnerRecommendCharacter = require("XUi/XUiPartner/PartnerCompose/XUiPartnerRecommendCharacter")
 
 local CSTextManagerGetText = CS.XTextManager.GetText
 local CSUnityEngineGameObject = CS.UnityEngine.GameObject
@@ -10,8 +14,11 @@ function XUiPartnerMain:OnStart(state, partner, IsNotBackChange, IsNotSelectPart
     self.LastPartner = {}
     self.ModelEffect = {}
     self.IsChangeUiState = true
+    self.IsUpdateByEvent = false
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     self.CurUiState = self.FightBackUiState or (state or XPartnerConfigs.MainUiState.Overview)
+    ---@type XUiPartnerRecommendCharacter
+    self.PanelRecommendCharacter = XUiPartnerRecommendCharacter.New(self.PanelRole, self)
 
     self:SetLastPartner(self.CurUiState, self.FightBackPartner or partner)
 
@@ -19,11 +26,37 @@ function XUiPartnerMain:OnStart(state, partner, IsNotBackChange, IsNotSelectPart
     self.IsNotBackChange = self.FightBackIsNotBackChange or IsNotBackChange
     self.IsNotSelectPartner = self.FightBackIsNotSelectPartner or IsNotSelectPartner
 
+    self.isComposePanelOpenByStar = false
+
     self:SetButtonCallBack()
     self:InitSceneRoot()
     self:InitDynamicTable()
 
-    XRedPointManager.AddRedPointEvent(self.BtnCompose, self.OnCheckComposeNews, self, { XRedPointConditions.Types.CONDITION_PARTNER_COMPOSE_RED })
+    self:AddRedPointEvent(self.BtnCompose, self.OnCheckComposeNews, self, { XRedPointConditions.Types.CONDITION_PARTNER_COMPOSE_RED })
+
+    self.CurPartnerType = XPartnerConfigs.PartnerType.All
+    ---@type XUiButtonGroup
+    local buttonGroup = self.ListTab
+    buttonGroup:InitBtns({ self.BtnAll, self.BtnTag1, self.BtnTag2 }, function(index)
+        if index == 1 then
+            self.CurPartnerType = XPartnerConfigs.PartnerType.All
+            self:ShowPanel()
+            return
+        end
+        if index == 2 then
+            self.CurPartnerType = XPartnerConfigs.PartnerType.Normal
+            self:ShowPanel()
+            return
+        end
+        if index == 3 then
+            self.CurPartnerType = XPartnerConfigs.PartnerType.Link
+            self:ShowPanel()
+            return
+        end
+        XLog.Error("XUiPartnerMain:SetButtonCallBack() index is error")
+        self.CurPartnerType = XPartnerConfigs.PartnerType.All
+    end)
+    buttonGroup:SelectIndex(1, false)
 end
 
 function XUiPartnerMain:OnDestroy()
@@ -32,14 +65,20 @@ end
 
 function XUiPartnerMain:OnEnable()
     self:ChangeUiState(self.CurUiState)
-    XEventManager.AddEventListener(XEventId.EVENT_PARTNER_DATAUPDATE, self.ShowPanel, self)
-    XEventManager.AddEventListener(XEventId.EVENT_PARTNER_SKILLUNLOCK_CLOSERED, self.ShowPanel, self)
+    XEventManager.AddEventListener(XEventId.EVENT_PARTNER_DATAUPDATE, self.UpdatePanelByEvent, self)
+    XEventManager.AddEventListener(XEventId.EVENT_PARTNER_SKILLUNLOCK_CLOSERED, self.UpdatePanelByEvent, self)
 end
 
 function XUiPartnerMain:OnDisable()
-    XEventManager.RemoveEventListener(XEventId.EVENT_PARTNER_DATAUPDATE, self.ShowPanel, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_PARTNER_SKILLUNLOCK_CLOSERED, self.ShowPanel, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_PARTNER_DATAUPDATE, self.UpdatePanelByEvent, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_PARTNER_SKILLUNLOCK_CLOSERED, self.UpdatePanelByEvent, self)
     self.RoleModelPanel:HideAllEffects()
+end
+
+function XUiPartnerMain:UpdatePanelByEvent()
+    self.IsUpdateByEvent = true
+    self:ShowPanel()
+    self.IsUpdateByEvent = false
 end
 
 function XUiPartnerMain:IsUiOverview()
@@ -62,6 +101,7 @@ function XUiPartnerMain:IsPartnerCombat()
     return self.CurPartnerState == XPartnerConfigs.PartnerState.Combat
 end
 
+---@return XPartner
 function XUiPartnerMain:GetLastPartner(state)
     if state == XPartnerConfigs.MainUiState.Property then
         return self.LastPartner[XPartnerConfigs.MainUiState.Overview]
@@ -80,7 +120,7 @@ end
 
 function XUiPartnerMain:SetButtonCallBack()
     self.BtnCompose.CallBack = function()
-        self:ChangeUiState(XPartnerConfigs.MainUiState.Compose)
+        self:OpenComposePanel()
     end
     self.BtnChange.CallBack = function()
         self:ChangePartnerState()
@@ -89,7 +129,7 @@ function XUiPartnerMain:SetButtonCallBack()
         self:OnBtnTrialClick()
     end
     self.BtnBack.CallBack = function()
-        self:OnBtnBackClick()
+        self:Close()
     end
     self.BtnMainUi.CallBack = function()
         self:OnBtnMainUiClick()
@@ -180,7 +220,9 @@ function XUiPartnerMain:OnDynamicTableEvent(event, index, grid)
     end
 end
 
+---@param partner XPartner
 function XUiPartnerMain:SelectPartner(partner)
+    self._PartnerId = partner:GetTemplateId()
     local lastPartner = self:GetLastPartner(self.CurUiState)
     local lastPartnerId = lastPartner and lastPartner:GetId()
     if lastPartnerId ~= partner:GetId() or self.IsChangeUiState then
@@ -191,14 +233,28 @@ function XUiPartnerMain:SelectPartner(partner)
     end
     self:UpdatePanel(partner)
     self:SetLastPartner(self.CurUiState, partner)
-    self.BtnTrial.gameObject:SetActiveEx(self:IsUiOverview() and partner and partner:GetStageSkipId() > 0)
+    self.BtnTrial.gameObject:SetActiveEx(self:IsTrialShow(partner))
+    self:UpdateListTabAndBtnChangeVisible()
 end
 
-function XUiPartnerMain:UpdatePanel(Data)
+function XUiPartnerMain:IsTrialShow(partner)
+    if not partner then
+        return false
+    end
+
+    if not self:IsUiOverview() then
+        return false
+    end
+
+    return partner:GetStageSkipId() > 0
+end
+
+function XUiPartnerMain:UpdatePanel(data)
     if self:IsUiOverview() then
-        self:UpdateChildUi("UiPartnerOwnedInfo", Data)
+        self:UpdateChildUi("UiPartnerOwnedInfo", data)
     elseif self:IsUiCompose() then
-        self:UpdateChildUi("UiPartnerCompose", Data)
+        self:UpdateChildUi("UiPartnerCompose", data)
+        self:UpdateRecommendCharacter4Compose(data)
     end
 end
 
@@ -234,15 +290,17 @@ function XUiPartnerMain:DoPartnerStateChange(state)
 
         local voiceId = partner:GetSToCVoice()
         if voiceId and voiceId > 0 then
-            XSoundManager.PlaySoundByType(voiceId, XSoundManager.SoundType.Sound)
+            XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, voiceId)
         end
 
         self.CurPartnerState = state
         self:UpdateCamera()
-        self.RoleModelPanel:LoadEffect(partner:GetSToCEffect(), "ModelOffEffect", true, true)
+        --self.RoleModelPanel:LoadEffect(partner:GetSToCEffect(), "ModelOffEffect", true, true)
+        self.RoleModelPanel:LoadPartnerUiEffect(partner:GetStandbyModel(), XPartnerConfigs.EffectParentName.ModelOffEffect, true, true)
         self:PlayPartnerAnima(partner:GetSToCAnime(), true, function()
             self:UpdateRoleModel(partner:GetCombatModel(), partner, false)
-            self.RoleModelPanel:LoadEffect(partner:GetCombatBornEffect(), "ModelOnEffect", true, true)
+            self.RoleModelPanel:LoadPartnerUiEffect(partner:GetCombatModel(), XPartnerConfigs.EffectParentName.ModelOnEffect, true, true)
+            --self.RoleModelPanel:LoadEffect(partner:GetCombatBornEffect(), "ModelOnEffect", true, true)
             self:PlayPartnerAnima(partner:GetCombatBornAnime(), true, closeMask)
         end)
 
@@ -250,14 +308,16 @@ function XUiPartnerMain:DoPartnerStateChange(state)
 
         local voiceId = partner:GetCToSVoice()
         if voiceId and voiceId > 0 then
-            XSoundManager.PlaySoundByType(voiceId, XSoundManager.SoundType.Sound)
+            XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, voiceId)
         end
-        self.RoleModelPanel:LoadEffect(partner:GetCToSEffect(), "ModelOnEffect", true, true)
+        --self.RoleModelPanel:LoadEffect(partner:GetCToSEffect(), "ModelOnEffect", true, true)
+        self.RoleModelPanel:LoadPartnerUiEffect(partner:GetCombatModel(), XPartnerConfigs.EffectParentName.ModelOffEffect, true, true)
         self:PlayPartnerAnima(partner:GetCToSAnime(), true, function()
             self.CurPartnerState = state
             self:UpdateCamera()
             self:UpdateRoleModel(partner:GetStandbyModel(), partner, false)
-            self.RoleModelPanel:LoadEffect(partner:GetStandbyBornEffect(), "ModelOffEffect", true, true)
+            --self.RoleModelPanel:LoadEffect(partner:GetStandbyBornEffect(), "ModelOffEffect", true, true)
+            self.RoleModelPanel:LoadPartnerUiEffect(partner:GetStandbyModel(), XPartnerConfigs.EffectParentName.ModelOnEffect, true, true)
             self:PlayPartnerAnima(partner:GetStandbyBornAnime(), true, closeMask)
         end)
     else
@@ -268,7 +328,9 @@ end
 function XUiPartnerMain:PlayPartnerAnima(animaName, fromBegin, callBack)
     local IsCanPlay = self.RoleModelPanel:PlayAnima(animaName, fromBegin, callBack)
     if not IsCanPlay then
-        if callBack then callBack() end
+        if callBack then
+            callBack()
+        end
     end
 end
 
@@ -284,8 +346,10 @@ function XUiPartnerMain:UpdateRoleModel(modelId, partner, IsShowEffect)
 end
 
 function XUiPartnerMain:ChangeUiState(state)
-    if self.CurUiState ~= XPartnerConfigs.MainUiState.Property and
-    state ~= XPartnerConfigs.MainUiState.Property then
+    local isOverviewToProperty = (self.CurUiState == XPartnerConfigs.MainUiState.Overview and state == XPartnerConfigs.MainUiState.Property) or
+            (self.CurUiState == XPartnerConfigs.MainUiState.Property and state == XPartnerConfigs.MainUiState.Overview)
+
+    if not isOverviewToProperty then
         self:PlayAnimation("DarkEnable")
         self.IsChangeUiState = true
     end
@@ -305,16 +369,37 @@ function XUiPartnerMain:ShowPanel()
     end
 
     self.RoleModelPanel:ShowRoleModel()
+    -- self.RoleModelPanel:HideAllEffects()
 
     local lastPartner = self:GetLastPartner(self.CurUiState)
+    local isSelectFirstPartner = false
     if self:IsUiOverview() then
         local lastPartnerId = lastPartner and lastPartner:GetId()
 
-        self.PageDatas = XDataCenter.PartnerManager.GetPartnerOverviewDataList(lastPartnerId, nil, true)
+        self.PageDatas = XDataCenter.PartnerManager.GetPartnerOverviewDataList(lastPartnerId, nil, true, self.CurPartnerType)
+
+        -- 如果选中的partner已经不在列表中，刷新右侧数据
+        local isFindLastPartner = false
+        for i = 1, #self.PageDatas do
+            if self.PageDatas[i]:GetId() == lastPartnerId then
+                isFindLastPartner = true
+                break
+            end
+        end
+        if not isFindLastPartner then
+            local firstPartner = self.PageDatas[1]
+            if firstPartner then
+                isSelectFirstPartner = true
+            else
+                XLog.Error("XUiPartnerMain:ShowPanel() lastPartnerId not find")
+            end
+        end
+
         XPartnerSort.OverviewSortFunction(self.PageDatas)
 
         self:OpenChildUi("UiPartnerOwnedInfo", self)
         self:PlayAnimation("ListEnable")
+        self:SetupDynamicTable()
 
     elseif self:IsUiCompose() then
         self.PageDatas, self.CanComposeIdList, self.CanComposeCount = XDataCenter.PartnerManager.GetPartnerComposeDataList()
@@ -324,31 +409,54 @@ function XUiPartnerMain:ShowPanel()
 
         self:OpenChildUi("UiPartnerCompose", self)
         self:PlayAnimation("ListEnable")
+        self:SetupDynamicTable()
 
     elseif self:IsUiProperty() then
+        local tabIndex = self.isComposePanelOpenByStar and XPartnerConfigs.PriorityTabType.Quality or XPartnerConfigs.PriorityTabType.Level
         self:DoPartnerStateChange(XPartnerConfigs.PartnerState.Combat)
-        self:OpenChildUi("UiPartnerProperty", self)
+        self:OpenChildUi("UiPartnerProperty", self, tabIndex)
         self:UpdateChildUi("UiPartnerProperty", lastPartner)
     end
 
     self:UpdateCamera()
 
     self.BtnCompose.gameObject:SetActiveEx(self:IsUiOverview() and not self.IsNotSelectPartner)
-    self.BtnChange.gameObject:SetActiveEx(self:IsUiOverview())
 
-    self.BtnTrial.gameObject:SetActiveEx(self:IsUiOverview())
+    self.BtnTrial.gameObject:SetActiveEx(self:IsTrialShow(self:GetLastPartner(self.CurUiState)))
 
     self.PaneMainView.gameObject:SetActiveEx(self:IsUiOverview() and not self.IsNotSelectPartner)
-    self.PaneComposeView.gameObject:SetActiveEx(self:IsUiCompose())
+
+    if self:IsUiCompose() then
+        self.PaneComposeView.gameObject:SetActiveEx(true)
+
+        local characterId = self:GetPartnerRecommendCharacterId(lastPartner)
+        if characterId then
+            self.PanelRecommendCharacter:Open()
+        end
+    else
+        self.PaneComposeView.gameObject:SetActiveEx(false)
+        self.PanelRecommendCharacter:Close()
+    end
 
     if self.IsNotSelectPartner or (self.IsFightBack and self:IsUiProperty()) then
         local partner = self:GetLastPartner(self.CurUiState)
         if partner then
             self:SelectPartner(partner)
         end
-    else
-        self:SetupDynamicTable()
+
+    elseif isSelectFirstPartner then
+        -- 在切换页签时，旧的partner已经不在列表中，刷新左侧数据
+        local firstPartner = self.PageDatas[1]
+        if firstPartner then
+            self:SelectPartner(firstPartner)
+            self:SetupDynamicTable()
+        else
+            XLog.Error("XUiPartnerMain:ShowPanel() firstPartner not find")
+        end
     end
+
+    -- 新增页签 all 普通 联动
+    self:UpdateListTabAndBtnChangeVisible()
 
     self.IsFightBack = false
 end
@@ -360,13 +468,14 @@ function XUiPartnerMain:OpenChildUi(uiName, ...)
 end
 
 function XUiPartnerMain:SetCameraType(type)
-    for k, _ in pairs(self.CameraFar) do
-        self.CameraFar[k].gameObject:SetActiveEx(k == type)
-    end
-
-    for k, _ in pairs(self.CameraNear) do
-        self.CameraNear[k].gameObject:SetActiveEx(k == type)
-    end
+    --for k, _ in pairs(self.CameraFar) do
+    --    self.CameraFar[k].gameObject:SetActiveEx(k == type)
+    --end
+    --
+    --for k, _ in pairs(self.CameraNear) do
+    --    self.CameraNear[k].gameObject:SetActiveEx(k == type)
+    --end
+    XUiHelper.SetPartnerCameraType(self, type, self._PartnerId)
 end
 
 function XUiPartnerMain:UpdateCamera()
@@ -380,20 +489,28 @@ function XUiPartnerMain:UpdateCamera()
         elseif self:IsUiCompose() then
             self:SetCameraType(XPartnerConfigs.CameraType.Compose)
         elseif self:IsUiProperty() then
-            self:SetCameraType(XPartnerConfigs.CameraType.Combat)
+            --在property界面选中页签时切换镜头
         end
     end
 end
 
-function XUiPartnerMain:OnBtnBackClick()
+function XUiPartnerMain:Close()
     if not self:IsUiOverview() then
+        --界面不是在辅助机总览界面
         if XDataCenter.PartnerManager.IsPartnerListEmpty() or self.IsNotBackChange then
-            self:Close()
+            self.Super.Close(self)
         else
-            self:ChangeUiState(XPartnerConfigs.MainUiState.Overview)
+            --判断是否是在合成界面
+            if self:IsUiCompose() then
+                self:BackFromComposePanel()
+                --判断是否是在培养界面
+            elseif self:IsUiProperty() then
+                self:BackFromPropertyPanel()
+            end
         end
     else
-        self:Close()
+        --当前在总览界面（即该类所控制的主界面），那么关闭自己即可
+        self.Super.Close(self)
     end
 end
 
@@ -444,4 +561,124 @@ function XUiPartnerMain:OnBtnComposeAllClick()
         XPartnerSort.CanComposeIdSort(self.CanComposeIdList)
         XDataCenter.PartnerManager.PartnerComposeRequest(self.CanComposeIdList, true)
     end, "PartnerAllComposeHint")
+end
+
+function XUiPartnerMain:OpenComposePanel(isOpenByStar)
+    self.isComposePanelOpenByStar = isOpenByStar
+    self:ChangeUiState(XPartnerConfigs.MainUiState.Compose)
+end
+
+--养成系统返回按钮
+function XUiPartnerMain:BackFromPropertyPanel()
+    local propertyPanel = self:FindChildUiObj("UiPartnerProperty")
+    if propertyPanel then
+        --从 进化页签-激活界面 返回
+        local qualityPanel = propertyPanel:GetPartnerQualityPanel()
+        if qualityPanel then
+            if qualityPanel.IsShowStarPanel then
+                qualityPanel:CloseStarPanel()
+                return
+            end
+        end
+
+        --从 技能页签-技能详情界面 返回
+        local skillPanel = propertyPanel:GetPartnerSkillPanel()
+        if skillPanel then
+            if skillPanel:IsInfoSkillState() then
+                --如果它是在技能详细状态，那么返回技能概述状态，并显示那个面板
+                skillPanel:SetSkillMainState()
+                skillPanel:ShowPanel()
+                return
+            end
+        end
+    end
+
+    self:ChangeUiState(XPartnerConfigs.MainUiState.Overview)
+end
+
+--从 合成系统界面 返回
+function XUiPartnerMain:BackFromComposePanel()
+    if self.isComposePanelOpenByStar then
+        local propertyPanel = self:FindChildUiObj("UiPartnerProperty")
+        if propertyPanel then
+            local qualityPanel = propertyPanel:GetPartnerQualityPanel()
+            if qualityPanel then
+                self:ChangeUiState(XPartnerConfigs.MainUiState.Property)
+                local lastPartner = self:GetLastPartner(self.CurUiState)
+                self:UpdateRoleModel(lastPartner:GetCombatModel(), lastPartner, true)
+            end
+        end
+
+        self.isComposePanelOpenByStar = false
+    else
+        self:ChangeUiState(XPartnerConfigs.MainUiState.Overview)
+    end
+end
+
+function XUiPartnerMain:UpdateRecommendCharacter4Compose(partner)
+    if not partner then
+        return
+    end
+    local characterId = self:GetPartnerRecommendCharacterId(partner)
+    if characterId then
+        if self.PaneComposeView.gameObject.activeInHierarchy then
+            self.PanelRecommendCharacter:Update(characterId)
+            self.PanelRecommendCharacter:Open()
+        end
+    else
+        self.PanelRecommendCharacter:Close()
+    end
+end
+
+function XUiPartnerMain:GetPartnerRecommendCharacterId(partner)
+    if partner then
+        local characterId = XPartnerConfigs.GetPartnerRecommendCharacterId(partner:GetTemplateId())
+        if characterId and characterId > 0 then
+            return characterId
+        end
+    end
+    return false
+end
+
+-- 新增页签 all 普通 联动
+function XUiPartnerMain:UpdateListTabAndBtnChangeVisible()
+    if self:IsUiOverview() then
+        -- 只在 辅助机总览界面 才显示页签
+        self.ListTab.gameObject:SetActiveEx(true)
+
+        local lastPartner = self:GetLastPartner(self.CurUiState)
+        local config = XPartnerConfigs.GetPartnerModelById(lastPartner:GetTemplateId())
+        if (config.SToCAnime == nil or config.SToCAnime == "")
+                and (config.CtoSAnime == nil or config.CtoSAnime == "")
+                and (config.StandbyBornAnime == nil or config.StandbyBornAnime == "")
+                and (config.CombatBornAnime == nil or config.CombatBornAnime == "") then
+            self.BtnChange.gameObject:SetActiveEx(false)
+        else
+            self.BtnChange.gameObject:SetActiveEx(true)
+        end
+    else
+        self.ListTab.gameObject:SetActiveEx(false)
+        self.BtnChange.gameObject:SetActiveEx(false)
+    end
+end
+-- 新增页签 all 普通 联动
+function XUiPartnerMain:UpdateListTabAndBtnChangeVisible()
+    if self:IsUiOverview() then
+        -- 只在 辅助机总览界面 才显示页签
+        self.ListTab.gameObject:SetActiveEx(true)
+
+        local lastPartner = self:GetLastPartner(self.CurUiState)
+        local config = XPartnerConfigs.GetPartnerModelById(lastPartner:GetTemplateId())
+        if (config.SToCAnime == nil or config.SToCAnime == "")
+                and (config.CtoSAnime == nil or config.CtoSAnime == "")
+                and (config.StandbyBornAnime == nil or config.StandbyBornAnime == "")
+                and (config.CombatBornAnime == nil or config.CombatBornAnime == "") then
+            self.BtnChange.gameObject:SetActiveEx(false)
+        else
+            self.BtnChange.gameObject:SetActiveEx(true)
+        end
+    else
+        self.ListTab.gameObject:SetActiveEx(false)
+        self.BtnChange.gameObject:SetActiveEx(false)
+    end
 end

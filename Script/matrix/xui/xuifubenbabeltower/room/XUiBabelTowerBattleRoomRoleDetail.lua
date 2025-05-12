@@ -12,6 +12,7 @@ end
 
 --######################## XUiBabelTowerBattleRoomRoleDetail ########################
 local XUiBattleRoomRoleDetailDefaultProxy = require("XUi/XUiNewRoomSingle/XUiBattleRoomRoleDetailDefaultProxy")
+---@class XUiBabelTowerBattleRoomRoleDetail : XUiBattleRoomRoleDetailDefaultProxy
 local XUiBabelTowerBattleRoomRoleDetail = XClass(XUiBattleRoomRoleDetailDefaultProxy,"XUiBabelTowerBattleRoomRoleDetail")
 
 -- team : XTeam
@@ -37,6 +38,25 @@ function XUiBabelTowerBattleRoomRoleDetail:GetAutoCloseInfo()
     end
 end
 
+function XUiBabelTowerBattleRoomRoleDetail:GetEntities(characterType)
+    local roles = XMVCA.XCharacter:GetOwnCharacterList(characterType)
+    local babelTowerStageCfg = XFubenBabelTowerConfigs.GetBabelTowerStageTemplate(self.StageId)
+    local robotIds = babelTowerStageCfg.RobotIds or {}
+    -- 添加机器人
+    if not XTool.IsTableEmpty(robotIds) then
+        for _, robotId in pairs(robotIds) do
+            local type = self:GetCharacterType(robotId)
+            --if type == characterType then
+            local entity = XRobotManager.GetRobotById(robotId)
+            if entity then
+                table.insert(roles, entity)
+            end
+            --end
+        end
+    end
+    return roles
+end
+
 --######################## AOP ########################
 
 function XUiBabelTowerBattleRoomRoleDetail:AOPSetJoinBtnIsActiveAfter(rootUi)
@@ -48,6 +68,17 @@ function XUiBabelTowerBattleRoomRoleDetail:AOPSetJoinBtnIsActiveAfter(rootUi)
     rootUi.BtnLock.gameObject:SetActiveEx(isLock)
     rootUi.BtnJoinTeam.gameObject:SetActiveEx(isJoin and not isLock)
     rootUi.BtnQuitTeam.gameObject:SetActiveEx(not isJoin and not isLock)
+end
+
+function XUiBabelTowerBattleRoomRoleDetail:GetFilterControllerConfig()
+    ---@type XCharacterAgency
+    local characterAgency = XMVCA:GetAgency(ModuleId.XCharacter)
+    return characterAgency:GetModelCharacterFilterController()["UiBabelTowerBase"]
+end
+
+-- 是否屏蔽效应、效应元素和效应筛选
+function XUiBabelTowerBattleRoomRoleDetail:IsHideGeneralSkill()
+    return true
 end
 
 return XUiBabelTowerBattleRoomRoleDetail

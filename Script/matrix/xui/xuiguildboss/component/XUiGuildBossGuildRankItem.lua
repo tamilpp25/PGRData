@@ -14,7 +14,7 @@ function XUiGuildBossGuildRankItem:Init(data, rank)
     self.Id = data.Id
     self.TxtName.text = data.Name
     if rank >= 1 then
-        self.TxtRank.text = "No." .. math.modf(rank)
+        self.TxtRank.text = XUiHelper.GetText("GuildBossRank", math.modf(rank))
     elseif rank == 0 then
         self.TxtRank.text = CS.XTextManager.GetText("GuildBossRankNone")
     else
@@ -23,7 +23,7 @@ function XUiGuildBossGuildRankItem:Init(data, rank)
             rankNum = math.modf(rank * 100)
         end
 
-        self.TxtRank.text = "No." .. rankNum .. "%"
+        self.TxtRank.text = XUiHelper.GetText("GuildBossRank", rankNum .. "%")
     end
     self.TxtScore.text = XUiHelper.GetLargeIntNumText(data.Score)
     local headPortrait = XGuildConfig.GetGuildHeadPortraitById(data.IconId)

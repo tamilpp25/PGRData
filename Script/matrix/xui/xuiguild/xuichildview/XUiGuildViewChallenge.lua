@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGuildViewChallenge = XClass(nil, "XUiGuildViewChallenge")
 local XUiGridChallengeItem = require("XUi/XUiGuild/XUiChildItem/XUiGridChallengeItem")
 

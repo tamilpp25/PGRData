@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiAutoFightReward = XLuaUiManager.Register(XLuaUi, "UiAutoFightReward")
 local UiCharacter = require("XUi/XUiAutoFightReward/XUiAutoFightRewardCharacter")
 

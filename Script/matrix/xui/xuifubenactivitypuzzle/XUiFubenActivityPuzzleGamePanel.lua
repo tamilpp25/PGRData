@@ -1,3 +1,4 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local tableInsert = table.insert
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
@@ -353,6 +354,11 @@ end
 function XUiFubenActivityPuzzleGamePanel:ShowPuzzleCompleteEffect()
     self.PuzzleCompleteEffect.gameObject:SetActive(false)
     self.PuzzleCompleteEffect.gameObject:SetActive(true)
+end
+
+function XUiFubenActivityPuzzleGamePanel:OnRelease()
+    XRedPointManager.RemoveRedPointEvent(self.RedPointId)
+    XRedPointManager.RemoveRedPointEvent(self.RedPointVideoId)
 end
 
 return XUiFubenActivityPuzzleGamePanel

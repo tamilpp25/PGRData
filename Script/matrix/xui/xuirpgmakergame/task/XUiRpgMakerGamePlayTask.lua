@@ -1,3 +1,37 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridRpgMakerGamePlayTask = XClass(XDynamicGridTask, "XUiGridRpgMakerGamePlayTask")
+
+
+function XUiGridRpgMakerGamePlayTask:UpdateProgress(data)
+    XUiGridRpgMakerGamePlayTask.Super.UpdateProgress(self, data)
+    self.Bg = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/Bg", nil)
+    self.Bg2 = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/Bg2", nil)
+    self.ImgZi = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/ImgZi", nil)
+    self.BgWan = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/BgWan", nil)
+    self.BgWan2 = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/BgWan2", nil)
+    self.ImgWanZi = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/ImgWanZi", nil)
+    if self.Data.State == XDataCenter.TaskManager.TaskState.Finish then
+        self.Bg.gameObject:SetActiveEx(false)
+        self.Bg2.gameObject:SetActiveEx(false)
+        self.ImgZi.gameObject:SetActiveEx(false)
+        self.BgWan.gameObject:SetActiveEx(true)
+        self.BgWan2.gameObject:SetActiveEx(true)
+        self.ImgWanZi.gameObject:SetActiveEx(true)
+    else
+        self.Bg.gameObject:SetActiveEx(true)
+        self.Bg2.gameObject:SetActiveEx(true)
+        self.ImgZi.gameObject:SetActiveEx(true)
+        self.BgWan.gameObject:SetActiveEx(false)
+        self.BgWan2.gameObject:SetActiveEx(false)
+        self.ImgWanZi.gameObject:SetActiveEx(false)
+    end
+end
+
+---------------------------------------------------------------------------------------
+
+
 local XUiRpgMakerGamePlayTask = XLuaUiManager.Register(XLuaUi, "UiRpgMakerGamePlayTask")
 
 function XUiRpgMakerGamePlayTask:OnAwake()
@@ -10,7 +44,7 @@ function XUiRpgMakerGamePlayTask:OnStart()
     self.GridTask.gameObject:SetActive(false)
 
     self.DynamicTable = XDynamicTableNormal.New(self.SViewTask.transform)
-    self.DynamicTable:SetProxy(XDynamicGridTask)
+    self.DynamicTable:SetProxy(XUiGridRpgMakerGamePlayTask)
     self.DynamicTable:SetDelegate(self)
 end
 

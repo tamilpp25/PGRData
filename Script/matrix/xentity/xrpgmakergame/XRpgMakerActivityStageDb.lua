@@ -11,7 +11,8 @@ local Default = {
     _Answer = 0,    --是否已解锁答案
 }
 
---关卡数据
+---推箱子关卡数据
+---@class XRpgMakerActivityStageDb
 local XRpgMakerActivityStageDb = XClass(nil, "XRpgMakerActivityStageDb")
 
 function XRpgMakerActivityStageDb:Ctor(stageId)
@@ -117,6 +118,10 @@ end
 
 function XRpgMakerActivityStageDb:IsStageClear()
     return XTool.IsNumberValid(self:GetRoleId())
+end
+
+function XRpgMakerActivityStageDb:IsStagePerfectClear()
+    return self:GetStarCount() == XRpgMakerGameConfigs.GetRpgMakerGameStageTotalStar(self:GetStageCfgId())
 end
 
 function XRpgMakerActivityStageDb:IsStarReward(conditionId)

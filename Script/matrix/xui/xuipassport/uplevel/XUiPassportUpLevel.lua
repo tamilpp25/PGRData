@@ -1,5 +1,11 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPassportUpLevelGrid = require("XUi/XUiPassport/UpLevel/XUiPassportUpLevelGrid")
 
+---@field _Control XPassportControl
+---@class UiPassportUpLevel:XLuaUi
 local XUiPassportUpLevel = XLuaUiManager.Register(XLuaUi, "UiPassportUpLevel")
 
 local MinSelectCount = 1
@@ -21,19 +27,21 @@ function XUiPassportUpLevel:OnStart()
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem)
     self:RegisterButtonEvent()
     self:SetSelectCount(1)
-    self.PassportBaseInfo = XDataCenter.PassportManager.GetPassportBaseInfo()
+    self.PassportBaseInfo = self._Control:GetPassportBaseInfo()
 
-    self.MaxLevel = XPassportConfigs.GetPassportMaxLevel()
-    local maxBuyableLevel = XPassportConfigs.GetPassportMaxBuyableLevel()
+    self.MaxLevel = self._Control:GetPassportMaxLevel()
+    local maxBuyableLevel = self._Control:GetPassportMaxBuyableLevel()
     self.MaxSelectCount = maxBuyableLevel - self.PassportBaseInfo:GetLevel()
 
     local expItemIcon = XItemConfigs.GetItemIconById(XDataCenter.ItemManager.ItemId.PassportExp)
     self.RImgIconBuy:SetRawImage(expItemIcon)
 
     self.DynamicTable = XDynamicTableNormal.New(self.PanelRewardList.transform)
-    self.DynamicTable:SetProxy(XUiPassportUpLevelGrid)
+    --self.DynamicTable:SetProxy(XUiPassportUpLevelGrid, self)
+    self.DynamicTable:SetProxy(XUiGridCommon)
     self.DynamicTable:SetDelegate(self)
-    self.GridStage.gameObject:SetActive(false)
+    --self.GridStage.gameObject:SetActive(false)
+    self.GridCostItem1.gameObject:SetActive(false)
 end
 
 function XUiPassportUpLevel:OnEnable()
@@ -52,9 +60,13 @@ function XUiPassportUpLevel:RegisterButtonEvent()
     self:RegisterClickEvent(self.BtnConfirm, self.OnBtnConfirmClick)
     self.BtnAddSelect.CallBack = handler(self, self.OnBtnAddClick)
     self.BtnMinusSelect.CallBack = handler(self, self.OnBtnReduceClick)
+    ---@type XUiButtonLongClick
     self.WidgetBtnMinusLongClick = XUiButtonLongClick.New(self.WidgetBtnMinusSelect, 100, self, nil, self.BtnMinusSelectLongClickCallback, nil, true)
+    ---@type XUiButtonLongClick
     self.WidgetBtnAddMinusLongClick = XUiButtonLongClick.New(self.WidgetBtnAddSelect, 100, self, nil, self.BtnAddSelectLongClickCallback, nil, true)
-    self.TxtSelect.onValueChanged:AddListener(function() self:OnInputFieldTextChanged() end)
+    self.TxtSelect.onValueChanged:AddListener(function()
+        self:OnInputFieldTextChanged()
+    end)
 end
 
 function XUiPassportUpLevel:Refresh()
@@ -81,26 +93,26 @@ function XUiPassportUpLevel:UpdateTextSelectCount()
 
     local spendBuyCount = 0     --花费多少
     local levelId
-    local costItemId = XPassportConfigs.GetBuyLevelCostItemId()
+    local costItemId = self._Control:GetBuyLevelCostItemId()
     local costItemIcon = XItemConfigs.GetItemIconById(costItemId)
     local costItemCount
-    local curLevelExpCfg = XPassportConfigs.GetPassportLevelTotalExpByLevel(currLevel) --当前等级配置的总经验
-    local spendBuyExpCfg = XPassportConfigs.GetPassportLevelTotalExpByLevel(levelAfter) --购买的等级对应的总经验
+    local curLevelExpCfg = self._Control:GetPassportLevelTotalExpByLevel(currLevel) --当前等级配置的总经验
+    local spendBuyExpCfg = self._Control:GetPassportLevelTotalExpByLevel(levelAfter) --购买的等级对应的总经验
     local spendBuyExp = spendBuyExpCfg - curLevelExpCfg     --购买的经验值
     local expCfg
     local levelIdList = {}      --要购买的等级Id列表，无预计可领取奖励的不添加
     local unLockPassportRewardIdList
     local level
     for i = currLevel + 1, levelAfter do
-        levelId = XPassportConfigs.GetPassportLevelId(i)
-        costItemCount = levelId and XPassportConfigs.GetPassportLevelCostItemCount(levelId) or 0
+        levelId = self._Control:GetPassportLevelId(i)
+        costItemCount = levelId and self._Control:GetPassportLevelCostItemCount(levelId) or 0
         spendBuyCount = spendBuyCount + costItemCount
 
-        expCfg = levelId and XPassportConfigs.GetPassportLevelTotalExp(levelId) or 0
+        expCfg = levelId and self._Control:GetPassportLevelTotalExp(levelId) or 0
 
         if levelId then
-            level = XPassportConfigs.GetPassportLevel(levelId)
-            unLockPassportRewardIdList = XPassportConfigs.GetUnLockPassportRewardIdListByLevel(level)
+            level = self._Control:GetPassportLevel(levelId)
+            unLockPassportRewardIdList = self._Control:GetUnLockPassportRewardIdListByLevel(level)
             if not XTool.IsTableEmpty(unLockPassportRewardIdList) then
                 tableInsert(levelIdList, levelId)
             end
@@ -119,10 +131,39 @@ function XUiPassportUpLevel:UpdateTextSelectCount()
 end
 
 function XUiPassportUpLevel:UpdateDynamicTable(levelIdList)
-    self.IsShowGridEffect = #levelIdList > self.CurLevelIdListCount
-    self.CurLevelIdListCount = #levelIdList
+    --self.IsShowGridEffect = #levelIdList > self.CurLevelIdListCount
+    --self.CurLevelIdListCount = #levelIdList
     self.LevelIdList = XTool.ReverseList(levelIdList)
-    self.DynamicTable:SetDataSource(levelIdList)
+
+    local dataDict = {}
+    for i = 1, #self.LevelIdList do
+        local levelId = self.LevelIdList[i]
+        local level = self._Control:GetPassportLevel(levelId)
+        local unLockPassportRewardIdList = self._Control:GetUnLockPassportRewardIdListByLevel(level)
+
+        for i, passportRewardId in ipairs(unLockPassportRewardIdList) do
+            local rewardData = self._Control:GetPassportRewardData(passportRewardId)
+            if not dataDict[rewardData.TemplateId] then
+                dataDict[rewardData.TemplateId] = rewardData
+            else
+                dataDict[rewardData.TemplateId].Count = dataDict[rewardData.TemplateId].Count + rewardData.Count
+            end
+        end
+    end
+    local dataProvider = {}
+    for itemId, rewardData in pairs(dataDict) do
+        dataProvider[#dataProvider + 1] = rewardData
+    end
+    table.sort(dataProvider, function(a, b)
+        local colorA = XItemConfigs.GetQualityById(a.TemplateId)
+        local colorB = XItemConfigs.GetQualityById(b.TemplateId)
+        if colorA ~= colorB then
+            return colorA > colorB
+        end
+        return a.TemplateId > b.TemplateId
+    end)
+    
+    self.DynamicTable:SetDataSource(dataProvider)
     self.DynamicTable:ReloadDataSync(1)
 end
 
@@ -130,8 +171,10 @@ function XUiPassportUpLevel:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
         grid:Init(self)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        local levelId = self.LevelIdList[index]
-        grid:Refresh(levelId)
+        --local levelId = self.LevelIdList[index]
+        --grid:Refresh(levelId)
+        local reward = self.DynamicTable:GetData(index)
+        grid:Refresh(reward)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_RELOAD_COMPLETED then
         if not self.IsShowGridEffect then
             return
@@ -240,4 +283,9 @@ end
 
 function XUiPassportUpLevel:GetMaxSelectCount()
     return self.MaxSelectCount
+end
+
+function XUiPassportUpLevel:OnDestroy()
+    self.WidgetBtnMinusLongClick:Destroy()
+    self.WidgetBtnAddMinusLongClick:Destroy()
 end

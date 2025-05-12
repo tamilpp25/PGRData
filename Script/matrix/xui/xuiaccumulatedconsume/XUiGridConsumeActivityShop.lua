@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridConsumeActivityShop = XClass(nil,"XUiGridConsumeActivityShop")
 local BuyCount = 1
 function XUiGridConsumeActivityShop:Ctor(ui)

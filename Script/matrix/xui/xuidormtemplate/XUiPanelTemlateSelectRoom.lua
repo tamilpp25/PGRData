@@ -64,6 +64,7 @@ function XUiPanelTemlateSelectRoom:OnBtnSureClick()
         local titletext = CS.XTextManager.GetText("TipTitle")
         local contenttext = CS.XTextManager.GetText("DormTemplateSelectCancelTip")
 
+        
         local cancelConectFunc = function()
             local conectRoom = XDataCenter.DormManager.GetRoomDataByRoomId(self.ConnectId)
             self.HomeRoomData:SetConnectDormId(0)
@@ -73,7 +74,7 @@ function XUiPanelTemlateSelectRoom:OnBtnSureClick()
         end
 
         XUiManager.DialogTip(titletext, contenttext, XUiManager.DialogType.Normal, nil, function()
-            XDataCenter.DormManager.DormUnBindLayoutReq(self.HomeRoomData:GetRoomId(), cancelConectFunc)
+            XDataCenter.DormManager.DormUnBindLayoutReq(self.ConnectId, cancelConectFunc)
         end)
 
         return

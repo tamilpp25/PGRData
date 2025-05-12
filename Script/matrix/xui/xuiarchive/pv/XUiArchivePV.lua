@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiArchivePVGrid = require("XUi/XUiArchive/PV/XUiArchivePVGrid")
 
 local XUiArchivePV = XLuaUiManager.Register(XLuaUi, "UiArchivePV")
@@ -15,13 +17,13 @@ end
 
 function XUiArchivePV:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelDynamicTable)
-    self.DynamicTable:SetProxy(XUiArchivePVGrid)
+    self.DynamicTable:SetProxy(XUiArchivePVGrid,self)
     self.DynamicTable:SetDelegate(self)
     self.GridPVItem.gameObject:SetActiveEx(false)
 end
 
 function XUiArchivePV:SetupDynamicTable(groupId)
-    self.DetailIdList = XArchiveConfigs.GetPVDetailIdList(groupId)
+    self.DetailIdList = self._Control:GetPVDetailIdList(groupId)
     self.DynamicTable:SetDataSource(self.DetailIdList)
     self.DynamicTable:ReloadDataSync()
 end
@@ -46,7 +48,7 @@ function XUiArchivePV:SetButtonCallBack()
 end
 
 function XUiArchivePV:InitTypeButton()
-    self.GroupList = XArchiveConfigs.GetPVGroups()
+    self.GroupList = self._Control:GetPVGroups()
     self.CurType = 1
     self.PVGroupBtn = {}
     for _, v in pairs(self.GroupList) do
@@ -79,5 +81,5 @@ function XUiArchivePV:OnBtnMainUiClick()
 end
 
 function XUiArchivePV:ShowPVRateInfo(index)
-    self.RateNum.text = string.format("%d%s", XDataCenter.ArchiveManager.GetPVCompletionRate(self.GroupList[index].Id), "%")
+    self.RateNum.text = string.format("%d%s", self._Control:GetPVCompletionRate(self.GroupList[index].Id), "%")
 end

@@ -1,3 +1,5 @@
+---@class XUiPhotographCapturePanel
+---@field ImagePhoto UnityEngine.UI.Image
 local XUiPhotographCapturePanel = XClass(nil, "XUiPhotographCapturePanel")
 
 function XUiPhotographCapturePanel:Ctor(rootUi, ui)
@@ -24,12 +26,15 @@ function XUiPhotographCapturePanel:OnBtnCloseClick()
     end
 end
 
+-- #108081
 function XUiPhotographCapturePanel:Show()
     self.GameObject:SetActiveEx(true)
+    XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnCloseClick")
 end
 
 function XUiPhotographCapturePanel:Hide()
     self.GameObject:SetActiveEx(false)
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
 end
 
 return XUiPhotographCapturePanel

@@ -37,7 +37,7 @@ function XUiChessPursuitMyRankGrid:Refresh()
     end    
 
     self.TxtPlayerName.text = XPlayer.Name
-    XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
 
     local score = XDataCenter.ChessPursuitManager.GetChessPursuitMyScore()
     self.TxtRankScore.text = score

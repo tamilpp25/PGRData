@@ -27,6 +27,8 @@ XFunctionEventManagerCreator = function()
             XEventManager.AddEventListener(XEventId.EVENT_MENTOR_AUTO_GRADUATE, XFunctionEventManager.HandlerAutoGraduate)
             XEventManager.AddEventListener(XEventId.EVENT_PLAYER_UNLOCK_BIRTHDAY_STORY, XFunctionEventManager.UnLockBirthdayStory)
             XEventManager.AddEventListener(XEventId.EVENT_REVIEW_ACTIVITY_HIT_FACE_END, XFunctionEventManager.OnReviewEnd)
+            XEventManager.AddEventListener(XEventId.EVENT_WEB_RECHARGE_SUCCESS, XFunctionEventManager.OnWebPay)
+            XEventManager.AddEventListener(XEventId.EVENT_WEB_RECHARGE_SUCCESS_END, XFunctionEventManager.OnWebPayEnd)
         end)
         DisableFunction = XFunctionEventManager.CheckFuncDisable()
     end
@@ -35,30 +37,7 @@ XFunctionEventManagerCreator = function()
     function XFunctionEventManager.HandlerFightResult()
         XFunctionEventManager.OnFunctionEventValueChange()
     end
-    function XFunctionEventManager.TryDoDeepLinkInfo()
-        local afdeeplink = CS.XAppsflyerEvent.GetDeepLinkValue()
-        XLog.Debug("afdeeplink: ".. tostring(afdeeplink))
-        local NewGuidePass = CS.XGame.ClientConfig:GetInt("DeepLinkCondition")
-        if CS.XRemoteConfig.DeepLinkEnabled and not string.IsNilOrEmpty(afdeeplink) and XConditionManager.CheckCondition(NewGuidePass) then
-            local endValuePos = afdeeplink:find("?af_qr=true", 1) or 0
-            if endValuePos-1 > 1 then
-                afdeeplink = afdeeplink:sub(1,endValuePos-1)
-            end
-            local afdeepInfo = string.Split(afdeeplink, "_")
-            XLog.Debug("afdeepInfo:", afdeepInfo);
-            CS.XAppsflyerEvent.ResetDeepLinkValue()
-            if afdeepInfo[1] == "i" then
-                local skipId = tonumber(afdeepInfo[2])
-                if XFunctionManager.IsAFDeepLinkCanSkipByShowTips(skipId) then
-                    XFunctionManager.SkipInterface(skipId)
-                    return true
-                end
-            end
-        elseif not XConditionManager.CheckCondition(NewGuidePass) then
-            CS.XAppsflyerEvent.ResetDeepLinkValue()
-        end
-        return false
-    end
+
     --处理等级提升
     function XFunctionEventManager.HandlerPlayerLevelChange()
         XFunctionEventManager.OnFunctionEventValueChange()
@@ -83,21 +62,21 @@ XFunctionEventManagerCreator = function()
 
         XDataCenter.CommunicationManager.SetCommunication()
         XDataCenter.CommunicationManager.SetFestivalCommunication()
-        -- 当前是否在主界面
-        InMainUi = XLuaUiManager.IsUiShow("UiMain")
-        if InMainUi and CS.XRemoteConfig.DeepLinkEnabled and XFunctionEventManager.TryDoDeepLinkInfo() then
+        -- 当前是否在主界面(同时在最上层，避免像三周年签到自动弹窗界面 场景预览 双开UiMain)
+        InMainUi = XLuaUiManager.IsUiShow("UiMain") and XLuaUiManager.GetTopUiName() == "UiMain"
+        if XDeeplinkManager.InvokeDeeplink() then
             FunctionState = FunctionEvenState.PLAYING
         elseif XLoginManager.CheckLimitLogin() then --登录限制（答题）
             FunctionState = FunctionEvenState.PLAYING
         elseif XPlayer.HandlerPlayLevelUpAnimation() then --玩家等级提升
             FunctionState = FunctionEvenState.PLAYING
         elseif XDataCenter.MentorSystemManager.CheckHaveGraduateReward() then --学员毕业
-            FunctionState = FunctionEvenState.PLAYING   
+            FunctionState = FunctionEvenState.PLAYING
         elseif XDataCenter.FubenManager.CheckHasNewHideStage() then --隐藏关卡开启
             FunctionState = FunctionEvenState.PLAYING
         elseif XDataCenter.TaskForceManager.HandlerPlayTipMission() then --任务提示
             FunctionState = FunctionEvenState.PLAYING
-        elseif XDataCenter.ArenaManager.CheckOpenArenaActivityResult() then -- 竞技结算
+        elseif XMVCA.XArena:CheckOpenActivityResultUi() then -- 竞技结算
             FunctionState = FunctionEvenState.PLAYING
         elseif XDataCenter.MedalManager.ShowUnlockTips() then --勋章飘窗
             FunctionState = FunctionEvenState.PLAYING
@@ -115,13 +94,17 @@ XFunctionEventManagerCreator = function()
             FunctionState = FunctionEvenState.PLAYING
         elseif InMainUi and XDataCenter.CommunicationManager.ShowFestivalCommunication() then --节日通讯
             FunctionState = FunctionEvenState.PLAYING
+        elseif InMainUi and XDataCenter.PayManager.CheckShowWebTips() then -- 网页充值成功弹框
+            FunctionState = FunctionEvenState.PLAYING
         elseif InMainUi and XDataCenter.AutoWindowManager.CheckAutoWindow() then -- 打脸
+            FunctionState = FunctionEvenState.PLAYING
+        elseif InMainUi and XMVCA.XDlcWorld:OnReconnectFight() then  --Dlc重连弹窗
             FunctionState = FunctionEvenState.PLAYING
         elseif XDataCenter.MedalManager.CheckCanGetNewCollection() then -- 获得收藏品
             FunctionState = FunctionEvenState.PLAYING
         elseif XDataCenter.CommunicationManager.ShowBirthdayStory() then -- 生日通讯
             FunctionState = FunctionEvenState.PLAYING
-        elseif InMainUi and XDataCenter.ReviewActivityManager.AutoOpenReview() then -- 回顾活动
+        elseif InMainUi and XMVCA.XAnniversary:AutoOpenReview() then -- 回顾活动
             FunctionState = FunctionEvenState.PLAYING
         end
 
@@ -202,6 +185,17 @@ XFunctionEventManagerCreator = function()
 
     --解锁生日剧情
     function XFunctionEventManager.UnLockBirthdayStory()
+        FunctionState = FunctionEvenState.IDLE
+        XFunctionEventManager.OnFunctionEventValueChange()
+    end
+
+    --网页充值弹框
+    function XFunctionEventManager.OnWebPay()
+        XFunctionEventManager.OnFunctionEventValueChange()
+    end
+
+    --网页充值弹框结束
+    function XFunctionEventManager.OnWebPayEnd()
         FunctionState = FunctionEvenState.IDLE
         XFunctionEventManager.OnFunctionEventValueChange()
     end

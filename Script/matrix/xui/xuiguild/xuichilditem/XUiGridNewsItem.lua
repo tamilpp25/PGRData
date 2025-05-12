@@ -55,7 +55,7 @@ function XUiGridNewsItem:OnRefresh(itemdata)
     self.ItemData = itemdata
     self.TxtPlayerName.text = XDataCenter.SocialManager.GetPlayerRemark(itemdata.PlayerId, itemdata.PlayerName)
     self.TxtEnter.text = itemdata.GuildName
-    XUiPLayerHead.InitPortrait(itemdata.HeadPortraitId, itemdata.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(itemdata.HeadPortraitId, itemdata.HeadFrameId, self.Head)
 end
 
 return XUiGridNewsItem

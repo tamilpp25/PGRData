@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 ---@class XUiFingerGuessingTaskDynamicTable
 local XUiFingerGuessingTaskDynamicTable = XClass(nil, "XUiFingerGuessingTaskDynamicTable")
 

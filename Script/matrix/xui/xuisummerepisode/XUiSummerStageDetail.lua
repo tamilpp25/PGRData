@@ -1,3 +1,7 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiStageFightControl = require("XUi/XUiCommon/XUiStageFightControl")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiSummerStageDetail = XLuaUiManager.Register(XLuaUi, "UiSummerStageDetail")
 
 function XUiSummerStageDetail:OnAwake()
@@ -97,7 +101,7 @@ function XUiSummerStageDetail:OnBtnEnterClick()
     end
 
 
-    if XDataCenter.FubenManager.OpenRoomSingle(self.Stage) then
+    if XDataCenter.FubenManager.OpenBattleRoom(self.Stage) then
         --self:Close()
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_FUBEN_CLOSE_FUBENSTAGEDETAIL)
     end
@@ -138,7 +142,7 @@ function XUiSummerStageDetail:UpdateCommon()
     end
     self.TxtTitle.text = self.Chapter.PrefixName .. "-" .. tostring(chapterOrderId) .. self.Stage.Name
     self.TxtDesc.text = self.Stage.Description
-    self.TxtATNums.text = self.Stage.RequireActionPoint
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(self.Stage.StageId)
 
     local maxChallengeNum = XDataCenter.FubenManager.GetStageMaxChallengeNums(self.Stage.StageId)
     local buyChallengeCount = XDataCenter.FubenManager.GetStageBuyChallengeCount(self.Stage.StageId)

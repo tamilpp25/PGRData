@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 -- 边界公约关卡组界面
 local XUiPanelAssignStage = XLuaUiManager.Register(XLuaUi, "UiPanelAssignStage")
 
@@ -175,7 +177,7 @@ function XUiPanelAssignStage:OnBtnOccupyClick()
 
     XDataCenter.FubenAssignManager.SelectChapterId = self.ChapterData:GetId()
     XDataCenter.FubenAssignManager.SelectCharacterId = self.ChapterData:GetCharacterId()
-    XLuaUiManager.Open("UiAssignOccupy")
+    XLuaUiManager.Open("UiAssignOccupy", self.ChapterData:GetId())
 end
 
 function XUiPanelAssignStage:OnBtnTreasureClick()

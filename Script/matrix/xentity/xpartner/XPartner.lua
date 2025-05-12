@@ -1,7 +1,9 @@
+local XPartnerSort = require("XUi/XUiPartner/PartnerCommon/XPartnerSort")
 local XPartnerMainSkillGroup = require("XEntity/XPartner/XPartnerMainSkillGroup")
 local XPartnerPassiveSkillGroup = require("XEntity/XPartner/XPartnerPassiveSkillGroup")
 local XPartnerBase = require("XEntity/XPartner/XPartnerBase")
 
+---@class XPartner : XPartnerBase
 local XPartner = XClass(XPartnerBase, "XPartner")
 local DefaultQuality = 1
 local DefaultBreakthrough = 0
@@ -105,11 +107,11 @@ function XPartner:GetQuality()
 end
 
 function XPartner:GetQualityIcon()
-    return XCharacterConfigs.GetCharQualityIcon(self:GetQuality())
+    return XMVCA.XCharacter:GetCharQualityIcon(self:GetQuality())
 end
 
 function XPartner:GetCharacterQualityIcon()
-    return XCharacterConfigs.GetCharacterQualityIcon(self:GetQuality())
+    return XMVCA.XCharacter:GetCharacterQualityIcon(self:GetQuality())
 end
 
 function XPartner:GetQualityLimit()
@@ -477,7 +479,7 @@ function XPartner:UpdateSkillEntity()
             tmpData.IsCarry = false
             if self:GetIsCarry() then
                 local charId = self:GetCharacterId()
-                local charElement = XCharacterConfigs.GetCharacterElement(charId)
+                local charElement = XMVCA.XCharacter:GetCharacterElement(charId)
                 local skillId = skillGroup:GetSkillIdByElement(charElement)
                 tmpData.ActiveSkillId = skillId
             else
@@ -746,7 +748,7 @@ end
 
 function XPartner:CreateStoryEntityDic()
     self.StoryEntityDic = {}
-    local storyEntityList = XDataCenter.ArchiveManager.GetArchivePartnerSetting(self.TemplateId,XArchiveConfigs.PartnerSettingType.Story)
+    local storyEntityList = XMVCA.XArchive:GetArchivePartnerSetting(self.TemplateId,XEnumConst.Archive.PartnerSettingType.Story)
     for _,Entity in pairs(storyEntityList or {}) do
         self.StoryEntityDic[Entity:GetId()] = Entity
     end
@@ -769,10 +771,6 @@ function XPartner:GetLevelUpSkipIdList()
     return self:GetItemSkipCfg().LevelUpSkipIdParams or {}
 end
 
-function XPartner:GetClipSkipIdList()
-    return self:GetItemSkipCfg().ClipSkipIdParams or {}
-end
-
 function XPartner:GetStageSkipId()
     return self:GetItemSkipCfg().StageSkipIdParam
 end
@@ -780,6 +778,10 @@ end
 -------------------------------宠物来源----------------------------------
 function XPartner:SetIsBelongSelf(value)
     self.IsBelongSelf = value
+end
+
+function XPartner:GetIsComposePreview()
+    return not self.IsComplete
 end
 
 return XPartner

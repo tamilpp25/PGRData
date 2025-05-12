@@ -15,8 +15,7 @@ local XUiPanelDice = require("XUi/XUiDiceGame/XUiPanelDice")
 ---@field protected TxtOperationDesc UnityEngine.UI.Text
 local XUiPanelOperation = XClass(nil, "XUiPanelOperation")
 
--- 可能需要直接查找节点ABC, 而不是动态生成了  但是还需要兼容读表的问题
-local OPERATION_TITLE_LETTER_MAP = { 
+local OPERATION_TITLE_LETTER_MAP = {
     [XDiceGameConfigs.OperationType.A] = "A.",
     [XDiceGameConfigs.OperationType.B] = "B.",
     [XDiceGameConfigs.OperationType.C] = "C.",
@@ -37,18 +36,17 @@ function XUiPanelOperation:Ctor(ui, root)
     self.ThrowResultTitle = self.TxtThrowResultTitle.text
 
     self.OperationBtnGroup = self.PanelOption ---@type XUiButtonGroup
+    self.OperationBtn = self.GridBtnOption.gameObject
+    self.OperationBtn:SetActiveEx(false)
 
     self.OperationEntityDict = XDataCenter.DiceGameManager.GetOperationEntityDict()
     self.OperationBtns = {} ---@type table<number, XUiComponent.XUiButton>
-    -- UI修改预制体后，需要已经更名为 1 2 3 直接赋值到OperationBtns中
-    self.OperationBtns[1] = self.GridBtnOptionA
-    self.OperationBtns[2] = self.GridBtnOptionB
-    self.OperationBtns[3] = self.GridBtnOptionC
-
-    for id , operation in pairs(self.OperationEntityDict) do
+    for id, operation in pairs(self.OperationEntityDict) do
+        local buttonGo = CSObjectInstantiate(self.OperationBtn, self.OperationBtnGroup.transform) ---@type UnityEngine.GameObject
+        buttonGo:SetActiveEx(true)
+        self.OperationBtns[id] = buttonGo:GetComponent("XUiButton")
         self:InitOperationButton(self.OperationBtns[id], operation)
     end
-
     self.OperationBtnGroup:Init(self.OperationBtns, function(groupIndex)
         self:OnBtnOperationClick(groupIndex)
     end)

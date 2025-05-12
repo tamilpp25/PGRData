@@ -18,6 +18,6 @@ function XUiGridSpecialTrainBreakthroughFightItem:RefreshDataItem(data)
 end
 
 function XUiGridSpecialTrainBreakthroughFightItem:GetHeadIcon(characterId, ...) 
-    return XFubenSpecialTrainConfig.GetCuteModelSmallHeadIcon(characterId)
+    return XCharacterCuteConfig.GetCuteModelSmallHeadIcon(characterId)
 end
 return XUiGridSpecialTrainBreakthroughFightItem

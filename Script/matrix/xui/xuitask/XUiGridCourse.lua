@@ -1,4 +1,5 @@
-XUiGridCourse = XClass(nil, "XUiGridCourse")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiGridCourse = XClass(nil, "XUiGridCourse")
 
 local PotPostion = {
     [1] = {--有经历节点
@@ -126,15 +127,15 @@ function XUiGridCourse:OnBtnClickClick()
                 local chipCount = 0
                 for i = 1, #rewardList do
                     local id = rewardList[i].Id or rewardList[i].TemplateId
-                    if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(id, XEquipConfig.Classify.Weapon) then
+                    if XMVCA.XEquip:IsClassifyEqualByTemplateId(id, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
                         weaponCount = weaponCount + 1
-                    elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(id, XEquipConfig.Classify.Awareness) then
+                    elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(id, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
                         chipCount = chipCount + 1
                     end
                 end
 
-                if weaponCount > 0 and XDataCenter.EquipManager.CheckBagCount(weaponCount, XEquipConfig.Classify.Weapon) == false or
-                chipCount > 0 and XDataCenter.EquipManager.CheckBagCount(chipCount, XEquipConfig.Classify.Awareness) == false then
+                if weaponCount > 0 and XMVCA.XEquip:CheckBagCount(weaponCount, XEnumConst.EQUIP.CLASSIFY.WEAPON) == false or
+                chipCount > 0 and XMVCA.XEquip:CheckBagCount(chipCount, XEnumConst.EQUIP.CLASSIFY.AWARENESS) == false then
                     return
                 end
             end
@@ -159,3 +160,5 @@ function XUiGridCourse:OnBtnClickClick()
         end
     end
 end
+
+return XUiGridCourse

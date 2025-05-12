@@ -248,18 +248,6 @@ XLivWarmSoundsActivityCreator = function()
         end)
     end
 
-    --海外新增接口:判断是否是正确顺序
-    function XLivWarmSoundsActivityManager.CheckStageAnswer(stageId, answer)
-        local stageInfo = GetStageInfo(stageId)
-        local finishAnswer = stageInfo:GetFinishAnswer(stageId)
-        for i = 1, #finishAnswer do
-            if answer[i] ~= finishAnswer[i] then
-                return false
-            end
-        end
-        return true
-    end
-
     --本地设置关卡音效顺序
     function XLivWarmSoundsActivityManager.SetClientStageAnswer(stageId, answer)
         local stageInfo = GetStageInfo(stageId)

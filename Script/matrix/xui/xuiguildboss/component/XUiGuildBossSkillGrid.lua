@@ -7,25 +7,24 @@ function XUiGuildBossSkillGrid:Ctor(ui)
     XTool.InitUiObject(self)
 end
 
---levelData Type is XTableGuildBossStageInfo
-function XUiGuildBossSkillGrid:Init(levelData, progress, order)
-    self.LevelData = levelData
-    local buffInfo = XGuildBossConfig.GetBuff(self.LevelData.BuffId)
-    local levelInfo = XGuildBossConfig.GetBossStageInfo(self.LevelData.Id)
-    self.RImgIcon:SetRawImage(levelInfo.Icon)
+--stageInfo Type is XTableGuildBossStageInfo
+function XUiGuildBossSkillGrid:Init(stageInfo, levelData, order)
+    self.StageInfo = stageInfo
+    local buffInfo = XGuildBossConfig.GetBuff(levelData.EffectId)
+    local currCount = levelData.CurEffectCount --nzwjV3
+    local totalEffectCount = levelData.TotalEffectCount --nzwjV3
+    self.RImgIcon:SetRawImage(buffInfo.Icon)
     self.TxtName.text = buffInfo.Name
-    self.ImgProgress.fillAmount = progress / 100
-    self.TxtProgress.text = progress .. "%"
+    -- self.ImgProgress.fillAmount = currCount / totalEffectCount
+    -- self.TxtProgress.text = CSXTextManagerGetText("GuildBossSkillProgress", currCount, totalEffectCount)
+    self.TxtProgressCur.text = currCount
+    self.TxtProgressMax.text = "/"..totalEffectCount
     self.TxtDis.text = buffInfo.Dis
     if order then
-        self.TxtCode.text = self.LevelData.Code .. order
+        self.TxtCode.text = self.StageInfo.Code .. order
     end
 
-    if progress >= 100 then
-        self.IsGet.gameObject:SetActiveEx(true)
-    else
-        self.IsGet.gameObject:SetActiveEx(false)
-    end
+    self.IsGet.gameObject:SetActiveEx(false)
 end
 
 return XUiGuildBossSkillGrid

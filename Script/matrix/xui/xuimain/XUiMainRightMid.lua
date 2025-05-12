@@ -1,25 +1,97 @@
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local DefaultType = 1
 local tableInsert = table.insert
-local BtnActivityEntryMaxCount = 3
+local BtnActivityEntryMaxCount = 4
+local CsXUGuiDragProxy = CS.XUguiDragProxy
 
-local RegressionMainViewFreshTimeInterval = CS.XGame.ClientConfig:GetInt("RegressionMainViewFreshTimeInterval")
+local MinDragYDistance = CS.XGame.ClientConfig:GetFloat("MinDragYDistance")
 
-local XUiMainRightMid = XClass(nil, "XUiMainRightMid")
+local XUiMainPanelBase = require("XUi/XUiMain/XUiMainPanelBase")
+---@class XUiMainRightMid:XUiMainPanelBase
+local XUiMainRightMid = XClass(XUiMainPanelBase, "XUiMainRightMid")
 
-function XUiMainRightMid:Ctor(rootUi)
+local SubPanelState = "SubPanelState"
+
+--主界面会频繁打开，采用常量缓存
+local RedPointConditionGroup = {
+    --任务
+    Task = { 
+        XRedPointConditions.Types.CONDITION_MAIN_TASK 
+    },
+    --宿舍
+    Dorm = {
+        XRedPointConditions.Types.CONDITION_DORM_RED
+    },
+    --公会
+    Guild = {
+        XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST,
+        XRedPointConditions.Types.CONDITION_GUILD_ACTIVEGIFT,
+        XRedPointConditions.Types.CONDITION_GUILD_NEWS,
+        XRedPointConditions.Types.CONDITION_GUILDBOSS_BOSSHP,
+        XRedPointConditions.Types.CONDITION_GUILDBOSS_SCORE,
+        XRedPointConditions.Types.CONDITION_GUILDWAR_Main,
+        XRedPointConditions.Types.CONDITION_GUILD_SIGN_REWARD,
+        --XRedPointConditions.Types.CONDITION_GUILDWAR_SUPPLY,
+        --XRedPointConditions.Types.CONDITION_GUILDWAR_ASSISTANT,
+    },
+    --辅助机
+    Partner = {
+        XRedPointConditions.Types.CONDITION_PARTNER_COMPOSE_RED,
+        XRedPointConditions.Types.CONDITION_PARTNER_NEWSKILL_RED,
+    },
+    --成员
+    Member = {
+        XRedPointConditions.Types.CONDITION_MAIN_MEMBER
+    },
+    --充值采购
+    Recharge = {
+        XRedPointConditions.Types.CONDITION_PURCHASE_RED
+    },
+    --背包
+    Bag = {
+        -- XRedPointConditions.Types.CONDITION_ITEM_COLLECTION_ENTRANCE
+    },
+    --展开按钮
+    Open = {
+        XRedPointConditions.Types.CONDITION_DORM_RED,
+        XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST,
+        XRedPointConditions.Types.CONDITION_GUILD_ACTIVEGIFT,
+        XRedPointConditions.Types.CONDITION_GUILD_NEWS,
+        XRedPointConditions.Types.CONDITION_GUILDBOSS_BOSSHP,
+        XRedPointConditions.Types.CONDITION_GUILDBOSS_SCORE,
+        XRedPointConditions.Types.CONDITION_GUILDWAR_TASK,
+        XRedPointConditions.Types.CONDITION_GUILDWAR_SUPPLY,
+        XRedPointConditions.Types.CONDITION_GUILDWAR_ASSISTANT,
+        XRedPointConditions.Types.CONDITION_GUILD_SIGN_REWARD,
+        XRedPointConditions.Types.CONDITION_PARTNER_COMPOSE_RED,
+        XRedPointConditions.Types.CONDITION_PARTNER_NEWSKILL_RED,
+        -- XRedPointConditions.Types.CONDITION_ITEM_COLLECTION_ENTRANCE,
+    },
+}
+
+function XUiMainRightMid:OnStart(rootUi)
     self.RootUi = rootUi
-    self.Transform = rootUi.PanelRightMid.gameObject.transform
-    XTool.InitUiObject(self)
+    
+    self.IsShowSubPanel = false
+    -- self.Transform = rootUi.PanelRightMid.gameObject.transform
+    -- XTool.InitUiObject(self)
     --ClickEvent
     self.BtnFight.CallBack = function() self:OnBtnFight() end
     self.BtnTask.CallBack = function() self:OnBtnTask() end
     self.BtnBuilding.CallBack = function() self:OnBtnBuilding() end
     self.BtnReward.CallBack = function() self:OnBtnReward() end
-    self.BtnSkipTask.CallBack = function() self:OnBtnSkipTask() end
+    --self.BtnSkipTask.CallBack = function() self:OnBtnSkipTask() end
     self.BtnActivityBrief.CallBack = function() self:OnBtnActivityBrief() end
     self.BtnPartner.CallBack = function() self:OnBtnPartner() end
     self.BtnGuild.CallBack = function() self:OnBtnGuildClick() end
+    self.BtnOpen.CallBack = function() self:OnBtnOpenClick() end
+    self.BtnClose.CallBack = function() self:OnBtnCloseClick() end
+    self.BtnMember.CallBack = function() self:OnBtnMember() end
+    self.BtnRecharge.CallBack = function() self:OnBtnRecharge() end
+    self.BtnEquipGuide.CallBack = function() XDataCenter.EquipGuideManager.OpenEquipGuideDetail() end
+    self.BtnBag.CallBack = function() self:OnBtnBag() end
+    self.BtnStore.CallBack = function() self:OnBtnStore() end
+    
     self.BtnGuild.gameObject:SetActiveEx(true)
 
     if XUiManager.IsHideFunc then
@@ -29,66 +101,28 @@ function XUiMainRightMid:Ctor(rootUi)
         self.BtnReward.gameObject:SetActiveEx(false)
     end
 
-    -- 已经移到 PanelDown 区域中
-    self.BtnTarget.CallBack = function() self:OnBtnTarget() end
-    self.BtnRegression.CallBack = function() self:OnBtnRegression() end
-    if self.BtnSpecialShop then
-        self.BtnSpecialShop.CallBack = function() self:OnBtnSpecialShop() end
-    end
-
-    --RedPoint
-    XRedPointManager.AddRedPointEvent(self.BtnTask.ReddotObj, self.OnCheckTaskNews, self, { XRedPointConditions.Types.CONDITION_MAIN_TASK })
-    XRedPointManager.AddRedPointEvent(self.BtnTarget.ReddotObj, self.OnCheckTargetNews, self, { XRedPointConditions.Types.CONDITION_MAIN_NEWPLAYER_TASK })
-    XRedPointManager.AddRedPointEvent(self.BtnBuilding.ReddotObj, self.OnCheckBuildingNews, self, { XRedPointConditions.Types.CONDITION_DORM_RED })
-    --XRedPointManager.AddRedPointEvent(self.BtnReward.ReddotObj, self.OnCheckARewardNews, self, { XRedPointConditions.Types.CONDITION_ACTIVITYDRAW_RED })
-    -- XRedPointManager.AddRedPointEvent(self.BtnActivityBrief, self.OnCheckActivityBriefRedPoint, self, { XRedPointConditions.Types.CONDITION_ACTIVITY_NEW_MAINENTRY })
-    XRedPointManager.AddRedPointEvent(self.BtnRegression.ReddotObj, nil, self, { XRedPointConditions.Types.CONDITION_REGRESSION })
-    XRedPointManager.AddRedPointEvent(self.ImgBuldingRedDot, self.OnCheckGuildRedPoint, self,
-    {
-        XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST,
-        XRedPointConditions.Types.CONDITION_GUILD_ACTIVEGIFT,
-        XRedPointConditions.Types.CONDITION_GUILD_NEWS,
-        XRedPointConditions.Types.CONDITION_GUILDBOSS_BOSSHP,
-        XRedPointConditions.Types.CONDITION_GUILDBOSS_SCORE,
-        XRedPointConditions.Types.CONDITION_GUILDWAR_TASK,
-    })
-
-    XRedPointManager.AddRedPointEvent(self.BtnPartner, self.OnCheckPartnerRedPoint, self,
-    {
-        XRedPointConditions.Types.CONDITION_PARTNER_COMPOSE_RED,
-        XRedPointConditions.Types.CONDITION_PARTNER_NEWSKILL_RED,
-    })
-
-    self.SpecialShopRed = XRedPointManager.AddRedPointEvent(self.BtnSpecialShop.ReddotObj, self.OnCheckSpecialShopRedPoint, self, { XRedPointConditions.Types.CONDITION_MAIN_SPECIAL_SHOP })
-
-
     --Filter
     self:CheckFilterFunctions()
     self:InitBtnActivityEntry()
+    self:InitDragProxy()
 end
 
 function XUiMainRightMid:OnEnable()
-    XEventManager.AddEventListener(XEventId.EVENT_NOTICE_TASKINITFINISHED, self.OnInitTaskFinished, self)
+    
+    -- 充值红点
+    XDataCenter.PurchaseManager.LBInfoDataReq()
+    XRedPointManager.CheckByNode(self.BtnMember.ReddotObj)
+    
+    self:CheckRedPoint()
+    
     XEventManager.AddEventListener(XEventId.EVENT_DRAW_ACTIVITYCOUNT_CHANGE, self.CheckDrawTag, self)
-    --XEventManager.AddEventListener(XEventId.EVENT_TASKFORCE_INFO_NOTIFY, self.SetupDispatch, self)
-    XEventManager.AddEventListener(XEventId.EVENT_REGRESSION_OPEN_STATUS_UPDATE, self.OnRegressionOpenStatusUpdate, self)
+    XEventManager.AddEventListener(XEventId.EVENT_EQUIP_GUIDE_REFRESH_TARGET_STATE, self.OnCheckMemberTag, self)
+    XEventManager.AddEventListener(XEventId.EVENT_DAYLY_REFESH_RECHARGE_BTN, self.OnCheckRechargeNews, self)
+    
     self:RefreshFubenProgress()
-    self:UpdateStoryTaskBtn()
     self:UpdateBtnActivityBrief()
     self:UpdateBtnActivityEntry()
     self:CheckDrawTag()
-    self:OnRegressionOpenStatusUpdate()
-    self:BtnSpecialShopUpdate()
-    if XDataCenter.RegressionManager.IsHaveOneRegressionActivityOpen() then
-        self:UpdateRegressionLeftTime()
-        if not self.RegressionTimeSchedule then
-            self.RegressionTimeSchedule = XScheduleManager.ScheduleForever(function()
-                self:UpdateRegressionLeftTime()
-            end, RegressionMainViewFreshTimeInterval * XScheduleManager.SECOND)
-        end
-    else
-        self.TxtRegressionLeftTime.gameObject:SetActiveEx(false)
-    end
 
     local livingQuarters = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Dorm)
     local drawCard = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.DrawCard)
@@ -98,15 +132,43 @@ function XUiMainRightMid:OnEnable()
     self.BtnReward:SetDisable(not drawCard)
     self.BtnPartner:SetDisable(not partner)
 
-    if self.BtnTarget and (not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Target) and not XUiManager.IsHideFunc) then
-        self.BtnTarget.gameObject:SetActiveEx(XDataCenter.TaskManager.CheckNewbieTaskAvailable())
-    end
-
     self:CheckGuildOpen()
     XDataCenter.DormManager.StartDormRedTimer() -- 优化
 
     self:CheckStartActivityEntryTimer()
     self:CheckBtnActivityEntryRedPoint()
+    --免费抽卡红点需要先获取抽卡信息 然后根据抽卡信息的时间去判断当前是否需要显示红点
+    if drawCard then
+        -- 有功能开放标记时才显示免费标签
+        if XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.DrawCard) then
+            XDataCenter.DrawManager.GetDrawGroupList(function()
+                self:AddRedPointEvent(self.BtnReward, self.OnCheckDrawFreeTicketTag, self, { XRedPointConditions.Types.CONDITION_DRAW_FREE_TAG, XRedPointConditions.Types.CONDITION_DEVILMAYCRY_CAN_RECEIVE_CHARACTER })
+            end)
+        end
+    else
+        self:OnCheckDrawFreeTicketTag(-1)
+    end
+    
+    self:CheckDevilMayCryTag()
+    self:OnCheckMemberTag()
+    self:OnCheckRechargeNews()
+    self:OnCheckStore()
+    self:RefreshSubPanelState(self:GetSubPanelState())
+end
+
+function XUiMainRightMid:CheckRedPoint() 
+    self:AddRedPointEvent(self.BtnTask.ReddotObj, self.OnCheckTaskNews, self, RedPointConditionGroup.Task)
+    self:AddRedPointEvent(self.BtnBuilding.ReddotObj, self.OnCheckBuildingNews, self, RedPointConditionGroup.Dorm)
+    self:AddRedPointEvent(self.ImgBuldingRedDot, self.OnCheckGuildRedPoint, self, RedPointConditionGroup.Guild)
+
+    self:AddRedPointEvent(self.BtnPartner, self.OnCheckPartnerRedPoint, self, RedPointConditionGroup.Partner)
+
+    self:AddRedPointEvent(self.BtnMember.ReddotObj, self.OnCheckMemberNews, self, RedPointConditionGroup.Member)
+    self:AddRedPointEvent(self.BtnRecharge.ReddotObj, self.OnCheckRechargeNews, self, RedPointConditionGroup.Recharge)
+
+    self:AddRedPointEvent(self.BtnBag, self.OnCheckBagNews, self, RedPointConditionGroup.Bag)
+
+    self:AddRedPointEvent(self.BtnOpen, self.OnCheckOpenRedPoint, self, RedPointConditionGroup.Open)
 end
 
 function XUiMainRightMid:CheckGuildOpen()
@@ -121,20 +183,17 @@ function XUiMainRightMid:CheckGuildOpen()
 end
 
 function XUiMainRightMid:OnDisable()
-    XEventManager.RemoveEventListener(XEventId.EVENT_NOTICE_TASKINITFINISHED, self.OnInitTaskFinished, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_DRAW_ACTIVITYCOUNT_CHANGE, self.CheckDrawTag, self)
     --XEventManager.RemoveEventListener(XEventId.EVENT_TASKFORCE_INFO_NOTIFY, self.SetupDispatch, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_REGRESSION_OPEN_STATUS_UPDATE, self.OnRegressionOpenStatusUpdate, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_EQUIP_GUIDE_REFRESH_TARGET_STATE, self.OnCheckMemberTag, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_DAYLY_REFESH_RECHARGE_BTN, self.OnCheckRechargeNews, self)
+    
 
     if self.guildTimer then
         XScheduleManager.UnSchedule(self.guildTimer)
         self.guildTimer = nil
     end
-
-    if self.RegressionTimeSchedule then
-        XScheduleManager.UnSchedule(self.RegressionTimeSchedule)
-        self.RegressionTimeSchedule = nil
-    end
+    
     XDataCenter.DormManager.StopDormRedTimer()
     self:StopActivityEntryTimer()
 end
@@ -146,33 +205,17 @@ function XUiMainRightMid:OnNotify(evt)
     end
 end
 
-function XUiMainRightMid:UpdateRegressionLeftTime()
-    local targetTime = XDataCenter.RegressionManager.GetTaskEndTime()
-    if not targetTime then
-        if self.RegressionTimeSchedule then
-            XScheduleManager.UnSchedule(self.RegressionTimeSchedule)
-            self.RegressionTimeSchedule = nil
-        end
-        self.TxtRegressionLeftTime.gameObject:SetActiveEx(false)
-        return
-    end
-    local leftTime = targetTime - XTime.GetServerNowTimestamp()
-    if leftTime > 0 then
-        self.TxtRegressionLeftTime.text = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.MAINBATTERY)
-        self.TxtRegressionLeftTime.gameObject:SetActiveEx(true)
-    elseif self.RegressionTimeSchedule then
-        self.TxtRegressionLeftTime.gameObject:SetActiveEx(false)
-        if self.RegressionTimeSchedule then
-            XScheduleManager.UnSchedule(self.RegressionTimeSchedule)
-        end
-        self.RegressionTimeSchedule = nil
-    end
-end
-
 function XUiMainRightMid:CheckFilterFunctions()
-    self.BtnTarget.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Target) and not XUiManager.IsHideFunc)
+    self.BtnStore.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.ShopCommon)
+    and not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.ShopActive))
+    self.BtnBag.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Bag))
+    self.BtnRecharge.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Deposit))
+    self.BtnMember.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Character))
     self.BtnTask.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Task))
-    self.BtnSkipTask.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.TaskStory))
+    --self.BtnSkipTask.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.TaskStory))
+    if self.BtnSkipTask then
+        self.BtnSkipTask.gameObject:SetActiveEx(false)
+    end
     self.BtnPartner.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Partner) and not XUiManager.IsHideFunc)
     if not XUiManager.IsHideFunc then
         self.BtnBuilding.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Dorm))
@@ -181,34 +224,17 @@ function XUiMainRightMid:CheckFilterFunctions()
     end
 end
 
---新手目标入口
-function XUiMainRightMid:OnBtnTarget()
-    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Target) then
-        return
-    end
-    XLuaUiManager.Open("UiNewPlayerTask")
-end
-
----
---- 特殊商店入口点击
-function XUiMainRightMid:OnBtnSpecialShop()
-    XSaveTool.SaveData(string.format("%d%s", XPlayer.Id, "SpecialShopAlreadyIn"), true)
-
-    if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon)
-    or XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopActive) then
-
-        local shopId = XSpecialShopConfigs.GetShopId()
-        XShopManager.GetShopInfo(shopId, function()
-            XLuaUiManager.Open("UiSpecialFashionShop", shopId)
-        end)
-    end
-
-    XRedPointManager.Check(self.SpecialShopRed)
-end
-
 --副本入口
 function XUiMainRightMid:OnBtnFight()
-    XLuaUiManager.Open("UiFuben")
+    local dict = {}
+    dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnFight
+    dict["role_level"] = XPlayer.GetLevel()
+    CS.XRecord.Record(dict, "200004", "UiOpen")
+    if XFubenConfigs.DebugOpenOldMainUi then
+        XLuaUiManager.Open("UiFuben")
+    else
+        XLuaUiManager.Open("UiNewFuben")
+    end
 end
 
 --任务入口
@@ -216,6 +242,7 @@ function XUiMainRightMid:OnBtnTask()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Task) then
         return
     end
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnTask)
     XLuaUiManager.Open("UiTask")
 end
 
@@ -250,8 +277,8 @@ function XUiMainRightMid:OnBtnBuilding()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Dorm) then
         return
     end
-
-    self.RootUi:ChangeLowPowerState(self.RootUi.LowPowerState.None)
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnBuilding)
+    --self.RootUi:ChangeLowPowerState(self.RootUi.LowPowerState.None)
     XHomeDormManager.EnterDorm()
 end
 
@@ -260,8 +287,9 @@ function XUiMainRightMid:OnBtnReward()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.DrawCard) then
         return
     end
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnDrawMain)
     XDataCenter.DrawManager.MarkActivityDraw()
-    XLuaUiManager.Open("UiNewDrawMain", DefaultType)
+    XDataCenter.DrawManager.OpenDrawUi(DefaultType)
 end
 
 --伙伴入口
@@ -269,7 +297,8 @@ function XUiMainRightMid:OnBtnPartner()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Partner) then
         return
     end
-    XLuaUiManager.Open("UiPartnerMain", DefaultType)
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnPartner)
+    XDataCenter.PartnerManager.OpenUiPartnerMain(false, DefaultType)
 end
 
 function XUiMainRightMid:CheckDrawTag()
@@ -278,93 +307,91 @@ end
 
 --副本入口进度更新
 function XUiMainRightMid:RefreshFubenProgress()
-    local progressOrder = 1
-    local curChapterOrderId = 1
-    local curStageOrderId
-    local curStageOrderIdForShow = 1
-    local curStageCount = 1
-    local chapterNew
-    local extraClear = false
-    local extraLock = false
-    -- 普通
-    local curDifficult = XDataCenter.FubenManager.DifficultNormal
-    local chapterList = XDataCenter.FubenMainLineManager.GetChapterList(XDataCenter.FubenManager.DifficultNormal)
-    for _, v in ipairs(chapterList) do
-        local chapterInfo = XDataCenter.FubenMainLineManager.GetChapterInfo(v)
-        if chapterInfo then --不知道什么情况偶现的没有副本数据，暂时加个保护
-            if chapterInfo.Unlock then
-                if v == XDataCenter.FubenMainLineManager.TRPGChapterId then
-                    curChapterOrderId = v
-                else
-                    local activeStageId = chapterInfo.ActiveStage
-                    if not activeStageId then break end
-                    local stageInfo = XDataCenter.FubenManager.GetStageInfo(activeStageId)
-                    local stageCfg = XDataCenter.FubenManager.GetStageCfg(activeStageId)
-                    local chapter = XDataCenter.FubenMainLineManager.GetChapterCfg(v)
-                    curStageOrderId = stageInfo.OrderId
-                    curStageOrderIdForShow = stageCfg.OrderId
-                    curChapterOrderId = chapter.OrderId
-                    curStageCount = #XDataCenter.FubenMainLineManager.GetStageList(v)
-                    progressOrder = chapterInfo.PassStageNum
-                end
-            --[[                if curStageOrderId == curStageCount and stageInfo.Passed then
-                    --当前章节打完，下一章节未解锁时进度更为100%
-                    progressOrder = curStageOrderId
-                else
-                    progressOrder = curStageOrderId - 1
-                end]]
-            end
-            if not chapterInfo.Passed then
-                break
-            end
-        end
-    end
-    local mainLineClear = self:IsMainLineClear(curChapterOrderId, progressOrder, curStageCount, #chapterList)
-    if mainLineClear then
-        local clearData = XDataCenter.ExtraChapterManager.GetChapterClearData()
-        if clearData and clearData.ChapterId then
-            extraClear = clearData.IsClear and clearData.AllChapterClear
-            chapterNew = not clearData.IsClear
-            progressOrder = clearData.PassStageNum
-            self.TxtCurChapter.text = clearData.StageTitle .. "-" .. clearData.LastStageOrder
-            self.TxtCurDifficult.text = CSXTextManagerGetText("DifficultMode") .. CSXTextManagerGetText("Difficult" .. curDifficult)
-            curStageCount = #XDataCenter.ExtraChapterManager.GetStageList(clearData.ChapterId)
-        else
-            extraLock = true
-        end
-    end
-    -- 主线与外章普通全部完成时改为显示据点战
-    if XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FubenNightmare) and extraClear then
+    -- 主线
+    local isClear = self:RefreshMainLineProgress()
+    if not isClear then return end
+
+    -- 提审服屏蔽主线外的关卡
+    if XUiManager.IsHideFunc then return end
+    
+    -- 外篇旧闻
+    isClear = self:RefreshExtraProgress()
+    if not isClear then return end
+
+    -- 主线与外章普通全部完成，据点战未完成时，显示据点战
+    if XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FubenNightmare) then
         local chapterId = XDataCenter.BfrtManager.GetActiveChapterId()
-        if not chapterId then return end
-        local chapterCfg = XDataCenter.BfrtManager.GetChapterCfg(chapterId)
-        progressOrder = XDataCenter.BfrtManager.GetChapterPassCount(chapterId)
-        curStageCount = XDataCenter.BfrtManager.GetGroupCount(chapterId)
-        chapterNew = XDataCenter.BfrtManager.CheckChapterNew(chapterId)
-        self.TxtCurChapter.text = chapterCfg.ChapterEn
-        local chapterPassedStr = progressOrder == curStageCount and CSXTextManagerGetText("BfrtStatePassed") or CSXTextManagerGetText("BfrtStateNotPassed")
-        self.TxtCurDifficult.text = chapterPassedStr
-    elseif not mainLineClear or (mainLineClear and extraLock) then
-        chapterNew = XDataCenter.FubenMainLineManager.CheckNewChapter()
-        local difficultTxt = CSXTextManagerGetText("Difficult" .. curDifficult)
-        self.TxtCurDifficult.text = CSXTextManagerGetText("DifficultMode") .. difficultTxt
-        if curChapterOrderId == XDataCenter.FubenMainLineManager.TRPGChapterId then
-            self.TxtCurChapter.text = XFubenMainLineConfigs.GetChapterMainChapterEn(curChapterOrderId)
-        else
-            self.TxtCurChapter.text = curChapterOrderId .. "-" .. curStageOrderIdForShow
+        if chapterId then
+            local passCount = XDataCenter.BfrtManager.GetChapterPassCount(chapterId)
+            local stageCount = XDataCenter.BfrtManager.GetChapterGroupCount(chapterId)
+            if passCount < stageCount then
+                local chapterCfg = XDataCenter.BfrtManager.GetChapterCfg(chapterId)
+                self.TxtCurChapter.text = chapterCfg.ChapterEn
+                self.TxtCurDifficult.text = CSXTextManagerGetText("BfrtStateNotPassed")
+                return
+            end
+        end
+    end
+end
+
+-- 刷新主线进度
+function XUiMainRightMid:RefreshMainLineProgress()
+    local isFindViewModel = false
+    local isLastChapter = false -- 是否是最后一章
+    local chapterViewModel = nil
+
+    local groupCfgs = XDataCenter.FubenMainLineManager:ExGetChapterGroupConfigs()
+    for i, config in ipairs(groupCfgs) do
+        local chapterViewModels = XDataCenter.FubenMainLineManager:ExGetChapterViewModels(config.Id, XDataCenter.FubenManager.DifficultNormal)
+        for j, viewModel in ipairs(chapterViewModels) do
+            -- 遍历到上锁，直接结束
+            if viewModel:GetIsLocked() then
+                isFindViewModel = true
+                break
+
+            -- 解锁
+            elseif not viewModel:GetIsLocked() then
+                chapterViewModel = viewModel
+                isLastChapter = i == #groupCfgs and j == #chapterViewModels
+                if not viewModel:CheckIsPassed() then
+                    isFindViewModel = true
+                    break
+                end
+            end
+        end
+
+        if isFindViewModel then
+            break
         end
     end
 
-    local progress
-    if curChapterOrderId == XDataCenter.FubenMainLineManager.TRPGChapterId then
-        progress = XDataCenter.TRPGManager.GetProgress()
-        progress = progress / 100
-    else
-        progress = progressOrder / curStageCount
+    -- 刷新主线进度
+    local progress, difficult = chapterViewModel:GetUiMainProgress()
+    if not progress then
+        local extralData = chapterViewModel:GetExtralData()
+        if extralData.MainId == XDataCenter.FubenMainLineManager.TRPGChapterId then
+            progress = chapterViewModel:GetName()
+        else
+            progress = tostring(extralData.OrderId) .. "-" .. tostring(chapterViewModel:GetNormalChapterNextStageOrderId())
+        end
+        difficult = CSXTextManagerGetText("DifficultMode") .. CSXTextManagerGetText("Difficult" .. XDataCenter.FubenManager.DifficultNormal)
     end
-    self.ImgCurProgress.fillAmount = progress
-    self.TxtCurProgress.text = CSXTextManagerGetText("MainFubenProgress", math.ceil(progress * 100))
-    self.PanelBtnFightEffect.gameObject:SetActive(chapterNew)
+    self.TxtCurChapter.text = progress
+    self.TxtCurDifficult.text = difficult
+    
+    local isClear = isLastChapter and chapterViewModel:CheckIsPassed()
+    return isClear
+end
+
+-- 刷新外篇旧闻进度
+function XUiMainRightMid:RefreshExtraProgress()
+    local clearData = XDataCenter.ExtraChapterManager.GetChapterClearData()
+    local extraClear = clearData and clearData.ChapterId and clearData.IsClear and clearData.AllChapterClear
+    if not extraClear then
+        self.TxtCurChapter.text = clearData.StageTitle .. "-" .. clearData.LastStageOrder
+        self.TxtCurDifficult.text = CSXTextManagerGetText("DifficultMode") .. CSXTextManagerGetText("Difficult" .. XDataCenter.FubenManager.DifficultNormal)
+    end
+    return extraClear
 end
 
 function XUiMainRightMid:IsMainLineClear(curChapterOrderId, progressOrder, curStageCount, chapterListTotal)
@@ -375,30 +402,6 @@ function XUiMainRightMid:IsMainLineClear(curChapterOrderId, progressOrder, curSt
     end
 end
 
---更新任务按钮描述
-function XUiMainRightMid:UpdateStoryTaskBtn()
-    self.ShowTaskId = XDataCenter.TaskManager.GetStoryTaskShowId()
-    local white = "#ffffff"
-    local blue = "#34AFF8"
-    if self.ShowTaskId > 0 then
-        local taskTemplates = XDataCenter.TaskManager.GetTaskTemplate(self.ShowTaskId)
-        self.BtnSkipTask:SetDisable(false, true)
-        local taskData = XDataCenter.TaskManager.GetTaskDataById(self.ShowTaskId)
-        local hasRed = taskData and taskData.State == XDataCenter.TaskManager.TaskState.Achieved
-        self.BtnSkipTask:ShowReddot(hasRed)
-        local color = hasRed and blue or white
-        self.BtnSkipTask:SetName(string.format("<color=%s>%s</color>", color, taskTemplates.Desc))
-    else
-        self.BtnSkipTask:SetDisable(true, true)
-        self.BtnSkipTask:SetName(string.format("<color=%s>%s</color>", white, CSXTextManagerGetText("TaskStoryNoTask")))
-    end
-end
-
---更新任务标签
-function XUiMainRightMid:OnInitTaskFinished()
-    self:UpdateStoryTaskBtn()
-end
-
 -------------活动简介 Begin-------------------
 function XUiMainRightMid:UpdateBtnActivityBrief()
     local isOpen = XDataCenter.ActivityBriefManager.CheckActivityBriefOpen()
@@ -407,6 +410,13 @@ function XUiMainRightMid:UpdateBtnActivityBrief()
 end
 
 function XUiMainRightMid:OnBtnActivityBrief()
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
+    local dict = {}
+    dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnActivityBrief
+    dict["role_level"] = XPlayer.GetLevel()
+    CS.XRecord.Record(dict, "200004", "UiOpen")
     XLuaUiManager.Open("UiActivityBriefBase")
 end
 -------------活动简介 End-------------------
@@ -424,8 +434,9 @@ function XUiMainRightMid:InitBtnActivityEntry()
             btn.CallBack = function() self:OnClickBtnActivityEntry(config.Id, index) end
             btn.gameObject:SetActiveEx(true)
             local redPointConditions = XActivityBriefConfigs.GetRedPointConditionsBySkipId(config.SkipId)
+            local redPointParam = XActivityBriefConfigs.GetRedPointParamBySkipId(config.SkipId)
             if redPointConditions then
-                local redPointEventId = XRedPointManager.AddRedPointEvent(btn, self["OnCheckActivityEntryRedPoint" .. index], self, redPointConditions)
+                local redPointEventId = self:AddRedPointEvent(btn, function(_, count) self:OnCheckActivityEntryRedPointByIndex(index, count) end, self, redPointConditions, redPointParam)
                 tableInsert(self.BtnActivityEntryRedPointEventIds, redPointEventId)
             else
                 btn:ShowReddot(false)
@@ -435,14 +446,14 @@ function XUiMainRightMid:InitBtnActivityEntry()
 end
 
 function XUiMainRightMid:InitBtnActivityEntryRedPointEventIds()
-    for _, redPointEventId in ipairs(self.BtnActivityEntryRedPointEventIds or {}) do
-        XRedPointManager.RemoveRedPointEvent(redPointEventId)
+    for _, redPointId in pairs(self.BtnActivityEntryRedPointEventIds or {}) do
+        self:RemoveRedPointEvent(redPointId)
     end
     self.BtnActivityEntryRedPointEventIds = {}
 end
 
 function XUiMainRightMid:UpdateBtnActivityEntry()
-    local _, isNewActivity = XDataCenter.ActivityBriefManager.GetNowActivityEntryConfig()
+    local isNewActivity = XDataCenter.ActivityBriefManager.CheckIsNewSpecialActivityOpen()
     if isNewActivity then
         self:InitBtnActivityEntry()
     end
@@ -455,6 +466,9 @@ function XUiMainRightMid:SetBtnActivityEntryHide()
 end
 
 function XUiMainRightMid:OnClickBtnActivityEntry(id, index)
+    if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.SUBPACKAGE.ENTRY_TYPE.MAIN_RIGHT_TOP_ACTIVITY, id) then
+        return
+    end
     local dict = {}
     dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne["BtnUiMainBtnActivityEntry" .. index]
     dict["role_level"] = XPlayer.GetLevel()
@@ -469,16 +483,12 @@ function XUiMainRightMid:CheckBtnActivityEntryRedPoint()
     end
 end
 
-function XUiMainRightMid:OnCheckActivityEntryRedPoint1(count)
-    self.BtnActivityEntry1:ShowReddot(count >= 0)
-end
-
-function XUiMainRightMid:OnCheckActivityEntryRedPoint2(count)
-    self.BtnActivityEntry2:ShowReddot(count >= 0)
-end
-
-function XUiMainRightMid:OnCheckActivityEntryRedPoint3(count)
-    self.BtnActivityEntry3:ShowReddot(count >= 0)
+function XUiMainRightMid:OnCheckActivityEntryRedPointByIndex(index, count)
+    local btn = self["BtnActivityEntry"..index]
+    if not btn then
+        return
+    end
+    btn:ShowReddot(count >= 0)
 end
 
 function XUiMainRightMid:CheckStartActivityEntryTimer()
@@ -488,6 +498,7 @@ function XUiMainRightMid:CheckStartActivityEntryTimer()
     self.ActivityEntryTimer = XScheduleManager.ScheduleForever(function()
         serverTimestamp = XTime.GetServerNowTimestamp()
         self:UpdateBtnActivityEntry()
+        self:UpdateBtnActivityBrief()
         self:CheckBtnActivityEntryRedPoint()
         if endTimeStamp <= serverTimestamp then
             self:StopActivityEntryTimer()
@@ -503,18 +514,117 @@ function XUiMainRightMid:StopActivityEntryTimer()
 end
 -------------活动入口 End-------------------
 -------------回归活动入口 Begin-------------
-function XUiMainRightMid:OnRegressionOpenStatusUpdate()
-    local isOpen = XDataCenter.RegressionManager.IsHaveOneRegressionActivityOpen()
-    self.BtnRegression.gameObject:SetActiveEx(isOpen)
-    if not isOpen and self.RegressionTimeSchedule then
-        XScheduleManager.UnSchedule(self.RegressionTimeSchedule)
-        self.RegressionTimeSchedule = nil
-        self.TxtRegressionLeftTime.gameObject:SetActiveEx(false)
+
+function XUiMainRightMid:InitDragProxy()
+    if not self.PanelFirst then
+        return
+    end
+    
+    local dragProxy = self.PanelFirst:GetComponent(typeof(CsXUGuiDragProxy))
+    if not dragProxy then
+        dragProxy = self.PanelFirst.gameObject:AddComponent(typeof(CsXUGuiDragProxy))
+    end
+    dragProxy:RegisterHandler(handler(self, self.OnDragSwitch))
+end
+
+function XUiMainRightMid:OnDragSwitch(state, eventData)
+    if state == CsXUGuiDragProxy.BEGIN_DRAG then
+        self.DragY = eventData.position.y
+    elseif state == CsXUGuiDragProxy.END_DRAG then
+        local tmpY = eventData.position.y
+        local subY = tmpY - self.DragY
+        if math.abs(subY) < MinDragYDistance then
+            return
+        end
+        local isShow = tmpY > self.DragY
+        self:RefreshSubPanelState(isShow)
+
+        -- 埋点
+        if isShow then
+            XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.DragAnimPanelRightMidSecond)
+        else
+            XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.DragAnimPanelRightMid)
+        end
     end
 end
 
-function XUiMainRightMid:OnBtnRegression()
-    XLuaUiManager.Open("UiRegression")
+function XUiMainRightMid:OnBtnOpenClick()
+    self:RefreshSubPanelState(true)
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.ClickAnimPanelRightMidSecond)
+end
+
+function XUiMainRightMid:OnBtnCloseClick()
+    self:RefreshSubPanelState(false)
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.ClickAnimPanelRightMid)
+end
+
+function XUiMainRightMid:RefreshSubPanelState(show)
+    if self.IsShowSubPanel == show then
+        return
+    end
+    self:UpdateSubPanelState(show)
+    self.IsShowSubPanel = show
+    local animName = show and "AnimPanelRightMidSecond" or "AnimPanelRightMid"
+    self.RootUi:PlayAnimationWithMask(animName)
+end
+
+function XUiMainRightMid:GetSubPanelState()
+    local key = string.format("UiMain_%s_%s", SubPanelState, XPlayer.Id)
+    local state = XSaveTool.GetData(key)
+    if state == nil then
+        return false
+    end
+    return state
+end
+
+function XUiMainRightMid:UpdateSubPanelState(state)
+    local key = string.format("UiMain_%s_%s", SubPanelState, XPlayer.Id)
+    XSaveTool.SaveData(key, state)
+end
+
+--商店入口
+function XUiMainRightMid:OnBtnStore()
+    if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon)
+            or XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopActive) then
+        XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnStore)
+        XLuaUiManager.Open("UiShop", XShopManager.ShopType.Common)
+    end
+end
+
+--商店开启状态
+function XUiMainRightMid:OnCheckStore()
+    local isOpen = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.ShopCommon)
+            or XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.ShopActive)
+    self.BtnStore:SetDisable(not isOpen)
+end
+
+--仓库入口
+function XUiMainRightMid:OnBtnBag()
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Bag) then
+        return
+    end
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnBag)
+    XLuaUiManager.Open("UiBag")
+end
+
+--充值入口
+function XUiMainRightMid:OnBtnRecharge()
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnRecharge)
+    XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.Recommend)
+end
+
+--成员入口
+function XUiMainRightMid:OnBtnMember()
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Character) then
+        return
+    end
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnMember)
+
+    --region 【v2.8，主干】【联机邀请提示】在主界面收到好友邀请后进入成员界面，邀请弹窗会有残留
+    XEventManager.DispatchEvent(XEventId.EVENT_ARENA_HIDE_INVITATION)
+    XEventManager.DispatchEvent(XEventId.EVENT_DLC_HIDE_INVITE)
+    --endregion
+    XLuaUiManager.Open("UiCharacterSystemV2P6")
 end
 
 -- 公会
@@ -522,22 +632,19 @@ function XUiMainRightMid:OnBtnGuildClick()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Guild) then
         return
     end
-
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnGuild)
+    --self.RootUi:ChangeLowPowerState(self.RootUi.LowPowerState.None)
     XDataCenter.GuildDormManager.EnterGuildDorm()
 end
 
 function XUiMainRightMid:OnCheckGuildRedPoint(count)
+    if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Guild) then
+        self.ImgBuldingRedDot.gameObject:SetActiveEx(false)
+        return
+    end
     self.ImgBuldingRedDot.gameObject:SetActiveEx(count >= 0)
 end
 -------------回归活动入口 End-------------
----
---- 更新特殊商店入口状态
-function XUiMainRightMid:BtnSpecialShopUpdate()
-    if self.BtnSpecialShop then
-        local isShow = XDataCenter.SpecialShopManager:IsShowEntrance()
-        self.BtnSpecialShop.gameObject:SetActiveEx(isShow)
-    end
-end
 
 --伙伴红点
 function XUiMainRightMid:OnCheckPartnerRedPoint(count)
@@ -547,16 +654,6 @@ end
 --任务红点
 function XUiMainRightMid:OnCheckTaskNews(count)
     self.BtnTask:ShowReddot(count >= 0)
-end
-
---新手目标红点
-function XUiMainRightMid:OnCheckTargetNews(count)
-    self.BtnTarget:ShowReddot(count >= 0)
-end
-
--- 特殊商店红点
-function XUiMainRightMid:OnCheckSpecialShopRedPoint(count)
-    self.BtnSpecialShop:ShowReddot(count >= 0)
 end
 
 --宿舍红点
@@ -574,7 +671,44 @@ function XUiMainRightMid:OnCheckARewardNews(count)
     self.BtnReward:ShowReddot(count >= 0)
 end
 
+--成员红点
+function XUiMainRightMid:OnCheckMemberNews(count)
+    self.BtnMember:ShowReddot(count >= 0)
+end
+
+--成员装备推荐Tag
+function XUiMainRightMid:OnCheckMemberTag()
+    local isSetEquipTarget = XDataCenter.EquipGuideManager.IsSetEquipTarget()
+    self.BtnMember:ShowTag(isSetEquipTarget)
+    if not isSetEquipTarget then
+        return
+    end
+    local strongerWeapon = XDataCenter.EquipGuideManager.CheckHasStrongerWeapon()
+    local hasEquipCanEquip = XDataCenter.EquipGuideManager.CheckEquipCanEquip()
+    self.BtnEquipGuide.ReddotObj.gameObject:SetActiveEx(strongerWeapon or hasEquipCanEquip)
+end
+
+function XUiMainRightMid:SetBtnEquipGuideState(state)
+    self.BtnEquipGuide.enabled = state
+end
+
+--充值红点
+function XUiMainRightMid:OnCheckRechargeNews()
+    local isShowRedPoint = XDataCenter.PurchaseManager.FreeLBRed() or XDataCenter.PurchaseManager.AccumulatePayRedPoint() or XDataCenter.PurchaseManager.CheckYKContinueBuy()
+            or XDataCenter.PurchaseManager.GetRecommendManager():GetIsShowRedPoint()
+    if self.BtnRecharge then
+        self.BtnRecharge:ShowReddot(isShowRedPoint)
+    end
+end
+
 --研发活动标签
+--鬼泣五联动卡池可领取红点
+function XUiMainRightMid:CheckDevilMayCryTag()
+    local devilMayCryTag = XUiHelper.TryGetComponent(self.BtnReward.transform, "Tab3", nil)
+    -- todo 服务端方案
+    -- devilMayCryTag.gameObject:SetActiveEx()
+end
+
 function XUiMainRightMid:OnCheckDrawActivityTag(IsShow)
     if XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.DrawCard) then
         self.BtnReward:ShowTag(IsShow)
@@ -583,5 +717,26 @@ function XUiMainRightMid:OnCheckDrawActivityTag(IsShow)
     end
 end
 
+function XUiMainRightMid:OnCheckDrawFreeTicketTag(isShow)
+    local freeTag = XUiHelper.TryGetComponent(self.BtnReward.transform, "Tab2", nil)
+    if not freeTag then
+        return
+    end
+    if XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.DrawCard) then
+        freeTag.gameObject:SetActiveEx(isShow >= 0)
+    else
+        freeTag.gameObject:SetActiveEx(false)
+    end
+end
+
+--展开按钮红点
+function XUiMainRightMid:OnCheckOpenRedPoint(count)
+    self.BtnOpen:ShowReddot(count >= 0)
+end
+
+--仓库红点
+function XUiMainRightMid:OnCheckBagNews(count)
+    self.BtnBag:ShowReddot(count >= 0)
+end
 
 return XUiMainRightMid

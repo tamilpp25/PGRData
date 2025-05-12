@@ -1,4 +1,4 @@
-XUiGridChallengePlayerState = XClass(nil, "XUiGridChallengePlayerState")
+local XUiGridChallengePlayerState = XClass(nil, "XUiGridChallengePlayerState")
 
 function XUiGridChallengePlayerState:Ctor(rootUi, ui)
     self.RootUi = rootUi
@@ -46,7 +46,7 @@ function XUiGridChallengePlayerState:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -64,7 +64,7 @@ function XUiGridChallengePlayerState:Refresh(playerData)
     self.TxtNameE.text = playerData.Name
     if playerData.CharacterData then
         self.TxtLevelNum.text = playerData.CharacterData.Level
-        self.RootUi:SetUiSprite(self.ImgRole, XDataCenter.CharacterManager.GetCharSmallHeadIcon(playerData.CharacterData.Id))
+        self.RootUi:SetUiSprite(self.ImgRole, XMVCA.XCharacter:GetCharSmallHeadIcon(playerData.CharacterData.Id))
     end
 end
 
@@ -75,3 +75,6 @@ end
 function XUiGridChallengePlayerState:SetActive(active)
     self.GameObject:SetActive(active)
 end
+
+
+return XUiGridChallengePlayerState

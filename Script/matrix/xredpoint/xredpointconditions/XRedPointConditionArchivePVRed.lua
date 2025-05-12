@@ -11,7 +11,7 @@ function XRedPointConditionArchivePVRed.GetSubEvents()
 end
 
 function XRedPointConditionArchivePVRed.Check(id)
-    return XDataCenter.ArchiveManager.CheckPVRedPoint(id)
+    return XMVCA.XArchive:CheckPVRedPoint(id)
 end
 
 return XRedPointConditionArchivePVRed

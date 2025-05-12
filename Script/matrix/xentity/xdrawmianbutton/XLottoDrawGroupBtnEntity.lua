@@ -55,13 +55,8 @@ end
 
 function XLottoDrawGroupBtnEntity:GoDraw(cb)
     if cb then cb() end
-    local skipid = tonumber(self.UiPrefab)
-    if skipid then
-        XFunctionManager.SkipInterface(skipid)
-    else
-        XLuaUiManager.Open(self:GetUiPrefab(), self.data, function()
+    XLuaUiManager.Open(self:GetUiPrefab(), self.data, function()
         end, self:GetUiBackGround())
-    end
 end
 
 function XLottoDrawGroupBtnEntity:IsShowTag()

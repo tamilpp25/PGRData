@@ -25,12 +25,14 @@ function XUiSSBPickPanelPickOwn.InitGrids()
     local maxPosition = Mode:GetTeamMaxPosition() --我方队伍位置数
     local pickNum = Mode:GetRoleMaxPosition() --我方可最多选的角色数目
     local forceRandomIndex = Mode:GetRoleRandomStartIndex()--我方可强制随机的开始下标
+    local assistantIndex = Mode:GetRoleForceAssistIndex()--我方援助的开始下标
     local defaultTeam = XDataCenter.SuperSmashBrosManager.GetDefaultTeamInfoByModeId(Mode:GetId())
     XLuaUiManager.SetMask(true)
     for num = 1, maxPosition do
         local grid = CS.UnityEngine.Object.Instantiate(Panel.GridPickOwn, Panel.Transform)
         grid.name = "GridPickOwn" .. num --命名用于引导
-        Grids[num] = GridScript.New(grid, num, RootPanel, Grids)
+        local hideTextOrder = num > (maxPosition - assistantIndex)
+        Grids[num] = GridScript.New(grid, num, RootPanel, Grids, hideTextOrder)
         Grids[num].GameObject:SetActiveEx(false)
         Grids[num]:SetColor(XSuperSmashBrosConfig.ColorTypeIndex[defaultTeam.Color[num]])
         if forceRandomIndex and num >= forceRandomIndex then --强制随机不可编辑

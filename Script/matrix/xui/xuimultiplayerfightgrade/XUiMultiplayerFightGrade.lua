@@ -36,7 +36,7 @@ end
 function XUiMultiplayerFightGrade:Init()
     local beginData = XDataCenter.FubenManager.GetFightBeginData()
     local PlayerList = beginData.PlayerList
-    local dpsTable = XDataCenter.FubenManager.LastDpsTable
+    local dpsTable = XMVCA.XFuben:GetLastDpsTable()
 
     local index = 0
     self.GridList = {}

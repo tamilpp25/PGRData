@@ -1,4 +1,4 @@
-XUiPanelMissionChapterGird = XClass(nil, "XUiPanelMissionChapterGird")
+local XUiPanelMissionChapterGird = XClass(nil, "XUiPanelMissionChapterGird")
 
 function XUiPanelMissionChapterGird:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -113,7 +113,7 @@ function XUiPanelMissionChapterGird:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

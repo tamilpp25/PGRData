@@ -36,8 +36,7 @@ function XUiExploreBattleRoleRoom:GetTipDescs()
         return {}
     end
     -- todo text
-    -- 消费AP 建议写入到Text.tab
-    return { string.format( "Stage Endurance Cost: %s", self.FubenExploreManager.GetCurNodeEndurance()) }
+    return { string.format( "关卡扣除耐力: %s", self.FubenExploreManager.GetCurNodeEndurance()) }
 end
 
 -- team : XTeam

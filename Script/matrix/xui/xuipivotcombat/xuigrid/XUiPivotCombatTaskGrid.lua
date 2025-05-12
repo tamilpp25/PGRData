@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPivotCombatTaskGrid = XClass(nil, "XUiPivotCombatTaskGrid")
 
 function XUiPivotCombatTaskGrid:Ctor(ui)

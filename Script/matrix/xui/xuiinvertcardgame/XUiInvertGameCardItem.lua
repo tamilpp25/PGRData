@@ -10,13 +10,17 @@ function XUiInvertGameCardItem:Ctor(rootUi, ui)
     self.Transform = ui.transform
     self.RectTransform = ui
     self.RootUi = rootUi
+    self._TimerClearEffect = false
+    self._Callback = false
     XTool.InitUiObject(self)
 
     self:Init()
 end
 
 function XUiInvertGameCardItem:Init()
-    self.BtnCard.CallBack = function () self:OnClickBtnCard() end
+    self.BtnCard.CallBack = function()
+        self:OnClickBtnCard()
+    end
     self.AsynRotate = asynTask(self.DORotate, self)
 end
 
@@ -28,6 +32,7 @@ end
 
 function XUiInvertGameCardItem:Refresh()
     if self.Data then
+        self.ClearEffect.gameObject:SetActiveEx(false)
         local baseIcon = XInvertCardGameConfig.GetCardBaseIconById(self.Data.CardId)
         if baseIcon and baseIcon ~= "" then
             self.RImgPeople:SetRawImage(baseIcon)
@@ -70,33 +75,58 @@ function XUiInvertGameCardItem:SetCardState(cardState)
 end
 
 function XUiInvertGameCardItem:DORotate(turningCb, cb)
-    self.GridDraw.transform:DOScaleX(0, RotateDuringTime):OnComplete(function ()
-        if turningCb then turningCb() end
-        self.GridDraw.transform:DOScaleX(1, RotateDuringTime):OnComplete(function ()
-            if cb then cb() end
+    self.GridDraw.transform:DOScaleX(0, RotateDuringTime):OnComplete(function()
+        if turningCb then
+            turningCb()
+        end
+        self.GridDraw.transform:DOScaleX(1, RotateDuringTime):OnComplete(function()
+            if cb then
+                cb()
+            end
         end)
     end)
 end
 
 function XUiInvertGameCardItem:DOMoveToCenter(cb)
     self.OldAnchoredPos = self.RectTransform.anchoredPosition
-    self.RectTransform:DOAnchorPos(Vector2(self.Parent.HalfGamePanelWidth, -self.Parent.HalfGamePanelHeight), MoveCenterDuringTime):OnComplete(function ()
-        if cb then cb() end
+    self.RectTransform:DOAnchorPos(Vector2(self.Parent.HalfGamePanelWidth, -self.Parent.HalfGamePanelHeight), MoveCenterDuringTime):OnComplete(function()
+        if cb then
+            cb()
+        end
     end)
 end
 
 function XUiInvertGameCardItem:DOMoveFromCenter(cb)
-    self.RectTransform:DOAnchorPos(self.OldAnchoredPos, MoveCenterDuringTime):OnComplete(function ()
-        if cb then cb() end
+    self.RectTransform:DOAnchorPos(self.OldAnchoredPos, MoveCenterDuringTime):OnComplete(function()
+        if cb then
+            cb()
+        end
     end)
 end
 
 function XUiInvertGameCardItem:PlayClearEffectAnimation(cb)
+    self.ClearEffect.gameObject:SetActiveEx(false)
     self.ClearEffect.gameObject:SetActiveEx(true)
-    XScheduleManager.ScheduleOnce(function ()
+    self._Callback = cb
+    self._TimerClearEffect = XScheduleManager.ScheduleOnce(function()
         self.ClearEffect.gameObject:SetActiveEx(false)
-        if cb then cb() end
+        self._TimerClearEffect = false
+        if self._Callback then
+            local callback = self._Callback
+            self._Callback = false
+            callback()
+        end
     end, ClearEffectDuriation)
+end
+
+function XUiInvertGameCardItem:StopClearEffectAnimation()
+    if self._TimerClearEffect then
+        XScheduleManager.UnSchedule(self._TimerClearEffect)
+        self._TimerClearEffect = false
+        if self._Callback then
+            self._Callback()
+        end
+    end
 end
 
 return XUiInvertGameCardItem

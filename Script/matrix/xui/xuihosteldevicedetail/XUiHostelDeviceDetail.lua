@@ -1,3 +1,6 @@
+local XUiGridFunctionContenItem = require("XUi/XUiHostelDeviceDetail/XUiGridFunctionContenItem")
+local XUiPanelDeviceUpgradeInfo = require("XUi/XUiHostelDeviceDetail/XUiPanelDeviceUpgradeInfo")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiHostelDeviceDetail = XLuaUiManager.Register(XLuaUi, "UiHostelDeviceDetail")
 
 local table_insert = table.insert
@@ -59,7 +62,7 @@ function XUiHostelDeviceDetail:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

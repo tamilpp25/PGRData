@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiLivWarmRaceGrid = require("XUi/XUiLivWarmRace/XUiLivWarmRaceGrid")
 
 --挑战目标弹窗

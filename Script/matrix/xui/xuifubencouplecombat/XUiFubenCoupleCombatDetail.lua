@@ -1,12 +1,48 @@
-local XUiGridStageBuff = require("XUi/XUiFubenCoupleCombat/ChildItem/XUiGridStageBuff")
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiStageFightControl = require("XUi/XUiCommon/XUiStageFightControl")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+-- v1.32 关卡介绍
+--====================================================================
+local XGridStageDesc  = XClass(nil, "XGridStageDesc")
 
+function XGridStageDesc:Ctor(ui, featureId, clickCB)
+    self.Ui = ui
+    self.FeatureId = featureId
+    self.ClickCB = clickCB
+    XUiHelper.InitUiClass(self, ui)
+    self:AddClickListener()
+end
+
+function XGridStageDesc:AddClickListener()
+    XUiHelper.RegisterClickEvent(self, self.RImgIcon, self.Click)
+end
+
+function XGridStageDesc:Refresh(desc, featureId)
+    self.FeatureId = featureId
+    if XTool.IsNumberValid(featureId) then
+        self.RImgIcon:SetRawImage(XFubenCoupleCombatConfig.GetFeatureIcon(featureId))
+    end
+    self.TxtDesc.text = desc
+end
+
+function XGridStageDesc:Click()
+    if self.ClickCB then
+        self.ClickCB(self.FeatureId)
+    end
+end
+
+function XGridStageDesc:SetActive(active)
+    self.GameObject:SetActiveEx(active)
+end
+
+--====================================================================
+
+local XUiGridStageBuff = require("XUi/XUiFubenCoupleCombat/ChildItem/XUiGridStageBuff")
 local XUiFubenCoupleCombatDetail = XLuaUiManager.Register(XLuaUi, "UiFubenCoupleCombatDetail")
 
 function XUiFubenCoupleCombatDetail:OnAwake()
     self:AutoAddListener()
-    --self.GridStageStar.gameObject:SetActive(false)
-    --self.GridCommon.gameObject:SetActive(false)
-    --self:InitStarPanels()
     self.GridBuffList = {}
     self.GridBuff.gameObject:SetActiveEx(false)
 end
@@ -19,12 +55,6 @@ function XUiFubenCoupleCombatDetail:OnStart(rootUi)
 end
 
 function XUiFubenCoupleCombatDetail:OnEnable()
-    -- 动画
-    --self.IsPlaying = true
-    --self:PlayAnimation("AnimBegin", handler(self, function()
-    --    self.IsPlaying = false
-    --end))
-
     self.IsOpen = true
 end
 
@@ -68,19 +98,30 @@ function XUiFubenCoupleCombatDetail:InitStarPanels()
 end
 
 function XUiFubenCoupleCombatDetail:UpdateDesc()
-    self.TxtActive.gameObject:SetActiveEx(false)
+    self.Skill.gameObject:SetActiveEx(false)
     for i, desc in ipairs(self.StageInterInfo.Intro) do
+        local featureId = self.StageInterInfo.Feature[i]
         if not self.DescList[i] then
-            self.DescList[i] = CS.UnityEngine.GameObject.Instantiate(self.TxtActive.gameObject, self.DescContent):GetComponent("Text")
+            self.DescList[i] = XGridStageDesc.New(XUiHelper.Instantiate(self.Skill, self.DescContent), featureId, function(id) self:ShowInfo(id) end)
         end
-        self.DescList[i].text = desc
-        self.DescList[i].gameObject:SetActiveEx(true)
+        self.DescList[i]:Refresh(desc, featureId)
+        self.DescList[i]:SetActive(true)
     end
 
+    -- 隐藏多余
     for i = #self.StageInterInfo.Intro + 1, #self.DescList do
-        self.DescList[i].gameObject:SetActiveEx(false)
+        self.DescList[i]:SetActive(false)
     end
     CS.UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(self.DescContent)
+end
+
+function XUiFubenCoupleCombatDetail:ShowInfo(featureId)
+    if not XTool.IsNumberValid(featureId) then
+        return
+    end
+    local name = XFubenCoupleCombatConfig.GetFeatureName(featureId)
+    local desc = XFubenCoupleCombatConfig.GetFeatureDescription(featureId)
+    XUiManager.UiFubenDialogTip(name, desc)
 end
 
 function XUiFubenCoupleCombatDetail:AutoAddListener()
@@ -111,8 +152,9 @@ function XUiFubenCoupleCombatDetail:OnBtnEnterClick()
         XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_CLOSE_FUBENSTAGEDETAIL)
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_FUBEN_COUPLECOMBAT_UPDATE)
 
-        XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
-        --self:Hide()
+        -- 如果有第五期，请务必转移到UiBattleRoleRoom
+        -- proxy需要兼容
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
         self:Close()
     end
 end
@@ -140,20 +182,7 @@ function XUiFubenCoupleCombatDetail:UpdateCommon()
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
 
     self.TxtTitle.text = stageCfg.Name
-    --self.TxtDesc.text = stageCfg.Description
-    self.TxtATNums.text = stageCfg.RequireActionPoint
-
-    local maxChallengeNum = XDataCenter.FubenManager.GetStageMaxChallengeNums(stageId)
-
-    --self.PanelNums.gameObject:SetActive(maxChallengeNum > 0)
-    --self.PanelNoLimitCount.gameObject:SetActive(maxChallengeNum <= 0)
-    --
-    --if maxChallengeNum > 0 then
-    --    local stageData = XDataCenter.FubenManager.GetStageData(stageId)
-    --    local chanllengeNum = stageData and stageData.PassTimesToday or 0
-    --    self.TxtAllNums.text = "/" .. maxChallengeNum
-    --    self.TxtLeftNums.text = maxChallengeNum - chanllengeNum
-    --end
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(stageId)
 
     local firstDrop = false
     if not stageInfo.Passed then
@@ -164,10 +193,6 @@ function XUiFubenCoupleCombatDetail:UpdateCommon()
     end
     self.TxtFirstDrop.gameObject:SetActive(firstDrop)
     self.TxtDrop.gameObject:SetActive(not firstDrop)
-
-    --for i = 1, 3 do
-    --    self.GridStarList[i]:Refresh(stageCfg.StarDesc[i], stageInfo.StarsMap[i])
-    --end
 end
 
 function XUiFubenCoupleCombatDetail:UpdateFeature()

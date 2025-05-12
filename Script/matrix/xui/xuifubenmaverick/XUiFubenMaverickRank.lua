@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenMaverickRank = XLuaUiManager.Register(XLuaUi, "UiFubenMaverickRank")
 local XUiFubenMaverickRankGrid = require("XUi/XUiFubenMaverick/XUiGrid/XUiFubenMaverickRankGrid")
 

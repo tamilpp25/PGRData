@@ -1,3 +1,4 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
 local XUiFunbenKoroTutoriaChallengeDetail = XLuaUiManager.Register(XLuaUi, "UiFunbenKoroTutoriaChallengeDetail")
 local XUiGridStageBuffIcon = require("XUi/XUiFubenSimulatedCombat/ChildItem/XUiGridStageBuffIcon")
 local DescCount = 3
@@ -25,8 +26,10 @@ function XUiFunbenKoroTutoriaChallengeDetail:SetStageDetail(stageId, id)
     self.Id = id
     self.StageId = stageId
     self.StageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-    self.TxtTitle.text = self.StageCfg.Name
+    self.TxtTitle.text = self.StageCfg.Description
     self.TxtDescDetail.text = XFubenNewCharConfig.GetNewCharDescDetail(self.StageId)
+    -- 重置位置
+    self.TxtDescDetail.transform.parent.anchoredPosition = Vector2.zero
     local starsMap = XDataCenter.FubenNewCharActivityManager.GetStarMap(self.StageId)
     for i = 1, DescCount do
         self.StarGridList[i]:Refresh(self.StageCfg.StarDesc[i], starsMap[i])
@@ -37,6 +40,8 @@ function XUiFunbenKoroTutoriaChallengeDetail:SetStageDetail(stageId, id)
     if data then
         self.TxtATNums.text = data.ShowFight
     end
+    CS.UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(self.TxtDescDetail.transform.parent)
+    CS.UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(self.TxtDescDetail.transform)
     self:PlayAnimation("AnimBegin")
 end
 
@@ -102,13 +107,9 @@ function XUiFunbenKoroTutoriaChallengeDetail:OnBtnEnterClick()
         end
         self.RootUi:CloseStageDetails()
         --self:Close()
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", self.StageCfg.StageId
-                , XDataCenter.TeamManager.GetXTeamByStageId(self.StageCfg.StageId)
-                , require("XUi/XUiNewChar/XUiTutoriaBattleRoleRoom"))
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", self.StageCfg.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageCfg.StageId
+            , XDataCenter.FubenNewCharActivityManager.LoadTeamLocal(self.Id)
+            , require("XUi/XUiNewChar/XUiTutoriaBattleRoleRoom"))
     end
 end
 

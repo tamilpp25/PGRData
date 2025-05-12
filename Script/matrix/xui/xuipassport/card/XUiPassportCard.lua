@@ -1,5 +1,9 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPassportCardGrid = require("XUi/XUiPassport/Card/XUiPassportCardGrid")
 
+---@field _Control XPassportControl
+---@class UiPassportCard:XLuaUi
 local XUiPassportCard = XLuaUiManager.Register(XLuaUi, "UiPassportCard")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText
@@ -9,7 +13,7 @@ local tableInsert = table.insert
 function XUiPassportCard:OnAwake()
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.HongKa)
     self:RegisterButtonEvent()
-    -- self.PanelAsset.gameObject:SetActiveEx(false) -- 日服没有虹卡，隐藏虹卡资源框 -- 英文服使用虹卡
+
     self:InitTextBuyCaption()
 end
 
@@ -18,7 +22,7 @@ function XUiPassportCard:OnStart(passportId, closeCb)
     self.CloseCb = closeCb
 
     self.DynamicTable = XDynamicTableNormal.New(self.PanelIconList.transform)
-    self.DynamicTable:SetProxy(XUiPassportCardGrid)
+    self.DynamicTable:SetProxy(XUiPassportCardGrid, self)
     self.DynamicTable:SetDelegate(self)
     self.PanelBagItem.gameObject:SetActive(false)
     self:UpdateDynamicTable(passportId)
@@ -39,35 +43,32 @@ function XUiPassportCard:OnDestroy()
 end
 
 function XUiPassportCard:InitTextBuyCaption()
-    local time = XPassportConfigs.GetPassportBuyPassPortEarlyEndTime()
+    local time = self._Control:GetPassportBuyPassPortEarlyEndTime()
     local timeDesc = time > 0 and XUiHelper.GetTimeDesc(time, 2) or 0 .. CSXTextManagerGetText("Second")
-    timeDesc = string.gsub(timeDesc, "^%s*(.-)%s*$", "%1")
-    -- timeDesc = string.gsub(timeDesc, " ", "") 英文服需要数字与min之间有空格 20 min
+    timeDesc = string.gsub(timeDesc, " ", "")
     local buyCaptionDesc = CSXTextManagerGetText("PassportBuyCaptionDesc", timeDesc)
     self.TextBuyTime.text = buyCaptionDesc
 end
 
 function XUiPassportCard:InitBtnXqActive(passportId)
-    local fashionId = XPassportConfigs.GetPassportBuyFashionShowFashionId(passportId)
+    local fashionId = self._Control:GetPassportBuyFashionShowFashionId(passportId)
     self.BtnXq.gameObject:SetActiveEx(XTool.IsNumberValid(fashionId))
 end
 
 function XUiPassportCard:Refresh()
     local passportId = self:GetPassportId()
-    local isUnLock = XDataCenter.PassportManager.GetPassportInfos(passportId) and true or false
+    local isUnLock = self._Control:GetPassportInfos(passportId) and true or false
     self.BtnBuy:SetDisable(isUnLock, not isUnLock)
 
-    local costItemId = XPassportConfigs.GetPassportTypeInfoCostItemId(passportId)
-    local costItemCount = XPassportConfigs.GetPassportTypeInfoCostItemCount(passportId) -- 英文服使用虹卡
-    -- local costItemCount = XPassportConfigs.GetPassportTypeInfoIsFree(passportId) and 0 or XPayConfigs.GetPayTemplate(XDataCenter.PayManager.GetProductKey(XPassportConfigs.GetPassportTypeInfoPayKeySuffix(passportId))).Amount
+    local costItemId = self._Control:GetPassportTypeInfoCostItemId(passportId)
+    local costItemCount = self._Control:GetPassportTypeInfoCostItemCount(passportId)
     local costItemName = ""     --策划需求，不显示道具名字
     local btnName = isUnLock and CSXTextManagerGetText("AlreadyBuy") or CSXTextManagerGetText("PassportBtnBuyPassportDesc", costItemCount, costItemName)
     self.BtnBuy:SetName(btnName)
 
     if self.IconBtnBuy then
         local costItemIcon = XItemConfigs.GetItemIconById(costItemId)
-        self.IconBtnBuy:SetRawImage(costItemIcon) -- 英文服使用虹卡
-        -- self.IconBtnBuy:SetRawImage("Assets/Product/Texture/Image/UiPurchase/UiPurchaseYuan1.png") -- 直购写死日元图标
+        self.IconBtnBuy:SetRawImage(costItemIcon)
         self.IconBtnBuy.gameObject:SetActiveEx(not isUnLock)
     end
 end
@@ -75,7 +76,7 @@ end
 function XUiPassportCard:UpdateFashionShow(passportId)
     local isHavePassportId = XTool.IsNumberValid(passportId)
     if isHavePassportId then
-        local icon = XPassportConfigs.GetPassportBuyFashionShowIcon(passportId)
+        local icon = self._Control:GetPassportBuyFashionShowIcon(passportId)
         self.RImgShow:SetRawImage(icon)
     end
 
@@ -83,17 +84,17 @@ function XUiPassportCard:UpdateFashionShow(passportId)
 end
 
 function XUiPassportCard:UpdateDesc(passportId)
-    self.TxtName.text = XPassportConfigs.GetPassportTypeInfoName(passportId)
+    self.TxtName.text = self._Control:GetPassportTypeInfoName(passportId)
 
-    local icon = XPassportConfigs.GetPassportTypeInfoIcon(passportId)
+    local icon = self._Control:GetPassportTypeInfoIcon(passportId)
     self.RImgIcon:SetRawImage(icon)
 
-    local buyDesc = XPassportConfigs.GetPassportTypeInfoBuyDesc(passportId)
+    local buyDesc = self._Control:GetPassportTypeInfoBuyDesc(passportId)
     self.TxtMessage.text = string.gsub(buyDesc, "\\n", "\n")
 end
 
 function XUiPassportCard:UpdateDynamicTable(passportId)
-    self.BuyRewardShowIdList = XPassportConfigs.GetBuyRewardShowIdList(passportId)
+    self.BuyRewardShowIdList = self._Control:GetBuyRewardShowIdList(passportId)
     self.DynamicTable:SetDataSource(self.BuyRewardShowIdList)
     self.DynamicTable:ReloadDataSync()
 end
@@ -115,33 +116,35 @@ end
 
 function XUiPassportCard:OnBtnXqClick()
     local passportId = self:GetPassportId()
-    local fashionId = XPassportConfigs.GetPassportBuyFashionShowFashionId(passportId)
-    local isWeaponFahion = XPassportConfigs.IsPassportBuyFashionShowIsWeaponFahion(passportId)
+    local fashionId = self._Control:GetPassportBuyFashionShowFashionId(passportId)
+    local isWeaponFahion = self._Control:IsPassportBuyFashionShowIsWeaponFahion(passportId)
     XLuaUiManager.Open("UiFashionDetail", fashionId, isWeaponFahion)
 end
 
 function XUiPassportCard:OnBtnBuyClick()
     local passportId = self:GetPassportId()
-    local costItemId = XPassportConfigs.GetPassportTypeInfoCostItemId(passportId)
+    if not self._Control:CheckStopToBuyBeforeTheEnd() then
+        return
+    end
+    
+    local costItemId = self._Control:GetPassportTypeInfoCostItemId(passportId)
     local haveCostItemCount = XDataCenter.ItemManager.GetCount(costItemId)
-    -- local costItemCount = XPassportConfigs.GetPassportTypeInfoIsFree(passportId) and 0 or XPayConfigs.GetPayTemplate(XDataCenter.PayManager.GetProductKey(XPassportConfigs.GetPassportTypeInfoPayKeySuffix(passportId))).Amount
-    local costItemCount = XPassportConfigs.GetPassportTypeInfoCostItemCount(passportId)
-    local passportName = XPassportConfigs.GetPassportTypeInfoName(passportId)
+    local costItemCount = self._Control:GetPassportTypeInfoCostItemCount(passportId)
+    local passportName = self._Control:GetPassportTypeInfoName(passportId)
     local costItemName = XItemConfigs.GetItemNameById(costItemId)
     local title = CSXTextManagerGetText("BuyConfirmTipsTitle")
-    -- local desc = CSXTextManagerGetText("PassportBuyPassportTipsDesc", costItemCount, passportName)
     local desc = CSXTextManagerGetText("PassportBuyPassportTipsDesc", costItemCount, costItemName, passportName)
     local sureCallback = function()
-        -- if string.IsNilOrEmpty(XPassportConfigs.GetPassportTypeInfoPayKeySuffix(passportId)) and haveCostItemCount < costItemCount then
-        if haveCostItemCount < costItemCount then -- 英文服使用虹卡
-            XUiManager.TipText("ShopItemHongKaNotEnough")
+        if haveCostItemCount < costItemCount then
+            -- XUiManager.TipText("ShopItemHongKaNotEnough")
+            XUiHelper.OpenPurchaseBuyHongKaCountTips()
             XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.Pay)
             return
         end
-        XDataCenter.PassportManager.RequestPassportBuyPassport(passportId, handler(self, self.Refresh))
+        self._Control:RequestPassportBuyPassport(passportId, handler(self, self.Refresh))
     end
 
-    XUiManager.DialogTip(title, desc, XUiManager.DialogType.Passport, nil, sureCallback)
+    XUiManager.DialogTip(title, desc, nil, nil, sureCallback)
 end
 
 function XUiPassportCard:GetPassportId()

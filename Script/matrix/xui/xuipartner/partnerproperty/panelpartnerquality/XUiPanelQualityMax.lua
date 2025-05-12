@@ -19,7 +19,7 @@ function XUiPanelQualityMax:HidePanel()
 end
 
 function XUiPanelQualityMax:UpdatePartnerInfo()
-    local icon = XCharacterConfigs.GetCharacterQualityIcon(self.Data:GetQuality())
+    local icon = XMVCA.XCharacter:GetCharacterQualityIcon(self.Data:GetQuality())
     self.TxtCount.text = self.Data:GetQualitySkillColumnCount()
     self.RawImageQuality:SetRawImage(icon)
 end

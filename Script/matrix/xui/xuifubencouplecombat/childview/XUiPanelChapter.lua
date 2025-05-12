@@ -86,15 +86,16 @@ function XUiPanelChapter:DrawStagePanel()
 
     self:HandleStages()
     
-    if self.ChapterType == XFubenCoupleCombatConfig.ChapterType.Hard then
-        -- 困难模式10个关卡9条线计算
-        self:HandleStageLines(#self.StageIdList - 1)
-        self:UpdateHardNodeLines()
-    else
-        -- 普通模式6个关卡6条线计算
-        self:HandleStageLines(#self.StageIdList)
-        self:UpdateNorNodeLines()
-    end
+    -- 4期不连线
+    -- if self.ChapterType == XFubenCoupleCombatConfig.ChapterType.Hard then
+    --     -- 困难模式10个关卡9条线计算
+    --     self:HandleStageLines(#self.StageIdList - 1)
+    --     self:UpdateHardNodeLines()
+    -- else
+    --     -- 普通模式6个关卡6条线计算
+    --     self:HandleStageLines(#self.StageIdList)
+    --     self:UpdateNorNodeLines()
+    -- end
 end
 
 -- 关卡处理
@@ -242,6 +243,7 @@ function XUiPanelChapter:OnBtnCloseDetailClick()
 end
 
 function XUiPanelChapter:OnDragProxy(dragType)
+
     if self.IsOpenDetails and dragType == 0 then
         self:CloseStageDetails()
     end

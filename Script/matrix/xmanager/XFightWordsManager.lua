@@ -39,7 +39,7 @@ XFightWordsManagerCreator = function()
         TemplateId = wordsId
         CurrentTemplate = XFightWordsConfigs.GetMovieCfg(wordsId)
         if not CurrentTemplate then
-			XLog.Error("找不到wordsId,请检查 "..tostring(wordsId))
+            XLog.Error("找不到wordsId,请检查 "..tostring(wordsId))
             return
         end
         XLuaUiManager.Open("UiFightWords")
@@ -67,6 +67,7 @@ XFightWordsManagerCreator = function()
             else
                 XLuaUiManager.Close("UiFightWords")
             end
+            --CS.XFight.Instance.UiManager:UpdateUiStateByType(typeof(CS.XUiFight), true)
 
             if CurAudioInfo then
                 CurAudioInfo:Stop()
@@ -102,17 +103,9 @@ XFightWordsManagerCreator = function()
         end
     end
 
-    -- local GetTotalDuration = function(tab)
-    --     local duration = 0
-    --     for _, t in ipairs(tab) do
-    --         duration = duration + t
-    --     end
-    --     return duration
-    -- end
-
     function XFightWordsManager.PlayNext()
         if not TemplateId and not CurrentTemplate then
-            XLog.Warning("No Runnig Fight Words")
+            XLog.Warning("No Running Fight Words")
             return
         end
         CurrentId = CurrentId + 1
@@ -123,11 +116,11 @@ XFightWordsManagerCreator = function()
 
         local Template = CurrentTemplate[CurrentId]
         local text = Template.Text
-        -- local duration = math.floor(Template.Duration * 1000)
-        -- NextTime = CS.UnityEngine.Time.time + Template.Duration
         local currentCvType = CS.XAudioManager.CvType
         local templateDuration = Template.Duration[currentCvType]
+        --local duration = math.floor(Template.Duration * 1000)
         local duration = math.floor(templateDuration * 1000)
+        --NextTime = CS.UnityEngine.Time.time + Template.Duration
         NextTime = CS.UnityEngine.Time.time + templateDuration
         XEventManager.DispatchEvent(XEventId.EVENT_FIGHT_WORDS_NEXT, text)
 
@@ -137,7 +130,7 @@ XFightWordsManagerCreator = function()
             if CurAudioInfo then
                 CurAudioInfo:Stop()
             end
-            CurAudioInfo = CS.XAudioManager.PlayCv(cvId)
+            CurAudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Voice, cvId)
         else
             CurAudioInfo = nil
         end

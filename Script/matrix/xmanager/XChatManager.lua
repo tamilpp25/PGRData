@@ -70,7 +70,7 @@ XChatManagerCreator = function()
         ChatList[ChatChannelType.Mentor] = MentorChatList
 
         for _, type in pairs(ChatChannelType) do
-            local key = string.format("%s%d" ,XChatConfigs.KEY_LAST_READ_CHAT_TIME, type)
+            local key = string.format("%s%d", XChatConfigs.KEY_LAST_READ_CHAT_TIME, type)
             LastReadChatTime[type] = XSaveTool.GetData(key) or XMath.IntMax()
         end
 
@@ -102,19 +102,19 @@ XChatManagerCreator = function()
     end
 
     function XChatManager.SetMetaTable()
-        local _mTable = {__index = function(baseTable, key)
-                for _, manager in pairs(SubManager) do
-                    if manager and manager[key] then
-                        local v = manager[key]
-                        baseTable[key] = v
-                        return v
-                    end
+        local _mTable = { __index = function(baseTable, key)
+            for _, manager in pairs(SubManager) do
+                if manager and manager[key] then
+                    local v = manager[key]
+                    baseTable[key] = v
+                    return v
                 end
-                return nil
-            end}
+            end
+            return nil
+        end }
         setmetatable(XChatManager, _mTable)
     end
-    
+
     function XChatManager.InitSubManager()
         local InitManager = function(managerName)
             local manager = require("XEntity/XChat/XChat" .. managerName .. "Manager")
@@ -125,7 +125,7 @@ XChatManagerCreator = function()
         end
         InitManager("EmojiPack")
     end
-    
+
     function XChatManager.GetLastRequestChannelTime()
         return LastRequestChannelTime
     end
@@ -137,7 +137,7 @@ XChatManagerCreator = function()
     function XChatManager.GetWorldChatMaxCount()
         return WORLD_CHAT_MAX_COUNT
     end
-    
+
     function XChatManager.GetMentorChatMaxCount()
         return MENTOR_CHAT_MAX_COUNT
     end
@@ -202,7 +202,7 @@ XChatManagerCreator = function()
             CsXGameEventManager.Instance:Notify(XEventId.EVENT_GUILD_RECEIVE_CHAT, chatData)
         end
     end
-    
+
     --处理师徒消息
     local function HandleMentorChat(chatData, isNotify)
         if XDataCenter.SocialManager.GetBlackData(chatData.SenderId) then
@@ -230,8 +230,8 @@ XChatManagerCreator = function()
             return
         end
         if chatData.SenderId == XPlayer.Id or
-            chatData.MsgType == ChatMsgType.Gift or
-            chatData.MsgType == ChatMsgType.Tips then
+                chatData.MsgType == ChatMsgType.Gift or
+                chatData.MsgType == ChatMsgType.Tips then
             chatData.IsRead = true
         end
         if chatData.SenderId ~= XPlayer.Id then
@@ -371,7 +371,7 @@ XChatManagerCreator = function()
     function XChatManager.GetMentorChatList()
         return MentorChatList
     end
-    
+
     --=== Room Chat ===
     function XChatManager.GetRoomChatList()
         table.sort(RoomChatList, function(a, b)
@@ -559,6 +559,31 @@ XChatManagerCreator = function()
         end
     end
 
+    -- 设置指定好友特定聊天为已读
+    function XChatManager.SetPrivateChatReadByFriendIdAndMessageId(friendId, messageId)
+        if not XTool.IsNumberValid(friendId) or not XTool.IsNumberValid(messageId) then
+            return
+        end
+
+        local friendChat = PrivateChatMap[friendId]
+        local count = 0
+        if friendChat and friendChat.ChatMap then
+            for _, chat in pairs(friendChat.ChatMap) do
+                if not chat.IsRead and chat.MessageId == messageId then
+                    chat.IsRead = true
+                    count = count + 1
+                end
+            end
+        end
+
+        -- 保存消息
+        XChatManager.SaveSpecifyFriendsChatContent(friendId)
+
+        if count > 0 then
+            XEventManager.DispatchEvent(XEventId.EVENT_FRIEND_READ_PRIVATE_MSG)
+        end
+    end
+
     --检测好友是否有自己可以领取的礼物
     function XChatManager.CheckDoesHaveGiftByFriendId(friendId)
         local friendChats = PrivateChatMap[friendId]
@@ -660,6 +685,7 @@ XChatManagerCreator = function()
                     if (not string.IsNilOrEmpty(content)) then
                         local tab = string.Split(content, '\t')
                         if tab ~= nil then
+                            ---@type XChatData
                             local chatData = XChatData.New()
                             chatData.SenderId = tonumber(tab[1])
                             chatData.TargetId = tonumber(tab[2])
@@ -676,6 +702,7 @@ XChatManagerCreator = function()
                             chatData.HeadFrameId = tonumber(tab[13])
                             chatData.CollectWordId = tonumber(tab[14])
                             chatData.NameplateId = tonumber(tab[15]) or 0
+                            chatData.ChatBoardId = tonumber(tab[16]) or 0
                             tableInsert(GuildChatList, chatData)
                         end
                     end
@@ -719,8 +746,8 @@ XChatManagerCreator = function()
                 local curServerChat = serverChat[i]
 
                 if clientHeadChat.CreateTime == curServerChat.CreateTime and
-                clientHeadChat.SenderId == curServerChat.SenderId and
-                clientHeadChat.Content == curServerChat.Content then
+                        clientHeadChat.SenderId == curServerChat.SenderId and
+                        clientHeadChat.Content == curServerChat.Content then
 
                     beginIndex = i - 1
                     break
@@ -754,7 +781,7 @@ XChatManagerCreator = function()
     function XChatManager.SaveGuildChatContent()
         if not XDataCenter.GuildManager.IsJoinGuild() then return end
         local splitMark = "\n"
-        for i = #GuildChatList-GuildSaveCount, 1, -1 do
+        for i = #GuildChatList - GuildSaveCount, 1, -1 do
             local chat = GuildChatList[i]
             local list = {}
             if chat ~= nil and type(chat) == 'table' and i <= XGuildConfig.GuildChatCacheCount then
@@ -773,6 +800,7 @@ XChatManagerCreator = function()
                 tableInsert(list, (chat.HeadFrameId or "0"))
                 tableInsert(list, (chat.CollectWordId or "0"))
                 tableInsert(list, (chat.NameplateId or "0"))
+                tableInsert(list, (chat.ChatBoardId or "0"))
             end
             GuildSaveCount = GuildSaveCount + 1
             local chatStr = table.concat(list, "\t")
@@ -795,9 +823,9 @@ XChatManagerCreator = function()
             local isMatch = true
             isMatch = isMatch and nowTime > info.BeginTime and nowTime < info.EndTime
             isMatch = isMatch and nowTime > LastEffectCoolTime + info.CoolTime
-            isMatch = isMatch and chatData.MsgType == ChatMsgType.Normal or chatData.MsgType == ChatMsgType.RoomMsg
+            isMatch = isMatch and chatData.MsgType == ChatMsgType.Normal or chatData.MsgType == ChatMsgType.RoomMsg or chatData.MsgType == ChatMsgType.DlcRoomMsg
             if not isMatch then goto CONTINUE end
-            
+
             if info.TriggerType == EffectTriggerType.Me then
                 isMatch = isMatch and chatData.SenderId == XPlayer.Id
             elseif info.TriggerType == EffectTriggerType.Other then
@@ -806,17 +834,17 @@ XChatManagerCreator = function()
 
             if info.Channel and next(info.Channel) then
                 local isPartMatch = false
-                for _,channel in ipairs(info.Channel) do
+                for _, channel in ipairs(info.Channel) do
                     isPartMatch = isPartMatch or channel == channelType
                 end
                 isMatch = isMatch and isPartMatch
             end
-            
+
             if not isMatch then goto CONTINUE end
-            
+
             -- 开始匹配具体内容
             if info.Keyword and next(info.Keyword) then
-                for _,pattern in ipairs(info.Keyword) do
+                for _, pattern in ipairs(info.Keyword) do
                     local matchPos = string.find(chatData.Content, pattern)
                     if matchPos and matchPos < minMatchPos then
                         firstMatchIndex = index
@@ -837,11 +865,11 @@ XChatManagerCreator = function()
     function XChatManager.SetEffectEnd(time)
         LastEffectCoolTime = time or XTime.GetServerNowTimestamp()
     end
-    
+
     -- 设置最后一次读消息的时间
     function XChatManager.SetChatRead(type)
-        local key = string.format("%s%d" ,XChatConfigs.KEY_LAST_READ_CHAT_TIME, type)
-        if next(ChatList[type]) then 
+        local key = string.format("%s%d", XChatConfigs.KEY_LAST_READ_CHAT_TIME, type)
+        if next(ChatList[type]) then
             LastReadChatTime[type] = ChatList[type][1].CreateTime
         else
             local nowTime = XTime.GetServerNowTimestamp()
@@ -855,8 +883,8 @@ XChatManagerCreator = function()
     function XChatManager.GetUnreadChatCount(type)
         local count = 0
         local chatList = XChatManager.GetChatList(type)
-        if not (chatList and next(chatList)) then 
-            return count 
+        if not (chatList and next(chatList)) then
+            return count
         end
         for i = 1, #chatList do
             local chat = chatList[i]
@@ -888,7 +916,7 @@ XChatManagerCreator = function()
             local guildMsg = ChatList[ChatChannelType.Guild][1]
             local latestMsg
             local latestTime = 0
-            if guildMsg then 
+            if guildMsg then
                 latestMsg = guildMsg
                 latestTime = guildMsg.CreateTime
             end
@@ -905,7 +933,7 @@ XChatManagerCreator = function()
         if XDataCenter.GuideManager.IsJoinGuild() then
             local guildId = XDataCenter.GuildManager.GetGuildId()
             if guildId == lastGuildId then return end
-        end
+            end
         local lastGuildKey = XDataCenter.GuildManager.GetGuildChannelKey(lastGuildId)
         if CS.UnityEngine.PlayerPrefs.HasKey(lastGuildKey) then
             CS.UnityEngine.PlayerPrefs.DeleteKey(lastGuildKey)
@@ -1002,7 +1030,7 @@ XChatManagerCreator = function()
             XDataCenter.ChatManager.CheckChat(chatData.Content)
         end)
     end
-----------------------------------------重复聊天发言检测-----------------------------------
+    ----------------------------------------重复聊天发言检测-----------------------------------
     local CheckChatTimer
     local CheckChatList = {}
     local CheckChatId = 1
@@ -1024,59 +1052,59 @@ XChatManagerCreator = function()
         local pureStr = XTool.GetPureStr(content)
         if not pureStr then return end
         local chatData = {
-                Id = CheckChatId,
-                Time = 0,
-                Content = pureStr,
-                RepeatCount = 0
-            }
+            Id = CheckChatId,
+            Time = 0,
+            Content = pureStr,
+            RepeatCount = 0
+        }
 
         CheckChatList[CheckChatId] = chatData
         CheckChatId = CheckChatId + 1
         CheckContent[pureStr] = true
         if not CheckChatTimer then XChatManager.StartCheckChatTimer() end        
-    end
-    
+        end
+
     function XChatManager.StartCheckChatTimer()
         CheckChatTimer = XScheduleManager.ScheduleForever(function()
-                    --是否进行了检测(检查列表是否空列)
-                    local haveCheck = false
-                    for _, chat in pairs(CheckChatList) do
-                        haveCheck = true
-                        chat.Time = chat.Time + CSTime.deltaTime
-                        if CheckContent[chat.Content] then
-                            chat.RepeatCount = chat.RepeatCount + 1
-                            if chat.RepeatCount >= XChatConfigs.GetRepeatChatForbidRepeatCount() then
-                                XChatManager.CatchRepeatChat(chat.RepeatCount)
-                            end
-                        end
-                        if chat.Time >= XChatConfigs.GetRepeatChatForbidCalculateTime() then
-                            table.insert(WaitDelectChatList, chat.Id)
-                        end
+            --是否进行了检测(检查列表是否空列)
+            local haveCheck = false
+            for _, chat in pairs(CheckChatList) do
+                haveCheck = true
+                chat.Time = chat.Time + CSTime.deltaTime
+                if CheckContent[chat.Content] then
+                    chat.RepeatCount = chat.RepeatCount + 1
+                    if chat.RepeatCount >= XChatConfigs.GetRepeatChatForbidRepeatCount() then
+                        XChatManager.CatchRepeatChat(chat.RepeatCount)
                     end
-                    for _, delectChatId in pairs(WaitDelectChatList) do
-                        if CheckChatList[delectChatId] then
-                            CheckChatList[delectChatId] = nil
-                        end
-                    end
-                    if not haveCheck then
-                        XScheduleManager.UnSchedule(CheckChatTimer)
-                        CheckChatTimer = nil
-                        return
-                    end
-                    WaitDelectChatList = {}
-                    CheckContent = {}
-                end, 0)
+                end
+                if chat.Time >= XChatConfigs.GetRepeatChatForbidCalculateTime() then
+                    table.insert(WaitDelectChatList, chat.Id)
+                end
+            end
+            for _, delectChatId in pairs(WaitDelectChatList) do
+                if CheckChatList[delectChatId] then
+                    CheckChatList[delectChatId] = nil
+                end
+            end
+            if not haveCheck then
+                XScheduleManager.UnSchedule(CheckChatTimer)
+                CheckChatTimer = nil
+                return
+            end
+            WaitDelectChatList = {}
+            CheckContent = {}
+        end, 0)
     end
-    
+
     function XChatManager.CatchRepeatChat(repeatCount)
         XNetwork.Call(MethodName.CatchRepeatChat, { Times = repeatCount }, function(response)
-                if response.Code ~= XCode.Success then
-                    local text = CS.XTextManager.GetCodeText(response.Code)
-                    XLog.Error(text)
-                    return
-                end
-                XLog.Debug("捕捉到10秒内的第" .. repeatCount .. "次重复发言！已发送成功！")
-            end)
+            if response.Code ~= XCode.Success then
+                local text = CS.XTextManager.GetCodeText(response.Code)
+                XLog.Error(text)
+                return
+            end
+            XLog.Debug("捕捉到10秒内的第" .. repeatCount .. "次重复发言！已发送成功！")
+        end)
     end
     ----------------------------------------重复聊天发言检测 end-----------------------------------
     --收取单个礼物
@@ -1141,11 +1169,11 @@ XChatManagerCreator = function()
             end
             lastChatData = chatData
         end
-        
+
         for _, type in ipairs(ChatChannelType) do
             if earliestChatTime < LastReadChatTime[type] then
                 LastReadChatTime[type] = earliestChatTime
-                local key = string.format("%s%d" ,XChatConfigs.KEY_LAST_READ_CHAT_TIME, type)
+                local key = string.format("%s%d", XChatConfigs.KEY_LAST_READ_CHAT_TIME, type)
                 XSaveTool.SaveData(key, LastReadChatTime[type])
             end
         end
@@ -1154,6 +1182,7 @@ XChatManagerCreator = function()
         if lastChatData then
             local data = XChatData.New(lastChatData)
             XEventManager.DispatchEvent(XEventId.EVENT_CHAT_RECEIVE_PRIVATECHAT, data)
+            XEventManager.DispatchEvent(XEventId.EVENT_DLC_RECEIVE_CHAT_MESSAGE, XChatData.New(lastChatData))
         end
     end
 
@@ -1187,8 +1216,8 @@ XChatManagerCreator = function()
         XNetwork.Call(MethodName.SelectChatChannelRequest, { ChannelId = channelId - 1 }, function(response)
             if response.Code ~= XCode.Success then
                 XUiManager.TipCode(response.Code)
-                if failedCb then 
-                    failedCb() 
+                if failedCb then
+                    failedCb()
                 end
                 return
             end
@@ -1225,14 +1254,15 @@ XChatManagerCreator = function()
             for index, v in pairs(ChatChannelInfos) do
                 v.ChannelId = v.ChannelId + 1
                 if index == lastIndex then v.IsRecruitChannel = true end
-            end
-            RecruitChannelId = lastIndex
+                end
+            --收到市网信办举报特殊处理 频道5移除，所有后续频道顺延显示 + 1
+            RecruitChannelId = lastIndex + 1
             if cb then
                 cb(ChatChannelInfos)
             end
         end)
     end
-    
+
     function XChatManager.GetRecruitChannelId()
         return RecruitChannelId
     end
@@ -1270,9 +1300,9 @@ XChatManagerCreator = function()
         for _, chatInfo in pairs(PrivateChatMap) do
             for _, chat in pairs(chatInfo.ChatMap) do
                 if TodayResetTime > 0
-                and chat.MsgType == ChatMsgType.Gift
-                and chat.GiftStatus == ChatGiftState.WaitReceive
-                and chat.CreateTime < (TodayResetTime - ONE_DAY_SECONDS) then
+                        and chat.MsgType == ChatMsgType.Gift
+                        and chat.GiftStatus == ChatGiftState.WaitReceive
+                        and chat.CreateTime < (TodayResetTime - ONE_DAY_SECONDS) then
                     chat.GiftStatus = ChatGiftState.Fetched
                 end
             end
@@ -1318,6 +1348,56 @@ XChatManagerCreator = function()
             end
         end
         return ""
+    end
+
+    -- 检查是否有新的表情包
+    function XChatManager.CheckIsNewEmoji()
+        local isRed = nil
+        local allPacks = XChatManager.GetAllEmojiPacksWithAutoSort()
+        for k, v in pairs(allPacks) do
+            for k2, v2 in pairs(v:GetEmojiList()) do
+                if v2:GetIsNew() then
+                    isRed = true
+                    break
+                end
+            end
+        end
+        return isRed
+    end
+
+    -- 根据指定类型检查聊天下指定类型页签开放情况
+    function XChatManager.CheckChatChannelOpenByType(chatChannelType, isNeedTips)
+        isNeedTips = isNeedTips or false
+        if not chatChannelType then
+            return false
+        end
+        
+        if chatChannelType == ChatChannelType.World then
+            local worldChatFunctionName = XFunctionManager.FunctionName.SocialChatWorld
+            return XFunctionManager.DetectionFunction(worldChatFunctionName, false, not isNeedTips)
+        elseif chatChannelType == ChatChannelType.Guild then
+            if XDataCenter.GuildManager.IsJoinGuild() then
+                return true
+            else
+                return false, "ChatGuildChannelNotOpen"
+            end
+        elseif chatChannelType == ChatChannelType.Mentor then
+            local mentorData = XDataCenter.MentorSystemManager.GetMentorData()
+            return mentorData:CheckCanUseChat(isNeedTips)
+        end
+
+        return true
+    end
+
+    -- 检查主界面是否开放聊天入口
+    function XChatManager.CheckMainUIEntranceOpen()
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.SocialChat, false, true) then
+            return false
+        end
+        
+        return XChatManager.CheckChatChannelOpenByType(ChatChannelType.World) or
+                XChatManager.CheckChatChannelOpenByType(ChatChannelType.Guild) or
+                XChatManager.CheckChatChannelOpenByType(ChatChannelType.Mentor)
     end
 
     function XChatManager.ProcessExtraContent(chatData)
@@ -1417,6 +1497,216 @@ XChatManagerCreator = function()
         end
     end
 
+    --region  聊天框
+    ---@class ChatBoardData
+    ---@field CurrentChatBoardId number
+    ---@field ChatBoards table
+    local ChatBoardData
+
+    function XChatManager.UpdateChatBoardData(data)
+        ChatBoardData = data
+    end
+
+    function XChatManager.AddChatBoard(chatBoardInfo)
+        if XTool.IsTableEmpty(ChatBoardData) or ChatBoardData.ChatBoards == nil then
+            return
+        end
+        if not XTool.IsTableEmpty(ChatBoardData.ChatBoards) then
+            for i = 1, #ChatBoardData.ChatBoards do
+                local data = ChatBoardData.ChatBoards[i]
+                if data.Id == chatBoardInfo.Id then
+                    ChatBoardData.ChatBoards[i] = chatBoardInfo
+                    return
+                end
+            end
+        end
+
+        table.insert(ChatBoardData.ChatBoards, chatBoardInfo)
+    end
+
+    function XChatManager.SetCurChatBoard(chatBoardId)
+        if ChatBoardData == nil then
+            return
+        end
+        ChatBoardData.CurrentChatBoardId = chatBoardId
+    end
+
+    function XChatManager.SetCurChatBoardRequest(chatBoardId, cb)
+        XNetwork.Call('SetCurChatBoardRequest', { ChatBoardId = chatBoardId }, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+
+            if cb then
+                cb()
+            end
+        end)
+    end
+
+    function XChatManager.GetCurChatBoardId()
+        if XTool.IsTableEmpty(ChatBoardData) then
+            return 0
+        end
+
+        return ChatBoardData.CurrentChatBoardId
+    end
+
+    function XChatManager.GetChatBoardIdList()
+        if XTool.IsTableEmpty(ChatBoardData) or XTool.IsTableEmpty(ChatBoardData.ChatBoards) then
+            return nil
+        end
+
+        local idList = {}
+
+        for i, chatBoardData in ipairs(ChatBoardData.ChatBoards) do
+            table.insert(idList, chatBoardData.Id)
+        end
+
+        return idList
+    end
+
+    function XChatManager.CheckChatBoardIsLockById(chartBoardId)
+        if not ChatBoardData then
+            return true
+        end
+
+        if XTool.IsTableEmpty(ChatBoardData.ChatBoards) then
+            return true
+        else
+            for i, v in pairs(ChatBoardData.ChatBoards) do
+                if v.Id == chartBoardId then
+                    -- 判断是否是限时且过期
+                    if XTool.IsNumberValid(v.EndTime) and XTime.GetServerNowTimestamp() >= v.EndTime then
+                        return true
+                    end
+                    return false
+                end
+            end
+        end
+        return true
+    end
+
+    function XChatManager.GetChatBoardDataById(chatBoardId)
+        if not XTool.IsTableEmpty(ChatBoardData) and not XTool.IsTableEmpty(ChatBoardData.ChatBoards) then
+            for i, v in pairs(ChatBoardData.ChatBoards) do
+                if v.Id == chatBoardId then
+                    return v
+                end
+            end
+        end
+    end
+
+    function XChatManager.GetShowedChatBoardCfgList()
+        local list = {}
+        local cfgs = XChatConfigs.GetChatBoardCfg()
+        local curTimestamp = XTime.GetServerNowTimestamp()
+        for i, cfg in pairs(cfgs) do
+
+            if not string.IsNilOrEmpty(cfg.AvailableTimeStr) then
+                local limitTimestamp = XTime.ParseToTimestamp(cfg.AvailableTimeStr)
+                if curTimestamp >= limitTimestamp then
+                    table.insert(list, cfg)
+                end
+            else
+                table.insert(list, cfg)
+            end   
+        end
+        
+        -- 解锁在前
+        -- priority大的在前
+        -- Id小的在前
+        ---@param a XTableChatBoard
+        ---@param b XTableChatBoard
+        table.sort(list, function(a, b) 
+            local isUnLockA = not XChatManager.CheckChatBoardIsLockById(a.Id)
+            local isUnLockB = not XChatManager.CheckChatBoardIsLockById(b.Id)
+
+            if isUnLockA and not isUnLockB then
+                return true
+            end
+
+            if isUnLockB and not isUnLockA then
+                return false
+            end
+
+            if a.Priority ~= b.Priority then
+                return a.Priority > b.Priority
+            end
+            
+            return a.Id < b.Id
+        end)
+        
+        return list
+    end
+    
+    function XChatManager.IsChatBoardValid(id)
+        local cfg = XChatConfigs.GetChatBoardCfgById(id)
+        if cfg then
+            return true
+        else
+            return false    
+        end
+    end
+
+    function XChatManager.CheckHasNewChatBoard()
+        --没开启功能的时候不显示蓝点
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.SocialChat, false, true) then
+            return false
+        end
+
+        if XTool.IsTableEmpty(ChatBoardData) or XTool.IsTableEmpty(ChatBoardData.ChatBoards) then
+            return false
+        end
+
+        for i, v in ipairs(ChatBoardData.ChatBoards) do
+            if XChatManager.CheckIsNewChatBoardById(v.Id) then
+                return true
+            end
+        end
+
+        return false
+    end
+
+    function XChatManager.CheckIsNewChatBoardById(id)
+        --- 锁定的聊天框没有新解锁提示蓝点
+        if XChatManager.CheckChatBoardIsLockById(id) then
+            return false
+        else
+            
+            local chatboardData = XChatManager.GetChatBoardDataById(id)
+            local reddotKey = XChatManager.GetChatBoardReddotKey(id)
+            local oldValue = XSaveTool.GetData(reddotKey)
+
+            --- 没有缓存、或缓存的获取时间不一致，则有解锁提示蓝点
+            if not XTool.IsNumberValid(oldValue) then
+                return true
+            elseif chatboardData then
+                return chatboardData.GetTime ~= oldValue    
+            end
+        end
+        
+        return false
+    end
+
+    function XChatManager.SetChatBoardForOld(id)
+        if not XChatManager.CheckChatBoardIsLockById(id) then
+            local chatboardData = XChatManager.GetChatBoardDataById(id)
+            local reddotKey = XChatManager.GetChatBoardReddotKey(id)
+            local oldValue = XSaveTool.GetData(reddotKey)
+            --- 没有缓存，或缓存的获取时间不一致时才触发蓝点缓存
+            if chatboardData and (not XTool.IsNumberValid(oldValue) or oldValue ~= chatboardData.GetTime)then
+                XSaveTool.SaveData(reddotKey, chatboardData.GetTime)
+                XEventManager.DispatchEvent(XEventId.EVENT_MEDAL_REDPOINT_CHANGE)
+            end
+        end
+    end
+    
+    function XChatManager.GetChatBoardReddotKey(id)
+        return string.format("%d%s%d", XPlayer.Id, "OldChatBoard", id)
+    end
+    --endregion
+
     XChatManager.Init()
     return XChatManager
 end
@@ -1424,6 +1714,7 @@ end
 --同步聊天
 XRpc.NotifyChatMessage = function(chatData)
     XDataCenter.ChatManager.NotifyChatMessage(chatData)
+    XEventManager.DispatchEvent(XEventId.EVENT_DLC_RECEIVE_CHAT_MESSAGE, XChatData.New(chatData))
 end
 
 XRpc.NotifyPrivateChat = function(chatData)
@@ -1453,4 +1744,17 @@ end
 
 XRpc.NotifyChatEmoji = function(emojiData)
     XDataCenter.ChatManager.NotifyChatEmoji(emojiData)
+end
+
+--聊天框信息下发
+XRpc.NotifyChatBoardLoginData = function(data)
+    XDataCenter.ChatManager.UpdateChatBoardData(data)
+end
+
+XRpc.NotifyChatBoardInfo = function(data)
+    XDataCenter.ChatManager.AddChatBoard(data.ChatBoard)
+end
+
+XRpc.NotifyCurChatBoardId = function(data)
+    XDataCenter.ChatManager.SetCurChatBoard(data.CurrentChatBoardId)
 end

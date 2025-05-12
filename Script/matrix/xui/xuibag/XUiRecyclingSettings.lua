@@ -29,8 +29,8 @@ function XUiRecyclingSettings:OnAwake()
 end
 
 function XUiRecyclingSettings:OnStart()
-    self.StarCheckDic = XDataCenter.EquipManager.GetRecycleStarCheckDic()
-    self.Days = XDataCenter.EquipManager.GetRecycleSettingDays()
+    self.StarCheckDic = XMVCA.XEquip:GetRecycleStarCheckDic()
+    self.Days = XMVCA.XEquip:GetRecycleSettingDays()
 end
 
 function XUiRecyclingSettings:OnEnable()
@@ -75,7 +75,7 @@ function XUiRecyclingSettings:OnClickBtnConfirm()
         end
     end
     local days = self.Days
-    XDataCenter.EquipManager.EquipChipSiteAutoRecycleRequest(starList, days, cb)
+    XMVCA.XEquip:EquipChipSiteAutoRecycleRequest(starList, days, cb)
 end
 
 function XUiRecyclingSettings:TryClose()
@@ -83,7 +83,7 @@ function XUiRecyclingSettings:TryClose()
         self:Close()
     end
 
-    if XDataCenter.EquipManager.CheckRecycleInfoDifferent(self.StarCheckDic, self.Days) then
+    if XMVCA.XEquip:CheckRecycleInfoDifferent(self.StarCheckDic, self.Days) then
         local title = CsXTextManagerGetText("EquipRecycleSetttingCancelConfirmTitle")
         local content = CsXTextManagerGetText("EquipRecycleSetttingCancelConfirmContent")
         XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, closeFunc)

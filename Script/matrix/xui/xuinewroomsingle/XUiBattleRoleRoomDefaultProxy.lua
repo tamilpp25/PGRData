@@ -1,3 +1,6 @@
+local CsXTextManager = CS.XTextManager
+
+---@class XUiBattleRoleRoomDefaultProxy
 local XUiBattleRoleRoomDefaultProxy = XClass(nil, "XUiBattleRoleRoomDefaultProxy")
 
 -- PS : 加上这个主要为了兼容旧编队界面逻辑带来的写法
@@ -14,10 +17,10 @@ function XUiBattleRoleRoomDefaultProxy:GetCharacterViewModelByEntityId(id)
         if XEntityHelper.GetIsRobot(id) then
             entity = XRobotManager.GetRobotById(id)
         else
-            entity = XDataCenter.CharacterManager.GetCharacter(id)
+            entity = XMVCA.XCharacter:GetCharacter(id)
         end
         if entity == nil then
-            XLog.Error(string.format("找不到id%s的角色", id))
+            XLog.Warning(string.format("找不到id%s的角色", id))
             return
         end
         return entity:GetCharacterViewModel()
@@ -36,11 +39,14 @@ end
 -- 获取实体战力，如有特殊战力计算公式，可重写
 -- return : number 战力
 function XUiBattleRoleRoomDefaultProxy:GetRoleAbility(entityId)
-    local viewModel = self:GetCharacterViewModelByEntityId(entityId)
-    if viewModel then
-        return viewModel:GetAbility()
-    end
-    return 0
+    -- local viewModel = self:GetCharacterViewModelByEntityId(entityId)
+    -- if viewModel then
+    --     return viewModel:GetAbility()
+    -- end
+    -- return 0
+    ---@type XCharacterAgency
+    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+    return ag:GetCharacterHaveRobotAbilityById(entityId)
 end
 
 -- 根据实体Id获取伙伴实体
@@ -91,7 +97,18 @@ function XUiBattleRoleRoomDefaultProxy:GetIsCanEnterFight(team, stageId)
         return false, CS.XTextManager.GetText("TeamManagerCheckFirstFightNil")
     end
     -- 检查关卡开启条件
-    return self:CheckStageForceConditionWithTeamEntityId(team, stageId)
+    if not self:CheckStageForceConditionWithTeamEntityId(team, stageId) then
+        return false
+    end
+    -- 检查玩家等级是否满足
+    if XTool.IsNumberValid(stageId) then
+        local stageCfg = XMVCA.XFuben:GetStageCfg(stageId)
+        local requireLevel = stageCfg and stageCfg.RequireLevel or 0
+        if requireLevel > 0 and XPlayer.Level < requireLevel then
+            return false, CS.XTextManager.GetText("FubenNeedLevel", requireLevel)
+        end
+    end
+    return true
 end
 
 -- 检查是否满足关卡配置的强制性条件
@@ -138,6 +155,35 @@ function XUiBattleRoleRoomDefaultProxy:GetEntities()
     return {}
 end
 
+-- 获取编队能取到的所有实体的Id，用于检查当前队伍是否有超出可选以外的实体id
+-- 传参：pos字段正常情况下根据玩家点击角色位置产生，提前生成时无法确认pos具体值，因此不传递该值，仅传递stageId与team
+-- 返回空表默认不做剔除检查
+---@return table<number>
+function XUiBattleRoleRoomDefaultProxy:GetValidEntityIdList(stageId, team)
+    -- 代理重写为空时使用默认代理, 默认代理跳过筛选逻辑
+    local detailProxyClass = self:GetRoleDetailProxy()
+
+    if detailProxyClass == nil then
+        return nil
+    end
+    
+    -- 需要处理匿名类
+    local detailProxy = CheckIsClass(detailProxyClass) and detailProxyClass.New(stageId, team) or CreateAnonClassInstance(detailProxyClass, require("XUi/XUiNewRoomSingle/XUiBattleRoomRoleDetailDefaultProxy"), stageId, team)
+    
+    -- 获取到的是角色实体列表，筛选只需要Id列表
+    local characters = detailProxy:GetEntities()
+
+    if not XTool.IsTableEmpty(characters) then
+        local characterIds = {}
+        for i, v in pairs(characters) do
+            table.insert(characterIds, v.Id)
+        end
+        return characterIds
+    end
+    
+    return nil
+end
+
 -- return : bool 是否开启自动关闭检查, number 自动关闭的时间戳(秒), function 每秒更新的回调 function(isClose) isClose标志是否到达结束时间
 function XUiBattleRoleRoomDefaultProxy:GetAutoCloseInfo()
     return false
@@ -151,6 +197,12 @@ end
 
 -- 创建编队自定义提示的gameObject，默认放在所有提示的最下面
 function XUiBattleRoleRoomDefaultProxy:CreateCustomTipGo(panel)
+end
+
+-- 过滤预设队伍实体Id
+-- teamData : 旧系统的队伍数据
+function XUiBattleRoleRoomDefaultProxy:FilterPresetTeamEntitiyIds(teamData)
+    return teamData
 end
 
 --######################## AOP ########################
@@ -184,6 +236,68 @@ function XUiBattleRoleRoomDefaultProxy:AOPOnRefreshPartnersBefore(self)
 end
 
 function XUiBattleRoleRoomDefaultProxy:CheckIsCanDrag()
+    return true
+end
+
+function XUiBattleRoleRoomDefaultProxy:AOPHideCharacterLimits()
+    return false
+end
+
+function XUiBattleRoleRoomDefaultProxy:ClearErrorTeamEntityId(...)
+    XEntityHelper.ClearErrorTeamEntityId(...)
+end
+
+function XUiBattleRoleRoomDefaultProxy:AOPGoPartnerCarry()
+    return false
+end
+
+---点击切换首个进场角色时触发
+function XUiBattleRoleRoomDefaultProxy:AOPOnFirstFightBtnClick(buttonGroup, index, team)
+    return false
+end
+
+---切换队长位置前触发
+function XUiBattleRoleRoomDefaultProxy:AOPOnCaptainPosChangeBefore(newCaptainPos, team)
+    return false
+end
+
+---检查index位置是否可以拖起角色
+function XUiBattleRoleRoomDefaultProxy:CheckIsCanMoveUpCharacter(index, time)
+    return true
+end
+
+---检查index位置是否可以拖放角色
+function XUiBattleRoleRoomDefaultProxy:CheckIsCanMoveDownCharacter(index)
+    return true
+end
+
+-- 该界面是否启用q版模型 默认用愚人节检测
+function XUiBattleRoleRoomDefaultProxy:CheckUseCuteModel()
+    return XMVCA.XAprilFoolDay:IsInCuteModelTime()
+end
+
+-- 检查是否开启效应选择
+function XUiBattleRoleRoomDefaultProxy:CheckIsEnableGeneralSkillSelection()
+    return true
+end
+
+function XUiBattleRoleRoomDefaultProxy:AOPOnClickFight()
+    return false
+end
+
+function XUiBattleRoleRoomDefaultProxy:AOPOnClickBtnBack()
+    return false
+end
+
+function XUiBattleRoleRoomDefaultProxy:GetBtnEnterName()
+    return CsXTextManager.GetText("UIBattleRoleRoomBtnEnter")
+end
+
+function XUiBattleRoleRoomDefaultProxy:AOPOnRefreshRecommendGeneralSkillBefore(rootUi, skillUi)
+    return false
+end
+
+function XUiBattleRoleRoomDefaultProxy:CheckShowAnimationSet()
     return true
 end
 

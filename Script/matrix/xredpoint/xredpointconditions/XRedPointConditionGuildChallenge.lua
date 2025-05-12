@@ -14,15 +14,15 @@ function XRedPointConditionGuildChallenge.Check()
         return false
     end
     
-    if XRedPointConditionTaskType.Check(XDataCenter.TaskManager.TaskType.GuildDaily) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TASK_TYPE, XDataCenter.TaskManager.TaskType.GuildDaily) then
         return true
     end
 
-    if XRedPointConditionTaskType.Check(XDataCenter.TaskManager.TaskType.GuildMainly) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TASK_TYPE, XDataCenter.TaskManager.TaskType.GuildMainly) then
         return true
     end
 
-    if XRedPointConditionTaskType.Check(XDataCenter.TaskManager.TaskType.GuildWeekly) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TASK_TYPE, XDataCenter.TaskManager.TaskType.GuildWeekly) then
         return true
     end
 

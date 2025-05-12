@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenMaverickTask = XLuaUiManager.Register(XLuaUi, "UiFubenMaverickTask")
 local XUiFubenMaverickTaskGrid = require("XUi/XUiFubenMaverick/XUiGrid/XUiFubenMaverickTaskGrid")
 

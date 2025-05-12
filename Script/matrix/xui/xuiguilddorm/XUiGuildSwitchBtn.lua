@@ -44,6 +44,11 @@ function XUiGuildSwitchBtn:SetArrow(arrowType)
 end
 
 function XUiGuildSwitchBtn:OnClickBtnClick()
+    local dict = {}
+    dict["button"] = XGlobalVar.BtnGuildDormMain.BtnSwitchGuildDorm
+    dict["role_level"] = XPlayer.GetLevel()
+    CS.XRecord.Record(dict, "200006", "GuildDorm")
+    
     if self.CurrentListStatus == LIST_STATUS.SHOW then
         self:SetListStatus(LIST_STATUS.HIDE)
     else

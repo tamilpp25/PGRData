@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridStarReward = XClass(nil, "XUiGridStarReward")
  
 function XUiGridStarReward:Ctor(uiRoot, ui)

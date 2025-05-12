@@ -12,11 +12,11 @@ end
 
 function XRedPointConditionGuildInformation.Check()
     -- 礼包红点
-    if XRedPointConditionGuildActiveGift.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_GUILD_ACTIVEGIFT) then
         return true
     end
     -- 招募红点
-    if XRedPointConditionGuildApplyList.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST) then
         return true
     end
 

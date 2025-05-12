@@ -4,7 +4,8 @@
 local XRedPointConditionMainMember = {}
 local SubConditions = nil
 function XRedPointConditionMainMember.Check()
-    local characterList = XDataCenter.CharacterManager.GetCharacterList()
+    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+    local characterList = ag:GetCharacterList()
 
     if not characterList then
         return false
@@ -15,7 +16,7 @@ function XRedPointConditionMainMember.Check()
 
     for i = 1, count do
         local character = characterList[i]
-        if XRedPointConditionCharacter.Check(character.Id) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHARACTER, character.Id) then
             isEnough = true
             break
         end

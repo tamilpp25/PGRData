@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --虚像地平线前百排行榜控件
 local XUiExpeditionRankList = XClass(nil, "XUiExpeditionRankList")
 local XUiRankGrid = require("XUi/XUiExpedition/Ranking/XUiExpeditionRankGrid")

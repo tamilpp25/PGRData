@@ -1,13 +1,19 @@
+local XExPrequelManager = require("XEntity/XFuben/XExPrequelManager")
+local XExFubenBaseManager = require("XEntity/XFuben/XExFubenBaseManager")
+local XChapterViewModel = require("XEntity/XFuben/XChapterViewModel")
+
 XPrequelManagerCreator = function()
-    local XPrequelManager = {}
+    local XPrequelManager = XExPrequelManager.New(XFubenConfigs.ChapterType.Prequel)
+    local XPrequelFragmentManager = XExFubenBaseManager.New(XFubenConfigs.ChapterType.CharacterFragment)  -- 管理角色碎片章节
 
     local UnlockChallengeStages = {}
     local RewardedStages = {}
     local NextCheckPoint = nil
     -- manager层
-    local Cover2ChapterMap = {}--记录上一个封面
-    local CoverPrefix = "CoverPrefix"
-    local Stage2ChapterMap = {}
+    --local Cover2ChapterMap = {}--记录上一个封面
+    --local CoverPrefix = "CoverPrefix"
+    --local Stage2ChapterMap = {}
+    --local CoverIdDataDic = {}
 
     function XPrequelManager.InitPrequelData(fubenPrequelData)
         if not fubenPrequelData then return end
@@ -22,53 +28,53 @@ XPrequelManagerCreator = function()
     function XPrequelManager.SaveCoverChapterHint(key, value)
         if XPlayer.Id then
             key = string.format("%s_%s", tostring(XPlayer.Id), key)
-            CS.UnityEngine.PlayerPrefs.SetInt(key, value)
-            CS.UnityEngine.PlayerPrefs.Save()
+            XSaveTool.SaveData(key, value)
         end
     end
 
     function XPrequelManager.GetCoverChapterHint(key, defaultValue)
         if XPlayer.Id then
             key = string.format("%s_%s", tostring(XPlayer.Id), key)
-            if CS.UnityEngine.PlayerPrefs.HasKey(key) then
-                local newPlayerHint = CS.UnityEngine.PlayerPrefs.GetInt(key)
+            if XSaveTool.GetData(key) then
+                local newPlayerHint =  XSaveTool.GetData(key)
                 return (newPlayerHint == nil or newPlayerHint == 0) and defaultValue or newPlayerHint
             end
         end
         return defaultValue
     end
 
-    function XPrequelManager.InitStageInfo()
-        for chapterId, chapterCfg in pairs(XPrequelConfigs.GetPequelAllChapter() or {}) do
-            for _, stageId in pairs(chapterCfg.StageId or {}) do
-                Stage2ChapterMap[stageId] = chapterId
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                if stageInfo then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.Prequel
-                end
-            end
-        end
+    --function XPrequelManager.InitStageInfo()
+    --    for chapterId, chapterCfg in pairs(XPrequelConfigs.GetPequelAllChapter() or {}) do
+    --        for _, stageId in pairs(chapterCfg.StageId or {}) do
+    --            Stage2ChapterMap[stageId] = chapterId
+    --            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    --            if stageInfo then
+    --                stageInfo.Type = XDataCenter.FubenManager.StageType.Prequel
+    --            end
+    --        end
+    --    end
+    --
+    --    for _, coverCfg in pairs(XPrequelConfigs.GetPrequelCoverList() or {}) do
+    --        for _, stageId in pairs(coverCfg.ChallengeStage or {}) do
+    --            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    --            if stageInfo then
+    --                stageInfo.Type = XDataCenter.FubenManager.StageType.Prequel
+    --            end
+    --        end
+    --    end
+    --end
 
-        for _, coverCfg in pairs(XPrequelConfigs.GetPrequelCoverList() or {}) do
-            for _, stageId in pairs(coverCfg.ChallengeStage or {}) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                if stageInfo then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.Prequel
-                end
-            end
-        end
-    end
-
+    -- 弃用接口， 1.30更新副本入口后不再需要记录间章上一次打过的chapter
     -- [更新封面显示的chapter]
     function XPrequelManager.UpdateShowChapter(stageId)
-        if not stageId then return end
-        local chapterId = XPrequelConfigs.GetChapterByStageId(stageId)
-        if not chapterId then return end
-        local coverId = XPrequelConfigs.GetCoverByChapterId(chapterId)
-        if not coverId then return end
-        local key = string.format("%s%s", CoverPrefix, tostring(coverId))
-        XPrequelManager.SaveCoverChapterHint(key, chapterId)
-        Cover2ChapterMap[coverId] = chapterId
+        -- if not stageId then return end
+        -- local chapterId = XPrequelConfigs.GetChapterByStageId(stageId)
+        -- if not chapterId then return end
+        -- local coverId = XPrequelConfigs.GetCoverByChapterId(chapterId)
+        -- if not coverId then return end
+        -- local key = string.format("%s%s", CoverPrefix, tostring(coverId))
+        -- XPrequelManager.SaveCoverChapterHint(key, chapterId)
+        -- Cover2ChapterMap[coverId] = chapterId
     end
 
     function XPrequelManager.ShowReward(winData)
@@ -203,7 +209,7 @@ XPrequelManagerCreator = function()
             if not rect then
                 return desc
             end
-            return nil
+            return ""
         end
 
         for _, openConditoinId in pairs(chapterTemplate.OpenCondition or {}) do
@@ -212,6 +218,7 @@ XPrequelManagerCreator = function()
                 return desc
             end
         end
+        return ""
     end
 
     -- [进度]
@@ -239,8 +246,8 @@ XPrequelManagerCreator = function()
         local hasDefault = false
         local reverseId = #cover.CoverActiveChapterIds --章节UI页签按钮是以倒序显示的
         for index, chapterId in pairs(cover.CoverActiveChapterIds or {}) do
-            local chapterDescription = XPrequelManager.GetChapterUnlockDescription(chapterId)
-            if chapterDescription == nil then
+            local isLock = XPrequelManager.GetChapterLockStatus(chapterId)
+            if not isLock then
                 if showChapter and showChapter == chapterId then
                     return reverseId
                 end
@@ -268,16 +275,25 @@ XPrequelManagerCreator = function()
         return index
     end
 
-    -- [获取章节锁定状态]
+    -- [获取章节锁定状态] true 锁定  false 解锁
     function XPrequelManager.GetChapterLockStatus(chapterId)
-        local chapterInfo = XPrequelConfigs.GetPrequelChapterById(chapterId)
-        for _, conditionId in pairs(chapterInfo.OpenCondition or {}) do
+        local chapterTemplate = XPrequelConfigs.GetPrequelChapterById(chapterId)
+        -- 如果处于活动，优先判断活动的Condition
+        local inActivity = XPrequelManager.IsChapterInActivity(chapterId)
+        if chapterTemplate.ActivityCondition ~= 0 and inActivity then
+            local rect = XConditionManager.CheckCondition(chapterTemplate.ActivityCondition)
+            return not rect
+        end
+
+        local isLock = true
+        for _, conditionId in pairs(chapterTemplate.OpenCondition or {}) do
             local rect, _ = XConditionManager.CheckCondition(conditionId)
-            if not rect then
-                return true
+            if rect then
+                isLock = false
+                break
             end
         end
-        return false
+        return isLock
     end
 
     -- [章节是否处于活动中]
@@ -313,44 +329,92 @@ XPrequelManagerCreator = function()
         return false
     end
 
-    function XPrequelManager.GetListCovers()
-        local coverList = {}
-        for k, v in pairs(XPrequelConfigs.GetPrequelCoverList() or {}) do
-            local showChapter, isActivity, isAllChapterLock, isActivityNotOpen = XPrequelManager.GetPriorityChapter(v.ChapterId, k)
-            local chapterWeight = 0
-            if isActivity then
-                chapterWeight = 4
-            else
-                if isAllChapterLock == false then
-                    chapterWeight = 3
-                end
-                if isActivityNotOpen then
-                    chapterWeight = 2
+    -- function XPrequelManager.GetListCovers()
+    --     local coverList = {}
+    --     for k, v in pairs(XPrequelConfigs.GetPrequelCoverList() or {}) do
+    --         local showChapter, isActivity, isAllChapterLock, isActivityNotOpen = XPrequelManager.GetPriorityChapter(v.ChapterId, k)
+    --         local chapterWeight = 0
+    --         if isActivity then
+    --             chapterWeight = 4
+    --         else
+    --             if isAllChapterLock == false then
+    --                 chapterWeight = 3
+    --             end
+    --             if isActivityNotOpen then
+    --                 chapterWeight = 2
+    --             end
+    --         end
+    --         local activeChapterIds = XPrequelManager.GetListActiveChapterIdsByCoverId(k)
+    --         if #activeChapterIds > 0 then -- 如果存在当前时间下激活的章节才显示
+    --             table.insert(coverList, {
+    --                 CoverId = k,
+    --                 CoverVal = v,
+    --                 ShowChapter = showChapter,
+    --                 IsActivity = isActivity,
+    --                 IsAllChapterLock = isAllChapterLock,
+    --                 IsActivityNotOpen = isActivityNotOpen,
+    --                 ChapterWeight = chapterWeight,
+    --                 CoverActiveChapterIds = activeChapterIds,
+    --             })
+    --         end
+    --     end
+    --     table.sort(coverList, function(coverA, coverB)
+    --         local coverAWeight = coverA.ChapterWeight
+    --         local coverBWeight = coverB.ChapterWeight
+    --         if coverAWeight == coverBWeight then
+    --             return coverA.CoverVal.Priority < coverB.CoverVal.Priority
+    --         end
+    --         return coverAWeight > coverBWeight
+    --     end)
+
+    --     if not next(CoverIdDataDic) then
+    --         for k, coverData in pairs(coverList) do
+    --             CoverIdDataDic[coverData.CoverId] = coverData
+    --         end
+    --     end
+
+    --     return coverList
+    -- end
+
+    -- 2.2新接口替换旧接口，从表上拆开了间章和碎片的关系
+    function XPrequelManager.GetChapterList()
+        local chapterList = {}
+        for k, chapterCfg in pairs(XPrequelConfigs.GetPequelAllChapter() or {}) do
+            local isActivity = false
+            if XPrequelManager.IsChapterInActivity(chapterCfg.ChapterId) then
+                if chapterCfg.ActivityCondition <= 0 or (chapterCfg.ActivityCondition > 0
+                and XConditionManager.CheckCondition(chapterCfg.ActivityCondition)) then
+                    isActivity = true
                 end
             end
-            local activeChapterIds = XPrequelManager.GetListActiveChapterIdsByCoverId(k)
-            if #activeChapterIds > 0 then -- 如果存在当前时间下激活的章节才显示
-                table.insert(coverList, {
-                    CoverId = k,
-                    CoverVal = v,
-                    ShowChapter = showChapter,
-                    IsActivity = isActivity,
-                    IsAllChapterLock = isAllChapterLock,
-                    IsActivityNotOpen = isActivityNotOpen,
-                    ChapterWeight = chapterWeight,
-                    CoverActiveChapterIds = activeChapterIds,
-                })
+
+            -- 定义排序权重
+            local isLock = XPrequelManager.GetChapterLockStatus(chapterCfg.ChapterId)
+            local chapterWeight = 1
+            if isActivity then -- 活动限时开放优先显示
+                chapterWeight = 2
             end
+            if isLock then
+                chapterWeight = 0
+            end
+         
+            table.insert(chapterList, {
+                ChapterId = k,
+                PequelChapterCfg = chapterCfg,
+                IsActivity = isActivity,
+                IsLock = isLock,
+                ChapterWeight = chapterWeight,
+            })
         end
-        table.sort(coverList, function(coverA, coverB)
-            local coverAWeight = coverA.ChapterWeight
-            local coverBWeight = coverB.ChapterWeight
-            if coverAWeight == coverBWeight then
-                return coverA.CoverVal.Priority < coverB.CoverVal.Priority
+
+        table.sort(chapterList, function(chapterA, chapterB)
+            if chapterA.ChapterWeight == chapterB.ChapterWeight then 
+                return chapterA.PequelChapterCfg.Order < chapterB.PequelChapterCfg.Order
             end
-            return coverAWeight > coverBWeight
+            return chapterA.ChapterWeight > chapterB.ChapterWeight
         end)
-        return coverList
+
+        return chapterList
     end
 
     -- 获取当前时间已激活的章节Id列表
@@ -391,7 +455,7 @@ XPrequelManagerCreator = function()
                     isActivityNotOpen = true
                     if chapterInfo.ActivityCondition <= 0 or (chapterInfo.ActivityCondition > 0
                     and XConditionManager.CheckCondition(chapterInfo.ActivityCondition)) then
-                        currentChapter = chapterId
+                        --currentChapter = chapterId
                         currentPriority = chapterInfo.Priority
                         isActivity = true
                         isActivityNotOpen = false
@@ -410,36 +474,36 @@ XPrequelManagerCreator = function()
         if (not isAllChapterLock) and (not isActivity) then
             for _, chapterId in pairs(chapters or {}) do
                 if not XDataCenter.PrequelManager.GetChapterLockStatus(chapterId) then
-                    currentChapter = chapterId
+                    --currentChapter = chapterId
                     break
                 end
             end
         end
         -- 优先显示上一次打过的章节
-        if not Cover2ChapterMap[coverId] then
-            local key = string.format("%s%s", CoverPrefix, tostring(coverId))
-            local recordChapter = XPrequelManager.GetCoverChapterHint(key, currentChapter)
-            local isRecordChapterInActivity = XPrequelManager.IsChapterInActivity(recordChapter)
-            local recordChapterDescription = XPrequelManager.GetChapterUnlockDescription(recordChapter)
-            if isRecordChapterInActivity then
-                currentChapter = recordChapter
-            else
-                if recordChapterDescription == nil then
-                    currentChapter = recordChapter
-                end
-            end
-        elseif Cover2ChapterMap[coverId] and Cover2ChapterMap[coverId] ~= currentChapter then
-            local recordChapter = Cover2ChapterMap[coverId]
-            local recordChapterDescription = XPrequelManager.GetChapterUnlockDescription(recordChapter)
-            local isRecordChapterInActivity = XPrequelManager.IsChapterInActivity(recordChapter)
-            if isRecordChapterInActivity then
-                currentChapter = Cover2ChapterMap[coverId]
-            else
-                if recordChapterDescription == nil then
-                    currentChapter = recordChapter
-                end
-            end
-        end
+        -- if not Cover2ChapterMap[coverId] then
+        --     local key = string.format("%s%s", CoverPrefix, tostring(coverId))
+        --     local recordChapter = XPrequelManager.GetCoverChapterHint(key, currentChapter)
+        --     local isRecordChapterInActivity = XPrequelManager.IsChapterInActivity(recordChapter)
+        --     local recordChapterDescription = XPrequelManager.GetChapterUnlockDescription(recordChapter)
+        --     if isRecordChapterInActivity then
+        --         --currentChapter = recordChapter
+        --     else
+        --         if recordChapterDescription == nil then
+        --             --currentChapter = recordChapter
+        --         end
+        --     end
+        -- elseif Cover2ChapterMap[coverId] and Cover2ChapterMap[coverId] ~= currentChapter then
+        --     local recordChapter = Cover2ChapterMap[coverId]
+        --     local recordChapterDescription = XPrequelManager.GetChapterUnlockDescription(recordChapter)
+        --     local isRecordChapterInActivity = XPrequelManager.IsChapterInActivity(recordChapter)
+        --     if isRecordChapterInActivity then
+        --         --currentChapter = Cover2ChapterMap[coverId]
+        --     else
+        --         if recordChapterDescription == nil then
+        --             --currentChapter = recordChapter
+        --         end
+        --     end
+        -- end
         return currentChapter, isActivity, isAllChapterLock, isActivityNotOpen
     end
 
@@ -448,8 +512,203 @@ XPrequelManagerCreator = function()
     end
 
     function XPrequelManager.GetChapterIdByStageId(stageId)
-        return Stage2ChapterMap[stageId]
+        --return Stage2ChapterMap[stageId]
+        for chapterId, chapterCfg in pairs(XPrequelConfigs.GetPequelAllChapter() or {}) do
+            for _, stageIdOnConfig in pairs(chapterCfg.StageId or {}) do
+                if stageId == stageIdOnConfig then
+                    return chapterId
+                end
+            end
+        end
     end
+
+    ------------------碎片副本入口扩展(带ChapterViewModel) start-------------------------
+    function XPrequelFragmentManager.IsFragmentInActivity(fragmentId)
+        local fragmentCfg = XPrequelConfigs.GetFragments()[fragmentId]
+        local coverId = fragmentCfg.CoverId
+        local coverCfg = XPrequelConfigs.GetPrequelCoverList()[coverId]
+        local inActivity = XFunctionManager.CheckInTimeByTimeId(coverCfg.TimeId)
+        return inActivity
+    end
+
+    -- [获取碎片关锁定状态]
+    function XPrequelFragmentManager.GetFragmentLockStatus(fragmentId)
+        local fragmentCfg = XPrequelConfigs.GetFragments()[fragmentId]
+        local coverId = fragmentCfg.CoverId
+        local coverCfg = XPrequelConfigs.GetPrequelCoverList()[coverId]
+        -- 如果处于活动，优先判断活动的Condition
+        local inActivity = XPrequelFragmentManager.IsFragmentInActivity(fragmentId)
+        if coverCfg.ActivityCondition ~= 0 and inActivity then
+            local rect = XConditionManager.CheckCondition(coverCfg.ActivityCondition)
+            return not rect
+        end
+
+        -- 再判断碎片关入口原本的condition
+        if XTool.IsNumberValid(coverCfg.OpenCondition) then
+            local rect, _ = XConditionManager.CheckCondition(coverCfg.OpenCondition)
+            return not rect
+        end
+    end
+
+    -- [获取碎片关锁定的提示]
+    function XPrequelFragmentManager.GetFragmentUnlockDescription(fragmentId)
+        local fragmentCfg = XPrequelConfigs.GetFragments()[fragmentId]
+        local coverId = fragmentCfg.CoverId
+        local coverCfg = XPrequelConfigs.GetPrequelCoverList()[coverId]
+        -- 如果处于活动，优先判断活动的Condition
+        local inActivity = XPrequelFragmentManager.IsFragmentInActivity(fragmentId)
+        if coverCfg.ActivityCondition ~= 0 and inActivity then
+            local rect, desc = XConditionManager.CheckCondition(coverCfg.ActivityCondition)
+            return desc
+        end
+
+        -- 再判断碎片关入口原本的condition
+        if XTool.IsNumberValid(coverCfg.OpenCondition) then
+            local rect, desc = XConditionManager.CheckCondition(coverCfg.OpenCondition)
+            return desc
+        end
+    end
+
+    function XPrequelFragmentManager:ExGetFunctionNameType()
+        return XFunctionManager.FunctionName.Prequel
+    end
+
+    -- 检查是否展示红点
+    function XPrequelFragmentManager:ExCheckIsShowRedPoint()
+        for _, viewModel in ipairs(self:ExGetChapterViewModels()) do
+            if viewModel:CheckHasRedPoint() then
+                return true
+            end
+        end
+   
+        return false
+    end
+
+    function XPrequelFragmentManager:GetCharacterListIdByChapterViewModels()
+        local result ={}
+        for i, chapterViewModel in ipairs(self:ExGetChapterViewModels()) do
+            local characterId = chapterViewModel:GetConfig().CharacterId
+            result[i] = {Id = characterId}
+            if not self.CharacterIdModelDic then
+                self.CharacterIdModelDic = {}
+            end
+            self.CharacterIdModelDic[characterId] = chapterViewModel
+        end
+        return result
+    end
+
+    function XPrequelFragmentManager:SortModelViewByCharacterList(characterList)
+        local result = {}
+        for i, v in ipairs(characterList) do
+            table.insert(result, self.CharacterIdModelDic[v.Id])
+        end
+        return result
+    end
+
+    local function SortModels(models)
+        local lockList = {}
+        local unLockList = {}
+        for k, model in ipairs(models) do
+            if model:GetIsLocked() then
+                table.insert(lockList, model)
+            else
+                table.insert(unLockList, model)
+            end            
+        end
+        -- 限时开放要在最前面
+        table.sort(lockList, function (a, b)
+            if a:CheckHasTimeLimitTag() ~= b:CheckHasTimeLimitTag() then
+                return a:CheckHasTimeLimitTag()
+            end
+            if a:GetPriority() ~= b:GetPriority() then
+                return a:GetPriority() < b:GetPriority()
+            end
+            return a:GetId() < b:GetId()
+        end)
+        table.sort(unLockList, function (a, b)
+            if a:CheckHasTimeLimitTag() ~= b:CheckHasTimeLimitTag() then
+                return a:CheckHasTimeLimitTag()
+            end
+            if a:GetPriority() ~= b:GetPriority() then
+                return a:GetPriority() < b:GetPriority()
+            end
+            return a:GetId() < b:GetId()
+        end)
+
+        return appendArray(unLockList, lockList)
+    end
+    
+    function XPrequelFragmentManager:ExGetChapterViewModels()
+        if self.__ChapterViewModelDic == nil then self.__ChapterViewModelDic = {} end
+        if next(self.__ChapterViewModelDic) then
+            return SortModels(self.__ChapterViewModelDic)
+        end
+        local chapterConfigs = XPrequelConfigs.GetFragments()
+        local coverList = XPrequelConfigs.GetPrequelCoverList()
+        for _, config in ipairs(chapterConfigs) do
+            local coverId = config.CoverId
+            local coverCfg = coverList[coverId]
+            local characterId = coverCfg.CharacterId
+            table.insert(self.__ChapterViewModelDic, CreateAnonClassInstance({
+                GetProgress = function(proxy)
+                    return nil
+                end,
+                GetIsLocked = function(proxy)
+                    -- return XPrequelManager.GetChapterLockStatus(config.ChapterId)
+                    return XPrequelFragmentManager.GetFragmentLockStatus(config.Id)
+                end,
+                GetLockTip = function(proxy)
+                    return XPrequelFragmentManager.GetFragmentUnlockDescription(config.Id)
+                end,
+                GetOpenDayString = function(proxy)
+                    -- local name = config.RoleName
+                    local name = XMVCA.XCharacter:GetCharacterTemplate(characterId).Name
+                    return name, true
+                end,
+                CheckHasTimeLimitTag = function(proxy)
+                    return XPrequelFragmentManager.IsFragmentInActivity(config.Id)
+                end,
+                IsDayLock = function(proxy)
+                    return nil
+                end,
+                OpenUi = function(proxy)
+                    XLuaUiManager.Open("UiPrequelFragment", config, coverCfg)
+                end,
+            }, XChapterViewModel
+            , {
+                Id = config.Id,
+                ExtralName = XMVCA.XCharacter:GetCharacterTemplate(characterId).TradeName,
+                Name = XMVCA.XCharacter:GetCharacterTemplate(characterId).TradeName,
+                Desc = config.Desc,
+                Icon = config.Icon,
+                CharacterId = characterId,
+                ExtralData = config,
+                Priority = coverCfg.Priority,
+            }))
+        end
+
+        return SortModels(self.__ChapterViewModelDic)
+    end
+    
+    --region 历程/活动引用专用
+    function XPrequelFragmentManager:ExCheckShowInCalendar()
+        -- 判断是否有任意角色碎片副本开放
+        local chapterConfigs = XPrequelConfigs.GetFragments()
+
+        if not XTool.IsTableEmpty(chapterConfigs) then
+            ---@param v XTableFragment
+            for i, v in pairs(chapterConfigs) do
+                if not XPrequelFragmentManager.GetFragmentLockStatus(v.Id) then
+                    return true
+                end
+            end
+        end
+        
+        return false
+    end
+    --endregion
+    
+    ------------------副本入口扩展 end-------------------------
 
     return XPrequelManager
 end

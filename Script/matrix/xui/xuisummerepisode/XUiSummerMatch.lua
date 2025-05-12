@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiSummerMatch = XLuaUiManager.Register(XLuaUi, "UiSummerMatch")
 local XUiGridMatchReward = require("XUi/XUiSummerEpisode/XUiGridMatchReward")
 local XUiGridEliminate = require("XUi/XUiSummerEpisode/XUiGridEliminate")

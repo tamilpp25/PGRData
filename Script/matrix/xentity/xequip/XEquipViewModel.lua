@@ -2,7 +2,7 @@ local XEquip = require("XEntity/XEquip/XEquip")
 local XEquipViewModel = XClass(nil, "XEquipViewModel")
 
 function XEquipViewModel:Ctor(equipCid)
-    self.Config = XEquipConfig.GetEquipCfg(equipCid)
+    self.Config = XMVCA.XEquip:GetConfigEquip(equipCid)
     -- XEquip
     self.Equip = nil
     self.UpdatedData = nil
@@ -24,7 +24,7 @@ function XEquipViewModel:UpdateWithData(data)
 end
 
 function XEquipViewModel:GetName()
-    return self.Config.Name or ""
+    return XMVCA.XEquip:GetEquipName(self.Config.Id)
 end
 
 function XEquipViewModel:GetLevel()
@@ -32,11 +32,11 @@ function XEquipViewModel:GetLevel()
 end
 
 function XEquipViewModel:GetQualityIcon()
-    return XDataCenter.EquipManager.GetEquipQualityPath(self.Config.Id)
+    return XMVCA.XEquip:GetEquipQualityPath(self.Config.Id)
 end
 
 function XEquipViewModel:GetIcon()
-    return XDataCenter.EquipManager.GetEquipIconBagPath(self.Config.Id, self.Breakthrough)
+    return XMVCA.XEquip:GetEquipIconPath(self.Config.Id, self.Breakthrough)
 end
 
 function XEquipViewModel:GetResonanceInfos()

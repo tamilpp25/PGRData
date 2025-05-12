@@ -28,9 +28,7 @@
         "Key": "ChapterSettleCondDesc",
         "Comment": "Result calculation info displayed on the left",
         "Values": [
-            "Remaining Time",
-            "Hits Taken",
-            "Traps Triggered"
+            "Remaining Time"
         ]
     },
     {
@@ -92,8 +90,86 @@
         "Key": "FightSettleCondDesc",
         "Comment": "Battle Results Info",
         "Values": [
-            "Current Area",
-            "Current Points"
+            "Current Area"
+        ]
+    },
+    {
+        "Key": "MainShowRewardId",
+        "Comment": "Main Interface Mission Button Reward",
+        "Values": [
+            "550320"
+        ]
+    },
+    {
+        "Key": "MainDifficultyBgUrl",
+        "Comment": "Main Interface Difficulty Background Base Map Url",
+        "Values": [
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2MainBg01.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2MainBg02.png"
+        ]
+    },
+    {
+        "Key": "ChapterNumIconUrl",
+        "Comment": "Chapter Number Url",
+        "Values": [
+            "Assets/Product/Texture/Atlas/UiEscape/UiEscape2MainStageNun01.png",
+            "Assets/Product/Texture/Atlas/UiEscape/UiEscape2MainStageNun02.png",
+            "Assets/Product/Texture/Atlas/UiEscape/UiEscape2MainStageNun03.png",
+            "Assets/Product/Texture/Atlas/UiEscape/UiEscape2MainStageNun04.png",
+            "Assets/Product/Texture/Atlas/UiEscape/UiEscape2MainStageNun05.png",
+            "Assets/Product/Texture/Atlas/UiEscape/UiEscape2MainStageNun06.png"
+        ]
+    },
+    {
+        "Key": "ChapterDifficultyBgUrl",
+        "Comment": "Chapter Difficulty Background Base Map Url",
+        "Values": [
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2MainStage01.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2MainStage02.png"
+        ]
+    },
+    {
+        "Key": "ChapterDifficultyLockUrl",
+        "Comment": "Chapter Difficulty Locked Base Map Url",
+        "Values": [
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2MainStageLock.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2MainStageLock.png"
+        ]
+    },
+    {
+        "Key": "StageTitleColor",
+        "Comment": "Chapter Node Title Color",
+        "Values": [
+            "55D0F0",
+            "55D0F0",
+            "9B62DA",
+            "FF8624"
+        ]
+    },
+    {
+        "Key": "SettleTitleIcon",
+        "Comment": "Final Summary Icon",
+        "Values": [
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2SettleWin.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2SettleLose.png"
+        ]
+    },
+    {
+        "Key": "SettleTitleText",
+        "Comment": "Final Summary Text",
+        "Values": [
+            "Escape Unscathed",
+            "Dimension Break"
+        ]
+    },
+    {
+        "Key": "StageTitleBg",
+        "Comment": null,
+        "Values": [
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2FubenStage02.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2FubenStage02.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2FubenStage03.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscape2FubenStage04.png"
         ]
     }
 ]

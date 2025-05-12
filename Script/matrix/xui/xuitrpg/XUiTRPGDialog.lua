@@ -11,6 +11,7 @@ function XUiTRPGDialog:OnStart()
 end
 
 function XUiTRPGDialog:OnEnable()
+
     local curLevel = XDataCenter.TRPGManager.GetExploreLevel()
     local isMaxLevel = XTRPGConfigs.IsMaxLevel(curLevel)
     --当前等级和天赋点
@@ -26,6 +27,10 @@ function XUiTRPGDialog:OnEnable()
         self.Image.gameObject:SetActiveEx(true)
         self.PanelNextLv.gameObject:SetActiveEx(true)
     end
+end
+
+function XUiTRPGDialog:OnDisable()
+
 end
 
 function XUiTRPGDialog:AutoAddListener()

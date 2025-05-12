@@ -1,8 +1,14 @@
+---@class Reader
 local Reader = XClass(nil, "Reader")
 local ReadByType = {}
 local MaxInt32 = 2147483647
 local FloatToInt = 10000
-function Reader:Ctor(bytes, len, index)
+
+function Reader:Ctor()
+
+end
+
+function Reader:LoadBytes(bytes, len, index)
     self.bytes = bytes
     self.len = len
     self.index = index or 1
@@ -15,6 +21,11 @@ end
 
 function Reader:Read(type)
     return ReadByType[type](self)
+end
+
+--直接设置inde位置, 用来跳过某些字节读取
+function Reader:SetIndex(value)
+    self.index = value
 end
 
 function Reader:ReadFloat()
@@ -136,6 +147,28 @@ function Reader:ReadUInt32Variant()
 
     return value
 end
+
+--lua 的64位int是有符号的, 不能通过long转ulong的方式, 那样会溢出的!! 所以不支持负数
+function Reader:ReadInt64Variant()
+    local value = 0
+    local tempByte
+    local index = 0
+
+    while not tempByte or ((tempByte >> 7) > 0) do
+        tempByte = string.byte(self.bytes, self.index, self.index)
+        local temp1 = (tempByte & 0x7F) << index
+        value = value | temp1
+        index = index + 7
+        self.index = self.index + 1
+    end
+
+    if value == 0 then
+        return nil
+    end
+
+    return value
+end
+
 
 function Reader:ReadListString()
 
@@ -287,12 +320,23 @@ end
 
 --读取Fix
 function Reader:ReadFix()
-    local str = self:ReadString()
-    if not str then
-        return nil
+    local value = self:ReadInt64Variant() or 0
+    local exp = 0
+    if value ~= 0 then
+        local combinedByte = string.byte(self.bytes, self.index, self.index)
+        self.index = self.index + 1
+        exp = combinedByte & 0x7F
+        local negative = combinedByte >> 7
+        if negative == 1 then
+            value = -value
+        end
     end
+    --local str = self:ReadString()
+    --if not str then
+    --    return nil
+    --end
 
-    return FixParse(str)
+    return FixParseEx(value, exp)
 end
 
 --读取Fix
@@ -309,6 +353,81 @@ function Reader:ReadListFix()
 
     return list
 end
+
+--读取Fix2
+function Reader:ReadFix2()
+    fix2 = CS.Mathematics.fix2()
+    fix2.x = self:ReadFix()
+    fix2.y = self:ReadFix()
+    return fix2
+end
+
+--读取List Fix2
+function Reader:ReadListFix2()
+    local len = self:ReadInt()
+    if not len or len <= 0 then
+        return nil
+    end
+
+    local list = {}
+    for i = 1, len do
+        table.insert(list, self:ReadFix2())
+    end
+
+    return list
+end
+
+--读取Fix3
+function Reader:ReadFix3()
+    fix3 = CS.Mathematics.fix3()
+    fix3.x = self:ReadFix()
+    fix3.y = self:ReadFix()
+    fix3.z = self:ReadFix()
+    return fix3
+end
+
+--读取List Fix3
+function Reader:ReadListFix3()
+    local len = self:ReadInt()
+    if not len or len <= 0 then
+        return nil
+    end
+
+    local list = {}
+    for i = 1, len do
+        table.insert(list, self:ReadFix3())
+    end
+
+    return list
+end
+
+--读取FixQuaternion
+function Reader:ReadFixQuaternion()
+    fixquaternion = CS.Mathematics.fixquaternion()
+    fix4.value.x = self:ReadFix() or 0
+    fix4.value.y = self:ReadFix() or 0
+    fix4.value.z = self:ReadFix() or 0
+    fix4.value.w = self:ReadFix() or 0
+    return fix4
+end
+
+--读取List FixQuaternion
+function Reader:ReadListFixQuaternion()
+    local len = self:ReadInt()
+    if not len or len <= 0 then
+        return nil
+    end
+
+    local list = {}
+    for i = 1, len do
+        table.insert(list, self:ReadFixQuaternion())
+    end
+
+    return list
+end
+
+
+
 
 
 ReadByType = {
@@ -327,6 +446,12 @@ ReadByType = {
     [13] = Reader.ReadDicIntFloat,
     [14] = Reader.ReadInt,
     [15] = Reader.ReadFloat,
+    [16] = Reader.ReadFix2,
+    [17] = Reader.ReadFix3,
+    [18] = Reader.ReadFixQuaternion,
+    [19] = Reader.ReadListFix2,
+    [20] = Reader.ReadListFix3,
+    [21] = Reader.ReadListFixQuaternion,
 }
 
 

@@ -7,11 +7,20 @@ local TempPanel
 
 local TempTabs
 
+local SelectTabIndex
+
 local XGridTab = require("XUi/XUiAchievement/Achievement/PanelTabs/XUiAchvGridTab")
 
 local function Refresh(uiAchv)
     if uiAchv.TabsInitFlag then
         TempTabs = uiAchv.Tabs
+        if not XTool.IsTableEmpty(TempTabs) then
+            if SelectTabIndex and SelectTabIndex > #TempTabs then
+                return
+            end
+            XUiAchvPanelTabs.Refresh()
+            TempPanel.TabBtnGroup:SelectIndex(SelectTabIndex or 1)
+        end
         return
     end
     uiAchv.Tabs = {}
@@ -35,6 +44,7 @@ local function Refresh(uiAchv)
         table.insert(buttons, TempTabs[index]:GetButton())
     end
     TempPanel.TabBtnGroup:Init(buttons, function(index)
+            SelectTabIndex = index
             TempTabs[index]:OnSelect()
         end)
     TempPanel.TabBtnGroup:SelectIndex(XDataCenter.AchievementManager.GetCanGetRewardTypeIndexByBaseType(uiAchv.BaseTypeId))
@@ -63,6 +73,10 @@ end
 
 XUiAchvPanelTabs.OnDestroy = function()
     Clear()
+end
+
+XUiAchvPanelTabs.SelectIndex = function(index)
+    TempPanel.TabBtnGroup:SelectIndex(index)
 end
 
 return XUiAchvPanelTabs

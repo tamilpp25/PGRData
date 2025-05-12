@@ -1,4 +1,6 @@
-XScrollFlowGrid = XClass(XScrollGrid, "XScrollFlowGrid")
+local XScrollFlow = require("XUi/XUiCommon/XScrollView/XScrollFlow")
+local XScrollGrid = require("XUi/XUiBase/XScrollGrid")
+local XScrollFlowGrid = XClass(XScrollGrid, "XScrollFlowGrid")
 
 function XScrollFlowGrid:Ctor()
     self.CurveValue = 0
@@ -23,3 +25,5 @@ function XScrollFlowGrid:OnDrag(addValue)
     localScale.y = scale
     trans.localScale = localScale
 end
+
+return XScrollFlowGrid

@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiTRPGRewardGrid = XClass(nil, "XUiTRPGRewardGrid")
 
 function XUiTRPGRewardGrid:Ctor(ui, rootUi, truthRoadGroupId, secondMainId)

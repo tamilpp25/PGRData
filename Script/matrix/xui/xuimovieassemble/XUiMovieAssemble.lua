@@ -10,6 +10,10 @@ function XUiMovieAssemble:OnStart(assembleId)
     self:Refresh()
 end
 
+function XUiMovieAssemble:OnDestroy()
+    
+end
+
 function XUiMovieAssemble:Refresh()
     local bgImgUrl = XMovieAssembleConfig.GetBgImgUrlById(self.AssembleId)
     if bgImgUrl and bgImgUrl ~= "" then
@@ -48,13 +52,13 @@ end
 function XUiMovieAssemble:RefreshContent()
     if self.PanelStageContent then
         local stagePrefabUrl = XMovieAssembleConfig.GetMovieTmpPrefabById(self.AssembleId)
-        self.StageTmpObj = CS.XResourceManager.Load(stagePrefabUrl).Asset
+        local gridGo = self.PanelStageContent:LoadPrefab(stagePrefabUrl)
         local movieIds = XMovieAssembleConfig.GetMovieTmpIdsById(self.AssembleId)
         local onCreat = function (item, movieId)
             item:OnCreat(movieId)
         end
 
-        XUiHelper.CreateTemplates(self, self.StagePool, movieIds, XUiMovieAssembleStage.New, self.StageTmpObj, self.PanelStageContent, onCreat)
+        XUiHelper.CreateTemplates(self, self.StagePool, movieIds, XUiMovieAssembleStage.New, gridGo, self.PanelStageContent, onCreat)
     end
 end
 

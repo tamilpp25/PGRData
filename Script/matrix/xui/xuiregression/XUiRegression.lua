@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --
 --Author: wujie
 --Note: 回归活动主界面

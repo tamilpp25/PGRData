@@ -143,41 +143,13 @@ function XUiPanelAd:OnPointerClick()
 
     if tonumber(data.JumpType) == JumpType.Web then
         if jumpAddr and #jumpAddr > 0 then
-            if string.find(jumpAddr, "eden") ~= nil then -- 伊甸文化跳转
-                local uid = XUserManager.UserId
-                local serverId = CS.XHeroBdcAgent.ServerId
-                if uid and uid ~= "" then
-                    if serverId and serverId ~= "" then
-                        CS.UnityEngine.Application.OpenURL(jumpAddr.."?uid="..uid.."&serverId="..serverId)
-                    else
-                        CS.UnityEngine.Application.OpenURL(jumpAddr.."?uid="..uid)
-                    end
-                    return
-                end
-            elseif string.find(jumpAddr, "whiteday") ~= nil then --情人节网页活动
-                local uid = XLoginManager.GetUserId()
-                if uid and uid ~= "" then
-                    CS.UnityEngine.Application.OpenURL(jumpAddr.."?uid="..uid)
-                    return
-                end
-            elseif string.find(jumpAddr, "natsumatsuri") ~= nil then -- 夏日祭活动
-                local uid = XLoginManager.GetUserId()
-                if uid and uid ~= "" then
-                    CS.UnityEngine.Application.OpenURL(jumpAddr.."?code_id="..uid)
-                    return
-                end
-            elseif string.find(jumpAddr, "seeed") ~= nil or string.find(jumpAddr, "rooot") ~= nil then -- rooot活动的
-                XDataCenter.ActivityManager.OpenRoootUrl(jumpAddr)
-                return
-            end
-                CS.UnityEngine.Application.OpenURL(jumpAddr)
-            end
+            CS.UnityEngine.Application.OpenURL(jumpAddr)
+        end
     elseif tonumber(data.JumpType) == JumpType.Game then
         XFunctionManager.SkipInterface(tonumber(jumpAddr))
     elseif tonumber(data.JumpType) == JumpType.Sign then
         if jumpAddr and #jumpAddr > 0 then
-            local signAddr = XDataCenter.MarketingActivityManager.GetSignUrl(jumpAddr)
-            CS.UnityEngine.Application.OpenURL(signAddr)
+            XLog.Error("看图作文、内嵌浏览器 功能已删除")
         end
     end
 end
@@ -211,7 +183,9 @@ function XUiPanelAd:UpdateAdList()
     else
         self.AdList = dataList
     end
-
+    
+    XDataCenter.NoticeManager.ClearOutdateNoticePic(self.AdList)
+    
     self:UpdateAdvertising()
     self:UpdatePage()
 end

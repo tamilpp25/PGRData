@@ -69,7 +69,8 @@ function XUiGridChapterDz:RefreshDatas(coverDatas)
     self.ImgActivityTab.gameObject:SetActive(false)
     -- 全部未解锁，优先级低于活动
     local unlockDescription = XDataCenter.PrequelManager.GetChapterUnlockDescription(coverDatas.ShowChapter)
-    self.BtnUnlockCover.gameObject:SetActive(unlockDescription ~= nil)
+    local isLock = XDataCenter.PrequelManager.GetChapterLockStatus(coverDatas.ShowChapter)
+    self.BtnUnlockCover.gameObject:SetActive(isLock)
     self.TxtUnlockCondition.text = unlockDescription
     -- 有活动
     if coverDatas.IsActivity or coverDatas.IsActivityNotOpen then

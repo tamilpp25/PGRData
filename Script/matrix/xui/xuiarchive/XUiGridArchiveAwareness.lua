@@ -1,16 +1,13 @@
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
 --
 -- Author: wujie
 -- Note: 图鉴意识一级界面的格子
-local XUiGridArchiveAwareness = XClass(nil, "XUiGridArchiveAwareness")
+local XUiGridArchiveAwareness = XClass(XUiNode, "XUiGridArchiveAwareness")
 
-function XUiGridArchiveAwareness:Ctor(ui, clickCb, rootUi)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiGridArchiveAwareness:OnStart(clickCb, rootUi)
     self.RootUi = rootUi
     self.ClickCb = clickCb
-
-    XTool.InitUiObject(self)
-
+    
     self.ImgGirdStarList = {
         self.ImgGirdStar1,
         self.ImgGirdStar2,
@@ -23,17 +20,9 @@ function XUiGridArchiveAwareness:Ctor(ui, clickCb, rootUi)
     self.BtnClick.CallBack = function() self:OnBtnClick() end
 end
 
-function XUiGridArchiveAwareness:InitRootUi(rootUi)
-    self.RootUi = rootUi
-end
-
-function XUiGridArchiveAwareness:SetClickCallback(callback)
-    self.ClickCb = callback
-end
-
 function XUiGridArchiveAwareness:UpdateStar()
-    local star = XDataCenter.EquipManager.GetSuitStar(self.SuitId)
-    for i = 1, XEquipConfig.MAX_STAR_COUNT do
+    local star = XMVCA.XEquip:GetSuitStar(self.SuitId)
+    for i = 1, XEnumConst.EQUIP.MAX_STAR_COUNT do
         if self.ImgGirdStarList[i] then
             self.ImgGirdStarList[i].gameObject:SetActiveEx(i <= star)
         end
@@ -42,9 +31,8 @@ end
 
 function XUiGridArchiveAwareness:UpdateCollectedCount()
     local suitId = self.SuitId
-    local templateIdList = XEquipConfig.GetEquipTemplateIdsBySuitId(suitId)
-    local sumCount = #templateIdList
-    local curCount = XDataCenter.ArchiveManager.GetAwarenessCountBySuitId(suitId)
+    local sumCount = XMVCA.XEquip:GetSuitEquipCount(suitId)
+    local curCount = XMVCA.XArchive.AwarenessArchiveCom:GetAwarenessCountBySuitId(suitId)
     self.TxtSumCount.text = sumCount
     self.TxtCurCount.text = curCount
 end
@@ -67,14 +55,14 @@ function XUiGridArchiveAwareness:Refresh(dataList,index)
 
     local isBigIcon = true
     if self.RImgIcon then
-        if XEquipConfig.IsDefaultSuitId(suitId) then
+        if XMVCA.XEquip:IsDefaultSuitId(suitId) then
             self.RImgIcon.gameObject:SetActiveEx(false)
         else
             local icon
             if isBigIcon then
-                icon = XDataCenter.EquipManager.GetSuitBigIconBagPath(suitId)
+                icon = XMVCA.XEquip:GetEquipSuitBigIconPath(suitId)
             else
-                icon = XDataCenter.EquipManager.GetSuitIconBagPath(suitId)
+                icon = XMVCA.XEquip:GetEquipSuitIconPath(suitId)
             end
 
             self.RImgIcon:SetRawImage(icon)
@@ -84,11 +72,11 @@ function XUiGridArchiveAwareness:Refresh(dataList,index)
 
     --装备专用的竖条品质色
     if self.ImgEquipQuality then
-        self.RootUi:SetUiSprite(self.ImgEquipQuality, XDataCenter.EquipManager.GetSuitQualityIcon(suitId))
+        self.RootUi:SetUiSprite(self.ImgEquipQuality, XMVCA.XEquip:GetSuitQualityIcon(suitId))
     end
 
     if self.TxtName then
-        self.TxtName.text = XDataCenter.EquipManager.GetSuitName(suitId)
+        self.TxtName.text = XMVCA.XEquip:GetSuitName(suitId)
     end
 
     if self.Data.Add and #self.Data.Add > 0 then
@@ -123,13 +111,13 @@ function XUiGridArchiveAwareness:OnCheckRedPoint(count)
         self.PanelNewTag.gameObject:SetActiveEx(false)
         self.PanelRedPoint.gameObject:SetActiveEx(false)
     else
-        local isShowTag = XDataCenter.ArchiveManager.IsNewAwarenessSuit(suitId)
+        local isShowTag = XMVCA.XArchive.AwarenessArchiveCom:IsNewAwarenessSuit(suitId)
         if isShowTag then
             self.PanelNewTag.gameObject:SetActiveEx(true)
             self.PanelRedPoint.gameObject:SetActiveEx(false)
         else
             self.PanelNewTag.gameObject:SetActiveEx(false)
-            self.PanelRedPoint.gameObject:SetActiveEx(XDataCenter.ArchiveManager.IsNewAwarenessSetting(suitId))
+            self.PanelRedPoint.gameObject:SetActiveEx(XMVCA.XArchive.AwarenessArchiveCom:IsNewAwarenessSetting(suitId))
         end
     end
 end

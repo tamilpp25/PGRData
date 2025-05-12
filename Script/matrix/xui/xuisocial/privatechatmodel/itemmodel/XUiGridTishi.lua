@@ -1,4 +1,4 @@
-XUiGridTishi = XClass(nil, "XUiGridTishi")
+local XUiGridTishi = XClass(nil, "XUiGridTishi")
 
 function XUiGridTishi:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -42,7 +42,7 @@ function XUiGridTishi:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -87,3 +87,5 @@ end
 function XUiGridTishi:SetShow(code)
     self.GameObject:SetActive(code)
 end
+
+return XUiGridTishi

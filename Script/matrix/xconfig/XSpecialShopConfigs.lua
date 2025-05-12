@@ -32,13 +32,13 @@ local function GetSpecialShopCfg(cfgId)
 end
 
 ---
---- 获取商店Id
+--- 获取角色涂装商店Id
 --- 'cfgId'默认为1
 ---@overload fun():number
 ---@return number
 function XSpecialShopConfigs.GetShopId(cfgId)
     local cfg = GetSpecialShopCfg(cfgId)
-    if not cfg.ShopId then
+    if not cfg.FashionShopId then
         XLog.ErrorTableDataNotFound("XSpecialShopConfigs.GetShopId",
                 "商店Id",
                 TABLE_SPECIAL_SHOP,
@@ -46,7 +46,25 @@ function XSpecialShopConfigs.GetShopId(cfgId)
                 tostring(cfgId))
         return 0
     end
-    return cfg.ShopId
+    return cfg.FashionShopId
+end
+
+---
+--- 获取武器涂装商店Id
+--- 'cfgId'默认为1
+---@overload fun():number
+---@return number
+function XSpecialShopConfigs.GetWeaponFashionShopId(cfgId)
+    local cfg = GetSpecialShopCfg(cfgId)
+    if not cfg.WeaponFashionShopId then
+        XLog.ErrorTableDataNotFound("XSpecialShopConfigs.GetWeaponFashionShopId",
+                "武器涂装商店Id",
+                TABLE_SPECIAL_SHOP,
+                "Id",
+                tostring(cfgId))
+        return 0
+    end
+    return cfg.WeaponFashionShopId
 end
 
 ---

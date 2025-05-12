@@ -23,7 +23,7 @@ function XUiDoubleTowersDeploy:OnStart(moduleType)
     else
         self.BtnPluginGroup:SelectIndex(XDoubleTowersConfigs.ModuleType.Role)
     end
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ XDoubleTowersConfigs.GetActivityRewardItemId() }, self.PanelAsset)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ XDoubleTowersConfigs.GetActivityRewardItemId() }, self.PanelAsset, self)
     XDataCenter.DoubleTowersManager.ShowEquipTips = handler(self, self.OnShowBreakthroughTips)
 end
 

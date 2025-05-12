@@ -11,10 +11,10 @@ function XUiPanelRewardBig:Ctor(ui, parent)
 end
 
 function XUiPanelRewardBig:SetupCharacter(id)
-    local character = XCharacterConfigs.GetCharacterTemplate(id)
+    local character = XMVCA.XCharacter:GetCharacterTemplate(id)
     self.TxtDesc.text = character.MissionInfo
-    --self.Parent:SetUiSprite(self.RImgRole, XDataCenter.CharacterManager.GetCharHalfBodyImage(id))
-    self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(id))
+    --self.Parent:SetUiSprite(self.RImgRole, XMVCA.XCharacter:GetCharHalfBodyImage(id))
+    self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyImage(id))
 end
 
 
@@ -131,7 +131,7 @@ function XUiPanelRewardBig:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

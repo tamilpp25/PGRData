@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridInfestorExplorePlayerMessage = require("XUi/XUiFubenInfestorExplore/XUiGridInfestorExplorePlayerMessage")
 
 local XUiInfestorExploreGuestbook = XLuaUiManager.Register(XLuaUi, "UiInfestorExploreGuestbook")

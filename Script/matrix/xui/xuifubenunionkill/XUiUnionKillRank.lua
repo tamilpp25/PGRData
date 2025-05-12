@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiUnionKillRank = XLuaUiManager.Register(XLuaUi, "UiUnionKillRank")
 local XUiPanelUnionKillMainRank = require("XUi/XUiFubenUnionKill/XUiPanelUnionKillMainRank")
 local XUiPanelUnionKillRankReward = require("XUi/XUiFubenUnionKill/XUiPanelUnionKillRankReward")

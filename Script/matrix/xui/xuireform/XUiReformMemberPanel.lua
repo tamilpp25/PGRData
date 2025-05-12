@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local CsXTextManager = CS.XTextManager
 
 --######################## XUiReformAwarenessGrid ########################
@@ -27,7 +28,7 @@ function XUiReformAwarenessGrid:SetData(data)
     -- 共鸣
     local ResonanceInfos = data:GetResonanceInfos()
     local obj = nil
-    for i = 1, XEquipConfig.MAX_RESONANCE_SKILL_COUNT do
+    for i = 1, XEnumConst.EQUIP.MAX_RESONANCE_SKILL_COUNT do
         obj = self["ImgResonance" .. i]
         if obj then
             if ResonanceInfos and ResonanceInfos[i] then
@@ -41,7 +42,7 @@ function XUiReformAwarenessGrid:SetData(data)
     local breakthrough = data:GetBreakthrough()
     if breakthrough ~= 0 then
         self.ImgBreakthrough.gameObject:SetActiveEx(true)
-        local breakthroughIcon = XEquipConfig.GetEquipBreakThroughSmallIcon(breakthrough)
+        local breakthroughIcon = XMVCA.XEquip:GetEquipBreakThroughSmallIcon(breakthrough)
         self.ImgBreakthrough:SetSprite(breakthroughIcon)
     else
         self.ImgBreakthrough.gameObject:SetActiveEx(false)

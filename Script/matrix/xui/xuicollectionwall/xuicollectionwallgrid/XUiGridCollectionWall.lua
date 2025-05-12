@@ -1,3 +1,4 @@
+local XUiGridCollection = require("XUi/XUiMedal/XUiGridCollection")
 local XUiGridCollectionWall = XClass(nil, "XUiGridCollectionWall")
 
 local DefaultConditionDesc
@@ -18,6 +19,7 @@ function XUiGridCollectionWall:Ctor(ui, rootUi, openType)
         self.BtnChoice.CallBack = function() self:OnSettingToggleClick() end
         self.BtnPanelWall.CallBack = function() self:BtnPanelWallClick() end
     end
+    self.Resource = nil
 end
 
 ---
@@ -65,19 +67,20 @@ function XUiGridCollectionWall:SetImg()
         local result = texture
 
         if not result then
-            local resource = CS.XResourceManager.Load(CS.XGame.ClientConfig:GetString("CollectionWallDefaultIcon"))
-            result = resource.Asset
+            self.ImgTemplate:SetRawImage(CS.XGame.ClientConfig:GetString("CollectionWallDefaultIcon"))
+        else
+            self.ImgTemplate.texture = texture
         end
-
-        local rect = CS.UnityEngine.Rect(0, 0, result.width, result.height)
-        local sprite = CS.UnityEngine.Sprite.Create(result, rect, CS.UnityEngine.Vector2.zero)
-        self.ImgTemplate.sprite = sprite
     end)
 end
 
 function XUiGridCollectionWall:OnRecycle()
     local defaultIconPath = CS.XGame.ClientConfig:GetString("CollectionWallDefaultIcon")
     self.ImgTemplate:SetSprite(defaultIconPath)
+    if self.Resource then
+        CS.XResourceManager.Unload(self.Resource)
+        self.Resource = nil
+    end
 end
 
 ---

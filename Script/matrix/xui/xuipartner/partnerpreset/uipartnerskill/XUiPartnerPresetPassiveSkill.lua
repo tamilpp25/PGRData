@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridPresetPassiveSkill = XClass(nil, "XUiGridPresetPassiveSkill")
 
 function XUiGridPresetPassiveSkill:Ctor(ui)

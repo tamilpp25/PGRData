@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelTrialGrid = XClass(nil, "XUiPanelTrialGrid")
 
 function XUiPanelTrialGrid:Ctor(ui, uiRoot)

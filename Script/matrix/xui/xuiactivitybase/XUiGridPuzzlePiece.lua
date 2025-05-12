@@ -1,4 +1,4 @@
-XUiGridPuzzlePiece = XClass(nil, "XUiGridPuzzlePiece")
+local XUiGridPuzzlePiece = XClass(nil, "XUiGridPuzzlePiece")
 
 function XUiGridPuzzlePiece:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -61,7 +61,7 @@ end
 
 function XUiGridPuzzlePiece:ShowFlipEffect()
     self:RemoveTimer()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Common_UiObtain)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Common_UiObtain)
     self.OpenTimer = XScheduleManager.ScheduleOnce(function()
         self.EffectFlip.gameObject:SetActiveEx(true)
     end, 20)
@@ -76,3 +76,5 @@ function XUiGridPuzzlePiece:Init(puzzleId, index)
     self.PieceTemplate = XDataCenter.PuzzleActivityManager.GetPieceTemplate(puzzleId, index)
     self.Btn:SetRawImage(self.PieceTemplate.CoverImage)
 end
+
+return XUiGridPuzzlePiece

@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiEscapeLayerPanel = require("XUi/XUiEscape/Layer/XUiEscapeLayerPanel")
 local XUiPanelFeature = require("XUi/XUiEscape/XUiPanelFeature")
 

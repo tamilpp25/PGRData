@@ -13,6 +13,8 @@ XNoticeManagerCreator = function()
     local InGameNoticeReadList = {}
     local InGameNoticeMap = {}
     local InGameNoticeReadKey = "_InGameNoticeReadKey"
+    local InGameAutoPopupMap
+    local PreloadNotice = nil --预下载公告
 
     local SubMenuNoticeReadList = {}
     local SubMenuNoticeMap = {}
@@ -27,6 +29,8 @@ XNoticeManagerCreator = function()
 
     local TextNoticeHideCache = {}
     local TextNoticeHideCacheKey = "_TextNotice"
+
+    local LoginNoticAutoOpenKey = "_LoginNoticeNotOpenKey"
     ------------------------------------------------------
     local NoticeRequestTimer = nil
     -- 向服务端请求数据的最小间隔周期（秒）
@@ -49,6 +53,18 @@ XNoticeManagerCreator = function()
         -- 主界面二级菜单
         SubMenu = 4,
     }
+    
+    XNoticeManager.NoticeType = XNoticeType
+
+    --游戏内公告类型
+    local InGameNoticeType = {
+        --活动
+        Activity = 0,
+        --游戏
+        Game = 1
+    }
+
+    XNoticeManager.GameNoticeType = InGameNoticeType
 
     -- 自动向服务端请求数据的间隔周期（秒）
     local RequestInterval = {
@@ -67,19 +83,36 @@ XNoticeManagerCreator = function()
     }
 
     local NoticeRequestHandler = {
-        [XNoticeType.ScrollText] = function(notice) XNoticeManager.HandleRequestScrollTextNotice(notice) end,
-        [XNoticeType.ScrollPic] = function(notice) XNoticeManager.HandleRequestScrollPicNotice(notice) end,
-        [XNoticeType.InGame] = function(notice) XNoticeManager.HandleRequestInGameNotice(notice) end,
-        [XNoticeType.SubMenu] = function(notice) XNoticeManager.HandleRequestSubMenuNotice(notice) end,
+        [XNoticeType.ScrollText] = function(notice)
+            XNoticeManager.HandleRequestScrollTextNotice(notice)
+        end,
+        [XNoticeType.ScrollPic] = function(notice)
+            XNoticeManager.HandleRequestScrollPicNotice(notice)
+        end,
+        [XNoticeType.InGame] = function(notice)
+            XNoticeManager.HandleRequestInGameNotice(notice)
+        end,
+        [XNoticeType.SubMenu] = function(notice)
+            XNoticeManager.HandleRequestSubMenuNotice(notice)
+        end,
     }
 
     local NoticeRequestFailHandler = {
-        [XNoticeType.ScrollText] = function() XNoticeManager.HandleRequestScrollTextNotice() end,
-        [XNoticeType.ScrollPic] = function() XNoticeManager.HandleRequestScrollPicNoticeFail() end,
-        [XNoticeType.InGame] = function() XNoticeManager.HandleRequestInGameNotice() end,
-        [XNoticeType.SubMenu] = function() XNoticeManager.HandleRequestSubMenuNotice() end,
+        [XNoticeType.ScrollText] = function()
+            XNoticeManager.HandleRequestScrollTextNotice()
+        end,
+        [XNoticeType.ScrollPic] = function()
+            XNoticeManager.HandleRequestScrollPicNoticeFail()
+        end,
+        [XNoticeType.InGame] = function()
+            XNoticeManager.HandleRequestInGameNotice()
+        end,
+        [XNoticeType.SubMenu] = function()
+            XNoticeManager.HandleRequestSubMenuNotice()
+        end,
     }
 
+    local IsCheckOutDateClear
     ----------------------------------初始化公告cdn路径 beg----------------------------------
     local NoticeCdnUrl = {}
     local NoticeFileName = {
@@ -105,8 +138,10 @@ XNoticeManagerCreator = function()
     local Ip = ""
     local IpUrlIndex = 0
     local IpUrls = {
-        "https://ipv4.icanhazip.com/",
-        "https://api.ipify.org/"
+        "http://icanhazip.com/",
+        "http://ifconfig.me/ip",
+        "http://ifconfig.co/ip",
+        "http://inet-ip.info/ip"
     }
 
     function XNoticeManager.RequestIp()
@@ -158,13 +193,16 @@ XNoticeManagerCreator = function()
         CS.UnityEngine.PlayerPrefs.SetString(tostring(XPlayer.Id) .. TextNoticeHideCacheKey, Json.encode(TextNoticeHideCache))
         CS.UnityEngine.PlayerPrefs.Save()
     end
-    
+
     function XNoticeManager.GetInGameNoticeReadKey()
-        return tostring(XPlayer.Id) .. InGameNoticeReadKey
+        local key = XPlayer.Id and XPlayer.Id or "NotLoggedIn"
+        return key .. InGameNoticeReadKey
     end
 
     function XNoticeManager.SaveInGameNoticeReadList()
-        if not InGameNoticeReadList then return end
+        if not InGameNoticeReadList then
+            return
+        end
 
         local saveContent = ""
         local splitMark = "\n"
@@ -218,13 +256,36 @@ XNoticeManagerCreator = function()
             end
         end
     end
+    
+    function XNoticeManager.GetInGameNoticeAutoPopupKey(noticeId, modifyTime)
+        return string.format("%s_%s", noticeId, tostring(modifyTime))
+    end
+    
+    function XNoticeManager.GetInGameNoticeAutoMap()
+        if not InGameAutoPopupMap then
+            local key = "XNoticeManager.GetInGameNoticeAutoMap_InGameNoticeAutoMap"
+            InGameAutoPopupMap = XSaveTool.GetData(key) or {}
+        end
+        return InGameAutoPopupMap
+    end
+
+    function XNoticeManager.MarkInGameNoticeAutoMap(noticeId, modifyTime)
+        InGameAutoPopupMap = XNoticeManager.GetInGameNoticeAutoMap()
+        local noticeKey = XNoticeManager.GetInGameNoticeAutoPopupKey(noticeId, modifyTime)
+        InGameAutoPopupMap[noticeKey] = true
+
+        local key = "XNoticeManager.GetInGameNoticeAutoMap_InGameNoticeAutoMap"
+        XSaveTool.SaveData(key, InGameAutoPopupMap)
+    end
 
     function XNoticeManager.GetSubMenuNoticeReadKey()
         return tostring(XPlayer.Id) .. SubMenuNoticeReadKey
     end
 
     function XNoticeManager.SaveSubMenuNoticeReadList()
-        if not SubMenuNoticeReadList then return end
+        if not SubMenuNoticeReadList then
+            return
+        end
 
         local saveContent = ""
         local splitMark = "\n"
@@ -381,7 +442,7 @@ XNoticeManagerCreator = function()
 
         local key = XNoticeManager.GetTextNoticeKey(notice)
         if ScrollCountList[key]
-            and ScrollCountList[key].nowCount > ScrollCountList[key].maxCount then
+                and ScrollCountList[key].nowCount > ScrollCountList[key].maxCount then
 
             return false
         end
@@ -419,7 +480,6 @@ XNoticeManagerCreator = function()
         return tonumber(NowTextNotice.ScrollInterval) or DefaultTextScrollInterval
     end
 
-
     function XNoticeManager.ChangeTextNoticeHideCache(notice)
         notice = notice or NowTextNotice
         if not notice then
@@ -439,7 +499,6 @@ XNoticeManagerCreator = function()
 
         XNoticeManager.SaveTextNoticeHideCache()
     end
-
 
     function XNoticeManager.CheckTextNoticeHideCache(notice)
         notice = notice or NowTextNotice
@@ -498,7 +557,8 @@ XNoticeManagerCreator = function()
 
             if isOpen then
                 isOpen = false
-                if XTime.GetServerNowTimestamp() >= tonumber(v.BeginTime) and XTime.GetServerNowTimestamp() < tonumber(v.EndTime) then--是否在开放区间内（日期）
+                if XTime.GetServerNowTimestamp() >= tonumber(v.BeginTime) and XTime.GetServerNowTimestamp() < tonumber(v.EndTime) then
+                    --是否在开放区间内（日期）
                     isOpen = true
                 end
             end
@@ -507,7 +567,8 @@ XNoticeManagerCreator = function()
                 isOpen = false
                 if #v.AppearanceDay > 0 then
                     for _, day in ipairs(v.AppearanceDay) do
-                        if day == XDataCenter.FubenDailyManager.GetNowDayOfWeekByRefreshTime() then--是否位于可以显示的周目
+                        if day == XDataCenter.FubenDailyManager.GetNowDayOfWeekByRefreshTime() then
+                            --是否位于可以显示的周目
                             isOpen = true
                         end
                     end
@@ -520,7 +581,8 @@ XNoticeManagerCreator = function()
                 isOpen = false
                 if #v.AppearanceTime > 0 then
                     for _, time in ipairs(v.AppearanceTime) do
-                        if XTime.GetServerNowTimestamp() - XTime.GetTodayTime(0, 0, 0) >= time[1] and XTime.GetServerNowTimestamp() - XTime.GetTodayTime(0, 0, 0) < time[2] then--是否位于可以显示的时间段
+                        if XTime.GetServerNowTimestamp() - XTime.GetTodayTime(0, 0, 0) >= time[1] and XTime.GetServerNowTimestamp() - XTime.GetTodayTime(0, 0, 0) < time[2] then
+                            --是否位于可以显示的时间段
                             isOpen = true
                         end
                     end
@@ -531,7 +593,8 @@ XNoticeManagerCreator = function()
 
             if isOpen then
                 if #v.DisappearanceCondition > 0 then
-                    for _, condition in ipairs(v.DisappearanceCondition) do--是否符合不显示的条件
+                    for _, condition in ipairs(v.DisappearanceCondition) do
+                        --是否符合不显示的条件
                         if XConditionManager.CheckCondition(condition) then
                             isOpen = false
                         end
@@ -542,7 +605,8 @@ XNoticeManagerCreator = function()
             if isOpen then
                 if #v.AppearanceCondition > 0 then
                     for _, condition in ipairs(v.AppearanceCondition) do
-                        if not XConditionManager.CheckCondition(condition) then--是否不符合显示条件
+                        if not XConditionManager.CheckCondition(condition) then
+                            --是否不符合显示条件
                             isOpen = false
                         end
                     end
@@ -550,7 +614,7 @@ XNoticeManagerCreator = function()
             end
 
             if isOpen then
-                if not XNoticeManager.IsWhiteIp(v.WhiteLists) then
+                if not XNoticeManager.IsWhiteIp(v.WhiteLists) and not XNoticeManager.IsWhiteDevice(v.DeviceLists) then
                     isOpen = false
                 end
             end
@@ -575,23 +639,33 @@ XNoticeManagerCreator = function()
             XLog.Error("InGame notice invalid format: " .. tostring(notice))
             return
         end
+        local timeOfNow = XLoginManager.IsLogin() and XTime.GetServerNowTimestamp() or os.time()
 
         for _, v in ipairs(notice) do
-            if XNoticeManager.CheckNoticeValid(v) then
+            if XNoticeManager.CheckNoticeValid(v, timeOfNow) then
                 if not InGameNoticeMap[v.Type] then
                     InGameNoticeMap[v.Type] = {}
                 end
 
                 local content = {}
                 for _, item in ipairs(v.Content) do
-                    if XNoticeManager.IsWhiteIp(item.WhiteLists) then
+                    local isOpen = true
+                    if not XNoticeManager.IsWhiteIp(item.WhiteLists) and not XNoticeManager.IsWhiteDevice(item.DeviceLists) then
+                        isOpen = false
+                    end
+
+                    if isOpen then
                         table.insert(content, item)
                     end
                 end
 
                 if #content > 0 then
                     v.Content = content
-                    table.insert(InGameNoticeMap[v.Type], v)
+                    if v.Preload == 1 then --这个是预下载的公告
+                        PreloadNotice = v
+                    else
+                        table.insert(InGameNoticeMap[v.Type], v)
+                    end
                 end
             end
         end
@@ -622,7 +696,12 @@ XNoticeManagerCreator = function()
 
         return true
     end
-    
+
+    function XNoticeManager.GetPreloadNotice()
+        return PreloadNotice
+    end
+
+
     function XNoticeManager.CheckInGameNoticeRedPoint(type)
         if not InGameNoticeMap or not InGameNoticeMap[type] then
             return false
@@ -674,11 +753,12 @@ XNoticeManagerCreator = function()
         end
 
         local redPointKey = XNoticeManager.GetGameNoticeReadDataKey(notice, index)
+        
         if not InGameNoticeReadList[redPointKey] then
             return false
         end
-
-        return not InGameNoticeReadList[redPointKey].IsRead
+        
+        return (not InGameNoticeReadList[redPointKey].IsRead and notice.BluePoint == 1)
     end
 
     function XNoticeManager.ChangeInGameNoticeReadStatus(dataKey, isRead)
@@ -707,28 +787,33 @@ XNoticeManagerCreator = function()
            "TipResetTime":红点重置时间,
            "ModifyTime":最后修改时间 ] * N }
      --]]
-   function XNoticeManager.HandleRequestSubMenuNotice(notice)
-       SubMenuNoticeMap = {}
-       if not notice then
-           return
-       end
+    function XNoticeManager.HandleRequestSubMenuNotice(notice)
+        SubMenuNoticeMap = {}
+        if not notice then
+            return
+        end
 
-       if type(notice) ~= "table" then
-           XLog.Error("SubMenu notice invalid format: " .. tostring(notice))
-           return
-       end
+        if type(notice) ~= "table" then
+            XLog.Error("SubMenu notice invalid format: " .. tostring(notice))
+            return
+        end
 
-       for _, v in ipairs(notice.Content) do
-           if XNoticeManager.CheckNoticeValid(v) then
-               table.insert(SubMenuNoticeMap, v)
-           end
-       end
+        -- debug 内网 渠道id = -1, 总是显示
+        if (XMain.IsDebug and CS.XHeroSdkAgent.GetChannelId() == -1) or
+            XNoticeManager.CheckChannelAndPlatform(notice)
+        then
+            for _, v in ipairs(notice.Content) do
+                if XNoticeManager.CheckNoticeValid(v) then
+                    table.insert(SubMenuNoticeMap, v)
+                end
+            end
+        end
 
-       XNoticeManager.InitSubMenuReadList(notice)
-   end 
-    
-   function XNoticeManager.GetMainUiSubMenu()
-       XNoticeManager.RequestNoticeByType(XNoticeType.SubMenu, true)
+        XNoticeManager.InitSubMenuReadList(notice)
+    end
+
+    function XNoticeManager.GetMainUiSubMenu()
+        XNoticeManager.RequestNoticeByType(XNoticeType.SubMenu, true)
         if not SubMenuNoticeMap then
             return
         end
@@ -745,7 +830,8 @@ XNoticeManagerCreator = function()
 
             if isOpen then
                 isOpen = false
-                if XTime.GetServerNowTimestamp() >= tonumber(v.BeginTime) and XTime.GetServerNowTimestamp() < tonumber(v.EndTime) then--是否在开放区间内（日期）
+                if XTime.GetServerNowTimestamp() >= tonumber(v.BeginTime) and XTime.GetServerNowTimestamp() < tonumber(v.EndTime) then
+                    --是否在开放区间内（日期）
                     isOpen = true
                 end
             end
@@ -754,7 +840,8 @@ XNoticeManagerCreator = function()
                 isOpen = false
                 if #v.AppearanceDay > 0 then
                     for _, day in ipairs(v.AppearanceDay) do
-                        if day == XDataCenter.FubenDailyManager.GetNowDayOfWeekByRefreshTime() then--是否位于可以显示的周目
+                        if day == XDataCenter.FubenDailyManager.GetNowDayOfWeekByRefreshTime() then
+                            --是否位于可以显示的周目
                             isOpen = true
                         end
                     end
@@ -767,7 +854,8 @@ XNoticeManagerCreator = function()
                 isOpen = false
                 if #v.AppearanceTime > 0 then
                     for _, time in ipairs(v.AppearanceTime) do
-                        if XTime.GetServerNowTimestamp() - XTime.GetTodayTime(0, 0, 0) >= time[1] and XTime.GetServerNowTimestamp() - XTime.GetTodayTime(0, 0, 0) < time[2] then--是否位于可以显示的时间段
+                        if XTime.GetServerNowTimestamp() - XTime.GetTodayTime(0, 0, 0) >= time[1] and XTime.GetServerNowTimestamp() - XTime.GetTodayTime(0, 0, 0) < time[2] then
+                            --是否位于可以显示的时间段
                             isOpen = true
                         end
                     end
@@ -778,7 +866,8 @@ XNoticeManagerCreator = function()
 
             if isOpen then
                 if v.DisappearanceCondition and #v.DisappearanceCondition > 0 then
-                    for _, condition in ipairs(v.DisappearanceCondition) do--是否符合不显示的条件
+                    for _, condition in ipairs(v.DisappearanceCondition) do
+                        --是否符合不显示的条件
                         if XConditionManager.CheckCondition(condition) then
                             isOpen = false
                         end
@@ -789,7 +878,8 @@ XNoticeManagerCreator = function()
             if isOpen then
                 if v.AppearanceCondition and #v.AppearanceCondition > 0 then
                     for _, condition in ipairs(v.AppearanceCondition) do
-                        if not XConditionManager.CheckCondition(condition) then--是否不符合显示条件
+                        if not XConditionManager.CheckCondition(condition) then
+                            --是否不符合显示条件
                             isOpen = false
                         end
                     end
@@ -797,7 +887,7 @@ XNoticeManagerCreator = function()
             end
 
             if isOpen then
-                if not XNoticeManager.IsWhiteIp(v.WhiteLists) then
+                if not XNoticeManager.IsWhiteIp(v.WhiteLists) and not XNoticeManager.IsWhiteDevice(v.DeviceLists) then
                     isOpen = false
                 end
             end
@@ -809,70 +899,74 @@ XNoticeManagerCreator = function()
 
         return subMenuList
     end
-    
-   function XNoticeManager.CheckSubMenuRedPoint()
-       if not SubMenuNoticeMap then return false end
-       
-       for _, data in pairs(SubMenuNoticeMap) do
-           if XNoticeManager.CheckSubMenuRedPointIndividual(data.Id) then
-               return true
-           end
-       end
-       return false
-   end
-   
-   function XNoticeManager.InitSubMenuReadList(notice)
-       if not notice then
-           return
-       end
 
-       if not SubMenuNoticeReadList then
-           SubMenuNoticeReadList = {}
-       end
+    function XNoticeManager.CheckSubMenuRedPoint()
+        if not SubMenuNoticeMap then
+            return false
+        end
 
-       for _, noticeData in pairs(notice.Content) do
-           local dataKey = noticeData.Id
-           if not SubMenuNoticeReadList[dataKey] then
-               SubMenuNoticeReadList[dataKey] = {}
-               SubMenuNoticeReadList[dataKey].Id = noticeData.Id
-               SubMenuNoticeReadList[dataKey].LastReadTime = 0
-           end
-           SubMenuNoticeReadList[dataKey].EndTime = noticeData.EndTime
-           SubMenuNoticeReadList[dataKey].TipResetTime = noticeData.TipResetTime or 0
-       end
+        for _, data in pairs(SubMenuNoticeMap) do
+            if XNoticeManager.CheckSubMenuRedPointIndividual(data.Id) then
+                return true
+            end
+        end
+        return false
+    end
 
-       XEventManager.DispatchEvent(XEventId.EVENT_ACTIVITY_SUBMENU_READ_CHANGE)
-       -- CsXGameEventManager.Instance:Notify(XEventId.EVENT_ACTIVITY_SUBMENU_READ_CHANGE)
-   end
+    function XNoticeManager.InitSubMenuReadList(notice)
+        if not notice then
+            return
+        end
 
-   function XNoticeManager.CheckSubMenuRedPointIndividual(id)
-       if not SubMenuNoticeReadList then
-           return false
-       end
+        if not SubMenuNoticeReadList then
+            SubMenuNoticeReadList = {}
+        end
 
-       local data = SubMenuNoticeReadList[id]
-       if not data then
-           return false
-       end
-       
-       if data.TipResetTime > XTime.GetServerNowTimestamp() then return false end
-       return data.LastReadTime < data.TipResetTime
-   end
+        for _, noticeData in pairs(notice.Content) do
+            local dataKey = noticeData.Id
+            if not SubMenuNoticeReadList[dataKey] then
+                SubMenuNoticeReadList[dataKey] = {}
+                SubMenuNoticeReadList[dataKey].Id = noticeData.Id
+                SubMenuNoticeReadList[dataKey].LastReadTime = 0
+            end
+            SubMenuNoticeReadList[dataKey].EndTime = noticeData.EndTime
+            SubMenuNoticeReadList[dataKey].TipResetTime = noticeData.TipResetTime or 0
+        end
 
-   function XNoticeManager.ChangeSubMenuReadStatus(dataKey, time)
-       if not SubMenuNoticeReadList then
-           return
-       end
+        XEventManager.DispatchEvent(XEventId.EVENT_ACTIVITY_SUBMENU_READ_CHANGE)
+        -- CsXGameEventManager.Instance:Notify(XEventId.EVENT_ACTIVITY_SUBMENU_READ_CHANGE)
+    end
 
-       SubMenuNoticeReadList[dataKey].LastReadTime = time or XTime.GetServerNowTimestamp()
-       --XLog.Warning("ChangeSubMenuReadStatus",SubMenuNoticeReadList)
-       XNoticeManager.SaveSubMenuNoticeReadList()
-   end
-   -------------------------Sub Menu end------------------------
+    function XNoticeManager.CheckSubMenuRedPointIndividual(id)
+        if not SubMenuNoticeReadList then
+            return false
+        end
+
+        local data = SubMenuNoticeReadList[id]
+        if not data then
+            return false
+        end
+
+        if data.TipResetTime > XTime.GetServerNowTimestamp() then
+            return false
+        end
+        return data.LastReadTime < data.TipResetTime
+    end
+
+    function XNoticeManager.ChangeSubMenuReadStatus(dataKey, time)
+        if not SubMenuNoticeReadList then
+            return
+        end
+
+        SubMenuNoticeReadList[dataKey].LastReadTime = time or XTime.GetServerNowTimestamp()
+        --XLog.Warning("ChangeSubMenuReadStatus",SubMenuNoticeReadList)
+        XNoticeManager.SaveSubMenuNoticeReadList()
+    end
+    -------------------------Sub Menu end------------------------
 
     ----------------------------------------login beg----------------------------------------
 
-    function XNoticeManager.RequestLoginNotice(cb)
+    function XNoticeManager.RequestLoginNotice(cb, ...)
         local requestCb = function(notice)
             local valid = XNoticeManager.CheckNoticeValid(notice, os.time())
             if not valid then
@@ -898,91 +992,273 @@ XNoticeManagerCreator = function()
             end
 
             LoginNotice = notice
-            local openNotice = false
-            if XNoticeManager.CheckLoginNoticeDailyAutoShow(LoginNotice) then
-                 openNotice = true
-            end
+
             CS.XRecord.Record("24005", "RequestLoginNoticeEnd")
             if cb then
-                cb(valid, openNotice)
+                cb(valid)
             end
         end
         CS.XRecord.Record("24004", "RequestLoginNoticeStart")
         XNoticeManager.RequestNotice(XNoticeType.Login, requestCb, requestCb, RequestInterval[XNoticeType.Login])
     end
-    
+
     function XNoticeManager.AutoOpenLoginNotice()
         if XNoticeManager.CheckLoginNoticeDailyAutoShow(LoginNotice) then
+            if not XNoticeManager.CheckNoticeValid(LoginNotice, os.time()) then
+                return false
+            end
+
+            XLuaUiManager.Open("UiLoginNotice", LoginNotice, true)
+            XNoticeManager.RefreshLoginNoticeTime()
+            return true
+        end
+        return false
+    end
+    
+    function XNoticeManager.CheckHasOpenLoginNotice()
+        local isSelect = XSaveTool.GetData(LoginNoticAutoOpenKey)
+        
+        return isSelect or false
+    end
+    
+    function XNoticeManager.SaveOpenLoginNoticeValue(value)
+        XSaveTool.SaveData(LoginNoticAutoOpenKey, value)
+    end
+
+    function XNoticeManager.OpenLoginNotice()
+        if not LoginNotice then
+            XNoticeManager.RequestLoginNotice(function(isValid)
+                if isValid then
+                    XLuaUiManager.Open("UiLoginNotice", LoginNotice, true)
+                    XNoticeManager.RefreshLoginNoticeTime()
+                end
+            end)
+        else
             if not XNoticeManager.CheckNoticeValid(LoginNotice, os.time()) then
                 return
             end
 
-            XLuaUiManager.Open("UiLoginNotice", LoginNotice)
+            XLuaUiManager.Open("UiLoginNotice", LoginNotice, true)
             XNoticeManager.RefreshLoginNoticeTime()
         end
     end
+
+    function XNoticeManager.ReadLoginNoticeTime()
+        local cache = CS.UnityEngine.PlayerPrefs.GetString(LoginNoticeCacheKey)
+        if string.IsNilOrEmpty(cache) then
+            return
+        end
+
+        LoginNoticeTimeInfo = Json.decode(cache)
+    end
+
+    function XNoticeManager.CheckLoginNoticeDailyAutoShow(notice)
+        if not notice then
+            return
+        end
+
+        local id = notice.Id .. notice.ModifyTime
+        local resetTime = CS.XReset.GetNextDailyResetTime() - CS.XDateUtil.ONE_DAY_SECOND
+        if LoginNoticeTimeInfo[id] and LoginNoticeTimeInfo[id].Time > resetTime then
+            return not XNoticeManager.CheckHasOpenLoginNotice()
+        end
+
+        return true
+    end
+
+    function XNoticeManager.RefreshLoginNoticeTime()
+        if not LoginNotice then
+            return
+        end
+
+        local id = LoginNotice.Id .. LoginNotice.ModifyTime
+        LoginNoticeTimeInfo[id] = {
+            Id = id,
+            -- 此处有可能无法获取到真实时间（尚未与服务端同步时间）
+            --Time = XTime.GetServerNowTimestamp()
+            
+            -- 既然如此， 用本地时间就好了
+            Time = XTime.GetLocalNowTimestamp()
+        }
+
+        CS.UnityEngine.PlayerPrefs.SetString(LoginNoticeCacheKey, Json.encode(LoginNoticeTimeInfo))
+        CS.UnityEngine.PlayerPrefs.Save()
+    end
     
-   function XNoticeManager.OpenLoginNotice()
-       if not LoginNotice then
-           XNoticeManager.RequestLoginNotice(function(isValid)
-               if isValid then
-                   XLuaUiManager.Open("UiLoginNotice", LoginNotice)
-                   XNoticeManager.RefreshLoginNoticeTime()
-                   return true
-               end
-           end)
-       else
-           if not XNoticeManager.CheckNoticeValid(LoginNotice, os.time()) then
-               return false
-           end
-
-           XLuaUiManager.Open("UiLoginNotice", LoginNotice)
-           XNoticeManager.RefreshLoginNoticeTime()
-           return true
-       end
-       return false
-   end
-
-   function XNoticeManager.ReadLoginNoticeTime()
-       local cache = CS.UnityEngine.PlayerPrefs.GetString(LoginNoticeCacheKey)
-       if string.IsNilOrEmpty(cache) then
-           return
-       end
-
-       LoginNoticeTimeInfo = Json.decode(cache)
-   end
-
-   function XNoticeManager.CheckLoginNoticeDailyAutoShow(notice)
-       if not notice then
-           return
-       end
-
-       local id = notice.Id .. notice.ModifyTime
-       local resetTime = CS.XReset.GetNextDailyResetTime() - CS.XDateUtil.ONE_DAY_SECOND
-       if LoginNoticeTimeInfo[id] and LoginNoticeTimeInfo[id].Time > resetTime then
-           return false
-       end
-
-       return true
-   end
-
-   function XNoticeManager.RefreshLoginNoticeTime()
-       if not LoginNotice then
-           return
-       end
-
-       local id = LoginNotice.Id .. LoginNotice.ModifyTime
-       LoginNoticeTimeInfo[id] = {
-           Id = id,
-           -- 此处有可能无法获取到真实时间（尚未与服务端同步时间）
-           Time = XTime.GetServerNowTimestamp()
-       }
-
-       CS.UnityEngine.PlayerPrefs.SetString(LoginNoticeCacheKey, Json.encode(LoginNoticeTimeInfo))
-       CS.UnityEngine.PlayerPrefs.Save()
-   end
+    function XNoticeManager.CheckLoginNoticeValid(time)
+        return XNoticeManager.CheckNoticeValid(LoginNotice, time)
+    end
 
     ----------------------------------------login end----------------------------------------
+    --region   ------------------游戏公告 start-------------------
+
+    ---@desc 打开公告界面，公告类型可能为空，只要有公告就打开界面
+    ---@param announcementType 游戏内公告类型
+    function XNoticeManager.OpenGameNotice(announcementType, defaultId)
+        local empty = true
+        for _, noticeType in pairs(InGameNoticeType) do
+            local hasNotice = XNoticeManager.CheckHaveNotice(noticeType)
+            if hasNotice then
+                empty = false
+                break
+            end
+        end
+
+        if empty then
+            XUiManager.TipText("NoInGameNotice")
+            return
+        end
+
+        local _, infoList = XNoticeManager.GetAutoOpenNoticeInfos()
+        --将所有需要弹出的公告标记为已弹出
+        for _, info in ipairs(infoList) do
+            XNoticeManager.MarkInGameNoticeAutoMap(info.Id, info.ModifyTime)
+        end
+
+        XLuaUiManager.Open("UiAnnouncement", announcementType, defaultId)
+    end
+
+    ---@desc 获取游戏内需要展示的公告下标
+    ---@param noticeType 公告类型
+    ---@return number
+    function XNoticeManager.GetShowNoticeIndex(noticeType)
+        local noticeInfo = XDataCenter.NoticeManager.GetInGameNoticeMap(noticeType)
+        if not noticeInfo then
+            XLog.Warning("XNoticeManager.GetShowNoticeIndex: not exist notice info!, noticeType = " .. noticeType)
+            return nil
+        end
+
+        local index = 1
+        --再判断红点
+        for idx, info in pairs(noticeInfo) do
+            for i, _ in ipairs(info.Content) do
+                if XNoticeManager.CheckInGameNoticeRedPointIndividual(info, i) then
+                    return idx
+                end
+            end
+        end
+        return index
+    end
+
+    --- 登陆界面请求游戏内公告
+    ---@param cb 回调
+    ---@param timeStamp 判断时间戳
+    ---@return nil
+    --------------------------
+    function XNoticeManager.RequestInGameNotice(cb, timeStamp)
+
+        --如果未登陆到游戏服，无法获取服务器时间
+        local timeOfNow = timeStamp and timeStamp or XTime.GetServerNowTimestamp()
+
+        local checkCb = function()
+            local valid, _ = XNoticeManager.GetAutoOpenNoticeInfos()
+            if cb then cb(valid) end
+        end
+        
+        local handler = function(notice)
+            InGameNoticeMap = {}
+            notice = notice or {}
+
+            for _, v in ipairs(notice) do
+                if not XNoticeManager.CheckNoticeValid(v, timeOfNow) then
+                    goto continue
+                end
+
+                if not InGameNoticeMap[v.Type] then
+                    InGameNoticeMap[v.Type] = {}
+                end
+
+                local content = {}
+                for _, item in ipairs(v.Content) do
+                    local isOpen = true
+                    if not XNoticeManager.IsWhiteIp(item.WhiteLists) and not XNoticeManager.IsWhiteDevice(item.DeviceLists) then
+                        isOpen = false
+                    end
+                    if isOpen then
+                        table.insert(content, item)
+                    end
+                end
+
+                if #content > 0 then
+                    v.Content = content
+                    if v.Preload == 1 then --这个是预下载的公告
+                        PreloadNotice = v
+                    else
+                        table.insert(InGameNoticeMap[v.Type], v)
+                    end
+                end
+
+                ::continue::
+            end
+
+            for _, v in pairs(InGameNoticeMap) do
+                XNoticeManager.InitInGameReadList(v)
+
+                local sortFunc = function(l, r)
+                    return l.Order > r.Order
+                end
+                table.sort(v, sortFunc)
+            end
+            
+            checkCb()
+        end
+        
+        XNoticeManager.RequestNotice(XNoticeType.InGame, handler, handler, NoticeRequestTimerInterval, checkCb)
+    end
+    
+    function XNoticeManager.GetAutoOpenNoticeInfos()
+        if XTool.IsTableEmpty(InGameNoticeMap) then
+            return false, {}
+        end
+
+        local infoList = {}
+        local autoMap = XNoticeManager.GetInGameNoticeAutoMap()
+        for _, type in pairs(InGameNoticeType) do
+            local noticeInfo = XDataCenter.NoticeManager.GetInGameNoticeMap(type)
+            if noticeInfo then
+                for _, info in pairs(noticeInfo) do
+                    local autoKey = XNoticeManager.GetInGameNoticeAutoPopupKey(info.Id, info.ModifyTime)
+                    if info.LoginEject and info.LoginEject == 1 and not autoMap[autoKey] then
+                        tableInsert(infoList, info)
+                    end
+                end
+            end
+        end
+
+        if XTool.IsTableEmpty(infoList) then
+            return false, {}
+        end
+
+        local count = #infoList
+        if count > 1 then
+            table.sort(infoList, function(a, b)
+                local timeA = a.BeginTime
+                local timeB = b.BeginTime
+                return timeA > timeB
+            end)
+        end
+        
+        return true, infoList
+    end
+
+    --- 自动打开公告界面，并选中对应公告。自动弹出时会将所有需要弹出公告标记为已弹出
+    --------------------------
+    function XNoticeManager.AutoOpenInGameNotice()
+        local valid, infoList = XNoticeManager.GetAutoOpenNoticeInfos()
+        if not valid then
+            return false
+        end
+        
+        --将所有需要弹出的公告标记为已弹出
+        for _, info in ipairs(infoList) do
+            XNoticeManager.MarkInGameNoticeAutoMap(info.Id, info.ModifyTime)
+        end
+        
+        local selectInfo = infoList[1]
+        XNoticeManager.OpenGameNotice(selectInfo.Type, selectInfo.Id)
+        return true
+    end
+    --endregion------------------游戏公告 finish------------------
     ----------------------------image process beg----------------------------
     function XNoticeManager.LoadPicFromLocal(url, successCb)
         if NoticePicList and NoticePicList[url] then
@@ -1036,53 +1312,184 @@ XNoticeManagerCreator = function()
         local _, _, _, fileName = url:find("(.+)/(.+)")
         return fileName
     end
+    
+    
+    function XNoticeManager.ClearOutdateNoticePic(adlist)
+        --每个版本每次登录只删除一次
+        if IsCheckOutDateClear or XSaveTool.GetData('ClearOutdateNoticePic') == CS.XRemoteConfig.ApplicationVersion then
+            return
+        end
+        
+        local imgNames = {}
+        if not XTool.IsTableEmpty(adlist) then
+            for i, v in ipairs(adlist) do
+                if not string.IsNilOrEmpty(v.PicAddr) then
+                    local fileName = XNoticeManager.GetImgNameByUrl(v.PicAddr)
+                    imgNames[fileName] = true
+                end
+            end
+        elseif not XTool.IsTableEmpty(NoticePicList) then
+            for url, v in pairs(NoticePicList) do
+                local fileName = XNoticeManager.GetImgNameByUrl(url)
+                imgNames[fileName] = true
+            end
+        end
+        
+        local noticeImgPath = CS.XTool.NoticeImgPath
+        
+        local fileOperationFunc = function()
+            if string.IsNilOrEmpty(noticeImgPath) or not CS.System.IO.Directory.Exists(noticeImgPath) then
+                IsCheckOutDateClear = true
+                XSaveTool.SaveData('ClearOutdateNoticePic', CS.XRemoteConfig.ApplicationVersion)
+                return
+            end
+
+            local directory = CS.System.IO.DirectoryInfo(noticeImgPath)
+            local files = directory:GetFiles("*.png")
+
+            if files then
+                for i = 0, files.Length -1 do
+                    local fileName = string.sub(files[i].Name,1,#files[i].Name - #files[i].Extension)
+                    if not imgNames[fileName] then
+                        --表明不是最新的，需要删除
+                        files[i]:Delete()
+                    end
+                end
+            end
+        end
+        
+        local result, msg = pcall(fileOperationFunc)
+
+        if not result then
+            XLog.Error('[过期轮播图片处理失败]', msg)
+        end
+
+        IsCheckOutDateClear = true
+        XSaveTool.SaveData('ClearOutdateNoticePic', CS.XRemoteConfig.ApplicationVersion)
+    end
     ----------------------------image process end----------------------------
 
-   --function XNoticeManager.UrlDecode(s)
-   --    s = string.gsub(s, '%%(%x%x)', function(h)
-   --        return string.char(tonumber(h, 16))
-   --    end)
-   --    return s
-   --end
+    --function XNoticeManager.UrlDecode(s)
+    --    s = string.gsub(s, '%%(%x%x)', function(h)
+    --        return string.char(tonumber(h, 16))
+    --    end)
+    --    return s
+    --end
 
-   function XNoticeManager.CheckNoticeValid(notice, nowTime)
-       if not notice then
-           return false
-       end
+    function XNoticeManager.CheckNoticeValid(notice, nowTime)
+        if not notice then
+            return false
+        end
 
-       nowTime = nowTime or XTime.GetServerNowTimestamp()
-       if nowTime < notice.BeginTime then
-           return false
-       end
+        nowTime = nowTime or XTime.GetServerNowTimestamp()
+        if nowTime < notice.BeginTime then
+            return false
+        end
 
-       if nowTime > notice.EndTime then
-           return false
-       end
+        if nowTime > notice.EndTime then
+            return false
+        end
 
-       if not XNoticeManager.IsWhiteIp(notice.WhiteLists) then
-           return false
-       end
+        if not XNoticeManager.IsWhiteIp(notice.WhiteLists) and not XNoticeManager.IsWhiteDevice(notice.DeviceLists) then
+            return false
+        end
 
-       return true
-   end
+        if not XNoticeManager.CheckChannelAndPlatform(notice) then
+            return false
+        end
+        
+        return true
+    end
+    
+    function XNoticeManager.CheckChannelAndPlatform(notice)
+        -- 发布渠道
+        local channelInfoList = notice.ChannelInfoList
+        if channelInfoList then
+            local myChannel = CS.XHeroSdkAgent.GetChannelId()
+            local isMyChannelInclude = false
+            for i = 1, #channelInfoList do
+                local channel = channelInfoList[i]
+                if channel == myChannel then
+                    isMyChannelInclude = true
+                    break
+                end
+            end
+            if not isMyChannelInclude then
+                return false
+            end
+        end
 
-   function XNoticeManager.IsWhiteIp(whiteList)
-       if not whiteList then
-           return true
-       end
+        local appChannelInfoList = notice.AppChannelInfoList
+        if appChannelInfoList then
+            local myAppChannel = CS.XHeroSdkAgent.GetAppChannelId()
+            local isMyAppChannelInclude = false
+            for i = 1, #appChannelInfoList do
+                local appChannel = appChannelInfoList[i]
+                if appChannel == myAppChannel then
+                    isMyAppChannelInclude = true
+                    break
+                end
+            end
+            if not isMyAppChannelInclude then
+                return false
+            end
+        end
 
-       if string.IsNilOrEmpty(Ip) then
-           return false
-       end
+        -- 发布平台 pc,ios,android
+        local loginPlatformList = notice.LoginPlatformList
+        if loginPlatformList then
+            local myPlatform = XUserManager.Platform
+            local isMyPlatformInclude = false
+            for i = 1, #loginPlatformList do
+                local platform = loginPlatformList[i]
+                if platform == myPlatform then
+                    isMyPlatformInclude = true
+                    break
+                end
+            end
+            if not isMyPlatformInclude then
+                return false
+            end
+        end
+        return true
+    end
 
-       for _, whiteIp in pairs(whiteList) do
-           if string.find(Ip, whiteIp) then
-               return true
-           end
-       end
+    function XNoticeManager.IsWhiteIp(whiteList)
+        if not whiteList then
+            return true
+        end
 
-       return false
-   end
+        if string.IsNilOrEmpty(Ip) then
+            return false
+        end
+
+        for _, whiteIp in pairs(whiteList) do
+            if string.find(Ip, whiteIp) then
+                return true
+            end
+        end
+
+        return false
+    end
+
+    local DeviceId = nil
+    --根据设备id判断是否是白名单
+    function XNoticeManager.IsWhiteDevice(whiteList)
+        if not whiteList then
+            return true
+        end
+
+        if DeviceId == "0" then
+            return false
+        end
+
+        for _, whiteId in pairs(whiteList) do
+            if DeviceId == whiteId then
+                return true
+            end
+        end
+        return false
+    end
 
     function XNoticeManager.RequestNoticeByType(noticeType, proactiveRequest)
         local successCb = NoticeRequestHandler[noticeType]
@@ -1091,109 +1498,115 @@ XNoticeManagerCreator = function()
         -- XLog.Warning("RequestNoticeByType", NoticeRequestTimerInterval, "type", RequestInterval[noticeType], "主动", proactiveRequest)
         XNoticeManager.RequestNotice(noticeType, successCb, failCb, interval)
     end
-    
-   function XNoticeManager.RequestNotice(noticeType, successCb, failCb, interval)
-       if DisableFunction or not noticeType then
-           return
-       end
 
-       local nowTime = XTime.GetServerNowTimestamp()
-       --if ((not nowTime) or (not noticeType) or (not interval)) then
-       --    XLog.Warning("XNoticeManager nowTime", nowTime,"noticeType", noticeType,"LastRequestTime", LastRequestTime[noticeType],"interval", interval)
-       --end
-       if LastRequestTime[noticeType] and LastRequestTime[noticeType] > 0
-           and nowTime - LastRequestTime[noticeType] < interval then
-           return
-       end
-       LastRequestTime[noticeType] = nowTime
+    function XNoticeManager.RequestNotice(noticeType, successCb, failCb, interval, unaskedCb)
+        if DisableFunction or not noticeType then
+            if unaskedCb then unaskedCb() end
+            return
+        end
 
-       local url = XNoticeManager.GetNoticeUrl(noticeType)
-       if string.IsNilOrEmpty(url) then
-           return
-       end
-    --    XLog.Debug("notice type:" .. tostring(noticeType) .. ",url :" .. url ..", mgr:" .. tostring(XNoticeManager))
-       local request = CS.XUriPrefixRequest.Get(url, nil, NoticeRequestTimeOut, false, true)
-       CS.XTool.WaitCoroutine(request:SendWebRequest(), function()
-           if not request then
-               if failCb then
-                   failCb()
-               end
-               return
-           end
+        local nowTime = XTime.GetServerNowTimestamp()
+        --if ((not nowTime) or (not noticeType) or (not interval)) then
+        --    XLog.Warning("XNoticeManager nowTime", nowTime,"noticeType", noticeType,"LastRequestTime", LastRequestTime[noticeType],"interval", interval)
+        --end
+        if LastRequestTime[noticeType] and LastRequestTime[noticeType] > 0
+                and nowTime - LastRequestTime[noticeType] < interval then
+            if unaskedCb then unaskedCb() end
+            return
+        end
+        LastRequestTime[noticeType] = nowTime
 
-           if request.isNetworkError or
-                   request.isHttpError or
-                   not request.downloadHandler or
-                   string.IsNilOrEmpty(request.downloadHandler.text) then
-               if failCb then
-                   failCb()
-               end
-               return
-           end
+        local url = XNoticeManager.GetNoticeUrl(noticeType)
+        
+        if string.IsNilOrEmpty(url) then
+            if unaskedCb then unaskedCb() end
+            return
+        end
+        local request = CS.XUriPrefixRequest.Get(url, nil, NoticeRequestTimeOut, false, true)
+        CS.XTool.WaitCoroutine(request:SendWebRequest(), function()
+            if not request then
+                if failCb then
+                    failCb()
+                end
+                return
+            end
 
-           local ok, notice = pcall(Json.decode, request.downloadHandler.text)
-           if not ok then
-               XLog.Error("XNoticeManager json 解码失败. 数据是：", request.downloadHandler.data)
-               if failCb then
-                   failCb()
-               end
-               return
-           end
+            if request.isNetworkError or
+                    request.isHttpError or
+                    not request.downloadHandler or
+                    string.IsNilOrEmpty(request.downloadHandler.text) then
+                if failCb then
+                    failCb()
+                end
+                return
+            end
 
-           if not notice then
-               if failCb then
-                   failCb()
-               end
-               return
-           end
+            local ok, notice = pcall(Json.decode, request.downloadHandler.text)
+            if not ok then
+                XLog.Error("XNoticeManager json 解码失败. 数据是：", request.downloadHandler.data)
+                if failCb then
+                    failCb()
+                end
+                return
+            end
 
-           if successCb then
-               successCb(notice)
-           end
+            if not notice then
+                if failCb then
+                    failCb()
+                end
+                return
+            end
 
-           request:Dispose()
-       end)
-   end
-    
-   function XNoticeManager.InitTimer()
-       if NoticeRequestTimer then
-           return
-       end
+            if successCb then
+                successCb(notice)
+            end
 
-       for noticeType, _ in pairs(RequestInterval) do
-           XNoticeManager.RequestNoticeByType(noticeType)
-       end
+            CsXGameEventManager.Instance:Notify(XEventId.EVENT_NOTICE_REQUEST_SUCCESS, noticeType)
 
-       NoticeRequestTimer = XScheduleManager.ScheduleForever(function()
-           for noticeType, _ in pairs(RequestInterval) do
-               XNoticeManager.RequestNoticeByType(noticeType)
-           end
-       end, NoticeRequestTimerInterval * 1000)
-   end
+            request:Dispose()
+        end)
+    end
 
-   function XNoticeManager.OnLogin()
-       XNoticeManager.ReadScrollCountList()
-       XNoticeManager.ReadInGameNoticeReadList()
-       XNoticeManager.ReadTextNoticeHideCache()
-       XNoticeManager.ReadSubMenuNoticeReadList()
-       
-       XNoticeManager.InitTimer()
-   end
+    function XNoticeManager.InitTimer()
+        if NoticeRequestTimer then
+            return
+        end
 
-   function XNoticeManager.OnLogout()
-       if NoticeRequestTimer then
-           XScheduleManager.UnSchedule(NoticeRequestTimer)
-           NoticeRequestTimer = nil
-       end
+        for noticeType, _ in pairs(RequestInterval) do
+            XNoticeManager.RequestNoticeByType(noticeType)
+        end
 
-       for _, v in pairs(NoticePicList) do
-           if v and v:Exist() then
-               CS.UnityEngine.Object.Destroy(v)
-           end
-       end
-       NoticePicList = {}
-   end
-   
+        NoticeRequestTimer = XScheduleManager.ScheduleForever(function()
+            for noticeType, _ in pairs(RequestInterval) do
+                XNoticeManager.RequestNoticeByType(noticeType)
+            end
+        end, NoticeRequestTimerInterval * 1000)
+    end
+
+    function XNoticeManager.OnLogin()
+        XNoticeManager.ReadScrollCountList()
+        --登录时刷新玩家的蓝点
+        XNoticeManager.ReadInGameNoticeReadList()
+        XNoticeManager.ReadTextNoticeHideCache()
+        XNoticeManager.ReadSubMenuNoticeReadList()
+        
+        XNoticeManager.InitTimer()
+    end
+
+    function XNoticeManager.OnLogout()
+        if NoticeRequestTimer then
+            XScheduleManager.UnSchedule(NoticeRequestTimer)
+            NoticeRequestTimer = nil
+        end
+
+        for _, v in pairs(NoticePicList) do
+            if v and v:Exist() then
+                CS.UnityEngine.Object.Destroy(v)
+            end
+        end
+        NoticePicList = {}
+    end
+
     --检测请求开关
     function XNoticeManager.CheckFuncDisable()
         return XSaveTool.GetData(XPrefs.NoticeTrigger)
@@ -1205,22 +1618,25 @@ XNoticeManagerCreator = function()
     end
 
 
-   function XNoticeManager.Init()
-       DisableFunction = XMain.IsDebug and XNoticeManager.CheckFuncDisable()
-       XNoticeManager.InitNoticeCdnUrl()
-       XNoticeManager.RequestIp()
-       XNoticeManager.ReadLoginNoticeTime()
+    function XNoticeManager.Init()
+        DisableFunction = XMain.IsDebug and XNoticeManager.CheckFuncDisable()
+        DeviceId = CS.XHeroSdkAgent.GetDeviceId() --获取设备id
+        XNoticeManager.InitNoticeCdnUrl()
+        XNoticeManager.RequestIp()
+        XNoticeManager.ReadLoginNoticeTime()
+        --未登陆时使用通用蓝点
+        XNoticeManager.ReadInGameNoticeReadList()
 
-       XEventManager.AddEventListener(XEventId.EVENT_USER_LOGOUT, XNoticeManager.OnLogout)
-       XEventManager.AddEventListener(XEventId.EVENT_LOGIN_DATA_LOAD_COMPLETE, XNoticeManager.OnLogin)
-       XEventManager.AddEventListener(XEventId.EVENT_PHOTO_ENTER, function()
-           ScreenShotFlag = true
-       end)
-       XEventManager.AddEventListener(XEventId.EVENT_PHOTO_LEAVE, function()
-           ScreenShotFlag = false
-       end)
-   end
+        XEventManager.AddEventListener(XEventId.EVENT_USER_LOGOUT, XNoticeManager.OnLogout)
+        XEventManager.AddEventListener(XEventId.EVENT_LOGIN_DATA_LOAD_COMPLETE, XNoticeManager.OnLogin)
+        XEventManager.AddEventListener(XEventId.EVENT_PHOTO_ENTER, function()
+            ScreenShotFlag = true
+        end)
+        XEventManager.AddEventListener(XEventId.EVENT_PHOTO_LEAVE, function()
+            ScreenShotFlag = false
+        end)
+    end
 
-   XNoticeManager.Init()
-   return XNoticeManager
+    XNoticeManager.Init()
+    return XNoticeManager
 end

@@ -7,6 +7,14 @@ function XUiStageFightEvent:OnAwake()
     self:RegisterUiButtonEvent()
 end
 
+function XUiStageFightEvent:OnEnable()
+
+end
+
+function XUiStageFightEvent:OnDisable()
+
+end
+
 function XUiStageFightEvent:RegisterUiButtonEvent()
     self.BtnClose.CallBack = function() self:OnBtnCloseClick() end
 end

@@ -13,7 +13,7 @@ function XUiRpgMakerGameDetail:OnStart(stageId, closeCb, tabGroupIndex)
     self.CloseCb = closeCb
     self.TabGroupIndex = tabGroupIndex
 
-    local numberName = XRpgMakerGameConfigs.GetRpgMakerGameNumberName(stageId)
+    local numberName = XRpgMakerGameConfigs.GetStageNumberName(stageId)
     local name = XRpgMakerGameConfigs.GetRpgMakerGameStageName(stageId)
     self.TxtFightName.text = string.format("%s %s", numberName, name)
     self.TxtInfo.text = XRpgMakerGameConfigs.GetRpgMakerGameStageHint(stageId)
@@ -106,7 +106,9 @@ end
 
 function XUiRpgMakerGameDetail:OnBtnEnterFightClick()
     local stageId = self:GetStageId()
-    XLuaUiManager.Open("UiRpgMakerGameCharacter", stageId)
+    -- XLuaUiManager.Open("UiRpgMakerGameCharacter", stageId)
+    -- 4.0 本体复制体
+    XLuaUiManager.Open("UiRpgMakerGameChoice", stageId)
 end
 
 function XUiRpgMakerGameDetail:GetStageId()

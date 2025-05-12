@@ -1,6 +1,7 @@
 local type = type
 
 --大逃杀关卡通关结果
+---@class XEscapeStageResult
 local XEscapeStageResult = XClass(nil, "XEscapeStageResult")
 
 local Default = {

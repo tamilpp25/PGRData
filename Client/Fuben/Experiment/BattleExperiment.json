@@ -998,5 +998,781 @@
         "Title": "Blade Abyss",
         "Description": "In Sword Form, performing Signature when fully charged will unleash Illuminated Abyss.",
         "NextTrialID": 121
+    },
+    {
+        "Id": 126,
+        "CharacterID": 1231002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bangbinata.png",
+        "Title": "Strings On Me",
+        "Description": "Press and hold Basic Attack to consume Jete Points and enter the Strings On Me status to keep launching Basic Attacks.",
+        "NextTrialID": 127
+    },
+    {
+        "Id": 127,
+        "CharacterID": 1231002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bangbinata.png",
+        "Title": "Solitary Dancer",
+        "Description": "In the Strings On Me status, take hit/release Basic Attack to make Bambinata jump up and enter the Solitary Dancer status.",
+        "NextTrialID": 128
+    },
+    {
+        "Id": 128,
+        "CharacterID": 1231002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bangbinata.png",
+        "Title": "Pas De Chat",
+        "Description": "When in the Solitary Dancer status, uses Signal Orbs to cast Pas De Chat. Forgets the orbs of the same color upon a 3-Ping (will no long obtain the orbs of that color).",
+        "NextTrialID": 129
+    },
+    {
+        "Id": 129,
+        "CharacterID": 1231002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bangbinata.png",
+        "Title": "Stringless Cage",
+        "Description": "Release to remember orbs of all colors",
+        "NextTrialID": 126
+    },
+    {
+        "Id": 130,
+        "CharacterID": 1011004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Liang.png",
+        "Title": "Fate Records",
+        "Description": "3-Pings outside the Hypermatrix will be recorded and then obtained again in the Hypermatrix.",
+        "NextTrialID": 131
+    },
+    {
+        "Id": 131,
+        "CharacterID": 1011004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Liang.png",
+        "Title": "Realm Travel",
+        "Description": "When the Hypermatrix Gauge is full, press and hold Basic Attack to trigger the Hypermatrix.",
+        "NextTrialID": 132
+    },
+    {
+        "Id": 132,
+        "CharacterID": 1011004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Liang.png",
+        "Title": "Dimension Observer",
+        "Description": "3-Pings cast in the Hypermatrix will enhance Red/Yellow Orbs and grant Sight Points.",
+        "NextTrialID": 133
+    },
+    {
+        "Id": 133,
+        "CharacterID": 1011004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Liang.png",
+        "Title": "Collapsing Realm",
+        "Description": "In the Hypermatrix, tap Signature to trigger Collapsing Realm and deal damage based on the Sight Points consumed.",
+        "NextTrialID": 134
+    },
+    {
+        "Id": 134,
+        "CharacterID": 1011004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Liang.png",
+        "Title": "Q.E.D.",
+        "Description": "Consume 90 Signature Energy outside the Hypermatrix. Tap Signature to deal massive AOE Fire DMG.",
+        "NextTrialID": 130
+    },
+    {
+        "Id": 135,
+        "CharacterID": 1091003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Aila01.png",
+        "Title": "Color Mix: Clash of Concepts",
+        "Description": "When the Secondary Color filled in is different from the Theme Color, press and hold Basic Attack to trigger it for Ayla to gain an Extra DMG Bonus.",
+        "NextTrialID": 139
+    },
+    {
+        "Id": 136,
+        "CharacterID": 1091003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Aila01.png",
+        "Title": "Pure Color: Theme Emphasis",
+        "Description": "When the Secondary Color filled in is same to the Theme Color, press and hold Basic Attack to trigger it for Ayla to gain an Ice DMG Bonus.",
+        "NextTrialID": 135
+    },
+    {
+        "Id": 137,
+        "CharacterID": 1091003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Aila01.png",
+        "Title": "Color Rendering",
+        "Description": "Spends 80 Signature Energy and expands the Painter's Realm.",
+        "NextTrialID": 136
+    },
+    {
+        "Id": 138,
+        "CharacterID": 1091003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Aila01.png",
+        "Title": "Vibrant Brushstroke",
+        "Description": "In the Painter's Realm, perform a ping to trigger sliding and bumping to deal DMG. The character will spend Backup Paint and gain the 3-Ping Orbs of the same color. 3-Pings will increase the DMG of Finishing Touch.",
+        "NextTrialID": 137
+    },
+    {
+        "Id": 139,
+        "CharacterID": 1091003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Aila01.png",
+        "Title": "Finishing Touch",
+        "Description": "Tap Signature in the Painter's Realm to trigger it.",
+        "NextTrialID": 138
+    },
+    {
+        "Id": 140,
+        "CharacterID": 1021005,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR5Luxiya.png",
+        "Title": "Weave: Splashing Thunder",
+        "Description": "Launches 1-Phase Signature and switches to the odachi.",
+        "NextTrialID": 144
+    },
+    {
+        "Id": 141,
+        "CharacterID": 1021005,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR5Luxiya.png",
+        "Title": "Blading Radiance",
+        "Description": "After the fourth Basic Attack/Dodge, when the blade flashes, tap Basic Attack continuously to unleash swordwaves.",
+        "NextTrialID": 140
+    },
+    {
+        "Id": 142,
+        "CharacterID": 1021005,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR5Luxiya.png",
+        "Title": "Resolute Blow",
+        "Description": "At full Blade Aura, press and hold Dodge and then release to cast Resolute Blow, activating Selfless Stance.",
+        "NextTrialID": 141
+    },
+    {
+        "Id": 143,
+        "CharacterID": 1021005,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR5Luxiya.png",
+        "Title": "Unquenchable Flare",
+        "Description": "With the odachi in hand and activate Selfless Stance, press and hold Basic Attack to cast Unquenchable Flare.",
+        "NextTrialID": 142
+    },
+    {
+        "Id": 144,
+        "CharacterID": 1021005,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR5Luxiya.png",
+        "Title": "Weave: Karmic Inferno",
+        "Description": "Spends 70 Signature Energy to cast 2-Phase Signature and switch to the kodachi.",
+        "NextTrialID": 143
+    },
+    {
+        "Id": 145,
+        "CharacterID": 1241002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Hanying.png",
+        "Title": "Spring of Emerald Flow",
+        "Description": "Any 3-Ping will give Hanying 1 Dancer Point.",
+        "NextTrialID": 147
+    },
+    {
+        "Id": 146,
+        "CharacterID": 1241002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Hanying.png",
+        "Title": "Dance of Emerald Flow",
+        "Description": "Tap Dodge to enter the Dancer Stance with 1 Dancer Point.",
+        "NextTrialID": 145
+    },
+    {
+        "Id": 147,
+        "CharacterID": 1241002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Hanying.png",
+        "Title": "Dancer Stance",
+        "Description": "In the Dancer Stance, Signal Orbs and Signatures will be enhanced.",
+        "NextTrialID": 146
+    },
+    {
+        "Id": 148,
+        "CharacterID": 1221003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Twentyone.png",
+        "Title": "Fledgling Wings",
+        "Description": "No. 21: Feral generates a Shield at the cost of her HP when Casting a 3-Ping Skill. No. 21 gains Super Armor when having Shield.",
+        "NextTrialID": 149
+    },
+    {
+        "Id": 149,
+        "CharacterID": 1221003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Twentyone.png",
+        "Title": "Dusk Fluorescence",
+        "Description": "After casting a 3-Ping Skill, No. 21 will enter the Predator Stance. Tap Basic Attack in this stance to cast Forceful Pounce to deal Lightning DMG and gain Wolfspirit Points.",
+        "NextTrialID": 150
+    },
+    {
+        "Id": 150,
+        "CharacterID": 1221003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Twentyone.png",
+        "Title": "Forest Predator",
+        "Description": "Pings extra Signal Orb(s) when Casting a 3-Ping Skill to generate a Deceleration Field. Becomes invincible and slows down the enemies temporarily when the field is active.",
+        "NextTrialID": 151
+    },
+    {
+        "Id": 151,
+        "CharacterID": 1221003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Twentyone.png",
+        "Title": "Critical Arclight",
+        "Description": "With max Wolfspirit Points, press and hold Basic Attack to enter Wolfspirit Form. When continuously holding or repeatedly tapping Basic Attack, Growling Wolfspirit will be cast with Wolfspirit Points.",
+        "NextTrialID": 152
+    },
+    {
+        "Id": 152,
+        "CharacterID": 1221003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Twentyone.png",
+        "Title": "Sky-ripping Arcflash",
+        "Description": "Casts a Signature at the cost of 110 Signature Energy",
+        "NextTrialID": 148
+    },
+    {
+        "Id": 153,
+        "CharacterID": 1251002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Nuoketi.png",
+        "Title": "Engine Vortex",
+        "Description": "Press and hold Basic Attack to charge and gain Signature Energy. Getting attacked while charging will trigger Arm Block automatically.",
+        "NextTrialID": 154
+    },
+    {
+        "Id": 154,
+        "CharacterID": 1251002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Nuoketi.png",
+        "Title": "Heat Blast",
+        "Description": "In the Thunder Burst Form, the rightmost single orb will be converted into an Overload Orb. The Overload Orb will be converted into a Blast Orb 2.5s later.",
+        "NextTrialID": 155
+    },
+    {
+        "Id": 155,
+        "CharacterID": 1251002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Nuoketi.png",
+        "Title": "Thunder Burst Form",
+        "Description": "While in Thunder Burst Form, ping an Overload Orb or Blast Orb and then press and hold Basic Attack to launch a bonus attack and increase Signature DMG.",
+        "NextTrialID": 156
+    },
+    {
+        "Id": 156,
+        "CharacterID": 1251002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Nuoketi.png",
+        "Title": "Magnetic Blast",
+        "Description": "Casts Signature at the end of the Thunder Burst Form.",
+        "NextTrialID": 153
+    },
+    {
+        "Id": 157,
+        "CharacterID": 1261003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Yalisha.png",
+        "Title": "Echoing Twins",
+        "Description": "Press and hold Basic Attack to make Echo charge and enter Tactical Cipher, during which time Signal Orbs will be temporarily replaced by Cipher Orbs.",
+        "NextTrialID": 158
+    },
+    {
+        "Id": 158,
+        "CharacterID": 1261003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Yalisha.png",
+        "Title": "Tactical Cipher",
+        "Description": "Cecily launches attacks in the order of the Cipher Orbs entered with each attack consuming one Cipher Orb.",
+        "NextTrialID": 159
+    },
+    {
+        "Id": 159,
+        "CharacterID": 1261003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Yalisha.png",
+        "Title": "Judgment Zone",
+        "Description": "Echo enters Judgment Zone when the charge bar is full. Pinging Signal Orbs in Judgment Zone grant Splendor Points.",
+        "NextTrialID": 160
+    },
+    {
+        "Id": 160,
+        "CharacterID": 1261003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Yalisha.png",
+        "Title": "Judgment Co-Strike",
+        "Description": "At max Splendor Points, pinging a Signal Orb that matches the color of Cecily's Cipher Orb will trigger Judgment Co-Strike.",
+        "NextTrialID": 157
+    },
+    {
+        "Id": 161,
+        "CharacterID": 1271003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Lamiya.png",
+        "Title": "Seafoam Mirage",
+        "Description": "Lamia accumulates Fathomless Points from pings. With enough Fathomless Points, she gains Special Orbs.",
+        "NextTrialID": 162
+    },
+    {
+        "Id": 162,
+        "CharacterID": 1271003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Lamiya.png",
+        "Title": "Ocean's Scar",
+        "Description": "Ping Special Orbs in the Dark Tide Form to gain Ocean's Scar and deal damage to the enemy.",
+        "NextTrialID": 163
+    },
+    {
+        "Id": 163,
+        "CharacterID": 1271003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Lamiya.png",
+        "Title": "Elegy of Atlantis",
+        "Description": "Lamia enters the Dark Tide Form after casting a Signature.",
+        "NextTrialID": 164
+    },
+    {
+        "Id": 164,
+        "CharacterID": 1271003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Lamiya.png",
+        "Title": "Stygian Waves",
+        "Description": "If there is Ocean's Scar when Lamia is in the Dark Tide Form, press and hold Basic Attack to cast Abyssal Currents and deal damage.",
+        "NextTrialID": 161
+    },
+    {
+        "Id": 165,
+        "CharacterID": 1281002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Blackrock.png",
+        "Title": "Reflective Nebula",
+        "Description": "When BLACK\u2605ROCK SHOOTER performs a Red/Yellow 3-Ping, receive Blue Orbs equal to the number of the orbs pinged.",
+        "NextTrialID": 166
+    },
+    {
+        "Id": 166,
+        "CharacterID": 1281002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Blackrock.png",
+        "Title": "Entangled Heart",
+        "Description": "BLACK\u2605ROCK SHOOTER can't use Blue Orbs. Casting Signature - Ethereal Star will automatically consume Blue Orbs.",
+        "NextTrialID": 167
+    },
+    {
+        "Id": 167,
+        "CharacterID": 1281002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Blackrock.png",
+        "Title": "Limit Released",
+        "Description": "Performing Red/Yellow 3-Ping will trigger Combo Strike attack, dealing Extra DMG.",
+        "NextTrialID": 165
+    },
+    {
+        "Id": 168,
+        "CharacterID": 1081004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Dubian.png",
+        "Title": "Composite Structure",
+        "Description": "Under Patrol Mode, Watanabe can only use Yellow or Blue Orbs. When Assault Mode is activated, he can only use Red and Blaze Orbs.",
+        "NextTrialID": 169
+    },
+    {
+        "Id": 169,
+        "CharacterID": 1081004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Dubian.png",
+        "Title": "Engine Optimization",
+        "Description": "After any 3-Ping, Watanabe gains 1 Cartridge, up to 3.",
+        "NextTrialID": 170
+    },
+    {
+        "Id": 170,
+        "CharacterID": 1081004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Dubian.png",
+        "Title": "Scalding Blade",
+        "Description": "If Cartridge is available when Watanabe performs a Basic Attack, he consumes 1 Cartridge to shoot at the target and gain 1 Blaze Orb.",
+        "NextTrialID": 171
+    },
+    {
+        "Id": 171,
+        "CharacterID": 1081004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Dubian.png",
+        "Title": "Assault Mode",
+        "Description": "Releases the Core Energy to activate Assault Mode, dealing Fire DMG to the enemy and reducing their Fire Resistance.",
+        "NextTrialID": 168
+    },
+    {
+        "Id": 172,
+        "CharacterID": 1521004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Qu.png",
+        "Title": "Tabula Akasha",
+        "Description": "Ping any Signal Orb during a 3-Ping to summon Huiyu to attack the target and activate Into the Fray.",
+        "NextTrialID": 173
+    },
+    {
+        "Id": 173,
+        "CharacterID": 1521004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Qu.png",
+        "Title": "Shukra Activating Into the Fray",
+        "Description": "Any 3-Ping made during Into the Fray can grant Inscription.",
+        "NextTrialID": 174
+    },
+    {
+        "Id": 174,
+        "CharacterID": 1521004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Qu.png",
+        "Title": "Blade of History",
+        "Description": "When Into the Fray is active and Inscription is full, press and hold Basic Attack to convert Inscription into Glyphs and cast Mountain Caller to freeze the opponent and deal damage.",
+        "NextTrialID": 175
+    },
+    {
+        "Id": 175,
+        "CharacterID": 1521004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Qu.png",
+        "Title": "Enlightened Soul",
+        "Description": "Starts Enthronement and deals Ice DMG to surrounding units. 3-Pings during Enthronement will grant Soul Ripple.",
+        "NextTrialID": 176
+    },
+    {
+        "Id": 176,
+        "CharacterID": 1521004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Qu.png",
+        "Title": "Sovereign's Presence",
+        "Description": "With the will of Kowloong, spends all Soul Ripple to deal Ice DMG to the enemy.",
+        "NextTrialID": 172
+    },
+    {
+        "Id": 177,
+        "CharacterID": 1291002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Buouxiong.png",
+        "Title": "Programming Stack",
+        "Description": "Each orb pinged grants 1 Computing Point, max 9 Computing Points in total.",
+        "NextTrialID": 178
+    },
+    {
+        "Id": 178,
+        "CharacterID": 1291002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Buouxiong.png",
+        "Title": "Coupling",
+        "Description": "Pressing and holding Basic Attack when there are at least 3 Computing Points will perform Coupling. Pressing and holding Basic Attack until Coupling ends will cast Overflow.",
+        "NextTrialID": 179
+    },
+    {
+        "Id": 179,
+        "CharacterID": 1291002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Buouxiong.png",
+        "Title": "Stress Integration",
+        "Description": "Gains 1 Stress Orb after obtaining 9 Computing Point. Ping the Stress Orb to deal DMG. Decryptor gains Super Armor and DMG Reduction during so.",
+        "NextTrialID": 180
+    },
+    {
+        "Id": 180,
+        "CharacterID": 1291002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Buouxiong.png",
+        "Title": "Thorough Analysis",
+        "Description": "Unleashes all computing power and enters Analysis Mode, dealing Dark DMG.",
+        "NextTrialID": 181
+    },
+    {
+        "Id": 181,
+        "CharacterID": 1291002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Buouxiong.png",
+        "Title": "Chordal Dissonance",
+        "Description": "Exits Analysis Mode, dealing Dark DMG and detonating Hacked Mark.",
+        "NextTrialID": 177
+    },
+    {
+        "Id": 182,
+        "CharacterID": 1171004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Luna.png",
+        "Title": "Main Sequence",
+        "Description": "Crushes spacial dimensions , enters Main Sequence, and deals Nihil DMG.",
+        "NextTrialID": 183
+    },
+    {
+        "Id": 183,
+        "CharacterID": 1171004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Luna.png",
+        "Title": "Finality",
+        "Description": "Tears apart dimensional bounds at the cost of all present Signal Orbs to fill up Crescent Points, and activating Eclipse Stance and entering Finality.",
+        "NextTrialID": 184
+    },
+    {
+        "Id": 184,
+        "CharacterID": 1171004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Luna.png",
+        "Title": "Shattering Moon",
+        "Description": "Press and hold Basic Attack to fill up Crescent Points, casting Shattering Moon and activating Eclipse Stance.",
+        "NextTrialID": 185
+    },
+    {
+        "Id": 185,
+        "CharacterID": 1171004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Luna.png",
+        "Title": "Incipient Retribution",
+        "Description": "When Main Sequence is active, press and hold Basic Attack to spend Crescent Points and Eclipse Stance to cast Incipient Retribution.",
+        "NextTrialID": 186
+    },
+    {
+        "Id": 186,
+        "CharacterID": 1171004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Luna.png",
+        "Title": "Lunar Downfall",
+        "Description": "During Main Sequence or Finality, tap Signature to implode and obliterate space, dealing Nihil DMG.",
+        "NextTrialID": 182
+    },
+    {
+        "Id": 187,
+        "CharacterID": 1301002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bulijite02.png",
+        "Title": "Fortify",
+        "Description": "Press and hold Dodge to block attacks and accumulate Fortification Points.",
+        "NextTrialID": 188
+    },
+    {
+        "Id": 188,
+        "CharacterID": 1301002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bulijite02.png",
+        "Title": "Enthalpy Released/Enthalpy Merged",
+        "Description": "Throws out and retrieves the Energy Shield at the cost of Blue Orbs, pulling in enemies and dealing Fire DMG.",
+        "NextTrialID": 189
+    },
+    {
+        "Id": 189,
+        "CharacterID": 1301002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bulijite02.png",
+        "Title": "Prairie Fire",
+        "Description": "With at least 8 Blue Orbs, press and hold Blue Orb to deal Fire DMG and inflict Combustible.",
+        "NextTrialID": 190
+    },
+    {
+        "Id": 190,
+        "CharacterID": 1301002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bulijite02.png",
+        "Title": "Detect and Counter",
+        "Description": "Press and hold Red Orb to charge. When hit during the process, dashes forward to deal Fire DMG and converts the Fortification Points to Flash Points.",
+        "NextTrialID": 191
+    },
+    {
+        "Id": 191,
+        "CharacterID": 1301002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bulijite02.png",
+        "Title": "Flying Sparks",
+        "Description": "Launches consecutive attacks at the target. The third attack will turn all Red Orbs into Blue Orbs.",
+        "NextTrialID": 192
+    },
+    {
+        "Id": 192,
+        "CharacterID": 1301002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bulijite02.png",
+        "Title": "Solar Reactor",
+        "Description": "Thrusts the tonfas into the ground to trigger a firestorm and turn the Combustible status into the Ignition status.",
+        "NextTrialID": 187
+    },
+    {
+        "Id": 193,
+        "CharacterID": 1241003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Hanying.png",
+        "Title": "Breezy Purge",
+        "Description": "Tap the Yellow Orb to consume at least one White Orb, dealing Physical DMG and gaining Sonority and Sharp Reserves.",
+        "NextTrialID": 194
+    },
+    {
+        "Id": 194,
+        "CharacterID": 1241003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Hanying.png",
+        "Title": "Bamboo Melody",
+        "Description": "Tap the Red Orb to consume one White Orb, dealing Physical DMG and gaining Sonority and Sharp Reserves.",
+        "NextTrialID": 195
+    },
+    {
+        "Id": 195,
+        "CharacterID": 1241003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Hanying.png",
+        "Title": "Lunartone Field",
+        "Description": "After pinging 6 White Orbs in Chord Mode, gain a Harmonic Orb. Pinging the Harmonic Orb activates the Lunartone Field and triggers Ethereal Symphony.",
+        "NextTrialID": 196
+    },
+    {
+        "Id": 196,
+        "CharacterID": 1241003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Hanying.png",
+        "Title": "Flying Leafpoint",
+        "Description": "Draw the hairpin to enter Attacker Mode and launch a surprise attack, dealing Physical DMG.",
+        "NextTrialID": 197
+    },
+    {
+        "Id": 197,
+        "CharacterID": 1241003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Hanying.png",
+        "Title": "Jade Bloom",
+        "Description": "Consume Sonority for a piercing attack, gaining Signature Energy. Spend 100 Sharp Reserves to trigger Ultima Slash.",
+        "NextTrialID": 198
+    },
+    {
+        "Id": 198,
+        "CharacterID": 1241003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Hanying.png",
+        "Title": "Moon Chill",
+        "Description": "After consecutive dashes, deliver a finishing blow, dealing Physical DMG and exiting the Lunartone Field.",
+        "NextTrialID": 193
+    },
+    {
+        "Id": 199,
+        "CharacterID": 1211003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Wanshi.png",
+        "Title": "Silent Snow",
+        "Description": "Press and hold Red Orb or Dodge to start charging and generate Calibration.",
+        "NextTrialID": 200
+    },
+    {
+        "Id": 200,
+        "CharacterID": 1211003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Wanshi.png",
+        "Title": "Transient Blizzard",
+        "Description": "When Calibration Gauge is full, release Red Orb or Dodge to enter one of the Calibration Modes based on your charging method and gain a Backup Revolver.",
+        "NextTrialID": 201
+    },
+    {
+        "Id": 201,
+        "CharacterID": 1211003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Wanshi.png",
+        "Title": "Flurry Blitz",
+        "Description": "In the Calibration Mode, tap Red Orb to fire at the cost of 1 Condensation Projectile, dealing Ice DMG or Glaciation DMG based on the current Calibration Mode. Casting repetitively to enter the Repeater Mode.",
+        "NextTrialID": 202
+    },
+    {
+        "Id": 202,
+        "CharacterID": 1211003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Wanshi.png",
+        "Title": "Revolver Launch / Shattered Light",
+        "Description": "In Calibration Mode and when the cylinder is empty, tap Red Orb to command your drone to launch your Backup Revolver. After catching it, you can swap your revolver, refill the cylinder and renew the duration of Calibration Mode.",
+        "NextTrialID": 203
+    },
+    {
+        "Id": 203,
+        "CharacterID": 1211003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Wanshi.png",
+        "Title": "Frosty Barrage",
+        "Description": "When the cylinder is not empty in the Calibration Mode, press and hold Basic Attack to activate the hidden cylinder and spend Condensation Projectiles over time to fire, dealing Ice DMG or Glaciation DMG based on the current Calibration Mode.",
+        "NextTrialID": 204
+    },
+    {
+        "Id": 204,
+        "CharacterID": 1211003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Wanshi.png",
+        "Title": "Signature - Superlink Flight / Destructive Wave",
+        "Description": "Tap Signature to deal Ice DMG or Glaciation DMG based on the current Calibration Mode.",
+        "NextTrialID": 205
+    },
+    {
+        "Id": 205,
+        "CharacterID": 1211003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR3Wanshi.png",
+        "Title": "Inscription of Icefield",
+        "Description": "After casting Signature skills, leaves a Frozen Zone on the battlefield that deals Ice DMG and weakens enemies.",
+        "NextTrialID": 199
+    },
+    {
+        "Id": 206,
+        "CharacterID": 1021006,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR6Luxiya.png",
+        "Title": "Melting Quench",
+        "Description": "Press and hold Signature to make Lucia absorb the solar power and enter the Fire Thunder Form. The Fire Thunder Form lasts 12s.",
+        "NextTrialID": 207
+    },
+    {
+        "Id": 207,
+        "CharacterID": 1021006,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR6Luxiya.png",
+        "Title": "Aura Blast",
+        "Description": "With Max Aura Value in the Fire Thunder Form, press and hold Basic Attack to make Lucia dash continuously and slash the space open, gaining Aura Value and Signature Energy.",
+        "NextTrialID": 208
+    },
+    {
+        "Id": 208,
+        "CharacterID": 1021006,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR6Luxiya.png",
+        "Title": "Aura Feather",
+        "Description": "After Lucia casts Aura Blast in the Fire Thunder Form, tap Basic Attack again to make her slash the space open, dealing Fire DMG.",
+        "NextTrialID": 209
+    },
+    {
+        "Id": 209,
+        "CharacterID": 1021006,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR6Luxiya.png",
+        "Title": "Soaring Fire",
+        "Description": "In the Fire Thunder Form, tap Signature to make Lucia leap and enter the Airborne Mode.",
+        "NextTrialID": 210
+    },
+    {
+        "Id": 210,
+        "CharacterID": 1021006,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR6Luxiya.png",
+        "Title": "Aura Dance",
+        "Description": "While airborne, press and hold Basic Attack, and then hold or tap it repetitively to make Lucia cast Aura Dance at the cost of Aura Value, dealing Fire DMG and restoring Signature Energy.",
+        "NextTrialID": 211
+    },
+    {
+        "Id": 211,
+        "CharacterID": 1021006,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR6Luxiya.png",
+        "Title": "Crowd Slash",
+        "Description": "In the Fire Thunder Form, press and hold Signature to make Lucia slash enemies in a large area and reset the form's duration. Amplifies the damage when having the Aura Mark.",
+        "NextTrialID": 212
+    },
+    {
+        "Id": 212,
+        "CharacterID": 1021006,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR6Luxiya.png",
+        "Title": "Eclipse Daybreak",
+        "Description": "While airborne, tap Signature to make Lucia leap to gather energy, dive at the target, explode, and land. Amplifies the damage when having the Aura Mark.",
+        "NextTrialID": 206
+    },
+    {
+        "Id": 213,
+        "CharacterID": 1311002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bazhi.png",
+        "Title": "Vortex Absorption",
+        "Description": "Yata can only obtain Red or Yellow Orbs. Ping Red/Yellow Orb to gain Heartflow.",
+        "NextTrialID": 214
+    },
+    {
+        "Id": 214,
+        "CharacterID": 1311002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bazhi.png",
+        "Title": "Divine Teaching",
+        "Description": "Yata can advance into a higher realm and gain Esoteric Orbs by accumulating Heartflow and enhancing herself.",
+        "NextTrialID": 215
+    },
+    {
+        "Id": 215,
+        "CharacterID": 1311002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bazhi.png",
+        "Title": "Esotericism: Slash",
+        "Description": "Tap Esoteric Orb to cast Esotericism: Slash to gain Will and Illumination. Max 2 stacks.",
+        "NextTrialID": 216
+    },
+    {
+        "Id": 216,
+        "CharacterID": 1311002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bazhi.png",
+        "Title": "Night Raid",
+        "Description": "With Illumination, press and hold Basic Attack to spend all Illumination and cast Night Raid, dealing damage based on the Illumination stacks.",
+        "NextTrialID": 217
+    },
+    {
+        "Id": 217,
+        "CharacterID": 1311002,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Bazhi.png",
+        "Title": "Skyward Flash",
+        "Description": "Uses all energy to fire a blast shell and spends the existing Will stacks to amplified the damage.",
+        "NextTrialID": 213
+    },
+    {
+        "Id": 218,
+        "CharacterID": 1051005,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR5Yongyechao.png",
+        "Title": "Thunderflare Storm/Comet Burst",
+        "Description": "Tap the Red/Blue Orb to enter a combo. Tap the Red/Blue Orb again to cast a combo ping, granting Starlight Points.",
+        "NextTrialID": 219
+    },
+    {
+        "Id": 219,
+        "CharacterID": 1051005,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR5Yongyechao.png",
+        "Title": "Aetherstrike",
+        "Description": "With the Sword Shield in hand and equipped with at least 50 Starlight Points, tap the Yellow Orb to combine the weapons into a Shield Axe.",
+        "NextTrialID": 220
+    },
+    {
+        "Id": 220,
+        "CharacterID": 1051005,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR5Yongyechao.png",
+        "Title": "Thunder Vortex",
+        "Description": "Attacking with the Shield Axe consumes Starlight Points, granting Overload, Super Armor, and DMG Reduction.",
+        "NextTrialID": 221
+    },
+    {
+        "Id": 221,
+        "CharacterID": 1051005,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR5Yongyechao.png",
+        "Title": "Meteoric Doom",
+        "Description": "With the Sword Shield in hand and equipped with at least 100 Overload or Starlight Points, press and hold Basic Attack to cast Meteoric Doom.",
+        "NextTrialID": 222
+    },
+    {
+        "Id": 222,
+        "CharacterID": 1051005,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR5Yongyechao.png",
+        "Title": "Starshard Slash",
+        "Description": "Use the Shield Axe to slash enemies to deal massive Lightning DMG.",
+        "NextTrialID": 218
     }
 ]

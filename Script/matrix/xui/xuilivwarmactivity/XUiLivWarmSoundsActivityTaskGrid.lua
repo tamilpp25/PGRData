@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiLivWarmSoundsActivityTaskGrid = XClass(nil, "UiLivWarmSoundsActivityTaskGrid")
 
 function XUiLivWarmSoundsActivityTaskGrid:Ctor(ui)
@@ -76,14 +77,14 @@ function XUiLivWarmSoundsActivityTaskGrid:OnBtnFinishClick()
     local chipCount = 0
     for i = 1, #self.RewardPanelList do
         local rewardsId = self.RewardPanelList[i].TemplateId
-        if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Weapon) then
+        if XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
             weaponCount = weaponCount + 1
-        elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Awareness) then
+        elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
             chipCount = chipCount + 1
         end
     end
-    if weaponCount > 0 and XDataCenter.EquipManager.CheckBagCount(weaponCount, XEquipConfig.Classify.Weapon) == false or
-            chipCount > 0 and XDataCenter.EquipManager.CheckBagCount(chipCount, XEquipConfig.Classify.Awareness) == false then
+    if weaponCount > 0 and XMVCA.XEquip:CheckBagCount(weaponCount, XEnumConst.EQUIP.CLASSIFY.WEAPON) == false or
+            chipCount > 0 and XMVCA.XEquip:CheckBagCount(chipCount, XEnumConst.EQUIP.CLASSIFY.AWARENESS) == false then
         return
     end
     XDataCenter.TaskManager.FinishTask(self.Data.Id, function(rewardGoodsList)

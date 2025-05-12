@@ -1,4 +1,5 @@
 XGuildManagerCreator = function()
+    ---@class XGuildManager
     local XGuildManager = {}
     local Json = require("XCommon/Json")
 
@@ -42,6 +43,9 @@ XGuildManagerCreator = function()
         GuildFind = "GuildFindRequest",                                 --公会搜索
         GuildListTalent = "GuildListTalentRequest",                     --公会天赋列表
         GuildUpgradeTalent = "GuildUpgradeTalentRequest",               --公会天赋升级
+        GuildBuyIcon = "GuildBuyIconRequest",                           --工会购买头像
+        GuildSign = "GuildSignRequest",                                 --工会签到
+        GuildSignReward = "GuildSignRewardRequest",                     --工会签到奖励
     }
     local DataType = {
         Int = 1,
@@ -62,6 +66,7 @@ XGuildManagerCreator = function()
     local HasImpeach = false
     local GuildLastRank = {}
     local GuildCurRank = {}
+    local GuildSignInfo = nil
     local EnterGuildRightAway = false
     local TalentLevelCount = 0
 
@@ -124,6 +129,10 @@ XGuildManagerCreator = function()
         GuildData.GuildIconId = notifyData.IconId
         GuildData.GuildRankLevel = notifyData.GuildRankLevel
         GuildData.BossEndTime = notifyData.BossEndTime --工会boss结束时间，用于工会主页面显示倒计时
+        GuildData.ShopCoin = notifyData.ShopCoin
+        GuildData.HeadPortraits = notifyData.HeadPortraits
+        GuildData.DormThemes = notifyData.DormThemes or {}
+        GuildData:UpdateDormBgm(notifyData.DormBgms or {}, true)
         HasGuildRecruit = notifyData.HasRecruit
         XEventManager.DispatchEvent(XEventId.EVENT_GUILD_RECRUIT_LIST_CHANGED)
         if XGuildManager.IsJoinGuild() then
@@ -171,6 +180,20 @@ XGuildManagerCreator = function()
 
         XEventManager.DispatchEvent(XEventId.EVENT_GUILD_MAINTAIN_STATE_CHANGED)
     end
+    
+    -- 公会签到数据更新
+    function XGuildManager.AsyncGuildSignPlayerData(notifyData)
+        if not notifyData then return end
+        GuildSignInfo = notifyData.GuildSignInfo
+    end
+    
+    function XGuildManager.AsyncGuildGoodsChange(notifyData)
+        if not notifyData then return end
+        GuildData.ShopCoin = notifyData.ShopCoin
+        GuildData.HeadPortraits = notifyData.HeadPortraits or {}
+        GuildData.DormThemes = notifyData.DormThemes or {}
+        GuildData:UpdateDormBgm(notifyData.DormBgms or {})
+    end
 
     -- 公会弹劾状态
     function XGuildManager.AsyncGuildImpeach(notifyData)
@@ -216,10 +239,9 @@ XGuildManagerCreator = function()
             XDataCenter.GuildBossManager.ClearReward()
 
             GuildData.GuildId = 0
-            GuildData.GiftGuildLevel = 0
 
             if XPlayer.Id == eventValue then return end
-            if XLuaUiManager.IsUiLoad("UiGuildMain") or XLuaUiManager.IsUiLoad("UiGuildDormMain") then
+            if XLuaUiManager.IsUiLoad("UiGuildMain") or XLuaUiManager.IsUiLoad("UiGuildDormMain") or XLuaUiManager.IsUiLoad("UiGuildBossHall") or XLuaUiManager.IsUiLoad("UiGuildBossStage") or XLuaUiManager.IsUiLoad("UiGuildWarStageMain") then
                 XUiManager.TipMsg(CS.XTextManager.GetText("GuildKickOutByAdministor"))
                 if CS.XFight.Instance ~= nil then
                     return
@@ -326,7 +348,22 @@ XGuildManagerCreator = function()
             XDataCenter.GuildBossManager.SetGuildBossWeeklyTaskTime(eventValue)
         elseif XGuildConfig.GuildEventType.FreeChangeName == eventType then
             FreeChangeGuildNameCount = FreeChangeGuildNameCount + 1
+        elseif XGuildConfig.GuildEventType.GoodsCoin == eventType then
+            GuildData.ShopCoin = tonumber(eventValue)
+            XEventManager.DispatchEvent(XEventId.EVENT_GUILD_GOODS_COIN_CHANGED, GuildData.ShopCoin)
+            local itemId = XGuildConfig.GoodsCoinId
+            CsXGameEventManager.Instance:Notify(XEventId.EVENT_ITEM_COUNT_UPDATE_PREFIX .. itemId, itemId, GuildData.ShopCoin)
+            XEventManager.DispatchEvent(XEventId.EVENT_ITEM_COUNT_UPDATE_PREFIX .. itemId, itemId, GuildData.ShopCoin)
         end
+    end
+    
+    --货币达到上限
+    function XGuildManager.OnGuildShopCoinReachLimit(data)
+        if data.Code ~= XCode.Success then
+            XUiManager.TipCode(data.Code)
+            return
+        end
+        XUiManager.TipText("GuildShopCoinReachLimitTip")
     end
 
     function XGuildManager.Init()
@@ -338,6 +375,14 @@ XGuildManagerCreator = function()
 
     function XGuildManager.IsInitGuildData()
         return GuildData:IsInit()
+    end
+    
+    function XGuildManager.GetSignInfo()
+        return GuildSignInfo
+    end
+    
+    function XGuildManager.IsGetSignRewardToday()
+        return GuildSignInfo and GuildSignInfo.Id ~= 0
     end
 
     --所在公会的职务
@@ -355,9 +400,23 @@ XGuildManagerCreator = function()
         return GuildData:IsLeader()
     end
 
+    -- 是否为副会长
+    function XGuildManager.IsGuildCoLeader()
+        return GuildData:IsCoLeader()
+    end
+
     --是否已经加入公会
     function XGuildManager.IsJoinGuild()
         return GuildData:IsJoinGuild()
+    end
+    
+    -- 是否拥有头像
+    function XGuildManager.HasPortrait(iconId)
+        return GuildData:HasPortrait(iconId)
+    end
+    
+    function XGuildManager.HasTheme(themeId)
+        return GuildData:HasTheme(themeId)
     end
 
     --当前公会职位人数
@@ -488,19 +547,19 @@ XGuildManagerCreator = function()
         end
     end
 
-    function XGuildManager.HandleGuildFindDatas(guildname, datas)
+    function XGuildManager.HandleGuildFindDatas(guildId, datas)
         if datas ~= nil and next(datas) ~= nil then
-            GuildFindDatas[guildname] = {}
+            GuildFindDatas[guildId] = {}
             for _, v in pairs(datas) do
                 if v and v.Id then
-                    table.insert(GuildFindDatas[guildname], v)
+                    table.insert(GuildFindDatas[guildId], v)
                 end
             end
         end
     end
 
-    function XGuildManager.GetGuildFindDatas(guildname)
-        return GuildFindDatas[guildname] or {}
+    function XGuildManager.GetGuildFindDatas(guildId)
+        return GuildFindDatas[guildId] or {}
     end
 
     function XGuildManager.RecordGuildRecommend(pageNo)
@@ -651,6 +710,9 @@ XGuildManagerCreator = function()
     end
 
     function XGuildManager.EnterGuild(onEnterGuildCb)
+        if not XMVCA.XSubPackage:CheckSubpackage(XFunctionManager.FunctionName.Guild) then
+            return
+        end
         if not XDataCenter.GuildManager.IsJoinGuild() then
             if XGuildManager.IsNeedRequestRecommendData() then
                 XDataCenter.GuildManager.GuildListRecommendRequest(1, function()
@@ -696,6 +758,9 @@ XGuildManagerCreator = function()
 
 
     function XGuildManager.EnterGuildTalent()
+        if not XMVCA.XSubPackage:CheckSubpackage(XFunctionManager.FunctionName.Guild) then
+            return
+        end
         if XGuildManager.CheckAllTalentLevelMax() then
             XDataCenter.GuildManager.GetGuildDetails(0, function()
                     XLuaUiManager.Open("UiGuildGloryLevel")
@@ -738,6 +803,32 @@ XGuildManagerCreator = function()
     function XGuildManager.QuitVistorClean()
         XGuildManager.ClearVistorGuildMembers(GuildData.GuildId)
         GuildData.GuildId = 0
+    end
+    
+    function XGuildManager.GetSignInfoRequest(cb)
+        XNetwork.Call(GuildRpc.GuildSign,nil,function(res)
+            if res.Code ~= XCode.Success then
+                XLog.Error("XGuildManager.GuildSignRequest error: " .. res.Code)
+                return
+            end
+            XGuildManager.AsyncGuildSignPlayerData(res)
+            if cb then
+                cb(res.GuildSignInfo)
+            end
+        end)
+    end
+    
+    function XGuildManager.GuildSignRewardRequest(cb)
+        XNetwork.Call(GuildRpc.GuildSignReward,nil,function(res)
+            if res.Code ~= XCode.Success then
+                XLog.Error("XGuildManager.GuildSignRewardRequest error: " .. res.Code)
+                return
+            end
+            GuildSignInfo.IsAward = true
+            if cb then
+                cb(res.RewardGoodsList)
+            end
+        end)
     end
 
     -- RPC
@@ -990,10 +1081,13 @@ XGuildManagerCreator = function()
     end
 
     -- 获取公会详情GuildId = 0表示本公会
-    function XGuildManager.GetGuildDetails(guild, cb)
+    function XGuildManager.GetGuildDetails(guild, cb, errorCb)
         XNetwork.Call(GuildRpc.GuildListDetail, { GuildId = guild }, function(res)
                 if res.Code ~= XCode.Success then
                     XUiManager.TipCode(res.Code)
+                    if errorCb then
+                        errorCb()
+                    end
                     return
                 end
 
@@ -1085,22 +1179,7 @@ XGuildManagerCreator = function()
         local lastGuildId = GuildData.GuildId
         local tempLevel = XGuildManager.GetGuildLevel()
         XGuildManager.SaveGuildLevel(-1)
-        if XDataCenter.GuildWarManager.CheckActivityIsInTime() and XDataCenter.GuildWarManager.CheckRoundIsInTime() then
-            local memberList = XGuildManager.GetMemberList()
-            local onlyOneMember = true
-            local memberCount = 0
-            for _, _ in pairs(memberList or {}) do
-                memberCount = memberCount + 1
-                if memberCount > 1 then
-                    onlyOneMember = false
-                    break
-                end
-            end
-            if onlyOneMember then
-                XUiManager.TipText("GuildWarCantGiveUpGuild")
-                return
-            end
-        end
+
         XNetwork.Call(GuildRpc.GuildQuit, {}, function(res)
                 if res.Code ~= XCode.Success then
                     XGuildManager.SaveGuildLevel(tempLevel)
@@ -1369,22 +1448,32 @@ XGuildManagerCreator = function()
     end
 
     -- 公会活跃度礼包
-    function XGuildManager.GuildGetGift(giftLevel, cb)
-        XNetwork.Call(GuildRpc.GuildGetGift, { GiftLevel = giftLevel}, function(res)
+    function XGuildManager.GuildGetGift(cb)
+        --此协议调整为一键领取，GiftLevel 固定为 0
+        XNetwork.Call(GuildRpc.GuildGetGift, { GiftLevel = 0 }, function(res)
                 if res.Code ~= XCode.Success then
                     XUiManager.TipCode(res.Code)
                     return
                 end
-
-                GuildData.GiftLevelGot[giftLevel] = true
+                local levels = res.GiftLevels or {}
+                local rewardList = {}
                 local giftGuildLevel = GuildData.GiftGuildLevel
-                local giftData = XGuildConfig.GetGuildGiftByGuildLevelAndGiftLevel(giftGuildLevel, giftLevel)
-                if giftData and giftData.GiftReward then
-                    local rewardList = XRewardManager.GetRewardList(giftData.GiftReward)
-                    if rewardList then
-                        XUiManager.OpenUiObtain(rewardList)
+                for _, level in ipairs(levels) do
+                    GuildData.GiftLevelGot[level] = true
+                    local giftData = XGuildConfig.GetGuildGiftByGuildLevelAndGiftLevel(giftGuildLevel, level)
+                    local rewardId = XGuildManager.GetGuildGiftRewardId(giftData.Id)
+                    if XTool.IsNumberValid(rewardId) then
+                        local tmpList = XRewardManager.GetRewardList(rewardId)
+                        for _, tmp in ipairs(tmpList or {}) do
+                            table.insert(rewardList, tmp)
+                        end
                     end
                 end
+
+                if not XTool.IsTableEmpty(rewardList) then
+                    XUiManager.OpenUiObtain(rewardList)
+                end
+            
                 if cb then
                     cb()
                 end
@@ -1566,10 +1655,11 @@ XGuildManagerCreator = function()
 
     -- 公会踢人
     function XGuildManager.GuildKickMember(playerId, cb)
-        if XDataCenter.GuildWarManager.CheckActivityIsInTime() and XDataCenter.GuildWarManager.CheckRoundIsInTime() then
-            XUiManager.TipText("GuildWarCantKickMember")
-            return
-        end
+        -- 策划要求体力消耗=0时不弹出, 故交由服务端处理
+        --if XDataCenter.GuildWarManager.CheckActivityIsInTime() and XDataCenter.GuildWarManager.CheckRoundIsInTime() then
+        --    XUiManager.TipText("GuildWarCantKickMember")
+        --    return
+        --end
         XNetwork.Call(GuildRpc.GuildKickMember, { OtherId = playerId }, function(res)
                 if res.Code ~= XCode.Success then
                     XUiManager.TipCode(res.Code)
@@ -1604,14 +1694,14 @@ XGuildManagerCreator = function()
     end
 
     -- 公会搜索
-    function XGuildManager.GuildFind(guildname, cb)
-        XNetwork.Call(GuildRpc.GuildFind, { GuildName = guildname }, function(res)
+    function XGuildManager.GuildFind(guildId, cb)
+        XNetwork.Call(GuildRpc.GuildFind, { GuildId = guildId }, function(res)
                 if res.Code ~= XCode.Success then
                     XUiManager.TipCode(res.Code)
                     return
                 end
 
-                XGuildManager.HandleGuildFindDatas(guildname, res.GuildList)
+                XGuildManager.HandleGuildFindDatas(guildId, res.GuildList)
 
                 if cb then
                     cb()
@@ -1719,6 +1809,21 @@ XGuildManagerCreator = function()
                     func()
                 end
             end)
+    end
+    
+    -- 工会更换头像
+    function XGuildManager.GuildBuyIcon(iconId, cb)
+        XNetwork.Call(GuildRpc.GuildBuyIcon, { IconId = iconId }, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            GuildData:InsertPortrait(iconId)
+            
+            XUiManager.TipText("BuySuccess")
+            
+            if cb then cb() end
+        end)
     end
 
     function XGuildManager.GetTalentPoint()
@@ -1853,6 +1958,12 @@ XGuildManagerCreator = function()
 
         return HasContributeReward == 1
     end
+    
+    function XGuildManager.GetGuildGiftRewardId(giftId)
+        local cfg = XGuildConfig.GetGuildGiftById(giftId)
+        local timeId = cfg.TimeId
+        return XFunctionManager.CheckInTimeByTimeId(timeId) and cfg.NewGiftReward or cfg.GiftReward
+    end
 
     -- 获取公会排名
     function XGuildManager.GuildListRankRequest(order, cb)
@@ -1901,6 +2012,14 @@ XGuildManagerCreator = function()
     function XGuildManager.GetGloryLevel()
         local level = math.modf( GuildData.TalentPointFromBuild / XGuildConfig.GloryPointsPerLevel)
         return level > XGuildConfig.GuildGloryMaxLevel and XGuildConfig.GuildGloryMaxLevel or level
+    end
+
+    function XGuildManager.GetShopCoin()
+        return GuildData.ShopCoin
+    end
+    
+    function XGuildManager.GetDormBgms()
+        return GuildData.DormBgms
     end
 
     -- 礼包是否可以领取
@@ -2296,6 +2415,56 @@ XGuildManagerCreator = function()
         end
         return GuildScriptAutoChat
     end
+    
+    local function IsValidIcon(iconId)
+        if not XTool.IsNumberValid(iconId) then
+            return false
+        end
+        local config = XGuildConfig.GetGuildHeadPortraitById(iconId)
+        local conditionId = config.ConditionId
+        --已有的头像不显示红点
+        if not XTool.IsNumberValid(conditionId) then
+            return false
+        end
+        local unlock, _ = XConditionManager.CheckCondition(conditionId)
+        --未解锁头像不标记
+        if not unlock then
+            return false
+        end
+        return true
+    end
+    
+    function XGuildManager.IsMarkHeadPortrait(iconId)
+        if not IsValidIcon(iconId) then
+            return true
+        end
+        local key = string.format("XGuildManager_%s_%s_HeadPortraitLocalData", XGuildManager.GetGuildId(), iconId)
+        local data = XSaveTool.GetData(key)
+        return tonumber(data) == 1 and true or false
+    end
+    
+    function XGuildManager.MarkHeadPortrait(iconId)
+        if not IsValidIcon(iconId) then
+            return
+        end
+        local key = string.format("XGuildManager_%s_%s_HeadPortraitLocalData", XGuildManager.GetGuildId(), iconId)
+        XSaveTool.SaveData(key, 1)
+    end
+    
+    function XGuildManager.GetNewAddDormBgmListKey()
+        local key = string.format("XGuildManager_%s_%s_NewAddDormBgmList", tostring(XPlayer.Id), XGuildManager.GetGuildId())
+        return key
+    end
+    
+    function XGuildManager.SaveNewAddDormBgmList(bgmList)
+        local key = XGuildManager.GetNewAddDormBgmListKey()
+        XSaveTool.SaveData(key, bgmList)
+    end
+    
+    function XGuildManager.GetNewAddDormBgmList()
+        local key = XGuildManager.GetNewAddDormBgmListKey()
+        return XSaveTool.GetData(key) or {}
+    end
 
     function XGuildManager.InitGuildCustomNameTable()
         GuildCustomName = {}
@@ -2332,6 +2501,25 @@ XGuildManagerCreator = function()
         local member = GuildData:GetGuildMembers()[playerId]
         return member
     end
+    
+    local lastGetMemberTime = nil
+    --增加定期请求全成员来确保数据及时同步
+    function XGuildManager.GetMemberDataWithAutoUpdate(cb)
+        local curTimestamp = XTime.GetServerNowTimestamp()
+        if lastGetMemberTime == nil or curTimestamp - lastGetMemberTime > 60 then
+            lastGetMemberTime = curTimestamp
+            XGuildManager.GetGuildMembers(0, function()
+                if cb then
+                    cb(XGuildManager.GetMemberList())
+                end
+            end)
+        else
+            if cb then
+                cb(XGuildManager.GetMemberList())
+            end
+            
+        end
+    end
 
     XGuildManager.Init()
     return XGuildManager
@@ -2357,4 +2545,16 @@ end
 
 XRpc.NotifyGuildImpeach = function(notifyData)
     XDataCenter.GuildManager.AsyncGuildImpeach(notifyData)
+end
+
+XRpc.NotifyGuildSignPlayerData = function(notifyData) 
+    XDataCenter.GuildManager.AsyncGuildSignPlayerData(notifyData)
+end
+
+XRpc.NotifyGuildGoodsChange = function(notifyData) 
+    XDataCenter.GuildManager.AsyncGuildGoodsChange(notifyData)
+end
+
+XRpc.NotifyGuildShopCoinReachLimit = function(data)
+    XDataCenter.GuildManager.OnGuildShopCoinReachLimit(data)
 end

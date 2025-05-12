@@ -1,10 +1,15 @@
---XRedPointConditionGroup 條件組
 --XRedPointConditionGroup.Conditions 存的是KEY[k1,k2......] 只要有一个条件满足就有红点
 --XRedPointConditionGroup.Events 需要监听的事件[.....]
+---@class XRedPointConditionGroup 條件組
+---@field
 local XRedPointConditionGroup = XClass(nil, "XRedPointConditionGroup")
 
 --构成
-function XRedPointConditionGroup:Ctor(conditions)
+function XRedPointConditionGroup:Ctor()
+    
+end
+
+function XRedPointConditionGroup:Init(conditions)
     self.Conditions = conditions
     self.Events = {}
     if conditions and #conditions > 0 then
@@ -83,6 +88,11 @@ function XRedPointConditionGroup:Check(args)
     end
 
     return result
+end
+
+function XRedPointConditionGroup:Release()
+    self.Conditions = nil
+    self.Events = nil
 end
 
 return XRedPointConditionGroup

@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGachaOrganizeDrawResult = XLuaUiManager.Register(XLuaUi, "UiGachaOrganizeDrawResult")
 
 local MODE_LOOP = 1
@@ -100,7 +101,7 @@ function XUiGachaOrganizeDrawResult:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -139,7 +140,7 @@ end
 function XUiGachaOrganizeDrawResult:ShowResult()
     self.GridObj[self.ShowIndex].GameObject:SetActiveEx(true)
     self.GridObj[self.ShowIndex].GameObject:PlayTimelineAnimation()
-    CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiDrawCard_Reward_Normal)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiDrawCard_Reward_Normal)
     self.LastShowTime = CS.UnityEngine.Time.time
     self.ShowIndex = self.ShowIndex + 1
 end
@@ -156,7 +157,7 @@ function XUiGachaOrganizeDrawResult:ShowTrans()
                 tempTransEffect.transform:SetParent(self.PanelContent, false)
                 tempTransEffect.gameObject:SetActiveEx(true)
                 tempTransEffect.transform.localPosition = self.GridObj[i].GameObject.transform.localPosition + self.PanelGainList.transform.localPosition
-                CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiDrawCard_Reward_Suipian)
+                XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiDrawCard_Reward_Suipian)
             end
         end
     end

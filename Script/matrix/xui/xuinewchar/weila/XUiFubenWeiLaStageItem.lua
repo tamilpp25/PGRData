@@ -58,9 +58,13 @@ function XUiFubenWeiLaStageItem:SetNormalStage()
     end
 
     --self.TxtStageTitle.text = CS.XTextManager.GetText("TeachingActivityStageName", self.StagePrefix, self.StageName)
-    self.TxtStageTitle.text = self.StageName
+    if self.TxtStageTitle then
+        self.TxtStageTitle.text = self.StageName
+    end
     --self.ImgStageOrder.gameObject:SetActiveEx(true)
-    self.TxtStagePrefix.text = self.StagePrefix
+    if self.TxtStagePrefix then 
+        self.TxtStagePrefix.text = self.StagePrefix
+    end
     if self.PanelStageLock then
         self.PanelStageLock.gameObject:SetActiveEx(self.IsLock)
     end

@@ -1,4 +1,6 @@
-local XUiGridOnlineBossTask = require("XUi/XUiOnlineBoss/XUiGridOnlineBossTask")
+local XUiPanelMatch = require("XUi/XUiOnlineBoss/XUiPanelMatch")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiPanelBossInfo = require("XUi/XUiOnlineBoss/XUiPanelBossInfo")
 local XUiOnlineBoss = XLuaUiManager.Register(XLuaUi, "UiOnlineBoss")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
@@ -8,8 +10,6 @@ local UiState = {
     Info = 3,
     NewBoss = 4,
 }
-
-local TaskCount = 3
 
 function XUiOnlineBoss:OnAwake()
     local root = self.UiModelGo.transform
@@ -24,7 +24,6 @@ function XUiOnlineBoss:OnAwake()
     self.UiCamNearFirst = root:FindTransform("UiCamNearFirstActivity")
     self.ImgEffectHuanren = root:FindTransform("ImgEffectHuanren")
     -- self.TextTypewriter = self.TxtAutoInvade:GetComponent("TextTypewriter")
-    self.TaskList = {}
 end
 
 function XUiOnlineBoss:OnStart(selectIdx, isFirst)
@@ -32,6 +31,7 @@ function XUiOnlineBoss:OnStart(selectIdx, isFirst)
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     self.MatchPanel = XUiPanelMatch.New(self.PanelMatch, self)
     self.BossInfoPanel = XUiPanelBossInfo.New(self.PanelBossInfo)
+    
 
     self.UiState = isFirst and UiState.NewBoss or UiState.Enter
     self.GameObjectGroup = {
@@ -82,15 +82,14 @@ function XUiOnlineBoss:OnStart(selectIdx, isFirst)
         self.TabPanel:SelectIndex(selectIdx or 1)
     end
     self.DefaultIndex = selectIdx
-    self.IsOnStart = true
+
     self.CurAnimator = nil
     self:InitModel()
     self:InitPanelInvade()
     self:SwitchState(self.UiState)
-    self:StartTimer()
 
     self:RegisterClickEvent(self.BtnStart, self.OnBtnStartClick)
-    self:RegisterClickEvent(self.BtnBack, self.OnBtnBackClick)
+    self:RegisterClickEvent(self.BtnBack, self.Close)
     self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick)
     self:RegisterClickEvent(self.BtnInvade, self.OnBtnInvadeClick)
 
@@ -101,25 +100,24 @@ function XUiOnlineBoss:OnStart(selectIdx, isFirst)
 end
 
 function XUiOnlineBoss:OnEnable()
+
     XDataCenter.FubenBossOnlineManager.RefreshBossData()
     self:RefreshBtnList()
     if self.CurAnimator and self.SectionTemplate then
         self.CurAnimator:Play(self.SectionTemplate.Animation)
     end
 
-    self:RefreshPassNumInfo()
-
     if self.UiState == UiState.Match then
         self.MatchPanel:Refresh()
         self.PanelMatchEnable:PlayTimelineAnimation()
     elseif self.UiState == UiState.NewBoss then
         self.PanelTip.gameObject:SetActive(true)
-        CS.XAudioManager.PlaySound(1105)
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1105)
         self.TipEnable:PlayTimelineAnimation(function()
             if not self.GameObject or not self.GameObject:Exist() then
                 return
             end
-            CS.XAudioManager.PlaySound(1106)
+            XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1106)
             self:SwitchState(UiState.Enter)
             self.EnterFirst:PlayTimelineAnimation()
             self.PanelTip.gameObject:SetActive(true)
@@ -127,35 +125,27 @@ function XUiOnlineBoss:OnEnable()
                 if not self.GameObject or not self.GameObject:Exist() then
                     return
                 end
-                CS.XAudioManager.PlaySound(1107)
+                XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1107)
             end, 1500)
         end)
     elseif self.UiState == UiState.Enter then
         if self.Name == "UiOnlineBossActivity" then
-            -- CS.XAudioManager.PlaySound(1107)
+            -- XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1107)
             self.EnterEnable:PlayTimelineAnimation()
         end
     end
+    self:StartTimer()
+end
+
+function XUiOnlineBoss:OnDisable()
+    self:StopTimer()
 end
 
 function XUiOnlineBoss:OnDestroy()
-    self:StopTimer()
     XEventManager.RemoveEventListener(XEventId.EVENT_ROOM_CANCEL_MATCH, self.OnCancelMatch, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_ROOM_ENTER_ROOM, self.EnterRoom, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_ONLINEBOSS_UPDATE, self.OnBossUpdate, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_ONLINEBOSS_REFRESH, self.OnBossRefresh, self)
-end
-
-function XUiOnlineBoss:OnNotify(evt, ...)
-    if evt == CS.XEventId.EVENT_UI_ALLOWOPERATE then
-        if self.NeedClose then
-            self:Close()
-        end
-    end
-end
-
-function XUiOnlineBoss:OnGetEvents()
-    return { CS.XEventId.EVENT_UI_ALLOWOPERATE }
 end
 
 function XUiOnlineBoss:UseLastTemplate()
@@ -178,21 +168,6 @@ function XUiOnlineBoss:OnSelectTab(index)
         self:RefreshName()
         self:RefreshRisk()
         self:PlayAnimation("QieHuan")
-    end
-end
-
---刷新通关次数以及进度
-function XUiOnlineBoss:RefreshPassNumInfo()
-    --获取所有任务数据
-    local allOnlineTask = XDataCenter.TaskManager.GetBossOnlineTaskListData()
-    for i = 1, #allOnlineTask do
-        local currentProxy = self.TaskList[i]
-        if not currentProxy then
-            currentProxy = XUiGridOnlineBossTask.New(self["PanelScrollBar" .. i], self)
-            self.TaskList[i] = currentProxy
-        end
-
-        currentProxy:Refresh(allOnlineTask[i], allOnlineTask[i - 1])
     end
 end
 
@@ -220,7 +195,6 @@ function XUiOnlineBoss:OnUpdateRefreshTime()
     end
 end
 
-
 function XUiOnlineBoss:StartTimer()
     if self.Timers then
         self:StopTimer()
@@ -233,10 +207,6 @@ function XUiOnlineBoss:StopTimer()
     if self.Timers then
         XScheduleManager.UnSchedule(self.Timers)
         self.Timers = nil
-    end
-    if self.ShowCharAnimation then
-        CS.XScheduleManager.UnSchedule(self.ShowCharAnimation)
-        self.ShowCharAnimation = nil
     end
 end
 
@@ -263,9 +233,9 @@ function XUiOnlineBoss:OnBtnStartClick()
     self:OnEnterMatch(bossData.BossId)
 end
 
-function XUiOnlineBoss:OnBtnBackClick()
+function XUiOnlineBoss:Close()
     if self.UiState == UiState.Enter then
-        self:Close()
+        self.Super.Close(self)
     elseif self.UiState == UiState.Match then
         if XDataCenter.RoomManager.Matching then
             local title = CS.XTextManager.GetText("TipTitle")
@@ -292,7 +262,7 @@ function XUiOnlineBoss:OnBtnInvadeClick()
     if not self:UseLastTemplate() or self.IsPlayInvade then
         return
     end
-    CS.XAudioManager.PlaySound(1104)
+    XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, 1104)
     XDataCenter.FubenBossOnlineManager.RecordInvade()
 
     self.InvadeEffect.gameObject:SetActive(true)
@@ -336,11 +306,11 @@ function XUiOnlineBoss:OnTimeOut()
         XLuaUiManager.Close("UiDialog")
     end
 
-    if XDataCenter.FubenBossOnlineManager.TryPopOverTips() then
-        self:Close()
+    XDataCenter.FubenBossOnlineManager.TryPopOverTips()
+    if XUiManager.CheckTopUi(CsXUiType.Normal, self.Name) then
+        self.Super.Close(self)
     else
-        self:Close()
-        self.NeedClose = true
+        self:Remove()
     end
 end
 
@@ -434,7 +404,7 @@ function XUiOnlineBoss:PlayTxtAutoInvade()
             if not self.GameObject or not self.GameObject:Exist() then
                 return
             end
-            self.ShowCharAnimation = XUiHelper.ShowCharByTypeAnimation(_self.TxtAutoInvade, str, interval)
+            XUiHelper.ShowCharByTypeAnimation(self.TxtAutoInvade, str, interval)
         end, delay)
         delay = delay + length * interval + wait
     end

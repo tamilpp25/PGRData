@@ -1,7 +1,8 @@
-XUiPanelNewbieActive = XClass(nil, "XUiPanelNewbieActive")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+local XUiPanelNewbieActive = XClass(nil, "XUiPanelNewbieActive")
 
-local normalSize =  CS.XGame.ClientConfig:GetInt("NewPlayerTaskSmallSize")
-local specialSize =  CS.XGame.ClientConfig:GetInt("NewPlayerTaskBigSize")
+local normalSize = CS.XGame.ClientConfig:GetInt("NewPlayerTaskSmallSize")
+local specialSize = CS.XGame.ClientConfig:GetInt("NewPlayerTaskBigSize")
 
 function XUiPanelNewbieActive:Ctor(ui, rootUi, index, stageInfo)
     self.GameObject = ui.gameObject
@@ -94,14 +95,17 @@ function XUiPanelNewbieActive:OnBtnActiveClick()
         local templateId = newbieActiveness.RewardId[self.Index or 1]
         local rewardList = XRewardManager.GetRewardList(templateId)
 
-        if XDataCenter.TaskManager.CheckNewbieActivenessRecord(activeness) then--已经领取
+        if XDataCenter.TaskManager.CheckNewbieActivenessRecord(activeness) then
+            --已经领取
             self:ShowTipsByType(rewardList)
         else
-            if self.CurrentActiveness >= activeness then--可领取
+            if self.CurrentActiveness >= activeness then
+                --可领取
                 XDataCenter.TaskManager.GetNewPlayerRewardReq(activeness, rewardList, function()
                     self.RootUi:RefreshBottomView()
-                end)
-            else--还不能领取
+                end, handler(self.RootUi, self.RootUi.CheckRewardReceiveStatus))
+            else
+                --还不能领取
                 self:ShowTipsByType(rewardList)
             end
         end
@@ -122,7 +126,7 @@ function XUiPanelNewbieActive:ShowTipsByType(rewardList)
             if self.RootUi.Ui.UiData.UiType == CsXUiType.Tips then
                 self.RootUi:Close()
             end
-            XLuaUiManager.Open("UiEquipDetail", templateId, true)
+            XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipPreview(templateId)
         else
             XLuaUiManager.Open("UiTip", templateId)
         end

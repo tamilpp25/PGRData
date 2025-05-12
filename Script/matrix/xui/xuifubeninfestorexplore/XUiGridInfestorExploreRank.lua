@@ -33,7 +33,7 @@ function XUiGridInfestorExploreRank:Refresh(rankIndex)
 
     local headPortraitId = playerRankData:GetHeadPortraitId()
     local headFrameId = playerRankData:GetHeadFrameId()
-    XUiPLayerHead.InitPortrait(headPortraitId, headFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(headPortraitId, headFrameId, self.Head)
     
     self.TxtSign.text = playerRankData:GetSign()
     self.TxtName.text = playerRankData:GetName()

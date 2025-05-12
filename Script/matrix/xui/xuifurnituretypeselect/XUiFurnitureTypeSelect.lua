@@ -19,9 +19,10 @@ end
 --=============
 --@param isDraft:是否是图纸页签筛选
 --=============
-function XUiFurnitureTypeSelect:OnStart(selectIds, selectSuitIds, isBuild, comfirmCb, isDraft)
+function XUiFurnitureTypeSelect:OnStart(selectIds, selectSuitIds, isBuild, comfirmCb, isDraft, filterSuitMap)
     self.SelectIds = {}
     self.SelectSuitIds = {}
+    self.FilterSuitMap = filterSuitMap or {}
     self.IsDraft = isDraft
     if selectIds then
         for _, k in pairs(selectIds) do
@@ -100,7 +101,7 @@ function XUiFurnitureTypeSelect:CheckSuitCategoryGridSelect(id)
     if not self.SelectSuitIds or #self.SelectSuitIds <= 0 then
         return false
     end
-
+    
     for i = 1, #self.SelectSuitIds do
         if self.SelectSuitIds[i] == id or self.SelectSuitIds[i] == self.FurnitureTypeSuitAllId then
             return true
@@ -108,6 +109,27 @@ function XUiFurnitureTypeSelect:CheckSuitCategoryGridSelect(id)
     end
 
     return false
+end
+
+function XUiFurnitureTypeSelect:CheckIsSelectAll()
+    if not self.SelectSuitIds or #self.SelectSuitIds <= 0 then
+        return false
+    end
+    local selectMap = {}
+    for _, id in pairs(self.SelectSuitIds) do
+        selectMap[id] = true
+        if id == self.FurnitureTypeSuitAllId then
+            return true
+        end
+    end
+
+    for _, id in pairs(self.TotalSuitIds) do
+        if not selectMap[id] then
+            return false
+        end
+    end
+    
+    return true;
 end
 
 function XUiFurnitureTypeSelect:Init()
@@ -145,17 +167,33 @@ function XUiFurnitureTypeSelect:InitSuitPart()
     self.GridAllSuitCategory = XUiGridCategory.New(self.GridAllSuitCategory)
     local isSelected = self:CheckSuitCategoryGridSelect(self.FurnitureTypeSuitAllId)
     self.GridAllSuitCategory:RefreshSuit(suitCfg[1], isSelected)
+    self.TotalSuitIds = {}
 
-    for i = 2, #suitCfg do
+    ---@param config XTableFurnitureSuit
+    for id, config in pairs(suitCfg) do
+        -- 家具套装没有到达显示时间时隐藏
+        if not XFurnitureConfigs.CheckFurnitureSuitIsShowById(id) then
+            goto continue
+        end
+        
+        if self.FilterSuitMap[id] or XFurnitureConfigs.FURNITURE_SUIT_CATEGORY_ALL_ID == id then
+            goto continue
+        end
+        
         local grid = CS.UnityEngine.Object.Instantiate(self.GridSuitCategory)
         local gridCategory = XUiGridCategory.New(grid)
         grid.transform:SetParent(self.PanelSuitContent, false)
-        local tmpIsSelected = self:CheckSuitCategoryGridSelect(suitCfg[i].Id)
-        gridCategory:RefreshSuit(suitCfg[i], tmpIsSelected)
+        local tmpIsSelected = self:CheckSuitCategoryGridSelect(id)
+        gridCategory:RefreshSuit(config, tmpIsSelected)
         gridCategory.GameObject:SetActiveEx(true)
 
+        table.insert(self.TotalSuitIds, id)
         table.insert(self.CategorySuitGrids, gridCategory)
+        
+        ::continue::
     end
+    
+    self.GridAllSuitCategory:SetSelected(self:CheckIsSelectAll())
 end
 
 -- 单选模式
@@ -238,7 +276,7 @@ function XUiFurnitureTypeSelect:OnCategoryGridClick(furnitureTypeId, grid)
 
     -- 处理已经是再全选状态下再点击全选不能取消全选
     if self.GridAllCategory:IsSelected() and furnitureTypeId == self.FurnitureTypeAllId  then
-        for _, categoryGrid in ipairs(self.CategoryGrids) do
+        for _, categoryGrid in pairs(self.CategoryGrids) do
             categoryGrid:SetSelected(false)
         end
         self.GridAllCategory:SetSelected(false)
@@ -250,13 +288,13 @@ function XUiFurnitureTypeSelect:OnCategoryGridClick(furnitureTypeId, grid)
     grid:SetSelected(not grid:IsSelected())
     -- 处理全选类型逻辑
     if furnitureTypeId == self.FurnitureTypeAllId then
-        for _, categoryGrid in ipairs(self.CategoryGrids) do
+        for _, categoryGrid in pairs(self.CategoryGrids) do
             categoryGrid:SetSelected(true)
         end
 
         self.SelectIds = {}
         local typeList = XFurnitureConfigs.GetFurnitureTemplateTypeList()
-        for _, furnitureType in ipairs(typeList) do
+        for _, furnitureType in pairs(typeList) do
             table.insert(self.SelectIds, furnitureType.Id)
         end
         self:UpdateCoinTip()
@@ -290,7 +328,7 @@ end
 
 function XUiFurnitureTypeSelect:OnCategorySuitGridClick(furnitureTypeId, grid)
     if self.GridAllSuitCategory:IsSelected() and furnitureTypeId == self.FurnitureTypeSuitAllId then
-        for _, categoryGrid in ipairs(self.CategorySuitGrids) do
+        for _, categoryGrid in pairs(self.CategorySuitGrids) do
             categoryGrid:SetSelected(false)
         end
         self.GridAllSuitCategory:SetSelected(false)
@@ -300,15 +338,15 @@ function XUiFurnitureTypeSelect:OnCategorySuitGridClick(furnitureTypeId, grid)
 
     grid:SetSelected(not grid:IsSelected())
     if furnitureTypeId == self.FurnitureTypeSuitAllId then
-        for _, categoryGrid in ipairs(self.CategorySuitGrids) do
+        for _, categoryGrid in pairs(self.CategorySuitGrids) do
             categoryGrid:SetSelected(true)
         end
 
         self.SelectSuitIds = {}
-        local suitList = XFurnitureConfigs.GetFurnitureSuitTemplates()
-        for _, suit in pairs(suitList) do
-            if suit.Id ~= self.FurnitureTypeSuitAllId then
-                table.insert(self.SelectSuitIds, suit.Id)
+        --local suitList = XFurnitureConfigs.GetFurnitureSuitTemplates()
+        for _, suitId in pairs(self.TotalSuitIds) do
+            if suitId ~= self.FurnitureTypeSuitAllId then
+                table.insert(self.SelectSuitIds, suitId)
             end
         end
         return
@@ -367,7 +405,7 @@ function XUiFurnitureTypeSelect:OnBtnSelcetClick()
             XUiManager.TipMsg(CS.XTextManager.GetText("FurnitureZeroCoin"))
             return
         end
-        data = self:SetBulidAllType(data)
+        data = self:SetBuildAllType(data)
 
         if not self.IsBuild and #self.SelectSuitIds <= 0 then
             XUiManager.TipMsg(CS.XTextManager.GetText("DormFurnitureSelectSuitNull"))
@@ -384,7 +422,7 @@ function XUiFurnitureTypeSelect:GetCostFurnitureCoin()
     local minConsume, maxConsume = XFurnitureConfigs.GetFurnitureCreateMinAndMax()
 
     local typeCount = self.SelectIds and #self.SelectIds or 0
-    for _, selectId in ipairs(self.SelectIds) do
+    for _, selectId in pairs(self.SelectIds) do
         if selectId == self.FurnitureTypeAllId then
             typeCount = XFurnitureConfigs.GetFurnitureTemplateTypeCount()
             break
@@ -420,13 +458,13 @@ function XUiFurnitureTypeSelect:CheckBuildCoin()
     return isMinEnough
 end
 
-function XUiFurnitureTypeSelect:SetBulidAllType(datas)
+function XUiFurnitureTypeSelect:SetBuildAllType(datas)
     if not self.IsBuild then
         return datas
     end
 
     local isAll = false
-    for _, id in ipairs(datas) do
+    for _, id in pairs(datas) do
         if id == self.FurnitureTypeAllId then
             isAll = true
             break
@@ -436,7 +474,7 @@ function XUiFurnitureTypeSelect:SetBulidAllType(datas)
     if isAll then
         local list = {}
         local typeList = XFurnitureConfigs.GetFurnitureTemplateTypeList()
-        for _, furnitureType in ipairs(typeList) do
+        for _, furnitureType in pairs(typeList) do
             table.insert(list, furnitureType.Id)
         end
         return list

@@ -1,10 +1,12 @@
 XPlayerInfoConfigs = XPlayerInfoConfigs or {}
 
 local TABLE_FETTERS_PATH = "Share/Social/FettersLevel.tab"
-local TABLE_CHARACTER_SHOW_SCORE_PATH = "Client/Character/CharacterShowScore.tab"
+local TABLE_CHARACTER_SHOW_SCORE_PATH = "Share/Character/CharacterShowScore.tab"
+local TABLE_PLAYER_GENDER = "Share/Player/PlayerGender.tab"
 
 local FettersCfg = {}
 local CharacterShowScoreCfg = {}
+local PlayerGenderCfg = {}
 
 -- 成员展示选项
 XPlayerInfoConfigs.CharactersAppearanceType = {
@@ -20,6 +22,7 @@ XPlayerInfoConfigs.FashionType = {
 function XPlayerInfoConfigs.Init()
     FettersCfg = XTableManager.ReadByIntKey(TABLE_FETTERS_PATH, XTable.XTableFetter, "Level")
     CharacterShowScoreCfg = XTableManager.ReadByIntKey(TABLE_CHARACTER_SHOW_SCORE_PATH, XTable.XTableCharacterShowScore, "CharacterId")
+    PlayerGenderCfg = XTableManager.ReadByIntKey(TABLE_PLAYER_GENDER, XTable.XTablePlayerGender, "Id")
 end
 
 function XPlayerInfoConfigs.GetLevelByExp(exp)
@@ -84,3 +87,34 @@ function XPlayerInfoConfigs.GetCharacterShowScore(characterId)
     end
     return CharacterShowScoreCfg[characterId].Quality
 end
+
+function XPlayerInfoConfigs.GetPlayerGenderCfgs()
+    return PlayerGenderCfg
+end 
+
+function XPlayerInfoConfigs.GetPlayerGenderDescById(id)
+    local cfg = PlayerGenderCfg[id]
+    if cfg then
+        return cfg.Desc
+    else
+        XLog.ErrorTableDataNotFound('GetPlayerGenderDescById', TABLE_PLAYER_GENDER, 'id', id)
+    end
+end
+
+function XPlayerInfoConfigs.GetPlayerGenderEnDescById(id)
+    local cfg = PlayerGenderCfg[id]
+    if cfg then
+        return cfg.EnDesc
+    else
+        XLog.ErrorTableDataNotFound('GetPlayerGenderDescById', TABLE_PLAYER_GENDER, 'id', id)
+    end
+end
+
+function XPlayerInfoConfigs.GetPlayerGenderIconAddressById(id)
+    local cfg = PlayerGenderCfg[id]
+    if cfg then
+        return cfg.IconAddress
+    else
+        XLog.ErrorTableDataNotFound('GetPlayerGenderDescById', TABLE_PLAYER_GENDER, 'id', id)
+    end
+end 

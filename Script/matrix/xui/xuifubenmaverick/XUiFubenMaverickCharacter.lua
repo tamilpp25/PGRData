@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiFubenMaverickCharacter = XLuaUiManager.Register(XLuaUi, "UiFubenMaverickCharacter")
 local XUiFubenMaverickCharacterPanel = require("XUi/XUiFubenMaverick/XUiScrollView/XUiFubenMaverickCharacterPanel")
 local XUiFubenMaverickCharacterInfo = require("XUi/XUiFubenMaverick/XUiOther/XUiFubenMaverickCharacterInfo")
@@ -77,7 +78,7 @@ function XUiFubenMaverickCharacter:SetPanelLvActive(active)
 end
 
 function XUiFubenMaverickCharacter:InitPanelAssets()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
             {
                 XDataCenter.MaverickManager.LvUpConsumeItemId,

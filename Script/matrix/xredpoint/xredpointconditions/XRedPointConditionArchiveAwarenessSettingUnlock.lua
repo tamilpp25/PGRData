@@ -13,7 +13,7 @@ function XRedPointConditionArchiveAwarenessSettingUnlock.GetSubEvents()
 end
 
 function XRedPointConditionArchiveAwarenessSettingUnlock.Check(suitId)
-    return XDataCenter.ArchiveManager.IsNewAwarenessSetting(suitId)
+    return XMVCA.XArchive.AwarenessArchiveCom:IsNewAwarenessSetting(suitId)
 end
 
 return XRedPointConditionArchiveAwarenessSettingUnlock

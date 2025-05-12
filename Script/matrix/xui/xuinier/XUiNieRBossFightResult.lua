@@ -70,7 +70,7 @@ function XUiNieRBossFightResult:Refresh()
     SetMaxTextDesc(self.TxtGroupCountScoreMax, data.HpMaxScore or 0)
 
     -- 播放音效
-    self.AudioInfo = CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiSettle_Win_Number)
+    self.AudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.UiSettle_Win_Number)
 
     XUiHelper.Tween(time, function(f)
         if XTool.UObjIsNil(self.Transform) then

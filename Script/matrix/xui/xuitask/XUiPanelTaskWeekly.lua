@@ -1,20 +1,19 @@
-XUiPanelTaskWeekly = XClass(nil, "XUiPanelTaskWeekly")
+local XUiPanelTask = require("XUi/XUiMoneyReward/XUiPanelTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XDynamicDailyTask = require("XUi/XUiTask/XDynamicDailyTask")
+---@class XUiPanelTaskWeekly
+local XUiPanelTaskWeekly = XClass(XUiNode, "XUiPanelTaskWeekly")
 local IsMulting = false
 local ShowRewardList = {}
 
-function XUiPanelTaskWeekly:Ctor(ui, parent)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.Parent = parent
-    XTool.InitUiObject(self)
-
+function XUiPanelTaskWeekly:OnStart()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelTaskWeeklyList)
-    self.DynamicTable:SetProxy(XDynamicDailyTask)
+    self.DynamicTable:SetProxy(XDynamicDailyTask,self)
     self.DynamicTable:SetDelegate(self)
 end
 
 function XUiPanelTaskWeekly:ShowPanel()
-    self.GameObject:SetActive(true)
+    self:Open()
 
     self.WeeklyTasks = self:GetTasks()
     self.PanelNoneWeeklyTask.gameObject:SetActive(#self.WeeklyTasks <= 0)
@@ -23,7 +22,7 @@ function XUiPanelTaskWeekly:ShowPanel()
 end
 
 function XUiPanelTaskWeekly:HidePanel()
-    self.GameObject:SetActive(false)
+    self:Close()
 end
 
 function XUiPanelTaskWeekly:CheckRefreshLeftNewTask()
@@ -112,3 +111,5 @@ end
 function XUiPanelTaskWeekly:GetWeeklyTasks()
     return XDataCenter.TaskManager.GetWeeklyTaskList()
 end
+
+return XUiPanelTaskWeekly

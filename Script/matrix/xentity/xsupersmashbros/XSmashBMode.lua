@@ -2,6 +2,7 @@
 --超限乱斗模式对象
 --模块负责：吕天元
 --===========================
+---@class XSmashBMode
 local XSmashBMode = XClass(nil, "XSmashBMode")
 
 function XSmashBMode:Ctor(modeCfg)
@@ -11,6 +12,10 @@ function XSmashBMode:Ctor(modeCfg)
     self.IsPlaying = false
     --总怪物数
     self.TotalMonsters = #XSuperSmashBrosConfig.GetCfgByIdKey(XSuperSmashBrosConfig.TableKey.Group2MonsterGroupDic, self:GetMonsterLibraryId(), true)
+    self.HistoryResultList = {}
+    self._EggIdList = {}
+    self._EggReplaceList = {}
+    self._BattleDb = false
 end
 --=============
 --模式ID
@@ -99,6 +104,12 @@ function XSmashBMode:GetRoleRandomStartIndex()
         num = nil
     end
     return num
+end
+--=============
+--我方援助开始位置
+--=============
+function XSmashBMode:GetRoleForceAssistIndex()
+    return self.ModeCfg.RoleForceAssistIndex
 end
 --=============
 --敌方每次出战人数
@@ -295,7 +306,9 @@ end
 --=============
 function XSmashBMode:GetCurrentRewardCfg()
     local level = self:GetRewardLevel()
-    if level > #self:GetAllRewardCfgs() then level = #self:GetAllRewardCfgs() end
+    if level > #self:GetAllRewardCfgs() then
+        level = #self:GetAllRewardCfgs()
+    end
     return self.RewardCfgs[level] or {}
 end
 --=============
@@ -335,14 +348,18 @@ end
 
 function XSmashBMode:CheckRewardReceiveStateByLevel(level)
     local cfg = self:GetRewardCfgByLevel(level)
-    if not cfg or (not next(cfg)) then return false, false end
+    if not cfg or (not next(cfg)) then
+        return false, false
+    end
     local isGet = self.ReceivedReward and self.ReceivedReward[cfg.Id]
     local canGet = (not isGet) and (cfg.NeedScore <= self:GetScore())
     return canGet, isGet
 end
 
 function XSmashBMode:SetReceiveStateByRewardId(rewardId)
-    if not self.ReceivedReward then self.ReceivedReward = {} end
+    if not self.ReceivedReward then
+        self.ReceivedReward = {}
+    end
     self.ReceivedReward[rewardId] = true
 end
 --=============
@@ -381,7 +398,7 @@ end
 --获取通关模式解锁的核心对象
 --=============
 function XSmashBMode:GetCore()
-    return XDataCenter.SuperSmashBrosManager.GetCoreByPriority(self:GetPriority())
+    return XDataCenter.SuperSmashBrosManager.GetCoreByMode(self:GetId())
 end
 --=============
 --检查是否解锁
@@ -461,14 +478,20 @@ end
 --=============
 --获取历史最佳消耗时间
 --=============
-function XSmashBMode:GetBestTime()
+function XSmashBMode:GetBestTime(career)
+    if career and self.BestSpendTimeList then
+        return self.BestSpendTimeList[career]
+    end
     return self.BestSpendTime or 0
 end
 --=============
 --(连战模式)获取当前正在进行的连胜数值
 --这里在确认前后端发来的数值不会+1，若要在确认前展示暂时的连胜次数，需在数值上手动+1
 --=============
-function XSmashBMode:GetWinCount()
+function XSmashBMode:GetWinCount(career)
+    if career and self.WinCountMaxList then
+        return self.WinCountMaxList[career] or 0
+    end
     return self.WinCount or 0
 end
 --=============
@@ -476,7 +499,7 @@ end
 --这里在确认前后端发来的数值不会+1，若要在确认前展示暂时的连胜次数，需在数值上手动+1
 --=============
 function XSmashBMode:GetCurrentWinCount()
-    return (self.StageProgressIndex - 1) or 0
+    return (self.StageProgressIndex or 0) - 1
 end
 --=============
 --获取最新一轮的连战时间挑战数据
@@ -522,8 +545,21 @@ end
 --这里关卡进度下标也表示与模式的按ID排序的敌人的顺位
 --=============
 function XSmashBMode:GetNextEnemy()
+    if self:GetId() == XSuperSmashBrosConfig.ModeType.DeathRandom and self.AllStageId then
+        local allStage = self.AllStageId
+        local stageId = allStage[self.StageProgressIndex + 1]
+        if not stageId then
+            return nil
+        end
+        local monsterGroupId = XSuperSmashBrosConfig.GetCfgByIdKey(XSuperSmashBrosConfig.TableKey.SceneConfig, stageId).MonsterLibraryId
+        local monsterGroup = XDataCenter.SuperSmashBrosManager.GetMonsterGroupById(monsterGroupId)
+        return monsterGroup
+    end
+    
     local monsterGroups = XDataCenter.SuperSmashBrosManager.GetMonsterGroupListByModeId(self:GetId())
-    if not monsterGroups then return nil end
+    if not monsterGroups then
+        return nil
+    end
     local monsterGroup = monsterGroups[self.StageProgressIndex + 1]
     return monsterGroup
 end
@@ -552,8 +588,13 @@ end
 --检查是否结束
 --=============
 function XSmashBMode:CheckIsEnd()
+    local assistanceIndex = self:GetRoleForceAssistIndex()
+    local currentIndex = self:GetBattleCharaIndex()
+    if XDataCenter.SuperSmashBrosManager.IsAssistance(currentIndex, assistanceIndex) then
+        return true
+    end
     return (not self:GetBattleTeam()[self:GetBattleCharaIndex()] or self:GetBattleTeam()[self:GetBattleCharaIndex()] == 0)
-    or (self:CheckIsWin())
+            or (self:CheckIsWin())
 end
 --=============
 --检查是否胜利
@@ -602,12 +643,14 @@ function XSmashBMode:RefreshNotifyModeData(modeDb)
     self.LastSpendTime = modeDb.CurSpendTime
     --本模式最佳耗时时间
     self.BestSpendTime = modeDb.BestSpendTime
+    self.BestSpendTimeList = modeDb.BestSpendTimeList
 
     self.ReceivedReward = {}
     for _, rewardId in pairs(modeDb.TakedRewardList or {}) do
         self.ReceivedReward[rewardId] = true
     end
     self.HistoryWinCount = modeDb.WinCountMax
+    self.WinCountMaxList = modeDb.WinCountMaxList
     self.LastTimeAttackList = {}
     for index, timeAttackInfo in pairs(modeDb.CurStageList) do
         self.LastTimeAttackList[index] = {
@@ -628,6 +671,12 @@ function XSmashBMode:RefreshNotifyModeData(modeDb)
     local manager = XDataCenter.SuperSmashBrosManager
     manager.RefreshMonsterGroupWinCount(modeDb.MonsterGroupWinCountList)
     self:RefreshNotifyBattleData(modeDb.BattleDb)
+
+    -- 战斗纪录
+    self:_SetHistoryResult(modeDb.BattleDb)
+
+    -- 彩蛋角色列表
+    self:_SetEggIdList(modeDb.BattleDb)
 end
 --=============
 --刷新后台推送模式战斗数据
@@ -648,6 +697,7 @@ end
 --int WinCount
 --=============
 function XSmashBMode:RefreshNotifyBattleData(battleDb)
+    self._BattleDb = battleDb
     self.EnemyTeam = {}
     if not battleDb or not next(battleDb) then
         return
@@ -655,12 +705,13 @@ function XSmashBMode:RefreshNotifyBattleData(battleDb)
     for index, enemyId in pairs(battleDb.MonsterGroupIdList or {}) do
         table.insert(self.EnemyTeam, enemyId)
     end
+    self:_SetEggReplace(battleDb)
     XDataCenter.SuperSmashBrosManager.SetTeamByModeId(
-        battleDb.CaptainPos,
-        battleDb.FirstFightPos,
-        battleDb.CharacterIdList,
-        battleDb.CharacterPosList,
-        self:GetId()
+            battleDb.CaptainPos,
+            battleDb.FirstFightPos,
+            battleDb.CharacterIdList,
+            battleDb.CharacterPosList,
+            self:GetId()
     )
     --所有关卡Id，非连战模式只有一项，连战模式会是整个关卡链的数组
     self.AllStageId = battleDb.StageId
@@ -680,18 +731,29 @@ function XSmashBMode:RefreshNotifyBattleData(battleDb)
     else
         self.ConfirmFlag = false
         self:RefreshBattleResultDb(battleDb.Result)
-        self.LastWin = (self.AllStageId[self.StageProgressIndex] == battleDb.Result.LastWinStageId) or not (battleDb.Result.LastWinStageId == 0)
+        if battleDb.Result then
+            self.LastWin = (self.AllStageId[self.StageProgressIndex] == battleDb.Result.LastWinStageId) or not (battleDb.Result.LastWinStageId == 0)
+        else
+            self.LastWin = true
+        end
     end
 
     -- 重新挑战时必现要用到 Result， 纯记录一遍Result
     if battleDb.Result then
         self:RecordResult(battleDb.Result)
     end
+
+    -- 战斗纪录
+    self:_SetHistoryResult(battleDb)
+
+    -- 彩蛋角色列表
+    self:_SetEggIdList(battleDb)
 end
 --================
 --刷新登陆时接收的缓存战斗数据
 --================
 function XSmashBMode:RefreshBattleResultDb(data)
+    data = data or {}
     local manager = XDataCenter.SuperSmashBrosManager
     --下个角色出战下标(+1对齐Lua从1开始的下标)，注意，若一次上阵多个角色，此下标表示第一个上阵角色的下标
     self.CharacterProgressIndex = (data.CharacterProgressIndex or 0) + 1
@@ -704,7 +766,14 @@ end
 --刷新战斗后接收的缓存战斗数据
 --================
 function XSmashBMode:RefreshBattleResult(data, isWin)
-    if not data then return end
+    if not data then
+        return
+    end
+    self:_SetEggReplace(nil, data)
+    if data.EggReplace and isWin then
+        XDataCenter.SuperSmashBrosManager.SetJustFail()
+    end
+
     local manager = XDataCenter.SuperSmashBrosManager
     self.LastWin = (self.AllStageId[self.StageProgressIndex] == data.LastWinStageId) or not (data.LastWinStageId == 0)
     self.ConfirmFlag = true --当正常战斗结算后检测确认Flag
@@ -721,6 +790,8 @@ function XSmashBMode:RefreshBattleResult(data, isWin)
     end
     --上一个战斗的时间
     self.StageSpendTime = data.StageSpendTime
+
+    data.MonsterGroupIdList = self.EnemyTeam
 end
 --================
 --重置模式正在进行的状态
@@ -737,6 +808,135 @@ function XSmashBMode:ResetPlaying()
     self.LastWinStageId = 0
     self.LastWin = nil
     self.Result = nil
+    self.HistoryResultList = {}
+end
+--================
+--是否 显示挑战记录
+--================
+function XSmashBMode:IsShowRecordBtn()
+    return self:GetId() == XSuperSmashBrosConfig.ModeType.Survive
+end
+--================
+--是否 可改变关卡
+--================
+function XSmashBMode:IsCanChangeStage()
+    return self:GetId() == XSuperSmashBrosConfig.ModeType.DeathRandom
+end
+
+function XSmashBMode:GetResultList()
+    return self.HistoryResultList
+end
+
+function XSmashBMode:IsCanReady()
+    return true
+end
+
+function XSmashBMode:_SetHistoryResult(battleDb)
+    if battleDb.HistoryResultList then
+        self.HistoryResultList = battleDb.HistoryResultList
+    else
+        self.HistoryResultList = {}
+    end
+    if battleDb.HistoryMonsterGroupIdList then
+        for i = 1, #self.HistoryResultList do
+            local result = self.HistoryResultList[i]
+            result.MonsterGroupIdList = { battleDb.HistoryMonsterGroupIdList[i] }
+        end
+    end
+end
+
+function XSmashBMode:GetStageId(monsterGroupId)
+    local allStages = self:GetAllStages()
+    for i = 1, #allStages do
+        local stage = allStages[i]
+        if stage.MonsterLibraryId == monsterGroupId then
+            return stage.Id
+        end
+    end
+    return false
+end
+
+-- 用彩蛋角色替换原本角色，在继续战斗之前
+function XSmashBMode:_SetEggReplace(battleDb, result)
+    local isUpdateAfterFight = result and true or false
+    if isUpdateAfterFight then
+        battleDb = self._BattleDb
+    else
+        result = battleDb.LastResult or battleDb.Result
+    end
+    if not battleDb or not result then
+        return
+    end
+    if result.EggReplace then
+        if result.EggReplaceIndex and result.EggReplaceIndex > -1 then
+            self._EggReplaceList[result.EggReplaceIndex] = true
+        end
+        for index, isReplace in pairs(self._EggReplaceList) do
+            if isReplace then
+                local eggCharacter = battleDb.EggIdList[index + 1]
+                if eggCharacter then
+                    local oldCharacterId = eggCharacter.OrgId
+                    local oldCharacterIndex = false
+                    for i = 1, #battleDb.CharacterIdList do
+                        local oldCharacter = battleDb.CharacterIdList[i]
+                        if oldCharacter.Id == oldCharacterId then
+                            oldCharacterIndex = i
+                            break
+                        end
+                    end
+                    if oldCharacterIndex then
+                        battleDb.CharacterIdList[oldCharacterIndex] = eggCharacter
+                    end
+                end
+            end
+        end
+    end
+    -- 战后 设置彩蛋角色
+    if isUpdateAfterFight then
+        XDataCenter.SuperSmashBrosManager.SetTeamByModeId(
+                battleDb.CaptainPos,
+                battleDb.FirstFightPos,
+                battleDb.CharacterIdList,
+                battleDb.CharacterPosList,
+                self:GetId()
+        )
+    end
+end
+
+function XSmashBMode:_SetEggIdList(battleDb)
+    self._EggIdList = battleDb.EggIdList or {}
+    self._EggReplaceList = battleDb.EggReplaceList or {}
+end
+
+function XSmashBMode:GetEggId()
+    local egg = self._EggIdList[1]
+    return egg and egg.Id
+end
+
+function XSmashBMode:IsEggReplace(characterIndex)
+    return self._EggReplaceList[characterIndex - 1] and true or false
+end
+--=============
+--检查是否援助
+--=============
+function XSmashBMode:IsAssistancePos(index)
+    local assistanceIndex = self:GetRoleForceAssistIndex()
+    if XDataCenter.SuperSmashBrosManager.IsAssistance(index, assistanceIndex) then
+        return true
+    end
+    return false
+end
+
+function XSmashBMode:IsStagePassed(stageId)
+    if not self.AllStageId then
+        return false
+    end
+    for index, id in pairs(self.AllStageId) do
+        if stageId == id then
+            return index < self.StageProgressIndex
+        end
+    end
+    return false
 end
 
 return XSmashBMode

@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 --成员列表页面
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local XUiSimulatedCombatList = XLuaUiManager.Register(XLuaUi, "UiSimulatedCombatRoleList")
@@ -34,7 +35,7 @@ function XUiSimulatedCombatList:OnBtnBackClick()
     if self.OpenChildName == XUiSimulatedCombatList.ChildUiName.UiSimulatedCombatViewRole then
         self:OpenChild(XUiSimulatedCombatList.ChildUiName.UiSimulatedCombatListCharaInfo)
         self.CharaInfo = self:FindChildUiObj(XUiSimulatedCombatList.ChildUiName.UiSimulatedCombatListCharaInfo)
-        self:UpdateCamera(XCharacterConfigs.XUiCharacter_Camera.MAIN)
+        self:UpdateCamera(XEnumConst.CHARACTER.XUiCharacter_Camera.MAIN)
         self.TextRoleList.gameObject:SetActiveEx(true)
         return
     else

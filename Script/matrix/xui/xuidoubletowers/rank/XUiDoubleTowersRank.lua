@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiDoubleTowersRank = XLuaUiManager.Register(XLuaUi, "UiDoubleTowersRank")
 local XUiGridRank = require("XUi/XUiDoubleTowers/Rank/XUiGridRank")
 
@@ -22,7 +24,6 @@ function XUiDoubleTowersRank:OnEnable()
 end
 
 function XUiDoubleTowersRank:OnDisable()
-    XUiDoubleTowersRank.Super.OnDisable(self)
     if self.ActivityEndCDSchedule then
         XScheduleManager.UnSchedule(self.ActivityEndCDSchedule)
     end
@@ -38,8 +39,6 @@ function XUiDoubleTowersRank:AutoAddListener()
     self.BtnMainUi.CallBack = function() 
         XLuaUiManager.RunMain()
     end
-    
-    --self:BindHelpBtn(self.BtnHelp, XGoldenMinerConfigs.GetHelpKey())
 end
 
 function XUiDoubleTowersRank:InitTimes()

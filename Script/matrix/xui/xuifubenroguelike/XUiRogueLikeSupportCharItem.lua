@@ -18,7 +18,7 @@ function XUiRogueLikeSupportCharItem:UpdateCharacterInfos(robotId)
             self.GameObject:SetActiveEx(false)
             return
         end
-        self.RImgRoleHead:SetRawImage(XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(characterId))
+        self.RImgRoleHead:SetRawImage(XMVCA.XCharacter:GetCharRoundnessHeadIcon(characterId))
     end
 end
 

@@ -1,3 +1,9 @@
+local XUiPanelRegional = require("XUi/XUiPrequel/XUiPanelRegional")
+local XUiPanelUnlockChallenge = require("XUi/XUiPrequel/XUiPanelUnlockChallenge")
+local XUiPanelEnterFightDialog = require("XUi/XUiPrequel/XUiPanelEnterFightDialog")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiPanelChallengeMode = require("XUi/XUiPrequel/XUiPanelChallengeMode")
+local XUiPanelCheckReward = require("XUi/XUiPrequel/XUiPanelCheckReward")
 local XUiPrequel = XLuaUiManager.Register(XLuaUi, "UiPrequel")
 
 local MODE_REGIONAL = 1
@@ -37,9 +43,10 @@ function XUiPrequel:SetChallengeAnimBegin(isBegin)
     self.IsChallengeAnimBegin = isBegin
 end
 
-function XUiPrequel:OnStart(coverData, currentMode, defaultChapter)
+function XUiPrequel:OnStart(coverData, currentMode, defaultChapter, chanllengeStageId)
     self.CurrentCover = coverData
     self.DefaultChapter = defaultChapter
+    self.ChanllengeStageId = chanllengeStageId
     self:SetPanelAssetActive(true)
     if currentMode and currentMode ~= 0 then
         self.CurrentMode = currentMode
@@ -114,17 +121,10 @@ function XUiPrequel:OnBtnMainUiClick()
 end
 
 function XUiPrequel:OnRefresh()
-    --获取上次保存的数据
-    local lastSelectPanelType = 1
-    local keyX = string.format("%s%d%d", "PrequelLastSwitchPanelType", XPlayer.Id, self.CurrentCover.CoverId)
-    if CS.UnityEngine.PlayerPrefs.HasKey(keyX) then
-        lastSelectPanelType = CS.UnityEngine.PlayerPrefs.GetInt(keyX)
-    end
-
-    self.CurrentMode = self.CurrentMode or lastSelectPanelType
+    self.CurrentMode = self.CurrentMode or MODE_REGIONAL
     if self.CurrentMode == MODE_REGIONAL then
         self:Switch2Regional(self.CurrentCover)
-    elseif self.CurrentMode == MODE_CHALLANGE then
+    else
         self:Switch2Challenge(self.CurrentCover)
     end
 end
@@ -174,6 +174,12 @@ function XUiPrequel:Switch2Challenge(coverData)
     local coverDatas = XPrequelConfigs.GetPrequelCoverInfoById(coverData.CoverId)
     self:ResetBgFx(coverData.CoverVal.ChallengeFx)
     self:ResetBackground(coverDatas.ChallengeBg)
+    if self.ChanllengeStageId then
+        self:OpenOneChildUi("UiPrequelLineDetail")
+        self:FindChildUiObj("UiPrequelLineDetail"):Refresh(self.ChanllengeStageId)
+        self:SetPanelAssetActive(false)
+        self.ChanllengeStageId = nil
+    end
 end
 
 -- [刷新挑战界面]
@@ -235,7 +241,7 @@ end
 function XUiPrequel:ResetBackground(rawBg)
     local bgNil = string.IsNilOrEmpty(rawBg)
     if bgNil then
-        self.RImgBg:SetRawImage("Assets/Product/Texture/Image/UiFubenMainMapTab/ChapterBg01B.png")
+        self.RImgBg:SetRawImage(CS.XGame.ClientConfig:GetString("ChapterBg01B"))
         return
     end
     if self.bgName and self.bgName == rawBg then return end

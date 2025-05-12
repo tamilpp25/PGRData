@@ -1,3 +1,4 @@
+local XUiGridCollection = require("XUi/XUiMedal/XUiGridCollection")
 local XUiPanelSetting = XLuaUiManager.Register(XLuaUi, "UiPanelSetting")
 
 local XUiGridCollectionWall = require("XUi/XUiCollectionWall/XUiCollectionWallGrid/XUiGridCollectionWall")
@@ -46,16 +47,22 @@ function XUiPanelSetting:OnStart(root)
     self:InitUnfold()
 end
 
+function XUiPanelSetting:Close()
+    self.UiRoot:OnClickBtnBack()
+end
+
 ---
 --- 更新展示角色
 function XUiPanelSetting:UpdateCharacterHead()
     for i = 1, #self.RImgCharacter do
-        if self.CharacterList[i] then
-            self.RImgCharacter[i].gameObject:SetActive(true)
-            local charIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterList[i])
-            self.RImgCharacter[i]:SetRawImage(charIcon)
-        else
-            self.RImgCharacter[i].gameObject:SetActive(false)
+        if not XTool.UObjIsNil(self.RImgCharacter[i]) then
+            if self.CharacterList[i] then
+                self.RImgCharacter[i].gameObject:SetActive(true)
+                local charIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterList[i])
+                self.RImgCharacter[i]:SetRawImage(charIcon)
+            else
+                self.RImgCharacter[i].gameObject:SetActive(false)
+            end
         end
     end
 end
@@ -84,7 +91,7 @@ function XUiPanelSetting:InitAppearanceSetting()
     self.DormitoryShowBtnGroup:SelectIndex(self.CurAppearanceSetting and self.CurAppearanceSetting.DormitoryType or ShowTypeIndex.All)
 
     --  判断宿舍系统是否开开启
-    local isDormOpen =  XFunctionManager.JudgeCanOpen( XFunctionManager.FunctionName.Dorm)
+    local isDormOpen = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Dorm)
     self.TxtDromNotOpen.gameObject:SetActiveEx(not isDormOpen)
     self.DormitoryShowBtnGroup.gameObject:SetActiveEx(isDormOpen)
     if isDormOpen then
@@ -455,14 +462,19 @@ function XUiPanelSetting:OnBtnCharacter(index)
     -- 根据选中的角色类型打开对应的页签
     local characterType
     if curTeam[index] and curTeam[index] ~= 0 then
-        characterType = XCharacterConfigs.GetCharacterType(curTeam[index])
+        characterType = XMVCA.XCharacter:GetCharacterType(curTeam[index])
     else
         -- 添加新角色时，默认打开构造体页签
-        characterType = XCharacterConfigs.CharacterType.Normal
+        characterType = XEnumConst.CHARACTER.CharacterType.Normal
     end
 
     -- 角色展示不拦截角色类型，构造体与授格者可以同时展示
-    XLuaUiManager.Open("UiRoomCharacter", curTeam, index, cb, nil, nil, { NotReset = true, SelectCharacterType = characterType })
+    --XLuaUiManager.Open("UiRoomCharacter", curTeam, index, cb, nil, nil, { NotReset = true, SelectCharacterType = characterType })
+
+    --XLuaUiManager.Open("UiSelectCharacterPlayerSupport", curTeam, index, cb, nil, nil, { NotReset = true, SelectCharacterType = characterType })
+    --XLuaUiManager.Open("UiBattleRoomRoleDetail", curTeam, index, cb, nil, nil, { NotReset = true, SelectCharacterType = characterType })
+
+    XLuaUiManager.Open("UiSelectCharacterPanelSetting", curTeam, index, cb)
 end
 
 function XUiPanelSetting:OnBtnBabelScoreTitleShow()
@@ -500,7 +512,7 @@ function XUiPanelSetting:OnBtnView()
         end
         if data.Id == XPlayer.Id then
             tmpData.AchievementDetail.Achievement = XDataCenter.AchievementManager.GetAchievementCompleteCount()
-            tmpData.AchievementDetail.TotalAchievement = XDataCenter.AchievementManager.GetTotalAchievementCount()   
+            tmpData.AchievementDetail.TotalAchievement = XDataCenter.AchievementManager.GetTotalAchievementCount()
         end
         tmpData.AppearanceSettingInfo = self.CurAppearanceSetting
 
@@ -524,7 +536,7 @@ function XUiPanelSetting:OnBtnView()
         if self.CurCharactersAppearanceType == XPlayerInfoConfigs.CharactersAppearanceType.Select then
             for i = 1, MAX_CHARACTER do
                 if self.CharacterList[i] then
-                    local char = XDataCenter.CharacterManager.GetCharacter(self.CharacterList[i])
+                    local char = XMVCA.XCharacter:GetCharacter(self.CharacterList[i])
                     tmpData.CharacterShow[i] = char
                 else
                     tmpData.CharacterShow[i] = nil
@@ -532,14 +544,14 @@ function XUiPanelSetting:OnBtnView()
             end
         else
             --展示全角色
-            tmpData.CharacterShow = XDataCenter.CharacterManager.GetOwnCharacterList()
+            tmpData.CharacterShow = XMVCA.XCharacter:GetOwnCharacterList()
         end
 
         --请求的数据有缓冲，使用XPlayer的数据可以实时看到预览的改变
         tmpData.Sign = XPlayer.Sign
         tmpData.Level = XPlayer.Level
         tmpData.Likes = XPlayer.Likes
-        tmpData.Birthday = XPlayer.Birthday
+        tmpData.Birthday = XMVCA.XBirthdayPlot:GetBirthday()
         tmpData.CurrHeadFrameId = XPlayer.CurrHeadFrameId
         tmpData.CurrHeadPortraitId = XPlayer.CurrHeadPortraitId
         tmpData.AppearanceShowType = self.CurCharactersAppearanceType   --角色展示类型
@@ -560,7 +572,7 @@ function XUiPanelSetting:OnBtnView()
 
         --成员涂装
         tmpData.FashionShow = {}
-        for k, _ in pairs(XDataCenter.FashionManager.GetOwnFashionStatus()) do
+        for k, _ in pairs(XDataCenter.FashionManager.GetOwnFashionDataDic()) do
             table.insert(tmpData.FashionShow, k)
         end
 
@@ -604,7 +616,7 @@ function XUiPanelSetting:ChangeCurShowSetting(wallDataId, isShow)
     for _, showSetting in pairs(self.CurWallShowSetting) do
         if showSetting == false then
             isShowAll = false
-            break;
+            break ;
         end
     end
 

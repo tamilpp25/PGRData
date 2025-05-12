@@ -24,6 +24,11 @@ function XUiTRPGTaskTip:OnEnable()
     if self.SelectIndex then
         self.PanelNoticeTitleBtnGroup:SelectIndex(self.SelectIndex)
     end
+
+end
+
+function XUiTRPGTaskTip:OnDisable()
+
 end
 
 function XUiTRPGTaskTip:OnDestroy()

@@ -1,4 +1,4 @@
-XUiPanelSkillBox = XClass(nil, "XUiPanelSkillBox")
+local XUiPanelSkillBox = XClass(nil, "XUiPanelSkillBox")
 
 function XUiPanelSkillBox:Ctor(ui)
     self.GameObject = ui.gameObject

@@ -1,3 +1,6 @@
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiArchivePartner = XLuaUiManager.Register(XLuaUi, "UiArchivePartner")
 local XUiGridArchivePartner = require("XUi/XUiArchive/XUiGridArchivePartner")
 local Object = CS.UnityEngine.Object
@@ -19,13 +22,13 @@ end
 
 function XUiArchivePartner:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelArchivePartnerList)
-    self.DynamicTable:SetProxy(XUiGridArchivePartner)
+    self.DynamicTable:SetProxy(XUiGridArchivePartner,self)
     self.DynamicTable:SetDelegate(self)
     self.GridArchivePartner.gameObject:SetActiveEx(false)
 end
 
 function XUiArchivePartner:SetupDynamicTable(type)
-    self.PageDatas = XDataCenter.ArchiveManager.GetArchivePartnerList(type)
+    self.PageDatas = self._Control:GetArchivePartnerList(type)
     self.DynamicTable:SetDataSource(self.PageDatas)
     self.DynamicTable:ReloadDataSync()
 end
@@ -50,7 +53,7 @@ function XUiArchivePartner:SetButtonCallBack()
 end
 
 function XUiArchivePartner:InitTypeButton()
-    self.GroupList = XDataCenter.ArchiveManager.GetPartnerGroupList()
+    self.GroupList = self._Control:GetPartnerGroupList()
     self.CurType = 1
     self.PartnerGroupBtn = {}
     for _, v in pairs(self.GroupList) do
@@ -84,5 +87,5 @@ end
 
 function XUiArchivePartner:ShowPartnerRateInfo(index)
     self.RateText.text = self.GroupList[index].GroupName
-    self.RateNum.text = string.format("%d%s", XDataCenter.ArchiveManager.GetPartnerCompletionRate(self.GroupList[index].Id), "%")
+    self.RateNum.text = string.format("%d%s", self._Control:GetPartnerCompletionRate(self.GroupList[index].Id), "%")
 end

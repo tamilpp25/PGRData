@@ -32,8 +32,8 @@ function XUiPartnerPropertyOther:OnAwake()
             }
         },
     }
-    self.CameraFarDic = nil
-    self.CameraNearDic = nil
+    self.CameraFar = nil
+    self.CameraNear = nil
     -- XPartnerConfigs.CameraType
     self.PartnerStatus = nil
     self:RegisterUiEvents()
@@ -42,6 +42,12 @@ end
 -- partner : XPartner
 function XUiPartnerPropertyOther:OnStart(partner)
     self.Partner = partner
+    local data = partner
+    if data.GetTemplateId then
+        self._PartnerId = data:GetTemplateId()
+    else
+        XLog.Error("[XUiPartnerPreview] 麻烦联系曾立斌, 这个数据不是伙伴")
+    end
     self.PartnerStatus = XPartnerConfigs.CameraType.Standby
     -- 显示伙伴品质
     self.RImgQuality:SetRawImage(partner:GetCharacterQualityIcon())
@@ -133,7 +139,7 @@ function XUiPartnerPropertyOther:OnChangePartnerStatus(finishCallback, isAutoClo
     -- 播放变身音效
     local voiceId = self:GetChangeVoice()
     if voiceId and voiceId > 0 then
-        XSoundManager.PlaySoundByType(voiceId, XSoundManager.SoundType.Sound)
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, voiceId)
     end
     -- 更改状态
     if self.PartnerStatus == XPartnerConfigs.CameraType.Standby then
@@ -236,11 +242,11 @@ function XUiPartnerPropertyOther:InitUiPanelRoleModel()
     local panelRoleModel = root:FindTransform("PanelRoleModel")
     self.ImgEffectHuanren = root:FindTransform("ImgEffectHuanren")
     -- 初始化镜头信息
-    self.CameraFarDic = {
+    self.CameraFar = {
         [XPartnerConfigs.CameraType.Standby] = root:FindTransform("UiCamFarStandby"),
         [XPartnerConfigs.CameraType.Combat] = root:FindTransform("UiCamFarCombat"),
     }
-    self.CameraNearDic = {
+    self.CameraNear = {
         [XPartnerConfigs.CameraType.Standby] = root:FindTransform("UiCamNearStandby"),
         [XPartnerConfigs.CameraType.Combat] = root:FindTransform("UiCamNearCombat"),
     }
@@ -263,10 +269,11 @@ function XUiPartnerPropertyOther:RefreshModel(partnerStatus, bornAnimCallback)
 end
 
 function XUiPartnerPropertyOther:SetCameraType(partnerStatus)
-    for k, _ in pairs(self.CameraFarDic) do
-        self.CameraFarDic[k].gameObject:SetActiveEx(k == partnerStatus)
-    end
-    for k, _ in pairs(self.CameraNearDic) do
-        self.CameraNearDic[k].gameObject:SetActiveEx(k == partnerStatus)
-    end
+    --for k, _ in pairs(self.CameraFarDic) do
+    --    self.CameraFarDic[k].gameObject:SetActiveEx(k == partnerStatus)
+    --end
+    --for k, _ in pairs(self.CameraNearDic) do
+    --    self.CameraNearDic[k].gameObject:SetActiveEx(k == partnerStatus)
+    --end
+    XUiHelper.SetPartnerCameraType(self, type, self._PartnerId)
 end

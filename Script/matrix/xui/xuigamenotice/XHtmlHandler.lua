@@ -5,7 +5,7 @@ local mathFloor = math.floor
 local tableInsert = table.insert
 local next = next
 
-local MdediumFontSize = CS.XGame.ClientConfig:GetInt("NoticeMediumFontSize")
+local MediumFontSize = CS.XGame.ClientConfig:GetInt("NoticeMediumFontSize")
 
 local NodeType = {
     Head = 1,
@@ -18,23 +18,23 @@ local ParagraphType = {
 }
 
 local FontSizeMap = {
-    ["xx-small"] = mathFloor(MdediumFontSize * 0.6),
-    ["x-small"] = mathFloor(MdediumFontSize * 0.75),
-    ["small"] = mathFloor(MdediumFontSize * 0.89),
-    ["medium"] = MdediumFontSize,
-    ["large"] = mathFloor(MdediumFontSize * 1.2),
-    ["x-large"] = mathFloor(MdediumFontSize * 1.5),
-    ["xx-large"] = mathFloor(MdediumFontSize * 2),
+    ["xx-small"] = mathFloor(MediumFontSize * 0.6),
+    ["x-small"] = mathFloor(MediumFontSize * 0.75),
+    ["small"] = mathFloor(MediumFontSize * 0.89),
+    ["medium"] = MediumFontSize,
+    ["large"] = mathFloor(MediumFontSize * 1.2),
+    ["x-large"] = mathFloor(MediumFontSize * 1.5),
+    ["xx-large"] = mathFloor(MediumFontSize * 2),
 }
 
 local FontSizeNumMap = {
-    [1] = mathFloor(MdediumFontSize * 0.6),
-    [2] = mathFloor(MdediumFontSize * 0.75),
-    [3] = mathFloor(MdediumFontSize * 0.89),
-    [4] = MdediumFontSize,
-    [5] = mathFloor(MdediumFontSize * 1.2),
-    [6] = mathFloor(MdediumFontSize * 1.5),
-    [7] = mathFloor(MdediumFontSize * 2),
+    [1] = mathFloor(MediumFontSize * 0.6),
+    [2] = mathFloor(MediumFontSize * 0.75),
+    [3] = mathFloor(MediumFontSize * 0.89),
+    [4] = MediumFontSize,
+    [5] = mathFloor(MediumFontSize * 1.2),
+    [6] = mathFloor(MediumFontSize * 1.5),
+    [7] = mathFloor(MediumFontSize * 2),
 }
 
 local HtmlCharMap = {
@@ -96,7 +96,7 @@ local function GetImg(content)
     return imgType, imgData
 end
 
-local function ConverRGB2Hex(colorR, colorG, colorB)
+local function ConvertRGB2Hex(colorR, colorG, colorB)
     if not colorR or not colorG or not colorB then
         return
     end
@@ -173,8 +173,8 @@ local function Match(tagList, matchedList)
     end)
 end
 
-local CreateChilds
-CreateChilds = function(parent, matchedList)
+local CreateChildren
+CreateChildren = function(parent, matchedList)
     if not parent then
         return
     end
@@ -186,7 +186,7 @@ CreateChilds = function(parent, matchedList)
             parent.Childs = parent.Childs or {}
             table.remove(matchedList, 1)
             tableInsert(parent.Childs, curNode)
-            CreateChilds(curNode, matchedList)
+            CreateChildren(curNode, matchedList)
         else
             return
         end
@@ -199,7 +199,7 @@ local function CreateTree(matchedList, tagTree)
     while #matchedList > 0 or count > 10000 do
         local curNode = matchedList[1]
         table.remove(matchedList, 1)
-        CreateChilds(curNode, matchedList)
+        CreateChildren(curNode, matchedList)
         tableInsert(tagTree, curNode)
         count = count + 1
     end
@@ -222,13 +222,28 @@ local function GetNodeStyle(node, content, defaultStyle)
             local _, _, _, colorR, _, colorG, _, colorB = strFind(styleParamStr, "color:(%s-)rgb%((%d+),(%s-)(%d+),(%s-)(%d+)%)")
             if colorR and colorG and colorB then
                 findColor = true
-                style.ColorStr = ConverRGB2Hex(colorR, colorG, colorB)
+                style.ColorStr = ConvertRGB2Hex(colorR, colorG, colorB)
             end
-
-            local _, _, _, fontSize = strFind(styleParamStr, "font%-size:(%s-)(.-);")
+            
+            local _, fontSize
+            _, _, _, fontSize = strFind(styleParamStr, "font%-size:(%s-)(.-);")
+            if not fontSize then
+                _, _, fontSize = strFind(styleParamStr, "font%-size:(%d*)")
+            end
             if fontSize then
                 findSize = true
-                style.FontSize = RemoveBlank(fontSize)
+                local pSize, pUnit
+                _, _, pSize, pUnit = strFind(fontSize, "(%-?%d+%.*%d*)(%a*)")
+                if pSize then
+                    --pt 转 px
+                    if string.lower(pUnit) == "px" then
+                        fontSize = pSize
+                    end
+                    --fontSize = tonumber(pSize) * 4 / 3
+                    style.FontSize = fontSize
+                else
+                    style.FontSize = RemoveBlank(fontSize)
+                end
             end
 
             local isBlod = strFind(styleParamStr, "font%-weight:(%s-)bold")
@@ -363,7 +378,7 @@ local function GenerateText(textNodes)
             end
 
             if v.Style.FontSize then
-                local fontSizePx = FontSizeMap[v.Style.FontSize] or FontSizeNumMap[tonumber(v.Style.FontSize)]
+                local fontSizePx = FontSizeMap[v.Style.FontSize] or FontSizeNumMap[tonumber(v.Style.FontSize)] or tonumber(v.Style.FontSize)
                 if fontSizePx then
                     tempStr = "<size=" .. fontSizePx .. ">" .. tempStr .. "</size>"
 
@@ -421,7 +436,7 @@ local function CreateParagraph(paragraph, content)
     Param = content:sub(paragraph.Head.BeginPos + 1, paragraph.Head.EndPos - 1) }
 end
 
-local function Deserilize(html)
+local function Deserialize(html)
     local content = RemoveInvalidChar(html)
     if string.IsNilOrEmpty(content) then
         return
@@ -453,7 +468,7 @@ local function Deserilize(html)
 end
 
 local XHtmlHandler = {
-    Deserilize = Deserilize,
+    Deserialize = Deserialize,
     RemoveBlank = RemoveBlank,
     ParagraphType = ParagraphType,
     FontSizeMap = FontSizeMap,

@@ -1,4 +1,5 @@
-XUiPanelTaskItem = XClass(nil, "XUiPanelTaskItem")
+local XUiPanelTask = require("XUi/XUiMoneyReward/XUiPanelTask")
+local XUiPanelTaskItem = XClass(nil, "XUiPanelTaskItem")
 
 function XUiPanelTaskItem:Ctor(ui, index, funcCallback)
     self.GameObject = ui.gameObject
@@ -46,7 +47,7 @@ function XUiPanelTaskItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -102,3 +103,5 @@ end
 function XUiPanelTaskItem:SetActive(bValue)
     self.GameObject:SetActive(bValue)
 end
+
+return XUiPanelTaskItem

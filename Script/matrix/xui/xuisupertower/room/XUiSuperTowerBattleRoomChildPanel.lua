@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiSuperTowerPluginGrid = require("XUi/XUiSuperTower/Plugins/XUiSuperTowerPluginGrid")
 local XUiSuperTowerBattleRoomChildPanel = XClass(nil, "XUiSuperTowerBattleRoomChildPanel")
 
@@ -13,7 +14,7 @@ function XUiSuperTowerBattleRoomChildPanel:Ctor(ui)
     self.GridSuperTowerCore.gameObject:SetActiveEx(false)
     self:RegisterUiEvents()
     local itemIds = XSuperTowerConfigs.GetMainAssetsPanelItemIds()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(itemIds, function()
             self.AssetActivityPanel:Refresh(itemIds)
         end, self.AssetActivityPanel)

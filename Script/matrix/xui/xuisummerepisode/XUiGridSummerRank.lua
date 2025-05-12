@@ -24,7 +24,7 @@ function XUiGridSummerRank:Refresh(playerData, index)
     local isSelf = player.Id == XPlayer.Id
     self.PanelSelf.gameObject:SetActiveEx(isSelf)
 
-    XUiPLayerHead.InitPortrait(player.HeadPortraitId, player.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(player.HeadPortraitId, player.HeadFrameId, self.Head)
     
     local colorFormat = stringOther
     if isSelf then

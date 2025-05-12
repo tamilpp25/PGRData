@@ -6,6 +6,7 @@ XHomeDormManager = XHomeDormManager or {}
 
 local XHomeRoomObj = require("XHome/XDorm/XHomeRoomObj")
 local XHomeFurnitureObj = require("XHome/XDorm/XHomeFurnitureObj")
+local XHomeRoomCache = require("XHome/XDorm/XHomeRoomCache")
 
 -- 格子颜色了类型
 GridColorType = {
@@ -27,26 +28,44 @@ local GRID_COLOR_PATH = {
 -- local IsSelf = false
 local InDormitoryScene = false
 
-local GridColorSoDic = {}
+local GridColorSoDic = nil
 local ResourceCacheDic = {}
 
-local MapResource = nil
+local MapResourceUrl = nil
+---@type UnityEngine.Transform
 local MapTransform = nil
+---@type UnityEngine.Transform
 local GroundRoot = nil
+---@type UnityEngine.Transform
 local WallRoot = nil
+---@type XHomeMapManager
 local HomeMapManager = nil  --房间地图配置管理器
 
+---@type UnityEngine.GameObject
 local RoomFacade = nil  --房间外墙模板
-local RoomRoot = nil
-local RoomTemplateGrid = nil
+---@type UnityEngine.GameObject
+local RoomRoot = nil --房间根节点 
+---@type UnityEngine.GameObject
+local RoomTemplateGrid = nil --模板房间
+---@type table<number,XHomeRoomObj>
 local RoomDic = {}
 
+---@type UnityEngine.GameObject
 local TallBuilding = nil
 
+---@type XHomeRoomObj
 local CurSelectedRoom = nil
 
 local IsSelectedFurniture = false
 local ClickFurnitureCallback = nil
+local NeedLoadFurnitureOnLoad = true --是否在进入宿舍时加载家具
+
+---@type XHomeRoomCache
+local HomeFurnitureCache
+
+---@type UnityEngine.Material[]
+local FurnitureRimMat = {}
+local FurnitureRedRimMatKey
 
 XHomeDormManager.DormBgm = {}
 XHomeDormManager.FurnitureShowAttrType = -1
@@ -62,19 +81,44 @@ local FurnitureMiniorType = {
 }
 
 local RecordRoomPutup = {}
--- 初始化场景
-local function InitScene(go, datas, dormDataType, onFinishLoadScene, isenterroom)
+
+local function InitFurnitureRimMat()
+    for key, template in pairs(XDormConfig.GetFurnitureRimMat()) do
+        local mat = CS.XMaterialContainerHelper.CloneMaterial(CS.XGraphicManager.RenderConst.RoomRimMat)
+        mat:SetColor("_HighlightColor", XUiHelper.Hexcolor2Color(template.HighlightColor))
+        mat:SetFloat("_MinHighLightLevel", template.MinHighLightLevel)
+        mat:SetFloat("_MaxHighLightLevel", template.MaxHighLightLevel)
+        mat:SetFloat("_HighlightSpeed", template.HighlightSpeed)
+        mat:SetFloat("_ColorIntensity", template.ColorIntensity)
+        mat:SetFloat("_Alpha", template.Alpha)
+        FurnitureRimMat[key] = mat
+    end
+end
+
+--- 初始化场景
+---@param go UnityEngine.GameObject 场景根物体
+---@param homeDormDataMap table<number,XHomeRoomData> 场景根物体
+---@param dormDataType number 加载宿舍类型XDormConfig.DormDataType
+---@param onFinishLoadScene function 场景全部加载完宿舍界面打开后执行
+---@param isEnterRoom boolean 是否进入房间内
+--------------------------
+local function InitScene(go, homeDormDataMap, dormDataType, onFinishLoadScene, isEnterRoom)
+    --加载行为树
+    XLuaBehaviorManager.LoadBehaviorTree(CS.BehaviorTree.XGamePlayType.DormOrGuild)
+    HomeFurnitureCache = HomeFurnitureCache or XHomeRoomCache.New(XDormConfig.DormLoadCacheCount)
+    InitFurnitureRimMat()
     -- 初始化格子
     CS.XGridManager.Instance:Init()
 
     --场景全局光照
     XHomeSceneManager.SetGlobalIllumSO(CS.XGame.ClientConfig:GetString("HomeSceneSoAssetUrl"))
 
+    GridColorSoDic = {}
     --格子颜色信息资源
     for key, path in pairs(GRID_COLOR_PATH) do
-        local resource = CS.XResourceManager.Load(path)
-        if resource then
-            GridColorSoDic[GridColorType[key]] = resource
+        local asset = XSceneResourceManager.LoadSync(path)
+        if asset then
+            GridColorSoDic[GridColorType[key]] = asset
         end
     end
 
@@ -91,10 +135,10 @@ local function InitScene(go, datas, dormDataType, onFinishLoadScene, isenterroom
 
     if not XTool.UObjIsNil(RoomRoot) then
         -- 加载房间数据
-        XHomeDormManager.LoadRooms(datas, dormDataType)
+        XHomeDormManager.LoadRooms(homeDormDataMap, dormDataType)
     end
     -- 加载收藏宿舍的入口图片
-    XDataCenter.DormManager.LoacdCollectTxture()
+    XDataCenter.DormManager.LoadCollectTexture()
 
     local camera = XHomeSceneManager.GetSceneCamera()
     HomeMapManager:SetCamera(camera)
@@ -108,7 +152,7 @@ local function InitScene(go, datas, dormDataType, onFinishLoadScene, isenterroom
             if onFinishLoadScene then
                 onFinishLoadScene()
             end
-            if isenterroom then
+            if isEnterRoom then
                 XLuaUiManager.Open("UiDormSecond", XDormConfig.VisitDisplaySetType.MySelf, XHomeDormManager.DormitoryId)
             end
         end)
@@ -131,13 +175,12 @@ end
 -- 移除场景
 local function RemoveScene()
     InDormitoryScene = false
+    NeedLoadFurnitureOnLoad = true
     CS.XGridManager.Instance:Clear()
-    for _, v in pairs(GridColorSoDic) do
-        if v then
-            v:Release()
-        end
+    for _, path in pairs(GRID_COLOR_PATH) do
+        XSceneResourceManager.Unload(path)
     end
-    GridColorSoDic = {}
+    GridColorSoDic = nil
 
     XLuaUiManager.Close("UiDormComponent")
 
@@ -148,27 +191,36 @@ local function RemoveScene()
         room:Dispose()
     end
     RoomDic = {}
+    if HomeFurnitureCache then
+        HomeFurnitureCache:Clear()
+    end
     CurSelectedRoom = nil
 
     HomeMapManager = nil
     GroundRoot = nil
     WallRoot = nil
     if not XTool.UObjIsNil(MapTransform) then
-        CS.UnityEngine.GameObject.Destroy(MapTransform.gameObject)
+        XUiHelper.Destroy(MapTransform.gameObject)
     end
     MapTransform = nil
-    if MapResource then
-        MapResource:Release()
-    end
-    MapResource = nil
+    XSceneResourceManager.Unload(MapResourceUrl)
+    MapResourceUrl = nil
 
-    for _, v in pairs(ResourceCacheDic) do
-        CS.XResourceManager.Unload(v)
+    for url, _ in pairs(ResourceCacheDic) do
+        XSceneResourceManager.Unload(url)
     end
+    for _, mat in pairs(FurnitureRimMat) do
+        XUiHelper.Destroy(mat)
+    end
+    FurnitureRimMat = {}
     ResourceCacheDic = {}
+    --卸载行为树
+    XLuaBehaviorManager.UnloadBehaviorTree(CS.BehaviorTree.XGamePlayType.DormOrGuild)
 end
 
--- 初始化地表地图
+--- 初始化地表地图
+---@param model UnityEngine.GameObject
+--------------------------
 local function InitSurfaceMap(model)
     MapTransform = model.transform
     GroundRoot = MapTransform:Find("@GroundRoot")
@@ -179,8 +231,18 @@ local function InitSurfaceMap(model)
     HomeMapManager:Init()
 end
 
--- 进入宿舍
-function XHomeDormManager.EnterDorm(targetId, dormitoryId, isSele, onFinishLoadScene, onFinishEnterRoom)
+--- 进入宿舍
+---@param targetId number 用户Id
+---@param dormitoryId number 宿舍Id
+---@param isEnterRoom boolean 是否进入房间内
+---@param onFinishLoadScene function 场景全部加载完宿舍界面打开后执行
+---@param onFinishEnterRoom function 宿舍Id
+---@return
+--------------------------
+function XHomeDormManager.EnterDorm(targetId, dormitoryId, isEnterRoom, onFinishLoadScene, onFinishEnterRoom)
+    if not XMVCA.XSubPackage:CheckSubpackage(XFunctionManager.FunctionName.Dorm) then
+        return
+    end
     local isSelf = true
     local dormDataType = XDormConfig.DormDataType.Self
     XHomeDormManager.TargetId = targetId
@@ -195,13 +257,14 @@ function XHomeDormManager.EnterDorm(targetId, dormitoryId, isSele, onFinishLoadS
         -- IsSelf = isSelf
         -- 根据房间类型获取房间数据XHomeRoomData
         local datas = XDataCenter.DormManager.GetDormitoryData(dormDataType)
+        NeedLoadFurnitureOnLoad = XDormConfig.GetDormFurnitureTotal(datas) <= XDormConfig.LoadThresholdTotal
 
         local onLoadCompleteCb = function(go)
             go.gameObject:SetActiveEx(true)
             -- 初始化场景
-            InitScene(go, datas, dormDataType, onFinishLoadScene, isSele)
+            InitScene(go, datas, dormDataType, onFinishLoadScene, isEnterRoom)
 
-            if dormitoryId and isSele then
+            if dormitoryId and isEnterRoom then
                 XHomeDormManager.SetSelectedRoom(dormitoryId, true, nil, onFinishEnterRoom)
             end
         end
@@ -209,12 +272,13 @@ function XHomeDormManager.EnterDorm(targetId, dormitoryId, isSele, onFinishLoadS
         XDataCenter.DormManager.RequestDormitoryDormEnter()
 
         -- 加载房间管理器
-        MapResource = CS.XResourceManager.Load(CS.XGame.ClientConfig:GetString("HomeMapAssetUrl"))
-        local model = CS.UnityEngine.Object.Instantiate(MapResource.Asset)
+        MapResourceUrl = CS.XGame.ClientConfig:GetString("HomeMapAssetUrl")
+        local asset = XSceneResourceManager.LoadSync(MapResourceUrl)
+        local model = CS.UnityEngine.Object.Instantiate(asset)
         -- 初始化地表地图，获取C#XHomeMapManager脚本，找到地板、墙壁根节点
         InitSurfaceMap(model)
         -- 设置全局光照
-        CS.XGlobalIllumination.SetSceneType(CS.XSceneType.Dormitory)
+        XUiHelper.SetSceneType(CS.XSceneType.Dormitory)
         -- 进入场景
         XHomeSceneManager.EnterScene("sushe003", CS.XGame.ClientConfig:GetString("SuShe003"), onLoadCompleteCb, RemoveScene)
 
@@ -325,14 +389,19 @@ function XHomeDormManager.AttachSurfaceToRoom(roomId)
             groundSurface.ConfigId = room.Ground.Data.CfgId
         end
 
+        if room.Wall == nil then
+            XLog.Error("缺少墙的数据....(迷惑)")
+            return
+        end
         -- 4个
-        local wallSurface = WallRoot:GetComponentInChildren(typeof(CS.XHomeSurface))
-        if not XTool.UObjIsNil(wallSurface) then
-            if room.Wall == nil then
-                XLog.Error("缺少墙的数据....(迷惑)")
-            else
-                wallSurface.ConfigId = room.Wall.Data.CfgId
-            end
+        local wallSurfaceArr = WallRoot:GetComponentsInChildren(typeof(CS.XHomeSurface))
+
+        if wallSurfaceArr == nil or wallSurfaceArr.Length < 4 then
+            XLog.Error("墙体数据不匹配")
+        end
+
+        for i = 0, wallSurfaceArr.Length - 1 do
+            wallSurfaceArr[i].ConfigId = room.Wall.Data.CfgId
         end
 
         MapTransform:SetParent(room.Transform, false)
@@ -358,8 +427,8 @@ function XHomeDormManager.OnShowBlockGrids(platType, gridOffset, rotate)
         return
     end
 
-    local so = XHomeDormManager.GetGridColorSO(GridColorType.Red)
-    HomeMapManager:OnShowBlockGrids(platType, gridOffset, so.Asset, rotate)
+    local asset = XHomeDormManager.GetGridColorSO(GridColorType.Red)
+    HomeMapManager:OnShowBlockGrids(platType, gridOffset, asset, rotate)
 end
 
 function XHomeDormManager.OnHideBlockGrids(platType, rotate)
@@ -449,6 +518,14 @@ function XHomeDormManager.ReformRoom(roomId, isBegin)
     room:Reform(isBegin)
 end
 
+function XHomeDormManager.ClearFurnitureAnimation(roomId)
+    local room = RoomDic[roomId]
+    if not room then
+        return
+    end
+    room:ClearFurnitureAnimation()
+end
+
 -- 收起房间全部家具
 function XHomeDormManager.CleanRoom(roomId)
     local room = RoomDic[roomId]
@@ -456,7 +533,7 @@ function XHomeDormManager.CleanRoom(roomId)
         return
     end
 
-    room:CleanRoom()
+    room:CleanRoom(true)
 end
 
 -- 重置房间
@@ -495,8 +572,16 @@ function XHomeDormManager.SaveRoomModification(roomId, isBehavior, cb)
     XDataCenter.DormManager.RequestDecorationRoom(roomId, room, isBehavior, cb)
 end
 
--- 创建家具
-function XHomeDormManager.CreateFurniture(roomId, furnitureData, gridPos, rotate)
+--- 创建家具
+---@param roomId number 房间Id
+---@param furnitureData XHomeRoomData 房间数据
+---@param gridPos UnityEngine.Vector2 格子坐标
+---@param rotate number 在Y轴的旋转角度
+---@param isAsync boolean 是否异步
+---@param onComplete function 加载完成回调
+---@return XHomeFurnitureObj
+--------------------------
+function XHomeDormManager.CreateFurniture(roomId, furnitureData, gridPos, rotate, isAsync, onComplete)
     if not furnitureData then
         return
     end
@@ -519,7 +604,7 @@ function XHomeDormManager.CreateFurniture(roomId, furnitureData, gridPos, rotate
     data.GridY = gridPos.y
     data.RotateAngle = rotate
 
-    local furniture = XHomeFurnitureObj.New(data, room)
+    local furniture = XHomeFurnitureObj.New(data, room, onComplete)
     local root
     if furniture.Cfg.LocateType == XFurnitureConfigs.HomeLocateType.Replace then
         root = room.SurfaceRoot
@@ -527,20 +612,53 @@ function XHomeDormManager.CreateFurniture(roomId, furnitureData, gridPos, rotate
         root = room.FurnitureRoot
     end
 
-    furniture:LoadModel(furniture.Cfg.Model, root)
+    if string.IsNilOrEmpty(furniture.Cfg.Model) then
+        XLog.Warning("加载家具失败，家具模型Url为空, 家具Id = " .. furnitureData.ConfigId)
+        return
+    end
+
+    if isAsync then
+        furniture:LoadModelAsync(furniture.Cfg.Model, root)
+    else
+        furniture:LoadModel(furniture.Cfg.Model, root)
+    end
     if isTemplateRoom then
         return furniture
     end
 
-    if room.Data:IsSelfData() then
-        XHomeDormManager.ReplaceFurnitureMaterial(furniture, furnitureData.Id, XDormConfig.DormDataType.Self)
-        XHomeDormManager.ReplaceFurnitureFx(furniture, furnitureData.Id, XDormConfig.DormDataType.Self)
-    else
-        XHomeDormManager.ReplaceFurnitureMaterial(furniture, furnitureData.Id, XDormConfig.DormDataType.Target)
-        XHomeDormManager.ReplaceFurnitureFx(furniture, furnitureData.Id, XDormConfig.DormDataType.Target)
+    return furniture
+end
+
+function XHomeDormManager.UpdateFurnitureData(roomId, oldIds, newIds)
+    local room = RoomDic[roomId]
+    if not room then
+        return
     end
 
-    return furniture
+    room:UpdateFurnitureData(oldIds, newIds)
+end
+
+function XHomeDormManager.GetFurnitureObj(roomId, furnitureId)
+    if not XTool.IsNumberValid(roomId) or not XTool.IsNumberValid(furnitureId) then
+        return
+    end
+    local room = RoomDic[roomId]
+    if not room then
+        return
+    end
+    
+    return room:GetFurnitureObjById(furnitureId)
+end
+
+function XHomeDormManager.CancelSelectRayCast(roomId)
+    if not XTool.IsNumberValid(roomId) then
+        return
+    end
+    local room = RoomDic[roomId]
+    if not room then
+        return
+    end
+    room:CancelSelectRayCast()
 end
 
 function XHomeDormManager.ReplaceFurnitureMaterial(furniture, furnitureId, dormDataType)
@@ -548,12 +666,12 @@ function XHomeDormManager.ReplaceFurnitureMaterial(furniture, furnitureId, dormD
     if not materialPath then
         return
     end
-    local targetMaterial = ResourceCacheDic[materialPath]
-    if not targetMaterial then
-        targetMaterial = CS.XResourceManager.Load(materialPath)
-        ResourceCacheDic[materialPath] = targetMaterial
+    local asset = ResourceCacheDic[materialPath]
+    if not asset then
+        asset = XSceneResourceManager.LoadSync(materialPath)
+        ResourceCacheDic[materialPath] = asset
     end
-    CS.XMaterialContainerHelper.ReplaceDormMat(furniture.GameObject, targetMaterial.Asset)
+    CS.XMaterialContainerHelper.ReplaceDormMat(furniture.GameObject, asset)
 end
 
 function XHomeDormManager.ReplaceFurnitureFx(furniture, furnitureId, dormDataType)
@@ -595,6 +713,15 @@ function XHomeDormManager.CheckFurnitureCountReachLimitByPutNumType(roomId, putN
     return room:CheckFurnitureCountReachLimitByPutNumType(putNumType)
 end
 
+-- 检测房间中摆放生成宠物的家具数量限制
+function XHomeDormManager.CheckFurnitureCountReachLimitByPet(roomId)
+    local room = RoomDic[roomId]
+    if not room then
+        return true
+    end
+    return room:CheckFurnitureCountReachLimitByPet()
+end
+
 -- 往房间中加入家具
 function XHomeDormManager.AddFurniture(roomId, furniture)
     local room = RoomDic[roomId]
@@ -615,19 +742,18 @@ function XHomeDormManager.RemoveFurniture(roomId, furniture)
 end
 
 -- 选中指定房间
-function XHomeDormManager.SetSelectedRoom(roomId, isSelected, isvistor, onFinishEnterRoom)
+function XHomeDormManager.SetSelectedRoom(roomId, isSelected, isVisitor, onFinishEnterRoom)
     -- 镜面管理
     CS.XMirrorManager.Instance:SetDormLayer(isSelected, CS.UnityEngine.LayerMask.GetMask(HomeSceneLayerMask.Device))
     local room = RoomDic[roomId]
     if not room then
         return nil
     end
-
     if CurSelectedRoom then
         if CurSelectedRoom.Data.Id == room.Data.Id then
             CurSelectedRoom:SetCharacterExit()
-            CurSelectedRoom:SetSelected(isSelected, true, onFinishEnterRoom)
-            if isvistor then
+            CurSelectedRoom:SetSelected(isSelected, true, isSelected and onFinishEnterRoom or nil)
+            if isVisitor and not isSelected then
                 CurSelectedRoom = nil
             end
             if not isSelected then
@@ -636,7 +762,7 @@ function XHomeDormManager.SetSelectedRoom(roomId, isSelected, isvistor, onFinish
             return
         end
 
-        CurSelectedRoom:SetSelected(false, nil, onFinishEnterRoom)
+        CurSelectedRoom:SetSelected(false)
     end
 
     -- 选中当前的房间，进入，创建角色
@@ -730,7 +856,11 @@ function XHomeDormManager.CheckMultiBlock(blockCfgId, x, y, width, height, type,
     end
 end
 
--- 世界坐标转地板格子坐标
+--- 世界坐标转地板格子坐标
+---@param worldPos UnityEngine.Vector3 世界坐标
+---@param roomTransform UnityEngine.Transform 房间
+---@return UnityEngine.Vector2Int
+--------------------------
 function XHomeDormManager.WorldPosToGroundGridPos(worldPos, roomTransform)
     if XTool.UObjIsNil(HomeMapManager) then
         return CS.UnityEngine.Vector2.zero, 0
@@ -881,7 +1011,7 @@ function XHomeDormManager.GetFurnitureScoresByRoomData(roomData, dormDataType)
     }
 end
 
-function XHomeDormManager.GetFurnitureScoresByUnsaveRoom(roomId)
+function XHomeDormManager.GetFurnitureScoresByUnSaveRoom(roomId, dormDataType)
     local room = RoomDic[roomId]
     local totalScore = 0
     local attrList = {
@@ -896,13 +1026,13 @@ function XHomeDormManager.GetFurnitureScoresByUnsaveRoom(roomId)
         }
     end
 
-    local roomData = XDataCenter.DormManager.GetRoomDataByRoomId(roomId)
+    local roomData = XDataCenter.DormManager.GetRoomDataByRoomId(roomId, dormDataType)
 
-    return XHomeDormManager.GetFurnitureScoresByRoomData(roomData)
+    return XHomeDormManager.GetFurnitureScoresByRoomData(roomData, dormDataType)
 end
 
 -- 获取
-function XHomeDormManager.GetFurnitureScoresByRoomId(roomId)
+function XHomeDormManager.GetFurnitureScoresByRoomId(roomId, dormDataType)
     local room = RoomDic[roomId]
     local totalScore = 0
     local attrList = {
@@ -919,7 +1049,7 @@ function XHomeDormManager.GetFurnitureScoresByRoomId(roomId)
 
     local roomData = room:GetData()
 
-    return XHomeDormManager.GetFurnitureScoresByRoomData(roomData)
+    return XHomeDormManager.GetFurnitureScoresByRoomData(roomData, dormDataType)
 end
 
 -- 获取宿舍内3D坐标 对应2D坐标
@@ -1025,6 +1155,60 @@ function XHomeDormManager.IsNeedSave(roomId, roomDataType)
     return false
 end
 
+--- 是否需要保存模板宿舍
+---@return boolean
+--------------------------
+function XHomeDormManager.IsNeedSaveByTemplate(roomId, roomType, targetRoomId)
+    local room = RoomDic[targetRoomId]
+    if not room then
+        return false
+    end
+    --模板数据
+    local templateData = XDataCenter.DormManager.GetRoomDataByRoomId(roomId, roomType)
+    --目标数据
+    local targetData = room:GetData()
+    
+    local templateList = templateData:GetFurnitureDic()
+    local targetList = targetData:GetFurnitureDic()
+    
+    local templateCount = XHomeDormManager.GetFurnitureNumsByDic(templateList)
+    local targetCount = XHomeDormManager.GetFurnitureNumsByDic(targetList)
+
+    if targetCount ~= templateCount then
+        return true
+    end
+    
+    local furnitureObjMap = room:GetAllFurnitureObj()
+
+    for _, furniture in pairs(templateList) do
+        -- 地板，天花板，墙
+        if XFurnitureConfigs.IsFurnitureMatchTypeByConfigId(furniture.ConfigId, XFurnitureConfigs.HomeSurfaceBaseType.Ground) then
+            if furniture.ConfigId ~= room.Ground.Data.CfgId then
+                return true
+            end
+        elseif XFurnitureConfigs.IsFurnitureMatchTypeByConfigId(furniture.ConfigId, XFurnitureConfigs.HomeSurfaceBaseType.Ceiling) then
+            if furniture.ConfigId ~= room.Ceiling.Data.CfgId then
+                return true
+            end
+        elseif XFurnitureConfigs.IsFurnitureMatchTypeByConfigId(furniture.ConfigId, XFurnitureConfigs.HomeSurfaceBaseType.Wall) then
+            if furniture.ConfigId ~= room.Wall.Data.CfgId then
+                return true
+            end
+        else
+            local furnitureObj = furnitureObjMap[room:GetIdByTemplateFurnitureId(furniture.Id)]
+            if not furnitureObj then
+                return true
+            end
+            if furniture.ConfigId ~= furnitureObj.Data.CfgId or furniture.GridX ~= furnitureObj.GridX or
+                    furniture.GridY ~= furnitureObj.GridY or furniture.RotateAngle ~= furnitureObj.RotateAngle then
+                return true
+            end
+        end
+    end
+    
+    return false
+end
+
 function XHomeDormManager.GetFurnitureNumsByDic(furnitureDic)
     local totalNum = 0
     if not furnitureDic then
@@ -1040,6 +1224,46 @@ end
 function XHomeDormManager.GetSingleDormByRoomId(roomId)
     local room = RoomDic[roomId]
     return room
+end
+
+function XHomeDormManager.RaycastUnOwnedFurniture(currentRoomId, targetRoomId, currentRoomType, targetRoomType)
+    local current = XDataCenter.DormManager.GetRoomDataByRoomId(currentRoomId, currentRoomType)
+    local target = XDataCenter.DormManager.GetRoomDataByRoomId(targetRoomId, targetRoomType)
+
+    if not current or not target then
+        return
+    end
+
+    local room = RoomDic[currentRoomId]
+    if not room then
+        return
+    end
+    
+    local currentFurniture = current:GetFurnitureConfigDic()
+    local targetFurniture = target:GetFurnitureConfigDic()
+    local bagFurniture = XDataCenter.FurnitureManager.GetUnUseFurniture()
+    
+    local unOwn = {}
+
+    for configId, furnitureIds in pairs(currentFurniture) do
+        local needCount = #furnitureIds
+        local targetCount = #(targetFurniture[configId] or {})
+        local bagCount = #(bagFurniture[configId] or {})
+        local ownCount = targetCount + bagCount
+        if needCount > ownCount then
+            for i = ownCount + 1, needCount do
+                table.insert(unOwn, furnitureIds[i])
+            end
+        end
+    end
+    
+    local dict = room:GetAllFurnitureObj()
+    for _, furnitureId in pairs(unOwn) do
+        local obj = dict[furnitureId]
+        if obj and obj.RayCastNotOwn then
+            obj:RayCastNotOwn(true)
+        end
+    end
 end
 
 function XHomeDormManager.DormistoryGetFarestWall(dormitoryId)
@@ -1106,9 +1330,61 @@ function XHomeDormManager.IsInRoom(roomId)
     return false
 end
 
+--是否在进入宿舍时加载家具
+function XHomeDormManager.CheckLoadFurnitureOnEnter()
+    return NeedLoadFurnitureOnLoad
+end
+
 --将网格的坐标显示到UI上 仅用于编辑器模式
 function XHomeDormManager.ShowGridPosInUi(type)
     if not XTool.UObjIsNil(HomeMapManager) then
         return HomeMapManager:ShowGridPosInUi(type)
     end
+end
+
+function XHomeDormManager.Test()
+    local root = CS.UnityEngine.GameObject.Find("sushe003(Clone)").transform
+    local base = root:Find("@Room/@Room_21001")
+    local extra = {"@Room/@Room_21001","@Room/@Room_21003", "@Room/@Room_21005"}
+    local curPos = base.localPosition
+    for i = 1, #extra do
+        local room = root:Find(extra[i])
+        room.gameObject:SetActiveEx(true)
+        curPos.z = curPos.z + 12
+        room.localPosition = curPos
+        local facade = room:Find("@RoomFacade(Clone)")
+        facade.gameObject:SetActiveEx(false)
+        local furniture = room:Find("@Furniture")
+        furniture.gameObject:SetActiveEx(true)
+        local surface = room:Find("@Surface")
+        surface.gameObject:SetActiveEx(true)
+        local chars = room:Find("@Character")
+        chars.gameObject:SetActiveEx(true)
+    end
+    root:Find("@Room/@Room_21001/@Surface/Teahousewall001(Clone)/0").gameObject:SetActiveEx(false)
+    root:Find("@Room/@Room_21003/@Surface/Teahousewall001(Clone)/0").gameObject:SetActiveEx(false)
+    root:Find("@Room/@Room_21003/@Surface/Teahousewall001(Clone)/2").gameObject:SetActiveEx(false)
+    root:Find("@Room/@Room_21005/@Surface/Teahousewall001(Clone)/2").gameObject:SetActiveEx(false)
+    root:Find("Camera"):GetComponent("Camera").farClipPlane = 50
+    for _, room in pairs(RoomDic) do
+        room:ResetCharacterList()
+    end
+end
+
+--- 更新缓存
+---@param roomObj XHomeRoomObj
+--------------------------
+function XHomeDormManager.UpdateRoomCache(roomObj)
+    -- 未达到阈值，不采用缓存机制
+    if XHomeDormManager.CheckLoadFurnitureOnEnter() then
+        return
+    end
+    HomeFurnitureCache:Enqueue(roomObj)
+end
+
+function XHomeDormManager.GetFurnitureRedRimMat()
+    if not FurnitureRedRimMatKey then
+        FurnitureRedRimMatKey = "UnOwnRed"
+    end
+    return FurnitureRimMat[FurnitureRedRimMatKey]
 end

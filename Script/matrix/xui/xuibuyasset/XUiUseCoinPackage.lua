@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiCoinPackage = require("XUi/XUiBuyAsset/XUiCoinPackage")
 local XUiUseCoinPackage = XLuaUiManager.Register(XLuaUi, "UiUseCoinPackage")
 local NOT_SELECT_TIP = CS.XTextManager.GetText("UseNutPackage")
@@ -6,14 +7,14 @@ local OVER_MAX_COUNT_TIP = CS.XTextManager.GetText("NutOverMaxCount")
 function XUiUseCoinPackage:OnAwake()
     -- 重新注册下名字
     self.ItemScrollView = self.ElectricPackageScroll
-    self.TxtCount = self.TxtCurrentElectric
-    self.TxtGetCount = self.TxtElectricNumPackage
+    self.TxtCount = self.TxtCurrentCoin
+    self.TxtGetCount = self.TxtCoinGetCount
     self.BtnExchange = self.BtnElectricExchange
     -- 隐藏/显示关联的对象
-    --self.TxtElectricNumPackage.gameObject:SetActiveEx(false)
-    --self.PanelCurrentElectricItem.gameObject:SetActiveEx(false)
-    --self.TxtCoinGetCount.gameObject:SetActiveEx(true)
-    --self.PanelCurrentCoinItem.gameObject:SetActiveEx(true)
+    self.TxtElectricNumPackage.gameObject:SetActiveEx(false)
+    self.PanelCurrentElectricItem.gameObject:SetActiveEx(false)
+    self.TxtCoinGetCount.gameObject:SetActiveEx(true)
+    self.PanelCurrentCoinItem.gameObject:SetActiveEx(true)
     -- 其他变量
     self.Items = {}
     --[[
@@ -87,8 +88,8 @@ function XUiUseCoinPackage:RegisterUiEvents()
 end
 
 function XUiUseCoinPackage:RefreshDynamicTable()
-    self.Items = XDataCenter.ItemManager.GetCoinPackages()
-    self.ImgEmpty.gameObject:SetActiveEx(#self.Items <= 0)
+    self.Items = XDataCenter.ItemManager.GetCurrentCoinPackages()
+    self.ImgEmptyCoinPackageTip.gameObject:SetActiveEx(#self.Items <= 0)
     self.DynamicTable:SetDataSource(self.Items)
     self.DynamicTable:ReloadDataSync(1)
 end
@@ -161,10 +162,6 @@ end
 
 function XUiUseCoinPackage:RefreshCurrentCount()
     self.TxtCount.text = XDataCenter.ItemManager.GetCount(self.ItemId)
-    self.TxtCurrentDes.text = CS.XTextManager.GetText("BuyAssetCurNutCaseTxtDesc")--获得螺母
-    self.TxtCurItemName.text = CS.XTextManager.GetText("BuyAssetCurNutCaseNameDesc")--现在的螺母
-    self.ImgIcon:SetRawImage(XDataCenter.ItemManager.GetItemIcon(self.ItemId))
-    self.CurrencyText1.gameObject:SetActive(false)
 end
 
 return XUiUseCoinPackage

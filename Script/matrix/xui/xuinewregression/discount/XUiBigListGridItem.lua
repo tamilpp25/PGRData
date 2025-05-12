@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiBigListGridItem = XClass(nil, "XUiBigListGridItem")
 
 function XUiBigListGridItem:Ctor(ui, rootUi)

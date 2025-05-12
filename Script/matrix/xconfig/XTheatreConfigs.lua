@@ -325,6 +325,20 @@ function XTheatreConfigs.GetCheckDecorationGroupIndex()
     return groupIndex and tonumber(groupIndex)
 end
 
+--region 冒险模式
+function XTheatreConfigs.GetSPModeConditionId()
+    return XTheatreConfigs.GetTheatreConfig("SPModeConditionId").Value
+end
+
+function XTheatreConfigs.GetSPModeOpenTile()
+    return XTheatreConfigs.GetTheatreClientConfig("SPModeOpenTile").Values[1]
+end
+
+function XTheatreConfigs.GetSPModeCloseTile()
+    return XTheatreConfigs.GetTheatreClientConfig("SPModeCloseTile").Values[1]
+end
+--endregion
+
 ------------------TheatreAutoTeam 自动编队 begin----------------------
 local _AutoTeamDefaultStageId = 0
 

@@ -35,7 +35,7 @@ function XUiGridSkillElement:UpdateSkillInfo()
         panel = self.Activate
     end
 
-    local elementConfig = XCharacterConfigs.GetCharElement(self.SkillGroup:GetActiveElement())
+    local elementConfig = XMVCA.XCharacter:GetCharElement(self.SkillGroup:GetActiveElement())
 
     panel:GetObject("RImgIcon"):SetRawImage(elementConfig.Icon2)
     panel:GetObject("TxtName").text = elementConfig.ElementName

@@ -17,7 +17,12 @@ function XUiStrongholdSupportTips:OnStart(supportId, teamList)
 end
 
 function XUiStrongholdSupportTips:OnEnable()
+
     self:UpdateView()
+end
+
+function XUiStrongholdSupportTips:OnDisable()
+
 end
 
 function XUiStrongholdSupportTips:UpdateView()

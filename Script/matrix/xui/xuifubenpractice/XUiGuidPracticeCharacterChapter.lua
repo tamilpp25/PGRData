@@ -8,10 +8,23 @@ function XUiGuidPracticeCharacterChapter:Ctor(rootUi, ui, parent)
 
     XTool.InitUiObject(self)
     self:AddBtnsListeners()
+
+    local XUiTextScrolling = require("XUi/XUiTaikoMaster/XUiTaikoMasterFlowText")
+    ---@type XUiTaikoMasterFlowText
+    self.NameTextScrolling = XUiTextScrolling.New(self.TxtFightNameNor ,self.TxtNameMaskNor)
+    self.NameTextScrolling:Stop()
+    ---@type XUiTaikoMasterFlowText
+    self.NameLockTextScrolling = XUiTextScrolling.New(self.TxtFightNameLock ,self.TxtNameMaskLock)
+    self.NameLockTextScrolling:Stop()
 end
 
 function XUiGuidPracticeCharacterChapter:AddBtnsListeners()
     XUiHelper.RegisterClickEvent(self, self.BtnStage, self.OnBtnStageClick)
+end
+
+function XUiGuidPracticeCharacterChapter:UpdateNodeScroll()
+    self.NameTextScrolling:Stop()
+    self.NameLockTextScrolling:Stop()
 end
 
 function XUiGuidPracticeCharacterChapter:SetNormalStage(isLock, groupId)
@@ -24,6 +37,8 @@ function XUiGuidPracticeCharacterChapter:SetNormalStage(isLock, groupId)
         local inActivity = XDataCenter.PracticeManager.CheckChapterInActivity(groupId)
         self.PanelActivityTag.gameObject:SetActiveEx(inActivity)
     end
+    self.NameTextScrolling:Stop()
+    self.NameTextScrolling:Play()
 end
 
 function XUiGuidPracticeCharacterChapter:SetLockStage(isLock, groupId)
@@ -32,6 +47,8 @@ function XUiGuidPracticeCharacterChapter:SetLockStage(isLock, groupId)
         self.TxtFightNameLock.text = XPracticeConfigs.GetPracticeGroupName(groupId)
         self.RImgFightActiveLock:SetRawImage(XPracticeConfigs.GetPracticeGroupIcon(groupId))
     end
+    self.NameLockTextScrolling:Stop()
+    self.NameLockTextScrolling:Play()
 end
 
 function XUiGuidPracticeCharacterChapter:SetPassStage(groupId)
@@ -63,8 +80,23 @@ function XUiGuidPracticeCharacterChapter:OnBtnStageClick()
         if self.RootUi.SetSelectStageId then
             self.RootUi:SetSelectStageId(self.GroupId)
         end
+        
+        local skipId = XPracticeConfigs.GetPracticeSkipIdByGroupId(self.GroupId)
 
-        self.RootUi:OpenStageDetail(self.GroupId)
+        if XTool.IsNumberValid(skipId) then
+            if XFunctionManager.IsCanSkip(skipId) then
+                XFunctionManager.SkipInterface(skipId)
+            else
+                local skipCfg = XFunctionConfig.GetSkipFuncCfg(skipId)
+                if skipCfg and XTool.IsNumberValid(skipCfg.FunctionalId) then
+                    local desc = XFunctionManager.GetFunctionOpenCondition(skipCfg.FunctionalId)
+                    XUiManager.TipMsg(desc)
+                end
+            end
+        else
+            self.RootUi:OpenStageDetail(self.GroupId)
+        end
+
     end
 end
 

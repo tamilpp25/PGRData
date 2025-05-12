@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridTRPGTestItem = require("XUi/XUiTRPG/XUiGridTRPGTestItem")
 local XUiGridTRPGTestRole = require("XUi/XUiTRPG/XUiGridTRPGTestRole")
 local XUiGridTRPGRoleDetail = require("XUi/XUiTRPG/XUiGridTRPGRoleDetail")

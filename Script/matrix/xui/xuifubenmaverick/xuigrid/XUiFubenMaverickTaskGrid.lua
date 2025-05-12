@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenMaverickTaskGrid = XClass(nil, "XUiFubenMaverickTaskGrid")
 local Instantiate = CS.UnityEngine.Object.Instantiate
 

@@ -1,3 +1,6 @@
+local XUiPlayerInfoBase = require("XUi/XUiPlayerInfo/XUiPlayerInfoBase")
+local XUiPlayerInfoFight = require("XUi/XUiPlayerInfo/XUiPlayerInfoFight")
+local XUiPlayerInfoAppearance = require("XUi/XUiPlayerInfo/XUiPlayerInfoAppearance")
 local XUiPlayerInfo = XLuaUiManager.Register(XLuaUi, "UiPlayerInfo")
 
 function XUiPlayerInfo:OnStart(data, chatContent, isOpenFromSetting)
@@ -52,13 +55,13 @@ end
 
 function XUiPlayerInfo:OnBtnChat()
     -- 联机中不给跳转，防止跳出联机房间
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
-        XUiManager.TipMsg(CS.XTextManager.GetText("UnionCantLeaveRoom"))
-        return
-    end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipMsg(CS.XTextManager.GetText("UnionCantLeaveRoom"))
+    --    return
+    --end
 
-    XUiHelper.CloseUiChatServeMain()
+    XLuaUiManager.Close("UiChatServeMain")
 
     if XLuaUiManager.IsUiShow("UiSocial") then
         XLuaUiManager.CloseWithCallback("UiPlayerInfo", function()
@@ -181,14 +184,18 @@ end
 
 function XUiPlayerInfo:UpdateMentorInfo()
     local mentorData = XDataCenter.MentorSystemManager.GetMentorData()
+    -- 判断查看的玩家信息是不是自己
     local IsSelf = self.Data.Id == XPlayer.Id
+    -- 判断查看的玩家是不是自己的学生或导师
     local IsMyMentorShip = mentorData:IsMyMentorShip(self.Data.Id)
     local IdentityType = self.Data.MentorDetail and self.Data.MentorDetail.MentorType or XMentorSystemConfigs.IdentityType.None
+    -- 判断查看的玩家师徒关系类型和自己是否相同
     local IsSameIdentity = IdentityType == mentorData:GetIdentity()
     local IsCanShow = not IsSelf and not IsSameIdentity and IdentityType ~= XMentorSystemConfigs.IdentityType.None
     local IsCanGraduatLevel = self:CheckIsCanGraduatLevel(mentorData)
+    local isDisconnectCanShow = not IsSelf and not IsSameIdentity
     self.BtnBuildMentorships.gameObject:SetActiveEx(IsCanShow and not IsMyMentorShip)
-    self.BtnDisconnect.gameObject:SetActiveEx((not IsCanGraduatLevel) and IsCanShow and IsMyMentorShip)
+    self.BtnDisconnect.gameObject:SetActiveEx((not IsCanGraduatLevel) and isDisconnectCanShow and IsMyMentorShip)
     self.BtnGraduation.gameObject:SetActiveEx(IsCanGraduatLevel and IsCanShow and IsMyMentorShip)
 end
 
@@ -382,4 +389,12 @@ end
 function XUiPlayerInfo:TipDialog(cancelCb, confirmCb, TextKey)
     XLuaUiManager.Open("UiDialog", CS.XTextManager.GetText("TipTitle"), CS.XTextManager.GetText(TextKey),
     XUiManager.DialogType.Normal, cancelCb, confirmCb)
+end
+
+function XUiPlayerInfo:OnEnable()
+
+end
+
+function XUiPlayerInfo:OnDisable()
+
 end

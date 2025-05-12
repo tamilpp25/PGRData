@@ -1,4 +1,5 @@
-XScrollView = XClass(XLuaBehaviour, "XScrollView")
+local XScrollConfig = require("XUi/XUiCommon/XScrollView/XScrollConfig")
+local XScrollView = XClass(XLuaBehaviour, "XScrollView")
 
 local DEFAULT_START_VALUE = 0.1                 -- 默认起始坐标参数值
 local DEFAULT_OFFSET_VALUE = 0.2                -- 默认间隔坐标参数值
@@ -362,3 +363,5 @@ function XScrollView:Dispose()
         CS.UnityEngine.GameObject.Destroy(self.UiWidget)
     end
 end
+
+return XScrollView

@@ -1,5 +1,7 @@
 local stringUtf8Len = string.Utf8Len
 local DefaultColor = CS.UnityEngine.Color.white
+local UpperCenter = CS.UnityEngine.TextAnchor.UpperCenter
+local UpperLeft = CS.UnityEngine.TextAnchor.UpperLeft
 
 local XUiGridSingleDialog = XClass(nil, "XUiGridSingleDialog")
 
@@ -9,12 +11,14 @@ function XUiGridSingleDialog:Ctor(ui)
     XTool.InitUiObject(self)
 end
 
-function XUiGridSingleDialog:Refresh(dialogContent, color, duration, typeWriterCb)
+function XUiGridSingleDialog:Refresh(dialogContent, isCenter, color, duration, typeWriterCb)
     local txtWords = self.TxtWords
     local typeWriter = self.TypeWriter
     txtWords.text = dialogContent
 
     self.DialogContent = dialogContent
+
+    self.LayoutGroup.ChildAlignment = isCenter and UpperCenter or UpperLeft
 
     if color then
         txtWords.color = XUiHelper.Hexcolor2Color(color)

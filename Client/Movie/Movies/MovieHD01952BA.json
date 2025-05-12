@@ -42,7 +42,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u5728\u821e\u53f0\u524d\u505c\u4e0b\u811a\u6b65\uff0c\u521a\u51c6\u5907\u8f6c\u5934\u5bf9\u90a6\u6bd4\u5a1c\u5854\u8bf4\u4e9b\u4ec0\u4e48\uff0c\u8eab\u540e\u5c31\u4f20\u6765\u5c0f\u5c0f\u7684\u51b2\u51fb\u611f\u3002"
+            "Stopping before the stage, you turn around to speak to Bambinata, only to feel a slight bump behind you."
         ]
     },
     {
@@ -74,7 +74,7 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "\u8f6c\u8eab\u770b\u53bb\uff0c\u662f\u90a6\u6bd4\u5a1c\u5854\u6ca1\u6709\u6765\u5f97\u53ca\u505c\u4e0b\u811a\u6b65\uff0c\u76f4\u76f4\u649e\u5728\u4e86\u81ea\u5df1\u8eab\u4e0a\u3002"
+            "You turn to find Bambinata crashing into you, unable to stop in time."
         ]
     },
     {
@@ -89,7 +89,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854\uff1f"
+            "Bambinata?"
         ]
     },
     {
@@ -104,8 +104,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u2026\u2026\u5230\u505c\u4e0b\u7684\u65f6\u5019\u4e86\u5417\uff1f",
+            "Bambinata",
+            "...Is it time to stop?",
             1.0
         ]
     },
@@ -121,8 +121,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u545c\u2026\u2026\u90a6\u6bd4\u5a1c\u5854\u53c8\u505a\u9519\u4e86\u5417\uff1f",
+            "Bambinata",
+            "Ugh... Did Bambinata do something wrong again?",
             1.0
         ]
     },
@@ -138,7 +138,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u6ca1\u6709\uff0c\u4f60\u505a\u7684\u5f88\u597d\u3002",
+            "You didn't do anything wrong. You did well.",
             "10"
         ]
     },
@@ -154,8 +154,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u55ef\u2026\u2026",
+            "Bambinata",
+            "Hm...",
             1.0
         ]
     },
@@ -171,8 +171,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u6307\u6325\u5b98\u4f3c\u4e4e\u6ca1\u6709\u751f\u6c14\u3002",
+            "Bambinata",
+            "You don't seem upset, Commandant.",
             1.0
         ]
     },
@@ -188,7 +188,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u56e0\u4e3a\u90a6\u6bd4\u5a1c\u5854\u6ca1\u6709\u505a\u9519\u4ec0\u4e48\u3002",
+            "Because you didn't do anything wrong.",
             "13"
         ]
     },
@@ -204,7 +204,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u5c11\u5973\u6e5b\u84dd\u7684\u77b3\u5b54\u72b9\u7591\u5730\u8f6c\u8fc7\u6765\uff0c\u5728\u786e\u8ba4\u8fc7\u81ea\u5df1\u771f\u7684\u6ca1\u6709\u751f\u6c14\u4e4b\u540e\uff0c\u624d\u7565\u7565\u653e\u677e\u4e0b\u6765\u3002"
+            "Her confused blue eyes turn to look at you, only relaxing upon confirming that you are not angry."
         ]
     },
     {
@@ -219,7 +219,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854\u559c\u6b22\u8fd9\u91cc\u5417\uff1f",
+            "Do you like it here, Bambinata?",
             "15"
         ]
     },
@@ -235,8 +235,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u53ea\u8981\u662f\u6307\u6325\u5b98\u7684\u547d\u4ee4\uff0c\u90a6\u6bd4\u5a1c\u5854\u90fd\u4f1a\u5c3d\u91cf\u53bb\u505a\u3002",
+            "Bambinata",
+            "Bambinata will make every effort to fulfill your orders, Commandant.",
             1.0
         ]
     },
@@ -252,8 +252,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u4f46\u662f\uff0c\u5728\u901a\u8fc7\u8ff7\u5bab\uff0c\u89c1\u5230\u6307\u6325\u5b98\u7684\u65f6\u5019\u2026\u2026",
+            "Bambinata",
+            "But when Bambinata saw you in the maze...",
             1.0
         ]
     },
@@ -269,8 +269,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u90a6\u6bd4\u5a1c\u5854\u6709\u4e9b\u2026\u2026\u4e0d\u4e00\u6837\u7684\u611f\u89c9\u3002",
+            "Bambinata",
+            "It felt... different.",
             1.0
         ]
     },
@@ -286,8 +286,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u6ca1\u6709\u8fd9\u6837\u7c7b\u4f3c\u7684\u8bb0\u5fc6\uff0c\u90a6\u6bd4\u5a1c\u5854\u4e0d\u77e5\u9053\u5e94\u8be5\u600e\u4e48\u5f62\u5bb9\u8fd9\u6837\u7684\u611f\u89c9\u3002",
+            "Bambinata",
+            "Bambinata doesn't know how to describe it without any similar memories to reference.",
             1.0
         ]
     },
@@ -303,8 +303,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u4f46\u662f\uff0c\u90a6\u6bd4\u5a1c\u5854\u2026\u2026\u5f88\u5f00\u5fc3\u3002",
+            "Bambinata",
+            "But Bambinata was... happy.",
             1.0
         ]
     },
@@ -320,7 +320,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854\u72b9\u8c6b\u4e00\u4e0b\uff0c\u671d\u81ea\u5df1\u7684\u65b9\u5411\u632a\u4e86\u4e24\u6b65\u3002"
+            "She pauses before taking two steps toward you."
         ]
     },
     {
@@ -335,8 +335,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u63a5\u4e0b\u6765\u2026\u2026\u6307\u6325\u5b98\u6709\u4ec0\u4e48\u65b0\u7684\u547d\u4ee4\u5417\uff1f",
+            "Bambinata",
+            "Do... you have any new orders, Commandant?",
             1.0
         ]
     },
@@ -352,7 +352,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854\u73b0\u5728\u60f3\u505a\u4ec0\u4e48\uff1f",
+            "What do you want to do now, Bambinata?",
             "23"
         ]
     },
@@ -368,8 +368,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u90a6\u6bd4\u5a1c\u5854\u81ea\u5df1\u2026\u2026\u5417\uff1f",
+            "Bambinata",
+            "...What does Bambinata want to do?",
             1.0
         ]
     },
@@ -385,7 +385,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u7ad9\u5728\u821e\u53f0\u4e0a\uff0c\u5c11\u5973\u50cf\u662f\u5931\u53bb\u53d1\u6761\u7684\u4eba\u5076\uff0c\u5446\u5446\u5730\u6c89\u9ed8\u4e86\u4e00\u4f1a\u513f\u3002"
+            "Standing on the stage in an awkward silence, she looks like a wind-up doll that has lost its clockwork."
         ]
     },
     {
@@ -400,7 +400,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u8981\u8df3\u4e00\u652f\u821e\u5417\uff1f",
+            "Do you want to dance?",
             "26"
         ]
     },
@@ -416,8 +416,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u90a6\u6bd4\u5a1c\u5854",
-            "\u8df3\u2026\u2026\u8df3\u821e\u2026\u2026",
+            "Bambinata",
+            "D-dance...",
             1.0
         ]
     },
@@ -433,7 +433,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u5728\u201c\u56de\u5fc6\u201d\u8d77\u4e4b\u524d\uff0c\u90a6\u6bd4\u5a1c\u5854\u5df2\u7ecf\u8e2e\u8d77\u811a\u5c16\uff0c\u6446\u51fa\u4e86\u4f18\u7f8e\u7684\u821e\u8e48\u8d77\u59cb\u59ff\u52bf\u3002"
+            "Before she can \"remember,\" Bambinata is already standing gracefully on her toes, ready to dance."
         ]
     },
     {
@@ -448,7 +448,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u6709\u4e9b\u4e1c\u897f\uff0c\u5373\u4f7f\u8bb0\u5fc6\u88ab\u6e05\u7a7a\uff0c\u4e5f\u80fd\u591f\u91cd\u65b0\u56de\u60f3\u8d77\u6765\u3002"
+            "Some things cannot be forgotten, even if her memories are wiped."
         ]
     },
     {
@@ -463,7 +463,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u201c\u559c\u6b22\u201d\u7684\u4e1c\u897f\u662f\u8fd9\u6837\uff0c\u201c\u559c\u6b22\u201d\u7684\u4eba\u4e5f\u4e00\u6837\u3002"
+            "The things that one likes... the people that one likes."
         ]
     }
 ]

@@ -1,9 +1,22 @@
 -- 猜拳小游戏PK面板控件
 local XUiFingerGuessPKPanel = XClass(nil, "XUiFingerGuessPKPanel")
-local RESULT_TEXT = {
-        WIN = "FingerGuessingResultWin",
-        LOSE = "FingerGuessingResultLose",
-        DRAW = "FingerGuessingResultDraw"
+local RESULT_INFO = {
+        [0] = {
+            Text = "FingerGuessingResultWin",
+            Image = "WinAirBubble",
+            Bg = "WinAirBubbleBg",
+            GuessBg = "WinGuessBg"
+        },
+        [1] = {
+            Text = "FingerGuessingResultDraw",
+            GuessBg = "WinGuessBg"
+        },
+        [2] = {
+            Text = "FingerGuessingResultLose",
+            Image= "LoseAirBubble",
+            Bg = "LoseAirBubbleBg",
+            GuessBg = "LoseGuessBg"
+        },
     }
 local SHOW_TYPE = {
         Hero = "Hero",
@@ -24,8 +37,8 @@ end
 function XUiFingerGuessPKPanel:InitPanel()
     self.ObjNextRound.gameObject:SetActiveEx(false)
     if not RESULT_TYPE then RESULT_TYPE = XDataCenter.FingerGuessingManager.DUEL_RESULT end
-    self:SetResult(RESULT_TEXT.DRAW, SHOW_TYPE.Hero)
-    self:SetResult(RESULT_TEXT.DRAW, SHOW_TYPE.Enemy)
+    self:SetResultView(RESULT_TYPE.Draw, SHOW_TYPE.Hero)
+    self:SetResultView(RESULT_TYPE.Draw, SHOW_TYPE.Enemy)
 end
 --================
 --出拳
@@ -62,8 +75,46 @@ function XUiFingerGuessPKPanel:SetResult(resultType, showType)
     end
 end
 
+function XUiFingerGuessPKPanel:SetResultView(roundResult, showType)
+    local info = RESULT_INFO[roundResult]
+    local isDraw = roundResult == RESULT_TYPE.Draw
+    local panelName = string.format("Panel%sResult", showType)
+    if self[panelName] then
+        self[panelName].gameObject:SetActiveEx(not isDraw)
+    end
+    -- 猜拳背景
+    local guessBgName = string.format("RImg%sBg", showType)
+    if self[guessBgName] then
+        local icon = XFingerGuessingConfig.GetClientConfigValueByKey(info.GuessBg)
+        self[guessBgName]:SetRawImage(icon)
+    end
+    if isDraw then
+        return
+    end
+    -- 文本
+    local textName = string.format("Txt%sResult", showType)
+    if self[textName] then
+        self[textName].text = XUiHelper.GetText(info.Text)
+    end
+    -- 图片
+    local imgName = string.format("Img%sResult", showType)
+    if self[imgName] then
+        local icon = XFingerGuessingConfig.GetClientConfigValueByKey(info.Image)
+        self[imgName]:SetSprite(icon)
+    end
+    -- 背景
+    local bgName = string.format("RImg%sResultBg", showType)
+    if self[bgName] then
+        local icon = XFingerGuessingConfig.GetClientConfigValueByKey(info.Bg)
+        self[bgName]:SetRawImage(icon)
+    end
+end
+
 function XUiFingerGuessPKPanel:SetTurnText(turn)
-    self.TxtTurnText.text = CS.XTextManager.GetText("FingerGuessingRoundStr", string.format("%02d", turn))
+    if self.RImgRound then
+        local icon = XFingerGuessingConfig.GetClientConfigValueByKey(string.format("Round0%s", turn))
+        self.RImgRound:SetRawImage(icon)
+    end
 end
 
 function XUiFingerGuessPKPanel:ShowPanel(fingerId, showRound, enemyFingerId, roundResult, isEnd, onFinishCallBack)
@@ -72,16 +123,16 @@ function XUiFingerGuessPKPanel:ShowPanel(fingerId, showRound, enemyFingerId, rou
     self:SetMask()  
     self:SetTurnText(showRound)
     if roundResult == RESULT_TYPE.Win then
-        self:SetResult(RESULT_TEXT.WIN, SHOW_TYPE.Hero)
-        self:SetResult(RESULT_TEXT.LOSE, SHOW_TYPE.Enemy)
+        self:SetResultView(RESULT_TYPE.Win, SHOW_TYPE.Hero)
+        self:SetResultView(RESULT_TYPE.Lose, SHOW_TYPE.Enemy)
         self:PlayFinger(fingerId, enemyFingerId, roundResult)
     elseif roundResult == RESULT_TYPE.Draw then
-        self:SetResult(RESULT_TEXT.DRAW, SHOW_TYPE.Hero)
-        self:SetResult(RESULT_TEXT.DRAW, SHOW_TYPE.Enemy)
+        self:SetResultView(RESULT_TYPE.Draw, SHOW_TYPE.Hero)
+        self:SetResultView(RESULT_TYPE.Draw, SHOW_TYPE.Enemy)
         self:PlayFinger(fingerId, enemyFingerId, roundResult)
     else
-        self:SetResult(RESULT_TEXT.LOSE, SHOW_TYPE.Hero)
-        self:SetResult(RESULT_TEXT.WIN, SHOW_TYPE.Enemy)
+        self:SetResultView(RESULT_TYPE.Lose, SHOW_TYPE.Hero)
+        self:SetResultView(RESULT_TYPE.Win, SHOW_TYPE.Enemy)
         self:PlayFinger(fingerId, enemyFingerId, roundResult)
     end
     local nextRoundFunc = function()
@@ -99,20 +150,18 @@ function XUiFingerGuessPKPanel:ShowPanel(fingerId, showRound, enemyFingerId, rou
                     end
                     self.GameObject:SetActiveEx(false)
                     self.ObjNextRound.gameObject:SetActiveEx(false)
-                    self.TxtHeroResult.gameObject:SetActiveEx(false)
-                    self.TxtEnemyResult.gameObject:SetActiveEx(false)
-                    if isEnd then
+                    --if isEnd then
                         if self.FinishCallBack then self.FinishCallBack() end
                         self:HideMask()
-                    else
-                        XScheduleManager.ScheduleOnce(function()
-                            if XTool.UObjIsNil(self.Transform) then
-                                return
-                            end
-                            if self.FinishCallBack then self.FinishCallBack() end
-                                self:HideMask()
-                            end, 500)
-                    end
+                    --else
+                    --    XScheduleManager.ScheduleOnce(function()
+                    --        if XTool.UObjIsNil(self.Transform) then
+                    --            return
+                    --        end
+                    --        if self.FinishCallBack then self.FinishCallBack() end
+                    --            self:HideMask()
+                    --        end, 500)
+                    --end
                     end, 1250)
             end, 0)
     end
@@ -120,10 +169,8 @@ function XUiFingerGuessPKPanel:ShowPanel(fingerId, showRound, enemyFingerId, rou
             if XTool.UObjIsNil(self.Transform) then
                 return
             end
-            self.TxtHeroResult.gameObject:SetActiveEx(true)
-            self.TxtEnemyResult.gameObject:SetActiveEx(true)
             self.FinishCallBack = onFinishCallBack
-            self.RootUi:PlayAnimation("WinFailEnable")
+            --self.RootUi:PlayAnimation("WinFailEnable")
             XScheduleManager.ScheduleOnce(function()
                     if XTool.UObjIsNil(self.Transform) then
                         return

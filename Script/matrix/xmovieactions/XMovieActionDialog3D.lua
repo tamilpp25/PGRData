@@ -23,7 +23,7 @@ function XMovieActionDialog3D:OnInit()
     local actor = self.UiRoot:GetModelActor(self.RoleId)
     if self.CueId and self.CueId ~= 0 then
         if self.IsModel and self.IsModel == 1 then
-            self.AudioInfo = XSoundManager.PlaySoundByType(self.CueId,XSoundManager.SoundType.CV)
+            self.AudioInfo = XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.Voice, self.CueId)
         else
             self.AudioInfo = actor:PlayCV(self.CueId)
         end

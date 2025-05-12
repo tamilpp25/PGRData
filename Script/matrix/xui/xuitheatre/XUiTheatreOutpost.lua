@@ -78,7 +78,7 @@ end
 function XUiTheatreOutpost:RefreshNode(node)
     if node == nil then
         RunAsyn(function()
-            if XLuaUiManager.IsUiShow("UiObtain") then
+            if XLuaUiManager.IsUiPushing("UiObtain") then
                 local signalCode = XLuaUiManager.AwaitSignal("UiObtain", "Close", self)
                 if signalCode ~= XSignalCode.SUCCESS then return end
                 self:Remove()

@@ -76,13 +76,15 @@ function XUiSSBMainRewardIcon:GetRewardId()
     for index, value in ipairs(supersmashRewardTaskList) do
         local taskId = value.TaskId
         local taskData = XDataCenter.TaskManager.GetTaskDataById(taskId)
-       
-        if taskData.State == XDataCenter.TaskManager.TaskState.Achieved then
-            table.insert(achievedTaskList, taskId)
-        elseif taskData.State == XDataCenter.TaskManager.TaskState.Finish then
-            table.insert(finishTaskList, taskId)
-        else
-            table.insert(unFinishTaskList, taskId)
+
+        if taskData then
+            if taskData.State == XDataCenter.TaskManager.TaskState.Achieved then
+                table.insert(achievedTaskList, taskId)
+            elseif taskData.State == XDataCenter.TaskManager.TaskState.Finish then
+                table.insert(finishTaskList, taskId)
+            else
+                table.insert(unFinishTaskList, taskId)
+            end
         end
     end
 
@@ -105,8 +107,10 @@ function XUiSSBMainRewardIcon:GetRewardId()
     end
 
     -- 拿到需要展示的任务的奖励列表
-    local template = XDataCenter.TaskManager.GetTaskTemplate(taskId)
-    resultRewardId = template.RewardId
+    if taskId then
+        local template = XDataCenter.TaskManager.GetTaskTemplate(taskId)
+        resultRewardId = template.RewardId
+    end
 
     -- 从奖励列表拿到第一个物品id
     if resultRewardId and resultRewardId > 0 then

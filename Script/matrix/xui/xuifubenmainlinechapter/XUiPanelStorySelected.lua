@@ -1,3 +1,4 @@
+local XUiPanelStory = require("XUi/XUiActivityBrief/XUiPanelStory")
 local XUiPanelStorySelected = XClass(nil, "XUiPanelStorySelected")
 
 function XUiPanelStorySelected:Ctor(ui, stageId, chapterOrderId)
@@ -23,7 +24,7 @@ function XUiPanelStorySelected:Refresh()
             local stageTitle = XDataCenter.ExtraChapterManager.GetChapterDetailsStageTitle(stageInfo.ChapterId)
             strTxtStage = stageTitle .. "-" .. stageCfg.OrderId
         elseif stageInfo.Type == XDataCenter.FubenManager.StageType.ShortStory then
-            local stageTitle = XFubenShortStoryChapterConfigs.GetStageTitleByChapterId(stageInfo.ChapterId)
+            local stageTitle = XFubenShortStoryChapterConfigs.GetStageTitleByStageId(stageId)
             strTxtStage = stageTitle .. "-" .. stageCfg.OrderId
         else
             strTxtStage = self.ChapterOrderId .. "-" .. stageCfg.OrderId

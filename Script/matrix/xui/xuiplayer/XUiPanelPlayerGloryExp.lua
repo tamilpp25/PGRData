@@ -1,4 +1,4 @@
-XUiPanelPlayerGloryExp = XClass(nil, "XUiPanelPlayerGloryExp")
+local XUiPanelPlayerGloryExp = XClass(nil, "XUiPanelPlayerGloryExp")
 
 function XUiPanelPlayerGloryExp:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -63,3 +63,5 @@ function XUiPanelPlayerGloryExp:UpdatePlayerLevelInfo()
     self.TxtLevelNum.text = XPlayer.GetHonorLevel()
     self.TxtExpNum.text = "<color=#0e70bd><size=47>" .. curExp .. "</size></color>" .. "/" ..maxExp
 end
+
+return XUiPanelPlayerGloryExp

@@ -1,4 +1,8 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 -- 猜拳选择关卡界面
+---@class XUiFingerGuessingSelectStage : XLuaUi
+---@field GameController XFingerGuessingGameController
+---@field StageSelected XFingerGuessingStage
 local XUiFingerGuessingSelectStage = XLuaUiManager.Register(XLuaUi, "UiFingerGuessingSelectStage")
 --================
 --OnAwake 初始化界面
@@ -55,7 +59,15 @@ end
 function XUiFingerGuessingSelectStage:OnEnable()
     self:RunAllPanelsFunc("OnEnable")
     if XDataCenter.FingerGuessingManager.GetIsFirstIn() then
-        XUiManager.ShowHelpTip("FingerGuessingGameHelp")
+        local callBack = function()
+            XUiManager.ShowHelpTip("FingerGuessingGameHelp")
+        end
+        local movieId = self.GameController:GetStartMovieId()
+        if not string.IsNilOrEmpty(movieId) then
+            XDataCenter.MovieManager.PlayMovie(movieId, callBack, nil, nil, false)
+        else
+            callBack()
+        end
     end
 end
 --================
@@ -135,6 +147,7 @@ function XUiFingerGuessingSelectStage:OnStageSelected(component, stage)
     self.StageComponent = component
     self.StageSelected = stage
     self:RunAllPanelsFunc("OnStageSelected")
+    self:PlayAnimation("QieHuan")
 end
 --================
 --活动结束时处理

@@ -39,7 +39,7 @@ XAntiAddictionManagerCreator = function()
         NeedToKickOff = true
         KickMsg = msg
 
-        if CS.XFight.Instance ~= nil then
+        if XFightUtil.IsFighting() then
             -- 战斗中
             return
         end
@@ -77,6 +77,7 @@ XAntiAddictionManagerCreator = function()
     function XAntiAddictionManager.EndPayAction()
         IsPaying = false
         KickOffAction()
+        XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.RECHARGE, true)
     end
 
     -- 结束战斗行为

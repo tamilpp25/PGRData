@@ -1,4 +1,4 @@
-XUiFubenExploreLevelNode = XClass(nil, "XUiFubenExploreLevelNode")
+local XUiFubenExploreLevelNode = XClass(nil, "XUiFubenExploreLevelNode")
 function XUiFubenExploreLevelNode:Ctor(ui, nodeInfo, rootUi, cb)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
@@ -85,3 +85,5 @@ function XUiFubenExploreLevelNode:Update()
         self.TweenFade = self.PanelHideCanvasGroup:DOFade(0, self.DetailFadeTime)
     end
 end
+
+return XUiFubenExploreLevelNode

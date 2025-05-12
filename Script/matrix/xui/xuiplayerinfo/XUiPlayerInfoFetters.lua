@@ -1,4 +1,4 @@
-XUiPlayerInfoFetters = XClass(nil, "XUiPlayerInfoFetters")
+local XUiPlayerInfoFetters = XClass(nil, "XUiPlayerInfoFetters")
 function XUiPlayerInfoFetters:Ctor(ui, isFriend, exp)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform

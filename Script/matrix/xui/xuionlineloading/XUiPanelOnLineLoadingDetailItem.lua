@@ -1,4 +1,4 @@
-XUiPanelOnLineLoadingDetailItem = XClass(nil, "XUiPanelOnLineLoadingDetailItem")
+local XUiPanelOnLineLoadingDetailItem = XClass(nil, "XUiPanelOnLineLoadingDetailItem")
 
 function XUiPanelOnLineLoadingDetailItem:Ctor(ui, rootUi, parent)
     self.GameObject = ui.gameObject
@@ -37,7 +37,7 @@ function XUiPanelOnLineLoadingDetailItem:RegisterListener(uiNode, eventName, fun
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -57,7 +57,7 @@ function XUiPanelOnLineLoadingDetailItem:SetIsShow(active)
 end
 
 function XUiPanelOnLineLoadingDetailItem:GetHalfBodyImage(character)
-    return XDataCenter.CharacterManager.GetCharHalfBodyImage(character.Id)
+    return XMVCA.XCharacter:GetCharHalfBodyImage(character.Id)
 end
 
 function XUiPanelOnLineLoadingDetailItem:Refresh(data)
@@ -86,9 +86,9 @@ function XUiPanelOnLineLoadingDetailItem:Refresh(data)
     if icon then
         self.RootUi:SetUiSprite(self.ImgIcon, icon)
     end
-    local npcId = XCharacterConfigs.GetCharNpcId(character.Id, character.Quality)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(character.Id, character.Quality)
     local npcTemplate = CS.XNpcManager.GetNpcTemplate(npcId)
-    local logo = XCharacterConfigs.GetNpcTypeIcon(npcTemplate.Type)
+    local logo = XMVCA.XCharacter:GetNpcTypeIcon(npcTemplate.Type)
     if logo then
         self.RootUi:SetUiSprite(self.ImgLogo, logo)
     end
@@ -98,11 +98,16 @@ end
 function XUiPanelOnLineLoadingDetailItem:UpdateProgress(progress)
     if progress >= 100 then
         self.ImgCompleted.gameObject:SetActiveEx(true)
-        self.TxtPercent.text = "<color=#ffeb04ef>100%</color>"
+        local text = string.format("<color=#%s>100%%</color>", self:GetProgressEndTextColor())
+        self.TxtPercent.text = text
     else
         self.ImgCompleted.gameObject:SetActiveEx(false)
         self.TxtPercent.text = progress .. "%"
     end
+end
+
+function XUiPanelOnLineLoadingDetailItem:GetProgressEndTextColor()
+    return "ffeb04ef"
 end
 
 return XUiPanelOnLineLoadingDetailItem

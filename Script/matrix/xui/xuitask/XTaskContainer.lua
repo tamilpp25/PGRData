@@ -1,4 +1,5 @@
-XTaskContainer = XClass(nil, "XTaskContainer")
+local XUiGridTask = require("XUi/XUiTask/XUiGridTask")
+local XTaskContainer = XClass(nil, "XTaskContainer")
 
 function XTaskContainer:Ctor(rootUi, container, grid, taskType, cb)
     self.RootUi = rootUi
@@ -97,3 +98,5 @@ end
 -- function XTaskContainer:UpdateTaskProgress(id, value)
 --     self.GridContainer[id]:UpdateProgress(value)
 -- end
+
+return XTaskContainer

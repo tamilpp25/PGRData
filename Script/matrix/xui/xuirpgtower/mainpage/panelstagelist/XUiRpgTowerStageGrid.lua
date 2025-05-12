@@ -44,13 +44,17 @@ end
 --================
 function XUiRpgTowerStageGrid:SetName()
     self.GridStage:SetNameByGroup(0, self.RStage:GetOrderName())
-    self.GridStage:SetNameByGroup(1, XUiHelper.GetText("RpgTowerStageDifficultTitle" .. self.RStage:GetDifficulty()))
+    -- self.GridStage:SetNameByGroup(1, XUiHelper.GetText("RpgTowerStageDifficultTitle" .. self.RStage:GetDifficulty()))
 end
 --================
 --设置图标
 --================
 function XUiRpgTowerStageGrid:SetBg()
-    self.GridStage:SetSprite(self.DifficultyData.IconPath)
+    self.RawImageNormal:SetRawImage(XDataCenter.RpgTowerManager.StageDifficultyNewData[self.RStage:GetDifficulty()]["Normal"])
+    local pressPath = XDataCenter.RpgTowerManager.StageDifficultyNewData[self.RStage:GetDifficulty()]["Disable"]
+    self.RawImagePress:SetRawImage(pressPath)
+    self.RawImageDisable:SetRawImage(pressPath)
+    self.RawImageSelect:SetRawImage(XDataCenter.RpgTowerManager.StageDifficultyNewData[self.RStage:GetDifficulty()]["Select"])
 end
 --================
 --选中事件

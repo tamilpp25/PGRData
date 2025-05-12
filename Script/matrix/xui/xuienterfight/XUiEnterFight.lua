@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiEnterFight = XLuaUiManager.Register(XLuaUi, "UiEnterFight")
 
 function XUiEnterFight:OnStart(type, name, dis, icon, rewardId, cb, stageId, areaId)
@@ -12,20 +13,8 @@ function XUiEnterFight:OnStart(type, name, dis, icon, rewardId, cb, stageId, are
         self:OnShowStoryDialog(name, dis, icon)
     elseif type == XFubenExploreConfigs.NodeTypeEnum.Stage then
         self:OnShowFightDialog(name, dis, icon)
-    elseif type == XFubenExploreConfigs.NodeTypeEnum.Arena then
-        self:OnShowArenaDialog()
     end
     self:UpdateReward()
-end
-
-function XUiEnterFight:OnGetEvents()
-    return { XEventId.EVENT_ARENA_RESULT_AUTOFIGHT }
-end
-
-function XUiEnterFight:OnNotify(evt)
-    if evt == XEventId.EVENT_ARENA_RESULT_AUTOFIGHT then
-        self:OnShowArenaDialog()
-    end
 end
 
 function XUiEnterFight:InitAutoScript()
@@ -36,14 +25,9 @@ function XUiEnterFight:AutoAddListener()
     self:RegisterClickEvent(self.BtnMaskB, self.OnBtnMaskBClick)
     self:RegisterClickEvent(self.BtnEnterStory, self.OnBtnEnterStoryClick)
     self:RegisterClickEvent(self.BtnEnterFight, self.OnBtnEnterFightClick)
-    self:RegisterClickEvent(self.BtnEnterArena, self.OnBtnEnterArenaClick)
-    self.BtnCannotAutoFight.CallBack = function()
-        self:OnBtnCannotAutoFightClick()
-    end
-
-    self.BtnAutoFight.CallBack = function()
-        self:OnBtnAutoFightClick()
-    end
+    self.BtnEnterArena.gameObject:SetActiveEx(false)
+    self.BtnCannotAutoFight.gameObject:SetActiveEx(false)
+    self.BtnAutoFight.gameObject:SetActiveEx(false)
 end
 
 function XUiEnterFight:OnBtnMaskBClick()
@@ -58,31 +42,6 @@ end
 function XUiEnterFight:OnBtnEnterFightClick()
     self:Close()
     self:OnCallback()
-end
-
-function XUiEnterFight:OnBtnEnterArenaClick()
-    self:Close()
-    self:OnCallback()
-end
-
-function XUiEnterFight:OnBtnCannotAutoFightClick()
-    --1.没有满分通关过
-    if not XDataCenter.ArenaManager.IsCanAutoFightByStageId(self.StageId,self.AreaId) then
-        XUiManager.TipText("ArenaCannotAutoFight")
-        return
-    end
-    --2.满分通关过，但是现在已经满分了
-    local score = XDataCenter.ArenaManager.GetArenaStageScore(self.AreaId, self.StageId)
-    local config = XArenaConfigs.GetArenaStageConfig(self.StageId)
-    local maxPoint = XArenaConfigs.GetMarkMaxPointById(config.MarkId)
-    if score == maxPoint then
-        XUiManager.TipText("ArenaMarkAlreadyMax")
-        return
-    end
-end
-
-function XUiEnterFight:OnBtnAutoFightClick()
-    XDataCenter.ArenaManager.RequestAutoFight(self.AreaId, self.StageId)
 end
 
 function XUiEnterFight:OnShowStoryDialog(name, dis, icon)
@@ -103,48 +62,6 @@ function XUiEnterFight:OnShowFightDialog(name, dis, icon)
     self.TxtFightName.text = name
     self.TxtFightDec.text = string.gsub(dis, "\\n", "\n")
     self.RImgFight:SetRawImage(icon)
-end
-
-function XUiEnterFight:OnShowArenaDialog()
-    self.PanelFight.gameObject:SetActiveEx(false)
-    self.PanelStory.gameObject:SetActiveEx(false)
-    self.PanelReward.gameObject:SetActiveEx(false)
-    self.ImgGqdl.gameObject:SetActiveEx(false)
-    self.PanelArena.gameObject:SetActiveEx(true)
-
-    local score = XDataCenter.ArenaManager.GetArenaStageScore(self.AreaId, self.StageId)
-    local config = XArenaConfigs.GetArenaStageConfig(self.StageId)
-    local areaStageConfig = XArenaConfigs.GetArenaAreaStageCfgByAreaId(self.AreaId)
-    self.TxtArenaDetail.text = ""
-    for i,stageId in pairs(areaStageConfig.StageId) do
-        if stageId == self.StageId and i == #areaStageConfig.StageId then
-            self.TxtArenaDetail.text = areaStageConfig.Desc
-        end
-    end
-    if score > 0 then
-        self.TxtArenaScore.text = CS.XTextManager.GetText("ArenaHighDesc", score)
-    else
-        self.TxtArenaScore.text = score
-    end
-
-    if areaStageConfig.AutoFight[config.MarkId] == nil or areaStageConfig.AutoFight[config.MarkId] == 0 then
-        self.BtnAutoFight.gameObject:SetActiveEx(false)
-        self.BtnCannotAutoFight.gameObject:SetActiveEx(false)
-    else
-        local maxPoint = XArenaConfigs.GetMarkMaxPointById(config.MarkId)
-        local isCurrentMaxMark = score == maxPoint
-        if XDataCenter.ArenaManager.IsCanAutoFightByStageId(self.StageId,self.AreaId) and not isCurrentMaxMark then
-            self.BtnAutoFight.gameObject:SetActiveEx(true)
-            self.BtnCannotAutoFight.gameObject:SetActiveEx(false)
-        else
-            self.BtnAutoFight.gameObject:SetActiveEx(false)
-            self.BtnCannotAutoFight.gameObject:SetActiveEx(true)
-        end
-    end
-
-    self.RImgArena:SetRawImage(config.BgIconBig)
-    self.ImgArenaDifficulty:SetRawImage(config.DifficuIocn)
-    self.TxtArenatName.text = config.Name
 end
 
 function XUiEnterFight:UpdateReward()

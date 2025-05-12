@@ -26,7 +26,7 @@ end
 
 function XUiTxtSplitCvContent:StartTimer()
     self:StopTimer()
-    local cvArray = XFavorabilityConfigs.GetCvSplit(self._CvId, self._CvType)
+    local cvArray = XMVCA.XFavorability:GetCvSplit(self._CvId, self._CvType)
     if not cvArray then
         return false
     end

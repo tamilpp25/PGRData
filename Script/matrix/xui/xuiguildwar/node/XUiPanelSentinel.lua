@@ -10,10 +10,13 @@ function XUiPanelSentinel:SetData(node)
     self.Node = node
     local monster = node:GetBornMonster()
     self.Monster = monster
-    self.GameObject:SetActiveEx(monster ~= nil)
-    if monster == nil then return end
-    self.GameObject:SetActiveEx(node:GetStutesType() 
-        == XGuildWarConfig.NodeStatusType.Alive)
+    if monster == nil or
+        not (node:GetStutesType() == XGuildWarConfig.NodeStatusType.Alive) or
+        not XDataCenter.GuildWarManager.CheckRoundIsInTime() then
+        self.GameObject:SetActiveEx(false)
+        return
+    end
+    self.GameObject:SetActiveEx(true)
     self.RImgIcon:SetRawImage(monster:GetIcon())
     self.TxtName.text = monster:GetName()
     self.TxtDetails.text = XUiHelper.GetText("GuildWarMonsterDetails", monster:GetDamagePercent())

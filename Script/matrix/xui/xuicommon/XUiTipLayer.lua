@@ -6,24 +6,27 @@ function XUiTipLayer:OnAwake()
     self:InitAutoScript()
 end
 
-function XUiTipLayer:OnStart(msg, type, cb, hideCloseMark)
+function XUiTipLayer:OnStart(msg, type, cb, hideCloseMark, hideUnderlineInfo)
     self.Cb = cb
     self.closeState = false
     self:HideTipLayer()
     self.BtnClose.interactable = true
     self.BtnClose.gameObject:SetActive(not hideCloseMark)
+    self.UnderlineTxtSuccess.gameObject:SetActiveEx(not hideUnderlineInfo);
+    self.UnderlineTxtError.gameObject:SetActiveEx(not hideUnderlineInfo);
+    self.UnderlineTxtTip.gameObject:SetActiveEx(not hideUnderlineInfo);
     XUiHelper.StopAnimation()
     if type == XUiManager.UiTipType.Tip then
         self.PanelTip.gameObject:SetActive(true)
         self:PlayAnimation("PanelTip")
         self.TxtInfo.text = msg
     elseif type == XUiManager.UiTipType.Success then
-        CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Success) -- 成功
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Success) -- 成功
         self.PanelSuccess.gameObject:SetActive(true)
         self:PlayAnimation("PaneSuccess")
         self.TxtInfoSuccess.text = msg
     elseif type == XUiManager.UiTipType.Wrong then
-        CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Intercept) -- 拦截
+        XLuaAudioManager.PlayAudioByType(XLuaAudioManager.SoundType.SFX, XLuaAudioManager.UiBasicsMusic.Intercept) -- 拦截
         self.PanelError.gameObject:SetActive(true)
         self:PlayAnimation("PanelError")
         self.TxtInfoError.text = msg
@@ -78,6 +81,11 @@ function XUiTipLayer:AutoInitUi()
     self.TxtInfoError = self.Transform:Find("SafeAreaContentPane/PanelError/TxtInfo"):GetComponent("Text")
     self.PanelTip = self.Transform:Find("SafeAreaContentPane/PanelTip")
     self.TxtInfo = self.Transform:Find("SafeAreaContentPane/PanelTip/TxtInfo"):GetComponent("Text")
+    
+    
+    self.UnderlineTxtSuccess = self.Transform:Find("SafeAreaContentPane/PanelSuccess/Txt"):GetComponent("Text")
+    self.UnderlineTxtError = self.Transform:Find("SafeAreaContentPane/PanelError/Txt"):GetComponent("Text")
+    self.UnderlineTxtTip = self.Transform:Find("SafeAreaContentPane/PanelTip/Txt"):GetComponent("Text")
 end
 
 function XUiTipLayer:GetAutoKey(uiNode, eventName)
@@ -103,7 +111,7 @@ function XUiTipLayer:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

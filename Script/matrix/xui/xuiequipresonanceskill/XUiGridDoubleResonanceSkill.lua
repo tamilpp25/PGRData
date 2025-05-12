@@ -13,7 +13,7 @@ function XUiGridDoubleResonanceSkill:Ctor(ui, clickCb)
 
     for i = 1, SINGLE_SITE_RESONANCE_SKILL_NUM do
         self["BtnAddResonanceSkill" .. i].CallBack = function()
-            XLuaUiManager.Open("UiEquipDetail", self.EquipId, nil, self.CharacterId, nil, XEquipConfig.EquipDetailBtnTabIndex.Resonance)
+            XMVCA.XEquip:OpenUiEquipDetail(self.EquipId, nil, self.CharacterId, nil, XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.RESONANCE)
             if clickCb then clickCb(self) end
         end
     end
@@ -54,7 +54,7 @@ end
 ]]
 function XUiGridDoubleResonanceSkill:RefreshBySite(characterId, site)
     self.CharacterId = characterId
-    local wearingEquipId = XDataCenter.EquipManager.GetWearingEquipIdBySite(characterId, site)
+    local wearingEquipId = XMVCA.XEquip:GetCharacterEquipId(characterId, site)
 
     self:RefreshTxtPos(site)
     if wearingEquipId and wearingEquipId > 0 then
@@ -73,7 +73,7 @@ function XUiGridDoubleResonanceSkill:RefreshBySite(characterId, site)
 end
 
 function XUiGridDoubleResonanceSkill:RefreshResonanceSkill(characterId, equipId)
-    local resonanceSkillNum = XDataCenter.EquipManager.GetResonanceSkillNum(equipId)
+    local resonanceSkillNum = XMVCA.XEquip:GetResonanceSkillNum(equipId)
     if resonanceSkillNum == 0 then
         --穿戴中的装备无共鸣技能
         self.PanelEmpty.gameObject:SetActiveEx(true)
@@ -85,7 +85,7 @@ function XUiGridDoubleResonanceSkill:RefreshResonanceSkill(characterId, equipId)
         --有共鸣技能时
         for skillIndex = 1, SINGLE_SITE_RESONANCE_SKILL_NUM do
             local go = self["GridResnanceSkill" .. skillIndex]
-            if XDataCenter.EquipManager.CheckEquipPosResonanced(equipId, skillIndex) then
+            if XMVCA.XEquip:CheckEquipPosResonanced(equipId, skillIndex) then
                 local grid = self.ResonanceSkillGrids[skillIndex]
                 if not grid then
                     grid = XUiGridResonanceSkill.New(go, equipId, skillIndex, characterId, function(tmpEquipId, tmpPos, tmpCharacterId)

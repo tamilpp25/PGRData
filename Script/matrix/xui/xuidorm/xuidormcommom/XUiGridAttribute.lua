@@ -1,4 +1,4 @@
-XUiGridAttribute = XClass(nil, "XUiGridAttribute")
+local XUiGridAttribute = XClass(nil, "XUiGridAttribute")
 local attrColors = {
     [1] = CS.XTextManager.GetText("FurnitureColorAttrA"),
     [2] = CS.XTextManager.GetText("FurnitureColorAttrB"),
@@ -68,7 +68,7 @@ function XUiGridAttribute:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

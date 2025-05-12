@@ -10,6 +10,9 @@ XHeadPortraitConfigs.HeadTimeLimitType = {
 XHeadPortraitConfigs.HeadType = {
     HeadPortrait = 1,
     HeadFrame = 2,
+    Medal = 3,
+    Nameplate = 4,
+    ChatBoard = 5,
 }
 
 XHeadPortraitConfigs.BtnState = {

@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 -- local XUiOnLineTranscript = XUiManager.Register("UiOnLineTranscript")
 local XUiOnLineTranscript = XLuaUiManager.Register(XLuaUi, "UiOnLineTranscript")
 
@@ -82,7 +84,7 @@ function XUiOnLineTranscript:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -161,7 +163,7 @@ function XUiOnLineTranscript:Refresh(stage)
     self.TxtTitle.text = stage.Name
     self.TxtDesc.text = stage.Description
     self.TxtLevelVal.text = stage.RequireLevel
-    self.TxtATNums.text = stage.RequireActionPoint
+    self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(stage.StageId)
     local leastPlayer = stage.OnlinePlayerLeast <= 0 and 1 or stage.OnlinePlayerLeast
     self.TxtPeople.text = leastPlayer
 

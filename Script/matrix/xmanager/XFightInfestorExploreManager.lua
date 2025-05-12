@@ -107,7 +107,7 @@ XFightInfestorExploreManagerCreator = function()
 
     function XFightInfestorExploreManager.NomalizeScoreStr(score)
         if score >= 10000 then
-            return CS.XTextManager.GetText("ShowLargeIntNumText", math.floor(score / 1000) / 10) --因为W仅仅是中国境内约定俗成的万，老外看不懂 所以要同步！！！！
+            return math.floor(score / 1000) / 10 .. "W"
         end
         return score
     end

@@ -21,13 +21,17 @@ function XUiFingerGuessResult:InitPanel()
     self:SetScore(self.Stage:GetEnemyScore(), SCORE_TYPE.Enemy)
     self.Result = self.Stage:GetHeroScore() >= self.Stage:GetEnemyScore()
     if self.TxtResultTalk then self.TxtResultTalk.text = self.Result and self.Stage:GetWinTalk() or self.Stage:GetLoseTalk() end
-    if self.ObjWin then self.ObjWin.gameObject:SetActiveEx(self.Result) end
-    if self.ObjLose then self.ObjLose.gameObject:SetActiveEx(not self.Result) end
-    if self.ImgRole and self.Result then
-        self.ImgRole:SetSprite(self.GameController:GetPlayerPortraits())
-    else
-        self.ImgRole:SetSprite(self.Stage:GetRobotPortraits())
-    end
+
+    self.ImgHeadframeWin.gameObject:SetActiveEx(self.Result)
+    self.ImgHeadframeLose.gameObject:SetActiveEx(not self.Result)
+    self.RImgBgWin.gameObject:SetActiveEx(self.Result)
+    self.RImgBgLose.gameObject:SetActiveEx(not self.Result)
+    self.RImgTxtWin.gameObject:SetActiveEx(self.Result)
+    self.RImgTxtLose.gameObject:SetActiveEx(not self.Result)
+
+    local roleIcon = self.Result and self.GameController:GetPlayerPortraits() or self.Stage:GetRobotPortraits()
+    self.ImgRoleWin:SetSprite(roleIcon)
+    self.ImgRoleLose:SetSprite(roleIcon)
 end
 --================
 --设置分数
@@ -36,7 +40,7 @@ function XUiFingerGuessResult:SetScore(score, setType)
     local name = "Txt" .. tostring(setType) .. "Score"
     local component = self[name]
     if component then
-        component.text = CS.XTextManager.GetText("FingerGuessing" .. setType .. "ScoreStr", score)
+        component.text = string.format("%02d", score)
     end
 end
 --================

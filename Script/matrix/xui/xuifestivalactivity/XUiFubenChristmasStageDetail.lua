@@ -1,3 +1,6 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenChristmasStageDetail = XLuaUiManager.Register(XLuaUi, "UiFubenChristmasStageDetail")
 
 function XUiFubenChristmasStageDetail:OnAwake()
@@ -40,53 +43,58 @@ function XUiFubenChristmasStageDetail:SetStageDetail(stageId, festivalId)
     end
     self.ImgCostIcon:SetRawImage(XDataCenter.ItemManager.GetItemIcon(XDataCenter.ItemManager.ItemId.ActionPoint))
     self.TxtATNums.text = fStage:GetRequireActionPoint()
-    self:UpdateRewards()
+    self:NewUpdateRewards()
 end
 
 function XUiFubenChristmasStageDetail:UpdateRewardTitle(isFirstDrop)
-    self.TxtDrop.gameObject:SetActive(not isFirstDrop)
-    self.TxtFirstDrop.gameObject:SetActive(isFirstDrop)
+    self.TxtDrop.gameObject:SetActiveEx(not isFirstDrop)
+    self.TxtFirstDrop.gameObject:SetActiveEx(isFirstDrop)
 end
 
-function XUiFubenChristmasStageDetail:UpdateRewards()
-    if not self.FStage then return end
-    local rewardId = self.FStage:GetFinishRewardShow()
-    local IsFirst = false
-    -- 首通有没有填
-    local controlCfg = XDataCenter.FubenManager.GetStageLevelControl(self.FStage:GetStageId())
-    -- 有首通
-    if not self.FStage:GetIsPass() then
-        if controlCfg and controlCfg.FirstRewardShow > 0 then
-            rewardId = controlCfg.FirstRewardShow
-            IsFirst = true
-        elseif self.FStage:GetFirstRewardShow() > 0 then
-            rewardId = self.FStage:GetFirstRewardShow()
-            IsFirst = true
-        end
+function XUiFubenChristmasStageDetail:NewUpdateRewards()
+    if not self.FStage then
+        return
     end
-    -- 没首通
-    if not IsFirst then
-        if controlCfg and controlCfg.FinishRewardShow > 0 then
-            rewardId = controlCfg.FinishRewardShow
-        else
-            rewardId = self.FStage:GetFinishRewardShow()
-        end
-    end
-    
-    local rewards = {}
+    local firstRewardId = self.FStage:GetFirstRewardShow()
+    local finishRewardId = self.FStage:GetFinishRewardShow()
 
-    if self.FestivalId == XFestivalActivityConfig.ActivityId.WhiteValentine then
-        rewardId = self.FStage:GetFirstRewardShow()
-        if rewardId > 0 then
-            rewards = XRewardManager.GetRewardList(rewardId)
+    local firstShow = XTool.IsNumberValid(firstRewardId)
+    local finishShow = XTool.IsNumberValid(finishRewardId)
+    local firstDrop = false
+    -- 无奖励
+    if not firstShow and not finishShow then
+        self.TxtFirstDrop.gameObject:SetActiveEx(false)
+        self.TxtDrop.gameObject:SetActiveEx(false)
+        for j = 1, #self.GridList do
+            self.GridList[j].GameObject:SetActiveEx(false)
         end
-    else
-        self:UpdateRewardTitle(IsFirst)
-        if rewardId > 0 then
-            rewards = IsFirst and XRewardManager.GetRewardList(rewardId) or XRewardManager.GetRewardListNotCount(rewardId)
-        end
+        return
     end
+    -- 只有首通奖励
+    if firstShow and not finishShow then
+        firstDrop = true
+        local rewards = XRewardManager.GetRewardList(firstRewardId)
+        self:UpdateRewards(rewards, self.FStage:GetIsPass())
+    end
+    -- 只有复刷奖励
+    if not firstShow and finishShow then
+        firstDrop = false
+        local rewards = XRewardManager.GetRewardListNotCount(finishRewardId)
+        self:UpdateRewards(rewards, false)
+    end
+    -- 普通和复刷都有
+    if firstShow and finishShow then
+        local passed = self.FStage:GetIsPass()
+        if not passed then
+            firstDrop = true
+        end
+        local rewards = not passed and XRewardManager.GetRewardList(firstRewardId) or XRewardManager.GetRewardListNotCount(finishRewardId)
+        self:UpdateRewards(rewards, false)
+    end
+    self:UpdateRewardTitle(firstDrop)
+end
 
+function XUiFubenChristmasStageDetail:UpdateRewards(rewards, isReceived)
     if rewards then
         for i, item in ipairs(rewards) do
             local grid
@@ -99,10 +107,8 @@ function XUiFubenChristmasStageDetail:UpdateRewards()
                 self.GridList[i] = grid
             end
             grid:Refresh(item)
-            grid.GameObject:SetActive(true)
-            if self.FestivalId == XFestivalActivityConfig.ActivityId.WhiteValentine then
-                grid:SetReceived(self.FStage:GetIsPass())
-            end
+            grid:SetReceived(isReceived)
+            grid.GameObject:SetActiveEx(true)
         end
     end
 
@@ -113,7 +119,7 @@ function XUiFubenChristmasStageDetail:UpdateRewards()
 
     for j = 1, #self.GridList do
         if j > rewardsCount then
-            self.GridList[j].GameObject:SetActive(false)
+            self.GridList[j].GameObject:SetActiveEx(false)
         end
     end
 end
@@ -138,9 +144,9 @@ function XUiFubenChristmasStageDetail:OnBtnEnterClick()
         if self.RootUi then
             self.RootUi:ClearNodesSelect()
         end
-        -- XLuaUiManager.Open("UiNewRoomSingle", self.FStage:GetStageId())
         XLuaUiManager.Open("UiBattleRoleRoom", self.FStage:GetStageId())
         self.RootUi.BtnCloseDetail.gameObject:SetActiveEx(false)
+        self.RootUi.PanelStageContentRaycast.raycastTarget = true
         self:Close()
     end
 end

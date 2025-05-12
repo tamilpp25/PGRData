@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridWinRole = require("XUi/XUiSettleWin/XUiGridWinRole")
 local XUiPanelExpBar = require("XUi/XUiSettleWinMainLine/XUiPanelExpBar")
 local XUiGridRewardLine = require("XUi/XUiFubenRepeatchallenge/XUiGridRewardLine")
 
@@ -160,7 +162,8 @@ function XUiRepeatChallengeSettleWin:InitRewardCharacterList(data)
             local ui = CS.UnityEngine.Object.Instantiate(self.GridWinRole)
             local grid = XUiGridWinRole.New(self, ui)
             grid.Transform:SetParent(self.PanelRoleContent, false)
-            grid:UpdateRoleInfo(charExp[i], self.StageCfg.CardExp * winCount)
+            local cardExp = XDataCenter.FubenManager.GetCardExp(self.CurrentStageId)
+            grid:UpdateRoleInfo(charExp[i], cardExp * winCount)
             grid.GameObject:SetActive(true)
         end
     end
@@ -181,7 +184,8 @@ function XUiRepeatChallengeSettleWin:UpdatePlayerInfo(data)
 
     -- 原先机制只加一次经验，而且读的本地表，多重挑战需要乘以次数
     local winCount = self.WinCount
-    local addExp = self.StageCfg.TeamExp * winCount
+    local teamExp = XDataCenter.FubenManager.GetTeamExp(self.CurrentStageId)
+    local addExp = teamExp * winCount
     self.PlayerExpBar = self.PlayerExpBar or XUiPanelExpBar.New(self.PanelPlayerExpBar)
     self.PlayerExpBar:LetsRoll(lastLevel, lastExp, lastMaxExp, curLevel, curExp, curMaxExp, addExp, txtLevelName)
 end
@@ -210,8 +214,6 @@ function XUiRepeatChallengeSettleWin:SetBtnByType(btnType)
         self:OnBtnBackClick(false)
     elseif btnType == XRoomSingleManager.BtnType.Again then
         -- 多重挑战需要传递上次挑战的次数
-        local data = { ChallengeCount = XDataCenter.FubenManager.GetFightChallengeCount() }
-        -- XLuaUiManager.PopThenOpen("UiNewRoomSingle", self.StageCfg.StageId, data)
         XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.StageCfg.StageId, nil, nil, nil, true)
     elseif btnType == XRoomSingleManager.BtnType.Next then
         self:OnBtnEnterNextClick()
@@ -224,7 +226,7 @@ function XUiRepeatChallengeSettleWin:OnBtnEnterNextClick()
     if self.StageInfos.Type == XDataCenter.FubenManager.StageType.Tower then
         local stageId = XDataCenter.TowerManager.GetTowerData().CurrentStageId
         if XDataCenter.TowerManager.CheckStageCanEnter(stageId) then
-            XLuaUiManager.PopThenOpen("UiNewRoomSingle", stageId)
+            XLuaUiManager.PopThenOpen("UiBattleRoleRoom", stageId)
         else
             local text = CS.XTextManager.GetText("TowerCannotEnter")
             XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)
@@ -233,7 +235,7 @@ function XUiRepeatChallengeSettleWin:OnBtnEnterNextClick()
         if self.StageInfos.NextStageId then
             local nextStageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageInfos.NextStageId)
             self:HidePanel()
-            XDataCenter.FubenManager.OpenRoomSingle(nextStageCfg)
+            XDataCenter.FubenManager.OpenBattleRoom(nextStageCfg)
         else
             local text = CS.XTextManager.GetText("BattleWinMainCannotEnter")
             XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)

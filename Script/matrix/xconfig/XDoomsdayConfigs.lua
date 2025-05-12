@@ -25,13 +25,28 @@ function XDoomsdayConfigs.Init()
         XConfig.New("Share/MiniActivity/Doomsday/DoomsdayAttribute.tab", XTable.XTableDoomsdayAttribute) --属性配置
     XDoomsdayConfigs.TargetConfig =
         XConfig.New("Share/MiniActivity/Doomsday/DoomsdayTask.tab", XTable.XTableDoomsdayTask) --关卡目标配置
+    XDoomsdayConfigs.StageEndingConfig =
+        XConfig.New("Share/MiniActivity/Doomsday/DoomsdayStageEnding.tab", XTable.XTableDoomsdayStageEnding) --关卡结局配置
     XDoomsdayConfigs.AttributeTypeConfig =
         XConfig.New("Share/MiniActivity/Doomsday/DoomsdayAttributeType.tab", XTable.XTableDoomsdayAttributeType) --属性类型配置
     XDoomsdayConfigs.ReportConfig =
         XConfig.New("Client/MiniActivity/Doomsday/DoomsdayReportText.tab", XTable.XTableDoomsdayReportText) --报告内容随机文本库配置
     XDoomsdayConfigs.ResourceAllotConfig =
         XConfig.New("Client/MiniActivity/Doomsday/DoomsdayResourceAllot.tab", XTable.XTableDoomsdayResourceAllot) --资源分配方式配置
+    XDoomsdayConfigs.WeatherConfig = 
+        XConfig.New("Share/MiniActivity/Doomsday/DoomsdayWeather.tab", XTable.XTableDoomsdayWeather) --天气配置表
+    XDoomsdayConfigs.ConditionConfig =
+        XConfig.New("Share/MiniActivity/Doomsday/DoomsdayCondition.tab", XTable.XTableDoomsdayCondition) --条件配置表
+    XDoomsdayConfigs.BroadcastConfig =
+        XConfig.New("Client/MiniActivity/Doomsday/DoomsdayBroadcast.tab", XTable.XTableDoomsdayBroadcast, "Type") --条件配置表
+    XDoomsdayConfigs.CommonConfig = 
+        XConfig.New("Share/MiniActivity/Doomsday/DoomsdayCfg.tab", XTable.XTableDoomsdayCfg, "Key", true) --活动通用配置表
     XDoomsdayConfigs.InitText()
+
+    --结算黑幕持续时间
+    XDoomsdayConfigs.BLACK_MASK_DURATION = XDoomsdayConfigs.BLACK_MASK_DURATION or tonumber(XDoomsdayConfigs.CommonConfig:GetProperty("BlackMaskDuration", "Value"))
+    --报告结算动画时间
+    XDoomsdayConfigs.DOOMSDAY_REPORT_ANIMA_TIME = XDoomsdayConfigs.DOOMSDAY_REPORT_ANIMA_TIME or tonumber(XDoomsdayConfigs.CommonConfig:GetProperty("DoomsdayReportAnimaTime", "Value"))
 end
 
 -----------------活动相关 begin-----------------
@@ -85,7 +100,9 @@ end
 
 --根据资源Id获取关联的居民属性Type
 function XDoomsdayConfigs.GetRelatedAttrIdByResourceId(stageId, resourceId)
-    for _, attrId in pairs(XDoomsdayConfigs.StageConfig:GetProperty(stageId, "AttributeId")) do
+    local attrList = XDoomsdayConfigs.WeatherConfig:GetProperty(self._CurWeatherId, "AttributeId")
+    --XDoomsdayConfigs.StageConfig:GetProperty(stageId, "AttributeId")
+    for _, attrId in pairs(attrList) do
         if XDoomsdayConfigs.AttributeConfig:GetProperty(attrId, "ResourceId") == resourceId then
             return attrId
         end
@@ -93,11 +110,34 @@ function XDoomsdayConfigs.GetRelatedAttrIdByResourceId(stageId, resourceId)
     return 0
 end
 
+function XDoomsdayConfigs.GetWeatherSortList(stageId)
+    local list = XDoomsdayConfigs.StageConfig:GetProperty(stageId, "PossibleWeather")
+    
+    tableSort(list, function(a, b) 
+        return a < b
+    end)
+    
+    return list
+end
+
 --关卡事件类型
 XDoomsdayConfigs.EVENT_TYPE = {
     MAIN = 1, --主要事件
     NORMAL = 2, --普通事件
     EXPLORE = 3 --探索事件
+}
+
+--事件类型按照表现形式
+XDoomsdayConfigs.EVENT_TYPE_EXPRESSION = {
+    NORMAL  = 1, --带子事件的事件类型
+    SPECIAL = 2, --不带子事件，会直接执行
+}
+
+--播报类型
+XDoomsdayConfigs.BROADCAST_TYPE = {
+    DEATH       = 1, --死亡播报 
+    LOG         = 2, --日志播报
+    ACHIEVEMENT = 3, --成就播报
 }
 
 function XDoomsdayConfigs.GetEventTypeRemindDesc(eventType)
@@ -189,16 +229,20 @@ XDoomsdayConfigs.BUILDING_STATE = {
     EMPTY = 0, --空
     WAITING = 1, --等待分配
     WORKING = 2, --工作中
-    PENDING = 3 --工作中断
+    PENDING = 3, --工作中断
+    BUILDING = 4, --建造中
+    UNDERSTAFFED = 5 --人手不足
 }
 
 --不同建筑状态的图标
 local CSXGameClientConfig = CS.XGame.ClientConfig
 XDoomsdayConfigs.BuildingTypeIcon = {
-    [XDoomsdayConfigs.BUILDING_STATE.EMPTY] = CSXGameClientConfig:GetString("DoomsdayBuildingStateIconEmpty"),
+    --[XDoomsdayConfigs.BUILDING_STATE.EMPTY] = CSXGameClientConfig:GetString("DoomsdayBuildingStateIconEmpty"),
     [XDoomsdayConfigs.BUILDING_STATE.WAITING] = CSXGameClientConfig:GetString("DoomsdayBuildingStateIconWaiting"),
     [XDoomsdayConfigs.BUILDING_STATE.WORKING] = CSXGameClientConfig:GetString("DoomsdayBuildingStateIconWorking"),
-    [XDoomsdayConfigs.BUILDING_STATE.PENDING] = CSXGameClientConfig:GetString("DoomsdayBuildingStateIconPending")
+    [XDoomsdayConfigs.BUILDING_STATE.PENDING] = CSXGameClientConfig:GetString("DoomsdayBuildingStateIconPending"),
+    [XDoomsdayConfigs.BUILDING_STATE.BUILDING] = CSXGameClientConfig:GetString("DoomsdayBuildingStateIconBuilding"),
+    [XDoomsdayConfigs.BUILDING_STATE.UNDERSTAFFED] = CSXGameClientConfig:GetString("DoomsdayBuildingStateIconUnderstaffed"),
 }
 XDoomsdayConfigs.EmptyBuildingIcon = CSXGameClientConfig:GetString("DoomsdayBuildingIconEmpty")
 --资源类型
@@ -218,17 +262,46 @@ XDoomsdayConfigs.RESOURCE_ALLOCTION_FUNC_NAME = {
     NONE = "GetResourceAllocationByAllocateToNone" --不分配
 }
 
---获取加减不同颜色的数字文本 （+50）（-50）
-function XDoomsdayConfigs.GetNumerText(num)
+local GetNumberTextWithColor = function(num, isInverse, isHidePlus, isBrackets, unit)
+    unit = unit or ""
     if num > 0 then
-        return CsXTextManagerGetText("DoomsdayNumberUp", math.abs(num))
+        local symbol = isHidePlus and "" or "+"
+        local content = isBrackets and "(%s%s)" or "%s%s"
+        local tmpNum = string.format(content, symbol, math.abs(num))
+        local tmpStr = isInverse and CSXTextManagerGetText("DoomsdayNumberNegativeGrowth", tmpNum) or CSXTextManagerGetText("DoomsdayNumberPositiveGrowth", tmpNum)
+        return tmpStr .. unit
     end
 
     if num < 0 then
-        return CsXTextManagerGetText("DoomsdayNumberDown", math.abs(num))
+        local content = isBrackets and "(-%s)" or "-%s"
+        local tmpNum = string.format(content, math.abs(num))
+        local tmpStr = isInverse and CSXTextManagerGetText("DoomsdayNumberPositiveGrowth", tmpNum) or CSXTextManagerGetText("DoomsdayNumberNegativeGrowth", tmpNum)
+        return tmpStr .. unit
     end
 
     return ""
+end
+
+--==============================
+ ---@desc 获取上升，下降两中颜色的数字文本
+ ---@isInverse 是否翻转， 上升为红色，下降为绿色 
+ ---@isHidePlus 正数不显示加号
+ ---@isBrackets 是否显示小括号
+ ---@unit 单位 50/天
+ ---@return string
+--==============================
+function XDoomsdayConfigs.GetNumberText(num, isInverse, isHidePlus, isBrackets, unit)
+    return GetNumberTextWithColor(num, isInverse, isHidePlus, isBrackets, unit)
+end
+
+-- 属性消耗  心情值上升50 心情值下降50
+function XDoomsdayConfigs.GetDoomsdayAttributeWithDaily(num, attrName)
+    num = num or 0
+    if num > 0 then
+        return CSXTextManagerGetText("DoomsdayAttributeUpWithDaily", attrName, num)
+    else
+        return CSXTextManagerGetText("DoomsdayAttributeDownWithDaily", attrName, num)
+    end
 end
 
 --获取加减不同颜色的数字文本 （50/100 红色）（100/100 蓝色）
@@ -324,6 +397,10 @@ end
 
 --检查指定地点Id是否为大本营
 function XDoomsdayConfigs.CheckPlaceIsCamp(stageId, placeId)
+    if not XTool.IsNumberValid(stageId) 
+            or not XTool.IsNumberValid(placeId) then
+        return false
+    end
     return XDoomsdayConfigs.StageConfig:GetProperty(stageId, "FirstPlace") == placeId
 end
 
@@ -366,3 +443,113 @@ XDoomsdayConfigs.TEAM_STATE = {
     MOVING = 2, --行进中
     BUSY = 3 --事件中
 }
+
+--探索路线特效
+function XDoomsdayConfigs.GetExplorePathFx()
+    return XUiConfigs.GetComponentUrl("DoomsdayFxUiTansuoluxian")
+end
+
+
+local ConditionType = {
+    
+    [101] = function(condition, ...)  --指定资源存量小于一定数量
+        local args = { ... }
+        local stageId = args[1]
+        local resourceId, resourceCount = condition.Args[1], condition.Args[2]
+        local stage = XDataCenter.DoomsdayManager.GetStageData(stageId)
+        local resource = stage:GetResource(resourceId)
+        if not resource or resource:GetProperty("_Count") >= resourceCount then
+            return false, condition.Desc
+        end
+        return true, condition.Desc
+    end,
+    
+    [102] = function(condition, ...) --指定资源存量大于等于一定数量
+        local args = { ... }
+        local stageId = args[1]
+        local resourceId, resourceCount = condition.Args[1], condition.Args[2]
+        local stage = XDataCenter.DoomsdayManager.GetStageData(stageId)
+        local resource = stage:GetResource(resourceId)
+        if not resource or resource:GetProperty("_Count") < resourceCount then
+            return false, condition.Desc
+        end
+        return true, condition.Desc
+    end,
+    
+    [205] = function(condition, ...) --营地内某属性值小于等于指定值
+        local args = { ... }
+        local stageId = args[1]
+        local stage = XDataCenter.DoomsdayManager.GetStageData(stageId)
+        local attrType, value = condition.Args[1], condition.Args[2]
+        local attrValue = stage:GetAverageInhabitantAttr(attrType)
+        if attrValue > value then
+            return false, condition.Desc
+        end
+        return true, condition.Desc
+    end,
+
+    [206] = function(condition, ...) --营地内某属性值大于指定值
+        local args = { ... }
+        local stageId = args[1]
+        local stage = XDataCenter.DoomsdayManager.GetStageData(stageId)
+        local attrType, value = condition.Args[1], condition.Args[2]
+        local attrValue = stage:GetAverageInhabitantAttr(attrType)
+        if attrValue <= value then
+            return false, condition.Desc
+        end
+        return true, condition.Desc
+    end,
+    
+    [301] = function(condition, ...) --拥有指定数量的指定建筑（场上存在建筑就算）
+        local args = { ... }
+        local stageId = args[1]
+        local stage = XDataCenter.DoomsdayManager.GetStageData(stageId)
+        local preBuildId, needCount = tonumber(condition.Args[1]), tonumber(condition.Args[2])
+        local desc = string.format(condition.Desc, needCount, XDoomsdayConfigs.BuildingConfig:GetProperty(preBuildId, "Name"))
+        local hasBuildCount = stage:GetFinishBuildingMember(preBuildId)
+        return hasBuildCount >= needCount, desc
+    end,
+    
+    [601] = function(condition, ...) --已完成前置事件
+        local args = { ... }
+        local stageId = args[1]
+        local stage = XDataCenter.DoomsdayManager.GetStageData(stageId)
+        local eventId, select = tonumber(condition.Args[1]), tonumber(condition.Args[2] or 0)
+        local event = stage:GetEvent(eventId)
+        if not event then
+            return false, condition.Desc
+        end
+        if select == 0 then
+            return event:GetProperty("_Finished"), condition.Desc
+        else
+            --配置起始值为1，代码为0
+            return event:GetProperty("_Select") == select - 1, condition.Desc
+        end
+    end,
+    
+    [901] = function(condition, ...) --已完成指定事件事件
+        local args = { ... }
+        local stageId = args[1]
+        local stage = XDataCenter.DoomsdayManager.GetStageData(stageId)
+        local eventId = condition.Args[1]
+        local event = stage:GetEvent(eventId)
+        if not event then
+            return false, condition.Desc
+        end
+        return event:GetProperty("_Finished"), condition.Desc
+    end,
+}
+
+function XDoomsdayConfigs.CheckCondition(id, ...)
+    local type = XDoomsdayConfigs.ConditionConfig:GetProperty(id, "Type")
+    
+    local func = ConditionType[type]
+    if not func then
+        XLog.Error(
+                "XDoomsdayConfigs.CheckCondition error: can not found condition, id is " ..
+                        id .. " type is " .. type
+        )
+        return true
+    end
+    return func(XDoomsdayConfigs.ConditionConfig:GetConfig(id), ...)
+end

@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiMultiDimMainDetail = XClass(nil, "XUiMultiDimMainDetail")
 
 function XUiMultiDimMainDetail:Ctor(ui, rootUi)

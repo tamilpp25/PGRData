@@ -1,13 +1,16 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenYuanXiaoTask = XLuaUiManager.Register(XLuaUi,"UiFubenYuanXiaoTask")
 
 local TabType = {
-    Daily = 1,
-    Challenge = 2
+    --Daily = 1,
+    Challenge = 1
 }
 
 function XUiFubenYuanXiaoTask:OnStart()
     self.TaskDic = {}
-    self.SelectIndex = TabType.Daily
+    self.SelectIndex = TabType.Challenge
     self.PanelAsset = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     self.TaskGroupIds = XDataCenter.FubenSpecialTrainManager.GetTaskGroupIds()
     self:RegisterButtonClick()
@@ -55,7 +58,7 @@ end
 
 function XUiFubenYuanXiaoTask:InitButtonGroup()
     local tabList = {
-        self.BtnDayTask,
+        --self.BtnDayTask,
         self.BtnRewardTask
     }
     self.BtnGroup:Init(tabList,function(index)
@@ -70,7 +73,7 @@ function XUiFubenYuanXiaoTask:OnSelectTab(index)
 end
 
 function XUiFubenYuanXiaoTask:RefreshDynamicTable()
-    self.TaskDic[TabType.Daily] = XDataCenter.TaskManager.GetTimeLimitTaskListByGroupId(self.TaskGroupIds[1])
+    --self.TaskDic[TabType.Daily] = XDataCenter.TaskManager.GetTimeLimitTaskListByGroupId(self.TaskGroupIds[1])
     self.TaskDic[TabType.Challenge] = XDataCenter.TaskManager.GetTimeLimitTaskListByGroupId(self.TaskGroupIds[2])
 
     self.DynamicTable:SetDataSource(self.TaskDic[self.SelectIndex])
@@ -90,9 +93,9 @@ function XUiFubenYuanXiaoTask:OnDynamicTableEvent(event, index, grid)
 end
 
 function XUiFubenYuanXiaoTask:RefreshRedPoint()
-    local isShowDayRedDot = XDataCenter.TaskManager.CheckLimitTaskList(self.TaskGroupIds[1])
+    --local isShowDayRedDot = XDataCenter.TaskManager.CheckLimitTaskList(self.TaskGroupIds[1])
     local isShowChallengeRedDot = XDataCenter.TaskManager.CheckLimitTaskList(self.TaskGroupIds[2])
-    self.BtnDayTask:ShowReddot(isShowDayRedDot)
+    --self.BtnDayTask:ShowReddot(isShowDayRedDot)
     self.BtnRewardTask:ShowReddot(isShowChallengeRedDot)
 end
 

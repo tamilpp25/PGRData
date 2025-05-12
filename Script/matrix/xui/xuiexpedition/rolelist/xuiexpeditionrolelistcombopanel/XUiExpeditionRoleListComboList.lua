@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --虚像地平线成员列表页面：羁绊列表
 local XUiExpeditionRoleListComboList = XClass(nil, "XUiExpeditionRoleListComboList")
 local XUiExpeditionComboGrid = require("XUi/XUiExpedition/Recruit/XUiExpeditionComboPanel/XUiExpeditionComboGrid")

@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCollection = require("XUi/XUiMedal/XUiGridCollection")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiCollectionWallSetting = XLuaUiManager.Register(XLuaUi, "UiCollectionWallSetting")
 
 local XUiGridCollectionWall = require("XUi/XUiCollectionWall/XUiCollectionWallGrid/XUiGridCollectionWall")

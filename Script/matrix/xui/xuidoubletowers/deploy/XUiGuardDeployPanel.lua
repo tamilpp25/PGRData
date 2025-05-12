@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local MAX_GUARD_GRID_COUNT = XDoubleTowersConfigs.GetGuardPluginMaxCount()  --守卫插件最大格子数
 
 local XUiDeploySlotGrid = require("XUi/XUiDoubleTowers/Deploy/XUiDeploySlotGrid")
@@ -80,7 +81,7 @@ function XUiGuardDeployPanel:UpdateSlot()
         end
         slotGrid:Refresh(plugIdList[i])
         slotGrid.GameObject:SetActiveEx(true)
-        if self.CurSelectSlotIndex == -1 and i == 1then
+        if self.CurSelectSlotIndex == -1 and i == 1 then
             self:UpdateSlotSelect(slotGrid)
         end
     end

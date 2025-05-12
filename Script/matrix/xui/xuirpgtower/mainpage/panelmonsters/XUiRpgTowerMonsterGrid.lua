@@ -23,7 +23,7 @@ end
 --================
 function XUiRpgTowerMonsterGrid:RefreshModel()
     local monsterNpcDataId = XRpgTowerConfig.GetMonsterNpcDataIdByRMonsterId(self.MonsterId)
-    local modelName = XArchiveConfigs.GetMonsterNpcDataById(monsterNpcDataId).ModelId
+    local modelName = XMVCA.XArchive:GetMonsterNpcDataById(monsterNpcDataId).ModelId[1]
     self.MonsterModel:UpdateBossModel(modelName, nil, nil, function(model) self:LoadModelCallBack(model) end, true)
     local shadowMeshs = self.MonsterModel.GameObject:GetComponentsInChildren(typeof(CS.XShadowMesh))
     if shadowMeshs then  

@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenDailyDrop = XLuaUiManager.Register(XLuaUi, "UiFubenDailyDrop")
 local WEEK = 7
 local DROP_VIEW_MAX = 5

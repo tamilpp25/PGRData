@@ -50,7 +50,7 @@ function XUiPivotCombatSelectDifficult:OnBtnConfirmClick()
     if self.Difficult == XPivotCombatConfigs.DifficultType.Hard then
         local title = XUiHelper.GetText("TipTitle")
         --检测是否学习独域技能
-        local spList = XDataCenter.CharacterManager.GetOwnCharacterList(XCharacterConfigs.CharacterType.Isomer)
+        local spList = XMVCA.XCharacter:GetOwnCharacterList(XEnumConst.CHARACTER.CharacterType.Isomer)
         if XTool.IsTableEmpty(spList) then
             local text = XUiHelper.GetText("PivotCombatSelectDifficultNoEnhanceSkill")
             XUiManager.DialogTip(title, text, XUiManager.DialogType.Normal, nil, OnSelect)
@@ -78,7 +78,7 @@ function XUiPivotCombatSelectDifficult:OnBtnConfirmClick()
         --检测解锁独域技能的角色战斗力是否达到6000
         local abilityLimitCount = 0
         for _, character in ipairs(lockSkillCharacter) do
-            local ability = XDataCenter.CharacterManager.GetCharacterAbility(character)
+            local ability = XMVCA.XCharacter:GetCharacterAbility(character)
             if ability and ability >= ABILITY_LIMIT then
                 abilityLimitCount = abilityLimitCount + 1
             end

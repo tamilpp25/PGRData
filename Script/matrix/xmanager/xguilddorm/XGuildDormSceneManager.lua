@@ -2,6 +2,7 @@
 --公会宿舍场景管理
 --负责人：吕天元
 --=================
+---@class XGuildDormSceneManager
 local XGuildDormSceneManager = {}
 
 local XGuildDormScene = require("XEntity/XGuildDorm/XGuildDormScene")
@@ -9,6 +10,7 @@ local XGuildDormScene = require("XEntity/XGuildDorm/XGuildDormScene")
 --当前场景
 --获取/设置当前场景
 --=============
+---@type XGuildDormScene
 local CurrentScene
 function XGuildDormSceneManager.GetCurrentScene()
     return CurrentScene
@@ -82,9 +84,9 @@ function XGuildDormSceneManager.EnterScene(sceneName, scenePrefabPath, roomId, o
         return
     end
     --调整全局光照模式
-    CS.XGlobalIllumination.SetSceneType(CS.XSceneType.Dormitory)
+    XUiHelper.SetSceneType(CS.XSceneType.Dormitory)
     local scene = XGuildDormScene.New(sceneName, scenePrefabPath, roomId, onLoadCompleteCb, onExitCb)
-    XLuaUiManager.Open("UiLoading", LoadingType.Dormitory)
+    XLuaUiManager.Open("UiLoading", LoadingType.GuildDorm)
     if onLoadingStart then
         onLoadingStart()
     end
@@ -101,7 +103,7 @@ end
 --============
 function XGuildDormSceneManager.ExitGuildDorm()
     LeaveCurrentScene()
-    CS.XGlobalIllumination.SetSceneType(CS.XSceneType.Ui)
+    XUiHelper.SetSceneType(CS.XSceneType.Ui)
     XGuildDormSceneManager.ClearSceneObjsMaps()
 end
 --============

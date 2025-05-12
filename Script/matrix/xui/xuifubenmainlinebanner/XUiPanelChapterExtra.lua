@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridChapterExtra = require("XUi/XUiFubenMainLineBanner/XUiGridChapterExtra")
 local XUiPanelChapterExtra = XClass(nil, "XUiPanelChapterExtra")
 
@@ -42,12 +43,9 @@ function XUiPanelChapterExtra:OnChapterCoverClick(chapterCfg)
     local chapterInfo = XDataCenter.ExtraChapterManager.GetChapterInfo(chapterId)
     local chapterCfg = XDataCenter.ExtraChapterManager.GetChapterDetailsCfgByChapterIdAndDifficult(chapterInfo.ChapterMainId, self.currentDifficult)
     if chapterInfo.Unlock then
-        local doneCb = function()
-            self.rootUi:PushUi(function()
-                XLuaUiManager.Open("UiFubenMainLineChapterFw", chapterCfg, nil, false)
-            end)
-        end -- doneCb
-        XDataCenter.DlcManager.CheckDownloadForEntry(XDlcConfig.EntryType.ExtraChapter, chapterId, doneCb)
+        self.rootUi:PushUi(function()
+            XLuaUiManager.Open("UiFubenMainLineChapterFw", chapterCfg, nil, false)
+        end)
     elseif chapterInfo.IsActivity then
         local ret, desc = XDataCenter.ExtraChapterManager.CheckActivityCondition(chapterId)
         if not ret then

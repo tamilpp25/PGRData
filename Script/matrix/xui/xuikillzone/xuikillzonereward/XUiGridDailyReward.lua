@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local handler = handler
 local CsXTextManagerGetText = CsXTextManagerGetText
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate

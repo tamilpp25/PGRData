@@ -21,7 +21,7 @@ function XUiGridStoryChapterDP:Ctor(rootUi, ui, autoChangeBgArgs, isOnZhouMu)
         self.zhouMuChapterId = XDataCenter.FubenZhouMuManager.GetZhouMuChapterIdByZhouMuId(self.RootUi.ZhouMuId)
 
         local lastStage = XFubenZhouMuConfigs.GetZhouMuChapterLastStage(self.zhouMuChapterId)
-        self.OriLastStageIsPass = XDataCenter.FubenManager.CheckStageIsPass(lastStage)
+        self.OriLastStageIsPass = XMVCA.XFuben:CheckStageIsPass(lastStage)
     end
 
     --配置的格子位移超过某个阀值时，更换背景图片
@@ -276,7 +276,7 @@ function XUiGridStoryChapterDP:UpdateChapterGrid(data)
     self.EggStageList = {}
     self.NormalStageList = {}
     for _, v in pairs(data.StageList) do
-        local stageCfg = XDataCenter.FubenManager.GetStageCfg(v)
+        local stageCfg = XMVCA.XFuben:GetStageCfg(v)
         if self:IsEggStage(stageCfg) then
             local eggNum = self:GetEggNum(data.StageList, stageCfg)
             if eggNum ~= 0 then
@@ -300,7 +300,7 @@ end
 function XUiGridStoryChapterDP:ClickStageGridByStageId(selectStageId)
     if not selectStageId then return end
     local IsEggStage = false
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(selectStageId)
+    local stageInfo = XMVCA.XFuben:GetStageInfo(selectStageId)
     if not stageInfo.IsOpen then return end
 
     local index = 0
@@ -349,18 +349,18 @@ function XUiGridStoryChapterDP:SetStageList()
     -- 初始化副本显示列表，i作为order id，从1开始
     for i = 1, #self.NormalStageList do
         local stageId = self.NormalStageList[i]
-        local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-        local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+        local stageCfg = XMVCA.XFuben:GetStageCfg(stageId)
+        local stageInfo = XMVCA.XFuben:GetStageInfo(stageId)
 
         if stageInfo.IsOpen or self.IsOnZhouMu then
             local grid = self.GridStageList[i]
             if not grid then
                 local uiName
-                if stageInfo.Type == XDataCenter.FubenManager.StageType.ActivtityBranch then
+                if stageInfo.Type == XEnumConst.FuBen.StageType.ActivtityBranch then
                     uiName = "GridBranchStage"
-                elseif stageInfo.Type == XDataCenter.FubenManager.StageType.ActivityBossSingle then
+                elseif stageInfo.Type == XEnumConst.FuBen.StageType.ActivityBossSingle then
                     uiName = "GridActivityBossSingleStage"
-                elseif stageInfo.Type == XDataCenter.FubenManager.StageType.RepeatChallenge then
+                elseif stageInfo.Type == XEnumConst.FuBen.StageType.RepeatChallenge then
                     uiName = "GridRepeatChallengeStage"
                 else
                     uiName = "GridStage"
@@ -385,11 +385,11 @@ function XUiGridStoryChapterDP:SetStageList()
 
     for i = 1, #self.EggStageList do
         local stageId = self.EggStageList[i].Id
-        local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-        local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+        local stageCfg = XMVCA.XFuben:GetStageCfg(stageId)
+        local stageInfo = XMVCA.XFuben:GetStageInfo(stageId)
 
         if stageInfo.IsOpen then
-            if XDataCenter.FubenManager.GetUnlockHideStageById(stageId) then
+            if XMVCA.XFuben:GetUnlockHideStageById(stageId) then
                 local grid = self.GridEggStageList[i]
                 if not grid then
                     local uiName = "GridStageSquare"
@@ -436,9 +436,9 @@ function XUiGridStoryChapterDP:ClickStageGrid(grid)
         return
     end
 
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(grid.Stage.StageId)
+    local stageInfo = XMVCA.XFuben:GetStageInfo(grid.Stage.StageId)
     if not stageInfo.Unlock then
-        XUiManager.TipMsg(XDataCenter.FubenManager.GetFubenOpenTips(grid.Stage.StageId))
+        XUiManager.TipMsg(XMVCA.XFuben:GetFubenOpenTips(grid.Stage.StageId))
         return
     end
 
@@ -447,7 +447,7 @@ function XUiGridStoryChapterDP:ClickStageGrid(grid)
         self.ShowStageCb(grid.Stage, grid.ChapterOrderId)
     end
 
-    if stageInfo.Type == XDataCenter.FubenManager.StageType.ActivityBossSingle then
+    if stageInfo.Type == XEnumConst.FuBen.StageType.ActivityBossSingle then
         return
     end
 
@@ -551,7 +551,7 @@ function XUiGridStoryChapterDP:OnEnable()
         -- 在检查完是否播放动画后更新标志
         self.zhouMuChapterId = XDataCenter.FubenZhouMuManager.GetZhouMuChapterIdByZhouMuId(self.RootUi.ZhouMuId)
         local lastStage = XFubenZhouMuConfigs.GetZhouMuChapterLastStage(self.zhouMuChapterId)
-        self.OriLastStageIsPass = XDataCenter.FubenManager.CheckStageIsPass(lastStage)
+        self.OriLastStageIsPass = XMVCA.XFuben:CheckStageIsPass(lastStage)
     end
 
     if self.Enabled then

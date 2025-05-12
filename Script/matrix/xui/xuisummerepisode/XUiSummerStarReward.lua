@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiSummerStarReward = XLuaUiManager.Register(XLuaUi, "UiSummerStarReward")
 
 local XUiGridStarReward = require("XUi/XUiSummerEpisode/XUiGridStarReward")

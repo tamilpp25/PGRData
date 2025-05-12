@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridCond = require("XUi/XUiSettleWinMainLine/XUiGridCond")
+local XUiPanelMissionCharacter = require("XUi/XUiMission/XUiPanelMissionCharacter")
 local XUiMissionTeam = XLuaUiManager.Register(XLuaUi, "UiMissionTeam")
 
 local MissionQuality =
@@ -183,7 +186,7 @@ function XUiMissionTeam:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

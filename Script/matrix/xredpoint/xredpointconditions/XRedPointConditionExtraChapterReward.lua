@@ -11,7 +11,7 @@ function XRedPointConditionExtraChapterReward.GetSubConditions()
 end
 
 function XRedPointConditionExtraChapterReward.Check(chapterId)
-    if XRedPointConditionExtraTreasure.Check(chapterId) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_EXTRA_TREASURE, chapterId) then
         return true
     end
 
@@ -22,7 +22,7 @@ function XRedPointConditionExtraChapterReward.Check(chapterId)
         return false
     end
 
-    if XRedPointConditionZhouMuTask.Check(zhouMuId) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_ZHOUMU_TASK, zhouMuId) then
         return true
     end
 

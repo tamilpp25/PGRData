@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --------------图示格子节点 begin --------------------
 local XUiGridGraphic = XClass(nil, "XUiGridGraphic")
 

@@ -20,11 +20,14 @@ function XRedPointConditionCharacterGrade.Check(characterId)
         return false
     end
 
+    ---@type XCharacterAgency
+    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+
     if not XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.CharacterGrade) then
         return false
     end
 
-    return XDataCenter.CharacterManager.CanPromoteGrade(characterId)
+    return ag:CanPromoteGrade(characterId)
 end
 
 return XRedPointConditionCharacterGrade

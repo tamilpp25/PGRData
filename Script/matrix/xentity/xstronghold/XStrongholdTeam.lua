@@ -16,8 +16,11 @@ local Default = {
     _SubRuneId = 0, --子符文Id
     _TeamMemberDic = {}, --上阵成员信息
     _PluginDic = {}, --插件信息
+    _ElementId = 0, --队伍属性
 }
 
+---@class XStrongholdTeam
+---@field _TeamMemberDic XStrongholdTeamMember[]
 local XStrongholdTeam = XClass(nil, "XStrongholdTeam")
 
 function XStrongholdTeam:Ctor(id)
@@ -33,8 +36,12 @@ function XStrongholdTeam:Init(id)
         end
     end
 
-    self._Id = id
+    self:SetId(id)
     self:InitPlugins()
+end
+
+function XStrongholdTeam:SetId(id)
+    self._Id = id
 end
 
 function XStrongholdTeam:GetId()
@@ -77,6 +84,7 @@ function XStrongholdTeam:SetMemberForce(pos, member)
     self._TeamMemberDic[pos] = member
 end
 
+---@return XStrongholdTeamMember
 function XStrongholdTeam:GetMember(pos)
     if not IsNumberValid(pos) then return end
     local member = self._TeamMemberDic[pos]
@@ -87,6 +95,7 @@ function XStrongholdTeam:GetMember(pos)
     return member
 end
 
+---@type XStrongholdTeamMember[]
 function XStrongholdTeam:GetAllMembers()
     local members = {}
     for _, member in pairs(self._TeamMemberDic) do
@@ -103,6 +112,17 @@ function XStrongholdTeam:GetInTeamMemberCount()
         end
     end
     return count
+end
+
+function XStrongholdTeam:IsCharacterAssitant(characterId)
+    for _, member in pairs(self._TeamMemberDic) do
+        if not member:IsEmpty() then
+            if member:GetRoleId() == characterId then
+                return member:IsAssitant(), member:GetPlayerId()
+            end
+        end
+    end
+    return false
 end
 
 function XStrongholdTeam:GetShowCharacterIds()
@@ -209,6 +229,7 @@ function XStrongholdTeam:ExistDifferentCharacterType(characterType)
 end
 
 function XStrongholdTeam:InitPlugins()
+    ---@type XStrongholdPlugin[]
     self._PluginDic = {}
     local pluginIds = XStrongholdConfigs.GetPluginIds()
     for _, pluginId in ipairs(pluginIds) do
@@ -224,6 +245,7 @@ function XStrongholdTeam:GetAllPlugins()
     return plugins
 end
 
+---@return XStrongholdPlugin
 function XStrongholdTeam:GetPlugin(pluginId)
     local plugin = self._PluginDic[pluginId]
     if not plugin then
@@ -255,6 +277,14 @@ function XStrongholdTeam:GetUseElectricEnergy()
     return useElectric
 end
 
+function XStrongholdTeam:GetUseCount()
+    local count = 0
+    for _, plugin in pairs(self._PluginDic) do
+        count = count + plugin:GetCount()
+    end
+    return count
+end
+
 --获取已上阵成员总战力
 function XStrongholdTeam:GetTeamAbility()
     local addAbility = 0
@@ -273,11 +303,10 @@ function XStrongholdTeam:GetPluginAddAbility()
     return addAbility
 end
 
---队伍内成员战力 = 成员战力 + 已激活插件额外增加战力
+--队伍内成员战力 = 成员战力
 function XStrongholdTeam:GetTeamMemberAbility(pos)
-    local extraAbility = self:GetPluginAddAbility()
     local member = self:GetMember(pos)
-    return extraAbility + member:GetAbility()
+    return member:GetAbility()
 end
 
 function XStrongholdTeam:CheckPosEmpty(pos)
@@ -352,10 +381,12 @@ function XStrongholdTeam:KickOutOtherMembers()
     end
 end
 
---剔除已经失效的援助角色
-function XStrongholdTeam:KickOutInvalidMembers()
+--剔除已经失效的援助角色和试玩角色
+function XStrongholdTeam:KickOutInvalidMembers(canUseRobotIdDic)
     for _, member in pairs(self._TeamMemberDic) do
         if not member:CheckValid() then
+            member:ResetCharacters()
+        elseif (canUseRobotIdDic) and (member:IsRobot() and not canUseRobotIdDic[member:GetRobotId()]) then
             member:ResetCharacters()
         end
     end
@@ -384,6 +415,10 @@ function XStrongholdTeam:Compare(cTeam)
         return false
     end
 
+    if self:GetCurGeneralSkill() ~= cTeam:GetCurGeneralSkill() then
+        return false
+    end
+    
     local runeId, subRuneId = self:GetRune()
     local cRuneId, cSubRuneId = cTeam:GetRune()
     if runeId ~= cRuneId
@@ -438,14 +473,18 @@ end
 
 --是否装备符文
 function XStrongholdTeam:HasRune()
-    return XTool.IsNumberValid(self._RuneId)
-    and XTool.IsNumberValid(self._SubRuneId)
+    return XDataCenter.StrongholdManager.IsCurActivityRune(self._RuneId) or XDataCenter.StrongholdManager.IsCurActivityRune(self._SubRuneId)
 end
 
 --是否装备该符文大类
 function XStrongholdTeam:IsRuneUsing(runeId)
     return XTool.IsNumberValid(self._RuneId)
     and self._RuneId == runeId
+end
+
+--是否装备符文
+function XStrongholdTeam:IsRune()
+    return XTool.IsNumberValid(self._RuneId)
 end
 
 --获取符文描述
@@ -455,11 +494,235 @@ function XStrongholdTeam:GetRuneDesc()
     return XStrongholdConfigs.GetRuneBrief(runeId)
 end
 
+function XStrongholdTeam:GetRuneName()
+    local runeId = self._RuneId
+    if not XTool.IsNumberValid(runeId) then return "" end
+    return XStrongholdConfigs.GetRuneName(runeId)
+end
+
 --获取符文颜色
 function XStrongholdTeam:GetRuneColor()
     local runeId = self._RuneId
     if not XTool.IsNumberValid(runeId) then return "" end
     return XStrongholdConfigs.GetRuneColor(runeId)
 end
+
+function XStrongholdTeam:SetElementId(element)
+    self._ElementId = element
+end
+
+function XStrongholdTeam:GetElementId()
+    return self._ElementId
+end
+
+--兼容旧编队系统
+---@return XTeam
+function XStrongholdTeam:CreateTempTeam()
+    local teamData = {}
+    teamData.FirstFightPos = self._FirstPos
+    teamData.CaptainPos = self._CaptainPos
+    teamData.TeamData = {}
+    for pos, member in pairs(self._TeamMemberDic) do
+        teamData.TeamData[pos] = member:GetRoleId()
+    end
+    teamData.SelectedGeneralSkill = self.SelectedGeneralSkill
+    teamData.EnterCgIndex = self:GetEnterCgIndex()
+    teamData.SettleCgIndex = self:GetSettleCgIndex()
+    ---@type XTeam
+    local xTeam = XDataCenter.TeamManager.CreateTeam(self._Id)
+    xTeam:UpdateAutoSave(true)
+    xTeam:UpdateLocalSave(false)
+    xTeam:Clear()
+    xTeam:UpdateFromTeamData(teamData)
+    xTeam:RefreshGeneralSkills()
+    xTeam:UpdateSaveCallback(function(inTeam)
+        self:SetCaptainPos(xTeam:GetCaptainPos())
+        self:SetFirstPos(xTeam:GetFirstFightPos())
+        local members = XTool.Clone(self:GetAllMembers())
+        for pos, id in pairs(xTeam.EntitiyIds) do
+            local newMember = nil
+            for _, member in pairs(members) do
+                if member:GetRoleId() == id then
+                    newMember = member
+                    break
+                end
+            end
+            if newMember then
+                self:SetMember(pos, newMember:GetCharacterId(), newMember:GetPlayerId(), newMember:GetRobotId(), newMember:GetAbility())
+            end
+        end
+        -- 继承XTeam的效应技能选择数据
+        self.SelectedGeneralSkill = xTeam:GetCurGeneralSkill()
+        self:SetEnterCgIndex(xTeam:GetEnterCgIndex())
+        self:SetSettleCgIndex(xTeam:GetSettleCgIndex())
+    end)
+    xTeam:Save()
+
+    return xTeam
+end
+
+--region 角色效应技能相关
+function XStrongholdTeam:GetGeneralSkillList()
+    local list = {}
+
+    for id, characters in pairs(self._GenernalSkills) do
+        table.insert(list,{Id = id, Characters = characters})
+    end
+
+    return list
+end
+
+function XStrongholdTeam:GetCurGeneralSkill()
+    return self.SelectedGeneralSkill or 0
+end
+
+function XStrongholdTeam:CheckHasGeneralSkills()
+    return not XTool.IsTableEmpty(self._GenernalSkills)
+end
+
+---技能汇总表仅加载时缓存，不会存储到本地
+function XStrongholdTeam:UpdateGenernalSkillsByEntityId(entityId, isRemove)
+    if not XTool.IsNumberValid(entityId) then
+        return
+    end
+
+    local fixedEntityId = entityId
+
+    --如果是机器人则需要转变一下
+    local characterId = XMVCA.XCharacter:CheckIsCharOrRobot(fixedEntityId) and XRobotManager.GetCharacterId(fixedEntityId) or fixedEntityId
+    -- 获取角色已激活的效应技能列表（自机和机器人）
+    local skillIds = XMVCA.XCharacter:GetCharactersActiveGeneralSkillIdList(characterId)
+
+    if XTool.IsTableEmpty(skillIds) then
+        return
+    end
+
+    if self._GenernalSkills == nil then
+        self._GenernalSkills = {}
+    end
+
+    for index, value in ipairs(skillIds) do
+        if isRemove then
+            if not XTool.IsTableEmpty(self._GenernalSkills[value]) then
+                self._GenernalSkills[value][characterId] = nil
+            end
+
+            if XTool.IsTableEmpty(self._GenernalSkills[value]) then
+                self._GenernalSkills[value] = nil
+                if self.SelectedGeneralSkill == value then
+                    self:UpdateSelectGeneralSkill(0)
+                end
+            end
+        else
+            if self._GenernalSkills[value] == nil then
+                self._GenernalSkills[value] = {}
+            end
+            self._GenernalSkills[value][characterId] = true
+        end
+
+        :: continue ::
+    end
+end
+
+function XStrongholdTeam:AutoSelectGeneralSkill(defaultSkillIds)
+    if not XTool.IsTableEmpty(defaultSkillIds) then
+        local aimSkillId = 0
+        for index, value in ipairs(defaultSkillIds) do
+            if not XTool.IsTableEmpty(self._GenernalSkills[value]) then
+                if aimSkillId == 0 then
+                    aimSkillId = value
+                else
+                    local newCount = XTool.GetTableCount(value)
+                    local oldCount = XTool.GetTableCount(self._GenernalSkills[aimSkillId])
+                    if newCount > oldCount then -- 如果新的技能角色数最多，则选新技能
+                        aimSkillId = value
+                    end
+                end
+            end
+        end
+        if XTool.IsNumberValid(aimSkillId) then
+            self:UpdateSelectGeneralSkill(aimSkillId)
+            return
+        end
+    end
+
+    if XTool.IsTableEmpty(self._GenernalSkills) then
+        return
+    end
+    --找出关联角色最多且Id最小的技能
+    local aimSkillId = 0
+    for key, value in pairs(self._GenernalSkills) do
+        if aimSkillId == 0 then
+            aimSkillId = key
+        else
+            local newCount = XTool.GetTableCount(value)
+            local oldCount = XTool.GetTableCount(self._GenernalSkills[aimSkillId])
+            if newCount > oldCount then -- 如果新的技能角色数最多，则选新技能
+                aimSkillId = key
+            elseif newCount == oldCount then -- 如果两个技能角色数量相等，则选Id小的那一个
+                if key < aimSkillId then
+                    aimSkillId = key
+                end
+            end
+        end
+    end
+    self:UpdateSelectGeneralSkill(aimSkillId)
+end
+
+--- 矿区编队特殊处理，防止遗漏数据
+function XStrongholdTeam:RefreshGeneralSkillOption()
+    -- 刷新需要保证已经选择的效应不被重置（还存在的情况下）
+    local lastSelectGeneralSkill = self.SelectedGeneralSkill or 0
+
+    self._GenernalSkills = nil
+    self.SelectedGeneralSkill = 0
+    for pos, member in pairs(self._TeamMemberDic) do
+        self:UpdateGenernalSkillsByEntityId(member:GetRoleId())
+    end
+
+    -- 判断刷新过后，当前队伍的效应技能里还有没有之前选择的
+    local hasLastSelecedGeneralSkill = false
+    if not XTool.IsTableEmpty(self._GenernalSkills) then
+        for generalSkillId, linkCharaList in pairs(self._GenernalSkills) do
+            if generalSkillId == lastSelectGeneralSkill then
+                hasLastSelecedGeneralSkill = true
+                break
+            end
+        end
+    end
+
+    if hasLastSelecedGeneralSkill then
+        self.SelectedGeneralSkill = lastSelectGeneralSkill
+    end
+
+    if not XTool.IsNumberValid(self.SelectedGeneralSkill) then
+        self:AutoSelectGeneralSkill()
+    end
+end
+
+function XStrongholdTeam:UpdateSelectGeneralSkill(skillId)
+    self.SelectedGeneralSkill = skillId
+end
+--endregion
+
+--region 入场结算动画角色自选
+
+function XStrongholdTeam:GetEnterCgIndex()
+    return self.EnterCgIndex or 0
+end
+
+function XStrongholdTeam:GetSettleCgIndex()
+    return self.SettleCgIndex or 0
+end
+
+function XStrongholdTeam:SetEnterCgIndex(index)
+    self.EnterCgIndex = index
+end
+
+function XStrongholdTeam:SetSettleCgIndex(index)
+    self.SettleCgIndex = index
+end
+
+--endregion
 
 return XStrongholdTeam

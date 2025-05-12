@@ -1,4 +1,4 @@
-XUiGridFuncUpgradeInfoItem = XClass(nil, "XUiGridFuncUpgradeInfoItem")
+local XUiGridFuncUpgradeInfoItem = XClass(nil, "XUiGridFuncUpgradeInfoItem")
 
 function XUiGridFuncUpgradeInfoItem:Ctor(rootUi, ui)
     self.GameObject = ui.gameObject
@@ -40,7 +40,7 @@ function XUiGridFuncUpgradeInfoItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -59,3 +59,5 @@ function XUiGridFuncUpgradeInfoItem:SetData(name, curValue, nextValue)
     self.TxtCurValue.text = curValue
     self.TxtNextValue.text = nextValue
 end
+
+return XUiGridFuncUpgradeInfoItem

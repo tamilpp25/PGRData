@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridHelper = require("XUi/XUiMoeWar/ChildItem/XUiGridHelper")
 
 --选择派遣角色弹窗

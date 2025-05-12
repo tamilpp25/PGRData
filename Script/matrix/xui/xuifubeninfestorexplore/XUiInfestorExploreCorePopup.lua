@@ -83,9 +83,6 @@ function XUiInfestorExploreCorePopup:OnBtnPutOnClick()
     local coreId = self.CoreId
     local pos = self.SelectPos
     local callBack = function()
-        if not XLuaUiManager.IsUiShow("UiInfestorExploreCorePopup") then
-            return
-        end
         self:Close()
     end
     XDataCenter.FubenInfestorExploreManager.RequestInfestorExplorePutOnCore(coreId, pos, callBack)
@@ -94,9 +91,6 @@ end
 function XUiInfestorExploreCorePopup:OnBtnTakeOffClick()
     local pos = self.SelectPos
     local callBack = function()
-        if not XLuaUiManager.IsUiShow("UiInfestorExploreCorePopup") then
-            return
-        end
         self:Close()
     end
     XDataCenter.FubenInfestorExploreManager.RequestInfestorExploreTakeOffCore(pos, callBack)

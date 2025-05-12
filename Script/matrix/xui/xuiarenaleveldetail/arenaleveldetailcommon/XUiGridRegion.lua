@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridRegion = XClass(nil, "XUiGridRegion")
 
 function XUiGridRegion:Ctor(ui, rootUi)

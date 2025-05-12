@@ -1,3 +1,4 @@
+local XUiPanelActive = require("XUi/XUiTask/XUiPanelActive")
 local XUiPanelActiveBuff = require("XUi/XUiNewRoomSingle/XUiPanelActiveBuff")
 local XUiPanelActiveBuffTip = require("XUi/XUiNewRoomSingle/XUiPanelActiveBuffTip")
 local XUiPanelChangeStage = require("XUi/XUiMultiplayerRoom/XUiPanelChangeStage")

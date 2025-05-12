@@ -11,7 +11,7 @@ end
 function XUiGridWinRole:UpdateRobotInfo(robotId, starNum)
     local data = XRobotManager.GetRobotTemplate(robotId)
     self.TxtStar.text = starNum
-    local icon = XDataCenter.CharacterManager.GetCharBigHeadIcon(data.CharacterId)
+    local icon = XMVCA.XCharacter:GetCharBigHeadIcon(data.CharacterId)
     if icon then
         self.RImgIcon:SetRawImage(icon)
     end

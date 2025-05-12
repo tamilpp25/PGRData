@@ -27,19 +27,19 @@ function XUiExpeditionEquipDetailChild:OnEnable()
 end
 
 function XUiExpeditionEquipDetailChild:InitClassifyPanel()
-    if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(self.TemplateId, XEquipConfig.Classify.Weapon) then
+    if XMVCA.XEquip:IsClassifyEqualByTemplateId(self.TemplateId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
         self.TxtTitle.text = CsXTextManager.GetText("WeaponDetailTitle")
         self.PanelPainter.gameObject:SetActive(false)
     else
-        self.TxtPainter.text = XDataCenter.EquipManager.GetEquipPainterName(self.TemplateId, self.BreakThrough)
+        self.TxtPainter.text = XMVCA.XEquip:GetEquipPainterName(self.TemplateId, self.BreakThrough)
         self.PanelPainter.gameObject:SetActive(true)
         self.TxtTitle.text = CsXTextManager.GetText("AwarenessDetailTitle")
     end
 end
 
 function XUiExpeditionEquipDetailChild:UpdateEquipSkillDes()
-    if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(self.TemplateId, XEquipConfig.Classify.Weapon) then
-        local weaponSkillInfo = XDataCenter.EquipManager.GetOriginWeaponSkillInfo(self.TemplateId)
+    if XMVCA.XEquip:IsClassifyEqualByTemplateId(self.TemplateId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
+        local weaponSkillInfo = XMVCA.XEquip:GetEquipWeaponSkillInfo(self.TemplateId)
         local noWeaponSkill = not weaponSkillInfo.Name and not weaponSkillInfo.Description
         self.TxtSkillName.text = weaponSkillInfo.Name
         self.TxtSkillDes.text = weaponSkillInfo.Description
@@ -47,11 +47,11 @@ function XUiExpeditionEquipDetailChild:UpdateEquipSkillDes()
         self.PanelNoAwarenessSkill.gameObject:SetActive(false)
         self.PanelWeaponSkillDes.gameObject:SetActive(not noWeaponSkill)
         self.PanelNoWeaponSkill.gameObject:SetActive(noWeaponSkill)
-    elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(self.TemplateId, XEquipConfig.Classify.Awareness) then
-        local suitId = XDataCenter.EquipManager.GetSuitIdByTemplateId(self.TemplateId)
-        local skillDesList = XDataCenter.EquipManager.GetSuitSkillDesList(suitId)
+    elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(self.TemplateId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
+        local suitId = XMVCA.XEquip:GetEquipSuitId(self.TemplateId)
+        local skillDesList = XMVCA.XEquip:GetEquipSuitSkillDescription(suitId)
         local noSuitSkill = true
-        for i = 1, XEquipConfig.MAX_SUIT_SKILL_COUNT do
+        for i = 1, XEnumConst.EQUIP.OLD_MAX_SUIT_SKILL_COUNT do
             if skillDesList[i * 2] then
                 self["TxtSkillDes" .. i].text = skillDesList[i * 2]
                 self["TxtSkillDes" .. i].gameObject:SetActive(true)
@@ -73,17 +73,17 @@ function XUiExpeditionEquipDetailChild:UpdateEquipLock()
 end
 
 function XUiExpeditionEquipDetailChild:UpdateEquipLevel()
-    local levelLimit = XEquipConfig.GetEquipBreakthroughCfg(self.TemplateId, self.BreakThrough).LevelLimit
+    local levelLimit = XMVCA.XEquip:GetEquipBreakthroughCfg(self.TemplateId, self.BreakThrough).LevelLimit
     self.TxtLevel.text = CsXTextManager.GetText("EquipLevelText", self.Level, levelLimit)
 end
 
 function XUiExpeditionEquipDetailChild:UpdateEquipBreakThrough()
-    self:SetUiSprite(self.ImgBreakThrough, XEquipConfig.GetEquipBreakThroughIcon(self.BreakThrough))
+    self:SetUiSprite(self.ImgBreakThrough, XMVCA.XEquip:GetEquipBreakThroughIcon(self.BreakThrough))
 end
 
 function XUiExpeditionEquipDetailChild:InitEquipInfo()
-    local star = XDataCenter.EquipManager.GetEquipStar(self.TemplateId)
-    for i = 1, XEquipConfig.MAX_STAR_COUNT do
+    local star = XMVCA.XEquip:GetEquipStar(self.TemplateId)
+    for i = 1, XEnumConst.EQUIP.MAX_STAR_COUNT do
         if i <= star then
             self["ImgStar" .. i].gameObject:SetActive(true)
         else
@@ -91,16 +91,16 @@ function XUiExpeditionEquipDetailChild:InitEquipInfo()
         end
     end
 
-    self.TxtEquipName.text = XDataCenter.EquipManager.GetEquipName(self.TemplateId)
+    self.TxtEquipName.text = XMVCA.XEquip:GetEquipName(self.TemplateId)
 
-    local equipSite = XDataCenter.EquipManager.GetEquipSiteByTemplateId(self.TemplateId)
-    if equipSite ~= XEquipConfig.EquipSite.Weapon then
-        self.RImgIcon:SetRawImage(XDataCenter.EquipManager.GetEquipIconBagPath(self.TemplateId, self.BreakThrough))
+    local equipSite = XMVCA.XEquip:GetEquipSite(self.TemplateId)
+    if equipSite ~= XEnumConst.EQUIP.EQUIP_SITE.WEAPON then
+        self.RImgIcon:SetRawImage(XMVCA.XEquip:GetEquipIconPath(self.TemplateId, self.BreakThrough))
         self.TxtPos.text = "0" .. equipSite
         self.PanelPos.gameObject:SetActive(true)
         self.RImgType.gameObject:SetActive(false)
     else
-        self.RImgType:SetRawImage(XEquipConfig.GetWeaponTypeIconPath(self.TemplateId))
+        self.RImgType:SetRawImage(XMVCA.XEquip:GetWeaponTypeIconPath(self.TemplateId))
         self.RImgType.gameObject:SetActive(true)
         self.PanelPos.gameObject:SetActive(false)
     end
@@ -108,7 +108,7 @@ function XUiExpeditionEquipDetailChild:InitEquipInfo()
 end
 
 function XUiExpeditionEquipDetailChild:UpdateEquipAttr()
-    local attrMap = XDataCenter.EquipManager.ConstructTemplateEquipAttrMap(self.TemplateId, self.BreakThrough, self.Level)
+    local attrMap = XMVCA.XEquip:ConstructTemplateEquipAttrMap(self.TemplateId, self.BreakThrough, self.Level)
     local attrCount = 1
     for _, attrInfo in pairs(attrMap) do
         if attrCount > MAX_AWARENESS_ATTR_COUNT then break end

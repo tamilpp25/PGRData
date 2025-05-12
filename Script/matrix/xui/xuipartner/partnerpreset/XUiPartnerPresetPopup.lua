@@ -95,6 +95,14 @@ function XUiPartnerPresetPopup:OnStart(trueTeam, presetTeam, isCover, callback)
     self.PanelContent:Refresh()
 end
 
+function XUiPartnerPresetPopup:OnEnable()
+
+end
+
+function XUiPartnerPresetPopup:OnDisable()
+
+end
+
 function XUiPartnerPresetPopup:InitUi()
     
 end

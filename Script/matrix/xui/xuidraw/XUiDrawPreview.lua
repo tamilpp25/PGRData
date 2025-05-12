@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiDrawPreview = XLuaUiManager.Register(XLuaUi, "UiDrawPreview")
 
 function XUiDrawPreview:OnAwake()
@@ -113,7 +114,7 @@ function XUiDrawPreview:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

@@ -3,16 +3,12 @@ local XUiGridAreaWarHangUp = require("XUi/XUiAreaWar/XUiGridAreaWarHangUp")
 local XUiAreaWarHangUp = XLuaUiManager.Register(XLuaUi, "UiAreaWarHangUp")
 
 function XUiAreaWarHangUp:OnAwake()
-    self.GridCourse.gameObject:SetActiveEx(false)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
-    XDataCenter.ItemManager.AddCountUpdateListener(
-        {
-            XDataCenter.ItemManager.ItemId.AreaWarCoin,
-            XDataCenter.ItemManager.ItemId.AreaWarActionPoint
-        },
-        handler(self, self.UpdateAssets),
-        self.AssetActivityPanel
-    )
+    self.AssetActivityPanel = XUiHelper.NewPanelActivityAssetSafe({
+        XDataCenter.ItemManager.ItemId.AreaWarCoin,
+        XDataCenter.ItemManager.ItemId.AreaWarActionPoint
+    }, self.PanelSpecialTool, self,nil,nil,{
+        XDataCenter.ItemManager.ItemId.AreaWarActionPoint
+    })
     self:AutoAddListener()
 end
 
@@ -30,7 +26,6 @@ function XUiAreaWarHangUp:OnEnable()
         return
     end
 
-    self:UpdateAssets()
     self:UpdateView()
 end
 
@@ -82,35 +77,32 @@ function XUiAreaWarHangUp:InitView()
     self.TxtHangupLv.text = hangUpLv
 
     local ids = XAreaWarConfigs.GetAllHangUpIds()
-    local totalLevel = #ids
-    self.ImgFillAmount.fillAmount = totalLevel ~= 0 and hangUpLv / totalLevel or 1
-
+    --local totalLevel = #ids
+    --self.ImgFillAmount.fillAmount = totalLevel ~= 0 and hangUpLv / totalLevel or 1
+    
     for index, id in ipairs(ids) do
         local grid = self.GridList[index]
         if not grid then
-            local go = index == 1 and self.GridCourse or CSObjectInstantiate(self.GridCourse, self.PanelCourseContainer)
+            local go = self["PanelReward0"..index]
             grid = XUiGridAreaWarHangUp.New(go)
             self.GridList[index] = grid
         end
-
         grid:Refresh(id, hangUpLv)
-        grid.GameObject:SetActiveEx(true)
     end
     for index = #ids + 1, #self.GridList do
         self.GridList[index].GameObject:SetActiveEx(false)
     end
+
+    local endTime = XDataCenter.AreaWarManager.GetEndTime()
+    self.EndTime = endTime
+    self:SetAutoCloseInfo(endTime, handler(self, self.OnCheckActivity))
 end
 
-function XUiAreaWarHangUp:UpdateAssets()
-    self.AssetActivityPanel:Refresh(
-        {
-            XDataCenter.ItemManager.ItemId.AreaWarCoin,
-            XDataCenter.ItemManager.ItemId.AreaWarActionPoint
-        },
-        {
-            XDataCenter.ItemManager.ItemId.AreaWarActionPoint
-        }
-    )
+function XUiAreaWarHangUp:OnCheckActivity(isClose)
+    if isClose then
+        XDataCenter.AreaWarManager.OnActivityEnd()
+        return
+    end
 end
 
 function XUiAreaWarHangUp:UpdateView()

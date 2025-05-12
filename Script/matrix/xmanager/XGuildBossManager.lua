@@ -1,4 +1,5 @@
 XGuildBossManagerCreator = function()
+    ---@class XGuildBossManager
     local XGuildBossManager = {}
     --保存boss血量，活动时间，总分等相关信息
     local GuildBossInfoData = {}
@@ -47,6 +48,7 @@ XGuildBossManagerCreator = function()
         GuildBossLevelRequest = "GuildBossLevelRequest",                        --设置下期的boss难度等级
         GuildBossSetOrderRequest = "GuildBossSetOrderRequest",                  --设置公会boss的战术指挥
         GuildBossUploadRequest = "GuildBossUploadRequest",                      --战斗结束确认上传分数
+        GuildBossGetAllBossRewardRequest = "GuildBossGetAllBossRewardRequest",  --一键领取Boss血量奖励和积分奖励
     }
 
     local LastSyncGuildRankListTime = 0   --工会总分排行榜List最后刷新时间
@@ -56,13 +58,6 @@ XGuildBossManagerCreator = function()
     local SYNC_RANK_LIST_SECOND = 60        --获取排行榜List请求保护时间
 
     ---- local function begin -----
-    local function RegisterEditBattleProxy()
-        if IsRegisterEditBattleProxy then return end
-        IsRegisterEditBattleProxy = true
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.GuildBoss,
-                require("XUi/XUiGuildBoss/XUiGuildBossNewRoomSingle"))
-    end
-
     local function Init()
         -- 初始化hp的持久化记录
         local hpStr = CS.UnityEngine.PlayerPrefs.GetString(XGuildBossManager.GetBossDeadTipKey(), "")
@@ -78,8 +73,17 @@ XGuildBossManagerCreator = function()
                 end
             end
         end
-
-        RegisterEditBattleProxy()
+    end
+    
+    local function List2FlagTab(originList, targetList)
+        originList = originList or {}
+        if XTool.IsTableEmpty(targetList) then
+            return originList
+        end
+        for _, target in pairs(targetList) do
+            originList[target] = true
+        end
+        return originList
     end
     ---- local function end -----
     --Get Begin
@@ -114,9 +118,9 @@ XGuildBossManagerCreator = function()
     end
 
     --获取关卡信息
-    function XGuildBossManager.GetLevelDataByStageId(stageId)
+    function XGuildBossManager.GetLevelDataByStageId(data)
         for i = 1, #GuildBossLevelData do
-            if GuildBossLevelData[i].StageId == stageId then
+            if GuildBossLevelData[i].StageId == data.StageId and GuildBossLevelData[i].Type == data.Type and GuildBossLevelData[i].NameOrder == data.NameOrder then
                 return GuildBossLevelData[i]
             end
         end
@@ -199,14 +203,7 @@ XGuildBossManagerCreator = function()
 
     --获取本期我的总分
     function XGuildBossManager.GetMyTotalScore()
-        local sumScore = 0
-        for i = 1, #GuildBossLevelData do
-            sumScore = sumScore + GuildBossLevelData[i].Score
-        end
-        if GuildBossInfoData.HpLeft == 0 and sumScore > 0 then
-            sumScore = sumScore + GuildBossDeathAddScore
-        end
-        return sumScore
+        return GuildBossInfoData.PlayerFinalScore or 0
     end
 
     --获取斩杀boss的额外分数
@@ -219,14 +216,115 @@ XGuildBossManagerCreator = function()
         return GuildBossStageAddBuffPoint
     end
     
-    --获取已领取的积分宝箱id
-    function XGuildBossManager.GetScoreBoxGot()
-        return GuildBossInfoData.ScoreBoxGot
+    function XGuildBossManager.IsScoreRewardReceive(id)
+        local rec = GuildBossInfoData.ScoreBoxGot[id]
+        return rec and true or false
     end
+    
+    function XGuildBossManager.GetMaxBossHpGot()
+        local max = 0
+        for id, _ in pairs(GuildBossInfoData.HpBoxGot or {}) do
+            max = math.max(id, max)
+        end
+        return max
+    end
+    
+    function XGuildBossManager.IsHpRewardReceived(id)
+        local rec = GuildBossInfoData.HpBoxGot[id]
+        return rec and true or false
+    end
+    
+    function XGuildBossManager.IsHpRewardAllReceived()
+        local rewards = XGuildBossConfig.HpRewards()
+        for _, reward in pairs(rewards or {}) do
+            if not XGuildBossManager.IsHpRewardReceived(reward.Id) then
+                return false
+            end
+        end
+        
+        return true
+    end
+    
+    --获取可以领取的最小奖励Id, 没有则获取最大未领取。全领取则获取最大Id
+    function XGuildBossManager.GetMinReceivedId()
+        local rewards = XGuildBossConfig.HpRewards() or {}
+        local rewardIds = {}
+        local curBossHpPercent = GuildBossInfoData.HpLeft / GuildBossInfoData.HpMax * 100
+        for _, reward in pairs(rewards) do
+            --可领取但未领取
+            if reward.HpPercent >= curBossHpPercent 
+                    and not XGuildBossManager.IsHpRewardReceived(reward.Id) then
+                table.insert(rewardIds, reward.Id)
+            end
+        end
+        if XTool.IsTableEmpty(rewardIds) then
+            local id = XGuildBossManager.GetMaxBossHpGot()
+            return XGuildBossManager.IsHpRewardAllReceived() and id or id + 1
+        end
+        if #rewardIds == 1 then
+            return rewardIds[1]
+        end
+        table.sort(rewardIds, function(a, b) 
+            return a < b
+        end)
+        return rewardIds[1]
+    end
+    
+    function XGuildBossManager.ProcessTaskList(hook)
+        XGuildBossManager.GuildBossActivityRequest(function()
+            local taskList = XGuildBossConfig.GetTaskList()
+            local bossScore = XDataCenter.GuildBossManager.GetMyTotalScore()
 
-    --获取已领取的血量奖励id
-    function XGuildBossManager.GetHpBoxGot()
-        return GuildBossInfoData.HpBoxGot
+            local leftHp = XGuildBossManager.GetCurBossHp()
+            local maxHp = XGuildBossManager.GetMaxBossHp()
+            local leftPercent = math.ceil( leftHp / maxHp * 100)
+
+            for _, task in ipairs(taskList or {}) do
+                local taskType = task.TaskType
+                if taskType == GuildTaskType.BossScore then
+                    task.RewardId = XDataCenter.GuildBossManager.GetScoreRewardId(task.TaskId)
+                elseif taskType == GuildTaskType.BossHp then
+                    task.RewardId = XDataCenter.GuildBossManager.GetHpRewardId(task.TaskId)
+                end
+                task.State = GuildBossRewardType.Disable
+                if task.TaskType == GuildTaskType.BossScore then
+                    task.Value = bossScore
+                    if bossScore >= task.Target then
+                        local received = XGuildBossManager.IsScoreRewardReceive(task.TaskId)
+                        task.State = received and GuildBossRewardType.Acquired or GuildBossRewardType.Available
+                    end
+                elseif task.TaskType == GuildTaskType.BossHp then
+                    task.Value = leftPercent
+                    if leftPercent <= task.Target then
+                        local received = XGuildBossManager.IsHpRewardReceived(task.TaskId)
+                        task.State = received
+                                and GuildBossRewardType.Acquired or GuildBossRewardType.Available
+                    end
+                end
+            end
+
+            local SortByState = {
+                [GuildBossRewardType.Acquired] = 1,
+                [GuildBossRewardType.Disable] = 100,
+                [GuildBossRewardType.Available] = 10000,
+            }
+
+            table.sort(taskList, function(taskA, taskB)
+                local stateA = SortByState[taskA.State]
+                local stateB = SortByState[taskB.State]
+                if stateA ~= stateB then
+                    return stateA > stateB
+                end
+                if taskA.GroupId ~= taskB.GroupId then
+                    return taskA.GroupId < taskB.GroupId
+                end
+                return taskA.TaskId < taskB.TaskId
+            end)
+
+            if hook then hook(taskList) end
+        end, nil, function()
+            if hook then hook({}) end
+        end)
     end
 
     --获取当前关卡的战术布局顺序
@@ -241,7 +339,7 @@ XGuildBossManagerCreator = function()
     --获取关卡在数据中的位置
     function XGuildBossManager.GetStageDataPos(data)
         for i = 1, GuildBossStageCount do
-            if GuildBossLevelData[i].StageId == data.StageId then
+            if GuildBossLevelData[i].StageId == data.StageId and GuildBossLevelData[i].Type == data.Type and GuildBossLevelData[i].NameOrder == data.NameOrder then
                 return i
             end
         end
@@ -348,6 +446,11 @@ XGuildBossManagerCreator = function()
     function XGuildBossManager.GetWeeklyTaskTime()
         return GuildBossWeeklyTaskTime
     end
+
+    --获取风格信息
+    function XGuildBossManager.GetFightStyle()
+        return GuildBossInfoData.FightStyle
+    end
     --Get End
 
     --Set Begin
@@ -399,19 +502,27 @@ XGuildBossManagerCreator = function()
     function XGuildBossManager.SetGuildBossWeeklyTaskTime(time)
         GuildBossWeeklyTaskTime = time
     end
+
+    -- 设置风格详情
+    function XGuildBossManager.SetFightStyle(fightStyle)
+        GuildBossInfoData.FightStyle = fightStyle
+    end
+
     --Set End
 
     --other
     function XGuildBossManager.GetHpRewardId(id)
         local hpRewardData = XGuildBossConfig.HpRewards()
-        local now = XTime.GetServerNowTimestamp()
-        return now > GuildBossNewRewardTime and hpRewardData[id].NewRewardId or hpRewardData[id].RewardId
+        local cfg = hpRewardData[id]
+        local timeId = cfg.TimeId
+        return XFunctionManager.CheckInTimeByTimeId(timeId) and hpRewardData[id].NewRewardId or hpRewardData[id].RewardId
     end
 
     function XGuildBossManager.GetScoreRewardId(id)
         local rewardData = XGuildBossConfig.ScoreRewards()
-        local now = XTime.GetServerNowTimestamp()
-        return now > GuildBossNewRewardTime and rewardData[id].NewRewardId or rewardData[id].RewardId
+        local cfg = rewardData[id]
+        local timeId = cfg.TimeId
+        return XFunctionManager.CheckInTimeByTimeId(timeId) and rewardData[id].NewRewardId or rewardData[id].RewardId
     end
     
     --更新是否有奖励可领
@@ -419,10 +530,11 @@ XGuildBossManagerCreator = function()
         --bossHp宝箱
         local hpRewardData = XGuildBossConfig.HpRewards()
         local curBossHpPercent = GuildBossInfoData.HpLeft / GuildBossInfoData.HpMax * 100
-        if GuildBossInfoData.HpBoxGot >= #hpRewardData then
+        local maxHpGotId = XGuildBossManager.GetMaxBossHpGot()
+        if maxHpGotId >= #hpRewardData then
             HasBossHpReward = false
         else
-            if curBossHpPercent <= hpRewardData[GuildBossInfoData.HpBoxGot + 1].HpPercent then
+            if curBossHpPercent <= hpRewardData[maxHpGotId + 1].HpPercent then
                 HasBossHpReward = true
             else
                 HasBossHpReward = false
@@ -431,19 +543,16 @@ XGuildBossManagerCreator = function()
         --积分宝箱
         HasScoreReward = false
         local myTotalScore = XGuildBossManager.GetMyTotalScore()
-        local scoreBoxGot = GuildBossInfoData.ScoreBoxGot
         local rewardData = XGuildBossConfig.ScoreRewards()
         for i = 1, #rewardData do
             local isGet = false
-            for _,val in pairs(scoreBoxGot) do
-                if val == rewardData[i].Id then
-                    isGet = true
-                    break
-                end
-            end
-            if myTotalScore >= rewardData[i].Score and not isGet then
+            local data = rewardData[i]
+            --if XFunctionManager.CheckInTimeByTimeId(data.TimeId) then
+            isGet = XGuildBossManager.IsScoreRewardReceive(data.Id)
+            if myTotalScore >= data.Score and not isGet then
                 HasScoreReward = true
             end
+            --end
         end
         XEventManager.DispatchEvent(XEventId.EVENT_GUILDBOSS_HPBOX_CHANGED)
         XEventManager.DispatchEvent(XEventId.EVENT_GUILDBOSS_SCOREBOX_CHANGED)
@@ -481,6 +590,14 @@ XGuildBossManagerCreator = function()
         else
             GuildBossInfoData.Logs = logs
         end
+
+        --清除离开公会的成员的日志
+        local allMemberList = XDataCenter.GuildManager.GetMemberList()
+        for k, data in pairs(GuildBossInfoData.Logs) do
+            if not allMemberList[data.PlayerId] then
+                table.remove(GuildBossInfoData.Logs, k)
+            end
+        end
     end
 
     --是否需要刷新
@@ -501,6 +618,13 @@ XGuildBossManagerCreator = function()
     --是否有积分宝箱可以领
     function XGuildBossManager.IsScoreReward()
         return HasScoreReward
+    end
+
+    --是否是核心技能
+    function XGuildBossManager.IsCoreStyleSkill(id)
+        local allSkill = XGuildBossConfig.GetGuildBossFightStyleSkill() 
+        local config = allSkill[id]
+        return config and config.IsCore and config.IsCore > 0
     end
 
     --本地记录当前BossHp，用于显示不在期间其他人造成的伤害
@@ -586,22 +710,17 @@ XGuildBossManagerCreator = function()
         return true
     end
 
+    -- 判断是否是固定机器人 nzwjV3
+    function XGuildBossManager.CheckIsGuildFixedRobot(charaId)
+        return XGuildBossConfig.GetAllRegularRobot()[charaId]
+    end
+
     function XGuildBossManager.GetKilledBossLv()
         return KilledBossLv or "??"
     end
     --boss hp tip end
 
     -- [初始化数据]
-    function XGuildBossManager.InitStageInfo()
-        local stages = XGuildBossConfig.GetBossStageInfos()
-        for _, v in pairs(stages) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(v.Id)
-            if stageInfo then
-                stageInfo.Type = XDataCenter.FubenManager.StageType.GuildBoss
-            end
-        end
-    end
-
     function XGuildBossManager.PreFight(stage, teamId)
         local preFight = {}
         local curTeam = XDataCenter.TeamManager.GetPlayerTeamData(teamId)
@@ -667,17 +786,38 @@ XGuildBossManagerCreator = function()
         end)
     end
     
-    function XGuildBossManager.ReqOpenGuildBossHall()
-        XDataCenter.GuildBossManager.GuildBossInfoRequest(function() XLuaUiManager.Open("UiGuildBossHall") end)
+    function XGuildBossManager.ReqOpenGuildBossHall(skipId, skipResultId)
+        local isInTime = XFunctionManager.CheckInTimeByTimeId(CS.XGame.Config:GetInt("GuildBossTempBanTimeId"))
+        if isInTime then
+            XUiManager.TipError(CS.XTextManager.GetText("GuildBossOpenLimit"))
+            XFunctionManager.AcceptResult(skipResultId, false)
+            return
+        end
+        XDataCenter.GuildBossManager.GuildBossInfoRequest(function()
+            XLuaUiManager.Open("UiGuildBossHall")
+            XFunctionManager.AcceptResult(skipResultId, true)
+        end)
     end
 
     -- 打开工会boss之前先请求服务端 不能直接通过UiManager打开
-    function XGuildBossManager.OpenGuildBossHall()
-        if not XDataCenter.GuildManager.IsInitGuildData() then
-            XDataCenter.GuildManager.GetGuildDetails(0, XGuildBossManager.ReqOpenGuildBossHall)
-        else
-            XGuildBossManager.ReqOpenGuildBossHall()
+    function XGuildBossManager.OpenGuildBossHall(skipId)
+        if not XMVCA.XSubPackage:CheckSubpackage(XFunctionManager.FunctionName.Guild) then
+            return false
         end
+        
+        local skipResultId = XFunctionManager.GetNewResultId()
+        
+        if not XDataCenter.GuildManager.IsInitGuildData() then
+            XDataCenter.GuildManager.GetGuildDetails(0, function()
+                XGuildBossManager.ReqOpenGuildBossHall(skipId, skipResultId)
+            end, function()
+                XFunctionManager.AcceptResult(skipResultId, false)
+            end)
+        else
+            XGuildBossManager.ReqOpenGuildBossHall(skipId, skipResultId)
+        end
+        
+        return skipResultId
     end
     
     --Test Debug
@@ -694,24 +834,24 @@ XGuildBossManagerCreator = function()
     end
     --Test End
 
-    function XGuildBossManager.GuildBossActivityRequest(cb, isForce)
+    function XGuildBossManager.GuildBossActivityRequest(cb, isForce, errorCb)
         -- 请求间隔保护
+        local now = XTime.GetServerNowTimestamp()
         if not isForce then
-            local now = XTime.GetServerNowTimestamp()
             if LastSyncStageInfoTime + SYNC_RANK_LIST_SECOND >= now then
                 if cb then
                     cb()
                 end
                 return
             end
-            LastSyncStageInfoTime = now
         end
         XNetwork.Call(GuildBossRpc.GuildBossActivityRequest, {}, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
+                if errorCb then errorCb() end
                 return
             end
-
+            LastSyncStageInfoTime = now
             GuildBossInfoData.ActivityId = res.ActivityId
             GuildBossInfoData.ScoreSumBest = res.GuildScoreSumBest
             GuildBossInfoData.HpMax = res.HpMax
@@ -720,15 +860,17 @@ XGuildBossManagerCreator = function()
             GuildBossInfoData.TotalScore = res.GuildScoreSum
             GuildBossInfoData.BossLevel = res.BossLevel
             GuildBossInfoData.BossLevelNext = res.BossLevelNext
-            GuildBossInfoData.ScoreBoxGot = res.ScoreBoxGot
-            GuildBossInfoData.HpBoxGot = res.HpBoxGot --已领取的血量奖励id
+            GuildBossInfoData.ScoreBoxGot = List2FlagTab(GuildBossInfoData.ScoreBoxGot, res.ScoreBoxGot)
+            GuildBossInfoData.HpBoxGot = List2FlagTab(GuildBossInfoData.HpBoxGot, res.HpBoxGotNew) 
             GuildBossInfoData.RobotList = res.RobotList  --每类关卡限制的robotId
+            GuildBossInfoData.PlayerFinalScore = res.PlayerFinalScore  -- 玩家个人总积分
             GuildBossLevelData = res.BossList
+            local orderLen = #res.OrderList
             for i = 1, #GuildBossLevelData do
-                if string.len(res.Order) < GuildBossStageCount then
+                if orderLen < GuildBossStageCount then
                     GuildBossLevelData[i].Order = 0
                 else
-                    GuildBossLevelData[i].Order = tonumber(string.sub(res.Order, i, i))
+                    GuildBossLevelData[i].Order = res.OrderList[i]
                 end
                 if GuildBossLevelData[i].Type == GuildBossLevelType.High then
                     GuildBossLevelData[i].NameOrder = i - 4
@@ -745,6 +887,41 @@ XGuildBossManagerCreator = function()
         end)
     end
 
+    -- 激活或卸载风格技能
+    function XGuildBossManager.GuildBossStyleSkillChangeRequeset(operType, skillId, cb)
+        -- 向服务器请求激活技能
+        XNetwork.Call("GuildSelectFightStyleSkillRequest", {OperType = operType, SkillId = skillId}, function(reply)
+            if reply.Code ~= XCode.Success then
+                XUiManager.TipCode(reply.Code)
+                return
+            end
+
+            if cb then
+                cb()
+            end
+            -- 改变后再请求一次风格信息并刷新
+            XDataCenter.GuildBossManager.GuildBossStyleInfoRequest(function ()
+                XEventManager.DispatchEvent(XEventId.EVENT_GUILDBOSS_STYLE_CHANGED) --刷新当前查看的风格的信息
+            end)
+            
+        end)
+       
+    end
+
+    function XGuildBossManager.GuildBossStyleInfoRequest(cb)
+        -- 向服务器请求风格信息 再打开
+        XNetwork.Call("GuildFightStyleRequest", nil, function(reply)
+            if reply.Code ~= XCode.Success then
+                XUiManager.TipCode(reply.Code)
+                return
+            end
+
+            XGuildBossManager.SetFightStyle(reply.FightStyle)
+            if cb then
+                cb()
+            end
+        end)
+    end
     
     function XGuildBossManager.GuildBossLevelRequest(level, cb)
         XNetwork.Call(GuildBossRpc.GuildBossLevelRequest, {BossLevelNext = level, ActivityId = GuildBossInfoData.ActivityId}, function(res)
@@ -770,7 +947,7 @@ XGuildBossManagerCreator = function()
             end
 
             XUiManager.OpenUiObtain(res.RewardGoods)
-            table.insert(GuildBossInfoData.ScoreBoxGot, id)
+            GuildBossInfoData.ScoreBoxGot = List2FlagTab(GuildBossInfoData.ScoreBoxGot, { id })
             XGuildBossManager.UpdateReward()
 
             if cb then
@@ -787,7 +964,7 @@ XGuildBossManagerCreator = function()
             end
 
             XUiManager.OpenUiObtain(res.RewardGoods)
-            GuildBossInfoData.HpBoxGot = id
+            GuildBossInfoData.HpBoxGot = List2FlagTab(GuildBossInfoData.HpBoxGot, { id })
             XGuildBossManager.UpdateReward()
 
             if cb then
@@ -797,14 +974,14 @@ XGuildBossManagerCreator = function()
     end
 
     function XGuildBossManager.GuildBossSetOrderRequest(data, cb)
-        XNetwork.Call(GuildBossRpc.GuildBossSetOrderRequest, {Order = data, ActivityId = GuildBossInfoData.ActivityId}, function(res)
+        XNetwork.Call(GuildBossRpc.GuildBossSetOrderRequest, {OrderList = data, ActivityId = GuildBossInfoData.ActivityId}, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
                 return
             end
 
             for i = 1, #GuildBossLevelData do
-                GuildBossLevelData[i].Order = tonumber(string.sub(data, i, i))
+                GuildBossLevelData[i].Order = data[i]
                 if GuildBossLevelData[i].Type == GuildBossLevelType.High then
                     GuildBossLevelData[i].NameOrder = i - 4
                 else
@@ -921,6 +1098,23 @@ XGuildBossManagerCreator = function()
             end
         end)
     end
+    
+    function XGuildBossManager.GuildBossGetAllBossRewardRequest(cb)
+        
+        XNetwork.Call(GuildBossRpc.GuildBossGetAllBossRewardRequest, nil, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+
+            XUiManager.OpenUiObtain(res.RewardGoods)
+            GuildBossInfoData.HpBoxGot = List2FlagTab(GuildBossInfoData.HpBoxGot, res.BossHpId)
+            GuildBossInfoData.ScoreBoxGot = List2FlagTab(GuildBossInfoData.ScoreBoxGot, res.BossScoreId)
+            XGuildBossManager.UpdateReward()
+
+            if cb then cb() end
+        end)
+    end
     --Request End
 
     function XGuildBossManager.GetXTeamByStageId(stageId)
@@ -933,30 +1127,8 @@ XGuildBossManagerCreator = function()
         elseif type == GuildBossLevelType.Boss then
             typeId = CS.XGame.Config:GetInt("TypeIdGuildBossBoss")
         end
-        local robotList = XDataCenter.GuildBossManager.GetStageRobotTab(stageId)
-        --所有合法的角色ID
-        local characterList = {}
-        for i = 1, #robotList do
-            table.insert(characterList, XRobotManager.GetCharacterId(robotList[i]))
-            table.insert(characterList, robotList[i])
-        end
-    
+        
         local curTeam = XDataCenter.TeamManager.GetPlayerTeam(typeId)
-        --清除不符合规则的
-        for i = 1, #curTeam.TeamData do
-            if curTeam.TeamData[i] > 0 then
-                local isOk = false
-                for j = 1, #characterList do
-                    if curTeam.TeamData[i] == characterList[j] then
-                        isOk = true
-                        break
-                    end
-                end
-                if not isOk then
-                    curTeam.TeamData[i] = 0
-                end
-            end
-        end
         
         local xTeam = XDataCenter.TeamManager.GetXTeamByTypeId(typeId)
         xTeam:UpdateFromTeamData(curTeam)

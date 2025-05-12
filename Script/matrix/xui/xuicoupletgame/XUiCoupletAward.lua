@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiCoupletAward = XLuaUiManager.Register(XLuaUi, "UiCoupletAward")
 
 local XUiGridCoupletTask = require("XUi/XUiCoupletGame/XUiGridCoupletTask")

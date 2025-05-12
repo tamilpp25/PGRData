@@ -1,3 +1,4 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local XUiBatchPanel = XClass(nil, "XUiBatchPanel")
 local Interval = 100
 local MinCount = 1

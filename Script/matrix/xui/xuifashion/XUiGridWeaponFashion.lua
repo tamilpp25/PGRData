@@ -37,6 +37,12 @@ function XUiGridWeaponFashion:SetSelect(isSelect)
     end
 end
 
+function XUiGridWeaponFashion:SetRedPoint(isSelect)
+    if self.ImgRedPoint then
+        self.ImgRedPoint.gameObject:SetActiveEx(isSelect)
+    end
+end
+
 function XUiGridWeaponFashion:Refresh(fashionId, characterId)
     self.CharacterId = characterId
     self.FashionId = fashionId
@@ -46,13 +52,13 @@ function XUiGridWeaponFashion:Refresh(fashionId, characterId)
     local icon
     if XWeaponFashionConfigs.IsDefaultId(fashionId) then
         local templateId
-        if not XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
-            templateId = XCharacterConfigs.GetCharacterDefaultEquipId(characterId)
+        if not XMVCA.XCharacter:IsOwnCharacter(characterId) then
+            templateId = XMVCA.XCharacter:GetCharacterDefaultEquipId(characterId)
         else
-            local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
-            templateId = XDataCenter.EquipManager.GetEquipTemplateId(equipId)
+            local equipId = XMVCA.XEquip:GetCharacterWeaponId(characterId)
+            templateId = XMVCA.XEquip:GetEquipTemplateId(equipId)
         end
-        icon = XDataCenter.EquipManager.GetEquipIconPath(templateId)
+        icon = XMVCA.XEquip:GetEquipIconPath(templateId)
         self.ImgTagDefault.gameObject:SetActiveEx(true)
     else
         icon = XWeaponFashionConfigs.GetFashionIcon(fashionId)
@@ -89,6 +95,7 @@ function XUiGridWeaponFashion:UpdateStatus()
         self.ImgUse.gameObject:SetActiveEx(false)
         self.RImgIcon.color = CSUnityEngineColor(1, 1, 1, 1)
     end
+    self:SetRedPoint(XDataCenter.WeaponFashionManager.GetAllWeaponFashionIsOwnDic(self.FashionId).IsNew)
 end
 
 return XUiGridWeaponFashion

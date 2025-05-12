@@ -23,7 +23,7 @@ function XUiGridFilterTagGroup:Refresh()
     local tags = XRoomCharFilterTipsConfigs.GetFilterTagGroupTags(self.GroupId)
     for _, tagId in pairs(tags) do
         local tabCharType = XRoomCharFilterTipsConfigs.GetFilterTagCharType(tagId)
-        if tabCharType == self.CharacterType or tabCharType == 0 then
+        if tabCharType == self.CharacterType or tabCharType == 0 or self.CharacterType == XEnumConst.CHARACTER.CharacterType.Robot then
             -- 筛选标签的角色类型为当前的角色类型或通用，则生成
             local btnTag = CS.UnityEngine.Object.Instantiate(self.BtnFilterTagGrid)
             btnTag.transform:SetParent(self.PanelTags, false)

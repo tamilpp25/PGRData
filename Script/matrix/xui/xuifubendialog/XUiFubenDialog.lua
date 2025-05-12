@@ -19,8 +19,8 @@ end
 
 --初始化音效
 function XUiFubenDialog:InitBtnSound()
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnClose, "onClick")] = XSoundManager.UiBasicsMusic.Return
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnConfirm, "onClick")] = XSoundManager.UiBasicsMusic.Confirm
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnClose, "onClick")] = XLuaAudioManager.UiBasicsMusic.Return
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnConfirm, "onClick")] = XLuaAudioManager.UiBasicsMusic.Confirm
 end
 
 -- auto
@@ -37,7 +37,6 @@ function XUiFubenDialog:AutoInitUi()
     self.BtnClose = self.Transform:Find("SafeAreaContentPane/PanelDialog/BtnClose"):GetComponent("Button")
     self.Txt = self.Transform:Find("SafeAreaContentPane/PanelDialog/Txt"):GetComponent("Text")
     self.PanelTextList = self.Transform:Find("SafeAreaContentPane/PanelTextList")
-    self.TxtInfo = self.Transform:Find("SafeAreaContentPane/PanelTextList/Viewport/TxtInfo"):GetComponent("Text")
 end
 
 function XUiFubenDialog:GetAutoKey(uiNode, eventName)
@@ -63,7 +62,7 @@ function XUiFubenDialog:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -106,4 +105,12 @@ function XUiFubenDialog:CancelBtnClick()
 
     self.OkCallBack = nil
     self.CancelCallBack = nil
+end
+
+function XUiFubenDialog:OnEnable()
+
+end
+
+function XUiFubenDialog:OnDisable()
+
 end

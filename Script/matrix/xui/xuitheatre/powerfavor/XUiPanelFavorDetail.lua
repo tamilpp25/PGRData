@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridFavorDetail = require("XUi/XUiTheatre/PowerFavor/XUiGridFavorDetail")
 
 local FavorCoin = XTheatreConfigs.TheatreFavorCoin

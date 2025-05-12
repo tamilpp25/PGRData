@@ -32,16 +32,18 @@ function XUiSSBPickPanel1v1Stage:InitInfos()
     if self.IsLineMode then
         self.TxtWinCount.text = XUiHelper.GetText("SSBReadyWinCount", self.Mode:GetWinCount())
 
+        -- 总是不显示排行，因为排行分职业了，界面无法显示
+        self.TxtRankNow.gameObject:SetActive(false)
         if not self.Mode:GetIsRanking() then
             -- cxldV2 不显示排行榜
             self.RImgIconRanking.gameObject:SetActive(false)
-            self.TxtRankNow.gameObject:SetActive(false)
+            --self.TxtRankNow.gameObject:SetActive(false)
             return
         end
 
-        XDataCenter.SuperSmashBrosManager.GetMyRankByNet(function(myRank)
-                    self.TxtRankNow.text = XUiHelper.GetText("SSBReadyRankNow", myRank)
-                end)
+        --XDataCenter.SuperSmashBrosManager.GetMyRankByNet(function(myRank)
+        --            self.TxtRankNow.text = XUiHelper.GetText("SSBReadyRankNow", myRank)
+        --        end)
     end
 end
 

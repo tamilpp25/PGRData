@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --区域探索主线奖励界面
 local XUiTRPGMainLineTreasure = XClass(nil, "XUiTRPGMainLineTreasure")
 

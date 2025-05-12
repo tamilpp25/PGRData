@@ -1,10 +1,11 @@
+local XUiGridInvestment = require("XUi/XUiDorm/XUiFurnitureBuild/XUiGridInvestment")
 -- 家具建造子界面
 local XUiFurnitureCreate = XLuaUiManager.Register(XLuaUi, "UiFurnitureCreate")
 
 function XUiFurnitureCreate:OnAwake()
     self.GridInvestmentPool = {}
     self.SelectTypeIds = nil
-    self.FurnitrueCreateCount = 0
+    self.FurnitureCreateCount = 0
 end
 
 function XUiFurnitureCreate:OnBtnCancelClick()
@@ -20,6 +21,14 @@ function XUiFurnitureCreate:OnBtnStartClick()
     local textNum = tonumber(self.InputFunitueCount.text)
     if not textNum or textNum <= 0 then
         XUiManager.TipMsg(CS.XTextManager.GetText("DormBuildNotCount"))
+        return
+    end
+    
+    -- 检查是否超出上限
+    local maxCount = XFurnitureConfigs.MaxTotalFurnitureCount
+    local allCount = XDataCenter.FurnitureManager.GetAllFurnitureCount()
+    if allCount + textNum > maxCount then
+        XUiManager.TipMsg(XUiHelper.GetText("DormFurnitureCreateLimitTips", allCount, maxCount))
         return
     end
 
@@ -60,8 +69,8 @@ function XUiFurnitureCreate:CreateFurniture()
         end
     end
     -- update界面，关闭界面
-    XDataCenter.FurnitureManager.CreateFurniture(self.SelectPos, self.SelectTypeIds, self.FurnitrueCreateCount, costA, costB, costC, function()
-        XUiManager.TipText("FurnitureBuildStart")
+    XDataCenter.FurnitureManager.CreateFurniture(self.SelectTypeIds, self.FurnitureCreateCount, costA, costB, costC, function()
+        XUiManager.TipText("FurnitureCreateSuccess")
         if self.CallBack then
             self.CallBack(self.SelectPos)
         end
@@ -83,7 +92,7 @@ function XUiFurnitureCreate:OnStart(typeId, createCount, pos, callBack)
     self.CallBack = callBack
     self:ShowPanelCreationDetail()
 
-    if typeId then
+    if XTool.IsNumberValid(typeId) then
         self:SetSelectType({ typeId }, nil, createCount)
     end
 end
@@ -94,31 +103,31 @@ function XUiFurnitureCreate:OnInputValueChanged()
     end
 
     if not self.InputFunitueCount.text or self.InputFunitueCount.text == "" then
-        self.InputFunitueCount.text = tostring(self.FurnitrueCreateCount)
+        self.InputFunitueCount.text = tostring(self.FurnitureCreateCount)
         return
     end
 
     local textNum = tonumber(self.InputFunitueCount.text)
     if not self:CheckCanChangeNum() then
         XUiManager.TipMsg(CS.XTextManager.GetText("DormBuildNotChangeCount"))
-        self.InputFunitueCount.text = tostring(self.FurnitrueCreateCount)
+        self.InputFunitueCount.text = tostring(self.FurnitureCreateCount)
         return
     end
 
     if textNum < 1 then
         XUiManager.TipMsg(CS.XTextManager.GetText("DormBuildMinCount"))
-        self.InputFunitueCount.text = tostring(self.FurnitrueCreateCount)
+        self.InputFunitueCount.text = tostring(self.FurnitureCreateCount)
         return
     end
 
     local typeCount = (self.SelectTypeIds and #self.SelectTypeIds > 0) and #self.SelectTypeIds or 1
     if (textNum * typeCount) > XFurnitureConfigs.MaxCreateCount then
-        self.InputFunitueCount.text = tostring(self.FurnitrueCreateCount)
+        self.InputFunitueCount.text = tostring(self.FurnitureCreateCount)
         XUiManager.TipMsg(CS.XTextManager.GetText("DormBuildMaxCount", XFurnitureConfigs.MaxCreateCount))
         return
     end
 
-    self.FurnitrueCreateCount = textNum
+    self.FurnitureCreateCount = textNum
     self:UpdateTotalNum()
 end
 
@@ -127,12 +136,12 @@ function XUiFurnitureCreate:OnBtnReduceClick()
         return
     end
 
-    if self.FurnitrueCreateCount <= 1 then
+    if self.FurnitureCreateCount <= 1 then
         XUiManager.TipMsg(CS.XTextManager.GetText("DormBuildMinCount"))
         return
     end
 
-    self.FurnitrueCreateCount = self.FurnitrueCreateCount - 1
+    self.FurnitureCreateCount = self.FurnitureCreateCount - 1
     self:UpdateTotalNum()
 end
 
@@ -147,11 +156,11 @@ function XUiFurnitureCreate:OnBtnAddClick()
     end
 
     local textNum = tonumber(self.InputFunitueCount.text)
-    self.FurnitrueCreateCount = textNum > 0 and self.FurnitrueCreateCount + 1 or 1
+    self.FurnitureCreateCount = textNum > 0 and self.FurnitureCreateCount + 1 or 1
     local typeCount = (self.SelectTypeIds and #self.SelectTypeIds > 0) and #self.SelectTypeIds or 1
 
-    if (self.FurnitrueCreateCount * typeCount) > XFurnitureConfigs.MaxCreateCount then
-        self.FurnitrueCreateCount = math.floor(XFurnitureConfigs.MaxCreateCount / typeCount)
+    if (self.FurnitureCreateCount * typeCount) > XFurnitureConfigs.MaxCreateCount then
+        self.FurnitureCreateCount = math.floor(XFurnitureConfigs.MaxCreateCount / typeCount)
         XUiManager.TipMsg(CS.XTextManager.GetText("DormBuildMaxCount", XFurnitureConfigs.MaxCreateCount))
         return
     end
@@ -170,7 +179,7 @@ function XUiFurnitureCreate:OnBtnMaxClick()
     end
 
     local max = self:GetMaxBuildCount()
-    self.FurnitrueCreateCount = max > 0 and max or 1
+    self.FurnitureCreateCount = max > 0 and max or 1
     self:UpdateTotalNum(max <= 0)
 end
 
@@ -204,7 +213,7 @@ function XUiFurnitureCreate:ShowPanelCreationDetail(pos)
 
     --清除上一个状态
     self.SelectTypeIds = nil
-    self.FurnitrueCreateCount = 0
+    self.FurnitureCreateCount = 0
 
     self.PanelCreationDetail.gameObject:SetActive(true)
     self.ImgAdd.gameObject:SetActive(true)
@@ -222,7 +231,7 @@ function XUiFurnitureCreate:UpdateCreationDetail(isIgnoreUpdateInvesment, create
         local onCreate = function(grid, data)
             grid:Init(data, self)
         end
-        XUiHelper.CreateTemplates(self, self.GridInvestmentPool, self.InvestmentCfg,
+        XUiHelper.CreateTemplates(nil, self.GridInvestmentPool, self.InvestmentCfg,
         XUiGridInvestment.New, self.GridInvestment, self.PanelInvestment, onCreate)
         self.GridInvestment.gameObject:SetActive(false)
     end
@@ -238,7 +247,7 @@ function XUiFurnitureCreate:UpdateCreationDetail(isIgnoreUpdateInvesment, create
             typeName = furnitureTypeTemplate.CategoryName
             icon = furnitureTypeTemplate.TypeIcon
         else
-            typeName = XFurnitureConfigs.DefaultName
+            typeName = XFurnitureConfigs.DefaultCreateName
             icon = XFurnitureConfigs.DefaultIcon
         end
 
@@ -282,7 +291,7 @@ function XUiFurnitureCreate:GetCostFurnitureCoin(isMaxZero)
     end
 
     local typeCount = self.SelectTypeIds and #self.SelectTypeIds or 0
-    local createCount = isMaxZero and 0 or self.FurnitrueCreateCount
+    local createCount = isMaxZero and 0 or self.FurnitureCreateCount
     local costCount = currentSum * typeCount * createCount
     local currentOwn = XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.FurnitureCoin)
 
@@ -337,7 +346,7 @@ function XUiFurnitureCreate:GetPassableSum()
     return 0
 end
 
-function XUiFurnitureCreate:CheckInverstNum()
+function XUiFurnitureCreate:CheckInvestNum()
     local currentSum = 0
     for _, v in pairs(self.GridInvestmentPool) do
         currentSum = currentSum + v:GetCurrentSum()
@@ -358,7 +367,7 @@ function XUiFurnitureCreate:UpdateTotalNum(isMaxZero)
     self:UpdateCostCount(isMaxZero)
     local minConsume, _ = XFurnitureConfigs.GetFurnitureCreateMinAndMax()
     local typeCount = (self.SelectTypeIds and #self.SelectTypeIds > 0) and #self.SelectTypeIds or 1
-    local createCount = self.FurnitrueCreateCount > 0 and self.FurnitrueCreateCount or 1
+    local createCount = self.FurnitureCreateCount > 0 and self.FurnitureCreateCount or 1
     minConsume = typeCount * createCount * minConsume
     currentSum = currentSum * typeCount * createCount
 
@@ -383,14 +392,14 @@ function XUiFurnitureCreate:UpdateCountEdit(notEnought, isMaxZero, createCount)
         return
     end
 
-    self.BtnReduce:SetDisable(self.FurnitrueCreateCount <= 1)
+    self.BtnReduce:SetDisable(self.FurnitureCreateCount <= 1)
     self.BtnAdd:SetDisable(false)
     self.BtnMax:SetDisable(false)
     self.BtnMaxDisable = false
     self.BtnAddDisable = false
-    self.BtnReduceDisable = self.FurnitrueCreateCount <= 1
+    self.BtnReduceDisable = self.FurnitureCreateCount <= 1
     self.InputFunitueCount.interactable = true
-    self.InputFunitueCount.text = isMaxZero and 0 or self.FurnitrueCreateCount
+    self.InputFunitueCount.text = isMaxZero and 0 or self.FurnitureCreateCount
 end
 
 -- 选择TypeId
@@ -406,8 +415,20 @@ function XUiFurnitureCreate:SetSelectType(typeIds, suitId, createCount)
     if createCount and createCount > 1 then
         count = createCount
     end
-    self.FurnitrueCreateCount = count
+    self.FurnitureCreateCount = count
     self.ImgAdd.gameObject:SetActive(false)
+    local minConsume, _ = XFurnitureConfigs.GetFurnitureCreateMinAndMax()
+    if minConsume * count <= XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.FurnitureCoin) then
+        for _, v in pairs(self.GridInvestmentPool) do
+            if v then
+                local sum = v:GetCurrentSum()
+                if not XTool.IsNumberValid(sum) then
+                    v:OnBtnAddClick()
+                end
+            end
+        end
+    end
+    
     self:UpdateCreationDetail(true, createCount)
 end
 

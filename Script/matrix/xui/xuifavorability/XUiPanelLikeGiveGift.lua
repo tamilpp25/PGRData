@@ -1,19 +1,27 @@
-XUiPanelLikeGiveGift = XClass(nil, "XUiPanelLikeGiveGift")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridLikeSendGiftItem=require("XUi/XUiFavorability/XUiGridLikeSendGiftItem")
+local XUiPanelLikeGiveGift = XClass(XUiNode, "XUiPanelLikeGiveGift")
 
 local Default_Min_Num = 1
 local CSTextManagerGetText = CS.XTextManager.GetText
 local CommunicationGiftMaxCount = CS.XGame.ClientConfig:GetInt("CommunicationGiftMaxCount")
 
-function XUiPanelLikeGiveGift:Ctor(ui, uiRoot, parentUi)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiPanelLikeGiveGift:OnStart(uiRoot)
     self.UiRoot = uiRoot
-    self.ParentUi = parentUi
-    XTool.InitUiObject(self)
-    self:InitUiAfterAuto()
     self.GridGiftItem.gameObject:SetActiveEx(false)
-
+    self:InitUiAfterAuto()
 end
+
+function XUiPanelLikeGiveGift:OnEnable()
+    self.Parent.PanelEffect.gameObject:SetActiveEx(false)
+    self:RefreshDatas()
+end
+
+function XUiPanelLikeGiveGift:OnDisable()
+    self.DynamicTableTrustItem:RecycleAllTableGrid()
+    self.Parent.PanelEffect.gameObject:SetActiveEx(true)
+end
+
 
 function XUiPanelLikeGiveGift:InitUiAfterAuto()
 
@@ -35,10 +43,10 @@ function XUiPanelLikeGiveGift:RefreshDatas()
     self.CurTrustItem = nil
     self.SelectedGifts = {}
     self.SelectGiftItemList = {}
-    local trustItems = self:FilterTrustItems(XFavorabilityConfigs.GetAllCharacterSendGift())
+    local trustItems = self:FilterTrustItems(self._Control:GetAllCharacterSendGift())
 
 
-    table.sort(trustItems, XDataCenter.FavorabilityManager.SortTrustItems)
+    table.sort(trustItems, Handler(self._Control,self._Control.SortTrustItems))
     self:UpdateTrustItemList(trustItems)
 
     -- self:UpdateBottomByClickItem()
@@ -49,7 +57,7 @@ function XUiPanelLikeGiveGift:FilterTrustItems(items)
 
     local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
     --联动角色类型（0则不是联动角色）
-    local linkageType = XCharacterConfigs.GetCharacterLinkageType(characterId)
+    local linkageType = XMVCA.XCharacter:GetCharacterLinkageType(characterId)
 
     local filterFunc = function(item)
         local count = XDataCenter.ItemManager.GetCount(item.Id)
@@ -90,8 +98,8 @@ function XUiPanelLikeGiveGift:UpdateTrustItemList(trustItemList)
     self:ResetSelectStatus()
 
     if not self.DynamicTableTrustItem then
-        self.DynamicTableTrustItem = XDynamicTableNormal.New(self.SViewGiftList.gameObject)
-        self.DynamicTableTrustItem:SetProxy(XUiGridLikeSendGiftItem)
+        self.DynamicTableTrustItem = XDynamicTableNormal.New(self.SViewGiftList)
+        self.DynamicTableTrustItem:SetProxy(XUiGridLikeSendGiftItem,self.UiRoot)
         self.DynamicTableTrustItem:SetDelegate(self)
     end
 
@@ -120,7 +128,7 @@ end
 -- [监听动态列表事件]
 function XUiPanelLikeGiveGift:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        grid:Init(self.UiRoot, handler(self, self.Check), handler(self, self.OnGiftChangeCallBack), handler(self, self.PreCheck))
+        grid:Init(handler(self, self.Check), handler(self, self.OnGiftChangeCallBack), handler(self, self.PreCheck))
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local data = self.TrustItemList[index]
         if not data then return end
@@ -136,16 +144,16 @@ end
 
 function XUiPanelLikeGiveGift:PreCheck(itemId)
     local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
-    local config = XFavorabilityConfigs.GetLikeTrustItemCfg(itemId)
-    local isCommunication = config and config.TrustItemType == XFavorabilityConfigs.TrustItemType.Communication
-    local isMax = XDataCenter.FavorabilityManager.IsMaxFavorabilityLevel(characterId)
+    local config = self._Control:GetLikeTrustItemCfg(itemId)
+    local isCommunication = config and config.TrustItemType == XEnumConst.Favorability.TrustItemType.Communication
+    local isMax = self._Control:IsMaxFavorabilityLevel(characterId)
     if isMax and not isCommunication then
         XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilityMaxLevel"))
         return false
     end
 
-    local curExp = tonumber(XDataCenter.FavorabilityManager.GetCurrCharacterExp(characterId))
-    local startLevel = XDataCenter.FavorabilityManager.GetCurrCharacterFavorabilityLevel(characterId)
+    local curExp = tonumber(self._Control:GetCurrCharacterExp(characterId))
+    local startLevel = XMVCA.XFavorability:GetCurrCharacterFavorabilityLevel(characterId)
 
     local addExp = 0
     for i, var in ipairs(self.SelectGiftItemList) do
@@ -160,9 +168,9 @@ function XUiPanelLikeGiveGift:PreCheck(itemId)
     end
 
     local totalExp = addExp + curExp
-    local trustLv, leftExp, levelExp = XFavorabilityConfigs.GetFavorabilityLevel(characterId, totalExp, startLevel)
+    local trustLv, leftExp, levelExp = self._Control:GetFavorabilityLevel(characterId, totalExp, startLevel)
 
-    local maxLevel = XFavorabilityConfigs.GetMaxFavorabilityLevel(characterId)
+    local maxLevel = self._Control:GetMaxFavorabilityLevel(characterId)
     if maxLevel == trustLv and not isCommunication then
         XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilityMaxLevel"))
         return false
@@ -175,8 +183,8 @@ end
 function XUiPanelLikeGiveGift:Check(itemId, addCount)
     local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
 
-    local curExp = tonumber(XDataCenter.FavorabilityManager.GetCurrCharacterExp(characterId))
-    local startLevel = XDataCenter.FavorabilityManager.GetCurrCharacterFavorabilityLevel(characterId)
+    local curExp = tonumber(self._Control:GetCurrCharacterExp(characterId))
+    local startLevel = XMVCA.XFavorability:GetCurrCharacterFavorabilityLevel(characterId)
 
     local addExp = 0
     for i, var in ipairs(self.SelectGiftItemList) do
@@ -191,12 +199,12 @@ function XUiPanelLikeGiveGift:Check(itemId, addCount)
     end
 
     local totalExp = addExp + curExp
-    local trustLv, leftExp, levelExp = XFavorabilityConfigs.GetFavorabilityLevel(characterId, totalExp, startLevel)
+    local trustLv, leftExp, levelExp = self._Control:GetFavorabilityLevel(characterId, totalExp, startLevel)
 
-    local config = XFavorabilityConfigs.GetLikeTrustItemCfg(itemId)
-    local isCommunication = config and config.TrustItemType == XFavorabilityConfigs.TrustItemType.Communication
+    local config = self._Control:GetLikeTrustItemCfg(itemId)
+    local isCommunication = config and config.TrustItemType == XEnumConst.Favorability.TrustItemType.Communication
 
-    local maxLevel = XFavorabilityConfigs.GetMaxFavorabilityLevel(characterId)
+    local maxLevel = self._Control:GetMaxFavorabilityLevel(characterId)
     if maxLevel == trustLv and not isCommunication then
         return false
     end
@@ -278,11 +286,11 @@ function XUiPanelLikeGiveGift:OnBtnUseClick()
 
 
     local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
-    local characterName = XCharacterConfigs.GetCharacterName(characterId)
-    local trustLv = XDataCenter.FavorabilityManager.GetCurrCharacterFavorabilityLevel(characterId)
-    local curExp = tonumber(XDataCenter.FavorabilityManager.GetCurrCharacterExp(characterId))
+    local characterName = XMVCA.XCharacter:GetCharacterName(characterId)
+    local trustLv = XMVCA.XFavorability:GetCurrCharacterFavorabilityLevel(characterId)
+    local curExp = tonumber(self._Control:GetCurrCharacterExp(characterId))
     local IsDoCommunication = false
-    local IsGivenItem = XDataCenter.FavorabilityManager.IsInGivenItemCharacterIdList(characterId)
+    
     local args = {}
 
     args.CharacterId = characterId
@@ -300,7 +308,7 @@ function XUiPanelLikeGiveGift:OnBtnUseClick()
             end
         end
 
-        if var.TrustItem.TrustItemType == XFavorabilityConfigs.TrustItemType.Communication then
+        if var.TrustItem.TrustItemType == XEnumConst.Favorability.TrustItemType.Communication then
             IsDoCommunication = true
         end
 
@@ -312,16 +320,21 @@ function XUiPanelLikeGiveGift:OnBtnUseClick()
         return
     end
     
-    local IsOpen = XDataCenter.FavorabilityManager.IsDuringOfFestivalMail()
+    local IsOpen = self._Control:IsDuringOfFestivalMail()
 
 
     local fun = function()
-        XDataCenter.FavorabilityManager.OnSendCharacterGift(args, function()
-            self.ParentUi:DoFillAmountTween(trustLv, curExp, addExp)
+        self._Control:OnSendCharacterGift(args, function()
+            self.Parent:DoFillAmountTween(trustLv, curExp, addExp)
             self:RefreshDatas()
-            if IsOpen and IsDoCommunication and not IsGivenItem then
+            local isActive = IsOpen and IsDoCommunication
+            local IsGivenItem = true
+            if isActive then
+                IsGivenItem = self._Control:IsInGivenItemCharacterIdList(characterId)
+            end
+            if isActive and not IsGivenItem then
                 XDataCenter.CommunicationManager.ShowItemCommunication(args.CharacterId)
-                XDataCenter.FavorabilityManager.AddGivenItemCharacterId(args.CharacterId)
+                self._Control:AddGivenItemCharacterId(args.CharacterId)
             end
             local text
             if self:ChekCharacterIsMaxLevel() then
@@ -329,13 +342,16 @@ function XUiPanelLikeGiveGift:OnBtnUseClick()
             else
                 text = CS.XTextManager.GetText("FavorabilityAddExp", tostring(args.CharacterName), addExp)
             end
-            XUiManager.TipMsg(text)
+            XUiManager.TipMsg(text, nil, function()
+                XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_TOWER_CONDITION_LISTENING, XFubenCharacterTowerConfigs.ListeningType.Favorability, { CharacterId = characterId })
+            end)
         end)
     end
 
     local isMaxLevel = self:ChekCharacterIsMaxLevel()
 
     if IsDoCommunication and IsOpen then
+        local IsGivenItem = self._Control:IsInGivenItemCharacterIdList(characterId)
         if IsGivenItem and isMaxLevel then
             XUiManager.TipText("GivenAndOverGiftText")
             return
@@ -370,7 +386,7 @@ function XUiPanelLikeGiveGift:TipDialog(cancelCb, confirmCb, TextKey)
 end
 
 function XUiPanelLikeGiveGift:OnBtnGoClick()
-    XLuaUiManager.Open("UiEquipStrengthenSkip", XDataCenter.FavorabilityManager.GetFavorabilitySkipIds())
+    XLuaUiManager.Open("UiEquipStrengthenSkip", self._Control:GetFavorabilitySkipIds())
 end
 
 function XUiPanelLikeGiveGift:IsContains(container, item)
@@ -383,17 +399,17 @@ function XUiPanelLikeGiveGift:IsContains(container, item)
 end
 
 function XUiPanelLikeGiveGift:GetMaxCountByItem(trustItem)
-    if trustItem.TrustItemType == XFavorabilityConfigs.TrustItemType.Communication then
+    if trustItem.TrustItemType == XEnumConst.Favorability.TrustItemType.Communication then
         return CommunicationGiftMaxCount
     end
 
     local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
     local isFavor = self:IsContains(trustItem.FavorCharacterId, characterId)
     local favorExp = isFavor and trustItem.FavorExp or trustItem.Exp
-    local curExp = tonumber(XDataCenter.FavorabilityManager.GetCurrCharacterExp(characterId))
-    local trustLv = XDataCenter.FavorabilityManager.GetCurrCharacterFavorabilityLevel(characterId)
-    local maxTrustLv = XFavorabilityConfigs.GetMaxFavorabilityLevel(characterId)
-    local levelUpDatas = XFavorabilityConfigs.GetTrustExpById(characterId)
+    local curExp = tonumber(self._Control:GetCurrCharacterExp(characterId))
+    local trustLv = XMVCA.XFavorability:GetCurrCharacterFavorabilityLevel(characterId)
+    local maxTrustLv = self._Control:GetMaxFavorabilityLevel(characterId)
+    local levelUpDatas = self._Control:GetTrustExpById(characterId)
 
     if trustLv >= maxTrustLv then return 0 end
     local totalNeedExp = 0
@@ -444,15 +460,17 @@ function XUiPanelLikeGiveGift:ShowNumBtns()
 end
 
 function XUiPanelLikeGiveGift:SetViewActive(isActive)
-    self.GameObject:SetActive(isActive)
     if isActive then
+        self:Open()
         self:RefreshDatas()
+    else
+        self:Close()
     end
 end
 
 function XUiPanelLikeGiveGift:ChekMaxFavorability(itemType)
     local isMax = self:ChekCharacterIsMaxLevel()
-    local IsCommunicationItem = itemType == XFavorabilityConfigs.TrustItemType.Communication
+    local IsCommunicationItem = itemType == XEnumConst.Favorability.TrustItemType.Communication
     if isMax and not IsCommunicationItem then
         XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilityMaxLevel"))
         return true
@@ -462,15 +480,16 @@ end
 
 function XUiPanelLikeGiveGift:ChekCharacterIsMaxLevel()
     local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
-    local isMax = XDataCenter.FavorabilityManager.IsMaxFavorabilityLevel(characterId)
+    local isMax = self._Control:IsMaxFavorabilityLevel(characterId)
     return isMax
 end
 
 
 function XUiPanelLikeGiveGift:OnSelected(isSelected)
-    self.GameObject:SetActive(isSelected)
     if isSelected then
-        self:RefreshDatas()
+        self:Open()
+    else
+        self:Close()
     end
 end
 

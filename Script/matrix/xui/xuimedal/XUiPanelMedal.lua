@@ -1,3 +1,4 @@
+local XUiPanelMedalListView = require("XUi/XUiMedal/XUiPanelMedalListView")
 local XUiPanelMedal = XLuaUiManager.Register(XLuaUi, "UiPanelMedal")
 local Dropdown = CS.UnityEngine.UI.Dropdown
 local None = -1

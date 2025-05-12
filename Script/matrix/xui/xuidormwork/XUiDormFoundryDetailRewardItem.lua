@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiDormFoundryDetailRewardItem = XClass(nil, "XUiDormFoundryDetailRewardItem")
 
 function XUiDormFoundryDetailRewardItem:Ctor(ui)

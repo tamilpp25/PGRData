@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local Vector3 = CS.UnityEngine.Vector3
 local V3O = Vector3.one
 local XUiDormVisit = XLuaUiManager.Register(XLuaUi, "UiDormVisit")
@@ -134,11 +136,11 @@ function XUiDormVisit:OnStart(ui, tab)
     self.HostelSecond = ui
     local t = tab or XDormConfig.VisitTabTypeCfg.MyFriend
     self.Tabgroup:SelectIndex(t)
-    if t == XDormConfig.VisitTabTypeCfg.MyFriend then
-        self:OnReqFriendData()
-    else
-        self:OnReqVisitorData()
-    end
+    --if t == XDormConfig.VisitTabTypeCfg.MyFriend then
+    --    self:OnReqFriendData()
+    --else
+    --    self:OnReqVisitorData()
+    --end
 end
 
 ---
@@ -188,20 +190,7 @@ end
 --- 请求访客宿舍数据
 --- ButtonGroup的按钮响应函数，切换标签时调用
 function XUiDormVisit:OnReqVisitorData()
-    local data = XDataCenter.DormManager.GetDormitoryRecommendTotalData()
     self.ListData = {}
-    if Next(data) ~= nil then
-        local curtime = XTime.GetServerNowTimestamp()
-        if curtime - self.PreVistorReqTime < TIME_LIMIT then
-            for _, v in pairs(data) do
-                table.insert(self.ListData, v)
-            end
-            self:SetVisitorData(self.ListData)
-            return
-        end
-    end
-
-    self.PreVistorReqTime = XTime.GetServerNowTimestamp()
     XDataCenter.DormManager.RequestDormitoryRecommend(self.SetVisitorCb)
 end
 
@@ -259,6 +248,7 @@ end
 
 function XUiDormVisit:OnBtnReturnClick()
     XLuaUiManager.Close("UiDormVisit")
+    
 end
 
 function XUiDormVisit:OnBtnRandomVisit()

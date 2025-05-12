@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --================
 --我方角色头像列表
 --================
@@ -65,38 +66,9 @@ end
 --================
 function XUiSSBPickCharaHeadList:OnGridSelect(grid)
     local roleId = grid:GetRoleId() -- 若是-1则表示随机
-    local teamIds = self.TeamData.RoleIds
-    if roleId == XSuperSmashBrosConfig.PosState.Random then
-        --若选的是随机，则直接赋值
-        teamIds[self.ChangePos] = roleId
-    elseif teamIds[self.ChangePos] == XSuperSmashBrosConfig.PosState.Empty or teamIds[self.ChangePos] == XSuperSmashBrosConfig.PosState.Random then
-        --若替换位是空位或随机,则直接把选中的Id赋值
-        for pos, teamRoleId in pairs(teamIds) do
-            if teamRoleId > 0 and teamRoleId == roleId then --若跟其他位置相同且不为随机，则交换位置
-                teamIds[pos] = XSuperSmashBrosConfig.PosState.Empty
-                break
-            end
-        end
-        teamIds[self.ChangePos] = roleId
-    elseif teamIds[self.ChangePos] == roleId then --若重复选中，则表示取消选中
-        teamIds[self.ChangePos] = XSuperSmashBrosConfig.PosState.Empty
-    else
-        local switch = false
-        for pos, teamRoleId in pairs(teamIds) do
-            if teamRoleId == roleId then --若跟其他位置相同,则交换位置
-                local temp = teamRoleId
-                teamIds[pos] = teamIds[self.ChangePos]
-                teamIds[self.ChangePos] = teamRoleId
-                switch = true
-                break
-            end
-        end
-        if not switch then
-            teamIds[self.ChangePos] = roleId
-        end
+    if XDataCenter.SuperSmashBrosManager.SetTeamAssistanceMember(self.Mode, roleId, self.ChangePos) then
+        self.Panel.RootUi:SwitchPage(XSuperSmashBrosConfig.PickPage.Pick)
     end
-    XDataCenter.SuperSmashBrosManager.SaveDefaultTeamByModeId(self.Mode:GetId())
-    self.Panel.RootUi:SwitchPage(XSuperSmashBrosConfig.PickPage.Pick)
 end
 
 function XUiSSBPickCharaHeadList:Show()

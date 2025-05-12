@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XChessPursuitModel = require("XUi/XUiChessPursuit/XScene/XChessPursuitModel")
 local XChessPursuitBoss = XClass(XChessPursuitModel, "XChessPursuitBoss")
 
@@ -11,7 +12,7 @@ function XChessPursuitBoss:LoadBoss(id, parent, cb)
 
     local config = XChessPursuitConfig.GetChessPursuitBossTemplate(id)
 
-    self.Resource = CS.XResourceManager.Load(config.Perfab)
+    XLog.Error("[XResourceManager优化] 已经无法运行, 从XResourceManager改为loadPrefab")
     if not self.Resource.Asset then
         XLog.Error("XChessPursuitBoss LoadBoss error, instantiate error, name: " .. config.Perfab)
         return
@@ -30,6 +31,11 @@ function XChessPursuitBoss:Dispose()
         self.CSXChessPursuitModel:Dispose()
         CS.UnityEngine.GameObject.Destroy(self.GameObject)
         self.GameObject = nil
+    end
+
+    if self.Resource then
+        CS.XResourceManager.Unload(self.Resource)
+        self.Resource = nil
     end
     
     self.Func = nil

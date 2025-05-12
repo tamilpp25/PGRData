@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiMultiDimSettle = XLuaUiManager.Register(XLuaUi, "UiMultiDimSettle")
 
 function XUiMultiDimSettle:OnStart(data, isSingleStage)
@@ -68,7 +69,7 @@ end
 
 -- 角色半身图
 function XUiMultiDimSettle:SetRoleImg(roldId)
-    local path = XDataCenter.CharacterManager.GetCharHalfBodyBigImage(roldId)
+    local path = XMVCA.XCharacter:GetCharHalfBodyBigImage(roldId)
     self.RImgRole:SetRawImage(path)
 end
 

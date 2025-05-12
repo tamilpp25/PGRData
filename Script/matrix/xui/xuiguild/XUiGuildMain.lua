@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiGuildMain = XLuaUiManager.Register(XLuaUi, "UiGuildMain")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText
@@ -11,6 +12,9 @@ local XUiGridGuildBoxItem = require("XUi/XUiGuild/XUiChildItem/XUiGridGuildBoxIt
 local GuildBuildIntervalWhenMaxLevel = CS.XGame.Config:GetInt("GuildBuildIntervalWhenMaxLevel")
 local GlobalLastRequestMember = 0
 local GlobalRequestGap = CS.XGame.ClientConfig:GetInt("GuildGlobalRequestMember")
+
+local MaxPanelBgWidth = 682 --背景最大宽度
+local MaxPanelBtnCount = 5 --设置最大按钮数
 -- 子页面枚举
 local PARENT_PAGE
 -- 子页面控件脚本字典
@@ -52,14 +56,15 @@ function XUiGuildMain:OnStart(defaultIndex)
 end
 
 function XUiGuildMain:OnEnable()
-    self.BtnTabChallenge:ShowReddot(XDataCenter.GuildBossManager.IsReward())
-    local timeLeft = XDataCenter.GuildManager.GuildBossEndTime() - XTime.GetServerNowTimestamp()
-    if timeLeft < 0 then
-        timeLeft = 0
-    end
-    local timeStr = XUiHelper.GetTime(timeLeft, XUiHelper.TimeFormatType.MAINBATTERY)
-    self.BtnTabChallenge:SetNameByGroup(1, CS.XTextManager.GetText("GuildBossCountDown", timeStr))
+    --self.BtnTabChallenge:ShowReddot(XDataCenter.GuildBossManager.IsReward())
+    --local timeLeft = XDataCenter.GuildManager.GuildBossEndTime() - XTime.GetServerNowTimestamp()
+    --if timeLeft < 0 then
+    --    timeLeft = 0
+    --end
+    --local timeStr = XUiHelper.GetTime(timeLeft, XUiHelper.TimeFormatType.MAINBATTERY)
+    --self.BtnTabChallenge:SetNameByGroup(1, CS.XTextManager.GetText("GuildBossCountDown", timeStr))
     self.GuildWarEntry:OnEnable()
+    self.GuildBossHallEntry:OnEnable()
     self:OpenChildPage(self.CurrentPageIndex or PARENT_PAGE.MAIN)
     if XDataCenter.GuildWarManager.CheckActivityIsInTime() then
         XDataCenter.GuildWarManager.GetActivityData(function()
@@ -108,7 +113,8 @@ function XUiGuildMain:OnNotify(evt, ...)
     elseif evt == XEventId.EVENT_GUILD_INTERCOM_CHANGED then
         self:OnInterComChanged()
     elseif evt == XEventId.EVENT_GUILD_WAR_DIFFICULTY_SELECTED then
-        self:OpenChildPage(PARENT_PAGE.MAIN)
+        -- self:OpenChildPage(PARENT_PAGE.MAIN)
+        self:OpenChildPage(PARENT_PAGE.GUILDWAR)
     end
 end
 
@@ -156,12 +162,23 @@ function XUiGuildMain:InitChildView()
     --self.BtnMainUi.CallBack = function() self:OnBtnMainUiClick() end
     self:BindHelpBtn(self.BtnHelp, "GuildMainHelp")
     self.BtnHelp.CallBack = function() self:OnBtnHelpClick() end
-    XRedPointManager.AddRedPointEvent(self.RedSetting, self.RefreshSettingRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
-    XRedPointManager.AddRedPointEvent(self.RedNews, self.RefreshNewsRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    self:AddRedPointEvent(self.RedSetting, self.RefreshSettingRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    self:AddRedPointEvent(self.RedNews, self.RefreshNewsRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    
+    self.SettingBtnWidth = self.BtnGuildTuchu.transform.sizeDelta.x
+    
+    self.TxtMemberNum = self.TxtLeader.transform.parent.parent.transform:Find("TxtMember/TxtLeader"):GetComponent("Text")
 
     -- 设置面板 ---
     self.BtnAdministration.CallBack = function()
+        if self.GuildSet.gameObject.activeInHierarchy then
+            return
+        end
+        local showCount = XGuildConfig.RefreshSetView(self.BtnGuildTuchu, self.BtnGuildZhiwei, self.BtnGuildShenqinghan, self.BtnGuildSetName, self.BtnGuildReport)
         self.GuildSet.gameObject:SetActiveEx(true)
+        local width = MaxPanelBgWidth - (MaxPanelBtnCount - showCount) * self.SettingBtnWidth
+        width = CS.UnityEngine.Mathf.Clamp(width, 0, MaxPanelBgWidth)
+        self.UiGuildBg:SetSizeWithCurrentAnchors(CS.UnityEngine.RectTransform.Axis.Horizontal, width)
     end
     self.BtnDarkCloseBg.CallBack = function()
         self.GuildSet.gameObject:SetActiveEx(false)
@@ -194,13 +211,14 @@ function XUiGuildMain:InitChildView()
     self.BtnDeclaration.CallBack = function() self:OnBtnDeclarationClick() end
 
     -- 更换头像
-    self.GuildViewSetHeadPortrait = XUiGuildViewSetHeadPortrait.New(self.PanelSetHeadPotrait,self)
+    --self.GuildViewSetHeadPortrait = XUiGuildViewSetHeadPortrait.New(self.PanelSetHeadPotrait,self)
     self.BtnSetFace.CallBack = function() self:OnBtnSetFaceClick() end
 
     -- 其他模块
     self.BtnTabMember.CallBack = function() self:OnBtnTabMemberClick() end
-    self.BtnTabChallenge.CallBack = function() self:OnBtnChallengeClick() end
-    self.BtnTabGift.CallBack = function() self:OnBtnTabGiftClick() end
+    self.BtnTabMember:ShowReddot(false)
+    --self.BtnTabChallenge.CallBack = function() self:OnBtnTalentClick() end
+    --self.BtnTabGift.CallBack = function() self:OnBtnTabGiftClick() end
     self.BtnChat.CallBack = function() self:OnBtnChatClick() end
     if self.SwitchGuildDorm then
         local btn = require("XUi/XUiGuildDorm/XUiGuildSwitchBtn")
@@ -210,10 +228,45 @@ function XUiGuildMain:InitChildView()
     --公会战入口
     local guildWarEntryButtonScript = require("XUi/XUiGuildWar/XUiGuildWarEntryButton")
     self.GuildWarEntry = guildWarEntryButtonScript.New(self.BtnGuildWarEntry,function() self:OnBtnGuildWarEntryClick() end)
-    XRedPointManager.AddRedPointEvent(self.BtnGuildWarEntry, self.OnCheckGuildWarEntryRedPoint, self,
+    self:AddRedPointEvent(self.BtnGuildWarEntry, self.OnCheckGuildWarEntryRedPoint, self,
         {
-            XRedPointConditions.Types.CONDITION_GUILDWAR_TASK,
+            XRedPointConditions.Types.CONDITION_GUILDWAR_Main,
         })
+    --拟真围剿入口
+    local guildBossHallButtonScript = require("XUi/XUiGuildBoss/XUiGuildBossHallEntryButton")
+    self.GuildBossHallEntry = guildBossHallButtonScript.New(self.BtnGuildBossHall, handler(self, self.OnBtnChallengeClick))
+    --等级界面入口
+    self.BtnSee.CallBack = function()
+        if not XDataCenter.GuildManager.IsJoinGuild() then
+            return
+        end
+        XLuaUiManager.Open("UiGuildGrade")
+    end
+    
+    --任務
+    self.BtnGift.CallBack = function()
+        XLuaUiManager.Open("UiGuildTaskGroup")
+    end
+    self:AddRedPointEvent(self.BtnGift, self.CheckBtnGiftRedPoint, self, {
+        XRedPointConditions.Types.CONDITION_GUILD_ACTIVEGIFT,
+        XRedPointConditions.Types.CONDITION_GUILDBOSS_BOSSHP,
+        XRedPointConditions.Types.CONDITION_GUILDBOSS_SCORE,
+    })
+    --商店
+    self.BtnTabShop.CallBack = function()
+        XLuaUiManager.Open("UiShop", XShopManager.ShopType.Guild)
+    end
+    --信标
+    self.BtnTabBeacon.CallBack = function() self:OnBtnTalentClick() end
+    --复制Id
+    self.BtnCopy.CallBack = function() 
+        XTool.CopyToClipboard(self.TxtID.text)
+    end
+end
+
+function XUiGuildMain:CheckBtnGiftRedPoint(count)
+    self:SetActiveGift()
+    self.BtnGift:ShowReddot(count >= 0)
 end
 
 function XUiGuildMain:RefreshSettingRed(count)
@@ -270,6 +323,12 @@ function XUiGuildMain:OnQuickGuildClick()
     else
         local title = CS.XTextManager.GetText("GuildDialogTitle")
         local content = CS.XTextManager.GetText("GuildQuitMemberQuit")
+        
+        --判断工会战是否开启 如果开启 置换退出提示
+        if XDataCenter.GuildWarManager.CheckActivityIsInTime() then
+            content = CS.XTextManager.GetText("GuildQuitMemberQuitInGuildWarTime")
+        end
+        
         XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, function()
             end, function()
                 XDataCenter.GuildManager.QuitGuild(function()
@@ -379,6 +438,11 @@ function XUiGuildMain:OnBtnTabGiftClick()
     XLuaUiManager.Open("UiGuildPanelWelfare")
 end
 
+--信标
+function XUiGuildMain:OnBtnTalentClick()
+    XDataCenter.GuildManager.EnterGuildTalent()
+end
+
 -- 聊天
 function XUiGuildMain:OnBtnChatClick()
     XUiHelper.OpenUiChatServeMain(false, ChatChannelType.Guild, ChatChannelType.World)
@@ -414,15 +478,34 @@ function XUiGuildMain:OnBtnDeclarationClick()
     XLuaUiManager.Open("UiGuildWelcomeWord")
 end
 
+function XUiGuildMain:SetRImgGuildIcon(iconId)
+    iconId = XTool.IsNumberValid(iconId) and iconId or XDataCenter.GuildManager.GetGuildHeadPortrait()
+    if XTool.IsNumberValid(iconId) then
+        local cfg = XGuildConfig.GetGuildHeadPortraitById(iconId)
+        if cfg then
+            self.RImgGuildIcon:SetRawImage(cfg.Icon)
+            if cfg.IsSpecial then
+                self.RImgSpecialGuildIconBg:SetRawImage(cfg.OldGuildRoomBg)
+                self.RImgSpecialGuildIconBg.gameObject:SetActiveEx(true)
+            else
+                self.RImgSpecialGuildIconBg.gameObject:SetActiveEx(false)
+            end
+        end
+    end
+end
+
 -- 切换公会图标
 function XUiGuildMain:OnBtnSetFaceClick()
     if not XDataCenter.GuildManager.IsGuildAdminister() then
         XUiManager.TipMsg(CS.XTextManager.GetText("GuildNotAdministor"))
         return
     end
-    self.PanelSetHeadPotrait.gameObject:SetActiveEx(true)
-    local curHeadPortrait = XDataCenter.GuildManager.GetGuildHeadPortrait()
-    self.GuildViewSetHeadPortrait:OnRefresh(curHeadPortrait)
+    XLuaUiManager.Open("UiGuildDormHeadPotrait", function()
+        self:SetRImgGuildIcon()
+    end)
+    --self.PanelSetHeadPotrait.gameObject:SetActiveEx(true)
+    --local curHeadPortrait = XDataCenter.GuildManager.GetGuildHeadPortrait()
+    --self.GuildViewSetHeadPortrait:OnRefresh(curHeadPortrait)
 end
 
 -- 新图标
@@ -432,7 +515,7 @@ function XUiGuildMain:RecordGuildIconId(selectHeadPortraitId)
         XDataCenter.GuildManager.GuildChangeIconRequest(selectHeadPortraitId, function()
                 local cfg = XGuildConfig.GetGuildHeadPortraitById(selectHeadPortraitId)
                 if cfg then
-                    self.RImgGuildIcon:SetRawImage(cfg.Icon)
+                    self:SetRImgGuildIcon(cfg.Id)
                 end
             end)
     end
@@ -491,11 +574,12 @@ function XUiGuildMain:SetGuildInfo()
     local guildId = XDataCenter.GuildManager.GetGuildId()
     local guildLevel = XDataCenter.GuildManager.GetGuildLevel()
     local curBuild = XDataCenter.GuildManager.GetBuild()
-    self.RImgGuildIcon:SetRawImage(XDataCenter.GuildManager.GetGuildIconId())
+    self:SetRImgGuildIcon()
     self.TxtGuildName.text = XDataCenter.GuildManager.GetGuildName()
     self.TxtLeader.text = XDataCenter.GuildManager.GetGuildLeaderName()
-
+    self.TxtID.text = string.format("%08d",guildId)
     self.GuildLevelTemplate = XGuildConfig.GetGuildLevelDataBylevel(guildLevel)
+    self:RefreshGuildMember()
     if XDataCenter.GuildManager.CheckAllTalentLevelMax() then
         local gloryLevel = XDataCenter.GuildManager.GetGloryLevel()
         self.TxtLvNum.text = string.format("<size=28>%d</size><color=#FFF400>(%d)</color>", guildLevel, gloryLevel)
@@ -519,12 +603,18 @@ function XUiGuildMain:SetUiVisable()
     if not XDataCenter.GuildManager.IsGuildAdminister() then
         self.BtnInterCom.gameObject:SetActiveEx(false)
         self.BtnAnnounce.gameObject:SetActiveEx(false)
+    end
+    if not XDataCenter.GuildManager.IsGuildLeader() then
         self.BtnSetFace.gameObject:SetActiveEx(false)
     end
 end
 
 function XUiGuildMain:OnLeaderChanged()
     self.TxtLeader.text = XDataCenter.GuildManager.GetGuildLeaderName()
+end
+
+function XUiGuildMain:RefreshGuildMember()
+    self.TxtMemberNum.text = string.format("<color=#008FFF>%s</color>/%s", XDataCenter.GuildManager.GetMemberCount(), XDataCenter.GuildManager.GetMemberMaxCount())
 end
 
 -- 公会频道
@@ -559,35 +649,37 @@ end
 
 -- 活跃度礼包
 function XUiGuildMain:SetActiveGift()
+    self.PanelGift.gameObject:SetActiveEx(false)
     local giftContribute = XDataCenter.GuildManager.GetGiftContribute()
-    local giftGuildLevel = XDataCenter.GuildManager.GetGiftGuildLevel()
-
-    self.AllBoxesConfig = XGuildConfig.GetGuildGiftByGuildLevel(giftGuildLevel)
-    if not self.AllBoxesConfig then return end
-    self.MaxContribute = 0
-    for _, v in pairs(self.AllBoxesConfig) do
-        if v.GiftContribute > self.MaxContribute then
-            self.MaxContribute = v.GiftContribute
-        end
-    end
-
-    for i = 1, #self.AllBoxesConfig do
-        if not self.GiftBoxes[i] then
-            local ui = CS.UnityEngine.Object.Instantiate(self.PanelActive)
-            local grid = XUiGridGuildBoxItem.New(ui, self)
-            grid.Transform:SetParent(self.PanelGift, false)
-            self.GiftBoxes[i] = grid
-        end
-        self.GiftBoxes[i].GameObject:SetActiveEx(true)
-        self.GiftBoxes[i]:RefreshGift(self.AllBoxesConfig[i], i, self.MaxContribute)
-    end
-    for i = #self.AllBoxesConfig + 1, #self.GiftBoxes do
-        self.GiftBoxes[i].GameObject:SetActiveEx(false)
-    end
-    self.TxtDailyActive.text = giftContribute
-    if self.MaxContribute > 0 then
-        self.ImgDaylyActiveProgress.fillAmount = giftContribute * 1.0 / self.MaxContribute
-    end
+    self.BtnGift:SetNameByGroup(0, giftContribute)
+    --local giftGuildLevel = XDataCenter.GuildManager.GetGiftGuildLevel()
+    --
+    --self.AllBoxesConfig = XGuildConfig.GetGuildGiftByGuildLevel(giftGuildLevel)
+    --if not self.AllBoxesConfig then return end
+    --self.MaxContribute = 0
+    --for _, v in pairs(self.AllBoxesConfig) do
+    --    if v.GiftContribute > self.MaxContribute then
+    --        self.MaxContribute = v.GiftContribute
+    --    end
+    --end
+    --
+    --for i = 1, #self.AllBoxesConfig do
+    --    if not self.GiftBoxes[i] then
+    --        local ui = CS.UnityEngine.Object.Instantiate(self.PanelActive)
+    --        local grid = XUiGridGuildBoxItem.New(ui, self)
+    --        grid.Transform:SetParent(self.PanelGift, false)
+    --        self.GiftBoxes[i] = grid
+    --    end
+    --    self.GiftBoxes[i].GameObject:SetActiveEx(true)
+    --    self.GiftBoxes[i]:RefreshGift(self.AllBoxesConfig[i], i, self.MaxContribute)
+    --end
+    --for i = #self.AllBoxesConfig + 1, #self.GiftBoxes do
+    --    self.GiftBoxes[i].GameObject:SetActiveEx(false)
+    --end
+    --self.TxtDailyActive.text = giftContribute
+    --if self.MaxContribute > 0 then
+    --    self.ImgDaylyActiveProgress.fillAmount = giftContribute * 1.0 / self.MaxContribute
+    --end
 end
 
 -- 公会人数
@@ -595,6 +687,7 @@ function XUiGuildMain:UpdateGuildMemberCount()
     local curCount = XDataCenter.GuildManager.GetOnlineMemberCount()
     --local maxCount = XDataCenter.GuildManager.GetMemberMaxCount()
     self.BtnTabMember:SetNameByGroup(1, CSXTextManagerGetText("GuildMemberOnlineCount", curCount))
+    self:RefreshGuildMember()
 end
 
 function XUiGuildMain:HasModifyAccess()
@@ -638,7 +731,8 @@ function XUiGuildMain:HideMain()
     self.PanelInfo.gameObject:SetActiveEx(false)
     self.PanelLeftBtn.gameObject:SetActiveEx(false)
     self.PanelRightBtn.gameObject:SetActiveEx(false)
-    self.PanelGuildWarEntry.gameObject:SetActiveEx(false)
+    --self.PanelGuildWarEntry.gameObject:SetActiveEx(false)
+    self.GuildWarEntry.GameObject:SetActiveEx(false)
 end
 --================
 --初始化枚举与字典
@@ -745,25 +839,7 @@ end
 --点击公会战入口
 --================
 function XUiGuildMain:OnBtnGuildWarEntryClick()
-    local currentRoundId = XDataCenter.GuildWarManager.GetCurrentRoundId()
-    if currentRoundId == 1 then
-        local now = XTime.GetServerNowTimestamp()
-        local roundStartTime = XDataCenter.GuildWarManager.GetRoundStartTime()
-        if now < roundStartTime then
-            XUiManager.TipText("GuildWarNoInRound")
-            return
-        end
-    end
-    if XDataCenter.GuildWarManager.CheckIsSkipCurrentRound() then
-        XUiManager.TipText("GuildWarIsSkip")
-        return
-    end
-    local haveSelectDifficulty = XDataCenter.GuildWarManager.CheckHaveDifficultySelected()
-    if haveSelectDifficulty then
-        XDataCenter.GuildWarManager.GetActivityData(function ()
-                XLuaUiManager.Open("UiGuildWarStageMain")
-            end)
-    else
+    XDataCenter.GuildWarManager.OpenUiGuildWarMain(function()
         self:OpenChildPage(PARENT_PAGE.GUILDWAR)
-    end
+    end)
 end

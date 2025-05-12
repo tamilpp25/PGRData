@@ -1,4 +1,4 @@
-XUiGridDelegateReporter = XClass(nil, "XUiGridDelegateReporter")
+local XUiGridDelegateReporter = XClass(nil, "XUiGridDelegateReporter")
 
 function XUiGridDelegateReporter:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -43,7 +43,7 @@ function XUiGridDelegateReporter:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -56,3 +56,6 @@ function XUiGridDelegateReporter:AutoAddListener()
     self.AutoCreateListeners = {}
 end
 -- auto
+
+
+return XUiGridDelegateReporter

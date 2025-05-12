@@ -1,4 +1,4 @@
-XUiPanelPlayerExp = XClass(nil, "XUiPanelPlayerExp")
+local XUiPanelPlayerExp = XClass(nil, "XUiPanelPlayerExp")
 
 function XUiPanelPlayerExp:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -63,3 +63,5 @@ function XUiPanelPlayerExp:UpdatePlayerLevelInfo()
     self.TxtLevelNum.text=XPlayer.Level
     self.TxtExpNum.text="<color=#0e70bd><size=47>" .. curExp .. "</size></color>" .. "/" ..maxExp
 end
+
+return XUiPanelPlayerExp

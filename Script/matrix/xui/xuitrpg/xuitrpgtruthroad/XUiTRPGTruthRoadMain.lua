@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local Object
 
 local XUiTRPGTruthRoadStages = require("XUi/XUiTRPG/XUiTRPGTruthRoad/XUiTRPGTruthRoadStages")
@@ -16,7 +17,7 @@ function XUiTRPGTruthRoadMain:OnAwake()
 
     self:InitAutoScript()
     
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.TRPGMoney, function()
         self.AssetActivityPanel:Refresh({XDataCenter.ItemManager.ItemId.TRPGMoney})
     end, self.AssetActivityPanel)
@@ -33,6 +34,7 @@ end
 
 function XUiTRPGTruthRoadMain:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_TRPG_GET_REWARD, self.OnCheckRedPoint, self)
+
 end
 
 function XUiTRPGTruthRoadMain:InitAutoScript()
@@ -49,6 +51,7 @@ function XUiTRPGTruthRoadMain:AutoAddListener()
     self:RegisterClickEvent(self.BtnMask, self.OnBtnMaskClick)
     self:RegisterClickEvent(self.BtnEnterStory, self.OnBtnEnterStoryClick)
     self:RegisterClickEvent(self.BtnEnterFight, self.OnBtnEnterFightClick)
+
 end
 
 function XUiTRPGTruthRoadMain:OnBtnEnterStoryClick()
@@ -58,7 +61,7 @@ end
 
 function XUiTRPGTruthRoadMain:OnBtnEnterFightClick()
     self:CloseEnterDialog()
-    XLuaUiManager.Open("UiNewRoomSingle", self.DialogId)
+    XLuaUiManager.Open("UiBattleRoleRoom", self.DialogId)
 end
 
 function XUiTRPGTruthRoadMain:OnBtnMaskClick()

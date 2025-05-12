@@ -302,14 +302,15 @@ XAchievementManagerCreator = function()
     --=============
     function XAchievementManager.GetTaskByTaskId(taskId)
         if not taskId then return end
-        return TaskDicByTaskId[taskId]
+        return XDataCenter.TaskManager.GetTaskDataById(taskId)
     end
     --=============
     --根据任务Id获取任务状态
     --=============
     function XAchievementManager.GetTaskStateByTaskId(taskId)
         if not taskId then return XDataCenter.TaskManager.TaskState.Invalid end
-        return TaskDicByTaskId[taskId] and TaskDicByTaskId[taskId].State or XDataCenter.TaskManager.TaskState.Invalid
+        local task = XDataCenter.TaskManager.GetTaskDataById(taskId)
+        return task and task.State or XDataCenter.TaskManager.TaskState.Invalid
     end
 
     function XAchievementManager.SetTaskInitFlag()
@@ -334,15 +335,14 @@ XAchievementManagerCreator = function()
                     goto continue
                 end
                 totalCount = totalCount + 1
-                TaskDicByTaskId[task.Id] = XTool.Clone(task)
                 --登陆时推送全部任务数据
-                if not TaskDicByTaskId[task.Id] then
+                if not task then
                     if task.State == XTaskManager.TaskState.Finish then
-                        table.insert(newAchieveList, TaskDicByTaskId[task.Id])
+                        table.insert(newAchieveList, task)
                     end
                 else --后面同步的任务数据刷新           
-                    if TaskDicByTaskId[task.Id].State ~= task.State and task.State == XTaskManager.TaskState.Finish then
-                        table.insert(newAchieveList, TaskDicByTaskId[task.Id])
+                    if task.State ~= task.State and task.State == XTaskManager.TaskState.Finish then
+                        table.insert(newAchieveList, task)
                     end
                 end
                 if task.State == XTaskManager.TaskState.Finish then

@@ -1,4 +1,4 @@
-XUiGridExploreItem = XClass(nil, "XUiGridExploreItem")
+local XUiGridExploreItem = XClass(nil, "XUiGridExploreItem")
 local FirstIndex = 1
 
 function XUiGridExploreItem:Ctor(ui)
@@ -58,3 +58,5 @@ function XUiGridExploreItem:ClearRedPoint()
     XDataCenter.FubenMainLineManager.MarkNewExploreItemRedPointByItemId(self.CharacterId)
     self.BtnRole:ShowReddot(false)
 end
+
+return XUiGridExploreItem

@@ -1,8 +1,14 @@
+local XPartnerSort = require("XUi/XUiPartner/PartnerCommon/XPartnerSort")
 local XPartner = require("XEntity/XPartner/XPartner")
 local DEFAULT_ACTIVE_SKILL_INDEX = 1 --辅助机技能默认技能下标
+local StrKeyType = {
+    Skill = "PartnerSkill"
+}
 
 XPartnerManagerCreator = function()
+    ---@class XPartnerManager
     local XPartnerManager = {}
+    ---@type table<int,XPartner>
     local PartnerEntityDic = {}
     local CSTextManagerGetText = CS.XTextManager.GetText
     local tableInsert = table.insert
@@ -20,6 +26,7 @@ XPartnerManagerCreator = function()
     local PartnerDecomposeLevelBreakRebate = CS.XGame.Config:GetFloat("PartnerDecomposeLevelBreakRebate")
     local PartnerDecomposeEvolutionRebate = CS.XGame.Config:GetFloat("PartnerDecomposeEvolutionRebate")
     local PartnerDecomposeSkillRebate = CS.XGame.Config:GetFloat("PartnerDecomposeSkillRebate")
+    local PartnerStrKeyCache = {}
 
     local METHOD_NAME = {
         PartnerComposeRequest = "PartnerComposeRequest", --伙伴合成请求
@@ -37,20 +44,48 @@ XPartnerManagerCreator = function()
         TeamPreSetPartnerRequest = "TeamPreSetPartnerRequest", --更新辅助机预设数据
         PartnerMultiCarryAndSkillRequest = "PartnerMultiCarryAndSkillRequest", --辅助机预设批量携带
     }
+    
+    local function GetPartnerStrKey(keyType, partnerId)
+        local playerId = XPlayer.Id
+        if PartnerStrKeyCache and PartnerStrKeyCache[playerId] and 
+                PartnerStrKeyCache[playerId][keyType] and PartnerStrKeyCache[playerId][keyType][partnerId] then
+            return PartnerStrKeyCache[playerId][keyType][partnerId]
+        end
+
+        local result = string.format("%d%s%d", playerId, keyType, partnerId)
+        PartnerStrKeyCache[playerId] = PartnerStrKeyCache[playerId] or {}
+        PartnerStrKeyCache[playerId][keyType] = PartnerStrKeyCache[playerId][keyType] or {}
+        PartnerStrKeyCache[playerId][keyType][partnerId] = result
+        return result
+    end
 
     function XPartnerManager.Init()
 
     end
 
-    function XPartnerManager.GetPartnerOverviewDataList(SelectId, partnerType, IsShowStack)--取得伙伴总览队列
+    -- 原partnerType实际为角色的类型, 更名为partnerCharacterType
+    -- 3.5 联动 新增partnerType， 区分辅助机类型
+    function XPartnerManager.GetPartnerOverviewDataList(SelectId, partnerCharacterType, IsShowStack, partnerType)--取得伙伴总览队列
         local overviewDataList = {}
         local stackCount = {}
         local overviewIndex = 1
         local indexMemo = {}
         for _, entity in pairs(PartnerEntityDic or {}) do
             local IsSameType = true
-            if partnerType then
-                IsSameType = entity:GetCarryCharacterType() == partnerType or entity:GetCarryCharacterType() == XPartnerConfigs.PartnerType.All
+            if partnerCharacterType then
+                IsSameType = entity:GetCarryCharacterType() == partnerCharacterType or entity:GetCarryCharacterType() == XPartnerConfigs.PartnerCharacterType.All
+            end
+            
+            -- 未区分辅助机类型，兼容旧逻辑，或者 所有类型
+            if partnerType ~= nil and partnerType ~= XPartnerConfigs.PartnerType.All then
+                local entityPartnerType = entity:GetPartnerType()
+                if entityPartnerType == 0 then
+                    entityPartnerType = XPartnerConfigs.PartnerType.Normal
+                    XLog.Warning("[XPartnerManager] 辅助机partnerType配置为0，有问题，麻烦通知策划修改", tostring(entity:GetTemplateId()))
+                end
+                if partnerType ~= entityPartnerType then
+                    IsSameType = false
+                end
             end
 
             if IsSameType then
@@ -145,6 +180,7 @@ XPartnerManagerCreator = function()
         return PartnerCarrierIdDic[carrierId]
     end
 
+    ---@return XPartner
     function XPartnerManager.GetCarryPartnerEntityByCarrierId(carrierId)--根据装备者ID获取装备的宠物
         local carryPartnerId = PartnerCarrierIdDic[carrierId]
         return carryPartnerId and PartnerEntityDic[carryPartnerId]
@@ -178,19 +214,57 @@ XPartnerManagerCreator = function()
         return nil
     end
 
-    function XPartnerManager.GoPartnerCarry(characterId, IsCanSkipProperty)--跳转至伙伴装备界面
+    function XPartnerManager.GoPartnerCarry(characterId, IsCanSkipProperty, closeCallback)--跳转至伙伴装备界面
         if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Partner) then
-            return
+            return false
         end
+
+        --if not XMVCA.XSubPackage:CheckSubpackage() then
+        --    return false
+        --end
 
         if XPartnerManager.IsPartnerListEmpty() then
             XUiManager.TipText("PartnerListIsEmpty")
             if IsCanSkipProperty then
-                XLuaUiManager.Open("UiPartnerMain")
+                XPartnerManager.OpenUiPartnerMain(false)
             end
-            return
+            return false
         end
-        XLuaUiManager.Open("UiPartnerCarry", characterId, IsCanSkipProperty)
+        XLuaUiManager.Open("UiPartnerCarry", characterId, IsCanSkipProperty, closeCallback)
+        return true
+    end
+
+    function XPartnerManager.GetPartnerPhotographData()
+        local templateData = XPartnerConfigs.GetPartnerTemplateCfg()
+        local list = {
+            {
+                TemplateId = 0,
+                Unlock = true,
+                Name = "",
+                Quality = 0,
+                Icon = ""
+            }
+        }
+        for tId, data in pairs(templateData or {}) do
+            local count = XPartnerManager.GetPartnerCountByTemplateId(tId)
+            tableInsert(list, {
+                TemplateId = tId,
+                Unlock = count > 0,
+                Name = data.Name,
+                Quality = data.InitQuality,
+                Icon = data.Icon
+            })
+        end
+
+        table.sort(list, function(a, b)
+            local unlockA = a.Unlock
+            local unlockB = b.Unlock
+            if unlockA ~= unlockB then
+                return unlockA
+            end
+            return a.TemplateId < b.TemplateId
+        end)
+        return list
     end
     
     --==============================
@@ -262,14 +336,14 @@ XPartnerManagerCreator = function()
     end
 
     function XPartnerManager.UpdateAllPartnerStory()--更新所有宠物的故事列表
-        local PartnerUnLockStoryList = XDataCenter.ArchiveManager.GetPartnerSettingUnLockDic()
+        local PartnerUnLockStoryList = XMVCA.XArchive:GetPartnerSettingUnLockDic()
         for _, entity in pairs(PartnerEntityDic or {}) do
             entity:UpdateStoryEntity(PartnerUnLockStoryList)
         end
     end
 
     function XPartnerManager.UpdatePartnerStoryByEntity(entity)--更新某个宠物的故事列表
-        local PartnerUnLockStoryList = XDataCenter.ArchiveManager.GetPartnerSettingUnLockDic()
+        local PartnerUnLockStoryList = XMVCA.XArchive:GetPartnerSettingUnLockDic()
         entity:UpdateStoryEntity(PartnerUnLockStoryList)
     end
 
@@ -594,7 +668,7 @@ XPartnerManagerCreator = function()
         if not XTool.IsNumberValid(characterId) then
             return skillList[DEFAULT_ACTIVE_SKILL_INDEX]
         end
-        local charElement = XCharacterConfigs.GetCharacterElement(characterId)
+        local charElement = XMVCA.XCharacter:GetCharacterElement(characterId)
 
         return skillList[charElement]
     end
@@ -644,8 +718,9 @@ XPartnerManagerCreator = function()
     end
 
     function XPartnerManager.MarkedNewSkillRed(partnerId)
-        if XSaveTool.GetData(string.format("%d%s%d", XPlayer.Id, "PartnerSkill", partnerId)) then
-            XSaveTool.RemoveData(string.format("%d%s%d", XPlayer.Id, "PartnerSkill", partnerId))
+        local key = GetPartnerStrKey(StrKeyType.Skill, partnerId)
+        if XSaveTool.GetData(key) then
+            XSaveTool.RemoveData(key)
         end
     end
 
@@ -661,15 +736,17 @@ XPartnerManagerCreator = function()
     end
 
     function XPartnerManager.CheckNewSkillRedByPartnerId(partnerId)
-        if XSaveTool.GetData(string.format("%d%s%d", XPlayer.Id, "PartnerSkill", partnerId)) then
+        local key = GetPartnerStrKey(StrKeyType.Skill, partnerId)
+        if XSaveTool.GetData(key) then
             return true
         end
         return false
     end
 
     function XPartnerManager.SetNewSkillRedByPartnerId(partnerId)
-        if not XSaveTool.GetData(string.format("%d%s%d", XPlayer.Id, "PartnerSkill", partnerId)) then
-            XSaveTool.SaveData(string.format("%d%s%d", XPlayer.Id, "PartnerSkill", partnerId), true)
+        local key = GetPartnerStrKey(StrKeyType.Skill, partnerId)
+        if not XSaveTool.GetData(key) then
+            XSaveTool.SaveData(key, true)
         end
     end
 
@@ -688,7 +765,22 @@ XPartnerManagerCreator = function()
                 XUiManager.TipCode(res.Code)
                 return
             end
-            XLuaUiManager.Open("UiPartnerPopupTip", CSTextManagerGetText("PartnerComposeFinish"))
+            --region 辅助机 -> 异界装备
+            local isLink = false
+            for i = 1, #templateIds do
+                local templateId = templateIds[i]
+                local partnerType = XPartnerConfigs.GetPartnerType(templateId)
+                if partnerType == XPartnerConfigs.PartnerType.Link then
+                    isLink = true
+                    break
+                end
+            end
+            if isLink then
+                XLuaUiManager.Open("UiPartnerPopupTip", CSTextManagerGetText("PartnerComposeFinishLink"))
+            else
+                XLuaUiManager.Open("UiPartnerPopupTip", CSTextManagerGetText("PartnerComposeFinish"))
+            end
+            --endregion 辅助机 -> 异界装备
             --XUiManager.TipText("PartnerComposeFinish")
         end)
     end
@@ -1039,8 +1131,34 @@ XPartnerManagerCreator = function()
             if cb then cb() end
         end)
     end
+    
+    function XPartnerManager.CheckCanUpdateSkillMultiple(partnerId, skillId,count)
+        local partnerEntity = PartnerEntityDic[partnerId]
+        if not partnerEntity then
+            return false
+        end
+        if partnerEntity:GetIsTotalSkillLevelMax() then
+            return false
+        end
 
-    function XPartnerManager.PartnerSkillUpRequest(partnerId, count, cb, errorCb)--伙伴技能升级请求
+        if partnerEntity:GetSkillLevelGap() < count then
+            return false
+        end
+
+        local consumeItems = partnerEntity:GetSkillUpgradeItem()
+        if not XDataCenter.ItemManager.CheckItemsCountByTimes(consumeItems, count) then
+            return false
+        end
+
+        local money = partnerEntity:GetSkillUpgradeMoney()
+        local moneyCount = XDataCenter.ItemManager.GetCount(money.Id)
+        if moneyCount < money.Count * count then
+            return false
+        end
+        return true
+    end
+
+    function XPartnerManager.PartnerSkillUpRequest(partnerId, skillId, count, cb, errorCb)--伙伴技能升级请求
         local partnerEntity = PartnerEntityDic[partnerId]
 
         if partnerEntity:GetIsTotalSkillLevelMax() then
@@ -1067,14 +1185,14 @@ XPartnerManagerCreator = function()
         money.Count * count,
         1,
         function()
-            XPartnerManager.PartnerSkillUpRequest(partnerId, count, cb, errorCb)
+            XPartnerManager.PartnerSkillUpRequest(partnerId, skillId, count, cb, errorCb)
         end,
         "PartnerCoinNotEnough") then
             if errorCb then errorCb() end
             return
         end
 
-        XNetwork.Call(METHOD_NAME.PartnerSkillUpRequest, { PartnerId = partnerId, Times = count }, function(res)
+        XNetwork.Call(METHOD_NAME.PartnerSkillUpRequest, { PartnerId = partnerId, SkillId = skillId, Times = count }, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
                 if errorCb then errorCb() end
@@ -1117,6 +1235,39 @@ XPartnerManagerCreator = function()
             XEventManager.DispatchEvent(XEventId.EVENT_PARTNER_DECOMPOSE)
             if cb then cb() end
         end)
+    end
+
+    ---region PartnerUiEffect相关
+    ---根据辅助机Id取辅助机配置
+    ---@param templateId number 辅助机Id
+    ---@alias XPartnerModelConfig { CToSAnime:string, CToSEffect:string, CToSVoice:number, CombatBornAnime:string, CombatBornAnime:string, CombatModel:string, Id:number, Name:string, SToCAnime:string, SToCVoice:number, StandbyBornAnime:string, StandbyModel:string }
+    ---@return XPartnerModelConfig 辅助机配置
+    function XPartnerManager.GetPartnerModelConfigById(templateId)
+        return XPartnerConfigs.GetPartnerModelById(templateId)
+    end
+
+    ---获取辅助机PartnerUiEffect数据
+    ---@param modelName string 辅助机模型(来自【PartnerModel.tab】StandbyModel/CombatModel字段)
+    ---@param effectType string XPartnerConfigs.EffectParentName枚举  
+    ---@return table<string, string[]>
+    function XPartnerManager.GetPartnerUiEffect(modelName, effectType)
+        return XPartnerConfigs.GetPartnerUiEffect(modelName, effectType)
+    end
+    ---endregion
+    
+    --打开辅助机界面，统一入口
+    function XPartnerManager.OpenUiPartnerMain(isPopOpen, ...)
+        if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Partner) then
+            return
+        end
+        --if not XMVCA.XSubPackage:CheckSubpackage() then
+        --    return
+        --end
+        if isPopOpen then
+            XLuaUiManager.PopThenOpen("UiPartnerMain", ...)
+        else
+            XLuaUiManager.Open("UiPartnerMain", ...)
+        end
     end
 
     XPartnerManager.Init()

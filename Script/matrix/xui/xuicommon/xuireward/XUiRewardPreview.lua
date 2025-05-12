@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiRewardPreview = XLuaUiManager.Register(XLuaUi, "UiGachaPanelPreview2")
 
 function XUiRewardPreview:OnAwake()

@@ -1,4 +1,5 @@
-XUiGridArchiveEmail = XClass(nil, "XUiGridArchiveEmail")
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
+local XUiGridArchiveEmail = XClass(XUiNode, "XUiGridArchiveEmail")
 
 local GridState = {Close = false ,Open = true}
 local TabState = {
@@ -7,10 +8,7 @@ local TabState = {
     Select = 2,
     Disable = 3,
 }
-function XUiGridArchiveEmail:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchiveEmail:OnStart()
     self:SetButtonCallBack()
 end
 
@@ -52,3 +50,6 @@ function XUiGridArchiveEmail:SetMonsterData(chapter,stateList)
     self.Contents.sizeDelta = CS.UnityEngine.Vector2(self.EmailTitle.sizeDelta.x, self.Contents.sizeDelta.y)
 end
 
+
+
+return XUiGridArchiveEmail

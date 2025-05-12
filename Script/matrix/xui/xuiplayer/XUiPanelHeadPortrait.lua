@@ -1,4 +1,4 @@
-XUiPanelHeadPortrait = XClass(nil, "XUiPanelHeadPortrait")
+local XUiPanelHeadPortrait = XClass(nil, "XUiPanelHeadPortrait")
 
 function XUiPanelHeadPortrait:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -88,3 +88,5 @@ function XUiPanelHeadPortrait:ShowRedPoint(bShow,IsClick)
         XDataCenter.HeadPortraitManager.SetHeadPortraitForOld(self.HeadPortraitId)
     end
 end
+
+return XUiPanelHeadPortrait

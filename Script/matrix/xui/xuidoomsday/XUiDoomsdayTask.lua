@@ -1,3 +1,6 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiDoomsdayTask = XLuaUiManager.Register(XLuaUi, "UiDoomsdayTask")
 
 function XUiDoomsdayTask:OnAwake()
@@ -87,7 +90,7 @@ end
 
 function XUiDoomsdayTask:UpdateTasks()
     self.TaskList = XDataCenter.DoomsdayManager.GetGroupTasksByIndex(self.SelectIndex)
-
+    XDataCenter.TaskManager.SortTaskList(self.TaskList)
     self.DynamicTable:SetDataSource(self.TaskList)
     self.DynamicTable:ReloadDataSync()
 

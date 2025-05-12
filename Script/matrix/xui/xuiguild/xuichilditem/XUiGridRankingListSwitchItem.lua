@@ -22,9 +22,17 @@ function XUiGridRankingListSwitchItem:OnRefresh(itemdata, index)
     self.TxtRankNum.text = index
     self.TxtSevenDay.text = itemdata.Score
     self.TxtTitleScore.text = XGuildConfig.GuildSortName[itemdata.Type]
-    
-    local path = XGuildConfig.GetGuildHeadPortraitIconById(itemdata.IconId)
-    self.ImgHead:SetRawImage(path)
+
+    local config = XGuildConfig.GetGuildHeadPortraitById(itemdata.IconId)
+    if config then
+        local isHasGuildRankBgIcon = not string.IsNilOrEmpty(config.GuildRankBgIcon)
+        self.HeadBgNormal.gameObject:SetActiveEx(not isHasGuildRankBgIcon)
+        self.HeadBgSpecific.gameObject:SetActiveEx(isHasGuildRankBgIcon)
+        if isHasGuildRankBgIcon then
+            self.HeadBgSpecific:SetSprite(config.GuildRankBgIcon)
+        end
+        self.ImgHead:SetRawImage(config.Icon)
+    end
     self:SetSelect(itemdata.IsSelect)
 end
 

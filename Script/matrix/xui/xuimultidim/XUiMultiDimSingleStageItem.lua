@@ -1,4 +1,4 @@
-XUiMultiDimSingleStageItem = XClass(nil, "XUiMultiDimSingleStageItem")
+local XUiMultiDimSingleStageItem = XClass(nil, "XUiMultiDimSingleStageItem")
 
 function XUiMultiDimSingleStageItem:Ctor(rootUi, ui)
     self.GameObject = ui.gameObject

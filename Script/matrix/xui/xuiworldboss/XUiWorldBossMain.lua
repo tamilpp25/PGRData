@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiWorldBossMain = XLuaUiManager.Register(XLuaUi, "UiWorldBossMain")
 local XUiGridBtnAttributeArea = require("XUi/XUiWorldBoss/XUiGridBtnAttributeArea")
 local XUiGridBtnBossArea = require("XUi/XUiWorldBoss/XUiGridBtnBossArea")

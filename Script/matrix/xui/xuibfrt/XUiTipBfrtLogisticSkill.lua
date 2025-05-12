@@ -2,6 +2,7 @@ local ANIMATION_OPEN = "AniTipJudianBegin"
 -- local ANIMATION_END = "AniTipJudianEnd"
 local CLOSE_TIME = 3
 
+---@class XUiTipBfrtLogisticSkill:XLuaUi
 local XUiTipBfrtLogisticSkill = XLuaUiManager.Register(XLuaUi, "UiTipBfrtLogisticSkill")
 
 function XUiTipBfrtLogisticSkill:OnStart(groupId)
@@ -62,7 +63,7 @@ function XUiTipBfrtLogisticSkill:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 

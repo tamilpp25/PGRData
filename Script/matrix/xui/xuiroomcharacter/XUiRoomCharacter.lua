@@ -1,3 +1,8 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiRoomCharacterProxy = require("XUi/XUiRoomCharacter/XUiRoomCharacterProxy")
+local XUiGridCharacter = require("XUi/XUiCharacter/XUiGridCharacter")
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
@@ -8,14 +13,14 @@ local TabBtnIndex = {
 }
 
 local CharacterTypeConvert = {
-    [TabBtnIndex.Normal] = XCharacterConfigs.CharacterType.Normal,
-    [TabBtnIndex.Isomer] = XCharacterConfigs.CharacterType.Isomer,
-    [TabBtnIndex.Robot] = XCharacterConfigs.CharacterType.Robot,
+    [TabBtnIndex.Normal] = XEnumConst.CHARACTER.CharacterType.Normal,
+    [TabBtnIndex.Isomer] = XEnumConst.CHARACTER.CharacterType.Isomer,
+    [TabBtnIndex.Robot] = XEnumConst.CHARACTER.CharacterType.Robot,
 }
 local TabBtnIndexConvert = {
-    [XCharacterConfigs.CharacterType.Normal] = TabBtnIndex.Normal,
-    [XCharacterConfigs.CharacterType.Isomer] = TabBtnIndex.Isomer,
-    [XCharacterConfigs.CharacterType.Robot] = TabBtnIndex.Robot,
+    [XEnumConst.CHARACTER.CharacterType.Normal] = TabBtnIndex.Normal,
+    [XEnumConst.CHARACTER.CharacterType.Isomer] = TabBtnIndex.Isomer,
+    [XEnumConst.CHARACTER.CharacterType.Robot] = TabBtnIndex.Robot,
 }
 
 local stagePass = false
@@ -23,6 +28,7 @@ local stagePass = false
 local XUiRoomCharacter = XLuaUiManager.Register(XLuaUi, "UiRoomCharacter")
 
 function XUiRoomCharacter:OnAwake()
+    XLog.Error("[XUiRoomCharacter] 这个界面应该是弃用了，如果您发现没有，请通知ZLB，谢谢")
     self:InitAutoScript()
     self:InitDynamicTable()
 
@@ -92,8 +98,8 @@ function XUiRoomCharacter:OnAwake()
                 return AQuality > BQuality
             end
 
-            local priorityA = XCharacterConfigs.GetCharacterPriority(ACharId)
-            local priorityB = XCharacterConfigs.GetCharacterPriority(BCharID)
+            local priorityA = XMVCA.XCharacter:GetCharacterPriority(ACharId)
+            local priorityB = XMVCA.XCharacter:GetCharacterPriority(BCharID)
             if priorityA ~= priorityB then
                 return priorityA < priorityB
             end
@@ -217,7 +223,6 @@ function XUiRoomCharacter:AutoInitUi()
     self.BtnBack = self.Transform:Find("SafeAreaContentPane/Top/BtnBack"):GetComponent("Button")
     self.BtnJoinTeam = self.Transform:Find("SafeAreaContentPane/CharList/TeamBtn/BtnJoinTeam"):GetComponent("Button")
     self.BtnQuitTeam = self.Transform:Find("SafeAreaContentPane/CharList/TeamBtn/BtnQuitTeam"):GetComponent("Button")
-    self.BtnTeaching = self.Transform:Find("SafeAreaContentPane/BtnTeaching"):GetComponent("XUiButton")
     self.SViewCharacterList = self.Transform:Find("SafeAreaContentPane/CharList/CharInfo/Left/SViewCharacterList"):GetComponent("ScrollRect")
     self.PanelRoleContent = self.Transform:Find("SafeAreaContentPane/CharList/CharInfo/Left/SViewCharacterList/Viewport/PanelRoleContent")
     self.GridCharacter = self.Transform:Find("SafeAreaContentPane/CharList/CharInfo/Left/SViewCharacterList/Viewport/PanelRoleContent/GridCharacter")
@@ -244,15 +249,14 @@ function XUiRoomCharacter:AutoAddListener()
 
     self.BtnTeaching.CallBack = function () self:OnBtnBtnTeachingClick() end
     self.BtnFilter.CallBack = function() self:OnBtnFilterClick() end
-    self.BtnTeaching.CallBack = function () self:OnBtnBtnTeachingClick() end
 end
 -- auto
 function XUiRoomCharacter:OnBtnWeaponClick()
-    XLuaUiManager.Open("UiEquipReplaceNew", self.CurCharacter.Id, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipReplace(self.CurCharacter.Id, nil, true)
 end
 
 function XUiRoomCharacter:OnBtnConsciousnessClick()
-    XLuaUiManager.Open("UiEquipAwarenessReplace", self.CurCharacter.Id, nil, true)
+    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipAwareness(self.CurCharacter.Id)
 end
 
 function XUiRoomCharacter:OnBtnMainUiClick()
@@ -274,11 +278,11 @@ end
 
 --初始化音效
 function XUiRoomCharacter:InitBtnSound()
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnBack, "onClick")] = XSoundManager.UiBasicsMusic.Return
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnEquip, "onClick")] = XSoundManager.UiBasicsMusic.Fuben_UiMainLineRoomCharacter_Equip
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnFashion, "onClick")] = XSoundManager.UiBasicsMusic.Fuben_UiMainLineRoomCharacter_Fashion
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnJoinTeam, "onClick")] = XSoundManager.UiBasicsMusic.Fuben_UiMainLineRoomCharacter_JoinTeam
-    self.SpecialSoundMap[self:GetAutoKey(self.BtnQuitTeam, "onClick")] = XSoundManager.UiBasicsMusic.Fuben_UiMainLineRoomCharacter_QuitTeam
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnBack, "onClick")] = XLuaAudioManager.UiBasicsMusic.Return
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnEquip, "onClick")] = XLuaAudioManager.UiBasicsMusic.Fuben_UiMainLineRoomCharacter_Equip
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnFashion, "onClick")] = XLuaAudioManager.UiBasicsMusic.Fuben_UiMainLineRoomCharacter_Fashion
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnJoinTeam, "onClick")] = XLuaAudioManager.UiBasicsMusic.Fuben_UiMainLineRoomCharacter_JoinTeam
+    self.SpecialSoundMap[self:GetAutoKey(self.BtnQuitTeam, "onClick")] = XLuaAudioManager.UiBasicsMusic.Fuben_UiMainLineRoomCharacter_QuitTeam
 end
 
 function XUiRoomCharacter:InitRequireCharacterInfo()
@@ -309,7 +313,7 @@ function XUiRoomCharacter:RefreshCharacterTypeTips()
         self.Proxy.RefreshCharacterTypeTips(self)
     else
         local limitBuffId = self.LimitBuffId
-        local characterType = self.CurCharacter and XCharacterConfigs.GetCharacterType(self.CurCharacter.Id)
+        local characterType = self.CurCharacter and XMVCA.XCharacter:GetCharacterType(self.CurCharacter.Id)
         local characterLimitType = self.CharacterLimitType
         local text = XFubenConfigs.GetStageCharacterLimitTextSelectCharacter(characterLimitType, characterType, limitBuffId)
         self.TxtRequireCharacter.text = text
@@ -351,14 +355,14 @@ function XUiRoomCharacter:InitCharacterTypeBtns()
         end
 
         -- tempCharacterType为上锁的角色类型时，不更新characterType，使用默认的角色类型
-        if tempCharacterType and not (tempCharacterType == XCharacterConfigs.CharacterType.Normal and lockGouzaoti
-        or tempCharacterType == XCharacterConfigs.CharacterType.Isomer and lockShougezhe) then
+        if tempCharacterType and not (tempCharacterType == XEnumConst.CHARACTER.CharacterType.Normal and lockGouzaoti
+        or tempCharacterType == XEnumConst.CHARACTER.CharacterType.Isomer and lockShougezhe) then
             characterType = tempCharacterType
         end
 
         --授格者页签未开启，默认选中构造体
-        if characterType == XCharacterConfigs.CharacterType.Isomer and not XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.Isomer) then
-            characterType = XCharacterConfigs.CharacterType.Normal
+        if characterType == XEnumConst.CHARACTER.CharacterType.Isomer and not XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.Isomer) then
+            characterType = XEnumConst.CHARACTER.CharacterType.Normal
         end
 
         self:InitBtnTabIsClick()
@@ -374,7 +378,7 @@ end
 
 function XUiRoomCharacter:TrySelectCharacterType(index)
     local characterType = CharacterTypeConvert[index]
-    if characterType == XCharacterConfigs.CharacterType.Isomer and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer) then return end
+    if characterType == XEnumConst.CHARACTER.CharacterType.Isomer and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer) then return end
 
     if not self:IsCanClickBtnTab(characterType) then
         return
@@ -382,37 +386,37 @@ function XUiRoomCharacter:TrySelectCharacterType(index)
 
     local characterLimitType = self.CharacterLimitType
     if characterLimitType == XFubenConfigs.CharacterLimitType.Normal then
-        if characterType == XCharacterConfigs.CharacterType.Isomer then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
             XUiManager.TipText("TeamSelectCharacterTypeLimitTipNormal")
             return
         end
     elseif characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
-        if characterType == XCharacterConfigs.CharacterType.Normal then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
             XUiManager.TipText("TeamSelectCharacterTypeLimitTipIsomer")
             return
         end
         -- elseif characterLimitType == XFubenConfigs.CharacterLimitType.IsomerDebuff then
-        --     if characterType == XCharacterConfigs.CharacterType.Isomer then
+        --     if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
         --         local buffDes = XFubenConfigs.GetBuffDes(self.LimitBuffId)
         --         local content = CSXTextManagerGetText("TeamSelectCharacterTypeLimitTipIsomerDebuff", buffDes)
         --         local sureCallBack = function()
         --             self:OnSelectCharacterType(index)
         --         end
         --         local closeCallback = function()
-        --             self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XCharacterConfigs.CharacterType.Normal])
+        --             self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XEnumConst.CHARACTER.CharacterType.Normal])
         --         end
         --         XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, closeCallback, sureCallBack)
         --         return
         --     end
         -- elseif characterLimitType == XFubenConfigs.CharacterLimitType.NormalDebuff then
-        --     if characterType == XCharacterConfigs.CharacterType.Normal then
+        --     if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
         --         local buffDes = XFubenConfigs.GetBuffDes(self.LimitBuffId)
         --         local content = CSXTextManagerGetText("TeamSelectCharacterTypeLimitTipNormalDebuff", buffDes)
         --         local sureCallBack = function()
         --             self:OnSelectCharacterType(index)
         --         end
         --         local closeCallback = function()
-        --             self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XCharacterConfigs.CharacterType.Isomer])
+        --             self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XEnumConst.CHARACTER.CharacterType.Isomer])
         --         end
         --         XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, closeCallback, sureCallBack)
         --         return
@@ -430,10 +434,10 @@ function XUiRoomCharacter:OnSelectCharacterType(index)
     self.AllCharIdList = {}
     XDataCenter.RoomCharFilterTipsManager.Reset()
 
-    if characterType == XCharacterConfigs.CharacterType.Robot then
+    if characterType == XEnumConst.CHARACTER.CharacterType.Robot then
         self.CharIdList = self.RobotIdList and XTool.Clone(self.RobotIdList) or {}
     elseif self:IsWorldBossType() then
-        self.CharIdList = XDataCenter.CharacterManager.GetRobotAndCharacterIdList(self.RobotIdList, characterType)
+        self.CharIdList = XMVCA.XCharacter:GetRobotAndCharacterIdList(self.RobotIdList, characterType)
     elseif self:IsChessPursuitType() then
         if self.SceneUiType == XChessPursuitCtrl.SCENE_UI_TYPE.BOSS_ROUND then
             for _, charId in pairs(self.TeamCharIdMap) do
@@ -442,16 +446,16 @@ function XUiRoomCharacter:OnSelectCharacterType(index)
                 end
             end
         else
-            self.CharIdList = XDataCenter.CharacterManager.GetRobotAndCharacterIdList(self.RobotIdList, characterType)
+            self.CharIdList = XMVCA.XCharacter:GetRobotAndCharacterIdList(self.RobotIdList, characterType)
         end
     elseif self.IsRobotOnly then
         self.CharIdList = XRobotManager.GetRobotIdFilterListByCharacterType(self.RobotIdList, characterType)
     elseif self.RobotAndCharacter then
-        self.CharIdList = XDataCenter.CharacterManager.GetRobotAndCharacterIdList(self.RobotIdList, characterType)
+        self.CharIdList = XMVCA.XCharacter:GetRobotAndCharacterIdList(self.RobotIdList, characterType)
     elseif self.IsRobotCorrespondCharacter then
-        self.CharIdList = XDataCenter.CharacterManager.GetRobotCorrespondCharacterIdList(self.RobotIdList, characterType)
+        self.CharIdList = XMVCA.XCharacter:GetRobotCorrespondCharacterIdList(self.RobotIdList, characterType)
     else
-        self.CharIdList = XDataCenter.CharacterManager.GetCharacterIdListInTeam(characterType)
+        self.CharIdList = XMVCA.XCharacter:GetCharacterIdListInTeam(characterType)
     end
 
     if self.Proxy and self.Proxy.SortList then
@@ -475,10 +479,10 @@ function XUiRoomCharacter:InitBtnTabIsClick()
     local characterType
     for _, charId in ipairs(self.TeamCharIdMap) do
         if charId > 0 then
-            characterType = XCharacterConfigs.GetCharacterType(charId)
-            if characterType == XCharacterConfigs.CharacterType.Normal and not isClickNormal then
+            characterType = XMVCA.XCharacter:GetCharacterType(charId)
+            if characterType == XEnumConst.CHARACTER.CharacterType.Normal and not isClickNormal then
                 isClickNormal = true
-            elseif characterType == XCharacterConfigs.CharacterType.Isomer and not isClickOmer then
+            elseif characterType == XEnumConst.CHARACTER.CharacterType.Isomer and not isClickOmer then
                 isClickOmer = true
             end
         end
@@ -505,10 +509,10 @@ function XUiRoomCharacter:IsCanClickBtnTab(characterType)
         return true
     end
 
-    if characterType == XCharacterConfigs.CharacterType.Normal and self.IsClickNormal then
+    if characterType == XEnumConst.CHARACTER.CharacterType.Normal and self.IsClickNormal then
         return true
     end
-    if characterType == XCharacterConfigs.CharacterType.Isomer and self.IsClickOmer then
+    if characterType == XEnumConst.CHARACTER.CharacterType.Isomer and self.IsClickOmer then
         return true
     end
     return false
@@ -576,7 +580,7 @@ function XUiRoomCharacter:UpdateCharacterList(index)
     self.CurIndex = nil
     self.CharacterIdToIndex = {}
     local useDefaultIndex = true
-    if selectId and selectId ~= 0 and (characterType == XCharacterConfigs.CharacterType.Robot or characterType == XCharacterConfigs.GetCharacterType(selectId)) then
+    if selectId and selectId ~= 0 and (characterType == XEnumConst.CHARACTER.CharacterType.Robot or characterType == XMVCA.XCharacter:GetCharacterType(selectId)) then
         useDefaultIndex = false
     end
     for i, id in ipairs(self.CharIdList) do
@@ -605,8 +609,8 @@ function XUiRoomCharacter:OnDynamicTableEvent(event, index, grid)
         grid:SetTeamBuff(showTeamBuff)
 
         if self.StageType == XDataCenter.FubenManager.StageType.BossSingle then
-            local maxStamina = XDataCenter.FubenBossSingleManager.GetMaxStamina()
-            local curStamina = maxStamina - XDataCenter.FubenBossSingleManager.GetCharacterChallengeCount(characterId)
+            local maxStamina = XMVCA.XFubenBossSingle:GetMaxStamina()
+            local curStamina = maxStamina - XMVCA.XFubenBossSingle:GetCharacterChallengeCount(characterId)
             grid:UpdateStamina(curStamina, maxStamina)
         elseif self.StageType == XDataCenter.FubenManager.StageType.Explore then
             local maxStamina = XDataCenter.FubenExploreManager.GetMaxEndurance(XDataCenter.FubenExploreManager.GetCurChapterId())
@@ -647,6 +651,7 @@ function XUiRoomCharacter:OnDynamicTableEvent(event, index, grid)
             end
         elseif self:IsCoutpleCombatType() then
             --分光双星
+            grid:UpdateRecommendTag(self.StageId)
             if XDataCenter.FubenCoupleCombatManager.CheckCharacterUsed(self.StageId, characterId) then
                 grid:SetSameRoleTag(true, CSXTextManagerGetText("CoupleCombatRobotUsed"))
             end
@@ -670,7 +675,7 @@ function XUiRoomCharacter:GetCharInfo(index)
             charInfo.Id = charId
             charInfo.IsRobot = true
         else
-            charInfo = XDataCenter.CharacterManager.GetCharacter(charId)
+            charInfo = XMVCA.XCharacter:GetCharacter(charId)
         end
         return charInfo
     end
@@ -752,7 +757,8 @@ function XUiRoomCharacter:IsWorldBossType()
 end
 
 function XUiRoomCharacter:IsChessPursuitType()
-    return self.StageType == XDataCenter.FubenManager.StageType.ChessPursuit
+    --return self.StageType == XDataCenter.FubenManager.StageType.ChessPursuit
+    return false
 end
 
 function XUiRoomCharacter:IsCoutpleCombatType()
@@ -801,10 +807,10 @@ function XUiRoomCharacter:UpdateRoleModel()
     if XRobotManager.CheckIsRobotId(self.CurCharacter.Id) then
         local robotId = self.CurCharacter.Id
         characterId = XRobotManager.GetCharacterId(robotId)
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
 
         if isOwn and XRobotManager.CheckUseFashion(robotId) then
-            local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+            local character = XMVCA.XCharacter:GetCharacter(characterId)
             local viewModel = character:GetCharacterViewModel()
             self.RoleModelPanel:UpdateCharacterModel(characterId, targetPanelRole, targetUiName, characterFunc, func, viewModel:GetFashionId())
         else
@@ -826,8 +832,8 @@ end
 function XUiRoomCharacter:OnBtnJoinTeamClick()
     local id = self.CurCharacter.Id
     if self.StageType == XDataCenter.FubenManager.StageType.BossSingle then
-        local challengeCount = XDataCenter.FubenBossSingleManager.GetCharacterChallengeCount(id)
-        if challengeCount >= XDataCenter.FubenBossSingleManager.GetMaxStamina() then
+        local challengeCount = XMVCA.XFubenBossSingle:GetCharacterChallengeCount(id)
+        if challengeCount >= XMVCA.XFubenBossSingle:GetMaxStamina() then
             XUiManager.TipCode(XCode.FubenBossSingleCharacterPointsNotEnough)
             return
         end
@@ -886,7 +892,7 @@ function XUiRoomCharacter:OnBtnJoinTeamClick()
         -- 角色类型不一致拦截
         local inTeamCharacterType = self:GetTeamCharacterType()
         if inTeamCharacterType then
-            local characterType = id and id ~= 0 and XCharacterConfigs.GetCharacterType(id)
+            local characterType = id and id ~= 0 and XMVCA.XCharacter:GetCharacterType(id)
             if characterType and characterType ~= inTeamCharacterType then
                 local content = CSXTextManagerGetText("TeamCharacterTypeNotSame")
                 local sureCallBack = function()
@@ -899,21 +905,21 @@ function XUiRoomCharacter:OnBtnJoinTeamClick()
         end
     end
 
-    if self:IsChessPursuitType() then
-        local isIn, gridId, teamDataIndex = self:CheckIsInChessPursuit(id)
-        if isIn then
-            local content = CSXTextManagerGetText("ChessPursuitDeploySwitchTipsContent", gridId)
-            local sureCallBack = function()
-                if not XDataCenter.ChessPursuitManager.CheckIsSwapTeamPos(gridId, teamDataIndex, self.TeamGridIndex, self.TeamSelectPos) then
-                    XUiManager.TipText("ChessPursuitNotSwitchCharacter")
-                    return
-                end
-                joinFunc()
-            end
-            XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, nil, sureCallBack)
-            return
-        end
-    end
+    --if self:IsChessPursuitType() then
+    --    local isIn, gridId, teamDataIndex = self:CheckIsInChessPursuit(id)
+    --    if isIn then
+    --        local content = CSXTextManagerGetText("ChessPursuitDeploySwitchTipsContent", gridId)
+    --        local sureCallBack = function()
+    --            if not XDataCenter.ChessPursuitManager.CheckIsSwapTeamPos(gridId, teamDataIndex, self.TeamGridIndex, self.TeamSelectPos) then
+    --                XUiManager.TipText("ChessPursuitNotSwitchCharacter")
+    --                return
+    --            end
+    --            joinFunc()
+    --        end
+    --        XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, nil, sureCallBack)
+    --        return
+    --    end
+    --end
 
     joinFunc()
 end
@@ -945,7 +951,7 @@ function XUiRoomCharacter:OnBtnFashionClick()
     local isRobot = XRobotManager.CheckIsRobotId(id)
     if isRobot and XRobotManager.CheckUseFashion(id) then
         local characterId = XRobotManager.GetCharacterId(id)
-        local isOwn  = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+        local isOwn  = XMVCA.XCharacter:IsOwnCharacter(characterId)
         if not isOwn then
             XUiManager.TipText("CharacterLock")
             return
@@ -965,7 +971,7 @@ end
 function XUiRoomCharacter:GetTeamCharacterType()
     for k, v in pairs(self.TeamCharIdMap) do
         if v ~= 0 then
-            return XCharacterConfigs.GetCharacterType(v)
+            return XMVCA.XCharacter:GetCharacterType(v)
         end
     end
 end
@@ -982,7 +988,7 @@ function XUiRoomCharacter:GetAbility(id)
     if XRobotManager.CheckIsRobotId(id) then
         return XRobotManager.GetRobotAbility(id)
     else
-        return XDataCenter.CharacterManager.GetCharacter(id).Ability
+        return XMVCA.XCharacter:GetCharacter(id).Ability
     end
 end
 
@@ -990,7 +996,7 @@ function XUiRoomCharacter:GetLevel(id)
     if XRobotManager.CheckIsRobotId(id) then
         return XRobotManager.GetRobotTemplate(id).CharacterLevel
     else
-        return XDataCenter.CharacterManager.GetCharacter(id).Level
+        return XMVCA.XCharacter:GetCharacter(id).Level
     end
 end
 
@@ -998,7 +1004,7 @@ function XUiRoomCharacter:GetQuality(id)
     if XRobotManager.CheckIsRobotId(id) then
         return XRobotManager.GetRobotTemplate(id).CharacterQuality
     else
-        return XDataCenter.CharacterManager.GetCharacter(id).Quality
+        return XMVCA.XCharacter:GetCharacter(id).Quality
     end
 end
 
@@ -1010,16 +1016,16 @@ function XUiRoomCharacter:Filter(selectTagGroupDic, sortTagId, isThereFilterData
             char.Id = characterId
             char.IsRobot = true
         else
-            char = XDataCenter.CharacterManager.GetCharacter(characterId)
+            char = XMVCA.XCharacter:GetCharacter(characterId)
         end
 
         local compareValue
         local detailConfig
         if char.IsRobot then
             local robotTemplate = XRobotManager.GetRobotTemplate(char.Id)
-            detailConfig = XCharacterConfigs.GetCharDetailTemplate(robotTemplate.CharacterId)
+            detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(robotTemplate.CharacterId)
         else
-            detailConfig = XCharacterConfigs.GetCharDetailTemplate(char.Id)
+            detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(char.Id)
         end
 
         if groupId == XRoomCharFilterTipsConfigs.EnumFilterTagGroup.Career then
@@ -1029,7 +1035,7 @@ function XUiRoomCharacter:Filter(selectTagGroupDic, sortTagId, isThereFilterData
                 return true
             end
         elseif groupId == XRoomCharFilterTipsConfigs.EnumFilterTagGroup.Element then
-            compareValue = detailConfig.ObtainElementList
+            compareValue = XMVCA.XCharacter:GetCharacterAllElement(char.Id, true)
             for _, element in pairs(compareValue) do
                 if element == tagValue then
                     -- 当前角色满足该标签
@@ -1088,7 +1094,7 @@ function XUiRoomCharacter:CheckIsInChessPursuit(characterId)
 end
 
 function XUiRoomCharacter:ShowChessPursuitDialogTip(characterId, sureCallBack)
-    local name = XCharacterConfigs.GetCharacterName(characterId)
+    local name = XMVCA.XCharacter:GetCharacterName(characterId)
     local title = CSXTextManagerGetText("BfrtDeployTipTitle")
     local content = CSXTextManagerGetText("ChessPursuitReplaceCharacterTip", name)
     XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, sureCallBack)

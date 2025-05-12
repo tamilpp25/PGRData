@@ -1,4 +1,4 @@
-XUiGridCond = XClass(nil, "XUiGridCond")
+local XUiGridCond = XClass(nil, "XUiGridCond")
 
 function XUiGridCond:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -44,3 +44,5 @@ function XUiGridCond:Refresh(desc, active)
     self.TxtSuccess.gameObject:SetActive(active)
     self.TxtFail.gameObject:SetActive(not active)
 end
+
+return XUiGridCond

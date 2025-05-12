@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --工会boss个人排行榜组件
 local XUiGuildBossHpRewardItem = XClass(nil, "XUiGuildBossHpRewardItem")
 

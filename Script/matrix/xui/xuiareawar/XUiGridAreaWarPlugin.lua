@@ -9,48 +9,46 @@ function XUiGrpluginIdAreaWarPlugin:Ctor(ui, clickCb)
     local function clickFunc()
         clickCb(self.PluginId)
     end
-    self.BtnDetail.CallBack = clickFunc
-    self.BtnDetail2.CallBack = clickFunc
+    
+    self.GridBuff.CallBack=clickFunc
 end
 
-function XUiGrpluginIdAreaWarPlugin:Refresh(pluginId)
+function XUiGrpluginIdAreaWarPlugin:Refresh(pluginId,isFirst,isLast)
     self.PluginId = pluginId
+    
+    --设置显示
+    self.GridBuff:SetNameByGroup(0,XAreaWarConfigs.GetBuffName(self.PluginId))
+    self.TxtTitleEn.gameObject:SetActiveEx(isFirst)
 
+    isLast=isLast and true or false
+    self.ImgProgress.transform.parent.gameObject:SetActiveEx(not isLast)
+    
+    --检查并设置解锁状态
     local unlockLevel = XAreaWarConfigs.GetPfLevelByPluginId(pluginId)
     local icon = XAreaWarConfigs.GetBuffIcon(pluginId)
-    self.BtnDetail:SetNameByGroup(0, XAreaWarConfigs.GetBuffName(pluginId))
 
     local isUnlock = XDataCenter.AreaWarManager.IsPluginUnlock(pluginId) --已解锁
-    local isUsing = XDataCenter.AreaWarManager.IsPluginUsing(pluginId) --装备中
     local canUnlock = XDataCenter.AreaWarManager.IsPluginCanUnlock(pluginId) --可解锁
+
+    local unlockCount = XDataCenter.AreaWarManager.GetPluginUnlockCount() 
+    
     if isUnlock then
         --已解锁
-        self.TxtLvUnlock.text = "Lv." .. unlockLevel
-        self.ImgProgress.fillAmount = 1
+        --self.ImgProgress.fillAmount = 1
         self.RImgBuffUnlock:SetRawImage(icon)
     else
-        if canUnlock then
-            --可解锁
-            self.ImgProgress.fillAmount = 1
-        else
-            --不可解锁
-            self.ImgProgress.fillAmount = 0
-        end
-        self.TxtLvLock.text = "Lv." .. unlockLevel
+        --self.ImgProgress.fillAmount = 0
+        
         self.RImgBuffLock:SetRawImage(icon)
     end
-
-    self.ImgLvUnlock.gameObject:SetActiveEx(isUnlock)
-    self.TxtLvUnlock.gameObject:SetActiveEx(isUnlock)
-    self.ImgLvLock.gameObject:SetActiveEx(not isUnlock)
-    self.TxtLvLock.gameObject:SetActiveEx(not isUnlock)
-    self.ImgUnlock.gameObject:SetActiveEx(isUnlock)
-    self.ImgBuffUnlock.gameObject:SetActiveEx(isUnlock)
-    self.RImgBuffUnlock.gameObject:SetActiveEx(isUnlock)
-    self.ImgBuffLock.gameObject:SetActiveEx(not isUnlock)
-    self.RImgBuffLock.gameObject:SetActiveEx(not isUnlock)
-    self.PaneCanUnlock.gameObject:SetActiveEx(canUnlock)
-    self.TagEquip.gameObject:SetActiveEx(isUsing)
+    self.ImgProgress.fillAmount = unlockCount > unlockLevel and 1 or 0
+    --显示当前增幅对应的等级
+    self.TxtLvLock.text = "Lv." .. unlockLevel
+    --显示未激活的图标
+    self.ImgUnlock.gameObject:SetActiveEx(unlockCount < unlockLevel)
+    self.Panelununlocked.gameObject:SetActiveEx(not isUnlock)
+    self.PanelUnlocked.gameObject:SetActiveEx(isUnlock)
+    self.PanelLockable.gameObject:SetActiveEx(canUnlock)
 end
 
 function XUiGrpluginIdAreaWarPlugin:PlayExpandAnim()

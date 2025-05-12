@@ -12,7 +12,7 @@ function XRedPointConditionArchiveAwarenessGridNewTag.GetSubEvents()
 end
 
 function XRedPointConditionArchiveAwarenessGridNewTag.Check(suitId)
-    return XDataCenter.ArchiveManager.IsNewAwarenessSuit(suitId)
+    return XMVCA.XArchive.AwarenessArchiveCom:IsNewAwarenessSuit(suitId)
 end
 
 return XRedPointConditionArchiveAwarenessGridNewTag

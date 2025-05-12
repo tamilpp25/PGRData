@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiAssignBuffPart = XClass(nil, "XUiAssignBuffPart")
 
 local XUiGridAssignBuffPart = require("XUi/XUiAssign/XUiGridAssignBuffPart")

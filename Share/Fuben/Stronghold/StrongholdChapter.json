@@ -2,238 +2,151 @@
     {
         "Id": 1,
         "GroupId": [
-            101,
-            102,
-            103,
-            104.0,
-            105.0,
-            106.0
+            110,
+            111,
+            112
         ],
-        "Name": "Redstone Mine",
+        "Name": "Southern Mine",
         "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg06.png",
-        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg01.png",
+        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg02.png",
+        "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg12.png",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold01.prefab",
         "Type": null,
         "UnlockCondition": null,
-        "MaxElectricUse": null,
+        "MaxElectricUse": 500,
         "LendCharacterDisableUse": null,
         "SuggestElectric": [
-            300.0,
-            300.0,
-            100.0
+            300,
+            250
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
-        ]
+            2.0
+        ],
+        "LimitElectric": 250
     },
     {
         "Id": 2,
         "GroupId": [
-            107,
-            108,
-            109,
-            110.0,
-            111.0,
-            112.0
-        ],
-        "Name": "Southern Mine",
-        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg08.png",
-        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg02.png",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold02.prefab",
-        "Type": null,
-        "UnlockCondition": null,
-        "MaxElectricUse": null,
-        "LendCharacterDisableUse": null,
-        "SuggestElectric": [
-            300.0,
-            300.0,
-            50.0
-        ],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ]
-    },
-    {
-        "Id": 3,
-        "GroupId": [
-            113,
-            114,
-            115,
-            116.0,
-            117.0,
-            118.0
+            116,
+            117,
+            118
         ],
         "Name": "Groening Mine",
         "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg07.png",
         "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg03.png",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold03.prefab",
+        "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg17.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold02.prefab",
         "Type": null,
         "UnlockCondition": null,
-        "MaxElectricUse": null,
+        "MaxElectricUse": 1000,
         "LendCharacterDisableUse": null,
         "SuggestElectric": [
-            1200.0,
-            800.0,
-            50.0
+            600,
+            250
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
-        ]
+            2.0
+        ],
+        "LimitElectric": 250
+    },
+    {
+        "Id": 3,
+        "GroupId": [
+            122,
+            123,
+            124
+        ],
+        "Name": "Stratum Mine",
+        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg14.png",
+        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg04.png",
+        "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg20.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold03.prefab",
+        "Type": null,
+        "UnlockCondition": null,
+        "MaxElectricUse": 1000,
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [
+            600,
+            50
+        ],
+        "SweepLevelId": [
+            1.0,
+            2.0
+        ],
+        "LimitElectric": 50
     },
     {
         "Id": 4,
         "GroupId": [
-            119,
-            120,
-            121,
-            122.0,
-            123.0,
-            124.0
-        ],
-        "Name": "Stratum Mine",
-        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg10.png",
-        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg04.png",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold04.prefab",
-        "Type": null,
-        "UnlockCondition": null,
-        "MaxElectricUse": null,
-        "LendCharacterDisableUse": null,
-        "SuggestElectric": [
-            1800.0,
-            1800.0,
-            50.0
-        ],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ]
-    },
-    {
-        "Id": 5,
-        "GroupId": [
-            125,
-            126,
-            127,
-            128.0,
-            129.0,
-            130.0
+            128,
+            129,
+            130
         ],
         "Name": "Bollie Mine",
         "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg22.png",
         "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg05.png",
+        "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg22.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold04.prefab",
+        "Type": null,
+        "UnlockCondition": null,
+        "MaxElectricUse": 1500,
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [
+            900,
+            50
+        ],
+        "SweepLevelId": [
+            1.0,
+            2.0
+        ],
+        "LimitElectric": 50
+    },
+    {
+        "Id": 5,
+        "GroupId": [
+            147,
+            148,
+            149
+        ],
+        "Name": "Cloud Island Mine",
+        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg23.png",
+        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg06.png",
+        "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg23.png",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold05.prefab",
         "Type": null,
         "UnlockCondition": null,
-        "MaxElectricUse": null,
+        "MaxElectricUse": 600,
         "LendCharacterDisableUse": null,
         "SuggestElectric": [
-            2500.0,
-            150.0
+            600,
+            600
         ],
-        "SweepLevelId": [
-            2.0,
-            3.0
-        ]
+        "SweepLevelId": [],
+        "LimitElectric": 600
     },
     {
         "Id": 6,
         "GroupId": [
-            131,
-            132,
-            133
+            150,
+            151,
+            152
         ],
-        "Name": "Energy Mine",
-        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg16.png",
-        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdDomainBg.png",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold06.prefab",
-        "Type": 1.0,
-        "UnlockCondition": 95216.0,
-        "MaxElectricUse": null,
-        "LendCharacterDisableUse": null,
-        "SuggestElectric": [],
-        "SweepLevelId": []
-    },
-    {
-        "Id": 7,
-        "GroupId": [
-            134,
-            135,
-            136
-        ],
-        "Name": "Mountain Mine",
-        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg14.png",
-        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdDomainBg.png",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold07.prefab",
-        "Type": 1.0,
-        "UnlockCondition": 95217.0,
-        "MaxElectricUse": null,
-        "LendCharacterDisableUse": null,
-        "SuggestElectric": [],
-        "SweepLevelId": []
-    },
-    {
-        "Id": 8,
-        "GroupId": [
-            137,
-            138,
-            139,
-            140.0
-        ],
-        "Name": "Wamba Mine",
-        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg15.png",
-        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdDomainBg.png",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold08.prefab",
-        "Type": 1.0,
-        "UnlockCondition": 95218.0,
-        "MaxElectricUse": null,
-        "LendCharacterDisableUse": null,
-        "SuggestElectric": [],
-        "SweepLevelId": []
-    },
-    {
-        "Id": 9,
-        "GroupId": [
-            141,
-            142,
-            143,
-            144.0
-        ],
-        "Name": "Midland Mine",
-        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg17.png",
-        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdDomainBg.png",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold09.prefab",
-        "Type": 1.0,
-        "UnlockCondition": 95219.0,
-        "MaxElectricUse": null,
-        "LendCharacterDisableUse": null,
-        "SuggestElectric": [],
-        "SweepLevelId": []
-    },
-    {
-        "Id": 10,
-        "GroupId": [
-            145,
-            146,
-            147,
-            148.0,
-            149.0
-        ],
-        "Name": "Cloud Island",
-        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg23.png",
+        "Name": "Abyssal Mountain Mine",
+        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg10.png",
         "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg06.png",
-        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold11.prefab",
+        "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg10.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold06.prefab",
         "Type": null,
-        "UnlockCondition": 95312.0,
-        "MaxElectricUse": 600.0,
-        "LendCharacterDisableUse": 1.0,
-        "SuggestElectric": [],
-        "SweepLevelId": []
+        "UnlockCondition": null,
+        "MaxElectricUse": 800,
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [
+            800,
+            800
+        ],
+        "SweepLevelId": [],
+        "LimitElectric": 800
     }
 ]

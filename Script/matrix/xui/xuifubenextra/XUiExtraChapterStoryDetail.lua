@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiExtraChapterStoryDetail = XLuaUiManager.Register(XLuaUi, "UiStoryStageDetailFw")
 
 function XUiExtraChapterStoryDetail:OnAwake()
@@ -44,12 +45,13 @@ function XUiExtraChapterStoryDetail:OnBtnEnterClick()
     local stageCfg = self.RootUi.Stage
     local stageId = stageCfg.StageId
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    local beginStoryId = XMVCA.XFuben:GetBeginStoryId(stageId)
     self:Hide()
     if stageInfo.Passed then
-        XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId)
+        XDataCenter.MovieManager.PlayMovie(beginStoryId)
     else
         XDataCenter.FubenManager.FinishStoryRequest(stageId, function()
-            XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId, function()
+            XDataCenter.MovieManager.PlayMovie(beginStoryId, function()
                 if self.RootUi then
                     self.RootUi:RefreshForChangeDiff()
                 end

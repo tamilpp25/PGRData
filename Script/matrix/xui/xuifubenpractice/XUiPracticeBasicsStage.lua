@@ -56,6 +56,7 @@ function XUiPracticeBasicsStage:UpdateNode(stageId, stageMode)
     self:SetNormalStage(self.IsLock, stageId)
     self:SetLockStage(self.IsLock, stageId, stageMode)
     self:SetPassStage(stageInfo.Passed)
+    self:RefreshSimulatedTag()
 end
 
 function XUiPracticeBasicsStage:OnBtnStageClick()
@@ -74,6 +75,15 @@ function XUiPracticeBasicsStage:OnBtnStageClick()
         end
 
         self.RootUi:OpenStageDetail(self.StageId)
+    end
+end
+
+--- 刷新数据演习活动的悬赏页签
+function XUiPracticeBasicsStage:RefreshSimulatedTag()
+    if self.TagSimulated then
+        local monsterId = XPracticeConfigs.GetSimulateTrainMonsterId(self.StageId)
+        local isInActivity = XMVCA.XSimulateTrain:IsMonsterInActivity(monsterId)
+        self.TagSimulated.gameObject:SetActiveEx(isInActivity)
     end
 end
 

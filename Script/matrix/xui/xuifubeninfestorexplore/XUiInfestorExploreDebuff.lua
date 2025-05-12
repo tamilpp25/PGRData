@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridInfestorExploreBuff = require("XUi/XUiFubenInfestorExplore/XUiGridInfestorExploreBuff")
 
 local XUiInfestorExploreDebuff = XLuaUiManager.Register(XLuaUi, "UiInfestorExploreDebuff")

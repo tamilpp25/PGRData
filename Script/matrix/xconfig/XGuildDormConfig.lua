@@ -1,6 +1,6 @@
 --=================
 --公会宿舍配置管理
---负责人：吕天元，陈思亮
+--负责人：吕天元，陈思亮，李培弘
 --=================
 XGuildDormConfig = XConfigCenter.CreateTableConfig(XGuildDormConfig, "XGuildDormConfig")
 --================
@@ -28,6 +28,24 @@ XGuildDormConfig.DebugReconnectSign = false
 XGuildDormConfig.DebugFullRole = false
 -- 增加人数数量
 XGuildDormConfig.DebugFullRoleCount = 1
+-- 切换新旧公会入口
+XGuildDormConfig.DebugOpenOldUi = false
+
+XGuildDormConfig.UiGridSortIndex = {
+    PanelSummerGift = 40,
+    PanelMusicPlayer = 39,
+    GridName = 38,
+}
+
+XGuildDormConfig.TriangleType = {
+    None = -1,
+    Player = 1,
+    Npc = 2,
+}
+
+XGuildDormConfig.FurnitureRewardEventType = {
+    Normal = 1,
+}
 
 XGuildDormConfig.SyncState = {
     None = 0,
@@ -40,6 +58,9 @@ XGuildDormConfig.SyncMsgType = {
     PlayAction = 2,
     PlayerExit = 3,
     Entities = 4,
+    BGM = 5,
+    Theme = 6,
+    NpcGroup = 7,
 }
 
 XGuildDormConfig.ErrorCode = {
@@ -49,6 +70,18 @@ XGuildDormConfig.ErrorCode = {
     EnterFailed = 3,
     KCPFailed = 4,
     PreEnterSuccess = 5,
+    RemoteDisconnect = 6, -- 这个远程断开有可能是自己触发的
+}
+
+XGuildDormConfig.TcpErrorCode = {
+    OK = 0, -- 连接成功
+    Error = 1, -- ConnectionReset(自己断网)
+    --[[
+        1.远程服务器断开（关服）
+        2.服务器主动踢出（这情况未测试过）
+        3.印象中手机设备自己退出也会触发（需要再验证）
+    ]]
+    RemoteDisconnect = 2,
 }
 
 -- 交互状态
@@ -69,13 +102,28 @@ XGuildDormConfig.RoleFSMType = enum({
     IDLE = "IDLE", -- 闲置状态
     MOVE = "MOVE", -- 移动状态
     PLAY_ACTION = "PLAY_ACTION", -- 播放行为状态
+    PATROL_IDLE="PATROL_IDLE", -- 巡逻中的停留状态
+    INTERACT="INTERACT" --交互状态
 })
+
+--2.6同步角度忽略值
+XGuildDormConfig.IgnoreAngle=99999
+
+-- NPC状态
+XGuildDormConfig.NpcState= {
+    Static=0,
+    Move=1,
+    Idle=2,
+    Interact=3
+}
 
 --家具模型类型
 XGuildDormConfig.FurnitureType = {
     GROUND = 1, --地板
     NORMAL = 2, --一般家具
     DITHER = 3, --需要视角遮蔽时隐藏的家具  
+    MOVIECOMMON = 4, -- 一般的对话交互家具
+    MOVIEREWARD = 5, -- 带奖励的对话交互家具
 }
 --家具Dither脚本状态机状态枚举
 XGuildDormConfig.FurnitureDitherState = {
@@ -85,6 +133,9 @@ XGuildDormConfig.FurnitureDitherState = {
 XGuildDormConfig.FurnitureButtonType = {
     BehaviorTree = 1, -- 行为树
     SkipFunction = 2, -- 跳转功能
+    Npc = 3, -- npc交互
+    FurnitureMovie = 4, --一般家具对话
+    JuiceMechine = 5, -- 饮料机对话
 }
 --家具动画播放类型
 XGuildDormConfig.FurnitureAnimationType = {
@@ -102,6 +153,7 @@ XGuildDormConfig.FurnitureAnimationEventType = {
     GuildWar = "CheckGuildWarOpen",
     Test = "TestEvent"
 }
+
 --=============
 --配置表枚举
 --TableName : 表名，对应需要读取的表的文件名字，不写即为枚举的Key字符串
@@ -114,12 +166,29 @@ XGuildDormConfig.TableKey = enum({
     Furniture = { TableName = "GuildDormFurniture" }, --家具配置
     DefaultFurniture = { TableName = "GuildDormDefaultFurniture" }, --默认家具配置
     Room = { TableName = "GuildDormRoom" },
+    BGM = { TableName = "GuildDormBgm" }, --BGM配置
+    Theme = { TableName = "GuildDormRoomTheme" }, --主题配置
+    ThemeLabel = {TableName = "GuildDormRoomThemeLabel"}, --主题标签配置
     GuildDormRole = {}, -- 公会宿舍角色配置
     GuildDormRoleBehavior = {}, -- 公会宿舍角色行为树配置
     GuildDormPlayAction = {}, -- 公会宿舍角色动画配置
     GuildDormClientConfig = { DirType = XConfigCenter.DirectoryType.Client
-    , ReadFuncName = "ReadByStringKey", ReadKeyName = "Key" },
+        , ReadFuncName = "ReadByStringKey", ReadKeyName = "Key" },
     GuildDormConfig = {},
+    GuildDormNpc = {},
+    GuildDormNpcRefresh = {},
+    GuildDormNpcRefreshGroup = {},
+    GuildDormNpcTalk = {},
+    GuildDormDialog = { DirType = XConfigCenter.DirectoryType.Client },
+    GuildDormFurnitureInteractBtn = { DirType = XConfigCenter.DirectoryType.Client },
+    GuildDormInstrumentVolumeControl = { DirType = XConfigCenter.DirectoryType.Client, ReadKeyName = "GuildDormRoomId" },
+    GuildDormEffect = { DirType = XConfigCenter.DirectoryType.Client },
+    GuildDormFurnitureEffect = { DirType = XConfigCenter.DirectoryType.Client },
+    GuildDormNpcActionIdle={},
+    GuildDormFurnitureInteraction = {},
+    GuildDormPaint = {},
+    GuildDormFurnitureRandomBox = {},
+    GuildDormFurnitureRandomBoxItem = {},
 })
 --=============
 --场景所属数据类型
@@ -136,11 +205,37 @@ XGuildDormConfig.SceneViewType = {
     RoomView = 1, --房间视角
     DeviceView = 2, --设备视角
 }
+
+XGuildDormConfig.SpecialRewardUiType = {
+    Normal = 1,
+    RandomReward = 2, -- 随机奖励
+    RedPointReward = 3, -- 红点奖励
+}
+
+-- 家具条件类型
+XGuildDormConfig.FurnitureConditionType = {
+    None = 0,
+    Time = 1,
+    Condition = 2,
+    RedPointCondition = 3,
+}
+
 --=============
 --额外初始化(没特殊处理时，这里只是用于给ConfigCenter调用的空方法)
 --=============
 function XGuildDormConfig.Init()
 
+end
+
+---@return XTableGuildDormBgm
+function XGuildDormConfig.GetBgmCfgById(id)
+    local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.BGM, id)
+    return config or {}
+end
+
+function XGuildDormConfig.GetThemeCfgById(id)
+    local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.Theme, id)
+    return config or {}
 end
 
 function XGuildDormConfig.GetTalkHeightOffset(roleId)
@@ -175,9 +270,9 @@ end
 function XGuildDormConfig.GetCharacterControllerArgs(id)
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormRole, id)
     return config.CCHeight
-    , config.CCRadius
-    , CS.UnityEngine.Vector3(config.CCCenterX, config.CCCenterY, config.CCCenterZ)
-    , config.SkinWidth
+            , config.CCRadius
+            , CS.UnityEngine.Vector3(config.CCCenterX, config.CCCenterY, config.CCCenterZ)
+            , config.SkinWidth
 end
 
 function XGuildDormConfig.GetRoleCCSkinWidth(id)
@@ -188,25 +283,25 @@ end
 
 function XGuildDormConfig.GetRoleMoveSpeed()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "RoleMoveSpeed")
+        , "RoleMoveSpeed")
     return tonumber(config.Values[1])
 end
 
 function XGuildDormConfig.GetRoleAngleSpeed()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "RoleAngleSpeed")
+        , "RoleAngleSpeed")
     return tonumber(config.Values[1])
 end
 
 function XGuildDormConfig.GetSyncServerTime()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "SyncServerTime")
+        , "SyncServerTime")
     return tonumber(config.Values[1])
 end
 
 function XGuildDormConfig.GetTalkHideTime()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "TalkHideTime")
+        , "TalkHideTime")
     return tonumber(config.Values[1])
 end
 
@@ -234,13 +329,13 @@ end
 
 function XGuildDormConfig.GetMaxPredictionTime()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "MaxPredictionTime")
+        , "MaxPredictionTime")
     return tonumber(config.Values[1])
 end
 
 function XGuildDormConfig.GetClosePredictionDistance()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "ClosePredictionDistance")
+        , "ClosePredictionDistance")
     return tonumber(config.Values[1])
 end
 
@@ -251,31 +346,31 @@ end
 
 function XGuildDormConfig.GetTalkSpiltLenght()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "TalkSpiltLenght")
+        , "TalkSpiltLenght")
     return tonumber(config.Values[1])
 end
 
 function XGuildDormConfig.GetIsOpenPrediction()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "IsOpenPrediction")
+        , "IsOpenPrediction")
     return tonumber(config.Values[1]) >= 1
 end
 
 function XGuildDormConfig.GetAutoGCMemroy()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "AutoGCMemroy")
+        , "AutoGCMemroy")
     return tonumber(config.Values[1])
 end
 
 function XGuildDormConfig.GetSwitchRoleEffect()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "SwitchRoleEffect")
+        , "SwitchRoleEffect")
     return config.Values[1]
 end
 
 function XGuildDormConfig.GetDefaultBehaviorIdByState(state)
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , state .. "_BEHAVIORID")
+        , state .. "_BEHAVIORID")
     if config.Values == nil then
         return "unknow"
     end
@@ -302,7 +397,7 @@ end
 
 function XGuildDormConfig.GetRoleInteracAngleSpeed()
     local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
-    , "RoleInteracAngleSpeed")
+        , "RoleInteracAngleSpeed")
     return tonumber(config.Values[1])
 end
 
@@ -316,3 +411,182 @@ function XGuildDormConfig.GetChannelMemberCountIcon(count)
     end
     return config.Values[#config.Values]
 end
+
+function XGuildDormConfig.GetRoleAlpha()
+    local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
+    , "RoleAlpha")
+    return tonumber(config.Values[1])
+end
+
+function XGuildDormConfig.GetRoleAlphaSpeed()
+    local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
+    , "RoleAlphaSpeed")
+    return tonumber(config.Values[1])
+end
+
+function XGuildDormConfig.GetRoleAlphaDistance()
+    local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
+    , "RoleAlphaDistance")
+    return tonumber(config.Values[1])
+end
+
+function XGuildDormConfig.GetRandomBoxRandomLeftTimesFormat()
+    local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
+    , "RandomBoxRandomLeftTime")
+    return config.Values[1]
+end
+
+function XGuildDormConfig.GetCheckGuideGroupIdsForHelpOpen()
+    local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormClientConfig
+    , "CheckGuideGroupIdsForHelpOpen")
+
+    if config then
+        local ids = {}
+
+        if not XTool.IsTableEmpty(config.Values) then
+            for i, v in pairs(config.Values) do
+                if not string.IsNilOrEmpty(v) and string.IsNumeric(v) then
+                    table.insert(ids, tonumber(v))
+                end
+            end
+        end
+
+        return ids
+    end
+end
+
+function XGuildDormConfig.GetNpcRefreshConfigsByThemeId(id)
+    local result = {}
+    local configs = XGuildDormConfig.GetAllConfigs(XGuildDormConfig.TableKey.GuildDormNpcRefresh)
+    for _, config in ipairs(configs) do
+        if config.ThemeId == id then
+            table.insert(result, config)
+        end
+    end
+    return result
+end
+
+function XGuildDormConfig.GetNpcRefreshConfigById(id)
+    local configs = XGuildDormConfig.GetAllConfigs(XGuildDormConfig.TableKey.GuildDormNpcRefresh)
+    return configs[id]
+end
+
+function XGuildDormConfig.GetNpcRefreshConfigsByNpcGroupId(id, themeId)
+    local result = {}
+    local groupIdCfg = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormNpcRefreshGroup, id)
+    for _, npcRefreshId in pairs(groupIdCfg.NpcRefreshIds or {}) do
+        local npcRefreshCfg = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormNpcRefresh, npcRefreshId)
+        if npcRefreshCfg.ThemeId == themeId then
+            table.insert(result, npcRefreshCfg)
+        end
+    end
+    return result
+end
+
+function XGuildDormConfig.CheckHasTalkId(id)
+    local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormNpcTalk, id, true)
+    return not XTool.IsTableEmpty(config)
+end
+
+-- Id大于1000的配置为预览配置，设置装扮时需要减去1000
+function XGuildDormConfig.GetTemplateThemeConfigs()
+    local list = {}
+    for _, v in pairs(XGuildDormConfig.GetAllConfigs(XGuildDormConfig.TableKey.Theme)) do
+        if v.Id > 1000 then
+            table.insert(list, v)
+        end
+    end
+    return list
+end
+
+-- 当配置的有TimeId时 判断当前时间是否在开始时间之后
+function XGuildDormConfig.GetShowThemeConfigs()
+    local list = {}
+    local configs = XGuildDormConfig.GetAllConfigs(XGuildDormConfig.TableKey.Theme)
+    for _, config in pairs(configs) do
+        local timeId = config.TimeId
+        if XTool.IsNumberValid(timeId) then
+            local now = XTime.GetServerNowTimestamp()
+            local startTime = XFunctionManager.GetStartTimeByTimeId(timeId)
+            if startTime < now then
+                table.insert(list, config)
+            end
+        else
+            table.insert(list, config)
+        end
+    end
+    return list
+end
+
+function XGuildDormConfig.GetLabelConfigById(id)
+    return XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.ThemeLabel, id)
+end
+
+function XGuildDormConfig.GetFurnitureInteractBtnByGroupId(groupId)
+    if XGuildDormConfig._GroupId2InteractBtn == nil then
+        XGuildDormConfig._GroupId2InteractBtn = {}
+        local configs = XGuildDormConfig.GetAllConfigs(XGuildDormConfig.TableKey.GuildDormFurnitureInteractBtn)
+        for _, v in pairs(configs) do
+            XGuildDormConfig._GroupId2InteractBtn[v.GroupId] = XGuildDormConfig._GroupId2InteractBtn[v.GroupId] or {}
+            table.insert(XGuildDormConfig._GroupId2InteractBtn[v.GroupId], v)
+        end
+    end
+
+    return XGuildDormConfig._GroupId2InteractBtn[groupId]
+end
+
+function XGuildDormConfig.GetEffectCfgById(id)
+    local config = XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormEffect, id)
+    return config or {}
+end
+
+function XGuildDormConfig.GetFurnitureEffectCfgByGroupId(groupId)
+    if XGuildDormConfig._GroupId2FurnitureEffect == nil then
+        XGuildDormConfig._GroupId2FurnitureEffect = {}
+        local configs = XGuildDormConfig.GetAllConfigs(XGuildDormConfig.TableKey.GuildDormFurnitureEffect)
+        for _, v in pairs(configs) do
+            XGuildDormConfig._GroupId2FurnitureEffect[v.GroupId] = XGuildDormConfig._GroupId2FurnitureEffect[v.GroupId] or {}
+            table.insert(XGuildDormConfig._GroupId2FurnitureEffect[v.GroupId], v)
+        end
+    end
+    
+    return XGuildDormConfig._GroupId2FurnitureEffect[groupId]
+end
+
+function XGuildDormConfig.GetIdleConfigById(id)
+    return XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormNpcActionIdle,id)     
+end 
+
+---@return XTableGuildDormFurnitureInteraction
+function XGuildDormConfig.GetFurnitureInteraction(furnitureId)
+    return XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormFurnitureInteraction, furnitureId)
+end
+
+---@return table @XTableGuildDormPaint
+function XGuildDormConfig.GetPaintCfgs()
+    return XGuildDormConfig.GetAllConfigs(XGuildDormConfig.TableKey.GuildDormPaint)
+end
+
+---@return XTableGuildDormFurnitureRandomBox
+function XGuildDormConfig.GetFurnitureRandomBox(furnitureId)
+    return XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormFurnitureRandomBox, furnitureId)
+end
+
+---@return XTableGuildDormFurnitureRandomBoxItem
+function XGuildDormConfig.GetFurnitureRandomBoxItem(itemId)
+    return XGuildDormConfig.GetCfgByIdKey(XGuildDormConfig.TableKey.GuildDormFurnitureRandomBoxItem, itemId)
+end 
+
+function XGuildDormConfig.CheckCueIdIsInGuildDormBgm(cueId)
+    local GuildDromCueIdConfigCache = XGuildDormConfig.GuildDromCueIdConfigCache
+    if XTool.IsTableEmpty(GuildDromCueIdConfigCache) then
+        GuildDromCueIdConfigCache = {}
+        local configs = XGuildDormConfig.GetAllConfigs(XGuildDormConfig.TableKey.BGM)
+        for _, v in pairs(configs) do
+            GuildDromCueIdConfigCache[v.CueId] = v
+        end
+        XGuildDormConfig.GuildDromCueIdConfigCache = GuildDromCueIdConfigCache
+    end
+    
+    return GuildDromCueIdConfigCache[cueId] ~= nil
+end 

@@ -6,9 +6,12 @@ local tableSort = table.sort
 local XWeaponFashion = require("XEntity/XEquip/XWeaponFashion")
 
 XWeaponFashionManagerCreator = function()
+    ---@class XWeaponFashionManager XWeaponFashionManager
     local XWeaponFashionManager = {}
 
+    local InitWeaponFashionsCount = 0
     local OwnWeaponFashions = {}
+    local AllWeaponFashionIsOwnDic = {}
 
     XWeaponFashionManager.FashionStatus = {
         UnOwned = 0, -- 未拥有
@@ -17,13 +20,33 @@ XWeaponFashionManagerCreator = function()
     }
 
     local IsNotifyWeaponFashionTransform = false
+    local LockNotifyWeaponFashionTransformShow = false
+
+    function XWeaponFashionManager.Init()
+        local allWeaponFashion = XWeaponFashionConfigs.GetWeaponFashionResTemplates()
+        for id, v in pairs(allWeaponFashion) do
+            AllWeaponFashionIsOwnDic[id] = { IsOwn = false,IsNew = false }
+        end
+        AllWeaponFashionIsOwnDic[XWeaponFashionConfigs.DefaultWeaponFashionId] = { IsOwn = false, IsNew = false }
+        InitWeaponFashionsCount = 0
+    end
 
     function XWeaponFashionManager.InitWeaponFashions(fashions)
         if not fashions then return end
 
         for _, data in pairs(fashions) do
             OwnWeaponFashions[data.Id] = XWeaponFashion.New(data)
+
+            local beforeData = AllWeaponFashionIsOwnDic[data.Id]
+            if beforeData and not beforeData.IsOwn then
+                beforeData.IsOwn = true
+                if InitWeaponFashionsCount > 0 and data.Id ~= XWeaponFashionConfigs.DefaultWeaponFashionId then
+                    beforeData.IsNew = true
+                end
+            end
         end
+
+        InitWeaponFashionsCount = InitWeaponFashionsCount + 1
     end
 
     function XWeaponFashionManager.RecycleWeaponFashions(fashionIds)
@@ -44,9 +67,29 @@ XWeaponFashionManagerCreator = function()
     function XWeaponFashionManager.NotifyWeaponFashionTransform(data)
         IsNotifyWeaponFashionTransform = true
         if not data or not next(data) then return end
-        local rewards = {}
-        tableInsert(rewards, { TemplateId = data.ItemId, Count = data.ItemCount })
-        XUiManager.OpenUiObtain(rewards)
+        if XDataCenter.LottoManager.GetIsInterceptUiObtain() then
+            XDataCenter.LottoManager.CacheWeaponFashionRewards(data)
+        else
+
+            if LockNotifyWeaponFashionTransformShow then
+                return
+            end
+            
+            local rewards = { { TemplateId = data.ItemId, Count = data.ItemCount } }
+            XUiManager.OpenUiObtain(rewards)
+        end
+    end
+
+    function XWeaponFashionManager.GetAllWeaponFashionIsOwnDic(fashionId)
+        return AllWeaponFashionIsOwnDic[fashionId]
+    end
+
+    function XWeaponFashionManager.SetWeaponFashionIsOwnNewUnactive(fashionId)
+        local data = XWeaponFashionManager.GetAllWeaponFashionIsOwnDic(fashionId)
+        if not data then
+            return
+        end
+        data.IsNew = false
     end
 
     function XWeaponFashionManager.GetIsNotifyWeaponFashionTransform()
@@ -55,6 +98,11 @@ XWeaponFashionManagerCreator = function()
 
     function XWeaponFashionManager.ResetIsNotifyWeaponFashionTransform()
         IsNotifyWeaponFashionTransform = false
+    end
+
+    --- 锁定NotifyWeaponFashionTransformObtainShow协议的弹窗显示，锁定期间不会进行弹窗
+    function XWeaponFashionManager.SetNotifyWeaponFashionTransformObtainShowLock(isLock)
+        LockNotifyWeaponFashionTransformShow = isLock
     end
 
     function XWeaponFashionManager.CheckHasFashion(id)
@@ -127,7 +175,7 @@ XWeaponFashionManagerCreator = function()
     function XWeaponFashionManager.GetSortedWeaponFashionIdsByCharacterId(characterId)
         local sortedFashionIds = {}
 
-        local characterEquipType = XCharacterConfigs.GetCharacterEquipType(characterId)
+        local characterEquipType = XMVCA.XCharacter:GetCharacterEquipType(characterId)
         local fashionIds = XWeaponFashionConfigs.GetWeaponFashionIdsByEquipType(characterEquipType)
         for _, id in pairs(fashionIds) do
             if XWeaponFashionManager.IsFashionInTime(id) then
@@ -152,6 +200,32 @@ XWeaponFashionManagerCreator = function()
         end)
 
         return sortedFashionIds
+    end
+
+    function XWeaponFashionManager.GetOwnWeaponFashionList(characterId)
+        local res = {}
+        tableInsert(res, XWeaponFashionConfigs.DefaultWeaponFashionId)
+
+        local characterEquipType = XMVCA.XCharacter:GetCharacterEquipType(characterId)
+        local fashionIds = XWeaponFashionConfigs.GetWeaponFashionIdsByEquipType(characterEquipType)
+        for _, id in pairs(fashionIds) do
+            if XWeaponFashionManager.IsFashionInTime(id) and XWeaponFashionManager.GetFashionStatus(id) == XWeaponFashionManager.FashionStatus.UnLock then
+                tableInsert(res, id)
+            end
+        end
+
+        return res
+    end
+
+    function XWeaponFashionManager.GetCurrCharHaveNewWeaponFashion(characterId)
+        local ownWeaponFashionList = XWeaponFashionManager.GetOwnWeaponFashionList(characterId)
+        for k, id in pairs(ownWeaponFashionList) do
+            local data = XWeaponFashionManager.GetAllWeaponFashionIsOwnDic(id)
+            if data and data.IsNew then
+                return true
+            end
+        end
+        return false
     end
 
     function XWeaponFashionManager.GetFashionStatus(fashionId, characterId)
@@ -187,13 +261,13 @@ XWeaponFashionManagerCreator = function()
 
         if XWeaponFashionConfigs.IsDefaultId(weaponFashionId) then
             local templateId
-            if not XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
-                templateId = XCharacterConfigs.GetCharacterDefaultEquipId(characterId)
+            if not XMVCA.XCharacter:IsOwnCharacter(characterId) then
+                templateId = XMVCA.XCharacter:GetCharacterDefaultEquipId(characterId)
             else
-                local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
-                templateId = XDataCenter.EquipManager.GetEquipTemplateId(equipId)
+                local equipId = XMVCA.XEquip:GetCharacterWeaponId(characterId)
+                templateId = XMVCA.XEquip:GetEquipTemplateId(equipId)
             end
-            fashionName = XDataCenter.EquipManager.GetEquipName(templateId)
+            fashionName = XMVCA.XEquip:GetEquipName(templateId)
         else
             fashionName = XWeaponFashionConfigs.GetFashionName(weaponFashionId)
         end
@@ -204,35 +278,35 @@ XWeaponFashionManagerCreator = function()
     function XWeaponFashionManager.GetWeaponModelCfg(weaponFashionId, characterId, uiName)
         local modelConfig = {}
 
-        local IsOwnCharacter = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+        local IsOwnCharacter = XMVCA.XCharacter:IsOwnCharacter(characterId)
         if XWeaponFashionConfigs.IsDefaultId(weaponFashionId) then
             if not IsOwnCharacter then
-                local templateId = XCharacterConfigs.GetCharacterDefaultEquipId(characterId)
-                modelConfig = XDataCenter.EquipManager.GetWeaponModelCfg(templateId, uiName, 0, 0)
+                local templateId = XMVCA.XCharacter:GetCharacterDefaultEquipId(characterId)
+                modelConfig = XMVCA.XEquip:GetWeaponModelCfg(templateId, uiName, 0, 0)
             else
-                local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
-                local templateId = XDataCenter.EquipManager.GetEquipTemplateId(equipId)
-                local breakthroughTimes = XDataCenter.EquipManager.GetBreakthroughTimes(equipId)
-                local resonanceCount = XDataCenter.EquipManager.GetResonanceCount(equipId)
-                modelConfig = XDataCenter.EquipManager.GetWeaponModelCfg(templateId, uiName, breakthroughTimes, resonanceCount)
+                local equipId = XMVCA.XEquip:GetCharacterWeaponId(characterId)
+                local templateId = XMVCA.XEquip:GetEquipTemplateId(equipId)
+                local breakthroughTimes = XMVCA.XEquip:GetEquipBreakthroughTimes(equipId)
+                local resonanceCount = XMVCA.XEquip:GetEquipResonanceCount(equipId)
+                modelConfig = XMVCA.XEquip:GetWeaponModelCfg(templateId, uiName, breakthroughTimes, resonanceCount)
             end
         else
             local resonanceCount = 0
             local equipType = XWeaponFashionConfigs.GetFashionEquipType(weaponFashionId)
             if IsOwnCharacter then
-                local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
-                resonanceCount = XDataCenter.EquipManager.GetResonanceCount(equipId)
+                local equipId = XMVCA.XEquip:GetCharacterWeaponId(characterId)
+                resonanceCount = XMVCA.XEquip:GetEquipResonanceCount(equipId)
             end
-            local modelId = XWeaponFashionConfigs.GetWeaponResonanceModelId(XEquipConfig.WeaponCase.Case1, weaponFashionId, resonanceCount)
+            local modelId = XWeaponFashionConfigs.GetWeaponResonanceModelId(XEnumConst.EQUIP.WEAPON_CASE.CASE1, weaponFashionId, resonanceCount)
             modelConfig.ModelId = modelId
-            modelConfig.TransformConfig = XEquipConfig.GetEquipModelTransformCfg(nil, uiName, resonanceCount, modelId, equipType)
+            modelConfig.TransformConfig = XMVCA.XEquip:GetEquipModelTransformCfg(nil, uiName, resonanceCount, modelId, equipType)
         end
 
         return modelConfig
     end
 
     function XWeaponFashionManager.UseFashion(fashionId, characterId, cb)
-        if not XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
+        if not XMVCA.XCharacter:IsOwnCharacter(characterId) then
             XUiManager.TipText("CharacterLock")
             return
         end
@@ -244,7 +318,10 @@ XWeaponFashionManagerCreator = function()
 
         XNetwork.Call("WeaponFashionUseRequest", { Id = fashionId, CharacterId = characterId }, function(res)
             if res.Code ~= XCode.Success then
-                XUiManager.TipCode(res.Code)
+                if res.Code ~= XCode.WeaponFashionCharacterDressRepeat then
+                    XUiManager.TipCode(res.Code)
+                end
+
                 return
             end
 
@@ -262,6 +339,17 @@ XWeaponFashionManagerCreator = function()
         end)
     end
 
+    function XWeaponFashionManager.GetEquipTypeByTemplateId(itemTemplateId)
+        local subTypeParams = XItemConfigs.GetItemSubTypeParams(itemTemplateId)
+        if subTypeParams and #subTypeParams > 0 then
+            local fashionId = subTypeParams[1]
+            if XWeaponFashionConfigs.IsWeaponFashion(fashionId) then
+                return XWeaponFashionConfigs.GetFashionEquipType(fashionId)
+            end
+        end
+        return nil
+    end
+    XWeaponFashionManager.Init()
     return XWeaponFashionManager
 end
 

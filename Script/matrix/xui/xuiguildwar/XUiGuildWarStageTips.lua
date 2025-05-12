@@ -1,6 +1,10 @@
 --######################## XUiGridBuff ########################
 local XUiGridBuff = XClass(nil, "XUiGridBuff")
 
+local ignoreNodeType = {
+    [XGuildWarConfig.NodeType.Resource] = true,
+}
+
 function XUiGridBuff:Ctor(ui)
     XUiHelper.InitUiClass(self, ui)
 end
@@ -23,6 +27,12 @@ end
 function XUiGuildWarStageTips:OnStart(node)
     self.TxtTitle.text = node:GetHelpTitle()
     self.TxtDetail.text = XUiHelper.ConvertLineBreakSymbol(node:GetHelpDetail())
+
+    if ignoreNodeType[node:GetNodeType()] then
+        self.GridBuff.gameObject:SetActiveEx(false)
+        return
+    end
+    
     local fightEventIds = node:GetFightEventIds()
     if fightEventIds == nil then return end
     XUiHelper.RefreshCustomizedList(self.PanelContent, self.GridBuff, #fightEventIds, function(index, child)

@@ -1,4 +1,5 @@
-XUiPanelActive = XClass(nil, "XUiPanelActive")
+---@class XUiTaskPanelActive
+local XUiPanelActive = XClass(nil, "XUiPanelActive")
 
 function XUiPanelActive:Ctor(ui, rootUi, index, parent)
     self.GameObject = ui.gameObject
@@ -37,22 +38,16 @@ function XUiPanelActive:TouchDailyRewardBtn(index)
     local dActiveness = XTaskConfig.GetDailyActiveness()
     local rewardIds = XTaskConfig.GetDailyActivenessRewardIds()
     local data = XRewardManager.GetRewardList(rewardIds[index])
-    -- 如果已经领取过了，直接弹提示即可
-    if XPlayer.IsGetDailyActivenessReward(index) then
+    -- 如果已经领取过了和没有达到目标的，直接弹奖励提示
+    if XPlayer.IsGetDailyActivenessReward(index) or activeness < dActiveness[index] then
         XUiManager.OpenUiTipReward(data, CS.XTextManager.GetText("DailyActiveRewardTitle"))
-        return 
+        return
     end
-    if activeness >= dActiveness[index] then
-        XDataCenter.TaskManager.GetActivenessReward(index, rewardIds[index], XDataCenter.TaskManager.ActiveRewardType.Daily, function()
-            if index == 5 then
-                --CheckPoint: APPEVENT_DAILY_TASK
-                XAppEventManager.AppLogEvent(XAppEventManager.CommonEventNameConfig.Daily_Task)
-            end
-            self.Parent:UpdateActiveness()
-        end)
-    else
-        XUiManager.OpenUiTipReward(data, CS.XTextManager.GetText("DailyActiveRewardTitle"))
-    end
+
+    -- v1.31 【任务日常活跃】一键领取
+    XDataCenter.TaskManager.GetActivenessReward(XDataCenter.TaskManager.ActiveRewardType.Daily, function()
+        self.Parent:UpdateActiveness()
+    end)
 end
 
 return XUiPanelActive

@@ -13,7 +13,12 @@ function XUiStrongholdSkillDetails:OnStart(buffId, skipCb, closeCb)
 end
 
 function XUiStrongholdSkillDetails:OnEnable()
+
     self:UpdateView()
+end
+
+function XUiStrongholdSkillDetails:OnDisable()
+
 end
 
 function XUiStrongholdSkillDetails:OnDestroy()

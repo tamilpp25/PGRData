@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPartnerTeachingBanner = XLuaUiManager.Register(XLuaUi, "UiPartnerTeachingBanner")
 
 local XUiGridPartnerTeachingBanner = require("XUi/XUiFubenPartnerTeaching/XUiGridPartnerTeachingBanner")

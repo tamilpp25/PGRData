@@ -17,6 +17,8 @@ function XReformBaseStage:Ctor(config)
     self.StageConfig = XDataCenter.FubenManager.GetStageCfg(config.Id)
     -- 引导Id
     self.Id = self.Config.Id
+    -- 是否通关过
+    self.IsPassed = false
 end
 
 -- data : XReformStageDb
@@ -24,6 +26,7 @@ function XReformBaseStage:InitWithServerData(data)
     -- 默认选择当前最大难度
     self.CurDiffIndex = data.CurDiffIndex + 1
     self.UnlockDiffIndex = data.UnlockDiffIndex + 1
+    self.IsPassed = data.Pass
     local evolvableStage = nil
     -- difficultDb : ReformStageDifficultyDb
     for _, difficultDb in ipairs(data.DifficultyDbs) do
@@ -35,6 +38,10 @@ function XReformBaseStage:InitWithServerData(data)
             XDataCenter.ReformActivityManager.AddEvolvableMaxScore(self.Config.Id, evolvableStage:GetDifficulty(), difficultDb.Score)
         end
     end
+end
+
+function XReformBaseStage:UpdateIsPassed(value)
+    self.IsPassed = value
 end
 
 function XReformBaseStage:UpdateUnlockDiffIndex(value)
@@ -51,10 +58,10 @@ end
 
 function XReformBaseStage:GetIsPlayReformUnlockEffect()
     local result = false
-    local isPass = self:GetIsPassed()
+    -- local isPass = self:GetIsPassed()
     local isPlayed = XSaveTool.GetData(self:GetId() .. XPlayer.Id .. "GetIsPlayReformUnlockEffect" 
         .. XDataCenter.ReformActivityManager.GetId()) or false
-    if not isPlayed and isPass then
+    if not isPlayed then -- and isPass then
         result = true
         XSaveTool.SaveData(self:GetId() .. XPlayer.Id .. "GetIsPlayReformUnlockEffect"
         .. XDataCenter.ReformActivityManager.GetId(), true)
@@ -92,7 +99,8 @@ function XReformBaseStage:GetEvolvableStageById(id)
 end
 
 -- diffIndex : 从1开始，1是基础关卡信息配置
-function XReformBaseStage:GetEvolvableStageByDiffIndex(diffIndex)    
+function XReformBaseStage:GetEvolvableStageByDiffIndex(diffIndex)
+    if diffIndex <= 0 then return nil end
     diffIndex = diffIndex or self.CurDiffIndex
     return self:GetEvolvableStageById(self.Config.StageDiff[diffIndex])
 end
@@ -149,14 +157,19 @@ function XReformBaseStage:GetFirstRewards()
     return XRewardManager.GetRewardList(self.StageConfig.FirstRewardId)
 end
 
+function XReformBaseStage:GetFirstRewardId()
+    return self.StageConfig.FirstRewardId
+end
+
 -- 是否已通关
 function XReformBaseStage:GetIsPassed()
-    return self.UnlockDiffIndex >= 2
+    return self.IsPassed
 end
 
 function XReformBaseStage:GetDifficultyIsOpen(diffIndex)
     if diffIndex <= 0 then return true end
     local lastStage = self:GetEvolvableStageByDiffIndex(diffIndex - 1)
+    if lastStage == nil then return true end
     local nextStage = self:GetEvolvableStageByDiffIndex(diffIndex)
     return lastStage:GetMaxScore() >= nextStage:GetUnlockScore()
 end
@@ -181,6 +194,14 @@ function XReformBaseStage:GetAccumulativeScore()
     return result
 end
 
+function XReformBaseStage:GetMaxChallengeScore(withTeamScore)
+    local result = 0
+    for _, evolvableStage in pairs(self.EvolvableStageDic) do
+        result = result + evolvableStage:GetMaxChallengeScore(withTeamScore)
+    end
+    return result
+end
+
 function XReformBaseStage:GetEvolvableStageDic()
     return self.EvolvableStageDic
 end
@@ -200,6 +221,34 @@ end
 
 function XReformBaseStage:GetMaxDiffCount()
     return XReformConfigs.GetBaseStageMaxDiffCount(self.Config.Id)
+end
+
+function XReformBaseStage:CheckIsCanReform()
+    if self:GetMaxDiffCount() <= 1 then
+        return true
+    end
+    return self:GetIsPassed()
+end
+
+function XReformBaseStage:CheckIsDefaultOpenTargetMember()
+    return self:GetMaxDiffCount() <= 1
+end
+
+function XReformBaseStage:GetStageType()
+    return self.Config.StageType
+end
+
+function XReformBaseStage:GetRecommendScore()
+    return self.Config.RecommendScore
+end
+
+function XReformBaseStage:GetRecommendCharacterIcons()
+    local result = {}
+    for _, id in ipairs(self.Config.RecommendCharacterIds) do
+        table.insert(result
+            , XMVCA.XCharacter:GetCharBigHeadIcon(id))
+    end
+    return result
 end
 
 return XReformBaseStage

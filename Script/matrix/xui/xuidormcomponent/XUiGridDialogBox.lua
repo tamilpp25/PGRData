@@ -25,7 +25,8 @@ function XUiGridDialogBox:PlayDialog(index)
         return
     end
 
-    local context = self.DailogConfig.Content[index] or ""
+    local contextId = self.DailogConfig.Content[index] or ""
+    local context = XDormConfig.GetActorDialogContent(contextId)
     if XDataCenter.DormManager.CheckInTouch() then
         self.TxtTouchDesc.text = string.gsub(context, "\\n", "\n")
     else
@@ -49,23 +50,37 @@ function XUiGridDialogBox:UpdateTransform(transform)
     self.Transform.localPosition = viewPos
 end
 
-function XUiGridDialogBox:Show(curRoomId, characterId, contextId, transform, cb)
+function XUiGridDialogBox:Show(curRoomId, id, contextId, transform, cb, isPet)
     self.CurRoomId = curRoomId
     self.Cb = cb
 
     self.TargetTransform = transform
-
-    local styleConfig = XDormConfig.GetCharacterStyleConfigById(characterId)
-    if XDataCenter.DormManager.CheckInTouch() then
-        self.PanelBoxNamorl.gameObject:SetActive(false)
-        self.PanelBoxTouch.gameObject:SetActive(true)
-        self.Offset = CS.UnityEngine.Vector3(0, styleConfig.DailogTouchHight, 0)
-    else
+    
+    if not isPet then --角色对话
+        local styleConfig = XDormConfig.GetCharacterStyleConfigById(id)
+        if XDataCenter.DormManager.CheckInTouch() then
+            self.PanelBoxNamorl.gameObject:SetActive(false)
+            self.PanelBoxTouch.gameObject:SetActive(true)
+            self.Offset = CS.UnityEngine.Vector3(0, styleConfig.DailogTouchHight, 0)
+        else
+            self.PanelBoxNamorl.gameObject:SetActive(true)
+            self.PanelBoxTouch.gameObject:SetActive(false)
+            self.Offset = CS.UnityEngine.Vector3(0, styleConfig.DailogWidgetHight, 0)
+        end
+    else --宠物对话
+        local height = 0
+        local furnitureConfigId = XDataCenter.FurnitureManager.GetFurnitureConfigId(id)
+        if XTool.IsNumberValid(furnitureConfigId) then
+            local petId = XFurnitureConfigs.GetFurniturePetId(furnitureConfigId)
+            if XTool.IsNumberValid(petId) then
+                local template = XDormConfig.GetDormPetTemplate(petId)
+                height = template.DialogWidgetHeight
+            end
+        end
         self.PanelBoxNamorl.gameObject:SetActive(true)
         self.PanelBoxTouch.gameObject:SetActive(false)
-        self.Offset = CS.UnityEngine.Vector3(0, styleConfig.DailogWidgetHight, 0)
+        self.Offset = CS.UnityEngine.Vector3(0, height, 0)
     end
-
     self:RefreshContext(contextId)
     self:UpdateTransform(self.TargetTransform)
     self.GameObject:SetActive(true)

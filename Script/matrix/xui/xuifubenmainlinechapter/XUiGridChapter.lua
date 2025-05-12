@@ -1,5 +1,7 @@
 local XUiGridStage = require("XUi/XUiFubenMainLineChapter/XUiGridStage")
+local XUiGridMainLineSkipStage = require("XUi/XUiFubenMainLineChapter/XUiGridMainLineSkipStage")
 
+---@class XUiGridChapter
 local XUiGridChapter = XClass(nil, "XUiGridChapter")
 
 local MAX_STAGE_COUNT = CS.XGame.ClientConfig:GetInt("MainLineStageMaxCount")
@@ -58,6 +60,9 @@ function XUiGridChapter:Ctor(rootUi, ui, autoChangeBgArgs, isOnZhouMu)
     if self.PanelColors then
         self.PanelColors.gameObject:SetActiveEx(false)
     end
+
+    ---@type XUiGridMainLineSkipStage
+    self.MainLineSkipStage = XUiGridMainLineSkipStage.New(self.PanelStageContent, self.RootUi)
 end
 
 function XUiGridChapter:GetColors()
@@ -352,10 +357,14 @@ function XUiGridChapter:GoToStage(stageId)
     end
     local gridTf = grid.Parent.gameObject:GetComponent("RectTransform")
     --local posX = self.PanelStageContent.localPosition.x
-    local posX = gridTf.localPosition.x - self.RectTransform.rect.width / 2
+    local trueStage = XDataCenter.FubenMainLineManager.CheckTrueStageByStageId(stageId)
+    local value = trueStage and 12 or 2
+    local posX = gridTf.localPosition.x - self.RectTransform.rect.width / value
     self.ScrollRect.horizontalNormalizedPosition = 0
     -- local diff = (self.ScrollRect.content.rect.width - self.RectTransform.rect.width)
     self.ScrollRect.horizontalNormalizedPosition = posX / (1 * self.ScrollRect.content.rect.width - self.RectTransform.rect.width)
+    
+    self:PlayStageAnimation()
 end
 
 -- chapter 组件内容更新
@@ -363,6 +372,11 @@ function XUiGridChapter:UpdateChapterGrid(data)
     self.Chapter = data.Chapter
     self.HideStageCb = data.HideStageCb
     self.ShowStageCb = data.ShowStageCb
+    -- 据点关卡消失打印
+    self._IsBfrt = data.IsBfrt
+    if self._IsBfrt then
+        XLog.Warning("据点章节数据打印", data)
+    end
 
     self.EggStageList = {}
     self.NormalStageList = {}
@@ -380,11 +394,63 @@ function XUiGridChapter:UpdateChapterGrid(data)
     end
 
     self:SetStageList()
+    self.MainLineSkipStage:SetSkipStage(self.Chapter)
+    self:UpdateTrueAndFalseStage()
     -- self:InitAutoChangeBgComponents()
 
     -- CS.XTool.WaitForEndOfFrame(function()
     --     self:RefreshAutoChangeBgStageIndex()
     -- end)
+end
+
+function XUiGridChapter:UpdateTrueAndFalseStage()
+    -- 屏蔽据点战
+    if not self.Chapter.Difficult or self.Chapter.Difficult == XDataCenter.FubenManager.DifficultNightmare then
+        return
+    end
+    local stageTransformCfg = XFubenMainLineConfigs.GetStageTransformsByChapterId(self.Chapter.ChapterId)
+    for _, config in pairs(stageTransformCfg) do
+        local beforeStageId = config.BeforeStageId
+        local afterStageId = config.AfterStageId
+        local beforeIndex = table.indexof(self.NormalStageList, beforeStageId)
+        local afterIndex = table.indexof(self.NormalStageList, afterStageId)
+        if not XTool.IsNumberValid(beforeIndex) or not XTool.IsNumberValid(afterIndex) then
+            break
+        end
+        local beforeStage = self.GridStageList[beforeIndex]
+        local afterStage = self.GridStageList[afterIndex]
+        if not beforeStage or not afterStage then
+            break
+        end
+        local afterStageInfo = XDataCenter.FubenManager.GetStageInfo(afterStageId)
+        if afterStageInfo.IsOpen then
+            if XConditionManager.CheckCondition(config.Condition) then
+                local isPlay = XDataCenter.FubenMainLineManager.CheckPlayTrueAndFalseStageAnim(beforeStageId, afterStageId)
+                if not afterStageInfo.Passed and not isPlay then
+                    afterStage.Parent.gameObject:SetActiveEx(false)
+                    self.TrueAndFalseAnimFunc = function()
+                        local stageAnim = XUiHelper.TryGetComponent(self.Transform, string.format("Animation/Stage%dEnable", afterIndex))
+                        if stageAnim then
+                            stageAnim:PlayTimelineAnimation()
+                        end
+                        XDataCenter.FubenMainLineManager.SavePlayTrueAndFalseStageAnim(beforeStageId, afterStageId)
+                        self.TrueAndFalseAnimFunc = nil
+                    end
+                else
+                    beforeStage.Parent.gameObject:SetActiveEx(false)
+                end
+            else
+                afterStage.Parent.gameObject:SetActiveEx(false)
+            end
+        end
+    end
+end
+
+-- 播放章节动画
+function XUiGridChapter:PlayStageAnimation()
+    if self.TrueAndFalseAnimFunc then
+        self.TrueAndFalseAnimFunc()
+    end
 end
 
 -- 根据stageId选中
@@ -429,19 +495,35 @@ function XUiGridChapter:GetEggNum(stageList, eggStageCfg)
     return 0
 end
 
+-- 检测当前关卡是否显示
+function XUiGridChapter:CheckCurrentStageShow(stageCfg, stageInfo)
+    -- 是否开启
+    local isOpen = stageInfo.IsOpen
+    -- 是否隐藏 
+    local isHide = false
+    local disappearCondition = stageCfg.DisappearCondition or 0
+    if XTool.IsNumberValid(disappearCondition) then
+        isHide = XConditionManager.CheckCondition(disappearCondition)
+    end
+    return isOpen and not isHide
+end
+
 function XUiGridChapter:SetStageList()
     if self.NormalStageList == nil then
         XLog.Error("Chapter have no id " .. self.Chapter.ChapterId)
         return
     end
-
     -- 初始化副本显示列表，i作为order id，从1开始
     for i = 1, #self.NormalStageList do
         local stageId = self.NormalStageList[i]
         local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
         local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
 
-        if stageInfo.IsOpen or self.IsOnZhouMu then
+        local isShow = self:CheckCurrentStageShow(stageCfg, stageInfo)
+        if not isShow and self._IsBfrt then
+            XLog.Warning("据点章节关卡数据", stageId, stageInfo)
+        end
+        if isShow or self.IsOnZhouMu then
             local grid = self.GridStageList[i]
             if not grid then
                 local uiName
@@ -511,11 +593,8 @@ function XUiGridChapter:SetStageList()
                             self.LineAnimFun = nil
                         end
                     end
-
                 end
-
             end
-
         end
     end
 
@@ -542,14 +621,15 @@ function XUiGridChapter:SetStageList()
         end
     end
 
-    local activeStageCount = #self.GridStageList
-    for i = activeStageCount + 1, MAX_STAGE_COUNT do
-        local parent = self.PanelStageContent.transform:Find("Stage" .. i)
-        if parent then
-            parent.gameObject:SetActive(false)
-        end
+    for i = 1, MAX_STAGE_COUNT do
+        if not self.GridStageList[i] then
+            local parent = self.PanelStageContent.transform:Find("Stage" .. i)
+            if parent then
+                parent.gameObject:SetActive(false)
+            end
 
-        self:SetLineActive(i, false)
+            self:SetLineActive(i, false)
+        end
     end
 
     -- 移动至ListView正确的位置
@@ -573,7 +653,9 @@ function XUiGridChapter:ClickStageGrid(grid)
     end
 
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(grid.Stage.StageId)
-    if not stageInfo.Unlock then
+    local stageCfg = XDataCenter.FubenManager.GetStageCfg(grid.Stage.StageId)
+    local isUnlock = grid:CheckCurrentStageUnlock(stageCfg, stageInfo)
+    if not isUnlock then
         XUiManager.TipMsg(XDataCenter.FubenManager.GetFubenOpenTips(grid.Stage.StageId))
         return
     end

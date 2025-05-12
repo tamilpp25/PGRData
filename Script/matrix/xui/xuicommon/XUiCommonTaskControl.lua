@@ -1,3 +1,5 @@
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiCommonTaskControl = XClass(XLuaUi, "XUiCommonTaskControl")
 
 --######################## 实现的接口 BEGIN ########################
@@ -20,6 +22,10 @@ end
 
 function XUiCommonTaskControl:GetBtnRedConditionTypes()
     return {}
+end
+
+function XUiCommonTaskControl:OnDataSourceChanged()
+    -- do nothing
 end
 
 --######################## 实现的接口 END ########################
@@ -83,6 +89,7 @@ function XUiCommonTaskControl:RefreshTaskList(taskType)
     self.CurrentTasks = self:GetTaskDataByTabIndex(taskType)
     self.DynamicTable:SetDataSource(self.CurrentTasks)
     self.DynamicTable:ReloadDataSync(1)
+    self:OnDataSourceChanged()
     if self.AnimQieHuan then self.AnimQieHuan:Play() end
 end
 

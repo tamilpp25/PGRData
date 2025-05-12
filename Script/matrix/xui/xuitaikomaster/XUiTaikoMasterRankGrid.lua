@@ -1,3 +1,4 @@
+---@class XUiTaikoMasterRankGrid
 local XUiTaikoMasterRankGrid = XClass(nil, "XUiTaikoMasterRankGrid")
 
 function XUiTaikoMasterRankGrid:Ctor(ui, rootUi)
@@ -10,6 +11,7 @@ function XUiTaikoMasterRankGrid:Ctor(ui, rootUi)
     XUiHelper.RegisterClickEvent(self, self.BtnDetail, self.OnBtnDetailClicked)
 end
 
+---@param rankInfo XTaikoMasterRankPlayerInfo
 function XUiTaikoMasterRankGrid:SetData(rankInfo, songId)
     self._RankInfo = rankInfo
     -- 名次
@@ -17,7 +19,7 @@ function XUiTaikoMasterRankGrid:SetData(rankInfo, songId)
     self.TxtRankNormal.gameObject:SetActiveEx(not showColorRank)
     self.ImgRankSpecial.gameObject:SetActiveEx(showColorRank)
     if showColorRank then
-        local icon = XDataCenter.FubenBossSingleManager.GetRankSpecialIcon(rankInfo.Rank, self._LevelType)
+        local icon = XMVCA.XFubenBossSingle:GetRankSpecialIcon(rankInfo.Rank, self._LevelType)
         self.RootUi:SetUiSprite(self.ImgRankSpecial, icon)
     else
         self.TxtRankNormal.text = rankInfo.Rank
@@ -26,7 +28,7 @@ function XUiTaikoMasterRankGrid:SetData(rankInfo, songId)
         self:RefreshMyRank(songId)
     else
         -- 头像
-        XUiPLayerHead.InitPortrait(rankInfo.HeadPortraitId, rankInfo.HeadFrameId, self.Head)
+        XUiPlayerHead.InitPortrait(rankInfo.HeadPortraitId, rankInfo.HeadFrameId, self.Head)
         -- 名字
         self.TxtPlayerName.text = rankInfo.Name
     end
@@ -40,7 +42,7 @@ end
 
 function XUiTaikoMasterRankGrid:RefreshMyRank(songId)
     self.TxtPlayerName.text = XPlayer.Name
-    XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
 end
 
 function XUiTaikoMasterRankGrid:OnBtnDetailClicked()

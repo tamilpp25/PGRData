@@ -18,13 +18,9 @@ end
 function XUiBabelMemberHead:SetMemberInfo(characterId, isHalf, captainPos)
     self.CharacterId = characterId
     self.CaptainPos = captainPos
-
-    if not characterId or characterId == 0 then
-        self:ClearMemberHead()
-        return
-    end
-    local character = XDataCenter.CharacterManager.GetCharacter(self.CharacterId)
-    if not character then
+    
+    local characterViewModel = XEntityHelper.GetCharacterViewModelByEntityId(characterId)
+    if not characterViewModel then
         self:ClearMemberHead()
         return
     end
@@ -34,12 +30,12 @@ function XUiBabelMemberHead:SetMemberInfo(characterId, isHalf, captainPos)
     self.ImgSword.gameObject:SetActiveEx(true)
 
     if isHalf then
-        self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharacterId))
+        self.RImgRole:SetRawImage(characterViewModel:GetHalfBodyCommonIcon())
     else
-        self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterId))
+        self.RImgRole:SetRawImage(characterViewModel:GetSmallHeadIcon())
     end
 
-    self.TxtSword.text = math.floor(character.Ability)
+    self.TxtSword.text = math.floor(characterViewModel:GetAbility())
 end
 
 function XUiBabelMemberHead:SetMemberCallBack(cb)

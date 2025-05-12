@@ -1,3 +1,6 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XUiGridShop = require("XUi/XUiShop/XUiGridShop")
 local XUiFubenDailyShop = XLuaUiManager.Register(XLuaUi, "UiFubenDailyShop")
 local SuitIdRecordCache = -1
 
@@ -6,15 +9,15 @@ function XUiFubenDailyShop:OnAwake()
     self:InitDynamicTable()
 end
 
-function XUiFubenDailyShop:OnStart(shopId)
+function XUiFubenDailyShop:OnStart(shopId, defaultSuitId)
     self.ShopId = shopId
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self, true)
 
     self.SuitShopItemDic = {}
     self.ShopItemList = XShopManager.GetShopGoodsList(self.ShopId)
     for _, v in ipairs(self.ShopItemList) do
-        local suitId = XDataCenter.EquipManager.GetSuitIdByTemplateId(v.RewardGoods.TemplateId)
+        local suitId = XMVCA.XEquip:GetEquipSuitId(v.RewardGoods.TemplateId)
         if not self.SuitShopItemDic[suitId] then
             self.SuitShopItemDic[suitId] = {}
         end
@@ -25,17 +28,32 @@ function XUiFubenDailyShop:OnStart(shopId)
     if isShopAvailable then
         self.AssetActivityPanel:Refresh(XShopManager.GetShopShowIdList(shopId))
         local suitId = next(self.SuitShopItemDic)
-        if SuitIdRecordCache > 0 then
-            local exist = false
+        
+        local existFunc = function(id)
+            if not XTool.IsNumberValid(id) then
+                return false
+            end
             for k, _ in pairs(self.SuitShopItemDic) do
-                if k == SuitIdRecordCache then
-                    exist = true
-                    break
+                if k == id then
+                    return true
                 end
             end
-            self:SelectPage(exist and SuitIdRecordCache or suitId)
+            return false
+        end
+        
+        if XTool.IsNumberValid(defaultSuitId) then
+            local exist = existFunc(defaultSuitId)
+            local tmpSuitId = defaultSuitId
+            if not exist then
+                local tips =  XUiHelper.GetText("TypeWafer")
+                XUiManager.TipMsg(XUiHelper.GetText("EquipGuideShopNoEquipTip", tips))
+                exist = existFunc(SuitIdRecordCache)
+                tmpSuitId = exist and SuitIdRecordCache or suitId
+            end
+            self:SelectPage(tmpSuitId)
         else
-            self:SelectPage(suitId)
+            local tmpSuitId = existFunc(SuitIdRecordCache) and SuitIdRecordCache or suitId
+            self:SelectPage(tmpSuitId)
         end
     end
 
@@ -43,7 +61,7 @@ function XUiFubenDailyShop:OnStart(shopId)
     self.WaferNameGroup.gameObject:SetActiveEx(isShopAvailable)
     self.PanelActivityAsset.gameObject:SetActiveEx(isShopAvailable)
 
-    XRedPointManager.AddRedPointEvent(self.BtnSwitch, self.OnCheckShopNew, self, { XRedPointConditions.Types.CONDITION_FUBEN_DAILY_SHOP }, self.ShopItemList)
+    self:AddRedPointEvent(self.BtnSwitch, self.OnCheckShopNew, self, { XRedPointConditions.Types.CONDITION_FUBEN_DAILY_SHOP }, self.ShopItemList)
 end
 
 function XUiFubenDailyShop:InitComponent()
@@ -109,7 +127,7 @@ function XUiFubenDailyShop:RefreshShopList()
 end
 
 function XUiFubenDailyShop:UpdateUI()
-    local suitCfg = XEquipConfig.GetEquipSuitCfg(self.CurSuitId)
+    local suitCfg = XMVCA.XEquip:GetConfigEquipSuit(self.CurSuitId)
 
     if suitCfg == nil then
         XLog.Error("suitCfg == nil, suitId = " .. self.CurSuitId)

@@ -16,7 +16,7 @@ function XRedPointConditionArchiveAwareness.GetSubEvents()
 end
 
 function XRedPointConditionArchiveAwareness.Check()
-    return (XDataCenter.ArchiveManager.IsHaveNewAwarenessSuit() or XDataCenter.ArchiveManager.IsHaveNewAwarenessSetting())
+    return (XMVCA.XArchive.AwarenessArchiveCom:IsHaveNewAwarenessSuit() or XMVCA.XArchive.AwarenessArchiveCom:IsHaveNewAwarenessSetting())
         and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Archive)
 end
 

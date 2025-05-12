@@ -26,9 +26,8 @@ function XFubenRepeatChallengeConfigs.Init()
 
     for activityId, config in pairs(RepeatChallengeActivityTemplates) do
         if XTool.IsNumberValid(config.ActivityTimeId) then
-	    if DefaultActivityId == 0 or DefaultActivityId < activityId then
-                DefaultActivityId = activityId
-	    end
+            DefaultActivityId = activityId
+            break
         end
         DefaultActivityId = activityId--若全部过期，取最后一行配置作为默认下次开启的活动ID
     end
@@ -37,6 +36,27 @@ function XFubenRepeatChallengeConfigs.Init()
             StageIdToChapterIdDic[stageId] = chapterId
         end
     end
+end
+
+function XFubenRepeatChallengeConfigs.GetActivityConfig(activityId)
+    local activityCfg = RepeatChallengeActivityTemplates[activityId]
+    if not activityCfg then
+        XLog.ErrorTableDataNotFound("XFubenRepeatChallengeConfigs.GetActivityConfig",
+                "RepeatChallengeActivity", TABLE_ACTIVITY_PATH, "activityId", tostring(activityId))
+        return
+    end
+    return activityCfg
+end
+
+function XFubenRepeatChallengeConfigs.GetActivityChapterId(activityId)
+    local chapter = XFubenRepeatChallengeConfigs.GetActivityConfig(activityId).NormalChapter[1]
+    return chapter
+end
+
+function XFubenRepeatChallengeConfigs.GetActivityStageId(activityId)
+    local chapter = XFubenRepeatChallengeConfigs.GetActivityConfig(activityId).NormalChapter[1]
+    local stageId = XFubenRepeatChallengeConfigs.GetChapterCfg(chapter).StageId[1]
+    return stageId
 end
 
 function XFubenRepeatChallengeConfigs.GetChapterCfgs()
@@ -57,16 +77,6 @@ function XFubenRepeatChallengeConfigs.GetChapterCfg(chapterId)
     return chapterCfg
 end
 
-function XFubenRepeatChallengeConfigs.GetActivityConfig(activityId)
-    local activityCfg = RepeatChallengeActivityTemplates[activityId]
-    if not activityCfg then
-        XLog.ErrorTableDataNotFound("XFubenRepeatChallengeConfigs.GetActivityConfig",
-        "RepeatChallengeActivity", TABLE_ACTIVITY_PATH, "activityId", tostring(activityId))
-        return
-    end
-    return activityCfg
-end
-
 function XFubenRepeatChallengeConfigs.GetLevelConfigs()
     return RepeatChallengeLevelTemplates
 end
@@ -84,6 +94,10 @@ function XFubenRepeatChallengeConfigs.GetLevelConfig(level)
     return activityCfg
 end
 
+function XFubenRepeatChallengeConfigs.GetStageConfigs()
+    return RepeatChallengeStageTemplates
+end
+
 function XFubenRepeatChallengeConfigs.GetStageConfig(stageId)
     local activityCfg = RepeatChallengeStageTemplates[stageId]
     if not activityCfg then
@@ -94,14 +108,9 @@ function XFubenRepeatChallengeConfigs.GetStageConfig(stageId)
     return activityCfg
 end
 
-function XFubenRepeatChallengeConfigs.GetChapterRewardConfig(chapterId)
-    local activityCfg = RepeatChallengeRewardTemplates[chapterId]
-    if not activityCfg then
-        XLog.ErrorTableDataNotFound("XFubenRepeatChallengeConfigs.GetChapterRewardConfig",
-        "RepeatChallengeReward", TABLE_REWARD_PATH, "chapterId", tostring(chapterId))
-        return
-    end
-    return activityCfg
+function XFubenRepeatChallengeConfigs.GetRewardConfigs()
+    local rewardCfg = RepeatChallengeRewardTemplates
+    return rewardCfg
 end
 
 function XFubenRepeatChallengeConfigs.GetDefaultActivityId()

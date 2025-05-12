@@ -2,6 +2,7 @@
 --超限乱斗核心对象
 --模块负责：吕天元
 --===========================
+---@class XSmashBCore
 local XSmashBCore = XClass(nil, "XSmashBCore")
 
 function XSmashBCore:Ctor(cfg)
@@ -157,18 +158,21 @@ end
 function XSmashBCore:CheckSkillIsMax()
     return self:GetStar() >= self:GetStarLimit()
 end
+function XSmashBCore:GetCostSkillConfig()
+    return self:GetSkillCfgByStar(self:GetStar() + 1)
+end
 --===============
 --获取核心消耗道具Id
 --===============
 function XSmashBCore:GetSkillCostItemId()
-    local cfg = self:GetCurrentSkillCfg()
+    local cfg = self:GetCostSkillConfig()
     return cfg and cfg.SpendMaterialId
 end
 --===============
 --获取核心消耗道具数量
 --===============
 function XSmashBCore:GetSkillCostCount()
-    local cfg = self:GetCurrentSkillCfg()
+    local cfg = self:GetCostSkillConfig()
     return cfg and cfg.SpendMaterialCount
 end
 --===============

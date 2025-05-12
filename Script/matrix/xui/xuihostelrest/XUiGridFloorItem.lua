@@ -1,4 +1,4 @@
-XUiGridFloorItem = XClass(nil, "XUiGridFloorItem")
+local XUiGridFloorItem = XClass(nil, "XUiGridFloorItem")
 
 function XUiGridFloorItem:Ctor(rootUi, ui)
     self.GameObject = ui.gameObject
@@ -43,7 +43,7 @@ function XUiGridFloorItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 
@@ -96,3 +96,5 @@ function XUiGridFloorItem:OnBtnFloorClick()
     end
     self.CallBack(self.Floor)
 end
+
+return XUiGridFloorItem

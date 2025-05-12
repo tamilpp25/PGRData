@@ -13,7 +13,6 @@ local METHOD_NAME = {
     ChangePlayerName = "ChangePlayerNameRequest",
     ChangePlayerSign = "ChangePlayerSignRequest",
     ChangePlayerMark = "ChangePlayerMarkRequest",
-    ChangePlayerBirthday = "ChangePlayerBirthdayRequest",
     ChangePlayerMedal = "SetCurrentMedalRequest",
     ChangeCommunication = "ChangeCommunicationRequest",
     ChangeAppearance = "SetAppearanceRequest",          -- 设置展示信息
@@ -53,8 +52,10 @@ local function New()
         })
 end
 
+
 function Player.Init(playerData)
     PlayerData = playerData
+    XMVCA.XBirthdayPlot:SetBirthday(playerData and playerData.Birthday or {})
     if PlayerData.Marks then
         PlayerData.MarkDic = PlayerData.MarkDic or {}
         for _, v in pairs(PlayerData.Marks) do
@@ -66,6 +67,11 @@ function Player.Init(playerData)
     CS.Movie.XMovieManager.Instance.PlayerName = PlayerData.Name
     Player.IsFirstOpenHonor = XSaveTool.GetData(OPEN_HONOR_LEVEL)
     TempDormitoryList = {}
+    -- 国服PC端在初始化Playe数据时, 需要同时获取另一个平台的移动端虹卡, 用以后续判断IOS/ANDROID端虹卡是否能够继续够买
+    -- 海外PC端如果有自己的PC端虹卡, 需要做其他处理, 如增加一个调用XDataCenter.UiPcManager.IsOverSea()
+    -- if XDataCenter.UiPcManager.IsPc() then
+    --     UpdatePcOtherPlatformMoneyCardCount()
+    -- end
 end
 
 function Getter.GetterExp()
@@ -154,6 +160,12 @@ function Player.SetDisplayCharId(charId)
     PlayerData.DisplayCharId = charId
 end
 
+-- 助理队列
+function Player.SetDisplayCharIdList(displayCharIdList)
+    PlayerData.DisplayCharIdList = displayCharIdList
+    XEventManager.DispatchEvent(XEventId.EVENT_FAVORABILITY_ASSISTLIST_CHANGE)
+end
+
 function Player.AddMark(id)
     if not PlayerData.MarkDic then
         PlayerData.MarkDic = {}
@@ -188,6 +200,51 @@ end
 
 function Player.SetHeadFrame(id)
     PlayerData.CurrHeadFrameId = id
+end
+
+function Player.UpdatePlayerGenderData(data)
+    if data.ChangeGenderTime ~= nil and data.ChangeGenderTime >= 0 then
+        PlayerData.ChangeGenderTime = data.ChangeGenderTime
+    else
+        XLog.Error('ChangeGenderTime值异常:'..tostring(data.ChangeGenderTime))
+    end
+
+    if XTool.IsNumberValid(data.Gender) then
+        PlayerData.Gender = data.Gender
+    end
+
+    if data.IsGetGenderReward ~= nil then
+        PlayerData.IsGetGenderReward = data.IsGetGenderReward
+    end
+
+    XEventManager.DispatchEvent(XEventId.EVENT_PLAYER_GENER_CHANGED)
+end
+
+-- 是否已经设置性别
+function Player.IsSetGender()
+    return XPlayer.Gender and XPlayer.Gender ~= 0
+end
+
+-- 获取展示用的性别
+function Player.GetShowGender()
+    if XPlayer.Gender == XEnumConst.PLAYER.GENDER_TYPE.MAN or XPlayer.Gender == XEnumConst.PLAYER.GENDER_TYPE.WOMAN then
+        return XPlayer.Gender
+    end
+    return XEnumConst.PLAYER.DEFAULT_GENDER_TYPE
+end
+
+-- 提示设置性别
+---@param contentKey string 提示内容的文本key
+function Player.TipsSetGender(contentKey)
+    if Player.IsSetGender() then return end
+
+    -- 二次确认
+    local title = XUiHelper.GetText("TipTitle")
+    local content = XUiHelper.GetText(contentKey)
+    XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, function()
+        XLuaUiManager.Open("UiPlayer")
+        XLuaUiManager.Open('UiPlayerPopupSetGender')
+    end)
 end
 
 --荣耀勋阶是否开放
@@ -238,26 +295,6 @@ function Player.CheckIsFirstOpenHonor()
     return isFirstOpenHonor
 end
 
---是否修改过生日
-function Player.IsChangedBirthday()
-    return PlayerData.BirthdayInfo and PlayerData.BirthdayInfo.IsChange
-end
-
---检查生日剧情是否解锁
-function Player.CheckStoryIsUnlock(chapterId)
-    return PlayerData.BirthdayInfo and PlayerData.BirthdayInfo.UnLockCg[chapterId]
-end
-
---播放生日剧情动画
-function Player.PlayBirthdayStory()
-    if PlayerData.BirthdayInfo and PlayerData.BirthdayInfo.BirthdayStoryId then
-        XDataCenter.MovieManager.PlayMovie(PlayerData.BirthdayInfo.BirthdayStoryId)
-        PlayerData.BirthdayInfo.BirthdayStoryId = nil
-        return true
-    end
-    return false
-end
-
 --@region XRpc
 
 -- 功能开发标记
@@ -271,49 +308,6 @@ end
 XRpc.NotifyPlayerName = function(data)
     PlayerData.Name = data.Name
     CS.Movie.XMovieManager.Instance.PlayerName = PlayerData.Name
-end
-
-XRpc.NotifyBirthdayPlot = function(data)
-    --[[
-    @desc:同步生日通讯已解锁的cg，以及下次生日时间
-    @data = {
-    @int NextActiveYear 下次过生日的年份
-    @int IsChange  是否修改过生日
-    @list<int> UnLockCg 已经解锁的生日id
-    ]]--
-    PlayerData.BirthdayInfo = PlayerData.BirthdayInfo or {}
-    PlayerData.BirthdayInfo.NextActiveYear = data.NextActiveYear
-    PlayerData.BirthdayInfo.IsChange = data.IsChange == 1
-    PlayerData.BirthdayInfo.UnLockCg = {}
-    for _, id in ipairs(data.UnLockCg) do
-        PlayerData.BirthdayInfo.UnLockCg[id] = true
-    end
-    XEventManager.DispatchEvent(XEventId.EVENT_PLAYER_SET_BIRTHDAY, PlayerData.Birthday) --触发按钮更新
-end
-
-XRpc.NotifyBirthdayPlayCg = function(data)
-    --[[
-    @desc:上线需要同步播放的CG
-    @data = {
-    @int ChapterId 需要播放剧情的 chapterId
-    }
-    ]]--
-    if data then
-        local config = XArchiveConfigs.GetBirthdayPlotConfigById(data.ActivityId)
-        if config and config.StoryChapterId then
-            local chapterId = config.StoryChapterId
-            local detailEntityList =  XDataCenter.ArchiveManager.GetArchiveStoryDetailList(chapterId)
-            local detailEntity = detailEntityList and detailEntityList[1] or nil
-            if detailEntity then
-                local storyId= detailEntity:GetStoryId(1) -- 找到需要播放的第一个storyId
-                PlayerData.BirthdayInfo = PlayerData.BirthdayInfo or {}
-                PlayerData.BirthdayInfo.BirthdayStoryId = storyId
-                XEventManager.DispatchEvent(XEventId.EVENT_PLAYER_UNLOCK_BIRTHDAY_STORY)
-            else
-                XLog.Error("XRpc.NotifyBirthdayPlayCg Recv Error", data)
-            end
-        end
-    end
 end
 
 -- 玩家签名
@@ -334,6 +328,10 @@ end
 XRpc.NotifyActivenessStatus = function(data)
     PlayerData.DailyActivenessRewardStatus = data.DailyActivenessRewardStatus
     PlayerData.WeeklyActivenessRewardStatus = data.WeeklyActivenessRewardStatus
+end
+
+XRpc.NotifyPcSelectMoneyCardId = function(data)
+    -- TODO 后续和服务端核对 删除该协议
 end
 
 --@region 玩家升级
@@ -361,8 +359,6 @@ XRpc.NotifyPlayerLevel = function(data)
         Player.IsFirstOpenHonor = true
         XSaveTool.SaveData(OPEN_HONOR_LEVEL, true)
     end
-    --CheckPoint: APPEVENT_LEVEL
-    XAppEventManager.LevelAppLogEvent(data.Level)
 end
 
 XRpc.NotifyHonorLevel = function(data)
@@ -389,12 +385,11 @@ XRpc.NotifyShieldedProtocol = function(data)
     XNetwork.SetShieldedProtocolList(data.ShieldedProtocolList)
 end
 
---@endregion
-
---谷歌积分奖励通知
-XRpc.NotifyGooglePlayPoints = function(data)
-    XUiManager.SystemDialogTip(CS.XTextManager.GetText("TipTitle"), CS.XGame.ClientConfig:GetString("GooglePlayHintText"), XUiManager.DialogType.OnlySure)
+--- 更新性别cd
+XRpc.NotifyChangeGender = function(data)
+    XPlayer.UpdatePlayerGenderData(data)
 end
+--@endregion
 
 --@region 服务端接口方法
 -----------------服务端数据同步-----------------
@@ -434,32 +429,6 @@ function Player.ChangeName(name, cb)
             end
 
             DoChangeResultError(response.Code, response.NextCanChangeTime)
-        end)
-end
-
-local CheckCanChangeBirthday = function ()
-    return not PlayerData.Birthday or not PlayerData.Birthday.IsChange
-end
-
---修改生日
-function Player.ChangeBirthday(mon, day, cb)
-    if not CheckCanChangeBirthday() then
-        XUiManager.TipCode(XCode.PlayerDataManagerBirthdayAlreadySet)
-        return
-    end
-
-    XNetwork.Call(METHOD_NAME.ChangePlayerBirthday, { Mon = mon, Day = day },
-        function(response)
-            if response.Code ~= XCode.Success then
-                XUiManager.TipCode(response.Code)
-                return
-            end
-            PlayerData.Birthday = {
-                Mon = mon,
-                Day = day
-            }
-
-            cb()
         end)
 end
 
@@ -572,7 +541,6 @@ function Player.ChangeMedal(id, cb)
         end)
 end
 
-
 function Player.IsMedalUnlock(medalId)
     if not PlayerData.UnlockedMedalInfos then return false end
     return PlayerData.UnlockedMedalInfos[medalId] and true or false
@@ -580,13 +548,27 @@ end
 
 function Player.AsyncMedalIds(MedalIds, IsAddNew)
     if not PlayerData.UnlockedMedalInfos then PlayerData.UnlockedMedalInfos = {} end
-    for _, v in pairs(MedalIds or {}) do
-        if IsAddNew then
-            XDataCenter.MedalManager.AddNewMedal(v, XMedalConfigs.MedalType.Normal)
-            PlayerData.UnlockedMedalInfos[MedalIds.Id] = MedalIds
-            PlayerData.NewMedalInfo = MedalIds
-        else
-            PlayerData.UnlockedMedalInfos[v.Id] = v
+
+    if not XTool.IsTableEmpty(MedalIds) then
+        for _, v in pairs(MedalIds) do
+            if IsAddNew then
+                local oldData = PlayerData.UnlockedMedalInfos[v.Id]
+
+                -- 之前没有勋章数据，需要标记为红点
+                if not oldData  then
+                    XDataCenter.MedalManager.AddNewMedal(v.Id, XMedalConfigs.MedalType.Normal)
+                else
+                    -- 如果旧的数据已经过期了，也要标记红点
+                    if oldData.IsExpired or XDataCenter.MedalManager.CheckMedalIsExpired(v.Id) then
+                        XDataCenter.MedalManager.AddNewMedal(v.Id, XMedalConfigs.MedalType.Normal)
+                    end
+                end
+
+                PlayerData.UnlockedMedalInfos[v.Id] = v
+                PlayerData.NewMedalInfo = v
+            else
+                PlayerData.UnlockedMedalInfos[v.Id] = v
+            end
         end
     end
 end

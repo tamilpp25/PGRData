@@ -8,6 +8,7 @@ local XWeaponViewModel = require("XEntity/XEquip/XWeaponViewModel")
 local XAwarenessViewModel = require("XEntity/XEquip/XAwarenessViewModel")
 local XPartner = require("XEntity/XPartner/XPartner")
 local XPartnerMainSkillGroup = require("XEntity/XPartner/XPartnerMainSkillGroup")
+---@class XRobot
 local XRobot = XClass(nil, "XRobot")
 
 local Default = {
@@ -89,7 +90,7 @@ function XRobot:InitEquips()
     end
 
     --意识
-    for _, pos in pairs(XEquipConfig.EquipSite.Awareness) do
+    for _, pos in pairs(XEnumConst.EQUIP.EQUIP_SITE.AWARENESS) do
         local equipId = robotCfg.WaferId[pos]
 
         if XTool.IsNumberValid(equipId) then
@@ -113,7 +114,7 @@ local CreatePartnerSkillData = function(robotPartnerCfg, charId) --未配技能�
     local unlockSkillGroup = {}
     local mainSkillGroup = robotPartnerCfg.MainSkillGroup
     local mainskill = XPartnerMainSkillGroup.New(robotPartnerCfg.MainSkillGroup)
-    local charElement = XCharacterConfigs.GetCharacterElement(charId)
+    local charElement = XMVCA.XCharacter:GetCharacterElement(charId)
     local mainskillId = mainskill:GetSkillIdByElement(charElement)
 
     local tmpData = {
@@ -176,14 +177,14 @@ function XRobot:UpdateAbility()
 
     --构建机器人技能数据
     local skillData = XFightCharacterManager.GetCharSkillLevelMap(npcData)
-    local skillAbility = XDataCenter.CharacterManager.GetSkillAbility(skillData)
+    local skillAbility = XMVCA.XCharacter:GetSkillAbility(skillData)
 
     --装备共鸣战力
     local resonanceSkillLevel = XFightCharacterManager.GetResonanceSkillLevelMap(npcData)
-    local resonanceSkillAbility = XDataCenter.CharacterManager.GetResonanceSkillAbility(resonanceSkillLevel, skillData)
+    local resonanceSkillAbility = XMVCA.XCharacter:GetResonanceSkillAbility(resonanceSkillLevel, skillData)
 
     --装备技能战力
-    local equipAbility = XDataCenter.EquipManager.GetEquipSkillAbilityOther(self.Character, self.Equips)
+    local equipAbility = XMVCA.XEquip:GetEquipSkillAbilityOther(self.Character, self.Equips)
 
     --伙伴战力
     local partnerAbility =
@@ -266,18 +267,20 @@ function XRobot:GenarateRobotSkillList()
     local characterId = XRobotManager.GetCharacterId(robotId)
     local robotSkillLevel = config.SkillLevel
 
-    local skillDic = XCharacterConfigs.GetChracterSkillPosToGroupIdDic(characterId)
-    for _, skillGroup in pairs(skillDic) do
-        for _, skillGroupId in pairs(skillGroup) do
-            local skillIds = XCharacterConfigs.GetGroupSkillIdsByGroupId(skillGroupId)
+    local skillDic = XMVCA.XCharacter:GetChracterSkillPosToGroupIdDic(characterId)
+    if not XTool.IsTableEmpty(skillDic) then
+        for _, skillGroup in pairs(skillDic) do
+            for _, skillGroupId in pairs(skillGroup) do
+                local skillIds = XMVCA.XCharacter:GetGroupSkillIdsByGroupId(skillGroupId)
 
-            local skillId = skillIds[1]
-            if XTool.IsNumberValid(skillId) and not removeDic[skillId] then
-                local skillInfo = {
-                    Id = skillId,
-                    Level = XCharacterConfigs.ClampSubSkillLeveByLevel(skillId, robotSkillLevel)
-                }
-                tableInsert(skillList, skillInfo)
+                local skillId = skillIds[1]
+                if XTool.IsNumberValid(skillId) and not removeDic[skillId] then
+                    local skillInfo = {
+                        Id = skillId,
+                        Level = XMVCA.XCharacter:ClampSubSkillLeveByLevel(skillId, robotSkillLevel)
+                    }
+                    tableInsert(skillList, skillInfo)
+                end
             end
         end
     end
@@ -295,13 +298,13 @@ function XRobot:GenarateRobotEnhanceSkillList()
     local characterId = XRobotManager.GetCharacterId(robotId)
     local robotEnhanceSkillLevel = config.EnhanceSkillLevel
 
-    local groupIdList = XCharacterConfigs.GetEnhanceSkillConfig(characterId).SkillGroupId
+    local groupIdList = XMVCA.XCharacter:GetEnhanceSkillConfig(characterId).SkillGroupId
     for _, skillGroupId in pairs(groupIdList or {}) do
-        local groupConfig = XCharacterConfigs.GetEnhanceSkillGroupConfig(skillGroupId)
+        local groupConfig = XMVCA.XCharacter:GetEnhanceSkillGroupConfig(skillGroupId)
 
         local skillId = groupConfig.SkillId[1]
         if XTool.IsNumberValid(skillId) and not removeDic[skillId] then
-            local maxLevel = XCharacterConfigs.GetEnhanceSkillMaxLevelBySkillId(skillId)
+            local maxLevel = XMVCA.XCharacter:GetEnhanceSkillMaxLevelBySkillId(skillId)
             local skillInfo = {
                 Id = skillId,
                 Level = math.min(maxLevel,robotEnhanceSkillLevel)
@@ -352,13 +355,13 @@ function XRobot:ConstructResonanceAbilityList()
         local infoList = equip.ResonanceInfo
         if not XTool.IsTableEmpty(infoList) then
             for _, info in pairs(infoList) do
-                if tonumber(info.Type) == tonumber(XEquipConfig.EquipResonanceType.Attrib) then
+                if tonumber(info.Type) == tonumber(XEnumConst.EQUIP.RESONANCE_TYPE.ATTRIB) then
                     local _, attrs = XAttribManager.GetAttribGroupTemplate(info.TemplateId)
                     tableInsert(
                         list,
                         {
                             EquipId = equip.Id,
-                            Site = XDataCenter.EquipManager.GetEquipSiteByEquipData(equip),
+                            Site = XMVCA.XEquip:GetEquipSiteByEquip(equip),
                             Slot = info.Slot,
                             Attr = attrs
                         }
@@ -378,7 +381,7 @@ function XRobot:ConstructAwakenAbilityList()
     for _, equip in pairs(self.Equips) do
         local infoList = equip.AwakeSlotList
         if not XTool.IsTableEmpty(infoList) then
-            local template = XEquipConfig.GetEquipAwakeCfg(equip.TemplateId)
+            local template = XMVCA.XEquip:GetConfigEquipAwake(equip.TemplateId)
             for _, slot in pairs(infoList) do
                 local attribId = template.AttribId[slot]
                 local _, attrs = XAttribManager.GetAttribByAttribId(attribId)
@@ -386,7 +389,7 @@ function XRobot:ConstructAwakenAbilityList()
                     list,
                     {
                         EquipId = equip.Id,
-                        Site = XDataCenter.EquipManager.GetEquipSiteByEquipData(equip),
+                        Site = XMVCA.XEquip:GetEquipSiteByEquip(equip),
                         Slot = slot,
                         Attr = attrs
                     }
@@ -407,6 +410,25 @@ function XRobot:GetSkillLevelDic(forDisplay)
         skillLevelDic[skillData.Id] = skillData.Level
     end
     return skillLevelDic
+end
+
+---机器人单独技能等级
+---于v2.4添加,由于升阶拆分更改了核心被动技能等级robot表又只有一个字段控制所有技能
+---导致个别玩法机器人SS品质配1级技能却没有升阶拆分的技能,因此添加了字段单独配置某个技能的等级供其他玩法使用
+---目前用到:肉鸽1期
+function XRobot:GetAfterSpSkillLevel(skillId)
+    local robotId = self.Id
+    local config = XRobotManager.GetRobotTemplate(robotId)
+    local skillList = config.SpSkillIds
+    local skillLevelList = config.SpSkillLevels
+    if XTool.IsTableEmpty(skillList) or XTool.IsTableEmpty(skillLevelList) then
+        return false
+    end
+    local index = table.indexof(skillList, skillId)
+    if index then
+        return XMVCA.XCharacter:ClampSubSkillLeveByLevel(skillId, skillLevelList[index])
+    end
+    return false
 end
 
 function XRobot:GetPartner()
@@ -452,7 +474,7 @@ function XRobot:GetWeaponViewModel()
         local templateId = nil
         for _, euqipData in pairs(self.Equips) do
             templateId = euqipData.TemplateId
-            if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(templateId, XEquipConfig.Classify.Weapon) then
+            if XMVCA.XEquip:IsClassifyEqualByTemplateId(templateId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
                 self.WeaponViewModel = XWeaponViewModel.New(templateId)
                 self.WeaponViewModel:UpdateWithData(euqipData)
                 break
@@ -468,7 +490,7 @@ function XRobot:GetAwarenessViewModelDic()
         local templateId = nil
         for _, euqipData in pairs(self.Equips) do
             templateId = euqipData.TemplateId
-            if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(templateId, XEquipConfig.Classify.Awareness) then
+            if XMVCA.XEquip:IsClassifyEqualByTemplateId(templateId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
                 self.AwarenessViewModelDic[euqipData.__SlotPos] = XAwarenessViewModel.New(templateId)
                 self.AwarenessViewModelDic[euqipData.__SlotPos]:UpdateWithData(euqipData)
             end

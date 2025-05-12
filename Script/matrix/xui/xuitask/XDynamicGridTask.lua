@@ -1,6 +1,9 @@
-XDynamicGridTask = XClass(nil, "XDynamicGridTask")
+local XUiGridTask = require("XUi/XUiTask/XUiGridTask")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+---@class XDynamicGridTask
+local XDynamicGridTask = XClass(nil, "XDynamicGridTask")
 
-function XDynamicGridTask:Ctor(ui,rootUi,beforeFinishCheckEvent)
+function XDynamicGridTask:Ctor(ui,rootUi,beforeFinishCheckEvent, clickFunc)
     self.GameObject = ui.gameObject
 	self.Transform = ui.transform
 	self.RootUi = rootUi
@@ -10,6 +13,7 @@ function XDynamicGridTask:Ctor(ui,rootUi,beforeFinishCheckEvent)
     self.ImgComplete.gameObject:SetActive(false)
     self.PanelAnimation.gameObject:SetActive(true)
 	self.BeforeFinishCheckEvent = beforeFinishCheckEvent
+    self.ClickFunc = clickFunc  --重写点击道具方法
 end
 
 function XDynamicGridTask:PlayAnimation()
@@ -27,7 +31,6 @@ function XDynamicGridTask:ResetData(data)
         return
     end
     self.GameObject:SetActiveEx(true)
-    self.ImgComplete.gameObject:SetActive(data.State == XDataCenter.TaskManager.TaskState.Finish)
     self.Data = data
 
     if self.PanelAnimationGroup then    -- 先显示
@@ -59,7 +62,8 @@ function XDynamicGridTask:ResetData(data)
             self.TaskReceive.gameObject:SetActive(false)
         end
     end
-
+    self.ImgComplete.gameObject:SetActive(data.State == XDataCenter.TaskManager.TaskState.Finish)
+    
     local config = XDataCenter.TaskManager.GetTaskTemplate(self.Data.Id)
     self.tableData = config
     self.TxtTaskName.text = config.Title
@@ -81,8 +85,8 @@ function XDynamicGridTask:ResetData(data)
     end
 
     for i = 1, #rewards do
-        
         local panel = self.RewardPanelList[i]
+        local reward = rewards[i]
         if not panel then
             if #self.RewardPanelList == 0 then
                 panel = XUiGridCommon.New(self.RootUi, self.GridCommon)
@@ -91,10 +95,34 @@ function XDynamicGridTask:ResetData(data)
                 ui.transform:SetParent(self.GridCommon.parent, false)
                 panel = XUiGridCommon.New(self.RootUi, ui)
             end
+            
             table.insert(self.RewardPanelList, panel)
         end
-        panel:Refresh(rewards[i])
-        
+        panel:Refresh(reward)
+
+        if self.ClickFunc then
+            XUiHelper.RegisterClickEvent(panel, panel.BtnClick, function()
+                self.ClickFunc(reward)
+            end)
+        end
+    end
+
+    self:AprilFoolShowHandle()
+end
+
+function XDynamicGridTask:AprilFoolShowHandle()
+    if not XMVCA.XAprilFoolDay:IsInRandomClawTime() then
+        if self.AprilImgCat and self.AprilImgWolf then
+            self.AprilImgCat.gameObject:SetActiveEx(false)
+            self.AprilImgWolf.gameObject:SetActiveEx(false) 
+        end
+        return
+    end
+
+    if self.AprilImgCat and self.AprilImgWolf then
+        local isShowCatOrWolf = XMVCA.XAprilFoolDay:IsShowCatOrWolf()
+        self.AprilImgCat.gameObject:SetActiveEx(isShowCatOrWolf == XEnumConst.AprilFool.Random2025Type.Cat)
+        self.AprilImgWolf.gameObject:SetActiveEx(isShowCatOrWolf == XEnumConst.AprilFool.Random2025Type.Wolf) 
     end
 end
 
@@ -125,6 +153,7 @@ function XDynamicGridTask:AutoInitUi()
     self.TxtSubTypeTip = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/TxtSubTypeTip", "Text")
     self.ImgComplete = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/ImgComplete", "Image") or XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/ImgComplete", "RawImage")
     self.TaskReceive = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/TaskReceive", nil) -- 一键领取面板
+    self.TxtLock = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/TxtLock", "Text")
 end
 
 function XDynamicGridTask:GetAutoKey(uiNode, eventName)
@@ -146,7 +175,7 @@ function XDynamicGridTask:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -196,14 +225,14 @@ function XDynamicGridTask:OnBtnAllReceiveClick()
         local rewards = XRewardManager.GetRewardList(tableData.RewardId)
         for i = 1, #rewards do
             local rewardsId = rewards[i].TemplateId
-            if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Weapon) then
+            if XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
                 weaponCount = weaponCount + 1
-            elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Awareness) then
+            elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
                 chipCount = chipCount + 1
             end
         end
-        if weaponCount > 0 and XDataCenter.EquipManager.CheckBagCount(weaponCount, XEquipConfig.Classify.Weapon) == false or
-        chipCount > 0 and XDataCenter.EquipManager.CheckBagCount(chipCount, XEquipConfig.Classify.Awareness) == false then
+        if weaponCount > 0 and XMVCA.XEquip:CheckBagCount(weaponCount, XEnumConst.EQUIP.CLASSIFY.WEAPON) == false or
+        chipCount > 0 and XMVCA.XEquip:CheckBagCount(chipCount, XEnumConst.EQUIP.CLASSIFY.AWARENESS) == false then
             return
         end
     end 
@@ -215,11 +244,14 @@ function XDynamicGridTask:OnBtnAllReceiveClick()
         local taskIds = self.Data.AllAchieveTaskDatas
         XDataCenter.TaskManager.FinishMultiTaskRequest(taskIds, function(rewardGoodsList)
             local horizontalNormalizedPosition = 0
-            XUiManager.OpenUiObtain(rewardGoodsList, nil, nil, nil, horizontalNormalizedPosition)
+            self:OpenUiObtain(rewardGoodsList, nil, nil, nil, horizontalNormalizedPosition)
         end)
     end
 end
 
+function XDynamicGridTask:OpenUiObtain(...)
+    XUiManager.OpenUiObtain(...)
+end
 
 function XDynamicGridTask:OnBtnFinishClick()
 	if self.BeforeFinishCheckEvent then
@@ -232,18 +264,23 @@ function XDynamicGridTask:OnBtnFinishClick()
     local rewards = XRewardManager.GetRewardList(self.tableData.RewardId)
     for i = 1, #rewards do
         local rewardsId = self.RewardPanelList[i].TemplateId
-        if XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Weapon) then
+        if XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.WEAPON) then
             weaponCount = weaponCount + 1
-        elseif XDataCenter.EquipManager.IsClassifyEqualByTemplateId(rewardsId, XEquipConfig.Classify.Awareness) then
+        elseif XMVCA.XEquip:IsClassifyEqualByTemplateId(rewardsId, XEnumConst.EQUIP.CLASSIFY.AWARENESS) then
             chipCount = chipCount + 1
         end
     end
-    if weaponCount > 0 and XDataCenter.EquipManager.CheckBagCount(weaponCount, XEquipConfig.Classify.Weapon) == false or
-    chipCount > 0 and XDataCenter.EquipManager.CheckBagCount(chipCount, XEquipConfig.Classify.Awareness) == false then
+    if weaponCount > 0 and XMVCA.XEquip:CheckBagCount(weaponCount, XEnumConst.EQUIP.CLASSIFY.WEAPON) == false or
+    chipCount > 0 and XMVCA.XEquip:CheckBagCount(chipCount, XEnumConst.EQUIP.CLASSIFY.AWARENESS) == false then
         return
     end
     XDataCenter.TaskManager.FinishTask(self.Data.Id, function(rewardGoodsList)
-        XUiManager.OpenUiObtain(rewardGoodsList)
+        for i = 1, #rewards do
+            if rewards[i].RewardType == XRewardManager.XRewardType.Nameplate then
+                return
+            end
+        end
+        self:OpenUiObtain(rewardGoodsList)
     end)
 end
 
@@ -255,10 +292,18 @@ function XDynamicGridTask:OnBtnSkipClick()
             XLuaUiManager.RunMain()
             local skipId = XDataCenter.TaskManager.GetTaskTemplate(self.Data.Id).SkipId
             XFunctionManager.SkipInterface(skipId)
+
+            if self._SkipCb then
+                self._SkipCb()
+            end
         end)
     else
         local skipId = XDataCenter.TaskManager.GetTaskTemplate(self.Data.Id).SkipId
         XFunctionManager.SkipInterface(skipId)
+
+        if self._SkipCb then
+            self._SkipCb()
+        end
     end
 end
 
@@ -267,18 +312,27 @@ function XDynamicGridTask:UpdateProgress(data)
     local config = XDataCenter.TaskManager.GetTaskTemplate(data.Id)
     if #config.Condition < 2 then--显示进度
         self.ImgProgress.transform.parent.gameObject:SetActive(true)
-        self.TxtTaskNumQian.gameObject:SetActive(true)
+        if self.TxtTaskNumQian then
+            self.TxtTaskNumQian.gameObject:SetActive(true)
+        end
         local result = config.Result > 0 and config.Result or 1
         XTool.LoopMap(self.Data.Schedule, function(_, pair)
             self.ImgProgress.fillAmount = pair.Value / result
             pair.Value = (pair.Value >= result) and result or pair.Value
-            self.TxtTaskNumQian.text = pair.Value .. "/" .. result
+            if self.TxtTaskNumQian then
+                self.TxtTaskNumQian.text = pair.Value .. "/" .. result
+            end
         end)
     else
         self.ImgProgress.transform.parent.gameObject:SetActive(false)
-        self.TxtTaskNumQian.gameObject:SetActive(false)
+        if self.TxtTaskNumQian then
+            self.TxtTaskNumQian.gameObject:SetActive(false)
+        end
     end
 
+    if not self:IsHasButton() then
+        return
+    end
     self.BtnFinish.gameObject:SetActive(false)
     self.BtnSkip.gameObject:SetActive(false)
     if self.BtnReceiveHave then
@@ -303,3 +357,31 @@ function XDynamicGridTask:UpdateProgress(data)
         end
     end
 end
+
+function XDynamicGridTask:IsHasButton()
+    return true
+end
+
+function XDynamicGridTask:SetTaskLock(isLock, lockTxt)
+    if not self.TxtLock then
+        return
+    end
+    if isLock then
+        if self.BtnFinish.gameObject.activeSelf then
+            self.BtnFinish.gameObject:SetActiveEx(false)
+        end
+        if self.BtnSkip.gameObject.activeSelf then
+            self.BtnSkip.gameObject:SetActiveEx(false)
+        end
+        self.TxtLock.gameObject:SetActiveEx(true)
+        self.TxtLock.text = lockTxt
+    else
+        self.TxtLock.gameObject:SetActiveEx(false)
+    end
+end
+
+function XDynamicGridTask:SetSkipCallBack(skipCb)
+    self._SkipCb = skipCb
+end
+
+return XDynamicGridTask

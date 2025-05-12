@@ -1,3 +1,5 @@
+local XUiPanelTask = require("XUi/XUiMoneyReward/XUiPanelTask")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiMoneyReward = XLuaUiManager.Register(XLuaUi, "UiMoneyReward")
 
 function XUiMoneyReward:OnAwake()
@@ -290,8 +292,7 @@ function XUiMoneyReward:SetLeftTime()
         local dataTime = XUiHelper.GetTime(0)
         self.TxtCurTime.text = dataTime
         self:RemoveTimer()
-        XLuaUiManager.RunMain() -- 修复赏金任务到时间后会由于循环调用导致卡死问题（海外）
-        --self:Refresh()
+        self:Refresh()
     else
         local dataTime = XUiHelper.GetTime(leftTime)
         self.TxtCurTime.text = dataTime
@@ -309,7 +310,6 @@ function XUiMoneyReward:SetLeftTime()
             local dataTime = XUiHelper.GetTime(0)
             self.TxtCurTime.text = dataTime
             self:RemoveTimer()
-            XLuaUiManager.RunMain() -- 到时间踢回主界面（海外）
         else
             local dataTime = XUiHelper.GetTime(leftTime)
             self.TxtCurTime.text = dataTime

@@ -229,7 +229,7 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetCharaName()
-    return XCharacterConfigs.GetCharacterName(self.RCharaCfg.CharacterId)
+    return XMVCA.XCharacter:GetCharacterName(self.RCharaCfg.CharacterId)
 end
 --[[
 ================
@@ -237,7 +237,7 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetFullName()
-    return XCharacterConfigs.GetCharacterFullNameStr(self.RCharaCfg.CharacterId)
+    return XMVCA.XCharacter:GetCharacterFullNameStr(self.RCharaCfg.CharacterId)
 end
 --[[
 ================
@@ -245,7 +245,7 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetModelName()
-    return XCharacterConfigs.GetCharacterTradeName(self.RCharaCfg.CharacterId)
+    return XMVCA.XCharacter:GetCharacterTradeName(self.RCharaCfg.CharacterId)
 end
 --[[
 ================
@@ -257,7 +257,7 @@ function XRpgTowerCharacter:GetRoleListSkill()
     local skillData = XRobotManager.GetRobotSkillLevelDic(self:GetRobotId(), true)
     self.RoleListSkill = {}
     local removeNo = {
-        [17] = true,
+        [16] = true, -- 普通技能
         [18] = true,
         [21] = true,
         [22] = true,
@@ -281,7 +281,7 @@ function XRpgTowerCharacter:GetRoleListSkill()
         local skillNo = skillId % 100
         skillHead = math.floor(skillId / 100)
         if not removeNo[skillNo] then
-            local skillInfo = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillLevel)
+            local skillInfo = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillLevel)
             local tempData = { Order = skillId, Info = skillInfo}
             table.insert(tempList, tempData)
         end
@@ -292,7 +292,7 @@ function XRpgTowerCharacter:GetRoleListSkill()
     for skillNo, forceAdd in pairs(forceNo) do
         if forceAdd then
             local skillId = skillHead * 100 + skillNo
-            local skillInfo = XCharacterConfigs.GetSkillGradeDesConfig(skillId, 0)
+            local skillInfo = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, 0)
             local tempData = { Order = skillId, Info = skillInfo}
             table.insert(tempList, tempData)
         end
@@ -333,7 +333,7 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetSmallHeadIcon()
-    local fashionId = XCharacterConfigs.GetCharacterTemplate(self.RCharaCfg.CharacterId).DefaultNpcFashtionId
+    local fashionId = XMVCA.XCharacter:GetCharacterTemplate(self.RCharaCfg.CharacterId).DefaultNpcFashtionId
     return XDataCenter.FashionManager.GetFashionSmallHeadIcon(fashionId)
 end
 --[[
@@ -342,7 +342,7 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetBigHeadIcon()
-    local fashionId = XCharacterConfigs.GetCharacterTemplate(self.RCharaCfg.CharacterId).DefaultNpcFashtionId
+    local fashionId = XMVCA.XCharacter:GetCharacterTemplate(self.RCharaCfg.CharacterId).DefaultNpcFashtionId
     return XDataCenter.FashionManager.GetFashionBigHeadIcon(fashionId)
 end
 --[[
@@ -352,14 +352,14 @@ end
 ]]
 function XRpgTowerCharacter:GetJobTypeIcon()
     local jobType = XRobotManager.GetRobotJobType(self.RobotId)
-    return XCharacterConfigs.GetNpcTypeIcon(jobType)
+    return XMVCA.XCharacter:GetNpcTypeIcon(jobType)
 end
 --================
 --获取角色品质图标
 --================
 function XRpgTowerCharacter:GetCharaQualityIcon()
     local cfg = XRobotManager.GetRobotTemplate(self.RobotId)
-    return XCharacterConfigs.GetCharacterQualityIcon(cfg.CharacterQuality)
+    return XMVCA.XCharacter:GetCharacterQualityIcon(cfg.CharacterQuality)
 end
 --================
 --获取角色天赋类型
@@ -379,7 +379,8 @@ end
 --获取角色天赋类型名称
 --================
 function XRpgTowerCharacter:GetCharaTalentTypeName()
-    return XRpgTowerConfig.GetTalentTypeNameById(self.TalentType)
+    -- return XRpgTowerConfig.GetTalentTypeNameById(self.TalentType)
+    return XRpgTowerConfig.GetTalentTypeConfigByCharacterId(self:GetId(), self.TalentType).Name
 end
 --[[
 ================
@@ -493,11 +494,11 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetElements()
-    local detailElementsList = XCharacterConfigs.GetCharDetailTemplate(self:GetCharacterId())
+    local detailElementsList = XMVCA.XCharacter:GetCharacterAllElement(self:GetCharacterId(), true)
     local elements = {}
     if detailElementsList then
-        for i = 1, #detailElementsList.ObtainElementList do
-            local elementConfig = XCharacterConfigs.GetCharElement(detailElementsList.ObtainElementList[i])
+        for i = 1, #detailElementsList do
+            local elementConfig = XMVCA.XCharacter:GetCharElement(detailElementsList[i])
             elements[i] = elementConfig
         end
     end

@@ -70,12 +70,7 @@ function XUiGuildInformation:OnBtnSignSureClick()
             XUiManager.TipMsg(CS.XTextManager.GetText("GuildInformationOverCount", self.wordMaxCount, self.typeText))
             return
         end
-        --if string.match(newContent,"%s") then -- 海外空格合法
-        --    XUiManager.TipText("GuildDeclarationSpecialTips",XUiManager.UiTipType.Wrong)
-        --    return
-        --end
-        if string.match(newContent,"%g") then -- 不能全为空格
-        else
+        if string.match(newContent,"%s") then
             XUiManager.TipText("GuildDeclarationSpecialTips",XUiManager.UiTipType.Wrong)
             return
         end

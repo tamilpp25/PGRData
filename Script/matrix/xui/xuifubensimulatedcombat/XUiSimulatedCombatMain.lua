@@ -1,3 +1,4 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiGridPointReward = require("XUi/XUiFubenSimulatedCombat/ChildItem/XUiGridPointReward")
 local XUiSimulatedCombatChapter = require("XUi/XUiFubenSimulatedCombat/XUiSimulatedCombatChapter")
 local Lerp = CS.UnityEngine.Mathf.Lerp
@@ -50,7 +51,7 @@ function XUiSimulatedCombatMain:OnStart(defaultView, childUiType)
     self.TxtChapterName.text = self.ActTemplate.Name
     
     self:InitUiView()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
     self.AssetActivityPanel:SetQueryFunc(XDataCenter.FubenSimulatedCombatManager.GetCurrencyByItem)
     self.PointRewardGridList = {}
 

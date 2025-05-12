@@ -38,12 +38,14 @@ function XUiTRPGTalenTree:OnStart(roleId, closeCb, showDetailCb, hideDetailCb, s
 end
 
 function XUiTRPGTalenTree:OnEnable()
+
     self:UpdateTalents()
     self:UpdateTalentDetail()
     self:UpdateSwitchBtns()
 end
 
 function XUiTRPGTalenTree:OnDisable()
+
     if self.CloseCb then
         self.CloseCb()
     end
@@ -231,6 +233,8 @@ function XUiTRPGTalenTree:OnClickRimgTalentIcon()
 end
 
 function XUiTRPGTalenTree:ShowUiDetail(roleId, talentId)
+    XDataCenter.UiPcManager.OnUiEnable(self, "HideUiDetail")
+
     self.TalentId = talentId
 
     self:UpdateTalentDetail()
@@ -250,6 +254,8 @@ function XUiTRPGTalenTree:ShowUiDetail(roleId, talentId)
 end
 
 function XUiTRPGTalenTree:HideUiDetail()
+    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
+
     if not self.IsDetailShow then return end
     self.IsDetailShow = nil
 

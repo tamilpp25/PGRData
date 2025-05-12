@@ -1,21 +1,19 @@
 local XRedPointConditionActivityFestival = {}
 
 function XRedPointConditionActivityFestival.Check(sectionId)
+    -- 节日Id是否在开放时间内
     if not XDataCenter.FubenFestivalActivityManager.IsFestivalInActivity(sectionId) then
         return false
     end
-    
+    -- 功能是否开启
     local sectionCfg = XFestivalActivityConfig.GetFestivalById(sectionId)
     if sectionCfg.FunctionOpenId > 0 then
         if not XFunctionManager.JudgeCanOpen(sectionCfg.FunctionOpenId) then
-            return false -- 功能未开启时不显示红点
+            return false
         end
     end
-    
-    if sectionId == XFestivalActivityConfig.ActivityId.WhiteValentine
-            or sectionId == XFestivalActivityConfig.ActivityId.NewYearFuben then
-        local finishCount, totalCount = XDataCenter.FubenFestivalActivityManager.GetFestivalProgress(sectionId)
-        return finishCount < totalCount
+    if XDataCenter.FubenFestivalActivityManager.CheckFestivalRedPoint(sectionId) then
+        return true
     end
 
     return false

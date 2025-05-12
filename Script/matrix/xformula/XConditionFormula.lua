@@ -72,7 +72,15 @@ local XConditionFormula = XClass(XFormula, "XConditionFormula")
 function XConditionFormula:Ctor()
     -- XTableCondition
     self.Config = nil
-    self.Arithmetic = XConditionArithmetic.New()
+    self:ChangeArithmetic(XConditionArithmetic.New())
+end
+
+function XConditionFormula:ChangeArithmetic(arithmetic)
+    if not arithmetic then
+        XLog.Error("设置了空的Arithmetic")
+        return
+    end
+    self.Arithmetic = arithmetic
     self.Arithmetic:SetTextValueHandler(handler(self, self.GetValueByName))
 end
 

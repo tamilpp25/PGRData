@@ -1,4 +1,4 @@
-XUiNewRoomFightControl = XClass(nil, "XUiNewRoomFightControl")
+local XUiNewRoomFightControl = XClass(nil, "XUiNewRoomFightControl")
 
 local WarningLevel = {
         NoWarning = 1, -- 没有警告
@@ -51,7 +51,7 @@ function XUiNewRoomFightControl:UpdateInfo(stageFightControlId, teamAbility, con
         return
     end
     local showAbility = 0
-    local charlist = XDataCenter.CharacterManager.GetCharacterList()
+    local charlist = XMVCA.XCharacter:GetCharacterList()
     local dis
     local recommendFight
     local showFight
@@ -193,3 +193,5 @@ end
 function XUiNewRoomFightControl:OnBtnTishen()
     XLuaUiManager.Open("UiPromotionWay", self.ShowAbility, self.TeamData, self.StageFightControlId, self.StageId)
 end
+
+return XUiNewRoomFightControl

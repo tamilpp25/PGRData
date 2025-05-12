@@ -24,7 +24,7 @@ XArenaOnlineManagerCreator = function()
 
     local InFightChangeCache = false    -- 是否在战斗中缓存
 
-    local sec_of_refresh_time = 7 * 60 * 60
+    local sec_of_refresh_time = 5 * 60 * 60
 
     local SetAreasInfo = function(areas)
         ScetionData = {}
@@ -68,34 +68,6 @@ XArenaOnlineManagerCreator = function()
                     local sortB =  XArenaOnlineConfigs.GetStageSortByStageId(b)
                     return sortA < sortB
                 end)
-        end
-    end
-
-    -- 初始化副本info
-    function XArenaOnlineManager.InitStageInfo()
-        local arenaOnlineCfgs = XArenaOnlineConfigs.GetStages()
-        local arenaOnlineType = XDataCenter.FubenManager.StageType.ArenaOnline
-        for _, cfg in pairs(arenaOnlineCfgs) do
-            for _, id in pairs(cfg.Difficulty) do
-                local levelControl = XFubenConfigs.GetStageMultiplayerLevelControlCfgById(id)
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(levelControl.StageId)
-                if stageInfo then
-                    if stageInfo.Type and stageInfo.Type ~= arenaOnlineType then
-                        XLog.Error(string.format("%s已设置了Type",levelControl.StageId))
-                    end
-                    stageInfo.Type = arenaOnlineType
-                end
-            end
-            for _, id in pairs(cfg.SingleDiff) do
-                local levelControl = XFubenConfigs.GetStageMultiplayerLevelControlCfgById(id)
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(levelControl.StageId)
-                if stageInfo then
-                    if stageInfo.Type and stageInfo.Type ~= arenaOnlineType then
-                        XLog.Error(string.format("%s已设置了Type",levelControl.StageId))
-                    end
-                    stageInfo.Type = arenaOnlineType
-                end
-            end
         end
     end
     
@@ -179,8 +151,6 @@ XArenaOnlineManagerCreator = function()
                 XArenaOnlineManager.HandlerStagePass(v)
             end
         end
-
-        XArenaOnlineManager.InitStageInfo()
     end
 
     -- 获取开启章节
@@ -353,7 +323,7 @@ XArenaOnlineManagerCreator = function()
     function XArenaOnlineManager.CheckActiveBuffOnByCharId(charId)
         local challengeId = XArenaOnlineManager.GetCurChallengeId()
         local buffCfg = XArenaOnlineManager.GetActiveBuffCfgByStageId(challengeId)
-        local minQulity = XCharacterConfigs.GetCharMinQuality(charId)
+        local minQulity = XMVCA.XCharacter:GetCharMinQuality(charId)
         return minQulity <= buffCfg.Quality
     end
 
@@ -764,8 +734,8 @@ XArenaOnlineManagerCreator = function()
 
     -- 战斗结束后判断是否跳到主界面
     function XArenaOnlineManager.JudgeGotoMainWhenFightOver(stageId)
-        local stageInfos = XDataCenter.FubenManager.GetStageInfo(stageId)
-        if not stageInfos or stageInfos.Type ~= XDataCenter.FubenManager.StageType.ArenaOnline then
+        local stageType = XMVCA.XFuben:GetStageType(stageId)
+        if stageType ~= XDataCenter.FubenManager.StageType.ArenaOnline then
             return false
         end
 

@@ -27,11 +27,8 @@ function XUiGridKillZonePluginOperate:Refresh(pluginId)
     self.PanelNormal.gameObject:SetActiveEx(false)
 
     local isLock = XDataCenter.KillZoneManager.IsPluginLock(pluginId)
-    local isUnActive = XDataCenter.KillZoneManager.IsPluginUnActive(pluginId)
     if isLock then
         self:UpdateLock()
-    elseif isUnActive then
-        self:UpdateUnActive()
     else
         self:UpdateNormal()
     end
@@ -75,11 +72,6 @@ function XUiGridKillZonePluginOperate:UpdateLock()
 
     self.TxtLevel.gameObject:SetActiveEx(false)
     self.PanelLock.gameObject:SetActiveEx(true)
-end
-
-function XUiGridKillZonePluginOperate:UpdateUnActive()
-    self.TxtLevel.gameObject:SetActiveEx(true)
-    self.PanelUnAcitve.gameObject:SetActiveEx(true)
 end
 
 function XUiGridKillZonePluginOperate:SetSelect(value)

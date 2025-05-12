@@ -1,3 +1,5 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XPartnerSort = require("XUi/XUiPartner/PartnerCommon/XPartnerSort")
 local TEAM_MEMBER_ORDER = {2, 1, 3} --队伍顺序（蓝，红，黄）
 
 local DEFAULT_SELECT_INDEX = 1 --默认选中辅助机
@@ -26,24 +28,20 @@ end
 --==============================
 function XUiGridPartner:Refresh(partner, carriedDict, idx)
     if not partner then
-    
         return
     end
     
     self.RImgHeadIcon:SetRawImage(partner:GetIcon())
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(partner:GetQuality()))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(partner:GetQuality()))
     self.PanelLv:GetObject("TxtLevel").text = partner:GetLevel()
     self.ImgLock.gameObject:SetActiveEx(partner:GetIsLock())
     self.ImgBreak:SetSprite(partner:GetBreakthroughIcon())
 
-    if idx <= #TEAM_MEMBER_ORDER then
-        local id = partner:GetId()
-        local pos = carriedDict[id]
-        self.ImgIsYellow.gameObject:SetActiveEx(pos == TEAM_MEMBER_ORDER[3])
-        self.ImgIsBlue.gameObject:SetActiveEx(pos == TEAM_MEMBER_ORDER[1])
-        self.ImgIsRed.gameObject:SetActiveEx(pos == TEAM_MEMBER_ORDER[2])
-    end
-    
+    local id = partner:GetId()
+    local pos = carriedDict[id]
+    self.ImgIsYellow.gameObject:SetActiveEx(pos == TEAM_MEMBER_ORDER[3])
+    self.ImgIsBlue.gameObject:SetActiveEx(pos == TEAM_MEMBER_ORDER[1])
+    self.ImgIsRed.gameObject:SetActiveEx(pos == TEAM_MEMBER_ORDER[2])
 end
 
 function XUiGridPartner:SetSelect(isSelect)
@@ -103,11 +101,11 @@ function XUiGridRoleTeam:SetHave(roleId)
         return
     end
     self.ImgIcon.gameObject:SetActiveEx(true)
-    local character = XDataCenter.CharacterManager.GetCharacter(roleId)
+    local character = XMVCA.XCharacter:GetCharacter(roleId)
     if not character then return end
 
-    self.ImgIcon:SetRawImage(XDataCenter.CharacterManager.GetCharBigHeadIcon(roleId))
-    self.ImgQuality:SetSprite(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+    self.ImgIcon:SetRawImage(XMVCA.XCharacter:GetCharBigHeadIcon(roleId))
+    self.ImgQuality:SetSprite(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
 
     local hasPartner = XTool.IsNumberValid(self.PartnerId)
     self.RImgPartnerIcon.gameObject:SetActiveEx(hasPartner)
@@ -397,6 +395,7 @@ end
  ---@desc 刷新辅助机属性
  ---@partner 辅助机实体 @class XPartner
 --==============================
+---@param partner XPartner
 function XUiPartnerPreset:RefreshProperty(partner)
     if not partner then
         return
@@ -404,7 +403,7 @@ function XUiPartnerPreset:RefreshProperty(partner)
     local partnerId = partner:GetId()
     
     self.RImgPartnerIcon:SetRawImage(partner:GetIcon())
-    self.RawImageQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(partner:GetQuality()))
+    self.RawImageQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(partner:GetQuality()))
     self.TxtPartnerName.text = partner:GetName()
     self.TxtPartnerLevel.text = partner:GetLevel()
     self.TxtSelectAbil.text = partner:GetAbility()
@@ -452,6 +451,21 @@ function XUiPartnerPreset:RefreshProperty(partner)
         grid:Refresh(passiveSkills[idx], partner, skillCount < idx, XPartnerConfigs.SkillType.PassiveSkill, idx + 1, self.PartnerPrefab)
     end
     --endregion
+
+    --region 辅助机 -> 异界装备
+    local partnerType = partner:GetPartnerType()
+    if partnerType == XPartnerConfigs.PartnerType.Link then
+        if self.TxtNameType and self.TxtNameTypeLink then
+            self.TxtNameType.gameObject:SetActiveEx(false)
+            self.TxtNameTypeLink.gameObject:SetActiveEx(true)
+        end
+    else
+        if self.TxtNameType and self.TxtNameTypeLink then
+            self.TxtNameType.gameObject:SetActiveEx(true)
+            self.TxtNameTypeLink.gameObject:SetActiveEx(false)
+        end
+    end
+    --endregion 辅助机 -> 异界装备
 end
 
 --endregion

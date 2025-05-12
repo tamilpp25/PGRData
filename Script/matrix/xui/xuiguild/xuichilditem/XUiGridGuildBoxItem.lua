@@ -1,4 +1,4 @@
-XUiGridGuildBoxItem = XClass(nil, "XUiGridGuildBoxItem")
+local XUiGridGuildBoxItem = XClass(nil, "XUiGridGuildBoxItem")
 
 function XUiGridGuildBoxItem:Ctor(ui, rootUi)
     self.GameObject = ui.gameObject
@@ -82,20 +82,19 @@ function XUiGridGuildBoxItem:OnBtnActiveClick()
         XUiManager.TipMsg(CS.XTextManager.GetText("GuildGiftMaxLevel"))
         return
     end
-
+    local rewardId = XDataCenter.GuildManager.GetGuildGiftRewardId(self.GiftTemplate.Id)
     if giftContribute < giftData.GiftContribute then
-        XUiManager.OpenUiTipRewardByRewardId(self.GiftTemplate.GiftReward, CS.XTextManager.GetText("DailyActiveRewardTitle"))
+        XUiManager.OpenUiTipRewardByRewardId(rewardId, CS.XTextManager.GetText("DailyActiveRewardTitle"))
         return
     end
 
     -- 已领取：活显示奖励
     if giftLevelGots[self.GiftTemplate.GiftLevel] then
-        XUiManager.OpenUiTipRewardByRewardId(self.GiftTemplate.GiftReward, CS.XTextManager.GetText("DailyActiveRewardTitle"))
+        XUiManager.OpenUiTipRewardByRewardId(rewardId, CS.XTextManager.GetText("DailyActiveRewardTitle"))
         return
     end
     
-    XDataCenter.GuildManager.GuildGetGift(self.GiftTemplate.GiftLevel, function()
-    end)
+    XDataCenter.GuildManager.GuildGetGift()
 
 end
 

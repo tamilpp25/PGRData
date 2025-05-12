@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 
 local XUiSSBMonsterRewardGrid = XClass(nil, "XUiSSBMonsterRewardGrid")
 

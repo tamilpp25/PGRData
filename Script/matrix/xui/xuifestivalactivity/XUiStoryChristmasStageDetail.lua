@@ -1,3 +1,4 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
 local XUiStoryChristmasStageDetail = XLuaUiManager.Register(XLuaUi, "UiStoryChristmasStageDetail")
 
 function XUiStoryChristmasStageDetail:OnAwake()
@@ -28,12 +29,13 @@ function XUiStoryChristmasStageDetail:OnBtnEnterClick()
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
     if not stageCfg or not stageInfo then return end
 
+    local beginStoryId = XMVCA.XFuben:GetBeginStoryId(self.StageId)
     if stageInfo.Passed then
-        self:PlayStoryId(stageCfg.BeginStoryId, self.StageId)
+        self:PlayStoryId(beginStoryId, self.StageId)
     else
         XDataCenter.FubenFestivalActivityManager.FinishStoryRequest(self.StageId, function()
             XDataCenter.FubenFestivalActivityManager.RefreshStagePassedBySettleDatas({ StageId = self.StageId })
-            self:PlayStoryId(stageCfg.BeginStoryId, self.StageId)
+            self:PlayStoryId(beginStoryId, self.StageId)
         end)
     end
 end
@@ -46,9 +48,7 @@ end
 
 function XUiStoryChristmasStageDetail:CloseDetailWithAnimation()
     self:PlayAnimation("AnimDisableEnd", function()
-        if self.UiProxy ~= nil then
-            self:Close()
-        end
+        self:Close()
     end)
 end
 

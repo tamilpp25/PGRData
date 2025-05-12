@@ -7,6 +7,7 @@ function XEquipLevelUpConsume:Ctor()
     self.SelectCount = 0 --已选择数量
     self.AddExp = 0 --提供经验值
     self.CostMoney = 0 --消耗货币（被吃掉时）
+    self.CanAutoSelect = true --是否可以被自动选取
 end
 
 --以道具类型初始化
@@ -16,17 +17,19 @@ function XEquipLevelUpConsume:InitItem(itemId)
     self.TemplateId = itemId
     self.AddExp = XDataCenter.ItemManager.GetItemsAddEquipExp(itemId)
     self.CostMoney = XDataCenter.ItemManager.GetItemsAddEquipCost(itemId)
+    self.CanAutoSelect = true
 end
 
 --以装备类型初始化
-function XEquipLevelUpConsume:InitEquip(equipId)
+function XEquipLevelUpConsume:InitEquip(equipId, canAutoSelect)
     self.Type = 1
     self.Id = equipId
-    self.TemplateId = XDataCenter.EquipManager.GetEquipTemplateId(equipId)
-    self.AddExp = XDataCenter.EquipManager.GetEquipAddExp(equipId)
+    self.TemplateId = XMVCA.XEquip:GetEquipTemplateId(equipId)
+    self.AddExp = XMVCA.XEquip:GetEquipAddExp(equipId)
 
-    local equipCfg = XEquipConfig.GetEquipCfg(self.TemplateId)
-    self.CostMoney = XEquipConfig.GetEatEquipCostMoney(equipCfg.Site, equipCfg.Star)
+    local equipCfg = XMVCA.XEquip:GetConfigEquip(self.TemplateId)
+    self.CostMoney = XMVCA.XEquip:GetEatEquipCostMoney(equipCfg.Site, equipCfg.Star)
+    self.CanAutoSelect = canAutoSelect == true
 end
 
 function XEquipLevelUpConsume:IsItem()
@@ -42,7 +45,7 @@ function XEquipLevelUpConsume:GetQuality()
     if self:IsItem() then
         return XDataCenter.ItemManager.GetItemQuality(self.TemplateId)
     else
-        return XDataCenter.EquipManager.GetEquipQuality(self.TemplateId)
+        return XMVCA.XEquip:GetEquipQuality(self.TemplateId)
     end
 end
 
@@ -51,7 +54,7 @@ function XEquipLevelUpConsume:GetStar()
     if self:IsItem() then
         return 0
     else
-        return XDataCenter.EquipManager.GetEquipStar(self.TemplateId)
+        return XMVCA.XEquip:GetEquipStar(self.TemplateId)
     end
 end
 
@@ -60,7 +63,7 @@ function XEquipLevelUpConsume:GetLevel()
     if self:IsItem() then
         return 0
     else
-        return XDataCenter.EquipManager.GetEquipLevel(self.Id)
+        return XMVCA.XEquip:GetEquipLevel(self.Id)
     end
 end
 
@@ -69,7 +72,7 @@ function XEquipLevelUpConsume:GetPriority()
     if self:IsItem() then
         return XDataCenter.ItemManager.GetItemPriority(self.TemplateId)
     else
-        return XDataCenter.EquipManager.GetEquipPriority(self.TemplateId)
+        return XMVCA.XEquip:GetEquipPriority(self.TemplateId)
     end
 end
 
@@ -83,7 +86,7 @@ function XEquipLevelUpConsume:GetCount()
 end
 
 function XEquipLevelUpConsume:CheckSelectCount()
-    return self:GetCount() >= self.SelectCount
+    return self:GetCount() > self.SelectCount
 end
 
 --获取剩余数量（总数量 - 已选择数量）

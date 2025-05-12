@@ -22,48 +22,47 @@ local MyRankInfo
 local MyRank
 local TotalRankMemberCount
 local GetRankFlag
-local GetMyRankFlag
+--local GetMyRankFlag
 --=============
 --初始化管理器
 --=============
 function XSmashBRankingManager.Init()
-    RankingList = nil
+    RankingList = {}
     MyRankInfo = {}
-    MyRank = 0
+    MyRank = {}
     TotalRankMemberCount = 0
-    GetRankFlag = false
-    GetMyRankFlag = false
+    GetRankFlag = {}
+    --GetMyRankFlag = false
 end
 --=============
 --刷新后台推送排行榜数据
 --=============
-function XSmashBRankingManager.RefreshRankingData(rankData)
+function XSmashBRankingManager.RefreshRankingData(career, rankData)
     local data = rankData.Rank
-    if data.Id ~= XDataCenter.SuperSmashBrosManager.GetActivityId() then return end
-    RankingList = data.RankPlayer
-    MyRankInfo = {}
-    MyRank = rankData.Ranking
+    RankingList[career] = data.RankPlayer
+    MyRankInfo[career] = {}
+    MyRank[career] = rankData.Ranking
     TotalRankMemberCount = rankData.MemberCount
-    for ranking, info in pairs(RankingList or {}) do
+    for ranking, info in pairs(RankingList[career] or {}) do
         if info.PlayerId == XPlayer.Id then
-            MyRankInfo = info
+            MyRankInfo[career] = info
         end
     end
 end
 --=============
 --获取排行榜数据
 --=============
-function XSmashBRankingManager.GetRankingList(cb)
-    if not GetRankFlag then
-        XDataCenter.SuperSmashBrosManager.GetRankingInfo(function()
-                GetRankFlag = true
-                XSmashBRankingManager.GetRankingList(cb)
+function XSmashBRankingManager.GetRankingList(career, cb)
+    if not GetRankFlag[career] then
+        XDataCenter.SuperSmashBrosManager.GetRankingInfo(career, function()
+                GetRankFlag[career] = true
+                XSmashBRankingManager.GetRankingList(career, cb)
             end)
         return
     end
-    GetRankFlag = false
+    GetRankFlag[career] = false
     if cb then
-        cb(RankingList)
+        cb(RankingList[career])
     end
 end
 --=============
@@ -77,36 +76,38 @@ end
 --=============
 --获取自己的排位队伍第一个成员的图标
 --=============
-function XSmashBRankingManager.GetRankingCaptainIcon()
-    local charaId = MyRankInfo.CharacterIdList and MyRankInfo.CharacterIdList[1].Id
+function XSmashBRankingManager.GetRankingCaptainIcon(career)
+    local charaId = MyRankInfo and MyRankInfo[career] and MyRankInfo[career].CharacterIdList and MyRankInfo[career].CharacterIdList[1].Id
     local chara = XDataCenter.SuperSmashBrosManager.GetRoleById(charaId)
     return chara and chara:GetBigHeadIcon()
 end
 --=============
 --获取玩家自己的排位(缓存在本地的，之前需要先跟后端获取)
 --=============
-function XSmashBRankingManager.GetMyRank()
-    if not MyRank or MyRank == 0 then return 0 end
-    if MyRank <= 100 then return MyRank end
-    local percent = MyRank / TotalRankMemberCount
+function XSmashBRankingManager.GetMyRank(career)
+    local myRank = MyRank[career] or 0
+    if not myRank or myRank == 0 then return 0 end
+    if myRank <= 100 then return myRank end
+    local percent = myRank / TotalRankMemberCount
     local result = math.ceil(percent * 100)
     return string.format("%d%s", (result > 99 and 99 or result), "%")
 end
 --=============
 --跟后端获取玩家自己的排位
+-- -------------------- abandon ----------------
 --=============
-function XSmashBRankingManager.GetMyRankByNet(cb)
-    if not GetMyRankFlag then
-        XDataCenter.SuperSmashBrosManager.GetRankingInfo(function()
-                GetMyRankFlag = true
-                XSmashBRankingManager.GetMyRankByNet(cb)
-            end)
-        return
-    end
-    GetMyRankFlag = false
-    if cb then
-        cb(XSmashBRankingManager.GetMyRank())
-    end
-end
+--function XSmashBRankingManager.GetMyRankByNet(cb)
+--    if not GetMyRankFlag then
+--        XDataCenter.SuperSmashBrosManager.GetRankingInfo(function()
+--                GetMyRankFlag = true
+--                XSmashBRankingManager.GetMyRankByNet(cb)
+--            end)
+--        return
+--    end
+--    GetMyRankFlag = false
+--    if cb then
+--        cb(XSmashBRankingManager.GetMyRank())
+--    end
+--end
 
 return XSmashBRankingManager

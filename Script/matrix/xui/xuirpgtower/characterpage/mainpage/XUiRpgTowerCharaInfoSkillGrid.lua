@@ -26,7 +26,9 @@ function XUiRpgTowerCharaInfoSkillGrid:RefreshSkill(skillInfo)
     else
         self.BtnSkill:SetButtonState(self.SkillInfo.Level > 0 and CS.UiButtonState.Normal or CS.UiButtonState.Disable)
         self.TxtActivated.gameObject:SetActiveEx(self.SkillInfo.Level > 0)
-        self.TxtInactive.gameObject:SetActiveEx(self.SkillInfo.Level == 0)
+        -- self.TxtInactive.gameObject:SetActiveEx(self.SkillInfo.Level == 0)
+        self.TxtLock.gameObject:SetActiveEx(self.SkillInfo.Level == 0)
+        self.TxtLockLv.text = XRpgTowerConfig.GetSkillUnLockLevelBySkillId(self.SkillInfo.SkillId)
         self.TxtLevel.gameObject:SetActiveEx(false)
     end
 end

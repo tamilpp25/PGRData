@@ -4,15 +4,39 @@ local tableInsert = table.insert
 
 XFubenShortStoryChapterConfigs = {}
 
+local TABLE_SHORT_STORY_ACTIVITY = "Share/Fuben/ShortStory/ShortStoryActivity.tab"
 local TABLE_SHORT_STORY_CHAPTER = "Share/Fuben/ShortStory/ShortStoryChapter.tab"
 local TABLE_SHORT_STORY_CHAPTER_DETAILS = "Share/Fuben/ShortStory/ShortStoryDetails.tab"
 local TABLE_SHORT_STORY_CHAPTER_STAR_TREASURE = "Share/Fuben/ShortStory/ShortStoryStarTreasure.tab"
 local TABLE_SHORT_STORY_EXPLORE_GROUP = "Client/Fuben/ShortStory/ShortStoryExploreGroup.tab"
+local TABLE_SHORT_STORY_NEXT_CHAPTER = "Client/Fuben/ShortStory/ShortStoryNextChapter.tab"
 
+local ShortStoryActivityCfg = {}
 local ShortStoryChapterCfg = {}
+---@type table<number,XTableShortStoryDetails> key:章节Id value:章节详情
 local ShortStoryChapterDetailsCfg = {}
 local ShortStoryChapterStarTreasureCfg = {}
 local ShortStoryExploreGroupCfg = {}
+local ShortStoryNextChapterCfg = {}
+
+-- 是否已经初始化章节详情
+local IsInitChapterDetails = false
+-- 关卡Id到章节Id的映射表
+---@type table<number,number> key:关卡Id value:章节Id
+local ShortStoryStageIdToChapterId = {}
+-- 所有的章节Id
+---@type number[]
+local AllChapterIds = {}
+
+local function GetShortStoryActivity(id)
+    local config = ShortStoryActivityCfg[id]
+    if not config then
+        XLog.Error("XFubenShortStoryChapterConfigs GetShortStoryActivity error:配置不存在, id:" ..
+                id .. ",path: " .. TABLE_SHORT_STORY_ACTIVITY)
+        return
+    end
+    return config
+end
 
 local function GetShortStoryChapter(id)
     local config = ShortStoryChapterCfg[id]
@@ -24,6 +48,7 @@ local function GetShortStoryChapter(id)
     return config
 end
 
+---@return XTableShortStoryDetails
 local function GetChapterDetails(chapterId)
     local config = ShortStoryChapterDetailsCfg[chapterId]
     if not config then
@@ -55,26 +80,21 @@ local function GetExploreGroups(groupId)
 end
 
 function XFubenShortStoryChapterConfigs.Init()
+    ShortStoryActivityCfg = XTableManager.ReadByIntKey(TABLE_SHORT_STORY_ACTIVITY, XTable.XTableShortStoryActivity, "Id")
     ShortStoryChapterCfg = XTableManager.ReadByIntKey(TABLE_SHORT_STORY_CHAPTER,XTable.XTableShortStory,"Id")
     ShortStoryChapterDetailsCfg = XTableManager.ReadByIntKey(TABLE_SHORT_STORY_CHAPTER_DETAILS,XTable.XTableShortStoryDetails,"ChapterId")
     ShortStoryChapterStarTreasureCfg = XTableManager.ReadByIntKey(TABLE_SHORT_STORY_CHAPTER_STAR_TREASURE,XTable.XTableShortStoryStarTreasure,"TreasureId")
     ShortStoryExploreGroupCfg = XTableManager.ReadByIntKey(TABLE_SHORT_STORY_EXPLORE_GROUP,XTable.XTableShortStoryExploreGroup,"Id")
+    ShortStoryNextChapterCfg = XTableManager.ReadByIntKey(TABLE_SHORT_STORY_NEXT_CHAPTER,XTable.XTableShortStoryNextChapter,"ChapterId")
 end
 
-function XFubenShortStoryChapterConfigs.UpdateChapterData()
-    for _,chapter in pairs(ShortStoryChapterCfg) do
-        for difficult,chapterId in pairs(chapter.ChapterId) do
-            local chapterDetail = GetChapterDetails(chapterId)
-            for k, v in ipairs(chapterDetail.StageId) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(v)
-                stageInfo.Type = XDataCenter.FubenManager.StageType.ShortStory
-                stageInfo.OrderId = k
-                stageInfo.ChapterId = chapterDetail.ChapterId
-                stageInfo.Difficult = difficult
-            end
-        end
-    end
+------------------------------------------ShortStoryActivity.tab Start--------------------------------------------------
+---@return XTableShortStoryActivity
+function XFubenShortStoryChapterConfigs.GetShortStoryActivity(id)
+    local config = GetShortStoryActivity(id)
+    return config
 end
+------------------------------------------ShortStoryActivity.tab End----------------------------------------------------
 ------------------------------------------ShortStoryChapter.tab Start---------------------------------------------------
 function XFubenShortStoryChapterConfigs.GetShortStoryChapterIds(id)
     local chapterIds = {}
@@ -150,20 +170,29 @@ function XFubenShortStoryChapterConfigs.GetChapterTextColorList(id)
 end
 ------------------------------------------ShortStoryChapter.tab End-----------------------------------------------------
 ------------------------------------------ShortStoryDetails.tab Start---------------------------------------------------
-function XFubenShortStoryChapterConfigs.GetChapterIdsByChapterDetails()
-    local chapterIds = {}
-    for _,chapterDetail in pairs(ShortStoryChapterDetailsCfg) do
+function XFubenShortStoryChapterConfigs.InitChapterDetails()
+    if IsInitChapterDetails then
+        return
+    end
+    for _, chapterDetail in pairs(ShortStoryChapterDetailsCfg) do
+        for _, stageId in pairs(chapterDetail.StageId) do
+            ShortStoryStageIdToChapterId[stageId] = chapterDetail.ChapterId
+        end
         if XTool.IsNumberValid(chapterDetail.ChapterId) then
-            tableInsert(chapterIds,chapterDetail.ChapterId)
+            tableInsert(AllChapterIds, chapterDetail.ChapterId)
         end
     end
-    return chapterIds
+    IsInitChapterDetails = true
 end
 
-function XFubenShortStoryChapterConfigs.GetChapterOrderIdByStageId(stageId)
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-    local config = GetChapterDetails(stageInfo.ChapterId)
-    return config.OrderId
+function XFubenShortStoryChapterConfigs.GetShortStoryChapterIdByStageId(stageId)
+    XFubenShortStoryChapterConfigs.InitChapterDetails()
+    return ShortStoryStageIdToChapterId[stageId] or 0
+end
+
+function XFubenShortStoryChapterConfigs.GetChapterIdsByChapterDetails()
+    XFubenShortStoryChapterConfigs.InitChapterDetails()
+    return AllChapterIds or {}
 end
 
 function XFubenShortStoryChapterConfigs.GetChapterOrderIdByChapterId(chapterId)
@@ -174,6 +203,11 @@ end
 function XFubenShortStoryChapterConfigs.GetStageTitleByChapterId(chapterId)
     local config = GetChapterDetails(chapterId)
     return config.StageTitle
+end
+
+function XFubenShortStoryChapterConfigs.GetStageTitleByStageId(stageId)
+    local chapterId = XFubenShortStoryChapterConfigs.GetShortStoryChapterIdByStageId(stageId)
+    return XFubenShortStoryChapterConfigs.GetStageTitleByChapterId(chapterId)
 end
 
 function XFubenShortStoryChapterConfigs.GetStageIdByChapterId(chapterId)
@@ -260,4 +294,8 @@ function XFubenShortStoryChapterConfigs.GetExploreGroupInfoByGroupId(groupId)
     return preShowIndexs
 end
 ------------------------------------------ShortStoryExploreGroup.tab End------------------------------------------------
-return XFubenShortStoryChapterConfigs
+
+function XFubenShortStoryChapterConfigs.GetNextChapterCfgByChapterId(chapterId)
+    local config = ShortStoryNextChapterCfg[chapterId]
+    return config
+end

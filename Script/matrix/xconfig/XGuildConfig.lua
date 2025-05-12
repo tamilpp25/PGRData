@@ -3,7 +3,9 @@ XGuildConfig = XGuildConfig or {}
 local CLIENT_GUILD_WELFARE = "Client/Guild/GuildWelfare.tab"
 local CLIENT_GUILD_CHALLENGE = "Client/Guild/GuildChallengeDetails.tab"
 local CLIENT_GUILD_TALENTDETAIL = "Client/Guild/GuildTalentDetails.tab"
+local CLIENT_GUILD_TALENTDETAILTEXT = "Client/Guild/GuildTalentDetailsText.tab"
 local CLIENT_GUILD_WELCOME = "Client/Guild/GuildWelcome.tab"
+
 
 local SHARE_GUILD_LEVEL = "Share/Guild/GuildLevel.tab"
 local SHARE_GUILD_POSITION = "Share/Guild/GuildPosition.tab"
@@ -14,13 +16,20 @@ local SHARE_GUILD_PRESENT = "Share/Guild/GuildPresent.tab"
 local SHARE_GUILD_TALENT = "Share/Guild/GuildTalent.tab"
 local SHARE_GUILD_CUSTOMNAME = "Share/Guild/GuildCustomName.tab"
 local SHARE_GUILD_CREATE = "Share/Guild/GuildCreate.tab"
+local SHARE_GUILD_GOODS = "Share/Guild/GuildGoods.tab"
+local SHARE_GUILD_SIGN = "Share/GuildSign/GuildSign.tab"
+local SHARE_GUILD_SIGN_EVENT = "Share/GuildSign/GuildSignEvent.tab"
+
 
 -- 心愿发布
 local SHARE_GUILD_TRUSTITEM = "Share/Trust/CharacterTrustItem.tab"
 
 local GuildWelfare = {}
 local GuildChallenge = {}
+---@type XTableGuildTalentDetails[]
 local GuildTalentDetails = {}
+---@type XTableGuildTalentDetailsText[]
+local GuildTalentDetailsText = {}
 
 local GuildCreate = {}
 local GuildLevel = {}
@@ -37,7 +46,9 @@ local GuildPresentTemplate = {}
 local GuildTalentTemplate = {}
 local GuildWelcomeTemplate = {}
 local GuildCustomNameTemplate = {}
-
+local GuildSignTemplate = {}
+local GuildSignEventTemplate = {}
+local GuildGoods = {}
 local SortedTalentPoint = {}
 
 XGuildConfig.KEY_LAST_LEVEL = "KeyGuildLastLevel"
@@ -61,7 +72,6 @@ XGuildConfig.RecommendRefresh = CS.XGame.Config:GetInt("GuildPlayerRecommendRefr
 XGuildConfig.GuildChatCacheCount = CS.XGame.ClientConfig:GetInt("GuildChatCacheCount")
 
 XGuildConfig.LikeItemId = CS.XGame.Config:GetInt("GuildLikedItemId")                        --点赞道具
-XGuildConfig.AddPopularity = CS.XGame.Config:GetInt("GuildAddPopularity")                   --点赞一次增加的人气数
 XGuildConfig.GloryPointsPerLevel = CS.XGame.Config:GetInt("GuildGloryPointsPerLevel")       --荣耀等级每一级所需天赋点数
 XGuildConfig.GuildGloryMaxLevel = CS.XGame.Config:GetInt("GuildGloryMaxLevel")              --最高荣耀等级
 
@@ -155,6 +165,14 @@ XGuildConfig.GUildRankIcon = {
     [XGuildConfig.GuildRankLevel.Tourist] = CS.XGame.ClientConfig:GetString("GuildRankIcon5"),
 }
 
+XGuildConfig.GuildRankName = {
+    [XGuildConfig.GuildRankLevel.Leader] = CS.XGame.ClientConfig:GetString("GuildRankName1"),
+    [XGuildConfig.GuildRankLevel.CoLeader] = CS.XGame.ClientConfig:GetString("GuildRankName2"),
+    [XGuildConfig.GuildRankLevel.Elder] = CS.XGame.ClientConfig:GetString("GuildRankName3"),
+    [XGuildConfig.GuildRankLevel.Member] = CS.XGame.ClientConfig:GetString("GuildRankName4"),
+    [XGuildConfig.GuildRankLevel.Tourist] = CS.XGame.ClientConfig:GetString("GuildRankName5"),
+}
+
 XGuildConfig.GuildChallengeEnter = {
     GuildTask = 1,
     GuildPet = 2,
@@ -176,6 +194,7 @@ XGuildConfig.GuildEventType = {
     MemberChanged = 12,--value = 最新人数
     Recruit = 13,--是否有公会邀请
     FreeChangeName = 14, -- 公会被强制改名，获得免费改名机会（仅会长收到）
+    GoodsCoin = 15, --工会货币改变
     GuildBossHpBox = 20, --有公会boss血量奖励可以领取
     GuildBossScoreBox = 21, --公会boss积分奖励可以领取
     GuildBossWeeklyTask = 22, --工会boss周长任务
@@ -193,6 +212,28 @@ XGuildConfig.GuildSortName = {
     [XGuildConfig.GuildSortType.SortByRankLevel] = CS.XTextManager.GetText("GuildSortByRankLevel"),
 }
 
+
+XGuildConfig.GuildMemberSortType = {
+    --默认排序
+    SortByDefault = 1,
+    --近期贡献
+    SortByContributeAct = 2,
+    --历史贡献
+    SortByContributeHistory = 3,
+    --上次登录
+    SortByLastLoginTime = 4,
+    --职级
+    SortByRankLevel = 5,
+}
+
+XGuildConfig.GoodsType = {
+    -- 场景
+    Scene = 1,
+    -- 背景音乐
+    Bgm = 2
+    -- 小游戏
+}
+
 --请求推荐数据时间间隔
 XGuildConfig.GuildRequestRecommandTime = CS.XGame.ClientConfig:GetInt("GuildReqRecommandCdTime")
 --请求收到的招募数据时间间隔
@@ -205,10 +246,14 @@ XGuildConfig.GuildRequestVistorTime = 0
 XGuildConfig.RankTopListCount = 5
 XGuildConfig.RankBottomPageCount = 6
 
+--公会专属货币
+XGuildConfig.GoodsCoinId = 62723
+
 function XGuildConfig.Init()
     GuildWelfare = XTableManager.ReadByIntKey(CLIENT_GUILD_WELFARE, XTable.XTableGuildWelfare, "Id")
     GuildChallenge = XTableManager.ReadByIntKey(CLIENT_GUILD_CHALLENGE, XTable.XTableGuildChallengeDetails, "Id")
     GuildTalentDetails = XTableManager.ReadByIntKey(CLIENT_GUILD_TALENTDETAIL, XTable.XTableGuildTalentDetails, "Id")
+    GuildTalentDetailsText = XTableManager.ReadByIntKey(CLIENT_GUILD_TALENTDETAILTEXT, XTable.XTableGuildTalentDetailsText, "Id")
 
     GuildLevel = XTableManager.ReadByIntKey(SHARE_GUILD_LEVEL, XTable.XTableGuildLevel, "Level")
     GuildPosition = XTableManager.ReadByIntKey(SHARE_GUILD_POSITION, XTable.XTableGuildPosition, "Id")
@@ -219,9 +264,15 @@ function XGuildConfig.Init()
     GuildTalentTemplate = XTableManager.ReadByIntKey(SHARE_GUILD_TALENT, XTable.XTableGuildTalent, "Id")
     GuildPresentTemplate = XTableManager.ReadByIntKey(SHARE_GUILD_PRESENT, XTable.XTableGuildPresent, "Id")
     GuildCreate = XTableManager.ReadByIntKey(SHARE_GUILD_CREATE, XTable.XTableGuildCreate, "Id")
+    GuildSignTemplate = XTableManager.ReadByIntKey(SHARE_GUILD_SIGN, XTable.XTableGuildSign, "Id")
+    GuildSignEventTemplate = XTableManager.ReadByIntKey(SHARE_GUILD_SIGN_EVENT, XTable.XTableGuildSignEvent, "Id")
+    
+    GuildGoods = XTableManager.ReadByIntKey(SHARE_GUILD_GOODS, XTable.XTableGuildGoods, "Id")
+    
 
     XGuildConfig.InitGuildGift()
     XGuildConfig.InitGuildTalent()
+    XGuildConfig.InitMemberSortFunc()
 end
 
 function XGuildConfig.InitGuildGift()
@@ -430,6 +481,22 @@ function XGuildConfig.GetTrustCharacterIds()
     return GuildTrustCharacterIdsList
 end
 
+function XGuildConfig.GetGuildSignById(id)
+    if not GuildSignTemplate[id] then
+        XLog.ErrorTableDataNotFound("XGuildConfig.GetGuildSignById", "GuildSign", SHARE_GUILD_SIGN, "Id", tostring(id))
+        return
+    end
+    return GuildSignTemplate[id]
+end
+
+function XGuildConfig.GetGuildSignEventById(id)
+    if not GuildSignEventTemplate[id] then
+        XLog.ErrorTableDataNotFound("XGuildConfig.GetGuildSignEventById", "GuildSignEvent", SHARE_GUILD_SIGN_EVENT, "Id", tostring(id))
+        return
+    end
+    return GuildSignEventTemplate[id]
+end
+
 -- 送礼
 function XGuildConfig.GetGuildPresentById(id)
     if not GuildPresentTemplate[id] then
@@ -452,12 +519,33 @@ function XGuildConfig.GetGuildTalentById(id)
     return GuildTalentTemplate[id]
 end
 
+function XGuildConfig.GetGuildTalentsByLevel(level)
+    local tmp = {}
+    for _, temp in pairs(GuildTalentTemplate or {}) do
+        if temp.GuildLevel == level then
+            table.insert(tmp, temp)
+        end
+    end
+    return tmp
+end
+
 function XGuildConfig.GetGuildTalentConfigById(id)
     if not GuildTalentDetails[id] then
         XLog.ErrorTableDataNotFound("XGuildConfig.GetGuildTalentConfigById", "GuildTalentDetails", CLIENT_GUILD_TALENTDETAIL, "Id", tostring(id))
         return
     end
     return GuildTalentDetails[id]
+end
+
+function XGuildConfig.GetGuildTalentText(id)
+    if not XTool.IsNumberValid(id) then
+        return ""
+    end
+    if not GuildTalentDetailsText[id] then
+        XLog.ErrorTableDataNotFound("XGuildConfig.GetGuildTalentText", "GuildTalentDetailsText", CLIENT_GUILD_TALENTDETAILTEXT, "Id", tostring(id))
+        return ""
+    end
+    return GuildTalentDetailsText[id].Text or ""
 end
 
 function XGuildConfig.InitGuildTalent()
@@ -501,4 +589,317 @@ function XGuildConfig.GetCustomNameTemplate()
     end
     return GuildCustomNameTemplate
 end
+
+--region   ------------------MemberSort start-------------------
+local MemberSortFunc = {}
+function XGuildConfig.InitMemberSortFunc()
+
+    --是否在线排序
+    local sortByOnlineFlag = function(memberA, memberB, isAscendOrder)
+        local flagA = memberA.OnlineFlag
+        local flagB = memberB.OnlineFlag
+        if flagA ~= flagB then
+            if isAscendOrder then
+                return true, flagA < flagB
+            end
+            return true, flagA > flagB
+        end
+        return false
+    end
+
+    --职权等级排序
+    local sortByRankLevel = function(memberA, memberB, isAscendOrder)
+        local rankLevelA = memberA.RankLevel
+        local rankLevelB = memberB.RankLevel
+        if rankLevelA ~= rankLevelB then
+            if isAscendOrder then
+                return true, rankLevelA > rankLevelB
+            end
+            return true, rankLevelA < rankLevelB
+        end
+        return false
+    end
+
+    --近期贡献排序
+    local sortByContributeAct = function(memberA, memberB, isAscendOrder)
+        local contributeActA = memberA.ContributeAct
+        local contributeActB = memberB.ContributeAct
+        if contributeActA ~= contributeActB then
+            if isAscendOrder then
+                return true, contributeActA < contributeActB
+            end
+            return true, contributeActA > contributeActB
+        end
+        return false
+    end
+
+    --历史贡献排序
+    local sortByContributeHistory = function(memberA, memberB, isAscendOrder)
+        local contributeHistoryA = memberA.ContributeHistory
+        local contributeHistoryB = memberB.ContributeHistory
+        if contributeHistoryA ~= contributeHistoryB then
+            if isAscendOrder then
+                return true, contributeHistoryA < contributeHistoryB
+            end
+            return true, contributeHistoryA > contributeHistoryB
+        end
+        return false
+    end
+
+    --成员等级排序
+    local sortByMemberLevel = function(memberA, memberB, isAscendOrder)
+        local levelA = memberA.Level
+        local levelB = memberB.Level
+        if levelA ~= levelB then
+            if isAscendOrder then
+                return true, levelA < levelB
+            end
+            return true, levelA > levelB
+        end
+        return false
+    end
+
+    --上次登录时间排序
+    local sortByLastLoginTime = function(memberA, memberB, isAscendOrder)
+        local lastLoginTimeA = memberA.LastLoginTime
+        local lastLoginTimeB = memberB.LastLoginTime
+        if lastLoginTimeA ~= lastLoginTimeB then
+            if isAscendOrder then
+                return true, lastLoginTimeA < lastLoginTimeB
+            end
+            return true, lastLoginTimeA > lastLoginTimeB
+        end
+        return false
+    end
+
+    MemberSortFunc[XGuildConfig.GuildMemberSortType.SortByDefault] = function(memberA, memberB, isAscendOrder)
+        local sorted, sortResult
+        sorted, sortResult = sortByOnlineFlag(memberA, memberB, false)
+        if sorted then
+            return sortResult
+        end
+
+        sorted, sortResult = sortByRankLevel(memberA, memberB, true)
+        if sorted then
+            return sortResult
+        end
+
+        sorted, sortResult = sortByContributeAct(memberA, memberB, false)
+        if sorted then
+            return sortResult
+        end
+
+        sorted, sortResult = sortByMemberLevel(memberA, memberB, false)
+        if sorted then
+            return sortResult
+        end
+
+        return memberA.Id < memberB.Id
+    end
+
+    MemberSortFunc[XGuildConfig.GuildMemberSortType.SortByContributeAct] = function(memberA, memberB, isAscendOrder)
+        local sorted, sortResult
+        sorted, sortResult = sortByOnlineFlag(memberA, memberB, false)
+        if sorted then
+            return sortResult
+        end
+
+        sorted, sortResult = sortByContributeAct(memberA, memberB, isAscendOrder)
+        if sorted then
+            return sortResult
+        end
+
+        return memberA.Id < memberB.Id
+    end
+
+    MemberSortFunc[XGuildConfig.GuildMemberSortType.SortByContributeHistory] = function(memberA, memberB, isAscendOrder)
+        local sorted, sortResult
+        sorted, sortResult = sortByOnlineFlag(memberA, memberB, false)
+        if sorted then
+            return sortResult
+        end
+
+        sorted, sortResult = sortByContributeHistory(memberA, memberB, isAscendOrder)
+        if sorted then
+            return sortResult
+        end
+
+        return memberA.Id < memberB.Id
+    end
+
+    MemberSortFunc[XGuildConfig.GuildMemberSortType.SortByLastLoginTime] = function(memberA, memberB, isAscendOrder)
+        local sorted, sortResult
+        sorted, sortResult = sortByOnlineFlag(memberA, memberB, false)
+        if sorted then
+            return sortResult
+        end
+
+        sorted, sortResult = sortByLastLoginTime(memberA, memberB, isAscendOrder)
+        if sorted then
+            return sortResult
+        end
+
+        return memberA.Id < memberB.Id
+    end
+    
+    MemberSortFunc[XGuildConfig.GuildMemberSortType.SortByRankLevel] = function(memberA, memberB, isAscendOrder)
+        local sorted, sortResult
+        sorted, sortResult = sortByOnlineFlag(memberA, memberB, false)
+        if sorted then
+            return sortResult
+        end
+        sorted, sortResult = sortByRankLevel(memberA, memberB, isAscendOrder)
+        if sorted then
+            return sortResult
+        end
+        return memberA.Id < memberB.Id
+    end
+end
+
+function XGuildConfig.DoMemberSort(memberList, sortType, isAscendOrder)
+    memberList = memberList or {}
+    sortType = sortType or XGuildConfig.GuildMemberSortType.SortByDefault
+    table.sort(memberList, function(memberA, memberB) 
+        return MemberSortFunc[sortType](memberA, memberB, isAscendOrder)
+    end)
+    
+    return memberList
+end
+--endregion------------------MemberSort finish------------------
+
+--region   ------------------GuildGoods start-------------------
+
+function XGuildConfig.GetGoodsConfig(templateId)
+    if not XTool.IsNumberValid(templateId) then
+        XLog.Error("XGuildConfig.GetGoodsConfig 获取公会物品错误, templateId = ", templateId)
+        return {}
+    end
+    local cfg = GuildGoods[templateId]
+    if not cfg then
+        XLog.Error("XGuildConfig.GetGoodsConfig 获取公会物品错误, templateId = ", templateId)
+        return {}
+    end
+    return cfg
+end
+
+function XGuildConfig.GetGoodsName(templateId)
+    local cfg = XGuildConfig.GetGoodsConfig(templateId)
+    return cfg and cfg.Name or ""
+end
+
+function XGuildConfig.GetGoodsIcon(templateId)
+    local cfg = XGuildConfig.GetGoodsConfig(templateId)
+    if XTool.IsTableEmpty(cfg) then
+        return
+    end
+    local goodsType = cfg.Type
+    if goodsType == XGuildConfig.GoodsType.Scene then
+        local tmp = XGuildDormConfig.GetThemeCfgById(cfg.TargetId)
+        return tmp and tmp.Image
+    elseif goodsType == XGuildConfig.GoodsType.Bgm then
+        local tmp = XGuildDormConfig.GetBgmCfgById(cfg.TargetId)
+        return tmp and tmp.Image
+    end
+end
+
+function XGuildConfig.GetGoodsBigIcon(templateId)
+    local cfg = XGuildConfig.GetGoodsConfig(templateId)
+    if XTool.IsTableEmpty(cfg) then
+        return
+    end
+    local goodsType = cfg.Type
+    if goodsType == XGuildConfig.GoodsType.Scene then
+        local tmp = XGuildDormConfig.GetThemeCfgById(cfg.TargetId)
+        return tmp and (tmp.BigImage and tmp.BigImage or tmp.Image) or ""
+    elseif goodsType == XGuildConfig.GoodsType.Bgm then
+        local tmp = XGuildDormConfig.GetBgmCfgById(cfg.TargetId)
+        return tmp and tmp.Image
+    end
+end
+
+function XGuildConfig.GetGoodsType(templateId)
+    local cfg = XGuildConfig.GetGoodsConfig(templateId)
+    return cfg and cfg.Type
+end
+
+function XGuildConfig.GetThemeLabels(templateId)
+    local cfg = XGuildConfig.GetGoodsConfig(templateId)
+    if not cfg then
+        return {}
+    end
+    local themeCfg = XGuildDormConfig.GetThemeCfgById(cfg.TargetId)
+    return themeCfg and themeCfg.Labels or {}
+end
+
+function XGuildConfig.GetGoodsTargetId(templateId)
+    local cfg = XGuildConfig.GetGoodsConfig(templateId)
+    if not cfg then
+        return 0
+    end
+    return cfg and cfg.TargetId or 0
+end
+--endregion------------------GuildGoods finish------------------
+
+function XGuildConfig.RefreshSetView(btnQuit, btnJob, btnApply, btnRename, btnReport)
+    local level = XDataCenter.GuildManager.GetCurRankLevel()
+    local showBtnCount = 0
+
+    --职责权限
+    local AuthorityLevel = {
+        TopLevel = 1,
+        SecLevel = 2,
+        NorLevel = 3
+    }
+    --职位对应权限
+    local RankLevel2AuthorityLevel = {
+        [XGuildConfig.GuildRankLevel.Leader] = AuthorityLevel.TopLevel,
+        [XGuildConfig.GuildRankLevel.CoLeader] = AuthorityLevel.SecLevel,
+        [XGuildConfig.GuildRankLevel.Elder] = AuthorityLevel.NorLevel,
+        [XGuildConfig.GuildRankLevel.Member] = AuthorityLevel.NorLevel,
+        [XGuildConfig.GuildRankLevel.Tourist] = AuthorityLevel.NorLevel,
+        [XGuildConfig.GuildRankLevel.Nothing] = AuthorityLevel.NorLevel,
+    }
+    local authority = RankLevel2AuthorityLevel[level] or AuthorityLevel.NorLevel
+    if not XTool.UObjIsNil(btnQuit) then
+        local show = authority <= AuthorityLevel.NorLevel
+        if show then
+            showBtnCount = showBtnCount + 1
+        end
+        btnQuit.gameObject:SetActiveEx(show)
+    end
+
+    if not XTool.UObjIsNil(btnJob) then
+        local show = authority <= AuthorityLevel.SecLevel
+        if show then
+            showBtnCount = showBtnCount + 1
+        end
+        btnJob.gameObject:SetActiveEx(show)
+    end
+
+    if not XTool.UObjIsNil(btnApply) then
+        local show = authority <= AuthorityLevel.SecLevel
+        if show then
+            showBtnCount = showBtnCount + 1
+        end
+        btnApply.gameObject:SetActiveEx(show)
+    end
+
+    if not XTool.UObjIsNil(btnRename) then
+        local show = authority == AuthorityLevel.TopLevel
+        if show then
+            showBtnCount = showBtnCount + 1
+        end
+        btnRename.gameObject:SetActiveEx(show)
+    end
+
+    if not XTool.UObjIsNil(btnReport) then
+        local show = authority <= AuthorityLevel.NorLevel
+        if show then
+            showBtnCount = showBtnCount + 1
+        end
+        btnReport.gameObject:SetActiveEx(show)
+    end
+    return showBtnCount
+end
+
 

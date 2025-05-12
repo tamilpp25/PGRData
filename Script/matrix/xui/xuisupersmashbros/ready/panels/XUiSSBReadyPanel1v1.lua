@@ -19,6 +19,7 @@ end
 function XUiSSBReadyPanel1v1:InitBtns()
     self.BtnNextFight.CallBack = function() self:OnClickBtnNextFight() end
     self.BtnReFight.CallBack = function() self:OnClickBtnReFight() end
+    self.BtnRecord.CallBack = function() self:OnClickBtnRecord() end
 end
 
 function XUiSSBReadyPanel1v1:InitInfos()
@@ -52,6 +53,11 @@ function XUiSSBReadyPanel1v1:Refresh()
     if self.Mode:GetIsLinearStage() then
         self.TxtTimeNumber.text = XUiHelper.GetTime(self.Mode:GetSpendTime(), XUiHelper.TimeFormatType.DEFAULT)
         self.TxtProgressNumber.text = self.Mode:GetLineProgress()
+    end
+    if self.Mode:IsShowRecordBtn() then
+        self.BtnRecord.gameObject:SetActiveEx(true)
+    else
+        self.BtnRecord.gameObject:SetActiveEx(false)
     end
 end
 
@@ -125,6 +131,10 @@ function XUiSSBReadyPanel1v1:OnClickBtnReFight()
     local isAssist = false
     local challengeCount = 1
     XDataCenter.FubenManager.EnterFight(stageConfig, nil, isAssist, challengeCount)
+end
+
+function XUiSSBReadyPanel1v1:OnClickBtnRecord()
+    XLuaUiManager.Open("UiSuperSmashBrosVictoryList")
 end
 
 return XUiSSBReadyPanel1v1

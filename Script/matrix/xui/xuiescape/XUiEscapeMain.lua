@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiEscapeChapterGrid = require("XUi/XUiEscape/XUiEscapeChapterGrid")
 local INTERVAL_GRID_COUNT_SET_BG = 3    --间隔多少个格子增加背景图
 

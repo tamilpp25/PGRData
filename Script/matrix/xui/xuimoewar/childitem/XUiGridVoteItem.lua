@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridVoteItem = XClass(nil, "XUiGridVoteItem")
 local toString = tostring
 local toNumber = tonumber

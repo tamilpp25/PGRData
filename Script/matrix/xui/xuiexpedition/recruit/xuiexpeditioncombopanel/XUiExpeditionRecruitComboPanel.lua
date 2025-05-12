@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 --虚像地平线招募界面：组合羁绊列表控件
 local XUiExpeditionRecruitComboPanel = XClass(nil, "XUiExpeditionRecruitComboPanel")
 local XUiExpeditionComboGrid = require("XUi/XUiExpedition/Recruit/XUiExpeditionComboPanel/XUiExpeditionComboGrid")

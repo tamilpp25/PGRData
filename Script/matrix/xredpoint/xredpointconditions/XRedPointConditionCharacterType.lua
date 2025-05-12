@@ -11,7 +11,7 @@ function XRedPointConditionCharacterType.GetSubConditions()
 end
 
 function XRedPointConditionCharacterType.Check(type)
-    local characterList = XDataCenter.CharacterManager.GetCharacterList()
+    local characterList = XMVCA.XCharacter:GetCharacterList()
     if not characterList then
         return false
     end
@@ -21,11 +21,11 @@ function XRedPointConditionCharacterType.Check(type)
 
     for i = 1, count do
         local character = characterList[i]
-        if XRedPointConditionCharacter.Check(character.Id) then
-            if type == XCharacterConfigs.CharacterType.Normal and (not XCharacterConfigs.IsIsomer(character.Id)) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHARACTER, character.Id) then
+            if type == XEnumConst.CHARACTER.CharacterType.Normal and (not XMVCA.XCharacter:GetIsIsomer(character.Id)) then
                 isEnough = true
                 break
-            elseif type == XCharacterConfigs.CharacterType.Isomer and XCharacterConfigs.IsIsomer(character.Id) then
+            elseif type == XEnumConst.CHARACTER.CharacterType.Isomer and XMVCA.XCharacter:GetIsIsomer(character.Id) then
                 isEnough = true
                 break
             end

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiDormBgm = XClass(nil, "XUiDormBgm")
 local XUiDormBgmGrid = require("XUi/XUiDormSecond/XUiDormBgmGrid")
 

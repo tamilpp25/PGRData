@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local tableInsert = table.insert
 
 local XUiFubenActivityPuzzlePasswordRewardPanel = XClass(nil, "XUiFubenActivityPuzzlePasswordRewardPanel")

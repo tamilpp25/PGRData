@@ -1,4 +1,4 @@
-XUiGridMedal = XClass(nil, "XUiGridMedal")
+local XUiGridMedal = XClass(nil, "XUiGridMedal")
 
 function XUiGridMedal:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -50,3 +50,5 @@ end
 function XUiGridMedal:ShowRedPoint(bShow)
     self.Red.gameObject:SetActiveEx(bShow)
 end
+
+return XUiGridMedal

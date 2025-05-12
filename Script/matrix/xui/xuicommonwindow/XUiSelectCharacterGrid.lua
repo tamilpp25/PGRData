@@ -1,11 +1,6 @@
 --选择角色页面中角色列表Gird组件
 local XUiSelectCharacterGrid = XClass(nil, "XUiSelectCharacterGrid")
 
-UiCharacterGridType = {
-    Normal = 1, --我拥有的角色
-    Try = 2, --试玩角色(robot)
-}
-
 function XUiSelectCharacterGrid:Ctor(ui)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
@@ -39,20 +34,19 @@ function XUiSelectCharacterGrid:Reset()
 end
 
 function XUiSelectCharacterGrid:UpdateNormalInfo()
-    local characterData = XDataCenter.CharacterManager.GetCharacter(self.Data.Id)
+    local characterData = XMVCA.XCharacter:GetCharacter(self.Data.Id)
     self.Data.CharacterData = characterData
     self.TxtLevel.text = characterData.Level
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(characterData.Quality))
-    self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterData.Id))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(characterData.Quality))
+    self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(characterData.Id))
     self.TxtFight.text = characterData.Ability
 
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterData.Id)
-    local elementList = detailConfig.ObtainElementList
+    local elementList = XMVCA.XCharacter:GetCharacterAllElement(characterData.Id, true)
     for i = 1, 3 do
         local rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActiveEx(true)
-            local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
             rImg:SetRawImage(elementConfig.Icon)
         else
             rImg.gameObject:SetActiveEx(false)
@@ -81,16 +75,15 @@ function XUiSelectCharacterGrid:UpdateTryInfo()
     local robotTemplate = XRobotManager.GetRobotTemplate(self.Data.Id)
     self.Data.RobotData = robotTemplate
     self.TxtLevel.text = robotTemplate.CharacterLevel
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(robotTemplate.CharacterQuality))
-    self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(robotTemplate.CharacterId, true))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(robotTemplate.CharacterQuality))
+    self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(robotTemplate.CharacterId, true))
 
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(robotTemplate.CharacterId)
-    local elementList = detailConfig.ObtainElementList
+    local elementList = XMVCA.XCharacter:GetCharacterAllElement(robotTemplate.CharacterId, true)
     for i = 1, 3 do
         local rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActiveEx(true)
-            local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
             rImg:SetRawImage(elementConfig.Icon)
         else
             rImg.gameObject:SetActiveEx(false)

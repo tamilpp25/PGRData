@@ -1,3 +1,4 @@
+local XUiTabBtnGroup = require("XUi/XUiBase/XUiTabBtnGroup")
 local XUiHostelDelegate = XUiManager.Register("UiHostelDelegate")
 local table_insert = table.insert
 -- auto
@@ -58,7 +59,7 @@ function XUiHostelDelegate:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 

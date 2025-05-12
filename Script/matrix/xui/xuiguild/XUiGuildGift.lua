@@ -1,3 +1,4 @@
+local XUiButtonLongClick = require("XUi/XUiCommon/XUiButtonLongClick")
 local XUiGuildGift = XLuaUiManager.Register(XLuaUi, "UiGuildGift")
 local XUiGridGuildPresentItem = require("XUi/XUiGuild/XUiChildItem/XUiGridGuildPresentItem")
 
@@ -107,7 +108,7 @@ function XUiGuildGift:SetPanelNumVisable(bool)
 end
 
 function XUiGuildGift:OnBtnAddSelectClick()
-    if self.SelectCount >= self:GetGridCount() then
+    if self.SelectCount <= 0 or self.SelectCount >= self:GetGridCount() then
         return
     end
     if IsLockBtnAdd then
@@ -118,7 +119,7 @@ function XUiGuildGift:OnBtnAddSelectClick()
 end
 
 function XUiGuildGift:OnBtnMinusSelectClick()
-    if self.SelectCount <= 1 then
+    if self.SelectCount <= 0 then
         return
     end
     self:SetSelectCount(self.SelectCount - 1)
@@ -239,4 +240,12 @@ end
 function XUiGuildGift:GetGridCount()
     if not self.LastSelectGrid then return end
     return self.LastSelectGrid.Gift.ItemCount
+end
+
+function XUiGuildGift:OnEnable()
+
+end
+
+function XUiGuildGift:OnDisable()
+
 end

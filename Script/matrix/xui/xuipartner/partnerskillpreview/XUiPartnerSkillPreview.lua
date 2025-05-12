@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPartnerSkillPreview = XLuaUiManager.Register(XLuaUi, "UiPartnerSkillPreview")
 local XUiGridSkillDesc = require("XUi/XUiPartner/PartnerSkillPreview/XUiGridSkillDesc")
 local XPartnerMainSkillGroup = require("XEntity/XPartner/XPartnerMainSkillGroup")
@@ -17,10 +18,11 @@ end
 
 function XUiPartnerSkillPreview:OnEnable()
     self:UpdateSkillOptionBtnGroup()
+
 end
 
 function XUiPartnerSkillPreview:OnDisable()
-   
+
 end
 
 function XUiPartnerSkillPreview:InitBtnGroup()
@@ -89,7 +91,7 @@ function XUiPartnerSkillPreview:UpdateElementBtnGroup()
                 btn = obj:GetComponent("XUiButton")
                 self.BtnElementList[index] = btn
             end
-            local elementConfig = XCharacterConfigs.GetCharElement(element)
+            local elementConfig = XMVCA.XCharacter:GetCharElement(element)
             btn:SetName(elementConfig.ElementName)
             btn:SetRawImage(elementConfig.Icon2)
         end

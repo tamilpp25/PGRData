@@ -1,5 +1,9 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 ---@class XUiGuildWarEntryButton
 local XUiGuildWarEntryButton = XClass(nil, "XUiGuildWarEntryButton")
+
+--最大显示奖励数
+local MaxRewardShow = 2
 
 function XUiGuildWarEntryButton:Ctor(ui, onClickCb)
     XTool.InitUiObjectByUi(self, ui)
@@ -43,22 +47,28 @@ function XUiGuildWarEntryButton:StopEntryBtnListener()
 end
 
 function XUiGuildWarEntryButton:Refresh()
+    -- 不在活动中, 隐藏按钮
     if not XDataCenter.GuildWarManager.CheckActivityIsInTime() then
         self:StopEntryBtnListener()
-        self.Transform.parent.gameObject:SetActiveEx(false)
+        --self.Transform.parent.gameObject:SetActiveEx(false)
+        self.Transform.gameObject:SetActiveEx(false)
         return
     end
     local stateText = ""
     local isInRound = XDataCenter.GuildWarManager.CheckRoundIsInTime()
+    -- 在当前轮次,显示活动开启中
     if isInRound then
         stateText = XUiHelper.GetText("GuildWarIsOpening")
         self:ShowOpenTag(true)
         self:ShowCloseTag(false)
         self:StopEntryBtnListener()
+
     else
+        -- 不在当前轮次, 显示到下一轮的时间
         self:ShowOpenTag(false)
         self:ShowCloseTag(true)
         local nextRoundStartTime = XDataCenter.GuildWarManager.GetNextRoundTime()
+        -- 没有下一轮, 显示活动关闭
         if not nextRoundStartTime then
             stateText = XUiHelper.GetText("GuildWarClose")
         else
@@ -79,7 +89,8 @@ end
 function XUiGuildWarEntryButton:OnShow()
     local guildWarEntryShow = self:CheckGuildWarCanEnter()
     if guildWarEntryShow then
-        self.Transform.parent.gameObject:SetActiveEx(true)
+        --self.Transform.parent.gameObject:SetActiveEx(true)
+        self.Transform.gameObject:SetActiveEx(true)
         self:StartEntryBtnListener()
         self.BtnGuildWarEntry:SetNameByGroup(2, XDataCenter.GuildWarManager.GetName())
         --self.BtnGuildWarEntry:ShowReddot(XDataCenter.GuildWarManager.CheckTaskAchieved())
@@ -89,7 +100,10 @@ function XUiGuildWarEntryButton:OnShow()
             if rewardId then
                 local rewards = XRewardManager.GetRewardList(rewardId)
                 if rewards then
-                    for i, item in pairs(rewards) do
+                    for i, item in ipairs(rewards) do
+                        if i > MaxRewardShow then
+                            break
+                        end
                         local ui = XUiHelper.Instantiate(self.GridReward ,self.RewardList)
                         local grid = XUiGridCommon.New(ui)
                         grid:Refresh(item)
@@ -100,7 +114,8 @@ function XUiGuildWarEntryButton:OnShow()
             self.InitRewards = true
         end
     else
-        self.Transform.parent.gameObject:SetActiveEx(false)
+        --self.Transform.parent.gameObject:SetActiveEx(false)
+        self.Transform.gameObject:SetActiveEx(false)
     end
 end
 

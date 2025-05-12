@@ -1,3 +1,8 @@
+local XUiPanelLeaveMsg = require("XUi/XUiPersonalInfo/PanelBoard/LeaveMsg/XUiPanelLeaveMsg")
+local XUiPanelLeaveMsgItem = require("XUi/XUiPersonalInfo/PanelBoard/LeaveMsg/XUiPanelLeaveMsgItem")
+local XUiPanelMsgBoard = require("XUi/XUiPersonalInfo/PanelBoard/MsgBoard/XUiPanelMsgBoard")
+local XUiPanelMsgBoardItem = require("XUi/XUiPersonalInfo/PanelBoard/MsgBoard/XUiPanelMsgBoardItem")
+local XUiPanelWriteDiary = require("XUi/XUiPersonalInfo/PanelBoard/MsgBoard/XUiPanelWriteDiary")
 XPersonalInfoManagerCreator = function()
 
     local XPersonalInfoManager = {}

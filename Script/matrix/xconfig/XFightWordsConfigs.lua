@@ -6,7 +6,7 @@ local WordsTemplates
 local function InitWordsTemplate(id)
 	if not WordsTemplates then
 		WordsTemplates = {}
-		local wordsArray = XTableManager.ReadArray(TABLE_MOVIE_PATH_PREFIX, XTable.XTableFightWords)
+		local wordsArray = XTableManager.ReadAllByIntKey(TABLE_MOVIE_PATH_PREFIX, XTable.XTableFightWords)
 		for i = 1, #wordsArray do
 			local group = wordsArray[i]["Group"]
 			if not WordsTemplates[group] then

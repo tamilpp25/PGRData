@@ -92,7 +92,7 @@ function XUiDormVisitGridItem:OnRefresh(itemData)
     self.TxtTotalCount.text = itemData.FurnitureScore
     self.TxtFurnitureCount.text = itemData.FurnitureCount or 0
 
-    XUiPLayerHead.InitPortrait(itemData.PlayerHead, itemData.PlayerHeadFrame, self.Head)
+    XUiPlayerHead.InitPortrait(itemData.PlayerHead, itemData.PlayerHeadFrame, self.Head)
 
     if itemData.IsOnline then
         self.TxtOnline.text = self.TextOnline

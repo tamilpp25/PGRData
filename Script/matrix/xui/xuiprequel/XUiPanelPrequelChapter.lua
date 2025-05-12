@@ -1,6 +1,6 @@
 local XUiGridStage = require("XUi/XUiFubenMainLineChapter/XUiGridStage")
 
-XUiPanelPrequelChapter = XClass(nil, "XUiPanelPrequelChapter")
+local XUiPanelPrequelChapter = XClass(nil, "XUiPanelPrequelChapter")
 
 function XUiPanelPrequelChapter:Ctor(ui, rootUi)
     self.GameObject = ui.gameObject

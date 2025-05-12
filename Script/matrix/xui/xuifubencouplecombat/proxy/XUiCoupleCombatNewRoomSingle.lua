@@ -85,6 +85,16 @@ function XUiCoupleCombatNewRoomSingle.HandleCharClick(newRoomSingle, charPos)
     end, XDataCenter.FubenManager.StageType.CoupleCombat, characterLimitType, {RobotIdList = robotIdList, StageId = stageId, LimitBuffId = limitBuffId, NotReset = true})
 end
 
+function XUiCoupleCombatNewRoomSingle.HandlePartnerClick(newRoomSingle, charPos)
+    local teamData = XTool.Clone(newRoomSingle.CurTeam.TeamData)
+    local entityId = teamData[charPos]
+    if XEntityHelper.GetIsRobot(entityId) then
+        XUiManager.TipErrorWithKey("RobotParnerTips")
+        return
+    end
+    XDataCenter.PartnerManager.GoPartnerCarry(entityId, false)
+end
+
 function XUiCoupleCombatNewRoomSingle.UpdateFeatureInfo(newRoomSingle, MAX_CHAR_COUNT)
     local teamData = newRoomSingle.CurTeam.TeamData
     local matchDic, featureFullList = XDataCenter.FubenCoupleCombatManager.GetFeatureMatch(newRoomSingle.CurrentStageId, teamData)
@@ -142,17 +152,11 @@ end
 
 -- 设置提示文本
 function XUiCoupleCombatNewRoomSingle.RefreshCharacterTypeTips(newRoomSingleUi)
-    -- 混编时文本
     local characterLimitType = newRoomSingleUi:GetCharacterLimitType()
     local characterTypeList = newRoomSingleUi:GetCurTeamCharacterTypeList()
     local text = XFubenConfigs.GetStageMixCharacterLimitTips(characterLimitType, characterTypeList)
     newRoomSingleUi.TxtCharacterLimit.text = text
-    -- 非混编文本
-    if #characterTypeList < 2 or (#characterTypeList == 2 and characterTypeList[1] == characterTypeList[2]) then
-        newRoomSingleUi.PanelCharacterLimit.gameObject:SetActiveEx(false)
-    else
-        newRoomSingleUi.PanelCharacterLimit.gameObject:SetActiveEx(true)
-    end
+    newRoomSingleUi.PanelCharacterLimit.gameObject:SetActiveEx(true)
 end
 
 return XUiCoupleCombatNewRoomSingle

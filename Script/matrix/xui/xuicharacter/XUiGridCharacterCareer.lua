@@ -1,3 +1,4 @@
+local XUiGridCharacter = require("XUi/XUiCharacter/XUiGridCharacter")
 local XUiGridCharacterCareer = XClass(nil, "XUiGridCharacterCareer")
 
 function XUiGridCharacterCareer:Ctor(ui)
@@ -7,13 +8,13 @@ function XUiGridCharacterCareer:Ctor(ui)
 end
 
 function XUiGridCharacterCareer:Refresh(careerId)
-    local name = XCharacterConfigs.GetCareerName(careerId)
+    local name = XMVCA.XCharacter:GetCareerName(careerId)
     self.TxtTypeName.text = name
 
-    local des = XCharacterConfigs.GetCareerDes(careerId)
+    local des = XMVCA.XCharacter:GetCareerDes(careerId)
     self.TxtTypeDes.text = des
 
-    local icon = XCharacterConfigs.GetNpcTypeIcon(careerId)
+    local icon = XMVCA.XCharacter:GetNpcTypeIcon(careerId)
     self.RImgCareerType:SetRawImage(icon)
 end
 

@@ -22,9 +22,9 @@ end
 
 --是否处于不健康状态
 function XDoomsdayAttribute:IsBad()
-    if self._Type == XDoomsdayConfigs.ATTRUBUTE_TYPE.SAN then
-        return false
-    end
+    --if self._Type == XDoomsdayConfigs.ATTRUBUTE_TYPE.SAN then
+    --    return false
+    --end
     return self._Value <= self._Threshold
 end
 

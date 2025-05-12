@@ -2,8 +2,9 @@ XAutoWindowManagerCreator = function()
     local XAutoWindowManager = {}
 
     local AutoWindowList = {}               -- 当前自动弹窗列表
-    local AutoWindowIndex = 0               -- 当前自动弹出索引
-    local IsFirstOpenAutoWindow = true      -- 是否第一次打开自动弹窗
+    local PassedWindowDic = {}              -- 已显示过的弹窗列表
+    local CurWindow = nil                 -- 当前展示弹窗
+    local IsFirstOpenAutoWindow = true      -- 是否第一次打开自动弹窗，打开过一次后标记为false
 
     local SetPlayerPrefs = function(key, count)
         local needSave = false
@@ -44,16 +45,6 @@ XAutoWindowManagerCreator = function()
         elseif autoType == XAutoWindowConfigs.AutoType.Period then
             local key = XPrefs.AutoWindowPeriod .. tostring(XPlayer.Id) .. openTime .. configId
             needSave = SetPlayerPrefs(key, count)
-        elseif autoType == XAutoWindowConfigs.AutoType.EachDayOffset then
-            local key = ""
-            local dayZero = dateTime.Date:ToTimestamp()
-            if dateTime.Hour < 7 then
-                key = XPrefs.AutoWindowEach .. tostring(XPlayer.Id) .. (dayZero - 86400) .. configId
-            else
-                key = XPrefs.AutoWindowEach .. tostring(XPlayer.Id) .. (dayZero) .. configId
-            end
-            needSave = SetPlayerPrefs(key, count)
-            return needSave
         end
 
         if needSave then
@@ -65,26 +56,46 @@ XAutoWindowManagerCreator = function()
 
     -- 开始自动弹窗
     function XAutoWindowManager.StartAutoWindow(justSignIn)
-        if AutoWindowIndex <= 0 then
-            AutoWindowList = {}
-        elseif AutoWindowIndex > 0 and not justSignIn then
-            AutoWindowIndex = AutoWindowIndex - 1
+        if CurWindow and not justSignIn then
             XAutoWindowManager.NextAutoWindow()
             return true
         end
 
-        AutoWindowIndex = 0
+        AutoWindowList = {}
+        PassedWindowDic = {}
+        CurWindow = nil
+
+        XAutoWindowManager.CheckAddWindow()
+        local isShow = #AutoWindowList > 0
+        if isShow then
+            XAutoWindowManager.NextAutoWindow()
+        end
+        return isShow
+    end
+    
+    -- 检测添加弹窗数据
+    function XAutoWindowManager.CheckAddWindow()
         local autoWindowControllerConfig = XAutoWindowConfigs.GetAutoWindowControllerConfig()
         for _, v in pairs(autoWindowControllerConfig) do
+            -- 已有相同弹窗
+            if PassedWindowDic[v.Id] then
+                goto continue
+            end
             for _, k in pairs(AutoWindowList) do
                 if k.Id == v.Id then
                     goto continue
                 end
             end
 
-            if justSignIn and v.FunctionType ~= XAutoWindowConfigs.AutoFunctionType.Sign then
-                goto continue
+            --[[
+            if justSignIn then
+                if v.FunctionType ~= XAutoWindowConfigs.AutoFunctionType.Sign and
+                    v.FunctionType ~= XAutoWindowConfigs.AutoFunctionType.WeekCard
+                then
+                    goto continue
+                end
             end
+            ]]
 
             -- 对回归活动特殊处理，是否打脸不走配置表，而是根据外部接口来判断
             if v.FunctionType == XAutoWindowConfigs.AutoFunctionType.Regression then
@@ -97,6 +108,14 @@ XAutoWindowManagerCreator = function()
             -- 对新回归活动特殊处理
             if v.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewRegression then
                 if XDataCenter.NewRegressionManager.CheckIsNeedAutoWindow() then
+                    table.insert(AutoWindowList, v)
+                end
+                goto continue
+            end
+
+            -- 对回归活动特殊处理
+            if v.FunctionType == XAutoWindowConfigs.AutoFunctionType.Regression3rd then
+                if XDataCenter.Regression3rdManager.CheckOpenAutoWindow() then
                     table.insert(AutoWindowList, v)
                 end
                 goto continue
@@ -121,24 +140,42 @@ XAutoWindowManagerCreator = function()
                 XDataCenter.SignInManager.SetNotifySign(false)
             end
 
+            if v.FunctionType == XAutoWindowConfigs.AutoFunctionType.SClassConstructNovice then
+                local paramId = XFunctionConfig.GetParamId(v.SkipId)
+                local subConfigId = XSignInConfigs.GetWelfareConfig(paramId).SubConfigId
+                local signInData = XDataCenter.SignInManager.GetSignInData(subConfigId)
+                if not signInData or (signInData and signInData.Got) then
+                    goto continue
+                end
+            end
+
+            if v.FunctionType == XAutoWindowConfigs.AutoFunctionType.SummerSignIn then
+                if not XDataCenter.SummerSignInManager.CheckIsNeedAutoWindow() then
+                    goto continue
+                end
+            end
+
             if not CheckAutoType(v.AutoType, v.AutoCount, v.Id, openTime) then
                 goto continue
             end
-            
-            if v.FunctionType == XAutoWindowConfigs.AutoFunctionType.NewYearZhanBu then
-                if XDataCenter.SignInManager.GetTodayDiviningState() then
+
+            if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.SUBPACKAGE.ENTRY_TYPE.AUTO_WINDOW, v.Id, true) then
+                goto continue
+            end
+
+            if v.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekCard then
+                local paramId = XFunctionConfig.GetParamId(v.SkipId)
+                local subConfigId = XSignInConfigs.GetWelfareConfig(paramId).SubConfigId
+                local weekCardData = XDataCenter.PurchaseManager.GetWeekCardDataBySignInId(subConfigId)
+                if not weekCardData or weekCardData.IsGotToday then -- 没数据代表领过了或者没买
                     goto continue
                 end
             end
-            if v.FunctionType == XAutoWindowConfigs.AutoFunctionType.Fireworks then
-                if not XDataCenter.FireworksManager.HasAvailableFireTimes() then
-                    goto continue
-                end
-            end
+
             table.insert(AutoWindowList, v)
             :: continue ::
         end
-
+    
         if #AutoWindowList <= 0 then
             return false
         end
@@ -146,34 +183,36 @@ XAutoWindowManagerCreator = function()
         table.sort(AutoWindowList, function(a, b)
             return a.Pre > b.Pre
         end)
-
-        XAutoWindowManager.NextAutoWindow()
-        return true
     end
 
     -- 下一个动弹窗
     function XAutoWindowManager.NextAutoWindow()
-        AutoWindowIndex = AutoWindowIndex + 1
-        if AutoWindowIndex > #AutoWindowList then
+        XAutoWindowManager.CheckAddWindow()
+        if #AutoWindowList <= 0 then
             XAutoWindowManager.ClearAutoWindow()
             XEventManager.DispatchEvent(XEventId.EVENT_AUTO_WINDOW_END)
             return
         end
 
-        XFunctionManager.SkipInterface(AutoWindowList[AutoWindowIndex].SkipId)
+        local window = table.remove(AutoWindowList, 1)
+        PassedWindowDic[window.Id] = window
+        CurWindow = window
+        XFunctionManager.SkipInterface(CurWindow.SkipId)
     end
 
     -- 结束自动弹窗
     function XAutoWindowManager.StopAutoWindow()
         XEventManager.DispatchEvent(XEventId.EVENT_AUTO_WINDOW_STOP)
 
-        if AutoWindowIndex <= 0 then
+        if not CurWindow then
             AutoWindowList = {}
+            PassedWindowDic = {}
+            CurWindow = nil
             return
         end
 
         -- 判断是否需要继续弹窗
-        if AutoWindowList[AutoWindowIndex].ContinueOpen then
+        if CurWindow.ContinueOpen then
            return
         end
 
@@ -183,7 +222,8 @@ XAutoWindowManagerCreator = function()
     -- 清除自动弹窗
     function XAutoWindowManager.ClearAutoWindow()
         AutoWindowList = {}
-        AutoWindowIndex = 0
+        PassedWindowDic = {}
+        CurWindow = nil
         XEventManager.DispatchEvent(XEventId.EVENT_AUTO_WINDOW_STOP)
     end
 
@@ -194,14 +234,20 @@ XAutoWindowManagerCreator = function()
             return XAutoWindowManager.StartAutoWindow()
         end
 
-        return XAutoWindowManager.CheckContinueAutoWindow()
+        local res = XAutoWindowManager.CheckContinueAutoWindow()
+        return res
+    end
+    
+    function XAutoWindowManager.CheckCanPlayActionByAutoWindow()
+        local res = XTool.IsTableEmpty(AutoWindowList) and not IsFirstOpenAutoWindow
+        return res
     end
 
     -- 检查是否继续自动弹窗
     function XAutoWindowManager.CheckContinueAutoWindow()
         -- 检查是否有推送签到
         local isNotifySignIn = XDataCenter.SignInManager.CheckNotifySign()
-        local isContinueAuto = AutoWindowIndex > 0
+        local isContinueAuto = #AutoWindowList > 0
 
         if not isNotifySignIn and not isContinueAuto then     -- 没有推送签到，没有继续弹窗
             return false

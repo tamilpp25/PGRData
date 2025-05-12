@@ -1,3 +1,4 @@
+local XDynamicTableIrregular = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableIrregular")
 --工会boss普通其他关卡详细信息页面
 local XUiGuildBossLog = require("XUi/XUiGuildBoss/Component/XUiGuildBossLog")
 local XUiGuildBossSkillGrid = require("XUi/XUiGuildBoss/Component/XUiGuildBossSkillGrid")
@@ -31,7 +32,7 @@ function XUiGuildBossOtherSubLevelInfo:OnEnable()
     self.Data = self.ParentUi.CurSelectLevelData
     self.ConfigData = XGuildBossConfig.GetBossStageInfo(self.Data.StageId)
     --buff
-    self.Skill:Init(self.ConfigData, self.Data.BuffNeed)
+    self.Skill:Init(self.ConfigData, self.Data)
     --Rank
     self.RankPanel:Init(self.Data.StageId)
     --log

@@ -46,7 +46,7 @@ XHitMouseManagerCreator = function()
     --临时Test方法 End
     --=====================================
     function HitMouseManager.Init()
-        ActivityId = 1--nil
+        ActivityId = nil
         StageScores = {}
         RewardIndexReceived = {}
     end

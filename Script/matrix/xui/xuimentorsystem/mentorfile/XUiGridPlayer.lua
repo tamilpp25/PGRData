@@ -27,7 +27,7 @@ function XUiGridPlayer:UpdateGrid(data)
         self.TeacherLabel.gameObject:SetActiveEx(false)
         self.TextState.text = self.IsTeacher and CSTextManagerGetText("MentorPlayerStateNoneText") or
         (data.IsGraduate and CSTextManagerGetText("MentorPlayerStateGraduateText") or CSTextManagerGetText("MentorPlayerStateStudyText"))
-        XUiPLayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.Head)
+        XUiPlayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.Head)
     end
 end
 

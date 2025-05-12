@@ -9,6 +9,10 @@ function XUiSignCard:Ctor(ui, rootUi)
     self:InitAddListen()
 end
 
+function XUiSignCard:OnDestroy()
+    self:OnHide()
+end
+
 function XUiSignCard:OnHide()
     XEventManager.RemoveEventListener(XEventId.EVENT_CARD_REFRESH_WELFARE_BTN, self.Refresh, self)
 end
@@ -57,7 +61,7 @@ end
 
 function XUiSignCard:OnBtnGetClick()
     XDataCenter.PurchaseManager.YKInfoDataReq(function()
-        local data = XDataCenter.PurchaseManager.GetYKInfoData(self.Config.Param[1], self.Config.Param[2])
+        local data = XDataCenter.PurchaseManager.GetYKInfoData()
         if not data then
             return
         end
@@ -68,12 +72,16 @@ function XUiSignCard:OnBtnGetClick()
             XDataCenter.PurchaseManager.PurchaseGetDailyRewardRequest(data.Id, function(rewardItems)
                 self:RefreshGet()
                 XUiManager.OpenUiObtain(rewardItems)
+
+                -- 设置月卡信息本地缓存
+                XDataCenter.PurchaseManager.SetYKLocalCache()
+                XEventManager.DispatchEvent(XEventId.EVENT_CARD_REFRESH_WELFARE_BTN)
             end)
         end
     end)
 end
 
-function XUiSignCard:Refresh(configId)
+function XUiSignCard:Refresh(configId, isShow, isAuto)
     XDataCenter.PurchaseManager.YKInfoDataReq(function()
         if not configId then
             configId = self.ConfigId
@@ -84,13 +92,44 @@ function XUiSignCard:Refresh(configId)
         self.PanelGet.gameObject:SetActive(false)
 
         self.Config = XSignInConfigs.GetSignCardConfig(configId)
-        local isBuy = XDataCenter.PurchaseManager.IsYkBuyed(self.Config.Param[1], self.Config.Param[2])
+        local isBuy = XDataCenter.PurchaseManager.IsYkBuyed()
         if isBuy then
             self:RefreshGet()
+            self:AutoGetReward(isAuto)
         else
             self:RefreshBuy()
         end
         XEventManager.DispatchEvent(XEventId.EVENT_SING_IN_OPEN_BTN, true)
+    end)
+end
+
+function XUiSignCard:AutoGetReward(isAuto)
+    if not isAuto then
+        return
+    end
+    local data = XDataCenter.PurchaseManager.GetYKInfoData()
+    if not data or data.IsDailyRewardGet then
+        return
+    end
+
+    XLuaUiManager.SetMask(true)
+    XScheduleManager.ScheduleOnce(function()
+        XLuaUiManager.SetMask(false)
+        self:GetDailyRewardRequest(data.Id)
+    end, 100)
+end
+
+function XUiSignCard:GetDailyRewardRequest(id)
+    XDataCenter.PurchaseManager.PurchaseGetDailyRewardRequest(id, function(rewardItems)
+        self:RefreshGet()
+        if self.RootUi.RefreshWelfareCardRed then
+            self.RootUi:RefreshWelfareCardRed()
+        end
+        XUiManager.OpenUiObtain(rewardItems)
+
+        -- 设置月卡信息本地缓存
+        XDataCenter.PurchaseManager.SetYKLocalCache()
+        XEventManager.DispatchEvent(XEventId.EVENT_CARD_REFRESH_WELFARE_BTN)
     end)
 end
 
@@ -99,12 +138,12 @@ function XUiSignCard:RefreshBuy()
 end
 
 function XUiSignCard:RefreshGet()
-    local data = XDataCenter.PurchaseManager.GetYKInfoData(self.Config.Param[1], self.Config.Param[2])
+    local data = XDataCenter.PurchaseManager.GetYKInfoData()
     if not data then
         return
     end
 
-    self.TxtLeftDay.text = data.DailyRewardRemainDay > 0 and data.DailyRewardRemainDay - 1 or 0
+    self.TxtLeftDay.text = data.DailyRewardRemainDay
     self.BtnContinue.gameObject:SetActive(data.DailyRewardRemainDay < self.Config.CanBuyDay)
     if data.IsDailyRewardGet then
         self.BtnGet:SetButtonState(CS.UiButtonState.Disable)

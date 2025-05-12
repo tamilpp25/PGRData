@@ -1,8 +1,9 @@
+local XUiBagItem = require("XUi/XUiBag/XUiBagItem")
 --
 -- Author: wujie
 -- Note: 重复打开单选礼包界面中的子项，与XUiBagItem多了显示人物全名、拥有状态
 
-XUiGridSelectGift = XClass(XUiBagItem, "XUiGridSelectGift")
+local XUiGridSelectGift = XClass(XUiBagItem, "XUiGridSelectGift")
 
 --说明，以下修改为了适用于外部控制统一控制最大选择数量的情况
 
@@ -41,7 +42,7 @@ function XUiGridSelectGift:RefreshSelf(NeedDefulatQulity, isSmallIcon, notCommon
     if self.TxtName then
         --对人物显示全名
         if self.Template.RewardType == XRewardManager.XRewardType.Character then
-            self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(self.TemplateId)
+            self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(self.TemplateId)
         else
             self.TxtName.text = template.Name
         end
@@ -135,3 +136,5 @@ function XUiGridSelectGift:SetOwnedStatus(status)
         self.TxtOwned.gameObject:SetActiveEx(status)
     end
 end
+
+return XUiGridSelectGift

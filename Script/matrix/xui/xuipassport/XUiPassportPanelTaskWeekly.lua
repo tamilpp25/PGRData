@@ -1,11 +1,12 @@
-local XUiPassportPanelTaskWeekly = XClass(nil, "XUiPassportPanelTaskWeekly")
+local XDynamicGridTask = require("XUi/XUiTask/XDynamicGridTask")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+---@field _Control XPassportControl
+---@class XUiPassportPanelTaskWeekly:XUiNode
+local XUiPassportPanelTaskWeekly = XClass(XUiNode, "XUiPassportPanelTaskWeekly")
 
 --周任务
 function XUiPassportPanelTaskWeekly:Ctor(ui, rootUi)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
     self.RootUi = rootUi
-    XTool.InitUiObject(self)
 
     XUiHelper.RegisterClickEvent(self, self.BtnTongBlack, self.OnBtnTongBlackClick)
 
@@ -15,7 +16,7 @@ function XUiPassportPanelTaskWeekly:Ctor(ui, rootUi)
 
     self.GridTask.gameObject:SetActive(false)
 
-    XRedPointManager.AddRedPointEvent(self.BtnTongBlack, self.OnCheckTaskRedPoint, self, { XRedPointConditions.Types.CONDITION_PASSPORT_TASK_WEEKLY_RED })
+    self:AddRedPointEvent(self.BtnTongBlack, self.OnCheckTaskRedPoint, self, { XRedPointConditions.Types.CONDITION_PASSPORT_TASK_WEEKLY_RED })
 end
 
 function XUiPassportPanelTaskWeekly:Refresh()
@@ -23,26 +24,26 @@ function XUiPassportPanelTaskWeekly:Refresh()
         return
     end
 
-    local taskType = XPassportConfigs.TaskType.Weekly
+    local taskType = XEnumConst.PASSPORT.TASK_TYPE.WEEKLY
 
-    self.Tasks = XDataCenter.PassportManager.GetPassportTask(taskType)
+    self.Tasks = self._Control:GetPassportTask(taskType)
     self.DynamicTable:SetDataSource(self.Tasks)
     self.DynamicTable:ReloadDataASync()
 
-    local passportTaskGroupId = XPassportConfigs.GetPassportTaskGroupIdByType(taskType)
-    local currExp, totalExp = XDataCenter.PassportManager.GetPassportTaskExp(passportTaskGroupId)
+    local passportTaskGroupId = self._Control:GetPassportTaskGroupIdByType(taskType)
+    local currExp, totalExp = self._Control:GetPassportTaskExp(passportTaskGroupId)
     self.TxtDailyNumber.text = string.format("%s/%s", currExp, totalExp)
 
     self:UpdateTime()
 end
 
 function XUiPassportPanelTaskWeekly:UpdateTime()
-    local passportTaskGroupId = XPassportConfigs.GetPassportTaskGroupIdByType(XPassportConfigs.TaskType.Weekly)
+    local passportTaskGroupId = self._Control:GetPassportTaskGroupIdByType(XEnumConst.PASSPORT.TASK_TYPE.WEEKLY)
     if not self:IsShow() or not XTool.IsNumberValid(passportTaskGroupId) then
         return
     end
 
-    local timeId = XPassportConfigs.GetPassportTaskGroupTimeId(passportTaskGroupId)
+    local timeId = self._Control:GetPassportTaskGroupTimeId(passportTaskGroupId)
     local endTime = XFunctionManager.GetEndTimeByTimeId(timeId)
     local nowServerTime = XTime.GetServerNowTimestamp()
     self.TxtDailyTime.text = XUiHelper.GetTime(endTime - nowServerTime, XUiHelper.TimeFormatType.PASSPORT)
@@ -58,7 +59,7 @@ end
 
 --一键领取
 function XUiPassportPanelTaskWeekly:OnBtnTongBlackClick()
-    XDataCenter.PassportManager.FinishMultiTaskRequest(XPassportConfigs.TaskType.Weekly)
+    self._Control:FinishMultiTaskRequest(XEnumConst.PASSPORT.TASK_TYPE.WEEKLY)
 end
 
 function XUiPassportPanelTaskWeekly:OnCheckTaskRedPoint(count)

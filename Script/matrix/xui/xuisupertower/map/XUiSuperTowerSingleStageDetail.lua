@@ -1,3 +1,5 @@
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --===========================
 --超级爬塔单波关卡详情
 --===========================
@@ -93,7 +95,7 @@ end
 function XUiSuperTowerSingleStageDetail:UpdateAssetsPanel()
     if not self.PanelSpecialTool then return end
     local itemIds = XSuperTowerConfigs.GetMainAssetsPanelItemIds()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(itemIds, function()
             self.AssetActivityPanel:Refresh(itemIds)
         end, self.AssetActivityPanel)

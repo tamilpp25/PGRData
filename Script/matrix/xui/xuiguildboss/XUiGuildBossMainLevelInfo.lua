@@ -1,3 +1,4 @@
+local XDynamicTableIrregular = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableIrregular")
 --工会boss Boss关卡详细信息页面
 local XUiGuildBossLog = require("XUi/XUiGuildBoss/Component/XUiGuildBossLog")
 local XUiGuildBossRankPanel = require("XUi/XUiGuildBoss/Component/XUiGuildBossRankPanel")
@@ -34,6 +35,7 @@ function XUiGuildBossMainLevelInfo:OnEnable()
     self.TxtName.text = self.ConfigData.Name
     self.TxtLimit.text = self.ConfigData.Limit
     self.ImgIcon:SetSprite(self.ConfigData.Icon)
+    self.ImgBossHead:SetRawImage(self.ConfigData.BossHead) --nzwjV3
     self.OrderMark.gameObject:SetActiveEx(false)
     self.TxtIsDone.gameObject:SetActiveEx(self.Data.Score > 0)
     self.GroupScore.gameObject:SetActiveEx(self.Data.Score > 0)
@@ -51,6 +53,11 @@ function XUiGuildBossMainLevelInfo:OnEnable()
     self.RankPanel:Init(self.Data.StageId)
     --log
     self:RefreshLogList(true)
+
+end
+
+function XUiGuildBossMainLevelInfo:OnDisable()
+
 end
 
 function XUiGuildBossMainLevelInfo:RefreshLogList(reloadData)
@@ -106,11 +113,36 @@ function XUiGuildBossMainLevelInfo:OnBtnStartClick()
         XUiManager.TipError(CS.XTextManager.GetText("GuildBossCountFull"))
         return
     end
-    if XTool.USENEWBATTLEROOM then
+
+    local seleceStyleCb = function ()
+        -- 向服务器请求风格信息 再打开
+        XDataCenter.GuildBossManager.GuildBossStyleInfoRequest(function ()
+            XLuaUiManager.Open("UiGuildBossSelectStyle")
+        end)
+    end
+
+    local continueCb = function ()
         XLuaUiManager.Open("UiBattleRoleRoom", self.Data.StageId
             , XDataCenter.GuildBossManager.GetXTeamByStageId(self.Data.StageId)
             , require("XUi/XUiGuildBoss/XUiGuildBossBattleRoleRoom"))
-    else
-        XLuaUiManager.Open("UiNewRoomSingle", self.Data.StageId)
     end
+
+    local textData = 
+    {
+        sureText = CS.XTextManager.GetText("GuildBossStyleWarningGoSelect"), 
+        closeText = CS.XTextManager.GetText("GuildBossStyleWarningCountinue"),
+    }
+
+    XDataCenter.GuildBossManager.GuildBossStyleInfoRequest(function ()
+        -- 风格选择判断
+        local isInV3 = XFunctionManager.CheckInTimeByTimeId(CS.XGame.Config:GetInt("GuildBossThirdVersionTimeId"))
+        local fightStyle = XDataCenter.GuildBossManager.GetFightStyle()
+        local allStyleConfig = XGuildBossConfig.GetGuildBossFightStyle() -- 所有的风格数据
+        local isMaxSkill = fightStyle and fightStyle.StyleId and fightStyle.StyleId > 0 and fightStyle.EffectedSkillId and #fightStyle.EffectedSkillId == allStyleConfig[fightStyle.StyleId].MaxCount
+        if (not fightStyle or not fightStyle.StyleId or fightStyle.StyleId <= 0 or not isMaxSkill) and isInV3 then
+            XLuaUiManager.Open("UiDialog", self.EnterWarningTitleStr, CS.XTextManager.GetText("GuildBossEnterWarningStyleStr"), XUiManager.DialogType.Normal, continueCb, seleceStyleCb, textData)
+        else
+            continueCb()
+        end
+    end)
 end

@@ -12,6 +12,14 @@ function XUiStrongholdChooseLevelType:OnStart(cb)
     self.BtnHard:SetName(CsXTextManagerGetText("StrongholdChooseLevelTypeTwo"))
 end
 
+function XUiStrongholdChooseLevelType:OnEnable()
+
+end
+
+function XUiStrongholdChooseLevelType:OnDisable()
+
+end
+
 function XUiStrongholdChooseLevelType:AutoAddListener()
     self.BtnTanchuangClose.CallBack = function() self:Close() end
     self.BtnCancel.CallBack = function() self:Close() end

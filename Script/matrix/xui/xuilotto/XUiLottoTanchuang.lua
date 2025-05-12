@@ -1,13 +1,17 @@
 local XUiLottoTanchuang = XLuaUiManager.Register(XLuaUi, "UiLottoTanchuang")
 local XUiGridTicket = require("XUi/XUiLotto/XUiGridTicket")
 local UseItemMax = 2
-function XUiLottoTanchuang:OnStart(data, cb)
+
+---@param data XLottoDrawEntity
+function XUiLottoTanchuang:OnStart(data)
     self.DrawData = data
-    self.CallBack = cb
     self:SetButtonCallBack()
     self.UseItem = {}
     self.TargetItem = {}
     self.UseCard = {self.Card1,self.Card2}
+end
+
+function XUiLottoTanchuang:OnEnable()
     self:ShowPanel()
 end
 
@@ -30,24 +34,23 @@ function XUiLottoTanchuang:ShowPanel()
         self:Close()
         return
     end
+    local itemIds = {}
     
     for key=1,UseItemMax do
-        local useItemData = {}
-        useItemData.ItemId = ruleCfg.UseItemId[key]
-        useItemData.Sale = ruleCfg.Sale[key]
-        useItemData.ItemCount = ruleCfg.UseItemCount[key]
-        useItemData.ItemImg = ruleCfg.UseItemImg[key]
-        self.UseItem[key] = XUiGridTicket.New(self.UseCard[key], useItemData, function()
-            self:BuyTicket(self.DrawData:GetId(), self.DrawData:GetBuyTicketRuleId(), key)
-        end)
-        -- 英文服使用虹卡
-        -- self.UseItem[key] = XUiGridTicket.New(self.UseCard[key], useItemData, function()
-        --     if useItemData.ItemId and useItemData.ItemId == 3 then --这里的3是指黑卡
-        --         self:BuyTicket(self.DrawData:GetId(), self.DrawData:GetBuyTicketRuleId(), key)
-        --     else
-        --         XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.LB, nil, 1)
-        --     end
-        -- end)
+        local itemId = ruleCfg.UseItemId[key]
+
+        if XTool.IsNumberValid(itemId) then
+            local useItemData = {}
+            useItemData.ItemId = itemId
+            useItemData.Sale = ruleCfg.Sale[key]
+            useItemData.ItemCount = ruleCfg.UseItemCount[key]
+            useItemData.ItemImg = ruleCfg.UseItemImg[key]
+            self.UseItem[key] = XUiGridTicket.New(self.UseCard[key], useItemData, function()
+                self:BuyTicket(self.DrawData:GetId(), self.DrawData:GetBuyTicketRuleId(), key)
+            end)
+            table.insert(itemIds, useItemData.ItemId)
+        end
+        
     end
     
     local targetItemData = {}
@@ -55,25 +58,21 @@ function XUiLottoTanchuang:ShowPanel()
     targetItemData.ItemCount = ruleCfg.TargetItemCount
     targetItemData.ItemImg = ruleCfg.TargetItemImg
     self.TargetItem = XUiGridTicket.New(self.TargetCard, targetItemData)
+
+    if not XTool.IsTableEmpty(itemIds) then
+        XDataCenter.ItemManager.AddCountUpdateListener(itemIds, function()
+            for _, v in pairs(self.UseItem) do
+                v:ShowPanel()
+            end
+        end, self)
+    end
 end
 
 function XUiLottoTanchuang:BuyTicket(lottoId, BuyTicketRuleId, ticketKey)
     XDataCenter.LottoManager.BuyTicket(lottoId, BuyTicketRuleId, ticketKey, function (rewardList)
-            XUiManager.OpenUiObtain(rewardList, nil, function ()
-                    self:OnBtnCloseClick()
-                    if self.CallBack then self.CallBack() end
-                end)
+        XUiManager.OpenUiObtain(rewardList, nil, function ()
+            self:OnBtnCloseClick()
+            XEventManager.DispatchEvent(XEventId.EVENT_LOTTO_AFTER_BUY_DRAW_SKIP_TICKET)
+        end)
     end)
-end
-
-function XUiLottoTanchuang:OnEnable()
-    self:RefreshCount()
-end
-
-function XUiLottoTanchuang:RefreshCount() --海外修改，购买黑卡后刷新黑卡数量
-    for key=1,UseItemMax do
-        if self.UseItem and self.UseItem[key] then
-            self.UseItem[key]:ShowPanel()
-        end
-    end
 end

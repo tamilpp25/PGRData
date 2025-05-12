@@ -1,4 +1,5 @@
-XUiFestivalStageItem = XClass(nil, "XUiFestivalStageItem")
+---@class XUiFestivalStageItem
+local XUiFestivalStageItem = XClass(nil, "XUiFestivalStageItem")
 
 function XUiFestivalStageItem:Ctor(rootUi, ui)
     self.GameObject = ui.gameObject
@@ -11,6 +12,9 @@ function XUiFestivalStageItem:SetNormalStage()
     self.PanelStageNormal.gameObject:SetActiveEx(not self.IsLock)
     if not self.IsLock then
         self.RImgFightActiveNor:SetRawImage(self.FStage:GetIcon())
+    end
+    if self.ImgStoryNor then
+        self.ImgStoryNor:SetRawImage(self.FStage:GetStoryIcon())
     end
     self.TxtStageOrder.text = self.FStage:GetOrderName()
     -- SetLockStage
@@ -32,7 +36,8 @@ function XUiFestivalStageItem:UpdateNode(festivalId, stageId)
     self.StageIndex = fStage:GetOrderIndex()
     local stagePrefabName = fStage:GetStagePrefab()
     local isOpen, description = self.FStage:GetCanOpen()
-    self.GameObject:SetActiveEx(isOpen)
+    local isShow = self.FStage:GetIsShow()
+    self.GameObject:SetActiveEx(isShow)
     local gridGameObject = self.Transform:LoadPrefab(stagePrefabName)
     local uiObj = gridGameObject.transform:GetComponent("UiObject")
     for i = 0, uiObj.NameList.Count - 1 do
@@ -45,11 +50,12 @@ function XUiFestivalStageItem:UpdateNode(festivalId, stageId)
     self:SetPassStage()
     local isEgg = self.FStage:GetIsEggStage()
     self.ImgStageOrder.gameObject:SetActiveEx(not isEgg)
-    self.ImgStageHide.gameObject:SetActiveEx(isEgg)
+    if self.ImgStageHide then
+        self.ImgStageHide.gameObject:SetActiveEx(isEgg)
+    end
     if self.ImgHideLine then
         self.ImgHideLine.gameObject:SetActiveEx(isEgg)
     end
-
 end
 
 function XUiFestivalStageItem:OnBtnStageClick()

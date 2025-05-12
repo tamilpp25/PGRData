@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiPanelUnionBuffDetails = XClass(nil, "XUiPanelUnionBuffDetails")
 local XUiGridUnionBuffItem = require("XUi/XUiFubenUnionKill/XUiGridUnionBuffItem")
 

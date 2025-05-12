@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiGridRewardTip = require("XUi/XUiStronghold/XUiStrongholdReward/XUiGridRewardTip")
 
 local CsXTextManagerGetText = CsXTextManagerGetText
@@ -8,7 +9,7 @@ function XUiStrongholdRewardTip:OnAwake()
     self:AutoAddListener()
     self:InitDynamicTable()
 
-    self.GridPrequelCheckPointReward.gameObject:SetActiveEx(false)
+    self.GridTask.gameObject:SetActiveEx(false)
 end
 
 function XUiStrongholdRewardTip:OnStart(levelId)
@@ -20,10 +21,21 @@ function XUiStrongholdRewardTip:OnStart(levelId)
     else
         self.TxtTitle.text = CsXTextManagerGetText("StrongholdRewardTipTitleDefault")
     end
+
+    local itemId = XDataCenter.StrongholdManager.GetMineralItemId()
+    if not self.AssetPanel then
+        self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
+    else
+        self.AssetPanel:Refresh({ itemId })
+    end
 end
 
 function XUiStrongholdRewardTip:OnEnable()
     self:UpdateRewards()
+end
+
+function XUiStrongholdRewardTip:OnDisable()
+
 end
 
 function XUiStrongholdRewardTip:OnGetEvents()
@@ -39,13 +51,19 @@ function XUiStrongholdRewardTip:OnNotify(evt, ...)
 end
 
 function XUiStrongholdRewardTip:InitDynamicTable()
-    self.DynamicTable = XDynamicTableNormal.New(self.SViewRewardList)
+    self.DynamicTable = XDynamicTableNormal.New(self.SViewTask)
     self.DynamicTable:SetProxy(XUiGridRewardTip)
     self.DynamicTable:SetDelegate(self)
 end
 
 function XUiStrongholdRewardTip:UpdateRewards()
     self.RewardIds = XDataCenter.StrongholdManager.GetAllRewardIds(self.LevelId)
+    for _, reward in pairs(self.RewardIds) do
+        if XDataCenter.StrongholdManager.IsRewardCanGet(reward) then
+            table.insert(self.RewardIds, 1, -1) -- 一键领取标记
+            break
+        end
+    end
     self.DynamicTable:SetDataSource(self.RewardIds)
     self.DynamicTable:ReloadDataASync()
 end
@@ -60,5 +78,10 @@ function XUiStrongholdRewardTip:OnDynamicTableEvent(event, index, grid)
 end
 
 function XUiStrongholdRewardTip:AutoAddListener()
-    self.BtnTanchuangClose.CallBack = function() self:Close() end
+    self:RegisterClickEvent(self.BtnBack, self.Close)
+    self:RegisterClickEvent(self.BtnMainUi, self.OnClickBtnMainUi)
+end
+
+function XUiStrongholdRewardTip:OnClickBtnMainUi()
+    XLuaUiManager.RunMain()
 end

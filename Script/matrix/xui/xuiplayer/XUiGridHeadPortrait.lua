@@ -1,9 +1,7 @@
-local XUiGridHeadPortrait = XClass(nil, "XUiGridHeadPortrait")
+local XUiGridHeadPortrait = XClass(XUiNode, "XUiGridHeadPortrait")
 
-function XUiGridHeadPortrait:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridHeadPortrait:OnStart(rootUi)
+    self._RootUi = rootUi
     self:AutoAddListener()
 end
 
@@ -14,7 +12,7 @@ function XUiGridHeadPortrait:AutoAddListener()
 end
 
 function XUiGridHeadPortrait:OnBtnRoleClick()
-    local IsTrueHeadPortrait = self.Base:SetHeadPortraitImgRole(self.HeadPortraitId)
+    self.Base:SetHeadPortraitImgRole(self.HeadPortraitId)
     self:SetSelectShow(self.Base)
     if self.Base.OldPortraitSelectGrig then
         self.Base.OldPortraitSelectGrig:SetSelectShow(self.Base)
@@ -22,7 +20,7 @@ function XUiGridHeadPortrait:OnBtnRoleClick()
     self.Base.OldPortraitSelectGrig = self
     self:ShowRedPoint(false, true)
 
-    self.Base:ShowHeadPortraitPanel(IsTrueHeadPortrait)
+    self.Base:ShowHeadPortraitPanel()
     self.Base:RefreshHeadPortraitDynamicTable()
 end
 
@@ -51,12 +49,15 @@ function XUiGridHeadPortrait:UpdateGrid(chapter, parent)
 end
 
 function XUiGridHeadPortrait:SetSelectShow(parent)
-    if parent.TempHeadPortraitId == self.HeadPortraitId then
+    --这个头像类貌似不仅仅在个性设置里会用到，因此需要支持原逻辑处理
+    local accessor = self._RootUi or parent
+    
+    if accessor.TempHeadPortraitId == self.HeadPortraitId then
         self:ShowSelect(true)
     else
         self:ShowSelect(false)
     end
-    if parent.CurrHeadPortraitId == self.HeadPortraitId then
+    if accessor.CurrHeadPortraitId == self.HeadPortraitId then
         self:ShowTxt(true)
         if not self.Base.OldPortraitSelectGrig then
             self.Base.OldPortraitSelectGrig = self
@@ -88,8 +89,10 @@ function XUiGridHeadPortrait:ShowRedPoint(bShow,IsClick)
     end
 
     if not bShow and IsClick then
+        local accessor = self._RootUi or self.Base
+        
         XDataCenter.HeadPortraitManager.SetHeadPortraitForOld(self.HeadPortraitId)
-        self.Base:ShowHeadPortraitRedPoint()
+        accessor:ShowHeadPortraitRedPoint()
     end
 end
 

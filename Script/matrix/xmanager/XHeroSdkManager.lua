@@ -21,9 +21,15 @@ local HasSdkLoginError = false -- sdk登陆存在错误
 local CallbackUrl = CS.XRemoteConfig.PayCallbackUrl
 local XRecordUserInfo = CS.XRecord.XRecordUserInfo
 
+local IsNeedShowReddot = false
+
 local CleanPayCallbacks = function()
     PayCallbacks = {}
     IOSPayCallback = nil
+end
+
+function XHeroSdkManager.UpdateCallbackUrl()
+    CallbackUrl = CS.XRemoteConfig.PayCallbackUrl
 end
 
 function XHeroSdkManager.IsNeedLogin()
@@ -70,7 +76,7 @@ function XHeroSdkManager.Logout(cb)
     end
 end
 
-function XHeroSdkManager.OnLoginSuccess(uid, username, token)
+function XHeroSdkManager.OnLoginSuccess(uid, username, token, loginChannel)
     if IsSdkLogined and XUserManager.UserId ~= uid then
         XLog.Error("重复的登陆成功回调 user_id1:" .. tostring(XUserManager.UserId) .. ", user_id2:" .. tostring(uid))
         HasSdkLoginError = true
@@ -82,6 +88,7 @@ function XHeroSdkManager.OnLoginSuccess(uid, username, token)
     XUserManager.SetUserId(uid)
     XUserManager.SetUserName(username)
     XUserManager.SetToken(token)
+    XUserManager.SetLoginChannel(loginChannel)
 
     local info = XRecordUserInfo()
     info.UserId = XUserManager.GetUniqueUserId()
@@ -96,9 +103,13 @@ function XHeroSdkManager.OnLoginFailed(msg)
     XLog.Error("Hero sdk login failed. " .. msg)
     IsSdkLogined = false
     CS.XRecord.Record("24032", "HeroSdkLoginFailed")
-
+    local errorTxt = CS.XTextManager.GetText("HeroSdkLoginFailed")
+    -- KuroSDK提供的，如果登录失败返回这个，则是SDK未初始化完，换个提醒
+    if string.match(msg, "failed for init not accomplished") then 
+        errorTxt = CS.XTextManager.GetText("HeroSdkNotInit")
+    end
     LastTimeOfCallSdkLoginUi = 0
-    XUiManager.SystemDialogTip(CS.XTextManager.GetText("TipTitle"), CS.XTextManager.GetText("HeroSdkLoginFailed"), XUiManager.DialogType.OnlySure, nil, function()
+    XUiManager.SystemDialogTip(CS.XTextManager.GetText("TipTitle"), errorTxt, XUiManager.DialogType.OnlySure, nil, function()
         XHeroSdkManager.Login()
     end)
 end
@@ -164,7 +175,12 @@ end
 local GetRoleInfo = function()
     local roleInfo = HeroRoleInfo()
     roleInfo.Id = XPlayer.Id
-    roleInfo.ServerId = XServerManager.Id
+    if XUserManager.IsKuroSdk() then 
+        -- 库洛母包需要有正确的区服ID，下面那个else获取的是服务器列表索引值，其实是错的
+        roleInfo.ServerId = XUserManager.ServerId
+    else 
+        roleInfo.ServerId = XServerManager.Id
+    end
     roleInfo.ServerName = XServerManager.ServerName
     roleInfo.Name = XPlayer.Name
     roleInfo.Level = XPlayer.Level
@@ -212,6 +228,7 @@ local GetOrderInfo = function(cpOrderId, goodsId, extraParams,productKey)
     if XUserManager.IsKuroSdk() and template then
         orderInfo.Price = template.Amount
         orderInfo.GoodsName = template.Name
+        orderInfo.GoodsDesc = template.Desc
     end
     -- if productInfo.GoodsName and #productInfo.GoodsName > 0 then
     --     orderInfo.GoodsName = productInfo.GoodsName
@@ -301,4 +318,72 @@ end
 
 function XHeroSdkManager.RegisterIOSCallback(cb)
     IOSPayCallback = cb
+end
+
+-- 客服接口
+function XHeroSdkManager.Feedback(from, isLogin)
+    -- 加上返回是为了兼容是否有接入SDK
+    if CS.XHeroSdkAgent.Feedback then 
+        CS.XHeroSdkAgent.Feedback(from, isLogin, GetRoleInfo())
+        return true
+    end
+    return false
+end
+
+-- 客服回调，用于触发红点刷新
+function XHeroSdkManager.FeedbackCallback()
+    IsNeedShowReddot = true
+    XEventManager.DispatchEvent(XEventId.EVENT_FEEDBACK_REFRESH)
+end
+
+-- 检测客服红点
+function XHeroSdkManager.CheckShowReddot()
+    return IsNeedShowReddot
+end
+
+-- 清理客服红点
+function XHeroSdkManager.ClearReddot()
+    IsNeedShowReddot = false
+end
+
+-- 分享是否开放
+function XHeroSdkManager.SharePlatformIsEnable(platform)
+    return CS.XHeroSdkAgent.SharePlatformIsEnable(platform)
+end
+
+-- 分享
+function XHeroSdkManager.Share(platform, path, callback, title, text, topics)
+    CS.XHeroSdkAgent.Share(platform, path, callback, title, text, topics)
+end
+
+-- 内嵌浏览器打开，url：网址，title：标题，transparent：bool是否隐藏标题，默认false不隐藏，isLandscape：是否横屏，默认true横屏
+function XHeroSdkManager.OpenWebview(url, title, transparent, isLandscape)
+    transparent = transparent or false
+    isLandscape = isLandscape == nil and true or isLandscape
+    if isLandscape == false and XUserManager.Platform == XUserManager.PLATFORM.IOS then 
+        -- iOS SDK的问题，用他们竖屏Webview的时候，要先将我们游戏给旋转过来，
+        CS.XResolutionManager.SetIsLandscape(false) 
+        XScheduleManager.ScheduleNextFrame(function()
+            CS.XHeroSdkAgent.OpenWebView(url, title, transparent, false)
+        end)
+    else 
+        CS.XHeroSdkAgent.OpenWebView(url, title, transparent, isLandscape)
+    end 
+
+end
+
+function XHeroSdkManager.OnWebviewClose()
+    XEventManager.DispatchEvent(XEventId.EVENT_WEBVIEW_CLOSE)
+end
+
+-- 外部浏览器打开
+function XHeroSdkManager.OpenURL(url)
+    CS.XHeroSdkAgent.OpenUrl(url)
+end
+
+function XHeroSdkManager.GetAccessToken()
+    if XUserManager.IsKuroSdk() then 
+        return CS.XHeroSdkAgent.GetAccessToken()    
+    end
+    return ""
 end

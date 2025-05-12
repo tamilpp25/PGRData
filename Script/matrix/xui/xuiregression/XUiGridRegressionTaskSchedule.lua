@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 --
 -- Author: wujie
 -- Note: 回归任务活跃奖励格子相关

@@ -210,7 +210,7 @@ XChristmasTreeManagerCreator = function ()
     
     function XChristmasTreeManager.SubmitChange(cb)
         if not PosChangeList or not next(PosChangeList) then 
-            XUiManager.TipMsg("No changes made")
+            XUiManager.TipMsg("无改动")
             return
         end
         local tempOrnamentsPos = XChristmasTreeManager.GetCurrentOrnamentPos()
@@ -223,7 +223,7 @@ XChristmasTreeManagerCreator = function ()
             if res.Changes and next(res.Changes) then
                 XChristmasTreeManager.ApplyChange(res.Changes)
                 XChristmasTreeManager.ResetChange()
-                XEventManager.DispatchEvent(XEventId.EVENT_CHRISTMAS_TREE_GOT_REWARD)
+                XEventManager.DispatchEvent(EVENT_CHRISTMAS_TREE_GOT_REWARD)
             end
             if cb then 
                 cb() 
@@ -303,7 +303,7 @@ XChristmasTreeManagerCreator = function ()
 
         -- 获取属性总分文本
         local attrHead = CS.XTextManager.GetText("ChristmasTreeOrnamentDescHead",
-                "\t\t\t", "  ", XChristmasTreeConfig.GetAttrCount(ornamentData.Id))
+                "\t\t\t\t", "  ", XChristmasTreeConfig.GetAttrCount(ornamentData.Id))
         local list = {attrHead}
         -- 获取单项属性文本
         for i, name in ipairs(XChristmasTreeManager.GetAttrName()) do

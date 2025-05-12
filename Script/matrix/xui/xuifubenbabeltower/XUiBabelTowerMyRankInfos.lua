@@ -1,3 +1,4 @@
+---@class XUiBabelTowerMyRankInfos
 local XUiBabelTowerMyRankInfos = XClass(nil, "XUiBabelTowerMyRankInfos")
 
 function XUiBabelTowerMyRankInfos:Ctor(ui, uiRoot)
@@ -6,19 +7,16 @@ function XUiBabelTowerMyRankInfos:Ctor(ui, uiRoot)
     self.UiRoot = uiRoot
 
     XTool.InitUiObject(self)
-
-    -- HeadIconEffect
 end
 
 -- 刷新排名
-function XUiBabelTowerMyRankInfos:Refresh(activityType)
-    local _, maxScore = XDataCenter.FubenBabelTowerManager.GetCurrentActivityScores(activityType)
+function XUiBabelTowerMyRankInfos:Refresh()
+    local curScore, curRank, totalRank, minTime = XDataCenter.FubenBabelTowerManager.GetScoreInfos()
     self.TxtPlayerName.text = XPlayer.Name
-    self.TxtRankScore.text = string.format(CS.XTextManager.GetText("BabelTowerMyRankLevel"), maxScore)
+    self.TxtRankScore.text = string.format(CS.XTextManager.GetText("BabelTowerMyRankLevel"), curScore)
 
-    XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
 
-    local curScore, curRank, totalRank = XDataCenter.FubenBabelTowerManager.GetScoreInfos()
     if curRank == 0 then
         self.TxtRankNormal.text = CS.XTextManager.GetText("None")
         self.TxtRankNormal.text = CS.XTextManager.GetText("None")
@@ -28,7 +26,13 @@ function XUiBabelTowerMyRankInfos:Refresh(activityType)
         local playerRank = (curRank * 1) / totalRank * 100
         self.TxtRankNormal.text = string.format("%s%%", math.ceil(playerRank))
     end
-end
 
+    -- 最短通关时间
+    if self.TxtRankTime then
+        local time = minTime or 0
+        self.PanelRankTime.gameObject:SetActiveEx(time > 0)
+        self.TxtRankTime.text = XTime.TimestampToGameDateTimeString(time, "mm:ss")
+    end
+end
 
 return XUiBabelTowerMyRankInfos

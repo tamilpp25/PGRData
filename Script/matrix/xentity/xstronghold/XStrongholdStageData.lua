@@ -8,6 +8,7 @@ local Default = {
     _IsFinished = false, --是否完成
 }
 
+---@class XStrongholdStageData
 local XStrongholdStageData = XClass(nil, "XStrongholdStageData")
 
 function XStrongholdStageData:Ctor(id)
@@ -22,13 +23,18 @@ function XStrongholdStageData:Ctor(id)
     self._Id = id
 end
 
-function XStrongholdStageData:SetBuff(buffId)
+function XStrongholdStageData:SetBuff(buffId, extendBuffId)
     if not isNumberValid(buffId) then return end
     self._BuffId = buffId
+    self._ExtendBuffId = extendBuffId
 end
 
 function XStrongholdStageData:GetBuffId()
     return self._BuffId
+end
+
+function XStrongholdStageData:GetExtendBuffId()
+    return self._ExtendBuffId
 end
 
 function XStrongholdStageData:SetFinished(value)

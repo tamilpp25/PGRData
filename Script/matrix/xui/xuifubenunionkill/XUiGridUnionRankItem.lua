@@ -35,7 +35,7 @@ function XUiGridUnionRankItem:Refresh(rankInfo)
     self.TxtRankNormal.gameObject:SetActiveEx(rankInfo.Rank > MAX_SPECIAL_NUM)
     self.ImgRankSpecial.gameObject:SetActiveEx(rankInfo.Rank <= MAX_SPECIAL_NUM)
 
-    XUiPLayerHead.InitPortrait(rankInfo.HeadPortraitId, rankInfo.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(rankInfo.HeadPortraitId, rankInfo.HeadFrameId, self.Head)
     
     local charLength = 0
     if rankInfo.CharacterInfos then

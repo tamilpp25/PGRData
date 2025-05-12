@@ -1,4 +1,4 @@
-XUiAttentionDesc = XLuaUiManager.Register(XLuaUi, "UiAttentionDesc")
+local XUiAttentionDesc = XLuaUiManager.Register(XLuaUi, "UiAttentionDesc")
 
 function XUiAttentionDesc:OnStart(panelTitle, contextList, contextTitleList)
     self.PanelTitle = panelTitle
@@ -35,3 +35,5 @@ end
 function XUiAttentionDesc:OnBtnCloseClick()
     self:Close()
 end
+
+return XUiAttentionDesc

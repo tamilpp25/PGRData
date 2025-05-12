@@ -27,7 +27,8 @@ function XUiRpgTowerChangeMemberItem:OnClick()
     if self.IsSelect then return end
     self:SetSelect(true)
     local updateModelCb = function(model)
-        self.List.RootUi:OpenPreChildPage()
+        local talentType = self.RChara:GetCharaTalentType() or XDataCenter.RpgTowerManager.TALENT_TYPE.SINGLE
+        self.List.RootUi:OpenPreChildPage(talentType)
     end
     self.List.RootUi:OnCharaSelect(self.RChara, updateModelCb)
 end

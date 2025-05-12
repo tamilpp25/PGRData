@@ -231,24 +231,25 @@ function XUiInvertGamePanel:PlayCardsChangedAnimation(stageEntity, invertCardIdx
     local AsynPlayClearCardAnimation = asynTask(self.PlayClearCardAnimation, self)
     local AsynPlayFinishStageAnimation = asynTask(self.PlayFinishStageAnimation, self)
         RunAsyn(function()
-        self.RootUi:SetFullCoverActiveEx(true) -- 打开全局遮罩
-        AsynPlayTurnOnAnimation(invertCardIdx)
-        if punishCardIdxs and next(punishCardIdxs) then
-            AsynPlayPunishAnimation(punishCardIdxs)
-        end
-         if clearCardIdxs and next(clearCardIdxs) then
-             AsynPlayClearCardAnimation(clearCardIdxs)
-         end
-        --self:PlayClearCardAnimation(clearCardIdxs)
-        if stageEntity:GetStatus() == XInvertCardGameConfig.InvertCardGameStageStatusType.Finish then
-            self:RefreshGamePanelWithFinish(true)
-            AsynPlayFinishStageAnimation()
-        end
-        self:RefreshMessagePanel()
-        self.RootUi:RefreshBtnTab()
-        self.RootUi.RewardPanel:Refresh(stageEntity)
-        self.RootUi:SetFullCoverActiveEx(false) -- 关闭全局遮罩
-    end)
+            self.RootUi:SetFullCoverActiveEx(true) -- 打开全局遮罩
+            AsynPlayTurnOnAnimation(invertCardIdx)
+            if punishCardIdxs and next(punishCardIdxs) then
+                AsynPlayPunishAnimation(punishCardIdxs)
+            end
+            if clearCardIdxs and next(clearCardIdxs) then
+                AsynPlayClearCardAnimation(clearCardIdxs)
+            end
+            --self:PlayClearCardAnimation(clearCardIdxs)
+            if stageEntity:GetStatus() == XInvertCardGameConfig.InvertCardGameStageStatusType.Finish then
+                self:RefreshGamePanelWithFinish(true)
+                AsynPlayFinishStageAnimation()
+            end
+            self:RefreshMessagePanel()
+            self.RootUi:RefreshBtnTab()
+            self.RootUi.RewardPanel:Refresh(stageEntity)
+            self.RootUi:SetFullCoverActiveEx(false) -- 关闭全局遮罩
+            XEventManager.DispatchEvent(XEventId.EVENT_INVERT_CARD_GAME_CARD_CHANGED)
+        end)
 end
 
 function XUiInvertGamePanel:PlayTurnOnAnimation(cardIndex, cb)
@@ -287,16 +288,17 @@ end
 
 function XUiInvertGamePanel:PlayClearCardAnimation(cardIdxs, cb)
     for index, cardIndex in ipairs(cardIdxs) do
+        local card = self.CardItems[cardIndex]
         if index == #cardIdxs then
-            self.CardItems[cardIndex]:PlayClearEffectAnimation(function()
-                self.CardItems[cardIndex]:SetCardState(XInvertCardGameConfig.InvertCardGameCardState.Finish)
+            card:PlayClearEffectAnimation(function()
+                card:SetCardState(XInvertCardGameConfig.InvertCardGameCardState.Finish)
                 if cb then
                     cb()
                 end
             end)
         else
-            self.CardItems[cardIndex]:PlayClearEffectAnimation(function()
-                self.CardItems[cardIndex]:SetCardState(XInvertCardGameConfig.InvertCardGameCardState.Finish)
+            card:PlayClearEffectAnimation(function()
+                card:SetCardState(XInvertCardGameConfig.InvertCardGameCardState.Finish)
             end)
         end
     end
@@ -304,6 +306,8 @@ end
 
 function XUiInvertGamePanel:PlayFinishStageAnimation(cb)
     for index, cardItem in ipairs(self.CardItems) do
+        cardItem:StopClearEffectAnimation()
+        cardItem:SetCardState(XInvertCardGameConfig.InvertCardGameCardState.Back)
         if index == #self.CardItems then
             cardItem:DORotate(function()
                 cardItem:SetCardState(XInvertCardGameConfig.InvertCardGameCardState.Front)

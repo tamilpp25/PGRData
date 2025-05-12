@@ -1,6 +1,11 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiPanelEliteMonster = require("XUi/XUiGuildWar/Node/XUiPanelEliteMonster")
 local XUiPanelNodeDetail = require("XUi/XUiGuildWar/Node/XUiPanelNodeDetail")
+local XUiPanelCommonEffect = require("XUi/XUiGuildWar/Node/XUiPanelCommonEffect")
+
 --######################## XUiGuildWarStageDetail ########################
+---@class XUiGuildWarStageDetail: XLuaUi
+---@field private _Control XGuildWarControl
 local XUiGuildWarStageDetail = XLuaUiManager.Register(XLuaUi, "UiGuildWarStageDetail")
 
 function XUiGuildWarStageDetail:OnAwake()
@@ -8,19 +13,26 @@ function XUiGuildWarStageDetail:OnAwake()
     self.BattleManager = self.GuildWarManager.GetBattleManager()
     self.UiPanelNodeDetail = XUiPanelNodeDetail.New(self.PanelNodeDetail, self)
     self.UiPanelEliteMonster = XUiPanelEliteMonster.New(self.PanelEliteMonster)
+    ---@type XGWNode
     self.Node = nil
     self.IsMonsterStatus = false
     self.TimeId = nil
     self.CurrentChildPanel = nil
     self:RegisterUiEvents()
-    XUiHelper.NewPanelActivityAsset({ XGuildWarConfig.ActivityPointItemId }
-        , self.PanelSpecialTool, { self.GuildWarManager.GetMaxEnergy() })
+    XUiHelper.NewPanelActivityAssetSafe({ XGuildWarConfig.ActivityPointItemId }
+    , self.PanelSpecialTool, self, { self.GuildWarManager.GetMaxActionPoint() })
     -- 子面板信息配置
     self.ChildPanelInfoDic = {
         [XGuildWarConfig.NodeType.Sentinel] = {
             uiParent = self.PanelSentinel,
             instanceGo = self.PanelSentinel,
             proxy = require("XUi/XUiGuildWar/Node/XUiPanelSentinel"),
+            proxyArgs = { "Node" },
+        },
+        [XGuildWarConfig.NodeType.SecondarySentinel] = {
+            uiParent = self.PanelLittleSentinel,
+            instanceGo = self.PanelLittleSentinel,
+            proxy = require("XUi/XUiGuildWar/Node/XUiPanelSecondarySentinel"),
             proxyArgs = { "Node" },
         },
         [XGuildWarConfig.NodeType.Guard] = {
@@ -47,6 +59,48 @@ function XUiGuildWarStageDetail:OnAwake()
             proxy = require("XUi/XUiGuildWar/Node/XUiPanelHome"),
             proxyArgs = { "Node" },
         },
+        [XGuildWarConfig.NodeType.PandaRoot] = {
+            uiParent = self.PanelBoss,
+            instanceGo = self.PanelBoss,
+            proxy = require("XUi/XUiGuildWar/Node/XUiPanelPanda"),
+            proxyArgs = { "Node" },
+        },
+        [XGuildWarConfig.NodeType.TwinsRoot] = {
+            uiParent = self.PanelBoss,
+            instanceGo = self.PanelBoss,
+            proxy = require("XUi/XUiGuildWar/Node/XUiPanelTwins"),
+            proxyArgs = { "Node" },
+        },
+        [XGuildWarConfig.NodeType.Blockade] = {
+            uiParent = self.PanelBlock,
+            instanceGo = self.PanelBlock,
+            proxy = require("XUi/XUiGuildWar/Node/XUiPanelBlockade"),
+            proxyArgs = { "Node" },
+        },
+        [XGuildWarConfig.NodeType.Term4BossRoot] = {
+            uiParent = self.PanelBossTerm4,
+            instanceGo = self.PanelBossTerm4,
+            proxy = require("XUi/XUiGuildWar/Node/XUiPanelBossTerm4"),
+            proxyArgs = { "Node" },
+        },
+        [XGuildWarConfig.NodeType.Resource] = {
+            uiParent = self.PanelResource,
+            instanceGo = self.PanelResource,
+            proxy = require("XUi/XUiGuildWar/Node/XUiPanelResource"),
+            proxyArgs = { "Node" },
+        },
+        [XGuildWarConfig.NodeType.NodeBoss7] = {
+            uiParent = self.PanelBossTerm4,
+            instanceGo = self.PanelBossTerm4,
+            proxy = require("XUi/XUiGuildWar/Node/XUiPanelBossTerm4"),
+            proxyArgs = { "Node" },
+        },
+        [XGuildWarConfig.NodeType.NodeRelic] = {
+            uiParent = self.PanelRuins,
+            instanceGo = self.PanelRuins,
+            proxy = require("XUi/XUiGuildWar/Node/XUiPanelRuins"),
+            proxyArgs = { "Node" },
+        }
     }
     -- 连接信号
     self.UiPanelNodeDetail:ConnectSignal("ChangeTopDetailStatus", self, self.OnChangeTopDetailStatus)
@@ -55,7 +109,11 @@ end
 
 -- node : XNormalGWNode
 function XUiGuildWarStageDetail:OnStart(node, isMonsterStatus)
-    if isMonsterStatus == nil then isMonsterStatus = false end
+    XMVCA.XGuildWar:SetNodeInDetailShow(node)
+    self._ScheduleTimerIds = {}
+    if isMonsterStatus == nil then
+        isMonsterStatus = false
+    end
     self.IsMonsterStatus = isMonsterStatus
     self:RefreshNode(node)
     if isMonsterStatus then
@@ -67,10 +125,11 @@ function XUiGuildWarStageDetail:OnEnable()
     XUiGuildWarStageDetail.Super.OnEnable(self)
     if not self.TimeId then
         self.TimeId = XScheduleManager.ScheduleForever(function()
-                self:RefreshTimeData()
-            end, XScheduleManager.SECOND, 0)
+            return
+            self:RefreshTimeData()
+        end, XScheduleManager.SECOND, 0)
     end
-    
+
     XEventManager.AddEventListener(XEventId.EVENT_GUILDWAR_ACTIONLIST_CHANGE, self.CheckClose, self)
     XEventManager.AddEventListener(XEventId.EVENT_GUILDWAR_TIME_REFRESH, self.RefreshNode, self)
     XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_STAGEDETAIL_CHANGE, self.Node:GetStageIndexName(), self.IsMonsterStatus)
@@ -78,11 +137,11 @@ end
 
 function XUiGuildWarStageDetail:OnDisable()
     XUiGuildWarStageDetail.Super.OnDisable(self)
-    
+
     if self.TimeId then
         XScheduleManager.UnSchedule(self.TimeId)
         self.TimeId = nil
-    end 
+    end
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILDWAR_ACTIONLIST_CHANGE, self.CheckClose, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILDWAR_TIME_REFRESH, self.RefreshNode, self)
 end
@@ -90,17 +149,24 @@ end
 function XUiGuildWarStageDetail:OnDestroy()
     XUiGuildWarStageDetail.Super.OnDestroy(self)
     XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_STAGEDETAIL_CHANGE, nil, nil)
+    for i, v in pairs(self._ScheduleTimerIds) do
+        XScheduleManager.UnSchedule(v)
+    end
+    self._ScheduleTimerIds = nil
+    XMVCA.XGuildWar:SetNodeInDetailShow(nil)
 end
 
 function XUiGuildWarStageDetail:RefreshNode(node)
-    if node == nil then node = self.Node end
+    if node == nil then
+        node = self.Node
+    end
     self.Node = node
-    
+
     local monster = self:GetNodeMonster()
     if self.IsMonsterStatus and not monster then
         return
     end
-        
+
     self.BattleManager:UpdateCurrentClientBattleInfo(node:GetUID(), node:GetStutesType())
     self.UiPanelNodeDetail:SetData(node)
     self.UiPanelEliteMonster:SetData(monster)
@@ -113,12 +179,14 @@ function XUiGuildWarStageDetail:RefreshNode(node)
     -- 安全区域or危险区域提示
     local statusType = node:GetStutesType()
     self.TxtDanger.gameObject:SetActiveEx(statusType == XGuildWarConfig.NodeStatusType.Alive
-        or statusType == XGuildWarConfig.NodeStatusType.Revive)
+            or statusType == XGuildWarConfig.NodeStatusType.Revive)
     self.TxtSave.gameObject:SetActiveEx(statusType == XGuildWarConfig.NodeStatusType.Die)
     -- 节点奖励
     self:RefreshRewardList()
     -- 精英怪信息
+    self.UiPanelEliteMonster.GameObject:SetActiveEx(self.IsMonsterStatus)
     self.PanelEliteMonsterDetail.gameObject:SetActiveEx(self.IsMonsterStatus)
+    self.PanelReinforce.gameObject:SetActiveEx(false)
     self:RefreshTimeData()
     -- 刷新节点
     self:RefreshNodeTypeDetail(node:GetNodeType())
@@ -137,7 +205,7 @@ function XUiGuildWarStageDetail:RefreshTimeData()
     end
     -- 更新子界面刷新时间
     if self.CurrentChildPanel and self.CurrentChildPanel.RefreshTimeData then
-        self.CurrentChildPanel:RefreshTimeData()
+        self.CurrentChildPanel:RefreshTimeData(self.Node)
     end
     -- 节点详情重建时间
     self.UiPanelNodeDetail:RefreshTimeData()
@@ -163,25 +231,41 @@ function XUiGuildWarStageDetail:RegisterUiEvents()
     XUiHelper.RegisterClickEvent(self, self.BtnGo, self.OnBtnGoClicked)
     XUiHelper.RegisterClickEvent(self, self.BtnHelp, self.OnBtnHelpClicked)
     XUiHelper.RegisterClickEvent(self, self.BtnPlayer, self.OnBtnPlayerClicked)
+    self.BtnDefend.CallBack = handler(self,self.OnBtnDefendClick)
 end
 
 function XUiGuildWarStageDetail:OnBtnFightClicked()
+    local node = self.Node
+    if node:GetIsTerm4Boss() then
+        self:OpenTerm4Ui(node)
+        return
+    end
+
+    if node:GetNodeType() == XGuildWarConfig.NodeType.NodeBoss7 then
+        self:OpenDragonRageBoss(node)
+        return
+    end
+
     -- 检查体力是否充足
     if self.IsMonsterStatus then
         local monster = self:GetNodeMonster()
-        if not XEntityHelper.CheckItemCountIsEnough(XGuildWarConfig.ActivityPointItemId, 
-            monster:GetFightCostEnergy()) then
+        if monster == nil then
+            --当玩家扫荡击杀怪物后 Action的Notify可能回比MonsterUpdate晚 会导致这里为空
+            return
+        end
+        if not XEntityHelper.CheckItemCountIsEnough(XGuildWarConfig.ActivityPointItemId,
+                monster:GetFightCostEnergy()) then
             return
         end
     else
-        if not XEntityHelper.CheckItemCountIsEnough(XGuildWarConfig.ActivityPointItemId, 
-            self.Node:GetFightCostEnergy()) then
+        if not XEntityHelper.CheckItemCountIsEnough(XGuildWarConfig.ActivityPointItemId,
+                self.Node:GetFightCostEnergy()) then
             return
         end
-    end    
+    end
     if self.IsMonsterStatus then
         self.BattleManager:UpdateCurrentClientBattleInfo(
-            self:GetNodeMonster():GetUID(), self.Node:GetStutesType())
+                self:GetNodeMonster():GetUID(), self.Node:GetStutesType())
     else
         self.BattleManager:UpdateCurrentClientBattleInfo(self.Node:GetUID(), self.Node:GetStutesType())
     end
@@ -190,12 +274,12 @@ function XUiGuildWarStageDetail:OnBtnFightClicked()
     else
         -- 前哨节点特殊处理
         if self.Node:GetNodeType() == XGuildWarConfig.NodeType.Sentinel and
-           self.Node:GetStutesType() == XGuildWarConfig.NodeStatusType.Revive then
-            self:OpenBattleRoomUi(self.Node:GetStageId())    
+                self.Node:GetStutesType() == XGuildWarConfig.NodeStatusType.Revive then
+            self:OpenBattleRoomUi(self.Node:GetStageId())
             return
         end
         -- boss节点特殊处理
-        if self.Node:GetIsInfectNode() then
+        if self.Node:GetIsInfectNode() or self.Node:GetIsRuinsStatus() then
             self:OpenBattleRoomUi(self.Node:GetStageId())
             return
         end
@@ -214,38 +298,48 @@ end
 
 function XUiGuildWarStageDetail:OnBtnAutoFightClicked()
     local cost = self.Node:GetSweepCostEnergy()
-    local damage = getRoundingValue((self.Node:GetMaxDamage() / self.Node:GetMaxHP()) * 100, 2) 
+    local damage = getRoundingValue((self.Node:GetMaxDamage() / self.Node:GetMaxHP()) * 100, 2)
     local power = self.BattleManager:GetSweepHpFactor() * 100
     if self.IsMonsterStatus then
         local monster = self:GetNodeMonster()
+        if monster == nil then
+            --当玩家扫荡击杀怪物后 Action的Notify可能回比MonsterUpdate晚 会导致这里为空
+            return
+        end
         cost = monster:GetSweepCostEnergy()
-        damage = getRoundingValue((monster:GetMaxDamage() / monster:GetMaxHP()) * 100, 2) 
+        damage = getRoundingValue((monster:GetMaxDamage() / monster:GetMaxHP()) * 100, 2)
     end
     if not XEntityHelper.CheckItemCountIsEnough(XGuildWarConfig.ActivityPointItemId, cost) then
         return
     end
     XLuaUiManager.Open("UiDialog", nil
-        , XUiHelper.GetText("GuildWarSweepTip", cost, damage, power)
-        , XUiManager.DialogType.Normal, nil
-        , function()
-            local uid = self.Node:GetUID()
-            local sweepType = XGuildWarConfig.NodeFightType.FightNode
-            local stageId = self.Node:GetStageId()
-            if self.IsMonsterStatus then
-                local monster = self:GetNodeMonster()
-                uid = monster:GetUID()
-                sweepType = XGuildWarConfig.NodeFightType.FightMonster
-                stageId = monster:GetStageId()
-            end
-            self.GuildWarManager.StageSweep(uid, sweepType, stageId, function()
-                XUiManager.TipMsg(XUiHelper.GetText("GuildWarSweepFinished"))
-                self:RefreshNode(self.Node)
+    , XUiHelper.GetText("GuildWarSweepTip", cost, damage, power)
+    , XUiManager.DialogType.Normal, nil
+    , function()
+                local uid = self.Node:GetUID()
+                local sweepType = XGuildWarConfig.NodeFightType.FightNode
+                local stageId = self.Node:GetStageId()
+                if self.IsMonsterStatus then
+                    local monster = self:GetNodeMonster()
+                    uid = monster:GetUID()
+                    sweepType = XGuildWarConfig.NodeFightType.FightMonster
+                    stageId = monster:GetStageId()
+                end
+                self.GuildWarManager.StageSweep(uid, sweepType, stageId, function()
+                    XUiManager.TipMsg(XUiHelper.GetText("GuildWarSweepFinished"))
+                    self:RefreshNode(self.Node)
+                end)
             end)
-        end)
 end
 
 function XUiGuildWarStageDetail:OnBtnGoClicked()
-    self.GuildWarManager.RequestPlayerMove(self.Node:GetId(), function()
+    --- 路径移动基于原节点，中间动态改变的节点忽略
+    local rootId = XTool.IsNumberValid(self.Node:GetRootId()) and self.Node:GetRootId() or self.Node:GetId()
+    
+    self.GuildWarManager.RequestPlayerMove(rootId, function()
+        if self.Node:OnDetailGoCallback() then
+            return
+        end
         self:RefreshNode(self.Node)
     end)
 end
@@ -256,14 +350,21 @@ end
 
 function XUiGuildWarStageDetail:OnBtnPlayerClicked()
     local rankType = XGuildWarConfig.RankingType.Node
-    local uid = self.Node:GetUID()
-    if self.IsMonsterStatus then
-        rankType = XGuildWarConfig.RankingType.Elite
-        uid = self:GetNodeMonster():GetUID()
+    
+    local node = XTool.IsNumberValid(self.Node:GetRootId()) and XDataCenter.GuildWarManager.GetNode(self.Node:GetRootId()) or self.Node
+
+    if node then
+        local uid = node:GetUID()
+        if self.IsMonsterStatus then
+            rankType = XGuildWarConfig.RankingType.Elite
+            uid = self:GetNodeMonster():GetUID()
+        end
+        self.GuildWarManager.RequestRanking(rankType, uid, function(rankList, myRankInfo)
+            XLuaUiManager.Open("UiGuildWarStageRank", rankList, myRankInfo, rankType, uid, node)
+        end)
+    else
+        XLog.Error('不存在节点数据')    
     end
-    self.GuildWarManager.RequestRanking(rankType, uid, function(rankList, myRankInfo)
-        XLuaUiManager.Open("UiGuildWarStageRank", rankList, myRankInfo, rankType, uid, self.Node)
-    end)
 end
 
 function XUiGuildWarStageDetail:OnChangeTopDetailStatus(isMonster)
@@ -271,6 +372,11 @@ function XUiGuildWarStageDetail:OnChangeTopDetailStatus(isMonster)
     self.UiPanelNodeDetail.GameObject:SetActiveEx(not isMonster)
     self.UiPanelEliteMonster.GameObject:SetActiveEx(isMonster)
     self.PanelEliteMonsterDetail.gameObject:SetActiveEx(isMonster)
+    if isMonster then
+        self.PanelNormal.gameObject:SetActiveEx(false)
+    else
+        self:RefreshNodeTypeDetail(self.Node:GetNodeType())
+    end
     self:RefreshButtonStatus()
     XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_STAGEDETAIL_CHANGE, self.Node:GetStageIndexName(), self.IsMonsterStatus)
     if self.AnimSwitch then
@@ -282,11 +388,24 @@ end
 function XUiGuildWarStageDetail:RefreshNodeTypeDetail(nodeType)
     -- 隐藏其他的子面板
     for key, data in pairs(self.ChildPanelInfoDic) do
-        data.uiParent.gameObject:SetActiveEx(key == nodeType)
+        if data.uiParent then
+            data.uiParent.gameObject:SetActiveEx(key == nodeType)
+        end
     end
-    self.PanelTitle.gameObject:SetActiveEx(nodeType ~= XGuildWarConfig.NodeType.Home)
+    self.PanelTitle.gameObject:SetActiveEx(nodeType ~= XGuildWarConfig.NodeType.Home and nodeType ~= XGuildWarConfig.NodeType.Resource)
+
+    -- 普通节点补充“作战说明”栏目,读取node.Desc
+    if nodeType == XGuildWarConfig.NodeType.Normal and not self.IsMonsterStatus then
+        local desc = self.Node:GetDesc()
+        self.PanelNormal.gameObject:SetActiveEx(true)
+        self.TxtAreaDetails.text = desc
+    end
+
     local childPanelData = self.ChildPanelInfoDic[nodeType]
-    if childPanelData == nil then return end
+    if childPanelData == nil then
+        self:InitCommonEffectPanel(false)
+        return
+    end
     -- 加载子面板实体
     local instanceGo = childPanelData.instanceGo
     if instanceGo == nil then
@@ -296,8 +415,12 @@ function XUiGuildWarStageDetail:RefreshNodeTypeDetail(nodeType)
     -- 加载子面板代理
     local instanceProxy = childPanelData.instanceProxy
     if instanceProxy == nil then
-        instanceProxy = childPanelData.proxy.New(instanceGo)
+        instanceProxy = childPanelData.proxy.New(instanceGo,self)
         childPanelData.instanceProxy = instanceProxy
+
+        if instanceProxy.Super == XUiNode then
+            instanceProxy:Open()
+        end
     end
     -- 设置子面板代理参数
     local proxyArgs = {}
@@ -312,17 +435,45 @@ function XUiGuildWarStageDetail:RefreshNodeTypeDetail(nodeType)
     end
     instanceProxy:SetData(table.unpack(proxyArgs))
     self.CurrentChildPanel = instanceProxy
+
+    -- 基地隐藏普通血条
+    if nodeType == XGuildWarConfig.NodeType.Home or nodeType == XGuildWarConfig.NodeType.Resource then
+        self.UiPanelNodeDetail.GameObject:SetActiveEx(false)
+    end
+    
+    self:InitCommonEffectPanel(nodeType ~= XGuildWarConfig.NodeType.Term4BossChild)
 end
 
 function XUiGuildWarStageDetail:RefreshButtonStatus()
+    -- 无法参与此轮
+    if XDataCenter.GuildWarManager.CheckIsPlayerSkipRound() then
+        self.BtnGo.gameObject:SetActiveEx(false)
+        self.BtnAutoFight.gameObject:SetActiveEx(false)
+        self.BtnFight.gameObject:SetActiveEx(false)
+        self.TxtTipsCenter.gameObject:SetActiveEx(true)
+        self.TxtTipsCenter.text = XUiHelper.ReplaceTextNewLine(XUiHelper.GetText("GuildWarNotQualify"))
+        self.TxtTipsLeft.gameObject:SetActiveEx(false)
+        self.TxtTipsCenter2.gameObject:SetActiveEx(false)
+        return
+    end
     -- 默认值 begin
+    local cost, preNodes
+    local nodeId
+    if self.Node:GetNodeType() ~= XGuildWarConfig.NodeType.Resource then
+        nodeId = XTool.IsNumberValid(self.Node:GetRootId()) and self.Node:GetRootId() or self.Node:GetId()
+        cost, preNodes = self._Control:GetMoveCost(nodeId)
+        self.BtnGo:SetNameByGroup(1
+        , cost)
+    end
+    
+    -- 是否显示前往按钮要根据节点是否与基地联通来判断
+    local homeCost, toHomePreNodes = self._Control:GetMoveCost(nodeId, self.BattleManager:GetHomeNodeId())
+    local isShowBtnGo = self.Node:CheckIsCanGoHome(toHomePreNodes)
+    self.BtnGo.gameObject:SetActiveEx(isShowBtnGo)
+    self.BtnGo:SetRawImage(XEntityHelper.GetItemIcon(XGuildWarConfig.ActivityPointItemId))
     self.TxtTipsCenter.gameObject:SetActiveEx(false)
     self.TxtTipsLeft.gameObject:SetActiveEx(false)
-    self.BtnGo:SetNameByGroup(1
-        , XGuildWarConfig.GetServerConfigValue("MoveCostEnergy"))
-    self.BtnGo.gameObject:SetActiveEx(self.Node:CheckIsCanGo())
     self.BtnFight:SetRawImage(XEntityHelper.GetItemIcon(XGuildWarConfig.ActivityPointItemId))
-    self.BtnGo:SetRawImage(XEntityHelper.GetItemIcon(XGuildWarConfig.ActivityPointItemId))
     self.BtnAutoFight:SetRawImage(XEntityHelper.GetItemIcon(XGuildWarConfig.ActivityPointItemId))
     -- 默认值 end
     if not self.GuildWarManager.CheckRoundIsInTime() then
@@ -336,11 +487,30 @@ function XUiGuildWarStageDetail:RefreshButtonStatus()
         self.BtnAutoFight.gameObject:SetActiveEx(false)
         self.BtnFight.gameObject:SetActiveEx(false)
         return
+    elseif node:GetNodeType() == XGuildWarConfig.NodeType.Resource then
+        self.BtnAutoFight.gameObject:SetActiveEx(false)
+        self.BtnFight.gameObject:SetActiveEx(false)
+        self.BtnGo.gameObject:SetActiveEx(false)
+        self.BtnDefend.gameObject:SetActiveEx(true)
+        
+        ---@type XGuildWarGarrisonData
+        local garrisonData = XMVCA.XGuildWar:GetGarrisonData()
+        self:RefreshDefendBtnDisplay(garrisonData:CheckDefensePointIsPlayerInById(self.Node._Id))
+        return
+    elseif node:GetNodeType() == XGuildWarConfig.NodeType.NodeRelic then
+        -- 废墟没有战斗
+        self.BtnAutoFight.gameObject:SetActiveEx(false)
+        self.BtnFight.gameObject:SetActiveEx(false)
+        return
     end
-    local monster = self:GetNodeMonster()
+    --显示扫荡和战斗所需能量
     local sweepCost = node:GetSweepCostEnergy()
     local fightCost = node:GetFightCostEnergy()
-    if self.IsMonsterStatus  then
+    local monster = self:GetNodeMonster()
+    if monster == nil then
+        self.IsMonsterStatus = false
+    end
+    if self.IsMonsterStatus then
         sweepCost = monster:GetSweepCostEnergy()
         fightCost = monster:GetFightCostEnergy()
     end
@@ -350,52 +520,86 @@ function XUiGuildWarStageDetail:RefreshButtonStatus()
     -- 显隐
     if self.IsMonsterStatus then
         self.BtnAutoFight.gameObject:SetActiveEx(monster:CheckCanSweep()
-            and node:GetIsPlayerNode())
-        self.BtnFight.gameObject:SetActiveEx(self.Node:GetIsPlayerNode() 
-            and not monster:GetIsDead())
+                and node:GetIsPlayerNode())
+        self.BtnFight.gameObject:SetActiveEx(self.Node:GetIsPlayerNode()
+                and not monster:GetIsDead())
         return
     end
-    if node:GetNodeType() == XGuildWarConfig.NodeType.Infect 
-        and not node:GetAllGuardIsDead() then
+    if node:GetIsLastNode()
+            and not node:GetAllGuardIsDead() then
         self.BtnAutoFight.gameObject:SetActiveEx(false)
         self.BtnFight.gameObject:SetActiveEx(false)
         self.BtnGo.gameObject:SetActiveEx(false)
         self.TxtTipsCenter.gameObject:SetActiveEx(true)
+        self.TxtTipsCenter2.gameObject:SetActiveEx(false)
         return
     end
     -- 前哨 + 超出
-    if node:GetNodeType() == XGuildWarConfig.NodeType.Sentinel 
-       and node:GetIsOverMaxRebuildTime() then
+    if node:GetNodeType() == XGuildWarConfig.NodeType.Sentinel
+            and node:GetIsOverMaxRebuildTime() then
         self.BtnAutoFight.gameObject:SetActiveEx(false)
         self.BtnFight.gameObject:SetActiveEx(false)
         self.TxtTipsLeft.gameObject:SetActiveEx(not self.BattleManager:CheckAllInfectIsDead())
         self.TxtTipsLeft.text = XUiHelper.ConvertLineBreakSymbol(XUiHelper.GetText("GuildWarRebuildMaxTimeTip"
-        , node:GetRebuildTimeStr())) 
+        , node:GetRebuildTimeStr()))
         return
     end
     -- 前哨
     if node:GetNodeType() == XGuildWarConfig.NodeType.Sentinel then
-        self.BtnAutoFight.gameObject:SetActiveEx(node:CheckCanSweep() 
-            and node:GetIsPlayerNode())    
-        self.BtnFight.gameObject:SetActiveEx(self.Node:GetIsPlayerNode() 
-            and not self.BattleManager:CheckAllInfectIsDead())
+        self.BtnAutoFight.gameObject:SetActiveEx(node:CheckCanSweep()
+                and node:GetIsPlayerNode())
+        self.BtnFight.gameObject:SetActiveEx(self.Node:GetIsPlayerNode()
+                and not self.BattleManager:CheckAllInfectIsDead())
         return
     end
-    self.BtnAutoFight.gameObject:SetActiveEx(node:CheckCanSweep() 
-        and node:GetIsPlayerNode())
-    self.BtnFight.gameObject:SetActiveEx(self.Node:GetIsPlayerNode() and (self.Node:GetHP() > 0 or self.Node:GetIsInfectNode()))
+    -- 黑白鲨
+    if node:GetIsRuinsStatus() and node:GetIsPlayerNode() then
+        self.BtnAutoFight.gameObject:SetActiveEx(node:GetMaxDamage() > 0)
+        self.BtnFight.gameObject:SetActiveEx(true)
+        return
+    end
+    -- 第四期
+    --if node:GetIsTerm4Boss() then
+    --    self:UpdateTerm4Boss(node)
+    --end
+
+    local isShowAutoFight = node:CheckCanSweep() and node:GetIsPlayerNode()
+    local isShowFight = self.Node:GetIsPlayerNode() and (self.Node:GetHP() > 0 or self.Node:GetIsInfectNode())
+    local nodeIsDead = self.Node:GetHP() <= 0
+    -- 封锁点
+    ---@type XGWNode[]
+    local frontNodes = node:GetFrontNodes()
+    for i = 1, #frontNodes do
+        local frontNode = frontNodes[i]
+        if frontNode:GetIsBlockadeNode() then
+            -- 封锁点的后序节点
+            if node:IsLink2TheEndUnpassBlockade() then
+                self.TxtTipsCenter2.gameObject:SetActiveEx(not isShowFight and not isShowAutoFight and not isShowBtnGo and not nodeIsDead)
+            end
+            break
+        end
+    end
+
+    self.BtnAutoFight.gameObject:SetActiveEx(isShowAutoFight)
+    self.BtnFight.gameObject:SetActiveEx(isShowFight)
 end
 
 function XUiGuildWarStageDetail:CheckClose(actionList)
     local IsClose = false
     local monster = self:GetNodeMonster()
-    for _,action in pairs(actionList or {}) do
+    for _, action in pairs(actionList or {}) do
         if action.NodeId and action.NodeId == self.Node:GetId() then
             IsClose = true
             break
         end
-        
+
         if monster and action.MonsterUid and action.MonsterUid == monster:GetUID() then
+            IsClose = true
+            break
+        end
+        
+        -- 如果是龙怒动画，也需要关闭
+        if action.ActionType == XGuildWarConfig.GWActionType.DragonRageFull or action.ActionType == XGuildWarConfig.GWActionType.DragonRageEmpty then
             IsClose = true
             break
         end
@@ -406,15 +610,23 @@ function XUiGuildWarStageDetail:CheckClose(actionList)
 end
 
 function XUiGuildWarStageDetail:GetNodeMonster()
-    if self.IsMonsterStatus then
-        return self.Node:GetCurrentEliteMonster(false)
-    end
-    return self.Node:GetCurrentEliteMonster()
+    --if self.IsMonsterStatus then
+    --    local monster = self.Node:GetCurrentEliteMonster(false)
+    --    return monster
+    --end
+    local monster = self.Node:GetCurrentEliteMonster()
+    return monster
 end
 
 function XUiGuildWarStageDetail:RefreshRewardList()
+    if self.Node:GetIsTerm4Boss() then
+        self.PanelReward.gameObject:SetActiveEx(false)
+        return
+    end
     self.PanelReward.gameObject:SetActiveEx(not self.IsMonsterStatus)
-    if self.IsMonsterStatus then return end
+    if self.IsMonsterStatus then
+        return
+    end
     local rewardId = self.Node:GetRewardId()
     self.PanelReward.gameObject:SetActiveEx(rewardId > 0)
     if rewardId > 0 then
@@ -424,6 +636,152 @@ function XUiGuildWarStageDetail:RefreshRewardList()
             local grid = XUiGridCommon.New(self, child)
             grid:Refresh(rewardDatas[index])
         end)
+    end
+end
+
+---@param node XTerm4BossGWNode
+function XUiGuildWarStageDetail:UpdateTerm4Boss(node)
+end
+
+---@param node XTerm4BossGWNode
+function XUiGuildWarStageDetail:OpenTerm4Ui(node)
+    XLuaUiManager.Open("UiGuildWarTerm4Panel", node)
+end
+
+function XUiGuildWarStageDetail:OpenDragonRageBoss(node)
+    XLuaUiManager.Open('UiGuildWarBoss7Panel', node)
+end
+
+function XUiGuildWarStageDetail:OnBtnDefendClick()
+    ---@type XGuildWarGarrisonData
+    local garrisonData = XMVCA.XGuildWar:GetGarrisonData()
+    
+    if garrisonData:CheckDefensePointIsPlayerInById(self.Node._Id) then
+        --弹窗提示是否要取消驻守
+        XUiManager.DialogTip('',table.concat(XGuildWarConfig.GetClientConfigValues('CancelDefend')),nil,nil,function()
+            self:SelectDefend(true)
+        end)
+    elseif garrisonData:IsPlayerDefend() then
+        --弹窗提示是否要更换驻守
+        XUiManager.DialogTip('',table.concat(XGuildWarConfig.GetClientConfigValues('ChangeDefend')),nil,nil,function()
+            self:SelectDefend()
+        end)
+    else
+        --直接驻守
+        self:SelectDefend()
+    end
+end
+
+function XUiGuildWarStageDetail:SelectDefend(isCancel)
+    ---@type XGuildWarGarrisonData
+    local garrisonData = XMVCA.XGuildWar:GetGarrisonData()
+    
+    if isCancel then
+        XMVCA.XGuildWar.GarrisonCom:SelectDefenseNodeRequest(0,function(success)
+            if success then
+                self:RefreshDefendBtnDisplay(false)
+                garrisonData:RefreshDefendDictData(0)
+            end
+        end)
+    else
+        XMVCA.XGuildWar.GarrisonCom:SelectDefenseNodeRequest(self.Node._Id,function(success)
+            if success then
+                XUiManager.TipMsg(table.concat(XGuildWarConfig.GetClientConfigValues('DefendSuccess')))
+                self:RefreshDefendBtnDisplay(true)
+                garrisonData:RefreshDefendDictData(self.Node._Id)
+            end
+        end)
+    end
+end
+
+function XUiGuildWarStageDetail:RefreshDefendBtnDisplay(isDefend)
+    local data = XGuildWarConfig.GetClientConfigValues('DefendBtnDisplay')
+    if isDefend then
+        self.BtnDefend:SetNameByGroup(0,data[2])
+    else
+        self.BtnDefend:SetNameByGroup(0,data[1])
+    end
+end
+
+function XUiGuildWarStageDetail:AddTimer(cb)
+    local timeId = XScheduleManager.ScheduleForever(cb,XScheduleManager.SECOND,0)
+    table.insert(self._ScheduleTimerIds,timeId)
+    return timeId
+end
+
+function XUiGuildWarStageDetail:RemoveTimer(timeId)
+    local isin, pos = table.contains(self._ScheduleTimerIds, timeId)
+
+    if isin then
+        table.remove(self._ScheduleTimerIds, pos)
+        XScheduleManager.UnSchedule(timeId)
+    end
+end
+
+function XUiGuildWarStageDetail:InitCommonEffectPanel(hasSimilarPanel)
+    if self._PanelCommonEffect == nil then
+        self.PanelCommonEffect.gameObject:SetActiveEx(false)
+        self._PanelCommonEffect = XUiPanelCommonEffect.New(self.PanelCommonEffect, self, self.Node)
+        self._PanelCommonEffect:Close()
+    else
+        self._PanelCommonEffect:RecycleEffectShow()
+    end
+    
+    local hasAnyEventShow = false
+    
+    -- 援军攻击传递的buff，仅当存在，且节点未攻破
+    if not self.Node:GetIsDead() and XTool.IsNumberValid(self.Node.LastAttackedReinforcementId) and XTool.IsNumberValid(self.Node.LastReinforcementAttackedTime) then
+        if self.Node.LastReinforcementAttackedTime + tonumber(XGuildWarConfig.GetServerConfigValue('ReinforcementBuffEffectInterval')) - XTime.GetServerNowTimestamp() > 0 then
+            -- 显示援军攻击buff
+            ---@type XTableGuildWarReinforcements
+            local reinforceCfg = XGuildWarConfig.GetReinforcementConfig(self.Node.LastAttackedReinforcementId)
+
+            if reinforceCfg and not XTool.IsTableEmpty(reinforceCfg.ShowFightEventIds) then
+                self._PanelCommonEffect:Open()
+                self._PanelCommonEffect:SetIsHideTitle(hasSimilarPanel)
+
+                local validList = XGuildWarConfig.GetClientConfigValues('NodeShowReinforcementEvents','Int')
+
+                -- 只有存在可继承buff才遍历检查
+                if not XTool.IsTableEmpty(validList) then
+                    for i, showEventId in pairs(reinforceCfg.ShowFightEventIds) do
+                        if table.contains(validList, showEventId) then
+                            self._PanelCommonEffect:AddEffectShow(showEventId, require("XUi/XUiGuildWar/Node/XUiGuildWarReinforceAttackedDetailEvent"))
+                        end
+                    end
+                end
+
+                hasAnyEventShow = true
+            end
+        end
+    end
+
+    -- 常规buff
+    if not hasSimilarPanel then
+        local showEventIds = self.Node:GetShowFightEventId()
+
+        if not XTool.IsTableEmpty(showEventIds) then
+            self._PanelCommonEffect:Open()
+            self._PanelCommonEffect:SetIsHideTitle(hasSimilarPanel)
+
+            for i, showEventId in pairs(showEventIds) do
+                self._PanelCommonEffect:AddEffectShow(showEventId, require("XUi/XUiGuildWar/Node/XUiGuildWarStageDetailEvent"))
+            end
+
+            hasAnyEventShow = true
+        end
+    end
+
+    if hasAnyEventShow then
+        return
+    end
+
+    -- 如果之前有显示了，那么此时需要回收
+    if self._PanelCommonEffect then
+        self._PanelCommonEffect:RecycleEffectShow()
+        self._PanelCommonEffect:Close()
+    else
+        self.PanelCommonEffect.gameObject:SetActiveEx(false)
     end
 end
 

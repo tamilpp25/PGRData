@@ -37,7 +37,10 @@ local WeekOfDayIndex = {
 local WeekLength = 7
 local sec_of_a_day = 24 * 60 * 60
 local sec_of_one_hour = 60 * 60
-local sec_of_refresh_time = 7 * 60 * 60
+local sec_of_refresh_time = 5 * 60 * 60
+XTime.Seconds = {
+    Day = sec_of_a_day --86400
+}
 
 --==============================--
 --desc: 获取服务器当前时间戳
@@ -46,6 +49,14 @@ local sec_of_refresh_time = 7 * 60 * 60
 function XTime.GetServerNowTimestamp()
     local sinceStartup = CsTime.realtimeSinceStartup
     return floor(ServerTimeWhenStartupAverage + sinceStartup)
+end
+
+--==============================
+ ---@desc 获取本地时间戳
+ ---@return 长整型时间戳，单位（秒）
+--==============================
+function XTime.GetLocalNowTimestamp()
+    return CS.XDateUtil.GetNowTimestamp()
 end
 
 --==============================--
@@ -96,7 +107,7 @@ function XTime.ClearPingTime()
 end
 
 --==============================--
---desc: 时间字符串转服务器时区时间戳
+--desc: 时间字符串转时间戳
 --@dateTimeString: 时间字符串
 --@return 转失败返回nil
 --==============================--
@@ -107,27 +118,10 @@ function XTime.ParseToTimestamp(dateTimeString)
 
     local success, timestamp = CS.XDateUtil.TryParseToTimestamp(dateTimeString)
     if not success then
-        XLog.Error("XTime.TryParseToTimestamp parse to timestamp failed. try use ParseToTimestampMDY: " .. tostring(dateTimeString))
-        return XTime.ParseToTimestampMDY(dateTimeString)
-    end
-
-    return timestamp
-end
-
-function XTime.ParseToTimestampMDY(dateTimeString)
-    local arr = string.Split(dateTimeString, " ")
-    local date = arr[1]
-    local time = arr[2]
-    local dateArr = string.Split(date, "/")
-    local m = dateArr[1]
-    local d = dateArr[2]
-    local y = dateArr[3]
-    dateTimeString = y .. "/" .. m .. "/" .. d .. " " .. time
-    local success, timestamp = CS.XDateUtil.TryParseToTimestamp(dateTimeString)
-    if not success then
-        XLog.Error("XTime.TryParseToTimestamp parse to timestamp failed. invalid time argument: " .. tostring(dateTimeString))
-        return -- 该类在CS中不存在，且在1.18版本出现时区格式问题
-        -- return CS.XDate.GetTime(dateTimeString)
+        XLog.Error(
+            "XTime.TryParseToTimestamp parse to timestamp failed. invalid time argument: " .. tostring(dateTimeString)
+        )
+        return
     end
 
     return timestamp
@@ -152,6 +146,24 @@ function XTime.TimestampToGameDateTimeString(timestamp, format)
     format = format or "yyyy-MM-dd HH:mm:ss"
     local dt = CS.XDateUtil.GetGameDateTime(timestamp)
     return dt:ToString(format)
+end
+
+function XTime.GetGameDateTimestamp(year, mon, day)
+    local now = XTime.GetServerNowTimestamp()
+    local dateTime = CS.XDateUtil.GetGameDateTime(now)
+    if not year or year < 0 then
+        year = dateTime.Year
+    end
+
+    if not mon or mon < 0 then
+        mon = dateTime.Month
+    end
+
+    if not day or day < 0 then
+        day = dateTime.Day
+    end
+    local str = string.format("%d-%d-%d", year, mon, day)
+    return XTime.ParseToTimestamp(str)
 end
 
 -- c#星期枚举转整形数
@@ -181,19 +193,6 @@ function XTime.GetTodayTime(hour, min, sec)
     local nowTime = XTime.GetServerNowTimestamp()
     local dt = CS.XDateUtil.GetGameDateTime(nowTime)
     return dt.Date:AddHours(hour):AddMinutes(min):AddSeconds(sec):ToTimestamp()
-end
-
-function XTime.GeyServerTime(hour, min, sec)
-    hour = hour or 0
-    min = min or 0
-    sec = sec or 0
-    local nowTime = XTime.GetServerNowTimestamp()
-    local dt = CS.XDateUtil.GetGameDateTime(nowTime)
-    dt = dt.Date;
-    dt = dt:AddSeconds(sec)
-    dt = dt:AddMinutes(min)
-    dt = dt:AddHours(hour)
-    return dt:ToTimestamp()
 end
 
 -- 获取距离下一个星期x的时间,默认每周第一天为周一
@@ -357,4 +356,22 @@ function XTime.IsToday(formTime, toTime)
     local toYear = toDateTime.Year
 
     return formDay == toDay and formMonth == toMonth and formYear == toYear
-end 
+end
+
+---判断今天距某个时间戳隔了多少天 正为已过X天 负为还有X天
+---@param toTime number|nil
+---@param isBaseServer boolean
+---@return number
+function XTime.GetDayCountUntilTime(toTime, isBaseServer)
+    if toTime == nil then
+        return 0
+    end
+    local from_time = XTime.GetServerNowTimestamp()
+    local to_Time = isBaseServer and XTime.GetTimeDayFreshTime(toTime) or toTime
+    local fromDateTime = CS.XDateUtil.GetGameDateTime(from_time)
+    local toDateTime = CS.XDateUtil.GetGameDateTime(to_Time)
+    local fromSpan = CS.System.TimeSpan(fromDateTime.Ticks)
+    local toSpan = CS.System.TimeSpan(toDateTime.Ticks)
+    return math.floor(fromSpan.TotalDays - toSpan.TotalDays)
+    -- 服务端刷新时间为基准点
+end

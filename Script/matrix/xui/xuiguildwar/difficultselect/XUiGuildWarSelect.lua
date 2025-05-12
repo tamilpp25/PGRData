@@ -1,7 +1,7 @@
 --公会战难度选择界面
 local XUiGuildWarSelect = XClass(nil, "XUiGuildWarSelect")
 
-function XUiGuildWarSelect:Ctor(uiPrefab, page, rootUi)
+function XUiGuildWarSelect:Ctor(uiPrefab)
     XTool.InitUiObjectByUi(self, uiPrefab)
     self:InitPanelTitle()
     self:InitDifficultDTable()
@@ -19,13 +19,15 @@ function XUiGuildWarSelect:InitDifficultDTable()
 end
 
 function XUiGuildWarSelect:OnRepeatOpen()
-    self.BtnRank:ShowReddot(not XDataCenter.GuildWarManager.CheckReadCurrentRanking())
+    self.BtnRank:ShowReddot(not XDataCenter.GuildWarManager.LocalStroageLoadReadCurrentRanking())
+    self.DTable:RefreshList()
 end
 
 function XUiGuildWarSelect:ShowPanel()
     self.GameObject:SetActiveEx(true)
     self.TitlePanel:StartTimeCount()
-    self.BtnRank:ShowReddot(not XDataCenter.GuildWarManager.CheckReadCurrentRanking())
+    self.BtnRank.gameObject:SetActiveEx(not XDataCenter.GuildWarManager.IsOnPreselectionStage())
+    self.BtnRank:ShowReddot(not XDataCenter.GuildWarManager.LocalStroageLoadReadCurrentRanking())
 end
 
 function XUiGuildWarSelect:HidePanel()
@@ -38,10 +40,10 @@ function XUiGuildWarSelect:OnDestroy()
 end
 
 function XUiGuildWarSelect:OnClickBtnRanking()
-    if not XDataCenter.GuildWarManager.CheckRoundIsInTime() then
-        XUiManager.TipText("GuildWarNoInRound")
-        return
-    end
+    --if not XDataCenter.GuildWarManager.CheckRoundIsInTime() then
+    --    XUiManager.TipText("GuildWarNoInRound")
+    --    return
+    --end
     XLuaUiManager.Open("UiGuildWarRank")
 end
 

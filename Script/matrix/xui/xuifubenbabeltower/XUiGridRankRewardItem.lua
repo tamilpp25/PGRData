@@ -1,3 +1,4 @@
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiGridRankRewardItem = XClass(nil, "XUiGridRankRewardItem")
 
 function XUiGridRankRewardItem:Ctor(ui)
@@ -25,7 +26,9 @@ function XUiGridRankRewardItem:Refresh(rewardInfo)
     local playerRank = (curRank * 1.0) / totalRank * 100
     self.PanelCurRank.gameObject:SetActiveEx(playerRank > minRank and playerRank <= maxRank)
 
-    local rewardList = XDataCenter.MailManager.GetRewardList(rewardInfo.MailId)
+    ---@type XMailAgency
+    local mailAgency = XMVCA:GetAgency(ModuleId.XMail)
+    local rewardList = mailAgency:GetRewardList(rewardInfo.MailId)
 
     for i, reward in pairs(rewardList or {}) do
         if not self.MailRewardList[i] then

@@ -4,6 +4,7 @@ XPayManagerCreator = function()
     local RuntimePlatform = CS.UnityEngine.RuntimePlatform
     local PayAgent = nil
 
+    ---@class XPayManager
     local XPayManager = {}
     local IsGetFirstRechargeReward  -- 是否领取首充奖励
     local IsFirstRecharge           -- 是否首充
@@ -13,10 +14,6 @@ XPayManagerCreator = function()
         CheckResult = "PayCheckResultRequest",
         GetFirstPayReward = "GetFirstPayRewardRequest", -- 获取首充奖励
     }
-
-    local NearPayId = nil
-    local CurrentPayIds = {}
-    local PurchasePayLockGoodsTime = CS.XGame.ClientConfig:GetFloat("PurchasePayLockGoodsTime")
 
     local function IsSupportPay()
         return Application.isMobilePlatform or
@@ -29,9 +26,9 @@ XPayManagerCreator = function()
         elseif Platform == RuntimePlatform.IPhonePlayer then
             PayAgent = XPayHeroAgent.New(XPlayer.Id)
         elseif Platform == RuntimePlatform.WindowsPlayer or Platform == RuntimePlatform.WindowsEditor then
-            PayAgent = XPayHeroAgent.New(XPlayer.Id)
-        else
             PayAgent = XPayAgent.New(XPlayer.Id)
+            -- else
+
         end
     end
 
@@ -39,60 +36,13 @@ XPayManagerCreator = function()
         XEventManager.AddEventListener(XEventId.EVENT_LOGIN_SUCCESS, function()
             InitAgent()
         end)
-        CurrentPayIds = {}
-        XEventManager.AddEventListener(XEventId.EVENT_PURCHASEBUY_PAYCANCELORFAIL, function()
-                XPayManager.ClearCurrentPayId()
-            end)
     end
 
     local DoPay = function(productKey, cpOrderId, goodsId)
         PayAgent:Pay(productKey, cpOrderId, goodsId)
     end
 
-    function XPayManager.PurchasePayLock(id)
-        --XLog.Error("当前锁住的id是" .. tostring(id))
-        CurrentPayIds[id] = XTime.GetServerNowTimestamp()
-    end
-
-    function XPayManager.SetNearPayId(id)
-        NearPayId = id
-    end
-
-    function XPayManager.GetCurrentPayIds()
-        return CurrentPayIds
-    end
-
-    function XPayManager.ClearCurrentPayId(id)
-        local currentId = id and id or NearPayId
-        if not currentId then
-            return
-        end
-        --XLog.Error("清空缓存id是：" .. tostring(id))
-        CurrentPayIds[currentId] = nil
-        --XLog.Error("清空缓存此时的缓存数据是：")
-        for k, _ in pairs(CurrentPayIds) do
-            XLog.Error(tostring(k))
-        end
-        --XLog.Error("--------------------------------------------")
-    end
-
-    function XPayManager.CheckCanBuy(id)
-        local now = XTime.GetServerNowTimestamp()
-        local lastBuyTime = CurrentPayIds[id]
-        if not lastBuyTime then
-            return true
-        end
-
-        if now - lastBuyTime > PurchasePayLockGoodsTime then
-            CurrentPayIds[id] = nil
-            return true
-        else
-            XUiManager.TipText("PurchaseCurrentPayTips")
-            return false
-        end
-    end
-
-    function XPayManager.Pay(productKey, ptype, params, id, callback)
+    function XPayManager.Pay(productKey)
         if XUserManager.HasLoginError() then -- 临时兼容sdk会回调多次登陆成功的问题
             XUiManager.SystemDialogTip(CS.XTextManager.GetText("TipTitle"), "账号信息过期，请重新登陆", XUiManager.DialogType.OnlySure, nil, function()
                 XUserManager.ClearLoginData()
@@ -109,50 +59,15 @@ XPayManagerCreator = function()
             return
         end
 
-        local TargetParam = {}
-        TargetParam.TargetType = ptype
-        TargetParam.Params = params
-        --锁住当前购买id等待支付失败解锁，服务端成功解锁 以及超时解锁
-        if ptype then
-            XPayManager.SetNearPayId(id)
-            XPayManager.PurchasePayLock(id)
-        end
-        --CheckPoint: APPEVENT_REDEEMED_AND_MONTHCARD
-        XAppEventManager.PurchasePayAppLogEvent(template.PayId)
-
-        XNetwork.Call(METHOD_NAME.Initiated, {Key = productKey, TargetParam = TargetParam}, function (res) 
+        XDataCenter.KickOutManager.Lock(XEnumConst.KICK_OUT.LOCK.RECHARGE)
+        XNetwork.Call(METHOD_NAME.Initiated, { Key = productKey }, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
-                if ptype then
-                    XPayManager.ClearCurrentPayId(id)
-                end
+                XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.RECHARGE, true)
                 return
             end
-
-            --BDC
-            CS.XHeroBdcAgent.BdcCreateOrder(tostring(template.PayId), template.Type, XTime.GetServerNowTimestamp(), res.GameOrder)
-            
-            DoPay(productKey, res.GameOrder, template.GoodsId)   
-            if callback then
-                callback()
-            end
+            DoPay(productKey, res.GameOrder, template.GoodsId)
         end)
-    end
-
-    function XPayManager.PayOfAutoTemplate(payKeySuffix, type, params, callback)
-        local productKey = XPayConfigs.GetProductKey(payKeySuffix)
-        if not string.IsNilOrEmpty(productKey) then
-            local payTemplate = XPayConfigs.GetPayTemplate(productKey)
-            if payTemplate then
-                if XDataCenter.PayManager.CheckCanBuy(payTemplate.PayId) then --防止重复购买
-                    XDataCenter.PayManager.Pay(productKey, type, params, payTemplate.PayId, callback)
-                end
-            else
-                XLog.Error("XPayManager.PayOfAutoTemplate \'payTemplate\' is nil")
-            end
-        else
-            XLog.Error("XPayManager.PayOfAutoTemplate param \'payKeySuffix\' is nil")
-        end
     end
 
     -- 领取首充奖励请求
@@ -192,14 +107,30 @@ XPayManagerCreator = function()
     end
 
     -- 是否月卡奖励领取
-    function XPayManager.IsGotCard(uiType, id)
-        local isBuy = XDataCenter.PurchaseManager.IsYkBuyed(uiType, id)
+    function XPayManager.IsGotCard()
+        local isBuy = XDataCenter.PurchaseManager.IsYkBuyed()
         if not isBuy then
             return true
         end
 
-        local data = XDataCenter.PurchaseManager.GetYKInfoData(uiType, id)
+        local data = XDataCenter.PurchaseManager.GetYKInfoData()
         return data.IsDailyRewardGet
+    end
+
+    -- 显示网页充值成功弹框
+    function XPayManager.CheckShowWebTips()
+        -- 战斗中不弹
+        if CS.XFight.IsRunning then
+            return false
+        end
+        if not PayAgent then
+            return false
+        end
+        if not PayAgent:CheckWebTips() then
+            return false
+        end
+        PayAgent:WebTipsPaySuccess()
+        return true
     end
 
     function XPayManager.NotifyPayResult(data)
@@ -221,7 +152,6 @@ XPayManagerCreator = function()
 
         IsGetFirstRechargeReward = data.IsGetFirstPayReward
         IsFirstRecharge = XPayConfigs.CheckFirstPay(data.TotalPayMoney)
-        XPayManager.TotalPayMoney = data.TotalPayMoney or 0
     end
 
     DoInit()
@@ -231,23 +161,6 @@ end
 
 XRpc.NotifyPayResult = function(data)
     -- 测试充值
-    -- XLog.Error("充值结果回调--data--Begin")
-    -- XLog.Error(data)
-    -- XLog.Error("充值结果回调--data--End")
-    if not data then return end
-
-    if data.TotalPayMoney and data.TotalPayMoney > 0 then
-        if XDataCenter.PayManager.LastTotalPayMoney == nil then
-            XDataCenter.PayManager.LastTotalPayMoney = XDataCenter.PayManager.TotalPayMoney
-            if XDataCenter.PayManager.LastTotalPayMoney == 0 then
-                --CheckPoint: APPEVENT_FIRST_BUY
-                XAppEventManager.AppLogEvent(XAppEventManager.CommonEventNameConfig.First_buy)
-            end
-        end
-        --CheckPoint: APPEVENT_PURCHASED
-        XAppEventManager.PayAppLogEvent(data.TotalPayMoney - XDataCenter.PayManager.LastTotalPayMoney)
-        XDataCenter.PayManager.LastTotalPayMoney = data.TotalPayMoney
-    end
     XDataCenter.PayManager.NotifyPayResult(data)
 end
 

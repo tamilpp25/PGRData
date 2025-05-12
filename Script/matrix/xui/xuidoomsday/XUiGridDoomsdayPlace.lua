@@ -27,18 +27,23 @@ function XUiGridDoomsdayPlace:Refresh(placeId, isCamp)
 
     local stageData = XDataCenter.DoomsdayManager.GetStageData(self.StageId)
     local place = stageData:GetPlace(placeId)
+    --每次刷新保持在最顶层
+    self.Transform:SetSiblingIndex(self.Transform.parent.childCount)
 
     --已探索完成
     self.Parent:BindViewModelPropertyToObj(
         place,
         function(isFinish)
-            if not XTool.UObjIsNil(self.PanelTitle01) then
-                self.PanelTitle01.gameObject:SetActiveEx(isFinish)
+            if XDoomsdayConfigs.CheckPlaceIsCamp(self.StageId, placeId) then
+                return
+            end
+            if not XTool.UObjIsNil(self.Img05) then
+                --self.PanelTitle01.gameObject:SetActiveEx(isFinish)
                 self.Img05.gameObject:SetActiveEx(isFinish)
             end
 
-            if not XTool.UObjIsNil(self.PanelTitle03) then
-                self.PanelTitle03.gameObject:SetActiveEx(not isFinish)
+            if not XTool.UObjIsNil(self.Img04) then
+                --self.PanelTitle03.gameObject:SetActiveEx(not isFinish)
                 self.Img04.gameObject:SetActiveEx(not isFinish)
             end
 
@@ -67,26 +72,29 @@ function XUiGridDoomsdayPlace:Refresh(placeId, isCamp)
 end
 
 function XUiGridDoomsdayPlace:UpdateEvent()
+    if XDoomsdayConfigs.CheckPlaceIsCamp(self.StageId, self.PlaceId) then
+        return
+    end
     --新事件
     if self.Event then
         self.Parent:BindViewModelPropertyToObj(
             self.Event,
             function(isFinish)
-                if not XTool.UObjIsNil(self.PanelTitle03) then
-                    self.PanelTitle03.gameObject:SetActiveEx(not isFinish)
+                if not XTool.UObjIsNil(self.Img04) then
+                    --self.PanelTitle03.gameObject:SetActiveEx(not isFinish)
                     self.Img04.gameObject:SetActiveEx(not isFinish)
                 end
 
-                if not XTool.UObjIsNil(self.PanelTitle01) then
-                    self.PanelTitle01.gameObject:SetActiveEx(isFinish)
+                if not XTool.UObjIsNil(self.Img05) then
+                    --self.PanelTitle01.gameObject:SetActiveEx(isFinish)
                     self.Img05.gameObject:SetActiveEx(isFinish)
                 end
             end,
             "_Finished"
         )
     else
-        if not XTool.UObjIsNil(self.PanelTitle03) then
-            self.PanelTitle03.gameObject:SetActiveEx(false)
+        if not XTool.UObjIsNil(self.Img04) then
+            --self.PanelTitle03.gameObject:SetActiveEx(false)
             self.Img04.gameObject:SetActiveEx(false)
         end
     end
@@ -106,15 +114,27 @@ end
 
 function XUiGridDoomsdayPlace:OnClickBtnClick()
     local event = self.Event
+    local stageData = XDataCenter.DoomsdayManager.GetStageData(self.StageId)
     if event then
         --判断当前位置是否能触发事件
-        if not event:GetProperty("_Finished") then
+        --if not event:GetProperty("_Finished") then
+        if event:IsActive(stageData:GetProperty("_Day")) then
             XDataCenter.DoomsdayManager.EnterEventUi(self.StageId, event)
+            return
         end
-        return
+        
     end
 
     self.ClickCb(self.PlaceId)
+end
+
+--播放动画
+function XUiGridDoomsdayPlace:PlayEnable(engCb, beginCb, warpMode)
+    if not self.AnimEnable then
+        return
+    end
+    warpMode = warpMode or CS.UnityEngine.Playables.DirectorWrapMode.None
+    self.AnimEnable.transform:PlayTimelineAnimation(engCb, beginCb, warpMode)
 end
 
 return XUiGridDoomsdayPlace

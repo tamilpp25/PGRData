@@ -14,7 +14,12 @@ function XUiTRPGTalentOverView:OnStart()
 end
 
 function XUiTRPGTalentOverView:OnEnable()
+
     self:UpdateRoles()
+end
+
+function XUiTRPGTalentOverView:OnDisable()
+
 end
 
 function XUiTRPGTalentOverView:UpdateRoles()

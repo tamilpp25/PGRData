@@ -1,3 +1,7 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiStageFightControl = require("XUi/XUiCommon/XUiStageFightControl")
+local XUiGridFubenStageDetailStar = require("XUi/XUiFubenStageDetail/XUiGridFubenStageDetailStar")
+local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
 local XUiFubenStageDetail = XLuaUiManager.Register(XLuaUi, "UiFubenStageDetail")
 
 local MAX_STAR = 3
@@ -34,6 +38,18 @@ function XUiFubenStageDetail:OnEnable()
     self:UpdateRepeatChallenge()
     self:UpdateDifficulty()
     self:UpdateStageFightControl()--更新战力限制提示
+
+end
+
+function XUiFubenStageDetail:OnDisable()
+
+end
+
+function XUiFubenStageDetail:OnDestroy()
+    if self.CallBack then
+        self.CallBack()
+        self.CallBack=nil
+    end
 end
 
 -- auto
@@ -93,6 +109,7 @@ function XUiFubenStageDetail:OnBtnCloseClick()
     self:PlayHideAnimation()
     if self.CallBack then
         self.CallBack()
+        self.CallBack=nil
     end
 end
 

@@ -1,10 +1,11 @@
+local XUiPanelMatch = require("XUi/XUiOnlineBoss/XUiPanelMatch")
+local XUiPanelActivityAsset = require("XUi/XUiShop/XUiPanelActivityAsset")
 local XUiMoeWarSchedule = XLuaUiManager.Register(XLuaUi, "UiMoeWarSchedule")
 local XUiPanelMatchCommon = require("XUi/XUiMoeWar/SubPage/XUiPanelMatchCommon")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local MAX_MODEL_COUNT = 3
-local recordUpdate = {}
 function XUiMoeWarSchedule:OnStart(defaultSelectIndex)
     self.LeftTabIndex = 1
     self.GroupIndex = defaultSelectIndex or 1
@@ -43,12 +44,11 @@ function XUiMoeWarSchedule:Init()
     self.BtnBack.CallBack = function() self:OnBtnBackClick() end
     self.BtnMainUi.CallBack = function() self:OnBtnMainUiClick() end
     self:BindHelpBtn(self.BtnHelp, "MoeWar")
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(self.ActInfo.CurrencyId[1], function()
         self.AssetActivityPanel:Refresh(self.ActInfo.CurrencyId)
     end, self.AssetActivityPanel)
     self.AssetActivityPanel:Refresh(self.ActInfo.CurrencyId)
-    recordUpdate = {}
 end
 
 function XUiMoeWarSchedule:InitSceneRoot()
@@ -231,7 +231,6 @@ function XUiMoeWarSchedule:UpdateModel(pos, player)
         modelPanel = self.SmallMatchRolePanel[pos]
     else
         --effect = self.FinalMatchImgEffect
-        pos = MAX_MODEL_COUNT + 1
         modelPanel = self.FinalMatchRolePanel
     end
 
@@ -239,13 +238,10 @@ function XUiMoeWarSchedule:UpdateModel(pos, player)
     if not player then
         return
     end
-    --#102859 角色模型一直刷新导致动画异常问题
-    if not recordUpdate[pos] then
-        recordUpdate[pos] = true
-        modelPanel:UpdateRoleModel(player:GetModel(), nil, XModelManager.MODEL_UINAME.XUiMoeWarSchedule, function(model)
-            --effect.gameObject:SetActiveEx(true)
-        end, nil, true, true)
-    end
+
+    modelPanel:UpdateRoleModel(player:GetModel(), nil, XModelManager.MODEL_UINAME.XUiMoeWarSchedule, function(model)
+        --effect.gameObject:SetActiveEx(true)
+    end, nil, true, true)
 
     if not self.IsPlayAnim then
         XScheduleManager.ScheduleOnce(function()

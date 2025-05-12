@@ -15,9 +15,19 @@ function XRedPointConditionKillZoneNewChapter.Check(chapterId)
         return false
     end
 
-    if not XDataCenter.KillZoneManager.IsOpen() then return false end
+    if not XDataCenter.KillZoneManager.IsOpen() then
+        return false
+    end
 
-    return XDataCenter.KillZoneManager.CheckNewChapterRedPoint(chapterId)
+    if XDataCenter.KillZoneManager.CheckNewChapterRedPoint(chapterId) then
+        return true
+    end
+
+    if XDataCenter.KillZoneManager.CheckDailyStageRedPoint(chapterId) then
+        return true
+    end
+
+    return false
 end
 
 return XRedPointConditionKillZoneNewChapter

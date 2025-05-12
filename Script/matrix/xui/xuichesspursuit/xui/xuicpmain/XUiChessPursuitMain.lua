@@ -1,3 +1,4 @@
+local XChessPursuitCtrl = require("XUi/XUiChessPursuit/XChessPursuitCtrl")
 local XUiChessPursuitMain = XLuaUiManager.Register(XLuaUi, "UiChessPursuitMain")
 local XUiChessPursuitMainScene = require("XUi/XUiChessPursuit/XUi/XUiCPMain/XUiChessPursuitMainScene")
 local XUiChessPursuitMainStage = require("XUi/XUiChessPursuit/XUi/XUiCPMain/XUiChessPursuitMainStage")

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenMaverickStageTipPanel = XClass(nil, "XUiFubenMaverickStageTipPanel")
 local XUiFubenMaverickStageTipGrid = require("XUi/XUiFubenMaverick/XUiGrid/XUiFubenMaverickStageTipGrid")
 

@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 -------------XUiChooseGrid begin-----------------
 local Normal = CS.UiButtonState.Normal
 local Select = CS.UiButtonState.Select

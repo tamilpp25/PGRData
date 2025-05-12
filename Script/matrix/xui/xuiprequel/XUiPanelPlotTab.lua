@@ -1,4 +1,4 @@
-XUiPanelPlotTab = XClass(nil, "XUiPanelPlotTab")
+local XUiPanelPlotTab = XClass(nil, "XUiPanelPlotTab")
 
 local ANIPREQUELREGIONALSWITCH = "AniPrequelRegionalSwitch"
 

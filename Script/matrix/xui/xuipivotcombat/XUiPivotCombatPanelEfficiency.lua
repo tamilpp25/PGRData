@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 
 local XUiPivotCombatPanelEfficiency = XClass(nil, "XUiPivotCombatPanelEfficiency")
 local XUiPivotCombatEfficiencyGrid = require("XUi/XUiPivotCombat/XUiGrid/XUiPivotCombatEfficiencyGrid")

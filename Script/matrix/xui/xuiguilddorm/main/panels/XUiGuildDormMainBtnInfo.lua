@@ -17,6 +17,8 @@ function XUiGuildDormMainBtnInfo:Refresh()
     self:ChangeGuildName(XDataCenter.GuildManager.GetGuildName())
     self:ChangeGuildLevel(XDataCenter.GuildManager.GetGuildLevel())
     self:ChangeGuildIcon(XDataCenter.GuildManager.GetGuildIconId())
+    self:ChangeGuildId(XDataCenter.GuildManager.GetGuildId())
+    self:SetSpecialIconBg()
 end
 
 function XUiGuildDormMainBtnInfo:ChangeGuildExpAmount(guildExpAmount)
@@ -29,6 +31,10 @@ end
 
 function XUiGuildDormMainBtnInfo:ChangeGuildLevel(level)
     self.BtnInformation:SetNameByGroup(1, level)
+end
+
+function XUiGuildDormMainBtnInfo:ChangeGuildId(guildId)
+    self.BtnInformation:SetNameByGroup(2, string.format("%08d",guildId))
 end
 
 function XUiGuildDormMainBtnInfo:ChangeGuildIcon(icon)
@@ -45,6 +51,22 @@ end
 
 function XUiGuildDormMainBtnInfo:Dispose()
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_DATA_CHANGED, self.Refresh, self)
+end
+
+function XUiGuildDormMainBtnInfo:SetSpecialIconBg()
+    local curGuildHeadId = XDataCenter.GuildManager.GetGuildHeadPortrait()
+    if XTool.IsNumberValid(curGuildHeadId) then
+        local guildHeadPortrait = XGuildConfig.GetGuildHeadPortraitById(curGuildHeadId)
+        if guildHeadPortrait.IsSpecial then
+            self.RImgSpecialGuildIconBgN:SetRawImage(guildHeadPortrait.NewGuildRoomBg)
+            self.RImgSpecialGuildIconBgP:SetRawImage(guildHeadPortrait.NewGuildRoomBg)
+            self.RImgSpecialGuildIconBgN.gameObject:SetActiveEx(true)
+            self.RImgSpecialGuildIconBgP.gameObject:SetActiveEx(true)
+        else
+            self.RImgSpecialGuildIconBgN.gameObject:SetActiveEx(false)
+            self.RImgSpecialGuildIconBgP.gameObject:SetActiveEx(false)
+        end
+    end
 end
 
 return XUiGuildDormMainBtnInfo

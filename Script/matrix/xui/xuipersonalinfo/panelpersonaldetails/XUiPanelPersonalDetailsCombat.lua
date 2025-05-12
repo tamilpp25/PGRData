@@ -1,4 +1,5 @@
-XUiPanelPersonalDetailsCombat = XClass(nil, "XUiPanelPersonalDetailsCombat")
+local XUiPanelPersonalDetailsCombatItem = require("XUi/XUiPersonalInfo/PanelPersonalDetails/XUiPanelPersonalDetailsCombatItem")
+local XUiPanelPersonalDetailsCombat = XClass(nil, "XUiPanelPersonalDetailsCombat")
 
 function XUiPanelPersonalDetailsCombat:Ctor(ui,parent)
     self.GameObject = ui.gameObject
@@ -40,7 +41,7 @@ function XUiPanelPersonalDetailsCombat:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key],eventName)
             func(self, ...)
         end
 

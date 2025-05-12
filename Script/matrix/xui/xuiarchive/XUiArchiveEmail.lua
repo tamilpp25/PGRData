@@ -1,3 +1,9 @@
+local XUiGridArchiveCommunication = require("XUi/XUiArchive/XUiGridArchiveCommunication")
+local XUiGridArchive = require("XUi/XUiArchive/XUiGridArchive")
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XUiGridArchiveEmail = require("XUi/XUiArchive/XUiGridArchiveEmail")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
+local XDynamicTableIrregular = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableIrregular")
 local XUiArchiveEmail = XLuaUiManager.Register(XLuaUi, "UiArchiveEmail")
 local Object = CS.UnityEngine.Object
 
@@ -8,12 +14,12 @@ end
 function XUiArchiveEmail:OnStart()
     self.MailGridState = {}
     self.CurTag = {}
-    self.CurTag[XArchiveConfigs.EmailType.Email] = 1
-    self.CurTag[XArchiveConfigs.EmailType.Communication] = 1
+    self.CurTag[XEnumConst.Archive.EmailType.Email] = 1
+    self.CurTag[XEnumConst.Archive.EmailType.Communication] = 1
     self.CurType = 1
     self.TabBtnContent = {}
-    self.TabBtnContent[XArchiveConfigs.EmailType.Email] = self.TabMailBtnContent
-    self.TabBtnContent[XArchiveConfigs.EmailType.Communication] = self.TabCommuniContent
+    self.TabBtnContent[XEnumConst.Archive.EmailType.Email] = self.TabMailBtnContent
+    self.TabBtnContent[XEnumConst.Archive.EmailType.Communication] = self.TabCommuniContent
     self:SetButtonCallBack()
     self:InitEmailDynamicTable()
     self:InitCommunicationDynamicTable()
@@ -23,7 +29,7 @@ function XUiArchiveEmail:OnStart()
 end
 
 function XUiArchiveEmail:OnDestroy()
-    XDataCenter.ArchiveManager.ClearCGRedPointByGroup()
+    self._Control.CGControl:ClearAllCGReddot()
 end
 ------------------------------------------EMail---------------------------->>>
 function XUiArchiveEmail:InitEmailDynamicTable()
@@ -31,7 +37,7 @@ function XUiArchiveEmail:InitEmailDynamicTable()
     self.EmailDynamicTable:SetDynamicEventDelegate(function(event, index, grid)
             self:OnEmailDynamicTableEvent(event, index, grid)
         end)
-    self.EmailDynamicTable:SetProxy("XUiGridArchiveEmail", XUiGridArchiveEmail, self.EmalItem.gameObject)
+    self.EmailDynamicTable:SetProxy("XUiGridArchiveEmail", XUiGridArchiveEmail, self.EmalItem.gameObject,self)
     self.EmailDynamicTable:SetDelegate(self)
     self.EmalItem.gameObject:SetActiveEx(false)
 end
@@ -42,7 +48,7 @@ end
 
 function XUiArchiveEmail:SetupEmailDynamicTable(tag)
     XScheduleManager.ScheduleOnce(function()--异形屏适配需要
-            self.PageEmailDatas = XDataCenter.ArchiveManager.GetArchiveMailList(tag)
+            self.PageEmailDatas = self._Control:GetArchiveMailList(tag)
             self.EmailDynamicTable:SetDataSource(self.PageEmailDatas)
             self.EmailDynamicTable:ReloadDataSync(1)
         end, 1)
@@ -77,13 +83,13 @@ function XUiArchiveEmail:InitCommunicationDynamicTable()
     self.CommunicationDynamicTable:SetDynamicEventDelegate(function(event, index, grid)
             self:OnCommunicationDynamicTableEvent(event, index, grid)
         end)
-    self.CommunicationDynamicTable:SetProxy(XUiGridArchiveCommunication)
+    self.CommunicationDynamicTable:SetProxy(XUiGridArchiveCommunication,self)
     self.CommunicationDynamicTable:SetDelegate(self)
     self.CommunicationItem.gameObject:SetActiveEx(false)
 end
 
 function XUiArchiveEmail:SetupCommunicationDynamicTable(tag)
-    self.PageCommunicationDatas = XDataCenter.ArchiveManager.GetArchiveCommunicationList(tag)
+    self.PageCommunicationDatas = self._Control:GetArchiveCommunicationList(tag)
     self.CommunicationDynamicTable:SetDataSource(self.PageCommunicationDatas)
     self.CommunicationDynamicTable:ReloadDataSync(1)
 end
@@ -104,7 +110,7 @@ function XUiArchiveEmail:SetButtonCallBack()
 end
 
 function XUiArchiveEmail:InitTagButton()
-    self.TagList = XDataCenter.ArchiveManager.GetEventDateGroupList()
+    self.TagList = self._Control:GetEventDateGroupList()
     for type, group in pairs(self.TagList) do
         local eventDateGroupBtn = {}
         for _,v in pairs(group)do
@@ -130,8 +136,8 @@ function XUiArchiveEmail:SelectTag(index)
 end
 
 function XUiArchiveEmail:CheckTagButtonType()
-    self.PanelMailTab.gameObject:SetActiveEx(self.CurType == XArchiveConfigs.EmailType.Email)
-    self.PanelCommuniTab.gameObject:SetActiveEx(self.CurType == XArchiveConfigs.EmailType.Communication)
+    self.PanelMailTab.gameObject:SetActiveEx(self.CurType == XEnumConst.Archive.EmailType.Email)
+    self.PanelCommuniTab.gameObject:SetActiveEx(self.CurType == XEnumConst.Archive.EmailType.Communication)
 end
 
 
@@ -149,17 +155,17 @@ end
 
 function XUiArchiveEmail:SetupDynamicTable()
     local tagId = self.TagList[self.CurType][self.CurTag[self.CurType]].Id
-    if self.CurType == XArchiveConfigs.EmailType.Email then
+    if self.CurType == XEnumConst.Archive.EmailType.Email then
         self:SetupEmailDynamicTable(tagId)
-    elseif self.CurType == XArchiveConfigs.EmailType.Communication then
+    elseif self.CurType == XEnumConst.Archive.EmailType.Communication then
         self:SetupCommunicationDynamicTable(tagId)
     end
     
-    self.PanelMailTab.gameObject:SetActiveEx(self.CurType == XArchiveConfigs.EmailType.Email)
-    self.PanelCommuniTab.gameObject:SetActiveEx(self.CurType == XArchiveConfigs.EmailType.Communication)
+    self.PanelMailTab.gameObject:SetActiveEx(self.CurType == XEnumConst.Archive.EmailType.Email)
+    self.PanelCommuniTab.gameObject:SetActiveEx(self.CurType == XEnumConst.Archive.EmailType.Communication)
     
-    self.PanelArchiveEmail.gameObject:SetActiveEx(self.CurType == XArchiveConfigs.EmailType.Email)
-    self.PanelArchiveCommunication.gameObject:SetActiveEx(self.CurType == XArchiveConfigs.EmailType.Communication)
+    self.PanelArchiveEmail.gameObject:SetActiveEx(self.CurType == XEnumConst.Archive.EmailType.Email)
+    self.PanelArchiveCommunication.gameObject:SetActiveEx(self.CurType == XEnumConst.Archive.EmailType.Communication)
 end
 
 

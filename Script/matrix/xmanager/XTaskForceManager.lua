@@ -237,7 +237,7 @@ XTaskForceManagerCreator = function()
         end
         --[[    local characterLevelLimit = taskCfg.CharacterLevelLimit
         for i, id in ipairs(characterIds) do
-            local character = XDataCenter.CharacterManager.GetCharacter(id)
+            local character = XMVCA.XCharacter:GetCharacter(id)
             if character.Level < characterLevelLimit then
                 return false, CS.XTextManager.GetText("MissionConditionNotEnough")
             end
@@ -260,8 +260,8 @@ XTaskForceManagerCreator = function()
             return a.Quality > b.Quality
         end
 
-        local priorityA = XCharacterConfigs.GetCharacterPriority(a.Id)
-        local priorityB = XCharacterConfigs.GetCharacterPriority(b.Id)
+        local priorityA = XMVCA.XCharacter:GetCharacterPriority(a.Id)
+        local priorityB = XMVCA.XCharacter:GetCharacterPriority(b.Id)
 
         if priorityA ~= priorityB then
             return priorityA < priorityB
@@ -272,7 +272,7 @@ XTaskForceManagerCreator = function()
 
     --获取可选择的角色
     function XTaskForceManager.GetOwnCharacterList()
-        local characterList = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local characterList = XMVCA.XCharacter:GetOwnCharacterList()
         if not characterList then
             return
         end
@@ -308,7 +308,7 @@ XTaskForceManagerCreator = function()
 
     --获取可选择的角色
     function XTaskForceManager.GetOwnCharacterCanTeamList()
-        local characterList = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local characterList = XMVCA.XCharacter:GetOwnCharacterList()
         if not characterList then
             return
         end
@@ -820,8 +820,8 @@ XTaskForceManagerCreator = function()
     ---------------------------------------
     local Condition = {
         [18105] = function(condition, characterId) -- 派遣中拥有指定数量指定兵种构造
-            local character = XDataCenter.CharacterManager.GetCharacter(characterId)
-            local npcId = XCharacterConfigs.GetCharNpcId(character.Id, character.Quality)
+            local character = XMVCA.XCharacter:GetCharacter(characterId)
+            local npcId = XMVCA.XCharacter:GetCharNpcId(character.Id, character.Quality)
             local npcTemplate = CS.XNpcManager.GetNpcTemplate(npcId)
             if npcTemplate.Type == condition.Params[1] then
                 return true
@@ -834,7 +834,7 @@ XTaskForceManagerCreator = function()
         end,
 
         [18107] = function(condition, characterId) -- 派遣中拥有指定数量达到指定品质的构造体
-            local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+            local character = XMVCA.XCharacter:GetCharacter(characterId)
             if character.Quality >= condition.Params[1] then
                 return true
             end
@@ -842,12 +842,12 @@ XTaskForceManagerCreator = function()
         end,
 
         [18108] = function(condition, characterId) -- 派遣中拥有指定数量达到指定等级的构造体
-            local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+            local character = XMVCA.XCharacter:GetCharacter(characterId)
             return character.Level >= condition.Params[1], condition.Desc
         end,
 
         [18109] = function(condition, characterId) -- 派遣中拥有指定数量指定性别的构造体
-            local characterTemplate = XCharacterConfigs.GetCharacterTemplate(characterId)
+            local characterTemplate = XMVCA.XCharacter:GetCharacterTemplate(characterId)
             return characterTemplate.Sex == condition.Params[1], condition.Desc
         end,
 

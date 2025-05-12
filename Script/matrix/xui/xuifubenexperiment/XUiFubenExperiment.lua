@@ -1,3 +1,5 @@
+local XUiPanelAsset = require("XUi/XUiCommon/XUiPanelAsset")
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenExperiment = XLuaUiManager.Register(XLuaUi, "UiFubenExperiment")
 local ParseToTimestamp = XTime.ParseToTimestamp
 local XUiFubenExperimentBanner = require("XUi/XUiFubenExperiment/XUiFubenExperimentBanner")
@@ -31,6 +33,11 @@ end
 function XUiFubenExperiment:OnDestroy()
     XCountDown.RemoveTimer(self.GameObject.name)
     XEventManager.RemoveEventListener(XEventId.EVENT_UPDATE_EXPERIMENT, self.UpdateCurBannerState, self)
+
+    local grids = self.DynamicTable:GetGrids()
+    for _, grid in pairs(grids) do
+        grid:OnDestroy()
+    end
 end
 
 function XUiFubenExperiment:InitTab(selectIdx)
@@ -132,6 +139,8 @@ function XUiFubenExperiment:OnDynamicTableEvent(event, index, grid)
         end)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         grid:UpdateBanner(self.PageDatas[index])
+    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_RECYCLE then
+        grid:RemoveRedPoint()
     end
 end
 

@@ -41,21 +41,6 @@ XMemorySaveManagerCreator = function ()
         return XMemorySaveConfig.GetActivityBanner(_ActivityId)
     end
 
-    --#region 重写XFubenManager 方法
-    function XMemorySaveManager.InitStageInfo()
-        local chapterIds = XMemorySaveManager.GetActivityChapterIds()
-        for _, chapterid in ipairs(chapterIds or {}) do
-            local stageIds = XMemorySaveManager.GetChapterStageIds(chapterid)
-            for _, stageId in ipairs(stageIds) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                if stageInfo then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.MemorySave
-                end
-            end
-        end
-        XMemorySaveManager.RegisterEditBattleProxy()
-    end
-
     -- 重载XFubenManager.FinishFight 更新stageinfo
     function XMemorySaveManager.FinishFight(settle)
         XDataCenter.FubenManager.FinishFight(settle)
@@ -74,14 +59,6 @@ XMemorySaveManagerCreator = function ()
     end
 
     --#endregion
-
-    -- 注册出战代理界面
-    function XMemorySaveManager.RegisterEditBattleProxy()
-        XUiNewRoomSingleProxy.RegisterProxy(
-                XDataCenter.FubenManager.StageType.MemorySave,
-                require("XUi/XUiMemorySave/Proxy/XUiMemorySaveNewRoomSingle")
-        )
-    end
 
     -- 活动是否开始
     function XMemorySaveManager.IsOpen()
@@ -196,6 +173,7 @@ XMemorySaveManagerCreator = function ()
             CsXGameEventManager.Instance:Notify(XEventId.EVENT_ACTIVITY_ON_RESET, XDataCenter.FubenManager.StageType.MemorySave) -- 通知战前准备房间活动重制
             return
         end
+        _ActivityId = data.ActivityNo
         _ActivityInfo = {
             FinishStageIds = data.FinishStageIds or {},
             RewardChapterIds = data.RewardChapterIds or {},
@@ -323,7 +301,7 @@ XMemorySaveManagerCreator = function ()
         -- 防止UI界面动画开启被打断
         XScheduleManager.ScheduleOnce(function()
             XLuaUiManager.RunMain()
-            XUiManager.TipText("PicCompositionTimeQver")
+            XUiManager.TipText("CommonActivityEnd")
         end, 1000)
         return true
     end

@@ -16,8 +16,16 @@ end
 --================
 function XUiRpgTowerRoleListTypeSelectPanel:RefreshData(rChara)
     self.RCharacter = rChara
+    local isShowRed = rChara:CheckCanActiveTalent()
     self.BtnSingle:ShowTag(rChara:GetCharaTalentType() == XDataCenter.RpgTowerManager.TALENT_TYPE.SINGLE)
+    self.BtnSingle:ShowReddot(isShowRed and rChara:GetCharaTalentType() == XDataCenter.RpgTowerManager.TALENT_TYPE.SINGLE)
+    self.BtnSingle:SetNameByGroup(0, XRpgTowerConfig.GetTalentTypeConfigByCharacterId(rChara:GetId(), XDataCenter.RpgTowerManager.TALENT_TYPE.SINGLE).Name)
+    self.BtnSingle:SetNameByGroup(1, XRpgTowerConfig.GetTalentTypeConfigByCharacterId(rChara:GetId(), XDataCenter.RpgTowerManager.TALENT_TYPE.SINGLE).TalentDes)
+
     self.BtnRotation:ShowTag(rChara:GetCharaTalentType() == XDataCenter.RpgTowerManager.TALENT_TYPE.TEAM)
+    self.BtnRotation:ShowReddot(isShowRed and rChara:GetCharaTalentType() == XDataCenter.RpgTowerManager.TALENT_TYPE.TEAM)
+    self.BtnRotation:SetNameByGroup(0, XRpgTowerConfig.GetTalentTypeConfigByCharacterId(rChara:GetId(), XDataCenter.RpgTowerManager.TALENT_TYPE.TEAM).Name)
+    self.BtnRotation:SetNameByGroup(1, XRpgTowerConfig.GetTalentTypeConfigByCharacterId(rChara:GetId(), XDataCenter.RpgTowerManager.TALENT_TYPE.TEAM).TalentDes)
 end
 --================
 --点击更换队员按钮

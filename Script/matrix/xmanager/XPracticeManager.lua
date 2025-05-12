@@ -1,5 +1,7 @@
+local XExFubenCollegeStudyManager = require("XEntity/XFuben/XExFubenCollegeStudyManager")
+
 XPracticeManagerCreator = function()
-    local XPracticeManager = {}
+    local XPracticeManager = XExFubenCollegeStudyManager.New(XFubenConfigs.ChapterType.Practice)
     local PracticeChapterInfos = {}
     local PracticeStageInfo = {}
     local IsChallengeWin = false    --战斗结束后是否胜利
@@ -13,45 +15,41 @@ XPracticeManagerCreator = function()
     function XPracticeManager.Init()
         XEventManager.AddEventListener(XEventId.EVENT_FIGHT_RESULT_WIN, ChallengeWin)
         XEventManager.AddEventListener(XEventId.EVENT_FIGHT_FINISH_LOSEUI_CLOSE, XPracticeManager.ChallengeLose)
-        XEventManager.AddEventListener(XEventId.EVENT_PLAYER_LEVEL_CHANGE, XPracticeManager.RefreshStagePassed)
-        XEventManager.AddEventListener(XEventId.EVENT_LOGIN_DATA_LOAD_COMPLETE, function()
-            XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.PracticeBoss,
-                    require("XUi/XUiFubenPractice/XUiPracticeBossNewRoomSingleProxy"))
-        end)
+        --XEventManager.AddEventListener(XEventId.EVENT_PLAYER_LEVEL_CHANGE, XPracticeManager.RefreshStagePassed)
     end
 --拟真boss出战情况不同于原始的训练模式，需要一种新的副本类型
-    function XPracticeManager.InitStageInfo()
-        local allPracticeChapters = XPracticeConfigs.GetPracticeChapters()
-        for _, chapter in pairs(allPracticeChapters) do
-            for _, stageId in pairs(chapter.StageId) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                if stageInfo then
-                    if XTool.IsNumberValid(XPracticeConfigs.GetSimulateTrainArchiveIdByStageId(stageId))then
-                        stageInfo.Type = XDataCenter.FubenManager.StageType.PracticeBoss
-                    else
-                        stageInfo.Type = XDataCenter.FubenManager.StageType.Practice
-                    end
-                end
-            end
-            -- 成员战斗
-            for _, groupId in pairs(chapter.Groups or {}) do
-                local stageIds = XPracticeConfigs.GetPracticeStageIdsByGroupId(groupId)
-                for _, stageId in pairs(stageIds or {}) do
-                    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                    if stageInfo then
-                        stageInfo.Type = XDataCenter.FubenManager.StageType.Practice
-                    end
-                end
-            end
-        end
-        XPracticeManager.RefreshStagePassed()
-    end
+--    function XPracticeManager.InitStageInfo()
+--        local allPracticeChapters = XPracticeConfigs.GetPracticeChapters()
+--        for _, chapter in pairs(allPracticeChapters) do
+--            for _, stageId in pairs(chapter.StageId) do
+--                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+--                if stageInfo then
+--                    if XTool.IsNumberValid(XPracticeConfigs.GetSimulateTrainArchiveIdByStageId(stageId))then
+--                        stageInfo.Type = XDataCenter.FubenManager.StageType.PracticeBoss
+--                    else
+--                        stageInfo.Type = XDataCenter.FubenManager.StageType.Practice
+--                    end
+--                end
+--            end
+--            -- 成员战斗
+--            for _, groupId in pairs(chapter.Groups or {}) do
+--                local stageIds = XPracticeConfigs.GetPracticeStageIdsByGroupId(groupId)
+--                for _, stageId in pairs(stageIds or {}) do
+--                    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+--                    if stageInfo then
+--                        stageInfo.Type = XDataCenter.FubenManager.StageType.Practice
+--                    end
+--                end
+--            end
+--        end
+--        XPracticeManager.RefreshStagePassed()
+--    end
 
     function XPracticeManager.ShowReward(winData)
         if not winData then return end
         XPracticeManager.RefreshStagePassedBySettleDatas(winData.SettleData)
 
-        XLuaUiManager.Open("UiSettleWin", winData)
+        XLuaUiManager.Open("UiSettleWinTutorialCount", winData)
     end
 
     function XPracticeManager.CheckPracticeStageOpen(stageId)
@@ -110,6 +108,13 @@ XPracticeManagerCreator = function()
             end
         end
         table.sort(sortedNodes, function(nodeA, nodeB)
+            local monsterIdA = XPracticeConfigs.GetSimulateTrainMonsterId(nodeA.StageId)
+            local isInActivityA = XMVCA.XSimulateTrain:IsMonsterInActivity(monsterIdA)
+            local monsterIdB = XPracticeConfigs.GetSimulateTrainMonsterId(nodeB.StageId)
+            local isInActivityB = XMVCA.XSimulateTrain:IsMonsterInActivity(monsterIdB)
+            if isInActivityA ~= isInActivityB then
+                return isInActivityA
+            end
             if nodeA.InActivity ~= nodeB.InActivity then
                 return nodeA.InActivity and not nodeB.InActivity
             end
@@ -160,60 +165,58 @@ XPracticeManagerCreator = function()
             end
             PracticeChapterInfos[chapterId][settleData.StageId] = true
             PracticeStageInfo[settleData.StageId] = true
-            XPracticeManager.RefreshStagePassed()
+            --XPracticeManager.RefreshStagePassed()
             XEventManager.DispatchEvent(XEventId.EVENT_PRACTICE_ON_DATA_REFRESH)
         end
     end
+    
+    function XPracticeManager.RefreshStagePassedByStageId(stageId)
+        if not XTool.IsNumberValid(stageId) then
+            return
+        end
 
-    function XPracticeManager.RefreshStagePassed()
+        local chapterId = XPracticeConfigs.GetPracticeChapterIdByStageId(stageId)
+        if chapterId ~= 0 then
+            if not PracticeChapterInfos[chapterId] then
+                PracticeChapterInfos[chapterId] = {}
+            end
+            PracticeChapterInfos[chapterId][stageId] = true
+            PracticeStageInfo[stageId] = true
+            --XPracticeManager.RefreshStagePassed()
+            XEventManager.DispatchEvent(XEventId.EVENT_PRACTICE_ON_DATA_REFRESH)
+        end
+    end
+    
+    function XPracticeManager.CheckIsOpen(stageId)
+        return XPracticeManager.CheckStagePassAndOpen(stageId)
+    end
+
+    function XPracticeManager.CheckUnlockByStageId(stageId)
+        return XPracticeManager.CheckStagePassAndOpen(stageId)
+    end
+    
+    function XPracticeManager.CheckPassedByStageId(stageId)
+        return PracticeStageInfo[stageId] or false
+    end
+    
+    function XPracticeManager.CheckStagePassAndOpen(stageIdToCheck)
+        local result
         local allPracticeChapters = XPracticeConfigs.GetPracticeChapters()
         for _, chapter in pairs(allPracticeChapters) do
             for _, stageId in pairs(chapter.StageId) do
-                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+                if stageIdToCheck == stageId then
+                local stageType = XMVCA.XFuben:GetStageType(stageId)
                 local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-                if stageInfo and stageInfo.Type ~= XDataCenter.FubenManager.StageType.PracticeBoss then--拟真boss不走这一套
-                    stageInfo.Passed = PracticeStageInfo[stageId] or false
-
-                    stageInfo.Unlock = true
-                    stageInfo.IsOpen = true
-
-                    if stageCfg.RequireLevel > 0 and XPlayer.Level < stageCfg.RequireLevel then
-                        stageInfo.Unlock = false
-                        stageInfo.IsOpen = false
-                    end
-                    for _, prestageId in pairs(stageCfg.PreStageId or {}) do
-                        if prestageId > 0 then
-                            if not PracticeStageInfo[prestageId] then
-                                stageInfo.Unlock = false
-                                stageInfo.IsOpen = false
-                                break
-                            end
-                        end
-                    end
-
-                end
-            end
-            -- 成员战斗
-            for _, groupId in pairs(chapter.Groups or {}) do
-                local stageIds = XPracticeConfigs.GetPracticeStageIdsByGroupId(groupId)
-                for _, stageId in pairs(stageIds or {}) do
-                    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-                    local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-                    if stageInfo then
-                        stageInfo.Passed = PracticeStageInfo[stageId] or false
-
-                        stageInfo.Unlock = true
-                        stageInfo.IsOpen = true
+                    if stageType ~= XDataCenter.FubenManager.StageType.PracticeBoss then--拟真boss不走这一套
+                        result = true
 
                         if stageCfg.RequireLevel > 0 and XPlayer.Level < stageCfg.RequireLevel then
-                            stageInfo.Unlock = false
-                            stageInfo.IsOpen = false
+                            result = false
                         end
                         for _, prestageId in pairs(stageCfg.PreStageId or {}) do
                             if prestageId > 0 then
                                 if not PracticeStageInfo[prestageId] then
-                                    stageInfo.Unlock = false
-                                    stageInfo.IsOpen = false
+                                    result = false
                                     break
                                 end
                             end
@@ -221,7 +224,33 @@ XPracticeManagerCreator = function()
                     end
                 end
             end
+            -- 成员战斗
+            for _, groupId in pairs(chapter.Groups or {}) do
+                local stageIds = XPracticeConfigs.GetPracticeStageIdsByGroupId(groupId)
+                for _, stageId in pairs(stageIds or {}) do
+                    if stageIdToCheck == stageId then
+                        local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+                        local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
+                        if stageInfo then
+                            result = true
+
+                            if stageCfg.RequireLevel > 0 and XPlayer.Level < stageCfg.RequireLevel then
+                                result = false
+                            end
+                            for _, prestageId in pairs(stageCfg.PreStageId or {}) do
+                                if prestageId > 0 then
+                                    if not PracticeStageInfo[prestageId] then
+                                        result = false
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
         end
+        return result
     end
 
     -----------拟真boss------
@@ -236,7 +265,7 @@ XPracticeManagerCreator = function()
         local timeId = XPracticeConfigs.GetSimulateTrainMonsterTimeId(archiveId)
         local isInTime = XFunctionManager.CheckInTimeByTimeId(timeId, true)
         if (isInTime) and (groupId == 0 or XPracticeConfigs.GetSimulateTrainMonsterGroupId(archiveId) == groupId) then
-            if XDataCenter.ArchiveManager.IsArchiveMonsterUnlockByArchiveId(archiveId) then
+            if XMVCA.XArchive:GetMonsterUnlockMainById(archiveId) or XMVCA.XSimulateTrain:IsMonsterInActivity(archiveId) then
                 return true
             end
         end
@@ -309,7 +338,7 @@ XPracticeManagerCreator = function()
 
         local timeId = XPracticeConfigs.GetSimulateTrainMonsterTimeId(archiveId)
         local isInTime = XFunctionManager.CheckInTimeByTimeId(timeId, true)
-        if isInTime and XDataCenter.ArchiveManager.IsArchiveMonsterUnlockByArchiveId(archiveId) then
+        if isInTime and XMVCA.XArchive:GetMonsterUnlockMainById(archiveId) or XMVCA.XSimulateTrain:IsMonsterInActivity(archiveId) then
             return true
         end
         return false
@@ -353,7 +382,7 @@ XPracticeManagerCreator = function()
             end
         end
 
-        XPracticeManager.RefreshStagePassed()
+        --XPracticeManager.RefreshStagePassed()
     end
 
     --region 赛利卡教学相关
@@ -372,10 +401,10 @@ XPracticeManagerCreator = function()
             characterId = XRobotManager.GetCharacterId(characterId)
         end
         -- 是否拥有该角色
-        local isOwnerCharacter = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+        local isOwnerCharacter = XMVCA.XCharacter:IsOwnCharacter(characterId)
         local ability = 0  -- 未拥有的角色战力视为0
         if isOwnerCharacter then
-            local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+            local character = XMVCA.XCharacter:GetCharacter(characterId)
             ability = character.Ability
         end
 
@@ -445,13 +474,28 @@ XPracticeManagerCreator = function()
         if not (groupId and chapterId) then
             XLog.Error("Can Not Open UiFubenPractice groupId = ", groupId, ", chapterId = ", chapterId)
         end
-        XLuaUiManager.Open("UiFubenPractice", chapterId, groupId)
+        XDataCenter.PracticeManager.OpenUiFubenPratice(chapterId, groupId)
+    end
+    
+    -- 跳转赛利卡效应技能教学
+    function XPracticeManager.OpenUiFubenPracticeWithGeneralSkill(generalSkillId)
+        if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Practice) then
+            XUiManager.TipMsg(XFunctionManager.GetFunctionOpenCondition(XFunctionManager.FunctionName.Practice))
+            return
+        end
+        
+        local groupId = XPracticeConfigs.GetGroupIdByGeneralSkillId(generalSkillId)
+        local chapterId = XPracticeConfigs.GetChapterIdByGroupId(groupId)
+        if not (groupId and chapterId) then
+            XLog.Error("Can Not Open UiFubenPractice groupId = ", groupId, ", chapterId = ", chapterId)
+        end
+        XDataCenter.PracticeManager.OpenUiFubenPratice(chapterId, groupId)
     end
 
     -- 是否显示提示
     function XPracticeManager.IsShowTeachDialogHintTip(characterId)
         --只在选人界面显示提示框（目前包含：通用选人界面，诺曼底登录选人界面）
-        if not XLuaUiManager.IsUiShow("UiStrongholdRoomCharacter") and not XLuaUiManager.IsUiShow("UiBattleRoomRoleDetail") then
+        if not XLuaUiManager.IsUiShow("UiStrongholdRoomCharacterV2P6") and not XLuaUiManager.IsUiShow("UiBattleRoomRoleDetail") then
             return false
         end
         if not characterId then
@@ -500,9 +544,10 @@ XPracticeManagerCreator = function()
     end
     
     -- 显示每日提示
+    local isShowTips = false
     function XPracticeManager.ShowTeachDialogHintTip(characterId, cancelCallBack, confirmCallBack)
-        --如果已经显示弹窗，则不显示多次
-        if XLuaUiManager.IsUiShow("UiCueMark") then 
+        --如果已经显示弹窗，则不显示多次(不用XLuaUiManager.IsUiShow, 避免出现其他系统弹提示）
+        if isShowTips then 
             return 
         end
         local title     = CS.XTextManager.GetText("CelicaTechTipsTitle")
@@ -513,7 +558,17 @@ XPracticeManagerCreator = function()
             Status      = status,
             IsNeedClose = true,
         }
-        XUiManager.DialogHintTip(title, content, "", cancelCallBack, confirmCallBack, hintInfo)
+        local closeCb = function()
+            isShowTips = false
+            if cancelCallBack then cancelCallBack() end
+        end
+        
+        local sureCb = function()
+            isShowTips = false
+            if confirmCallBack then confirmCallBack() end
+        end
+        isShowTips = true
+        XUiManager.DialogHintTip(title, content, "", closeCb, sureCb, hintInfo)
     end
 
     -- 带显示每日提示的编队回调
@@ -589,12 +644,27 @@ XPracticeManagerCreator = function()
         if not XTool.IsNumberValid(groupId) then
             return false
         end
-        local stageIds = XPracticeConfigs.GetPracticeStageIdsByGroupId(groupId)
         
+        local skipId = XPracticeConfigs.GetPracticeSkipIdByGroupId(groupId)
+        local stageIds = nil
+        -- 没有跳转，走旧逻辑获取StageId列表
+        if not XTool.IsNumberValid(skipId) then
+            stageIds = XPracticeConfigs.GetPracticeStageIdsByGroupId(groupId)
+        else
+            -- 有跳转，需要判断对应角色试玩配置的关卡
+            local characterId = XPracticeConfigs.GetPracticeGroupCharacterId(groupId)
+
+            if XTool.IsNumberValid(characterId) then
+                return XDataCenter.FubenNewCharActivityManager.CheckStagePassByCharacterId(characterId)
+            else
+                XLog.Error('教学关角色配置无效，groupId：'..tostring(groupId)..' characterId: '..tostring(characterId))
+            end
+        end
+
         if XTool.IsTableEmpty(stageIds) then
             return false
         end
-        
+
         for _, stageId in pairs(stageIds) do
             local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
             if not stageInfo.Passed then
@@ -661,6 +731,24 @@ XPracticeManagerCreator = function()
     end
     
     --endregion
+
+    ------------------副本入口扩展 start-------------------------
+    function XPracticeManager:ExOpenMainUi()
+        if not XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
+            return
+        end
+        XPracticeManager.OpenUiFubenPratice()
+    end
+    
+    function XPracticeManager.OpenUiFubenPratice(...)
+        --if not XMVCA.XSubPackage:CheckSubpackage() then
+        --    return
+        --end
+
+        XLuaUiManager.Open("UiFubenPractice", ...)
+    end
+    
+    ------------------副本入口扩展 end-------------------------
 
     XPracticeManager.Init()
     return XPracticeManager

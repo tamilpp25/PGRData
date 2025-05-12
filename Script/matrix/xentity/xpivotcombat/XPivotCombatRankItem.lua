@@ -130,7 +130,7 @@ function XPivotCombatRankItem:RefreshHeadList(headList)
                     headFashionId = headInfo.HeadFashionId
                     headFashionType = headInfo.HeadFashionType
                 end
-                local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId, true, headFashionId, headFashionType)
+                local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(charId, true, headFashionId, headFashionType)
                 headList[headGridIndex]:SetRawImage(icon)
                 headList[headGridIndex].gameObject:SetActiveEx(true)
                 headGridIndex = headGridIndex + 1

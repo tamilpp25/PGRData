@@ -10,14 +10,6 @@ end
 function XExpeditionStageTier:InitConfig(tierId)
     self.TierConfig = XExpeditionConfig.GetStageTierConfigByTierId(tierId)
 end
---=====================
---初始化关卡信息
---=====================
-function XExpeditionStageTier:InitStageInfos()
-    for _, stage in pairs(self.Stages) do
-        stage:InitStageInfo()
-    end
-end
 
 function XExpeditionStageTier:InitStages()
     self.Stages = {}

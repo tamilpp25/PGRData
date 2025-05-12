@@ -1,4 +1,4 @@
-XUiPanelSocialMyMsgEmojiItem = XClass(nil, "XUiPanelSocialMyMsgEmojiItem")
+local XUiPanelSocialMyMsgEmojiItem = XClass(nil, "XUiPanelSocialMyMsgEmojiItem")
 
 function XUiPanelSocialMyMsgEmojiItem:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -44,7 +44,7 @@ function XUiPanelSocialMyMsgEmojiItem:RegisterListener(uiNode, eventName, func)
         end
 
         listener = function(...)
-            XSoundManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
+            XLuaAudioManager.PlayBtnMusic(self.SpecialSoundMap[key], eventName)
             func(self, ...)
         end
 
@@ -74,10 +74,12 @@ function XUiPanelSocialMyMsgEmojiItem:Refresh(chatData)
         self.RImgEmoji:SetRawImage(icon)
     end
     self.TxtName.text = XDataCenter.SocialManager.GetPlayerRemark(chatData.SenderId, chatData.NickName)
-    XUiPLayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(chatData.Icon, chatData.HeadFrameId, self.Head)
     self.PlayerId = chatData.SenderId
 end
 
 function XUiPanelSocialMyMsgEmojiItem:SetShow()
 
 end
+
+return XUiPanelSocialMyMsgEmojiItem

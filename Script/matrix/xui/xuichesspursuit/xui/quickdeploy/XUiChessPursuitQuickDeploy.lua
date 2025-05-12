@@ -42,7 +42,7 @@ function XUiChessPursuitQuickDeploy:GetTeamCharacterType(team)
     for _, characterId in pairs(team.TeamData or {}) do
         if characterId ~= 0 then
             id = XRobotManager.CheckIdToCharacterId(characterId)
-            return XCharacterConfigs.GetCharacterType(id)
+            return XMVCA.XCharacter:GetCharacterType(id)
         end
     end
 end

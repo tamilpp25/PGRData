@@ -1,3 +1,4 @@
+local XUiPlayerLevel = require("XUi/XUiCommon/XUiPlayerLevel")
 local XUiMentorRecording = XLuaUiManager.Register(XLuaUi, "UiMentorRecording")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText
@@ -14,7 +15,7 @@ function XUiMentorRecording:SetButtonCallBack()
 end
 
 function XUiMentorRecording:ShowPanel(data, IsTeacher)
-    XUiPLayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.Head)
+    XUiPlayerHead.InitPortrait(data.HeadPortraitId, data.HeadFrameId, self.Head)
     XUiPlayerLevel.UpdateLevel(data.Level, self.TxtLevel)
     
     self.TxtName.text = data.PlayerName

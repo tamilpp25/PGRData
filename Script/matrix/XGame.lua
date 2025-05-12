@@ -17,7 +17,9 @@ XGame.Start2 = function()
     XLoginManager.Init()
 
     XDataCenter.Init()
+        
     if XDataCenter.UiPcManager.IsPc() then
+        -- 检测分辨率, 超过表格最大分辨率的强制使用窗口
         XDataCenter.UiPcManager.FullScreenableCheck()
     end
 
@@ -34,11 +36,6 @@ XGame.Start3 = function()
     userProfiler:Start()
     XUserManager.Init()
     userProfiler:Stop()
-
-    local functionProfiler = XGame.Profiler:CreateChild("XFunctionManager")
-    functionProfiler:Start()
-    XFunctionManager.Init()
-    functionProfiler:Stop()
 
     local resetProfiler = XGame.Profiler:CreateChild("XResetManager")
     resetProfiler:Start()
@@ -119,18 +116,7 @@ XGame.Start6 = function()
     local serverProfiler = XGame.Profiler:CreateChild("XServerManager")
     serverProfiler:Start()
     XServerManager.Init(function()
-        local UiLoginMovieId = CS.XGame.ClientConfig:GetInt("UiLoginMovieId")
-        local key = string.format("LoginVideo-%s", UiLoginMovieId)
-        local isPlayed = XSaveTool.GetData(key)
-        if isPlayed == 1 or UiLoginMovieId == 0 then
-            XLuaUiManager.PopAllThenOpen(UI_LOGIN)
-            return
-        end
-        XSaveTool.SaveData(key, 1)
-        XDataCenter.VideoManager.PlayMovie(UiLoginMovieId, function()
-            XLuaUiManager.PopAllThenOpen(UI_LOGIN)
-        end)
-
+        XLuaUiManager.PopAllThenOpen(UI_LOGIN)
     end)
     serverProfiler:Stop()
     XGame.Profiler:Stop()
@@ -138,7 +124,6 @@ XGame.Start6 = function()
     XTableManager.ReleaseAll(true)
     CS.BinaryManager.OnPreloadFight(true)
     collectgarbage("collect")
-
     --打点
     CS.XRecord.Record("23014", "LuaXGameStartFinish")
     LuaGC()

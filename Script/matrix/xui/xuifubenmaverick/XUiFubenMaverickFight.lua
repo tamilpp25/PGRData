@@ -7,7 +7,7 @@ end
 function XUiFubenMaverickFight:OnStart(settle, cb)
     self.StageId = settle.StageId
 
-    local curFightResult = XDataCenter.FubenManager.CurFightResult
+    local curFightResult = XMVCA.XFuben:GetCurFightResult()
     local oldStageScore = XDataCenter.MaverickManager.GetStageScore(self.StageId)
     local newStageScore = 0
     local killCount = 0

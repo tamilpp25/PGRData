@@ -1,6 +1,18 @@
 
 local XUiSuperSmashBrosRanking = XLuaUiManager.Register(XLuaUi, "UiSuperSmashBrosRanking")
 
+function XUiSuperSmashBrosRanking:Ctor()
+    self._Career = false
+    -- 应策划要求，只显示前4个，且合并3和5
+    self._AllCareer = {1, 2, 3, 4}--XMVCA.XCharacter:GetAllCharacterCareerIds()
+    self._AllCareerName = {
+        XMVCA.XCharacter:GetCareerName(self._AllCareer[1]),
+        XMVCA.XCharacter:GetCareerName(self._AllCareer[2]),
+        XUiHelper.ReadTextWithNewLine("SuperSmashCareer"),
+        XMVCA.XCharacter:GetCareerName(self._AllCareer[4])
+    }
+end
+
 function XUiSuperSmashBrosRanking:OnStart()
     self:InitBaseBtns() --注册基础按钮
     self:InitPanels() --初始化各子面板
@@ -12,6 +24,27 @@ function XUiSuperSmashBrosRanking:InitBaseBtns()
     self.BtnBack.CallBack = handler(self, self.OnClickBtnBack)
     self:BindHelpBtn(self.BtnHelp, "SuperSmashBrosHelp")
     self.BtnRecord.CallBack = handler(self, self.OnClickBtnRecord)
+
+    local buttonGroup = { self.TabCore }
+    local allCareer = self._AllCareer
+    local firstCareer = allCareer[1]
+    if firstCareer then
+        self._Career = firstCareer
+    end
+    for i = 1, #allCareer - 1 do
+        local btn = CS.UnityEngine.Object.Instantiate(self.TabCore, self.TabCore.transform.parent)
+        buttonGroup[#buttonGroup + 1] = XUiHelper.TryGetComponent(btn.transform, "", "XUiButton") 
+    end
+    for i = 1, #allCareer do
+        local btn = buttonGroup[i]
+        local career = allCareer[i]
+        local icon = XUiHelper.GetClientConfig("SuperSmashCareerIcon" .. career, XUiHelper.ClientConfigType.String)
+        local name = self._AllCareerName[i]
+        btn:SetSprite(icon)
+        btn:SetNameByGroup(0, name)
+    end
+    self.PanelTabCore:Init(buttonGroup, function(groupIndex) self:SetCareer(groupIndex) end)
+    self.PanelTabCore:SelectIndex(1)
 end
 --==============
 --主界面按钮
@@ -48,11 +81,7 @@ end
 
 function XUiSuperSmashBrosRanking:OnEnable()
     XUiSuperSmashBrosRanking.Super.OnEnable(self)
-    XDataCenter.SuperSmashBrosManager.GetRankingList(function(rankingList)
-            self.RankingList:Refresh(rankingList)
-            self.MyRank:Refresh(true)
-        end)
-
+    self:RefreshRank()
 end
 
 --==============
@@ -67,3 +96,38 @@ function XUiSuperSmashBrosRanking:SetActivityTimeLimit()
             end
         end)
 end
+
+function XUiSuperSmashBrosRanking:RefreshRank()
+    if not self._Career then
+        return
+    end
+    XDataCenter.SuperSmashBrosManager.GetRankingList(self._Career, function(rankingList)
+        rankingList = {}
+        self.RankingList:Refresh(rankingList)
+        local myData = false
+        local index = 0
+        for i = 1, #rankingList do
+            local data = rankingList[i]
+            if data.PlayerId == XPlayer.Id then
+                myData = data
+                index = i
+            end
+        end
+        if not myData then
+            myData = {}
+            ---@type XSmashBMode
+            local mode = XDataCenter.SuperSmashBrosManager.GetModeByModeType(XSuperSmashBrosConfig.ModeType.Survive)
+            myData.WinCount = mode:GetWinCount(self._Career)
+            myData.SpendTime = mode:GetBestTime(self._Career)
+        end
+        self.MyRank:Refresh(true, myData, index, self._Career)
+    end)
+end
+
+function XUiSuperSmashBrosRanking:SetCareer(career)
+    if self._Career == career then
+        return
+    end
+    self._Career = career
+    self:RefreshRank()
+end 

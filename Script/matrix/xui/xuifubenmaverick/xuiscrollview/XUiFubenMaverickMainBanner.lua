@@ -1,3 +1,4 @@
+local XDynamicTableNormal = require("XUi/XUiCommon/XUiDynamicTable/XDynamicTableNormal")
 local XUiFubenMaverickMainBanner = XClass(nil, "XUiFubenMaverickMainBanner")
 local XUiFubenMaverickPatternGrid = require("XUi/XUiFubenMaverick/XUiGrid/XUiFubenMaverickPatternGrid")
 

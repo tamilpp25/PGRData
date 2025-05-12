@@ -52,7 +52,7 @@ function XUiNameplateTip:UpdateRightPanel(nameplateId, nameplateData)
     local HintList = XMedalConfigs.GetNameplateHint(nameplateId)
     for index, text in pairs(self.TxtHintList) do
         if HintList[index] then
-            text.text = HintList[index]
+            text.text = XMedalConfigs.GetNameplateMapText(HintList[index])
             text.gameObject:SetActiveEx(true)
         else
             text.gameObject:SetActiveEx(false)

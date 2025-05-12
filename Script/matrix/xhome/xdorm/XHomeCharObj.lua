@@ -1,6 +1,10 @@
---- 角色对象
+
 local XSceneObject = require("XHome/XSceneObject")
 
+---@class XHomeCharObj : XSceneObject 角色对象
+---@field CharData XClientDormCharacter 服务器数据
+---@field Room XHomeRoomObj 服务器数据
+---@field Furniture XHomeFurnitureObj 交互的家具
 local XHomeCharObj = XClass(XSceneObject, "XHomeCharObj")
 
 --设置数据
@@ -60,12 +64,14 @@ function XHomeCharObj:OnLoadComplete()
     end
 
     self.Agent.Proxy.LuaAgentProxy:SetHomeCharObj(self)
-
+    self.RenderingUIProxy = CS.XNPCRendingUIProxy.GetNPCRendingUIProxy(self.GameObject)
+    self.HeadPos = self.Transform:Find("Bip001/Bip001Pelvis/Bip001Spine/Bip001Spine1/Bip001Neck/Bip001Head")
 
     self.Animator = self.GameObject:GetComponent(typeof(CS.UnityEngine.Animator))
     self.DormPutOnAnimaTime = CS.XGame.ClientConfig:GetFloat("DormPutOnAnimaTime")
     self.IsPressing = false
     self.FondleType = 0
+
 
     --寻路组件
     -- self.NavMeshAgent = CS.XNavMeshUtility.AddNavMeshAgent(self.GameObject)
@@ -73,6 +79,9 @@ function XHomeCharObj:OnLoadComplete()
     self.NavMeshAgent = CS.XNavMeshUtility.AddMoveAgent(self.GameObject)
     self.NavMeshAgent.Radius = 0.35
     self.NavMeshAgent.IsObstacle = true
+    self.NavMeshAgent:AddNotifyCollide(function(obj)
+        self:OnCollideAgent(obj)
+    end)
     self.GoInputHandler = self.GameObject:GetComponent(typeof(CS.XGoInputHandler))
     if XTool.UObjIsNil(self.GoInputHandler) then
         self.GoInputHandler = self.GameObject:AddComponent(typeof(CS.XGoInputHandler))
@@ -111,7 +120,7 @@ end
 
 --显示气泡
 function XHomeCharObj:ShowBubble(id, callBack)
-    XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_SHOW_DIALOBOX, self.Id, id, self.Transform, function()
+    XEventManager.DispatchEvent(XEventId.EVENT_HOME_OBJ_SHOW_DIALOG_BOX, self.Id, id, self.Transform, function()
         if callBack then
             callBack()
         end
@@ -130,7 +139,7 @@ function XHomeCharObj:ShowRandomBubble(callBack)
         return
     end
 
-    XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_SHOW_DIALOBOX, self.Id, config.Id, self.Transform, function()
+    XEventManager.DispatchEvent(XEventId.EVENT_HOME_OBJ_SHOW_DIALOG_BOX, self.Id, config.Id, self.Transform, function()
         if callBack then
             callBack()
         end
@@ -139,7 +148,7 @@ end
 
 --隐藏气泡
 function XHomeCharObj:HideBubble()
-    XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_HIDE_DIALOBOX, self.Id)
+    XEventManager.DispatchEvent(XEventId.EVENT_HOME_OBJ_HIDE_DIALOG_BOX, self.Id)
 end
 
 --随机寻路
@@ -148,6 +157,10 @@ function XHomeCharObj:DoPathFind(minDistance, maxDistance)
     local x = self.Pos.x
     local y = self.Pos.y
     local distance
+
+    if not self.Map then
+        return
+    end
 
     self.Pos = XHomeDormManager.WorldPosToGroundGridPos(self.Transform.position, self.Room.Transform)
     local findCount = 0
@@ -168,7 +181,6 @@ function XHomeCharObj:DoPathFind(minDistance, maxDistance)
         findCount = findCount + 1
         if findCount >= 10000 then return self.Agent:SetVarDicByKey("Destination", XHomeDormManager.GetLocalPosByGrid(self.Pos.x, self.Pos.y, CS.XHomePlatType.Ground, 0)) end
     end
-
     self.Pos.x = x
     self.Pos.y = y
 
@@ -176,7 +188,6 @@ function XHomeCharObj:DoPathFind(minDistance, maxDistance)
     pos = self.Room.Transform.localToWorldMatrix:MultiplyPoint(pos)
     self.Agent:SetVarDicByKey("Destination", pos)
 end
-
 
 --改变状态机
 function XHomeCharObj:ChangeStateMachine(stateM)
@@ -193,7 +204,6 @@ function XHomeCharObj:ChangeStateMachine(stateM)
 
     self.StateMachine:Execute()
 end
-
 
 --改变状态
 function XHomeCharObj:ChangeStatus(state)
@@ -213,12 +223,15 @@ function XHomeCharObj:ChangeStatus(state)
     if event and XHomeBehaviorStatus.IDLE == state then
         state = event.BehaviorId
     end
-
+    
     self.Status = state
     local temp = XDormConfig.GetCharacterBehavior(self.Id, state)
     if not temp then
         XLog.Error("获取角色行为树失败，角色id=".. tostring(self.Id) .. ", state=" .. tostring(state))
         return
+    end
+    if self.Furniture then
+        self.Furniture:OnCharacterStateChange(state, self)
     end
     local behaviorTreeId = temp.BehaviorId
     self.CanClick = temp.CanClick == 1
@@ -231,19 +244,25 @@ end
 
 --播放特效
 function XHomeCharObj:PlayEffect(effectId, bindWorldPos)
-    XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_SHOW_3DIOBJ, self.Id, effectId, self.Transform, bindWorldPos)
+    XEventManager.DispatchEvent(XEventId.EVENT_HOME_OBJ_SHOW_3DUI_OBJ, self.Id, effectId, self.Transform, bindWorldPos, self.RenderingUIProxy, self.HeadPos)
+end
+
+function XHomeCharObj:PlayFurnitureEffect(effectId)
+    if self.Furniture ~= nil then
+        self.Furniture:DoEffectNode(effectId)
+    end
+    return true
 end
 
 --隐藏特效
 function XHomeCharObj:HideEffect()
-    XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_HIDE_3DIOBJ, self.Id)
+    XEventManager.DispatchEvent(XEventId.EVENT_HOME_OBJ_HIDE_3DUI_OBJ, self.Id)
 end
 
 --设置是否阻挡
 function XHomeCharObj:SetObstackeEnable(obstackeEnable)
     self.NavMeshAgent.IsObstacle = obstackeEnable
 end
-
 
 --播放事件奖励
 function XHomeCharObj:ShowEventReward()
@@ -253,6 +272,10 @@ end
 --获取状态
 function XHomeCharObj:GetState()
     return self.Status
+end
+
+function XHomeCharObj:GetCharacterId()
+    return self.Id
 end
 
 --检测附近的人物交互
@@ -268,29 +291,35 @@ function XHomeCharObj:CheckFurnitureInteract()
         self.Agent:SetVarDicByKey("Destination", dest)
         self.Furniture = interact.Furniture
         self.InteractInfo = interact
-
-        for _, v in ipairs(self.Furniture.InteractInfoList) do
-            if v.GridPos.x == self.InteractInfo.GridPos.x and v.GridPos.y == self.InteractInfo.GridPos.y then
-                local haveBehavior = false
-                local relation = XDormConfig.GetDormF2CBehaviorRelative(self.Furniture.Cfg.Id, self.Id, v.PosIndex)
-                if relation then
-                    haveBehavior = true
-                else
-                    local state = XDormConfig.GetCharacterBehavior(self.Id, v.AttractBehaviorType)
-                    haveBehavior = state ~= nil
-                end
-                if haveBehavior then
-                    local state = self:GetInteractInfoAttractBehavior(v)
-                    v.UsedType = v.UsedType | XFurnitureInteractUsedType.Character
-                    v.CharacterId = self.Id
-                    self:ChangeStatus(state)
-                end
-                break
-            end
-        end
+        self:DoFurnitureInteract()
     end
 
     return result
+end
+
+function XHomeCharObj:DoFurnitureInteract()
+    if not self.Furniture then
+        return
+    end
+    for _, v in ipairs(self.Furniture.InteractInfoList) do
+        if v.GridPos.x == self.InteractInfo.GridPos.x and v.GridPos.y == self.InteractInfo.GridPos.y then
+            local haveBehavior = false
+            local relation = XDormConfig.GetDormF2CBehaviorRelative(self.Furniture:GetConfigId(), self.Id, v.PosIndex)
+            if relation then
+                haveBehavior = true
+            else
+                local state = XDormConfig.GetCharacterBehavior(self.Id, v.AttractBehaviorType)
+                haveBehavior = state ~= nil
+            end
+            if haveBehavior then
+                local state = self:GetInteractInfoAttractBehavior(v)
+                v.UsedType = v.UsedType | XFurnitureInteractUsedType.Character
+                v.CharacterId = self.Id
+                self:ChangeStatus(state)
+            end
+            break
+        end
+    end
 end
 
 --检测任务完成
@@ -303,7 +332,6 @@ function XHomeCharObj:CheckEventCompleted(completeType, callBack)
     XDataCenter.DormManager.RequestDormitoryCharacterOperate(self.Id, self.CharData.DormitoryId, temp.EventId, 1, callBack)
     return true
 end
-
 
 --检测任务存在
 function XHomeCharObj:CheckEventExist(eventId)
@@ -391,39 +419,51 @@ function XHomeCharObj:OnDrag(eventData)
         if not XTool.UObjIsNil(hit) then
             local obj = XSceneEntityManager.GetEntity(hit.gameObject)
 
-            if self.PreInteractFurniture ~= nil and (obj == nil or obj.Data.Id ~= self.PreInteractFurniture.Data.Id) then
-                self.PreInteractFurniture:RayCastSelected(false)
-                self.IsRayCastFurniture = false
+            if self.PreInteractFurniture ~= nil and (obj == nil or obj.Data.Id ~= self.PreInteractFurniture.Data.Id)
+            then
+                self:RayCastPreInteractFurniture(false)
             end
 
             if obj then
                 local interactInfo = obj:GetAvailableInteract(self.CharData.CharacterId)
-                if interactInfo then
-                    self.PreInteractFurniture = obj
-                    self.PreInteractFurniture:RayCastSelected(true)
-                    self.IsRayCastFurniture = true
-                else
-                    if self.PreInteractFurniture then
-                        self.PreInteractFurniture:RayCastSelected(false)
+                local isPet = obj.GetObjType and obj:GetObjType() == XHomeSceneObjType.Pet
+                if isPet then
+                    if obj.Status == XHomeBehaviorStatus.IDLE then
+                        self.PreInteractFurniture = obj
+                        self:RayCastPreInteractFurniture(true)
+                    else
+                        self:RayCastPreInteractFurniture(false)
                     end
-                    self.IsRayCastFurniture = false
-                    self.PreInteractFurniture = nil
+                elseif interactInfo then
+                    self.PreInteractFurniture = obj
+                    self:RayCastPreInteractFurniture(true)
+                else
+                    self:RayCastPreInteractFurniture(false)
                 end
             end
         else
-            if self.PreInteractFurniture ~= nil then
-                self.PreInteractFurniture:RayCastSelected(false)
-                self.PreInteractFurniture = nil
-                self.IsRayCastFurniture = false
-
-            end
+            self:RayCastPreInteractFurniture(false)
         end
+    end
+end
+
+function XHomeCharObj:RayCastPreInteractFurniture(isRaycast)
+    if self.PreInteractFurniture then
+        self.PreInteractFurniture:RayCastSelected(isRaycast)
+    end
+    self.IsRayCastFurniture = isRaycast
+    if not isRaycast then
+        self.PreInteractFurniture = nil
     end
 end
 
 --长按
 function XHomeCharObj:OnPress(pressTime)
     if not self.IsSelf then
+        return
+    end
+
+    if self.CharLongPressTrigger ~= nil and self.CharLongPressTrigger == false then
         return
     end
 
@@ -508,7 +548,6 @@ function XHomeCharObj:OnPointerUp()
             CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_CHARACTER_POINTER_UP_SUCCESS, self.Id)
         else
             self.NavMeshAgent.IsObstacle = false
-
             local interactInfo = self.PreInteractFurniture:GetNearAvailableInteract(self.Transform.position, self.CharData.CharacterId)
             if not interactInfo then
                 self.PreInteractFurniture:RayCastSelected(false)
@@ -522,14 +561,31 @@ function XHomeCharObj:OnPointerUp()
             self.PreInteractFurniture:RayCastSelected(false)
             self.IsRayCastFurniture = false
 
-            self.Transform.eulerAngles = interactInfo.StayPos.transform.eulerAngles
 
             self.Furniture = self.PreInteractFurniture
             self.InteractInfo = interactInfo
+            if self.PreInteractFurniture.GetObjType
+                    and self.PreInteractFurniture:GetObjType() == XHomeSceneObjType.Pet
+            then
+                if self.PreInteractFurniture.Status == XHomeBehaviorStatus.IDLE then
+                    local dest = interactInfo.InteractPos.transform.position
+                    self.Agent:SetVarDicByKey("Destination", dest)
+                    self:DoFurnitureInteract()
+                else
+                    self.PreInteractFurniture:RayCastSelected(false)
+                    self.IsRayCastFurniture = false
+                    self.PreInteractFurniture = nil
+                    self.NavMeshAgent.IsObstacle = true
+                    CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_CHARACTER_POINTER_UP_SUCCESS, self.Id)
+                end
+            else
+                self.Transform.eulerAngles = interactInfo.StayPos.transform.eulerAngles
+                self.Transform.position = CS.UnityEngine.Vector3(interactInfo.StayPos.transform.position.x,
+                        self.OrignalPosition.y, interactInfo.StayPos.transform.position.z)
 
-            local state = self:GetInteractInfoBehavior(interactInfo)
-            self.Transform.position = CS.UnityEngine.Vector3(interactInfo.StayPos.transform.position.x, self.OrignalPosition.y, interactInfo.StayPos.transform.position.z)
-            self:ChangeStatus(state)
+                local state = self:GetInteractInfoBehavior(interactInfo)
+                self:ChangeStatus(state)
+            end
         end
     end
     self.PreInteractFurniture = nil
@@ -540,14 +596,14 @@ function XHomeCharObj:OnPointerUp()
 end
 
 function XHomeCharObj:GetInteractInfoBehavior(info)
-    local relation = XDormConfig.GetDormF2CBehaviorRelative(self.Furniture.Cfg.Id, self.Id, info.PosIndex)
+    local relation = XDormConfig.GetDormF2CBehaviorRelative(self.Furniture:GetConfigId(), self.Id, info.PosIndex)
     if relation and relation.BehaviorWeight then
         local totalweight = 0
         for _, weight in pairs(relation.BehaviorWeight) do
             totalweight = totalweight + weight
         end
         math.randomseed(os.time())
-        local random = math.random(0, totalweight)
+        local random = math.random(0, totalweight)  
         local countWeight = 0
         for index, weight in pairs(relation.BehaviorWeight) do
             countWeight = countWeight + weight
@@ -560,14 +616,14 @@ function XHomeCharObj:GetInteractInfoBehavior(info)
 end
 
 function XHomeCharObj:GetInteractInfoAttractBehavior(info)
-    local relation = XDormConfig.GetDormF2CBehaviorRelative(self.Furniture.Cfg.Id, self.Id, info.PosIndex)
+    local relation = XDormConfig.GetDormF2CBehaviorRelative(self.Furniture:GetConfigId(), self.Id, info.PosIndex)
     if relation and relation.AttractBehaviorWeight then
-        local totalweight = 0
+        local totalWeight = 0
         for _, weight in pairs(relation.AttractBehaviorWeight) do
-            totalweight = totalweight + weight
+            totalWeight = totalWeight + weight
         end
         math.randomseed(os.time())
-        local random = math.random(0, totalweight)
+        local random = math.random(0, totalWeight)
         local countWeight = 0
         for index, weight in pairs(relation.AttractBehaviorWeight) do
             countWeight = countWeight + weight
@@ -608,6 +664,13 @@ function XHomeCharObj:InteractFurniture()
         end
     end
 
+    return true
+end
+
+function XHomeCharObj:PlayFurnitureAction(actionId, needFadeCross, crossDuration, needReplayAnimation)
+    if self.Furniture ~= nil then
+        self.Furniture:DoActionNode(actionId, needFadeCross, crossDuration)
+    end
     return true
 end
 
@@ -676,7 +739,6 @@ function XHomeCharObj:DisInteractFurniture()
     return true
 end
 
-
 --检测是否可以取消家具关联
 function XHomeCharObj:CheckDisInteractFurniture()
     if self.Furniture == nil then
@@ -735,7 +797,6 @@ function XHomeCharObj:DequeueFondleType()
     end
 end
 
-
 --获取爱抚类型
 function XHomeCharObj:GetFondleType()
     if self.FondleTypeList and #self.FondleTypeList > 0 then
@@ -766,11 +827,22 @@ function XHomeCharObj:ReSetPosition()
     local x = 0
     local y = 0
 
+    if XTool.IsTableEmpty(canReachList) then
+        self.Pos = {
+            ["x"] = x,
+            ["y"] = y
+        }
+
+        self.Agent:SetVarDicByKey("x", x)
+        self.Agent:SetVarDicByKey("y", y)
+        return
+    end
+
 
     --最大的随机次数
     local limit = 30
     --设置随机数种子
-    math.randomseed(os.time() + self.Id)
+    math.randomseed(self:GetRandomSeed())
     while (not isBornPos and limit >= 0) do
         local index = math.random(1, #canReachList)
         x = canReachList[index].x
@@ -797,6 +869,10 @@ function XHomeCharObj:ReSetPosition()
     self.Agent:SetVarDicByKey("y", y)
 end
 
+function XHomeCharObj:GetRandomSeed()
+    return os.time() + self.Id
+end
+
 -- 检查是否在交互，如果在与家具交互，构造体重置到家具交互位置
 function XHomeCharObj:CheckInteractFurniture()
     if self.LastInteractInfoPos then
@@ -820,7 +896,6 @@ function XHomeCharObj:OnShow(isResetPosition)
     self:ReBorn()
 end
 
-
 function XHomeCharObj:OnHide()
     if not self.Visible then
         return
@@ -829,11 +904,13 @@ function XHomeCharObj:OnHide()
     -- 保存家具交互点信息
     if self.Furniture then
         local info = self.Furniture:GetInteractById(self.Id)
-        self.LastInteractInfoPos = {
-            x = info.InteractPos.transform.position.x,
-            y = info.InteractPos.transform.position.y,
-            z = info.InteractPos.transform.position.z
-        }
+        if info then
+            self.LastInteractInfoPos = {
+                x = info.InteractPos.transform.position.x,
+                y = info.InteractPos.transform.position.y,
+                z = info.InteractPos.transform.position.z
+            }
+        end
     end
 
     self:ChangeStateMachine(XHomeCharFSMType.EMPTY)
@@ -847,7 +924,6 @@ function XHomeCharObj:CheckRayCastFurnitureNode()
     return self.IsRayCastFurniture
 end
 
-
 --面向交互的构造体
 function XHomeCharObj:InteractWith(charObj)
     local direction = charObj.Transform.position - self.Transform.position
@@ -855,7 +931,6 @@ function XHomeCharObj:InteractWith(charObj)
     local eulerAngle = CS.UnityEngine.Quaternion.LookRotation(direction).eulerAngles
     self.Agent:SetVarDicByKey("TurnTo", eulerAngle)
 end
-
 
 --交互家具面向方向调整
 function XHomeCharObj:SetForwardToFurniture(forward)
@@ -868,7 +943,12 @@ function XHomeCharObj:SetForwardToFurniture(forward)
 
 
     local interact = furniture:GetInteract(info.GridPos.x, info.GridPos.y)
+    if not interact or XTool.UObjIsNil(interact.InteractPos) then
+        XLog.Warning("交互点异常", info.GridPos.x, info.GridPos.y)
+        return false
+    end
     local eulerAngle = interact.InteractPos.transform.eulerAngles
+
     if forward < 0 then
         eulerAngle = eulerAngle + CS.UnityEngine.Vector3(0, 180, 0)
     end
@@ -876,10 +956,19 @@ function XHomeCharObj:SetForwardToFurniture(forward)
     return true
 end
 
-
 --设置构造体交互开关
 function XHomeCharObj:SetCharInteractTrigger(isOn)
     self.CharInteractTrigger = isOn
+end
+
+function XHomeCharObj:IsCharInteract()
+    return self.CharInteractTrigger
+end
+
+--设置构造体长按开关
+function XHomeCharObj:SetCharLongPressTrigger(isOn)
+    self.CharLongPressTrigger = isOn
+    return true
 end
 
 --检测构造体是否在坐标索引上
@@ -895,6 +984,55 @@ function XHomeCharObj:CheckCharInteractPosByIndex(index)
     end
 
     return false
+end
+
+function XHomeCharObj:CheckPetLike(petId)
+    local template = XDormConfig.GetCharacterStyleConfigById(self.Id)
+    if not template then
+        return false
+    end
+    local likeIds = template.LikePetIds
+    if XTool.IsTableEmpty(likeIds) then
+        return false
+    end
+    for _, id in ipairs(likeIds) do
+        if id == petId then
+            return true
+        end
+    end
+    return false
+end
+
+function XHomeCharObj:GetObjType()
+    return XHomeSceneObjType.Character
+end
+
+function XHomeCharObj:OnCollideAgent(obj)
+    if not obj then
+        return
+    end
+    local sceneObj = XSceneEntityManager.GetEntity(obj.gameObject)
+    if not sceneObj or not sceneObj.GetObjType or sceneObj:GetObjType() ~= XHomeSceneObjType.Pet then
+        return
+    end
+    local status = sceneObj:GetState()
+    if status ~= XHomeBehaviorStatus.IDLE then
+        return
+    end
+    self:DoCollidePet(sceneObj)
+end
+
+function XHomeCharObj:DoCollidePet(petObj)
+    if self.Status ~= XHomeBehaviorStatus.IDLE then
+        return
+    end
+    local result, dest, interact = XHomeCharManager.CheckCharInteractPet(self.Id, petObj)
+    if result then
+        self.Agent:SetVarDicByKey("Destination", dest)
+        self.Furniture = petObj
+        self.InteractInfo = interact
+        self:DoFurnitureInteract()
+    end
 end
 
 return XHomeCharObj

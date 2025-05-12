@@ -1,64 +1,51 @@
-local XUiPanelScoreInfo = XClass(nil, "XUiPanelScoreInfo")
+---@class XUiPanelScoreInfo : XUiNode
+---@field _RootUi XUiFubenBossSingle
+---@field _Control XFubenBossSingleControl
+local XUiPanelScoreInfo = XClass(XUiNode, "XUiPanelScoreInfo")
 local XUiGridBossScore = require("XUi/XUiFubenBossSingle/XUiGridBossScore")
 
-function XUiPanelScoreInfo:Ctor(rootUi, ui, bossSingleData)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.BossSingleData = bossSingleData
-    self.RootUi = rootUi
-    self.GridBossScoreList = {}
-    XTool.InitUiObject(self)
-    self:AutoAddListener()
-    self:Init()
-end
-
-function XUiPanelScoreInfo:RegisterClickEvent(uiNode, func)
-    if func == nil then
-        XLog.Error("XUiPanelScoreInfo:RegisterClickEvent函数参数错误：参数func不能为空")
-        return
-    end
-
-    if type(func) ~= "function" then
-        XLog.Error("XUiPanelScoreInfo:RegisterClickEvent函数错误, 参数func需要是function类型, func的类型是" .. type(func))
-    end
-
-    local listener = function(...)
-        func(self, ...)
-    end
-
-    CsXUiHelper.RegisterClickEvent(uiNode, listener)
-end
-
-function XUiPanelScoreInfo:AutoAddListener()
-    self:RegisterClickEvent(self.BtnBlock, self.OnBtnBlockClick)
-end
-
-function XUiPanelScoreInfo:Init()
+function XUiPanelScoreInfo:OnStart(rootUi)
+    self._RootUi = rootUi
+    ---@type XUiGridBossScore[]
+    self._GridBossScoreList = {}
+    ---@type XUiGridBossScore
+    self._GridAllReceive = nil
     self.GridBossScore.gameObject:SetActive(false)
-    self:Rrefrsh()
+    self:_RegisterButtonListeners()
 end
 
-function XUiPanelScoreInfo:ShowPanel(bossSingleData)
-    self.BossSingleData = bossSingleData
-    self:Rrefrsh()
-    self.GameObject:SetActive(true)
+function XUiPanelScoreInfo:OnEnable()
+    self:_Refresh()
+    XEventManager.AddEventListener(XEventId.EVENT_FUBEN_SINGLE_BOSS_SYNC, self._Refresh, self)
+    XEventManager.AddEventListener(XEventId.EVENT_BOSS_SINGLE_GET_REWARD, self._Refresh, self)
 end
 
-function XUiPanelScoreInfo:Rrefrsh()
-    local cfgs = XDataCenter.FubenBossSingleManager.GetScoreRewardCfg(self.BossSingleData.LevelType)
+function XUiPanelScoreInfo:OnDisable()
+    XEventManager.RemoveEventListener(XEventId.EVENT_FUBEN_SINGLE_BOSS_SYNC, self._Refresh, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_BOSS_SINGLE_GET_REWARD, self._Refresh, self)
+end
+
+function XUiPanelScoreInfo:_RegisterButtonListeners()
+    XUiHelper.RegisterClickEvent(self, self.BtnBlock, self.OnBtnBlockClick, true)
+end
+
+function XUiPanelScoreInfo:_Refresh()
+    ---@type XBossSingle
+    local bossSingleData = self._RootUi:GetBossSingleData()
+    local configs = self._Control:GetScoreRewardConfig(bossSingleData:GetBossSingleLevelType())
     local canGetList = {}
     local unGetList = {}
     local gotList = {}
 
-    for i = 1, #cfgs do
-        local canGet = self.BossSingleData.TotalScore >= cfgs[i].Score
-        local isGet = XDataCenter.FubenBossSingleManager.CheckRewardGet(cfgs[i].Id)
+    for i = 1, #configs do
+        local canGet = bossSingleData:GetBossSingleTotalScore() >= configs[i].Score
+        local isGet = self._Control:CheckRewardGet(configs[i].Id)
         if canGet and not isGet then
-            table.insert(canGetList, cfgs[i])
+            table.insert(canGetList, configs[i])
         elseif not canGet then
-            table.insert(unGetList, cfgs[i])
+            table.insert(unGetList, configs[i])
         else
-            table.insert(gotList, cfgs[i])
+            table.insert(gotList, configs[i])
         end
     end
 
@@ -70,39 +57,58 @@ function XUiPanelScoreInfo:Rrefrsh()
         table.insert(canGetList, gotList[i])
     end
 
-    local curScore = CS.XTextManager.GetText("BossSingleScore2", self.BossSingleData.TotalScore)
+    local isCanReceiveCount = 0
+    local totalScore = bossSingleData:GetBossSingleTotalScore()
+    local curScore = XUiHelper.GetText("BossSingleScore2", bossSingleData:GetBossSingleTotalScore())
     self.TxtCurScore.text = curScore
 
     for i = 1, #canGetList do
-        local grid = self.GridBossScoreList[i]
+        local grid = self._GridBossScoreList[i]
+
         if not grid then
             local ui = CS.UnityEngine.Object.Instantiate(self.GridBossScore)
-            grid = XUiGridBossScore.New(self.RootUi, ui)
+            grid = XUiGridBossScore.New(ui, self, self._RootUi)
             grid.Transform:SetParent(self.PanelScoreContent, false)
-            self.GridBossScoreList[i] = grid
+            self._GridBossScoreList[i] = grid
         end
 
-        grid:Refresh(canGetList[i], self.BossSingleData.TotalScore)
-        grid.GameObject:SetActive(true)
+        local scoreConfig = canGetList[i]
+        local isGet = self._Control:CheckRewardGet(scoreConfig.Id)
+
+        if not isGet and totalScore >= scoreConfig.Score then
+            isCanReceiveCount = isCanReceiveCount + 1
+        end
+
+        grid:SetData(scoreConfig, totalScore)
+        grid:Open()
+    end
+    for i = #canGetList + 1, #self._GridBossScoreList do
+        self._GridBossScoreList[i]:Close()
     end
 
-    for i = #canGetList + 1, #self.GridBossScoreList do
-        self.GridBossScoreList[i].GameObject:SetActive(false)
+    self:_RefreshAllReceive(isCanReceiveCount > 0)
+end
+
+function XUiPanelScoreInfo:_RefreshAllReceive(isShow)
+    if isShow then
+        if not self._GridAllReceive then
+            local ui = CS.UnityEngine.Object.Instantiate(self.GridBossScore, self.PanelScoreContent)
+
+            self._GridAllReceive = XUiGridBossScore.New(ui, self, self._RootUi, true)
+        end
+        self._GridAllReceive.Transform:SetAsFirstSibling()
+        self._GridAllReceive:Open()
+    else
+        if self._GridAllReceive then
+            self._GridAllReceive:Close()
+        end
     end
 end
 
 function XUiPanelScoreInfo:OnBtnBlockClick()
-    self:HidePanel(true)
-end
-
-function XUiPanelScoreInfo:HidePanel(isAniam)
-    if isAniam then
-        self.RootUi:PlayAnimation("AnimScoreInfoDisable", function()
-                self.GameObject:SetActive(false)
-            end)
-    else
-        self.GameObject:SetActive(false)
-    end
+    self._RootUi:PlayAnimation("AnimScoreInfoDisable", function()
+        self:Close()
+    end)
 end
 
 return XUiPanelScoreInfo
